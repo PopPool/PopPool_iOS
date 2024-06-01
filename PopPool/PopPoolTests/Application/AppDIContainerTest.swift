@@ -52,11 +52,13 @@ final class AppDIContainerTest: XCTestCase {
         super.tearDown()
     }
     
+    /// Dog 인스턴스 등록 후 반환 값 확인
     func testAppDIContainer() {
         let dog = AppDIContainer.shared.resolve(type: Animal.self)
         XCTAssertTrue(dog.name == "백구")
     }
     
+    /// Dog 인스턴스 등록 후 Cat 인스턴스로 변경 후 반환 값 확인
     func testChangeAppDIConainer() {
         AppDIContainer.shared.register(type: Animal.self, component: Cat(name: "나비"))
         let cat = AppDIContainer.shared.resolve(type: Animal.self)
