@@ -21,6 +21,10 @@
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
 		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
 		087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModel.swift */; };
+		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
+		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
+		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
+		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,8 @@
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
 		087346512C0ABC4B00534FFA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,7 @@
 		087346262C0AAD2B00534FFA /* PopPoolTests */ = {
 			isa = PBXGroup;
 			children = (
+				087346582C0AED5A00534FFA /* Application */,
 				087346272C0AAD2B00534FFA /* PopPoolTests.swift */,
 			);
 			path = PopPoolTests;
@@ -138,6 +145,7 @@
 			children = (
 				087346102C0AAD2900534FFA /* AppDelegate.swift */,
 				087346122C0AAD2900534FFA /* SceneDelegate.swift */,
+				087346542C0AEBBA00534FFA /* DIContainer */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -184,6 +192,22 @@
 				0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */,
 			);
 			path = "CodeConvention Sample";
+			sourceTree = "<group>";
+		};
+		087346542C0AEBBA00534FFA /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				087346552C0AEBD900534FFA /* AppDIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		087346582C0AED5A00534FFA /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				087346592C0AED6C00534FFA /* AppDIContainerTest.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +352,7 @@
 			files = (
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
+				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
@@ -338,6 +363,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */,
+				087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */,
+				0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */,
 				087346282C0AAD2B00534FFA /* PopPoolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
