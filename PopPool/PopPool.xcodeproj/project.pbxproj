@@ -19,6 +19,8 @@
 		087346482C0AAF7000534FFA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 087346472C0AAF7000534FFA /* RxCocoa */; };
 		0873464A2C0AAF7000534FFA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 087346492C0AAF7000534FFA /* RxRelay */; };
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
+		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
+		087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		0873462D2C0AAD2B00534FFA /* PopPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346312C0AAD2B00534FFA /* PopPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITests.swift; sourceTree = "<group>"; };
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
+		087346512C0ABC4B00534FFA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +109,8 @@
 		0873460F2C0AAD2900534FFA /* PopPool */ = {
 			isa = PBXGroup;
 			children = (
-				087346422C0AAE1200534FFA /* Presentation */,
 				087346402C0AADEC00534FFA /* Application */,
+				087346422C0AAE1200534FFA /* Presentation */,
 				087346412C0AADFD00534FFA /* Resource */,
 			);
 			path = PopPool;
@@ -151,9 +155,35 @@
 		087346422C0AAE1200534FFA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				087346142C0AAD2900534FFA /* ViewController.swift */,
+				087346532C0ABC7200534FFA /* CodeConvention Sample */,
+				0873464F2C0ABC2300534FFA /* Common */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		0873464F2C0ABC2300534FFA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				087346502C0ABC2A00534FFA /* Interfaces */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		087346502C0ABC2A00534FFA /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				087346512C0ABC4B00534FFA /* ViewModel.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		087346532C0ABC7200534FFA /* CodeConvention Sample */ = {
+			isa = PBXGroup;
+			children = (
+				087346142C0AAD2900534FFA /* ViewController.swift */,
+				0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */,
+			);
+			path = "CodeConvention Sample";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,8 +326,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
+				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
