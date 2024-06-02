@@ -12,7 +12,6 @@
 		087346152C0AAD2900534FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346142C0AAD2900534FFA /* ViewController.swift */; };
 		0873461A2C0AAD2B00534FFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 087346192C0AAD2B00534FFA /* Assets.xcassets */; };
 		0873461D2C0AAD2B00534FFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */; };
-		087346282C0AAD2B00534FFA /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346272C0AAD2B00534FFA /* PopPoolTests.swift */; };
 		087346322C0AAD2B00534FFA /* PopPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346312C0AAD2B00534FFA /* PopPoolUITests.swift */; };
 		087346342C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */; };
 		087346452C0AAF1F00534FFA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 087346442C0AAF1F00534FFA /* SnapKit */; };
@@ -21,6 +20,17 @@
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
 		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
 		087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModel.swift */; };
+		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
+		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
+		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
+		BDF3B2AC2C0BE68900B079C5 /* URLSessionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AB2C0BE68900B079C5 /* URLSessionable.swift */; };
+		BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AD2C0BE69700B079C5 /* Provider.swift */; };
+		BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B12C0BF6B300B079C5 /* APIEndpoint.swift */; };
+		BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B32C0BF7B800B079C5 /* TestRequestDTO.swift */; };
+		BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */; };
+		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
+		BDF3B2C42C0C436400B079C5 /* MockUrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */; };
 		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
@@ -53,12 +63,22 @@
 		0873461C2C0AAD2B00534FFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0873461E2C0AAD2B00534FFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		087346232C0AAD2B00534FFA /* PopPoolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopPoolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		087346272C0AAD2B00534FFA /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		0873462D2C0AAD2B00534FFA /* PopPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346312C0AAD2B00534FFA /* PopPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITests.swift; sourceTree = "<group>"; };
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
 		087346512C0ABC4B00534FFA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
+		BDF3B2AB2C0BE68900B079C5 /* URLSessionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionable.swift; sourceTree = "<group>"; };
+		BDF3B2AD2C0BE69700B079C5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		BDF3B2B12C0BF6B300B079C5 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
+		BDF3B2B32C0BF7B800B079C5 /* TestRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRequestDTO.swift; sourceTree = "<group>"; };
+		BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResponseDTO.swift; sourceTree = "<group>"; };
+		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
+		BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlSession.swift; sourceTree = "<group>"; };
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +135,7 @@
 		0873460F2C0AAD2900534FFA /* PopPool */ = {
 			isa = PBXGroup;
 			children = (
+				BDD335092C0B1653002C2295 /* Data */,
 				087346402C0AADEC00534FFA /* Application */,
 				087346422C0AAE1200534FFA /* Presentation */,
 				087346412C0AADFD00534FFA /* Resource */,
@@ -125,6 +146,7 @@
 		087346262C0AAD2B00534FFA /* PopPoolTests */ = {
 			isa = PBXGroup;
 			children = (
+				BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */,
 				087346582C0AED5A00534FFA /* Application */,
 				087346272C0AAD2B00534FFA /* PopPoolTests.swift */,
 			);
@@ -193,6 +215,87 @@
 			);
 			path = "CodeConvention Sample";
 			sourceTree = "<group>";
+		};
+		BD4D31DD2C0C556C00E53195 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				BD4D31DF2C0C558400E53195 /* Request */,
+				BD4D31DE2C0C557900E53195 /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		BD4D31DE2C0C557900E53195 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		BD4D31DF2C0C558400E53195 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				BDF3B2B32C0BF7B800B079C5 /* TestRequestDTO.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		BDD335092C0B1653002C2295 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BDD3350A2C0B1660002C2295 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BDD3350A2C0B1660002C2295 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BDF3B2B12C0BF6B300B079C5 /* APIEndpoint.swift */,
+				BDF3B2BB2C0BFC3300B079C5 /* Common */,
+				BD4D31DD2C0C556C00E53195 /* DTO */,
+				BDF3B2BC2C0BFC9900B079C5 /* EndPoint */,
+				BDF3B2C22C0C435700B079C5 /* MockTest */,
+				BDF3B2BA2C0BFA0C00B079C5 /* Provider */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		BDF3B2BA2C0BFA0C00B079C5 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				BDF3B2AB2C0BE68900B079C5 /* URLSessionable.swift */,
+				BDF3B2AD2C0BE69700B079C5 /* Provider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		BDF3B2BB2C0BFC3300B079C5 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BDD335192C0B3AF1002C2295 /* NetworkError.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BDF3B2BC2C0BFC9900B079C5 /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */,
+				BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */,
+				BDF3B2C02C0C318E00B079C5 /* Responsable.swift */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		BDF3B2C22C0C435700B079C5 /* MockTest */ = {
+			isa = PBXGroup;
+			children = (
+				BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */,
+			);
+			path = MockTest;
+      sourceTree = "<group>";
 		};
 		087346542C0AEBBA00534FFA /* DIContainer */ = {
 			isa = PBXGroup;
@@ -351,11 +454,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
+				BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
+				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
+				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
+				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
+				BDF3B2C42C0C436400B079C5 /* MockUrlSession.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
+				BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */,
+				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
+				BDF3B2AC2C0BE68900B079C5 /* URLSessionable.swift in Sources */,
+				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
+				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */,
 				0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */,
 				087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */,
 				0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */,
@@ -532,7 +646,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W5QTRMS954;
+				DEVELOPMENT_TEAM = 2U86LHQK8Q;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PopPool/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -562,7 +676,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W5QTRMS954;
+				DEVELOPMENT_TEAM = 2U86LHQK8Q;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PopPool/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
