@@ -2,10 +2,11 @@
 //  PopPoolTests.swift
 //  PopPoolTests
 //
-//  Created by Porori on 6/2/24.
+//  Created by SeoJunYoung on 6/1/24.
 //
 
 import XCTest
+@testable import PopPool
 
 final class PopPoolTests: XCTestCase {
 
