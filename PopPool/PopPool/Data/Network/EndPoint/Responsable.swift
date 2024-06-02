@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 응답 URL
 protocol Responsable {
     associatedtype Response
 }

@@ -7,10 +7,9 @@
 
 import Foundation
 
-// 직접 채택하지 않고 Responsable protocol을 사용하는 이유는 잘 모르겠다
 protocol RequesteResponsable: Requestable, Responsable where Response: Decodable {}
 
-/// 최종 URL의 데이터 구조를 정리하는 구조체
+/// Entity 데이터 모델인 DTO를 활용해 데이터를 구성합니다
 class Endpoint<R: Decodable>: RequesteResponsable {
     typealias Response = R
     
@@ -39,7 +38,7 @@ class Endpoint<R: Decodable>: RequesteResponsable {
     }
 }
 
-/// 네트워크 통신에서 활용할 방식
+/// 웹 서버에 요청하는 동작
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"

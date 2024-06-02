@@ -20,6 +20,9 @@ class ProviderImpl: Provider {
         self.session = session
     }
     
+    /// 서버에 데이터 요청을 보내는 메서드입니다
+    /// - Parameter endpoint: callsite에서 DTO로 구성된 Endpoint 객체를 받습니다
+    /// - Returns: Observable Data
     func requestData<R, E>(with endpoint: E) -> Observable<R> where R: Decodable, E: RequesteResponsable {
         return Observable.create { [weak self] observer in
             guard let self = self else {
@@ -59,7 +62,15 @@ class ProviderImpl: Provider {
         }
     }
     
-    // Private
+    
+    /// Reactive Programming인 RxSwift를 활용하면서 생성된 메서드입니다
+    /// session.dataTask(with: urlRequest)에서 발생하는 결과값을 처리하기 위한 역할
+    /// trailing closure로 처리하던 data, response, error를 관리합니다
+    /// - Parameters:
+    ///   - data: urlRequest의 응답 값을 담고 있습니다
+    ///   - response: urlRequest의 응답 값을 담고 있습니다
+    ///   - error: urlRequest의 응답 값을 담고 있습니다
+    /// - Returns: Observable Data
     private func checkError(with data: Data?, _ response: URLResponse?, _ error: Error?) -> Observable<Result<Data,Error>> {
         return Observable.create { observer in
             if let error = error {
@@ -84,15 +95,6 @@ class ProviderImpl: Provider {
             observer.onCompleted()
             
             return Disposables.create()
-        }
-    }
-    
-    private func decode<T: Decodable>(data: Data) -> Result<T, Error> {
-        do {
-            let decoded = try JSONDecoder().decode(T.self, from: data)
-            return .success(decoded)
-        } catch {
-            return .failure(NetworkError.emptyData)
         }
     }
 }

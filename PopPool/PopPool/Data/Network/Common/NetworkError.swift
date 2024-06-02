@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 네트워크 오류 처리
+/// 네트워크 상황에 따라 오류를 처리합니다
 enum NetworkError: Error {
     case unknownError
     case invalidHttpStatusCode(Int)
