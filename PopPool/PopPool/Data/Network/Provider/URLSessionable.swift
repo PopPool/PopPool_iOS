@@ -6,13 +6,46 @@
 //
 
 import Foundation
+import RxSwift
 
-/// URLSession 테스트를 위한 protocol (Provider 생성자에서 해당 인터페이스 참조)
+/// URLSession 테스트를 위한 protocol
 protocol URLSessionable {
-    func dataTask(with request: URLRequest,
-                  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-    func dataTask(with url: URL,
-                  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+    func dataTask(with request: URLRequest) -> Observable<(response: URLResponse, data: Data)>
+    func dataTask(with url: URL) -> Observable<(response: URLResponse, data: Data)>
 }
 
-extension URLSession: URLSessionable {}
+extension URLSession: URLSessionable {
+    func dataTask(with request: URLRequest) -> Observable<(response: URLResponse, data: Data)> {
+        return Observable.create { observer in
+            let task = self.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    observer.onError(error)
+                } else if let data = data, let response = response {
+                    observer.onNext((response: response, data: data))
+                    observer.onCompleted()
+                }
+            }
+            task.resume()
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+    func dataTask(with url: URL) -> Observable<(response: URLResponse, data: Data)> {
+        return Observable.create { observer in
+            let task = self.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    observer.onError(error)
+                } else if let data = data, let response = response {
+                    observer.onNext((response: response, data: data))
+                    observer.onCompleted()
+                }
+            }
+            task.resume()
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+}

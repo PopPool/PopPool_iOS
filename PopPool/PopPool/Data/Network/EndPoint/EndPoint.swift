@@ -7,11 +7,13 @@
 
 import Foundation
 
-protocol RequesteResponsable: Networkable {}
+// 직접 채택하지 않고 Responsable protocol을 사용하는 이유는 잘 모르겠다
+protocol RequesteResponsable: Requestable, Responsable where Response: Decodable {}
 
-class Endpoint<R>: RequesteResponsable {
+/// 최종 URL의 데이터 구조를 정리하는 구조체
+class Endpoint<R: Decodable>: RequesteResponsable {
     typealias Response = R
-
+    
     var baseURL: String
     var path: String
     var method: HTTPMethod
@@ -37,6 +39,7 @@ class Endpoint<R>: RequesteResponsable {
     }
 }
 
+/// 네트워크 통신에서 활용할 방식
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"

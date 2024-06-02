@@ -7,19 +7,23 @@
 
 import Foundation
 
+/// 요청 URL
 protocol Requestable {
     var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
-    var queryParameters: Codable? { get }
-    var bodyParameters: Codable? { get }
+    var queryParameters: Encodable? { get }
+    var bodyParameters: Encodable? { get }
     var headers: [String: String]? { get }
     var sampleData: Data? { get }
 }
 
 extension Requestable {
+    /// APIEndpoint에서 전달받은 DTO를 URLRequest로 변환하는 메서드
+    /// - Returns: URLRequest 반환
     func getUrlRequest() throws -> URLRequest {
         let url = try url()
+        print("생성된 url 링크:",url)
         var urlRequest = URLRequest(url: url)
 
         // httpBody
@@ -37,7 +41,9 @@ extension Requestable {
 
         return urlRequest
     }
-
+    
+    /// APIEndpoint에서 전달받은 DTO를 URL로 변환하는 메서드
+    /// - Returns: URL 반환
     func url() throws -> URL {
 
         // baseURL + path
@@ -59,6 +65,9 @@ extension Requestable {
 }
 
 extension Encodable {
+    
+    /// URL에 요청할 쿼리 데이터를 JSON 형식에 맞게 딕셔너리 구조로 변환하는 메서드
+    /// - Returns: jsonData
     func toDictionary() throws -> [String: Any]? {
         let data = try JSONEncoder().encode(self)
         let jsonData = try JSONSerialization.jsonObject(with: data)

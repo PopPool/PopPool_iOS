@@ -8,7 +8,7 @@
 import Foundation
 
 // 전달 받은 응답 사항 모델에 맞춰 변경
-struct ResponseDTO: Decodable {
+struct TestResponseDTO: Decodable {
     let iconUrl: String
     let id: String
     let url: String
