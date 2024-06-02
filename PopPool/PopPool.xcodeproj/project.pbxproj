@@ -31,6 +31,10 @@
 		BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */; };
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
 		BDF3B2C42C0C436400B079C5 /* MockUrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */; };
+		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
+		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
+		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
+		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +79,8 @@
 		BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResponseDTO.swift; sourceTree = "<group>"; };
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
 		BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlSession.swift; sourceTree = "<group>"; };
+		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */,
+				087346582C0AED5A00534FFA /* Application */,
+				087346272C0AAD2B00534FFA /* PopPoolTests.swift */,
 			);
 			path = PopPoolTests;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 			children = (
 				087346102C0AAD2900534FFA /* AppDelegate.swift */,
 				087346122C0AAD2900534FFA /* SceneDelegate.swift */,
+				087346542C0AEBBA00534FFA /* DIContainer */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -286,6 +295,20 @@
 				BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */,
 			);
 			path = MockTest;
+		087346542C0AEBBA00534FFA /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				087346552C0AEBD900534FFA /* AppDIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		087346582C0AED5A00534FFA /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				087346592C0AED6C00534FFA /* AppDIContainerTest.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,6 +457,7 @@
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
+				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				BDF3B2C42C0C436400B079C5 /* MockUrlSession.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
@@ -451,6 +475,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */,
+				0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */,
+				087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */,
+				0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */,
+				087346282C0AAD2B00534FFA /* PopPoolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
