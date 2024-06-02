@@ -12,7 +12,6 @@
 		087346152C0AAD2900534FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346142C0AAD2900534FFA /* ViewController.swift */; };
 		0873461A2C0AAD2B00534FFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 087346192C0AAD2B00534FFA /* Assets.xcassets */; };
 		0873461D2C0AAD2B00534FFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */; };
-		087346282C0AAD2B00534FFA /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346272C0AAD2B00534FFA /* PopPoolTests.swift */; };
 		087346322C0AAD2B00534FFA /* PopPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346312C0AAD2B00534FFA /* PopPoolUITests.swift */; };
 		087346342C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */; };
 		087346452C0AAF1F00534FFA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 087346442C0AAF1F00534FFA /* SnapKit */; };
@@ -21,6 +20,7 @@
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
 		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
 		087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModel.swift */; };
+		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
@@ -59,12 +59,12 @@
 		0873461C2C0AAD2B00534FFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0873461E2C0AAD2B00534FFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		087346232C0AAD2B00534FFA /* PopPoolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopPoolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		087346272C0AAD2B00534FFA /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		0873462D2C0AAD2B00534FFA /* PopPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346312C0AAD2B00534FFA /* PopPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITests.swift; sourceTree = "<group>"; };
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
 		087346512C0ABC4B00534FFA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		087346262C0AAD2B00534FFA /* PopPoolTests */ = {
 			isa = PBXGroup;
 			children = (
-				087346272C0AAD2B00534FFA /* PopPoolTests.swift */,
+				BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */,
 			);
 			path = PopPoolTests;
 			sourceTree = "<group>";
@@ -450,7 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				087346282C0AAD2B00534FFA /* PopPoolTests.swift in Sources */,
+				BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

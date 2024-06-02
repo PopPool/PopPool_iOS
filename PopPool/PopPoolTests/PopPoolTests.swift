@@ -2,49 +2,34 @@
 //  PopPoolTests.swift
 //  PopPoolTests
 //
-//  Created by SeoJunYoung on 6/1/24.
+//  Created by Porori on 6/2/24.
 //
 
 import XCTest
-import RxSwift
-@testable import PopPool
 
 final class PopPoolTests: XCTestCase {
-    var provider: ProviderImpl!
-    var mockSession: MockUrlSession!
-    var disposeBag: DisposeBag!
-    
-    func setup() {
-        mockSession = MockUrlSession()
-        provider = ProviderImpl(session: mockSession)
-        disposeBag = DisposeBag()
+
+    override func setUpWithError() throws {
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
-    func testFetchJokes() {
-        // 가짜 데이터
-        let jokeData = """
-                {
-                    "icon_url": "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-                    "id": "DJkMRNM0QRS7kdEwbenGHQ",
-                    "url": "http://example.com/joke",
-                    "value": "Chuck Norris joke."
-                }
-                """.data(using: .utf8)
-        mockSession.nextData = jokeData
-        
-        let requestDTO = TestRequestDTO(query: "cat")
-        let endPoint = APIEndpoint.fetchData(with: requestDTO)
-        
-        let expected = self.expectation(description: "JokeData")
-        
-        provider.requestData(with: endPoint)
-            .subscribe { (response: TestResponseDTO) in
-                XCTAssertEqual(response.value, "chuck norris 조크")
-                expected.fulfill()
-            }
-            onError: { error in
-                XCTFail("오류가 발생했습니다. \(error)")
-            }
-            .disposed(by: disposeBag)
+
+    override func tearDownWithError() throws {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+
+    func testExample() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Any test you write for XCTest can be annotated as throws and async.
+        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
+        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    }
+
+    func testPerformanceExample() throws {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }
+
 }
