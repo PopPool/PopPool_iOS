@@ -15,7 +15,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
     // MARK: - Properties
     
     var viewModel: ViewControllerViewModel
-    
+    var provider = ProviderImpl()
     var disposeBag = DisposeBag()
     
     var button: UIButton = {
@@ -80,8 +80,23 @@ extension ViewController {
         output.loadCount
             .withUnretained(self)
             .subscribe { owner, count in
-                owner.button.setTitle("\(count) Tap", for: .normal)
+                self.fetchJokes(keyword: "cat")
+//                owner.button.setTitle("\(count) Tap", for: .normal)
             }
+            .disposed(by: disposeBag)
+    }
+    
+    func fetchJokes(keyword: String) {
+        let requestDTO = TestRequestDTO(query: keyword)
+        let endpoint = APIEndpoint.fetchData(with: requestDTO)
+        
+        provider.requestData(with: endpoint)
+            .subscribe(onNext: { (response: TestResponseDTO) in
+                print("Joke URL: \(response.url)")
+                print("Joke Data: \(response.value)")
+            }, onError: { error in
+                print("데이터 호출 오류 지점: \(error.localizedDescription)")
+            })
             .disposed(by: disposeBag)
     }
     
