@@ -51,9 +51,10 @@ final class ViewControllerViewModel: ViewModel {
         provider.requestData(with: endpoint)
             .subscribe { data in
                 print(data)
-            } onFailure: { error in
+            } onError: { error in
                 print(error)
             }
             .disposed(by: disposeBag)
+
     }
 }
