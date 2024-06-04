@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085105752C0EC13800ED7DBB /* RxAlamofire */; };
 		087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346122C0AAD2900534FFA /* SceneDelegate.swift */; };
 		087346152C0AAD2900534FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346142C0AAD2900534FFA /* ViewController.swift */; };
@@ -20,21 +21,19 @@
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
 		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
 		087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModel.swift */; };
+		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
+		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
+		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
+		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
-		BDF3B2AC2C0BE68900B079C5 /* URLSessionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AB2C0BE68900B079C5 /* URLSessionable.swift */; };
 		BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AD2C0BE69700B079C5 /* Provider.swift */; };
 		BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B12C0BF6B300B079C5 /* APIEndpoint.swift */; };
 		BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B32C0BF7B800B079C5 /* TestRequestDTO.swift */; };
 		BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */; };
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
-		BDF3B2C42C0C436400B079C5 /* MockUrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */; };
-		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
-		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
-		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
-		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,19 +67,17 @@
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
 		087346512C0ABC4B00534FFA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
-		BDF3B2AB2C0BE68900B079C5 /* URLSessionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionable.swift; sourceTree = "<group>"; };
 		BDF3B2AD2C0BE69700B079C5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		BDF3B2B12C0BF6B300B079C5 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		BDF3B2B32C0BF7B800B079C5 /* TestRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRequestDTO.swift; sourceTree = "<group>"; };
 		BDF3B2B52C0BF81600B079C5 /* TestResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResponseDTO.swift; sourceTree = "<group>"; };
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
-		BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlSession.swift; sourceTree = "<group>"; };
-		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
-		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +88,7 @@
 				0873464A2C0AAF7000534FFA /* RxRelay in Frameworks */,
 				087346482C0AAF7000534FFA /* RxCocoa in Frameworks */,
 				0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */,
+				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,7 +146,6 @@
 			children = (
 				BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */,
 				087346582C0AED5A00534FFA /* Application */,
-				087346272C0AAD2B00534FFA /* PopPoolTests.swift */,
 			);
 			path = PopPoolTests;
 			sourceTree = "<group>";
@@ -216,6 +213,22 @@
 			path = "CodeConvention Sample";
 			sourceTree = "<group>";
 		};
+		087346542C0AEBBA00534FFA /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				087346552C0AEBD900534FFA /* AppDIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		087346582C0AED5A00534FFA /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				087346592C0AED6C00534FFA /* AppDIContainerTest.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		BD4D31DD2C0C556C00E53195 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +269,6 @@
 				BDF3B2BB2C0BFC3300B079C5 /* Common */,
 				BD4D31DD2C0C556C00E53195 /* DTO */,
 				BDF3B2BC2C0BFC9900B079C5 /* EndPoint */,
-				BDF3B2C22C0C435700B079C5 /* MockTest */,
 				BDF3B2BA2C0BFA0C00B079C5 /* Provider */,
 			);
 			path = Network;
@@ -265,7 +277,6 @@
 		BDF3B2BA2C0BFA0C00B079C5 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				BDF3B2AB2C0BE68900B079C5 /* URLSessionable.swift */,
 				BDF3B2AD2C0BE69700B079C5 /* Provider.swift */,
 			);
 			path = Provider;
@@ -289,30 +300,6 @@
 			path = EndPoint;
 			sourceTree = "<group>";
 		};
-		BDF3B2C22C0C435700B079C5 /* MockTest */ = {
-			isa = PBXGroup;
-			children = (
-				BDF3B2C32C0C436400B079C5 /* MockUrlSession.swift */,
-			);
-			path = MockTest;
-      sourceTree = "<group>";
-		};
-		087346542C0AEBBA00534FFA /* DIContainer */ = {
-			isa = PBXGroup;
-			children = (
-				087346552C0AEBD900534FFA /* AppDIContainer.swift */,
-			);
-			path = DIContainer;
-			sourceTree = "<group>";
-		};
-		087346582C0AED5A00534FFA /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				087346592C0AED6C00534FFA /* AppDIContainerTest.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,6 +321,7 @@
 				087346472C0AAF7000534FFA /* RxCocoa */,
 				087346492C0AAF7000534FFA /* RxRelay */,
 				0873464B2C0AAF7000534FFA /* RxSwift */,
+				085105752C0EC13800ED7DBB /* RxAlamofire */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -410,6 +398,7 @@
 			packageReferences = (
 				087346432C0AAF1F00534FFA /* XCRemoteSwiftPackageReference "SnapKit" */,
 				087346462C0AAF6F00534FFA /* XCRemoteSwiftPackageReference "RxSwift" */,
+				085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -461,12 +450,10 @@
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
-				BDF3B2C42C0C436400B079C5 /* MockUrlSession.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
-				BDF3B2AC2C0BE68900B079C5 /* URLSessionable.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 			);
@@ -480,7 +467,6 @@
 				0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */,
 				087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */,
 				0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */,
-				087346282C0AAD2B00534FFA /* PopPoolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -817,6 +803,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		087346432C0AAF1F00534FFA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -836,6 +830,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		085105752C0EC13800ED7DBB /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */;
+			productName = RxAlamofire;
+		};
 		087346442C0AAF1F00534FFA /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 087346432C0AAF1F00534FFA /* XCRemoteSwiftPackageReference "SnapKit" */;

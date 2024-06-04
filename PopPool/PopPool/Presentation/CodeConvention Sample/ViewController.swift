@@ -80,27 +80,8 @@ extension ViewController {
         output.loadCount
             .withUnretained(self)
             .subscribe { owner, count in
-                self.fetchJokes(keyword: "cat")
-//                owner.button.setTitle("\(count) Tap", for: .normal)
+                owner.button.setTitle("\(count) Tap", for: .normal)
             }
             .disposed(by: disposeBag)
-    }
-    
-    func fetchJokes(keyword: String) {
-        let requestDTO = TestRequestDTO(query: keyword)
-        let endpoint = APIEndpoint.fetchData(with: requestDTO)
-        
-        provider.requestData(with: endpoint)
-            .subscribe(onNext: { (response: TestResponseDTO) in
-                print("Joke URL: \(response.url)")
-                print("Joke Data: \(response.value)")
-            }, onError: { error in
-                print("데이터 호출 오류 지점: \(error.localizedDescription)")
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func setupSome() {
-        
     }
 }

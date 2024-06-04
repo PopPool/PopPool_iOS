@@ -7,93 +7,79 @@
 
 import Foundation
 import RxSwift
+import RxAlamofire
 
 protocol Provider {
-    func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E) -> Observable<R>
+    /// 네트워크 요청을 수행하고 결과를 반환하는 메서드
+    /// - Parameter endpoint: 요청 엔드포인트
+    /// - Returns: 요청에 대한 결과를 Observable로 반환
+    func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E) -> Observable<R> where R == E.Response
 }
 
 class ProviderImpl: Provider {
     
-    let session: URLSessionable
     let disposeBag = DisposeBag()
-    init(session: URLSessionable = URLSession.shared) {
-        self.session = session
-    }
     
-    /// 서버에 데이터 요청을 보내는 메서드입니다
-    /// - Parameter endpoint: callsite에서 DTO로 구성된 Endpoint 객체를 받습니다
-    /// - Returns: Observable Data
-    func requestData<R, E>(with endpoint: E) -> Observable<R> where R: Decodable, E: RequesteResponsable {
-        return Observable.create { [weak self] observer in
-            guard let self = self else {
+    func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E) -> Observable<R> where R == E.Response {
+        
+        return Observable.create {[weak self] observer in
+            
+            guard let self = self else { 
                 return Disposables.create()
             }
             
             do {
                 let urlRequest = try endpoint.getUrlRequest()
                 
-                self.session.dataTask(with: urlRequest)
-                    .flatMap { (response, data) -> Observable<Result<Data, Error>> in
-                        return self.checkError(with: data, response, nil)
+                RxAlamofire.requestData(urlRequest)
+                    .flatMap { (response, data) -> Observable<Data> in
+                        return self.checkError(with: data, response)
                     }
-                    .subscribe(onNext: { result in
-                        switch result {
-                        case .success(let validData):
-                            do {
-                                let decodedData = try JSONDecoder().decode(R.self, from: validData)
-                                observer.onNext(decodedData)
-                                observer.onCompleted()
-                            } catch {
-                                observer.onError(error)
-                            }
-                        case .failure(let error):
-                            observer.onError(error)
-                        }
-                    }, onError: { error in
+                    .flatMap { data -> Observable<R> in
+                        return self.decodeData(data: data)
+                    }
+                    .subscribe { decodeData in
+                        observer.onNext(decodeData)
+                        observer.onCompleted()
+                    } onError: { error in
                         observer.onError(error)
-                    })
-                    .disposed(by: self.disposeBag)
-                
+                    }.disposed(by: self.disposeBag)
             } catch {
-                observer.onError(NetworkError.unknownError)
+                observer.onError(NetworkError.urlRequest(error))
             }
-            
             return Disposables.create()
         }
     }
     
-    
-    /// Reactive Programming인 RxSwift를 활용하면서 생성된 메서드입니다
-    /// session.dataTask(with: urlRequest)에서 발생하는 결과값을 처리하기 위한 역할
-    /// trailing closure로 처리하던 data, response, error를 관리합니다
+    /// HTTP 응답 상태 코드 확인 및 처리
     /// - Parameters:
-    ///   - data: urlRequest의 응답 값을 담고 있습니다
-    ///   - response: urlRequest의 응답 값을 담고 있습니다
-    ///   - error: urlRequest의 응답 값을 담고 있습니다
-    /// - Returns: Observable Data
-    private func checkError(with data: Data?, _ response: URLResponse?, _ error: Error?) -> Observable<Result<Data,Error>> {
+    ///   - data: 응답 데이터
+    ///   - response: HTTP 응답
+    /// - Returns: 응답 데이터를 Observable로 반환
+    private func checkError(with data: Data, _ response: HTTPURLResponse) -> Observable<Data> {
         return Observable.create { observer in
-            if let error = error {
-                observer.onNext(.failure(error))
+            if (200...299).contains(response.statusCode) {
+                observer.onNext(data)
                 observer.onCompleted()
-                return Disposables.create()
+            } else {
+                observer.onError(NetworkError.invalidHttpStatusCode(response.statusCode))
             }
-            
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                observer.onNext(.failure(NetworkError.urlResponse))
+            return Disposables.create()
+        }
+    }
+    
+    /// JSON 데이터 디코딩 처리
+    /// - Parameter data: 디코딩할 데이터
+    /// - Returns: 디코딩된 데이터를 Observable로 반환
+    private func decodeData<R: Decodable>(data: Data) -> Observable<R> {
+        return Observable.create { observer in
+            do {
+                let decodeData = try JSONDecoder().decode(R.self, from: data)
+                observer.onNext(decodeData)
                 observer.onCompleted()
-                return Disposables.create()
+            } catch {
+                observer.onError(NetworkError.decodeError)
             }
-            
-            guard let data = data else {
-                observer.onNext(.failure(NetworkError.emptyData))
-                observer.onCompleted()
-                return Disposables.create()
-            }
-            
-            observer.onNext(.success(data))
-            observer.onCompleted()
-            
             return Disposables.create()
         }
     }

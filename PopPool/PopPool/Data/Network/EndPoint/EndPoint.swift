@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol RequesteResponsable: Requestable, Responsable where Response: Decodable {}
 
@@ -36,12 +37,4 @@ class Endpoint<R: Decodable>: RequesteResponsable {
         self.headers = headers
         self.sampleData = sampleData
     }
-}
-
-/// 웹 서버에 요청하는 동작
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
 }

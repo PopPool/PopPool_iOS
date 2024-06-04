@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Alamofire
 /// 요청 URL
 protocol Requestable {
     var baseURL: String { get }
