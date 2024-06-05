@@ -19,6 +19,7 @@
 		085105992C1033E600ED7DBB /* RxKakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 085105982C1033E600ED7DBB /* RxKakaoSDKTalk */; };
 		0851059B2C1033E600ED7DBB /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 0851059A2C1033E600ED7DBB /* RxKakaoSDKUser */; };
 		0851059D2C1033FB00ED7DBB /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851059C2C1033FB00ED7DBB /* Secrets.swift */; };
+		085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851059F2C1038EB00ED7DBB /* AuthError.swift */; };
 		087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346122C0AAD2900534FFA /* SceneDelegate.swift */; };
 		087346152C0AAD2900534FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346142C0AAD2900534FFA /* ViewController.swift */; };
@@ -68,6 +69,7 @@
 		0851057D2C102F3300ED7DBB /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthServiceImpl.swift; sourceTree = "<group>"; };
 		0851059C2C1033FB00ED7DBB /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		0851059F2C1038EB00ED7DBB /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		0873460D2C0AAD2900534FFA /* PopPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346102C0AAD2900534FFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		087346122C0AAD2900534FFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		0851057C2C102EAB00ED7DBB /* AuthService */ = {
 			isa = PBXGroup;
 			children = (
+				0851059E2C1038DF00ED7DBB /* Common */,
 				0851057F2C102F3800ED7DBB /* Interface */,
 				085105802C102F4600ED7DBB /* Impl */,
 			);
@@ -174,6 +177,14 @@
 				085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */,
 			);
 			path = Impl;
+			sourceTree = "<group>";
+		};
+		0851059E2C1038DF00ED7DBB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0851059F2C1038EB00ED7DBB /* AuthError.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		087346042C0AAD2800534FFA = {
@@ -522,6 +533,7 @@
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				0851059D2C1033FB00ED7DBB /* Secrets.swift in Sources */,
+				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,

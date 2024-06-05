@@ -9,6 +9,7 @@ import Foundation
 
 import RxSwift
 import RxCocoa
+import KakaoSDKUser
 
 final class ViewControllerViewModel: ViewModel {
     
@@ -21,6 +22,8 @@ final class ViewControllerViewModel: ViewModel {
     }
     
     var provider = ProviderImpl()
+    
+    var kakaoService = KakaoAuthServiceImpl()
     
     // MARK: - Properties
 
@@ -36,6 +39,7 @@ final class ViewControllerViewModel: ViewModel {
             guard let self = self else { return }
             self.count.accept(self.count.value + 1)
             testProvider()
+            testLogin()
         }
         .disposed(by: disposeBag)
         
@@ -51,6 +55,17 @@ final class ViewControllerViewModel: ViewModel {
         provider.requestData(with: endpoint)
             .subscribe { data in
                 print(data)
+            } onError: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+
+    }
+    
+    func testLogin() {
+        kakaoService.tryFetchToken()
+            .subscribe { token in
+                print(token)
             } onError: { error in
                 print(error)
             }
