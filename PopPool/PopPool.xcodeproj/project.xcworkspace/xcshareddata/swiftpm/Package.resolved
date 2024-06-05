@@ -10,6 +10,24 @@
       }
     },
     {
+      "identity" : "kakao-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk.git",
+      "state" : {
+        "revision" : "9f9b830dfd7ee66607c6fddcfeb1a6bc07e48714",
+        "version" : "2.22.2"
+      }
+    },
+    {
+      "identity" : "kakao-ios-sdk-rx",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk-rx",
+      "state" : {
+        "revision" : "86d53e524acd1a9eb0a2c95d23e700ac9d727480",
+        "version" : "2.22.2"
+      }
+    },
+    {
       "identity" : "ohhttpstubs",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AliSoftware/OHHTTPStubs.git",
