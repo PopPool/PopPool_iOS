@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085105752C0EC13800ED7DBB /* RxAlamofire */; };
+		0851057E2C102F3300ED7DBB /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851057D2C102F3300ED7DBB /* AuthService.swift */; };
+		085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */; };
 		087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346122C0AAD2900534FFA /* SceneDelegate.swift */; };
 		087346152C0AAD2900534FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346142C0AAD2900534FFA /* ViewController.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0851057D2C102F3300ED7DBB /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthServiceImpl.swift; sourceTree = "<group>"; };
 		0873460D2C0AAD2900534FFA /* PopPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346102C0AAD2900534FFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		087346122C0AAD2900534FFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +114,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0851057A2C102E2B00ED7DBB /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				0851057B2C102E6800ED7DBB /* Network */,
+				0851057C2C102EAB00ED7DBB /* AuthService */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		0851057B2C102E6800ED7DBB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BDF3B2BB2C0BFC3300B079C5 /* Common */,
+				BDF3B2BC2C0BFC9900B079C5 /* EndPoint */,
+				BDF3B2BA2C0BFA0C00B079C5 /* Provider */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0851057C2C102EAB00ED7DBB /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				0851057F2C102F3800ED7DBB /* Interface */,
+				085105802C102F4600ED7DBB /* Impl */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
+		0851057F2C102F3800ED7DBB /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				0851057D2C102F3300ED7DBB /* AuthService.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		085105802C102F4600ED7DBB /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */,
+			);
+			path = Impl;
+			sourceTree = "<group>";
+		};
 		087346042C0AAD2800534FFA = {
 			isa = PBXGroup;
 			children = (
@@ -133,9 +181,10 @@
 		0873460F2C0AAD2900534FFA /* PopPool */ = {
 			isa = PBXGroup;
 			children = (
-				BDD335092C0B1653002C2295 /* Data */,
 				087346402C0AADEC00534FFA /* Application */,
 				087346422C0AAE1200534FFA /* Presentation */,
+				BDD335092C0B1653002C2295 /* Data */,
+				0851057A2C102E2B00ED7DBB /* Infrastructure */,
 				087346412C0AADFD00534FFA /* Resource */,
 			);
 			path = PopPool;
@@ -266,10 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF3B2B12C0BF6B300B079C5 /* APIEndpoint.swift */,
-				BDF3B2BB2C0BFC3300B079C5 /* Common */,
 				BD4D31DD2C0C556C00E53195 /* DTO */,
-				BDF3B2BC2C0BFC9900B079C5 /* EndPoint */,
-				BDF3B2BA2C0BFA0C00B079C5 /* Provider */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -443,6 +489,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
+				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
@@ -454,6 +501,7 @@
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
+				0851057E2C102F3300ED7DBB /* AuthService.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 			);
