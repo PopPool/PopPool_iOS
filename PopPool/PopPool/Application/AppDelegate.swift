@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //DIContainer register
         registerDIContainer()
         
+        //KakaoSDK appkey register
         RxKakaoSDK.initSDK(appKey: Secrets.kakaoAuthAppkey.rawValue)
         return true
     }
