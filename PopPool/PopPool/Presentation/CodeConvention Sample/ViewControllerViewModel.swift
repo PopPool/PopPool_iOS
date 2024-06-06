@@ -63,9 +63,19 @@ final class ViewControllerViewModel: ViewModel {
     }
     
     func testLogin() {
-        kakaoService.tryFetchToken()
+        kakaoService.fetchToken()
             .subscribe { token in
                 print(token)
+            } onError: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func testUserID() {
+        kakaoService.fetchUserID()
+            .subscribe { id in
+                print(id)
             } onError: { error in
                 print(error)
             }
