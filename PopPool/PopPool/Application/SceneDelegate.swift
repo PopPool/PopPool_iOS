@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
-        let rootVC = ViewController(viewModel: ViewControllerViewModel())
+//        let rootVC = ViewController(viewModel: ViewControllerViewModel())
+        let rootVC = AppleLoginTestVC()
         window?.rootViewController = UINavigationController(rootViewController: rootVC)
         window?.makeKeyAndVisible()
     }
