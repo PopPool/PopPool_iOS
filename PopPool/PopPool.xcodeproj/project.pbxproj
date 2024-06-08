@@ -39,6 +39,10 @@
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B965622C14421700BF95AA /* AppleLoginTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965612C14421700BF95AA /* AppleLoginTestVC.swift */; };
+		08B9656A2C14849400BF95AA /* UserCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965692C14849400BF95AA /* UserCredential.swift */; };
+		08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656D2C1485D700BF95AA /* AuthUseCase.swift */; };
+		08B965702C148A2300BF95AA /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */; };
+		08B965732C148AEC00BF95AA /* AuthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965722C148AEC00BF95AA /* AuthType.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
@@ -90,6 +94,10 @@
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965612C14421700BF95AA /* AppleLoginTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginTestVC.swift; sourceTree = "<group>"; };
+		08B965692C14849400BF95AA /* UserCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredential.swift; sourceTree = "<group>"; };
+		08B9656D2C1485D700BF95AA /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
+		08B965722C148AEC00BF95AA /* AuthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthType.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
@@ -143,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				0851057B2C102E6800ED7DBB /* Network */,
-				0851057C2C102EAB00ED7DBB /* AuthService */,
+				08B965652C147E4C00BF95AA /* Service */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -162,18 +170,18 @@
 			isa = PBXGroup;
 			children = (
 				0851059E2C1038DF00ED7DBB /* Common */,
-				0851057F2C102F3800ED7DBB /* Interface */,
 				085105802C102F4600ED7DBB /* Impl */,
 			);
 			path = AuthService;
 			sourceTree = "<group>";
 		};
-		0851057F2C102F3800ED7DBB /* Interface */ = {
+		0851057F2C102F3800ED7DBB /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				0851057D2C102F3300ED7DBB /* AuthService.swift */,
+				08B965712C148A3600BF95AA /* UseCase */,
+				08B965632C147E0B00BF95AA /* Service */,
 			);
-			path = Interface;
+			path = Interfaces;
 			sourceTree = "<group>";
 		};
 		085105802C102F4600ED7DBB /* Impl */ = {
@@ -221,6 +229,7 @@
 				087346402C0AADEC00534FFA /* Application */,
 				087346422C0AAE1200534FFA /* Presentation */,
 				BDD335092C0B1653002C2295 /* Data */,
+				08B965642C147E1B00BF95AA /* Domain */,
 				0851057A2C102E2B00ED7DBB /* Infrastructure */,
 				087346412C0AADFD00534FFA /* Resource */,
 			);
@@ -314,6 +323,73 @@
 				087346592C0AED6C00534FFA /* AppDIContainerTest.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		08B965632C147E0B00BF95AA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0851057D2C102F3300ED7DBB /* AuthService.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		08B965642C147E1B00BF95AA /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08B965662C14846100BF95AA /* Entities */,
+				0851057F2C102F3800ED7DBB /* Interfaces */,
+				08B9656C2C1485C100BF95AA /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		08B965652C147E4C00BF95AA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0851057C2C102EAB00ED7DBB /* AuthService */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		08B965662C14846100BF95AA /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				08B965672C14847B00BF95AA /* Service */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		08B965672C14847B00BF95AA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				08B965682C14848100BF95AA /* AuthService */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		08B965682C14848100BF95AA /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				08B965692C14849400BF95AA /* UserCredential.swift */,
+				08B965722C148AEC00BF95AA /* AuthType.swift */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
+		08B9656C2C1485C100BF95AA /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		08B965712C148A3600BF95AA /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				08B9656D2C1485D700BF95AA /* AuthUseCase.swift */,
+			);
+			name = UseCase;
 			sourceTree = "<group>";
 		};
 		BD4D31DD2C0C556C00E53195 /* DTO */ = {
@@ -546,13 +622,17 @@
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
+				08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
+				08B9656A2C14849400BF95AA /* UserCredential.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
+				08B965702C148A2300BF95AA /* AuthUseCaseImpl.swift in Sources */,
 				0851057E2C102F3300ED7DBB /* AuthService.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
+				08B965732C148AEC00BF95AA /* AuthType.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 			);
@@ -732,7 +812,7 @@
 				CODE_SIGN_ENTITLEMENTS = PopPool/PopPool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2U86LHQK8Q;
+				DEVELOPMENT_TEAM = W5QTRMS954;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PopPool/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -744,7 +824,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.donggle.PopPool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junyoung.PopPool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -763,7 +843,7 @@
 				CODE_SIGN_ENTITLEMENTS = PopPool/PopPool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2U86LHQK8Q;
+				DEVELOPMENT_TEAM = W5QTRMS954;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PopPool/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -775,7 +855,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.donggle.PopPool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junyoung.PopPool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

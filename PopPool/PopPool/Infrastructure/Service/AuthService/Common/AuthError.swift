@@ -9,6 +9,6 @@ import Foundation
 
 enum AuthError: Error {
     case unknownError
-    case kakaoTalkNotInstalled
+    case notInstalled
     case emptyData
 }
