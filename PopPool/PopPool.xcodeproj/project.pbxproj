@@ -38,7 +38,6 @@
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
-		08B965622C14421700BF95AA /* AppleLoginTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965612C14421700BF95AA /* AppleLoginTestVC.swift */; };
 		08B9656A2C14849400BF95AA /* UserCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965692C14849400BF95AA /* UserCredential.swift */; };
 		08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656D2C1485D700BF95AA /* AuthUseCase.swift */; };
 		08B965702C148A2300BF95AA /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */; };
@@ -93,7 +92,6 @@
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
-		08B965612C14421700BF95AA /* AppleLoginTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginTestVC.swift; sourceTree = "<group>"; };
 		08B965692C14849400BF95AA /* UserCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredential.swift; sourceTree = "<group>"; };
 		08B9656D2C1485D700BF95AA /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 			children = (
 				085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */,
 				08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */,
-				08B965612C14421700BF95AA /* AppleLoginTestVC.swift */,
 			);
 			path = Impl;
 			sourceTree = "<group>";
@@ -612,7 +609,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
-				08B965622C14421700BF95AA /* AppleLoginTestVC.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,

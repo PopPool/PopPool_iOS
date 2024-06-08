@@ -23,7 +23,7 @@ final class KakaoAuthServiceImpl: AuthService {
                         return UserCredential(id: id, token: token)
                     }
             }.catch { error in
-                Observable.error(AuthError.unknownError)
+                Observable.error(error)
             }
     }
 }
