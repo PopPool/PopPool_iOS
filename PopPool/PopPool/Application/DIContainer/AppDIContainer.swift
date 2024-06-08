@@ -46,5 +46,12 @@ extension AppDelegate {
     /// DI 컨테이너 인스턴스를 등록합니다.
     func registerDIContainer() {
         let container = AppDIContainer.shared
+        container.register(
+            type: AuthUseCase.self,
+            component: AuthUseCaseImpl(services: [
+                .kakao: KakaoAuthServiceImpl(),
+                .apple: AppleAuthServiceImpl()
+            ])
+        )
     }
 }

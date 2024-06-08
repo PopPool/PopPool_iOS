@@ -11,9 +11,24 @@ import KakaoSDKUser
 import RxSwift
 
 final class KakaoAuthServiceImpl: AuthService {
-    var type: AuthType = .kakao
     
     private let disposeBag = DisposeBag()
+    
+    func fetchUserCredential() -> Observable<UserCredential> {
+        
+        return fetchToken()
+            .flatMap { token in
+                self.fetchUserID()
+                    .map { id in
+                        return UserCredential(id: id, token: token)
+                    }
+            }.catch { error in
+                Observable.error(error)
+            }
+    }
+}
+
+private extension KakaoAuthServiceImpl {
     
     func fetchToken() -> Observable<String> {
         return Observable.create { [weak self] observer in
@@ -38,13 +53,14 @@ final class KakaoAuthServiceImpl: AuthService {
                     .disposed(by: self.disposeBag)
             } else {
                 // 카카오톡이 설치되지 않은 경우 오류를 방출
-                observer.onError(AuthError.kakaoTalkNotInstalled)
+                observer.onError(AuthError.notInstalled)
             }
             return Disposables.create()
         }
     }
     
-    func fetchUserID() -> Observable<Int> {
+    func fetchUserID() -> Observable<String> {
+        
         return Observable.create { [weak self] observer in
             
             // self 참조가 유효한지 확인
@@ -57,7 +73,7 @@ final class KakaoAuthServiceImpl: AuthService {
                 .subscribe { user in
                     if let id = user.id {
                         // 사용자 ID를 방출하고 observable을 완료함
-                        observer.onNext(Int(id))
+                        observer.onNext(String(id))
                         observer.onCompleted()
                     } else {
                         // 사용자 ID가 nil인 경우 오류를 방출
