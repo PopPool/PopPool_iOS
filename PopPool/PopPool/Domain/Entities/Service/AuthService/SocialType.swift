@@ -8,7 +8,7 @@
 import Foundation
 
 // 인증 유형 열거형
-enum AuthType {
+enum SocialType {
     case kakao
     case apple
 }
