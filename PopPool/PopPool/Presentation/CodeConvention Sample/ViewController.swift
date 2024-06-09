@@ -17,6 +17,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
     var viewModel: ViewControllerViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
+    weak var coordinator: AppCoordinator?
     
     var button: UIButton = {
         let button = UIButton()
@@ -29,6 +30,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
     init(viewModel: ViewControllerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.view.backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
