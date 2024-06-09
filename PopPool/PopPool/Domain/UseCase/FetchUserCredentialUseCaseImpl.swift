@@ -9,7 +9,7 @@ import Foundation
 
 import RxSwift
 
-final class AuthUseCaseImpl: AuthUseCase {
+final class FetchUserCredentialUseCaseImpl: FetchUserCredentialUseCase {
 
     let services: [AuthType: AuthService]
     
@@ -17,7 +17,7 @@ final class AuthUseCaseImpl: AuthUseCase {
         self.services = services
     }
     
-    func fetchUserCredential(from type: AuthType) -> Observable<UserCredential> {
+    func start(from type: AuthType) -> Observable<UserCredential> {
         
         // 주어진 타입에 해당하는 서비스가 있는지 확인
         guard let service = fetchAuthService(type: type) else {
@@ -29,7 +29,7 @@ final class AuthUseCaseImpl: AuthUseCase {
     }
 }
 
-private extension AuthUseCaseImpl {
+private extension FetchUserCredentialUseCaseImpl {
     
     /// 주어진 인증 유형에 맞는 AuthService 반환
     /// - Parameter type: AuthService Type

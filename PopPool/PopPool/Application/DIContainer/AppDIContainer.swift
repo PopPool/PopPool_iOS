@@ -47,8 +47,8 @@ extension AppDelegate {
     func registerDIContainer() {
         let container = AppDIContainer.shared
         container.register(
-            type: AuthUseCase.self,
-            component: AuthUseCaseImpl(services: [
+            type: FetchUserCredentialUseCase.self,
+            component: FetchUserCredentialUseCaseImpl(services: [
                 .kakao: KakaoAuthServiceImpl(),
                 .apple: AppleAuthServiceImpl()
             ])
