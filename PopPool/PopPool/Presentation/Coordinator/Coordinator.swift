@@ -9,30 +9,43 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
-    var childCoordinator: [Coordinator] { get set }
+    var parentCoordinator: Coordinator? { get set }
+    
     func start()
+    func moveToChild(coordinator: Coordinator)
+    func removeChildCoordinators()
 }
 
-class AppCoordinator: Coordinator {
+class BaseCoordinator: Coordinator {
+    
+    // MARK: - Properties
+    
     var navigationController: UINavigationController
+    var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
+    
+    
+    // MARK: - init
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-        
+    
+    
+    // MARK: - Methods
+    
     func start() {
-        let rootViewModel = ViewControllerViewModel()
-        let rootVC = ViewController(viewModel: rootViewModel)
-        rootVC.coordinator = self
-        navigationController.pushViewController(rootVC, animated: false)
+        print("코디네이터 연결이 필요합니다")
     }
     
-    func addChildCoordinator(_ coordinator: Coordinator) {
+    func moveToChild(coordinator: Coordinator) {
         childCoordinator.append(coordinator)
+        coordinator.parentCoordinator = self
+        coordinator.start()
     }
     
-    func removeChildCoordinator(_ coordinator: Coordinator) {
-        childCoordinator = childCoordinator.filter { $0 !== coordinator }
+    func removeChildCoordinators() {
+        childCoordinator.forEach { $0.removeChildCoordinators() }
+        childCoordinator.removeAll()
     }
 }

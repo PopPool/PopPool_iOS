@@ -7,18 +7,18 @@
 
 import UIKit
 
-class ChildrenCoordinator: Coordinator {
-    var navigationController: UINavigationController
-    var parentCoordinator: AppCoordinator?
-    var childCoordinator: [Coordinator] = []
+class ChildrenCoordinator: BaseCoordinator {
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    override func start() {
+        let viewModel = ViewControllerViewModel()
+        let nextVC = TestVC(viewModel: viewModel)
+        nextVC.coordinator = self
+        navigationController.pushViewController(nextVC, animated: true)
     }
     
-    func start() {
-        // let nextVC = someVC()
-        // nextVC.coordinator = self
-        //navigationController.pushViewController(nextVC, animated: true)
+    func pushToChild() {
+        removeChildCoordinators()
+        let coordinator = ChildrenCoordinator(navigationController: navigationController)
+        moveToChild(coordinator: coordinator)
     }
 }
