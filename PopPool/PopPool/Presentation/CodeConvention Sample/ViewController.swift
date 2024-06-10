@@ -17,11 +17,17 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
     var viewModel: ViewControllerViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
-    weak var coordinator: AppCoordinator?
+    weak var coordinator: MainCoordinator?
     
     var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
+        return button
+    }()
+    
+    var testButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .black
         return button
     }()
     
@@ -69,9 +75,22 @@ extension ViewController {
             make.size.equalTo(100)
             make.center.equalToSuperview()
         }
+        
+        view.addSubview(testButton)
+        testButton.snp.makeConstraints { make in
+            make.size.equalTo(100)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(button.snp.bottom).offset(50)
+        }
     }
     
     func setupBind() {
+        
+        testButton.rx.tap.bind { _ in
+            print("버튼이 눌렸습니다.")
+            self.coordinator?.moveToSecondScreen()
+        }
+        .disposed(by: disposeBag)
         
         let input = ViewControllerViewModel.Input(
             didTapButton: button.rx.tap.asSignal()

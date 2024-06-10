@@ -11,7 +11,8 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-final class TestVC: UIViewController { // 상속 필요 없을시 Final 키워드 붙이기
+/// Coordinator를 테스트하기 위한 테스트용 VC입니다
+class TestVC: UIViewController {
     // MARK: - Properties
     
     var viewModel: ViewControllerViewModel
