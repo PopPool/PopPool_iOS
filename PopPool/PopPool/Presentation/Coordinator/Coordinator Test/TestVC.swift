@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  TestVC.swift
 //  PopPool
 //
-//  Created by SeoJunYoung on 6/1/24.
+//  Created by Porori on 6/10/24.
 //
 
 import UIKit
@@ -11,23 +11,18 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-final class ViewController: UIViewController { // 상속 필요 없을시 Final 키워드 붙이기
+/// Coordinator를 테스트하기 위한 테스트용 VC입니다
+class TestVC: UIViewController {
     // MARK: - Properties
     
     var viewModel: ViewControllerViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: ChildrenCoordinator?
     
     var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
-        return button
-    }()
-    
-    var testButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .black
         return button
     }()
     
@@ -45,7 +40,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
 }
 
 // MARK: - LifeCycle
-extension ViewController {
+extension TestVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +51,7 @@ extension ViewController {
 }
 
 // MARK: - Methods
-extension ViewController {
+extension TestVC {
     
     /// SomeFunc
     /// - Parameter some: 어쩌구 저쩌구
@@ -67,7 +62,7 @@ extension ViewController {
 }
 
 // MARK: - Setup
-extension ViewController {
+extension TestVC {
     
     func setupConstraints() {
         view.addSubview(button)
@@ -75,22 +70,9 @@ extension ViewController {
             make.size.equalTo(100)
             make.center.equalToSuperview()
         }
-        
-        view.addSubview(testButton)
-        testButton.snp.makeConstraints { make in
-            make.size.equalTo(100)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(button.snp.bottom).offset(50)
-        }
     }
     
     func setupBind() {
-        
-        testButton.rx.tap.bind { _ in
-            print("버튼이 눌렸습니다.")
-            self.coordinator?.moveToSecondScreen()
-        }
-        .disposed(by: disposeBag)
         
         let input = ViewControllerViewModel.Input(
             didTapButton: button.rx.tap.asSignal()
