@@ -17,7 +17,7 @@ final class FetchUserCredentialUseCaseImpl: FetchUserCredentialUseCase {
         self.authRepository = authRepository
     }
     
-    func start(from type: SocialType) -> Observable<UserCredential> {
+    func execute(from type: SocialType) -> Observable<UserCredential> {
         return authRepository.fetchUserCredential(from: type)
     }
 }

@@ -17,7 +17,7 @@ protocol FetchUserCredentialUseCase {
     /// 사용자 자격 증명을 가져오는 함수
     /// - Parameter type: 소셜 유형
     /// - Returns: Observable<UserCredential> 형태의 사용자 자격 증명
-    func start(from type: SocialType) -> Observable<UserCredential>
+    func execute(from type: SocialType) -> Observable<UserCredential>
 }
 
 
