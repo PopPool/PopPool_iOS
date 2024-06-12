@@ -41,6 +41,7 @@
 		08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656D2C1485D700BF95AA /* AuthUseCase.swift */; };
 		08B965702C148A2300BF95AA /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */; };
 		08B965732C148AEC00BF95AA /* AuthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965722C148AEC00BF95AA /* AuthType.swift */; };
+		BD0A2D252C1A030800F5509E /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0A2D242C1A030800F5509E /* TestViewModel.swift */; };
 		BD56A3F72C19F1E500FDE726 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56A3F62C19F1E500FDE726 /* HomeCoordinator.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD8B6BED2C15E4A8003AC671 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */; };
@@ -99,6 +100,7 @@
 		08B9656D2C1485D700BF95AA /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		08B965722C148AEC00BF95AA /* AuthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthType.swift; sourceTree = "<group>"; };
+		BD0A2D242C1A030800F5509E /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		BD56A3F62C19F1E500FDE726 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -444,8 +446,9 @@
 		BD8B6BF82C16AE76003AC671 /* Coordinator Test */ = {
 			isa = PBXGroup;
 			children = (
-				BD8B6BF62C16AAB8003AC671 /* TestVC.swift */,
 				BD8B6BEE2C1602E4003AC671 /* TestCoordinator.swift */,
+				BD8B6BF62C16AAB8003AC671 /* TestVC.swift */,
+				BD0A2D242C1A030800F5509E /* TestViewModel.swift */,
 			);
 			path = "Coordinator Test";
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				BD8B6BED2C15E4A8003AC671 /* Coordinator.swift in Sources */,
 				BD8B6BEF2C1602E4003AC671 /* TestCoordinator.swift in Sources */,
+				BD0A2D252C1A030800F5509E /* TestViewModel.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				BD56A3F72C19F1E500FDE726 /* HomeCoordinator.swift in Sources */,
 				08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */,

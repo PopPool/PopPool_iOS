@@ -11,9 +11,6 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-protocol HomeViewControllerDelegate {
-    func pushToNextViewController()
-}
 
 final class ViewController: UIViewController { // 상속 필요 없을시 Final 키워드 붙이기
     // MARK: - Properties
@@ -21,7 +18,6 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
     var viewModel: ViewControllerViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
-    var delegate: HomeViewControllerDelegate?
     
     var button: UIButton = {
         let button = UIButton()
@@ -29,7 +25,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
         return button
     }()
     
-    var testButton: UIButton = {
+    var moveToScreenButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .black
         return button
@@ -80,8 +76,8 @@ extension ViewController {
             make.center.equalToSuperview()
         }
         
-        view.addSubview(testButton)
-        testButton.snp.makeConstraints { make in
+        view.addSubview(moveToScreenButton)
+        moveToScreenButton.snp.makeConstraints { make in
             make.size.equalTo(100)
             make.centerX.equalToSuperview()
             make.top.equalTo(button.snp.bottom).offset(50)
@@ -90,14 +86,9 @@ extension ViewController {
     
     func setupBind() {
         
-        testButton.rx.tap.bind { _ in
-            print("버튼이 눌렸습니다.")
-            self.delegate?.pushToNextViewController()
-        }
-        .disposed(by: disposeBag)
-        
         let input = ViewControllerViewModel.Input(
-            didTapButton: button.rx.tap.asSignal()
+            didTapButton: button.rx.tap.asSignal(),
+            pushToNextScreen: moveToScreenButton.rx.tap.asSignal()
         )
         
         let output = viewModel.transform(input: input)

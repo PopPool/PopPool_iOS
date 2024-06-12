@@ -18,7 +18,8 @@ class HomeCoordinator: BaseCoordinator, HomeViewControllerDelegate {
         print("홈 화면 생성 필요")
         let homeViewModel = ViewControllerViewModel()
         let homeViewController = ViewController(viewModel: homeViewModel)
-        homeViewController.delegate = self
+//        homeViewController.delegate = self
+        homeViewModel.delegate = self
         
         navigationController.viewControllers = [homeViewController]
     }

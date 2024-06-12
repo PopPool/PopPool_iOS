@@ -1,8 +1,8 @@
 //
-//  ViewModel.swift
+//  TestViewModel.swift
 //  PopPool
 //
-//  Created by SeoJunYoung on 6/1/24.
+//  Created by Porori on 6/13/24.
 //
 
 import Foundation
@@ -11,15 +11,15 @@ import RxSwift
 import RxCocoa
 import KakaoSDKUser
 
-protocol HomeViewControllerDelegate {
-    func pushToNextViewController()
+protocol TestVCDelegate {
+    func popViewController()
 }
 
-final class ViewControllerViewModel: ViewModel {
+final class TestViewModel: ViewModel {
     
     struct Input {
         var didTapButton: Signal<Void>
-        var pushToNextScreen: Signal<Void>
+        var popButton: Signal<Void>
     }
     
     struct Output {
@@ -34,7 +34,7 @@ final class ViewControllerViewModel: ViewModel {
     
     var count: BehaviorRelay<Int> = .init(value: 0)
     
-    var delegate: HomeViewControllerDelegate?
+    var delegate: TestVCDelegate?
 
     // MARK: - Methods
     
@@ -47,8 +47,10 @@ final class ViewControllerViewModel: ViewModel {
         }
         .disposed(by: disposeBag)
         
-        input.pushToNextScreen.emit { [weak self] _ in
-            self?.handleTestTap()
+        input.popButton.emit { [weak self] _ in
+            guard let self = self else { return }
+            print("돌아가기 버튼이 눌렸습니다.")
+            self.delegate?.popViewController()
         }
         .disposed(by: disposeBag)
         
@@ -57,11 +59,10 @@ final class ViewControllerViewModel: ViewModel {
         )
     }
     
-    func handleTestTap() {
-        print("버튼이 눌렸습니다.")
-        delegate?.pushToNextViewController()
+    func handlePop() {
+        delegate?.popViewController()
     }
-        
+    
     func testProvider() {
         let requestDTO = TestRequestDTO(query: "cat")
         let endpoint = APIEndpoint.fetchData(with: requestDTO)
@@ -73,5 +74,6 @@ final class ViewControllerViewModel: ViewModel {
                 print(error)
             }
             .disposed(by: disposeBag)
+
     }
 }

@@ -16,9 +16,9 @@ class TestCoordinator: BaseCoordinator, TestVCDelegate {
     var delegate: TestCoordinatorDelegate?
     
     override func start() {
-        let viewModel = ViewControllerViewModel()
+        let viewModel = TestViewModel()
         let nextVC = TestVC(viewModel: viewModel)
-        nextVC.delegate = self
+        viewModel.delegate = self
         navigationController.pushViewController(nextVC, animated: true)
     }
     
