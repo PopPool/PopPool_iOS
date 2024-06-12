@@ -21,13 +21,15 @@ class TestVC: UIViewController {
     
     var button: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .green
+        button.backgroundColor = .red
+        button.setTitle("present", for: .normal)
         return button
     }()
     
     var popButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blue
+        button.setTitle("pop", for: .normal)
         return button
     }()
     
@@ -36,7 +38,7 @@ class TestVC: UIViewController {
     init(viewModel: TestViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +51,7 @@ extension TestVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .green
         setupConstraints()
         setupBind()
     }
@@ -87,17 +89,11 @@ extension TestVC {
     func setupBind() {
         
         let input = TestViewModel.Input(
-            didTapButton: button.rx.tap.asSignal(),
-            popButton: popButton.rx.tap.asSignal()
+            presentButtonTapped: button.rx.tap.asSignal(),
+            popButtonTapped: popButton.rx.tap.asSignal()
         )
         
         let output = viewModel.transform(input: input)
         
-        output.loadCount
-            .withUnretained(self)
-            .subscribe { owner, count in
-                owner.button.setTitle("\(count) Tap", for: .normal)
-            }
-            .disposed(by: disposeBag)
     }
 }

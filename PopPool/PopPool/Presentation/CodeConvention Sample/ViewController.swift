@@ -28,6 +28,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
     var moveToScreenButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .black
+        button.setTitle("next", for: .normal)
         return button
     }()
     
