@@ -9,7 +9,7 @@ import Foundation
 
 import RxSwift
 
-final class AuthRepositoryImpl {
+final class AuthRepositoryImpl: AuthRepository {
     
     var kakaoAuthService: KakaoAuthService
     var appleAuthService: AppleAuthService
