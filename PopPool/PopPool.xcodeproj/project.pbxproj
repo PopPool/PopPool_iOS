@@ -178,13 +178,21 @@
 			path = UserCredentialResponse;
 			sourceTree = "<group>";
 		};
-		082E43D62C19943400975B62 /* Interfaces */ = {
+		082E43D62C19943400975B62 /* AuthServices */ = {
 			isa = PBXGroup;
 			children = (
 				082E43D72C19944E00975B62 /* KakaoAuthService.swift */,
 				082E43D92C19945900975B62 /* AppleAuthService.swift */,
 			);
-			path = Interfaces;
+			path = AuthServices;
+			sourceTree = "<group>";
+		};
+		082E43DC2C19A11700975B62 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				082E43D62C19943400975B62 /* AuthServices */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		0851057A2C102E2B00ED7DBB /* Infrastructure */ = {
@@ -210,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				0851059F2C1038EB00ED7DBB /* AuthError.swift */,
-				082E43D62C19943400975B62 /* Interfaces */,
 				085105802C102F4600ED7DBB /* Services */,
 			);
 			path = AuthService;
@@ -219,6 +226,7 @@
 		0851057F2C102F3800ED7DBB /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				082E43DC2C19A11700975B62 /* Services */,
 				08B965992C1604DC00BF95AA /* Repositories */,
 				08B965712C148A3600BF95AA /* UseCase */,
 			);
