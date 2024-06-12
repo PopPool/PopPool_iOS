@@ -10,12 +10,12 @@ import Foundation
 import RxSwift
 import AuthenticationServices
 
-final class AppleAuthServiceImpl: NSObject, AuthService  {
+final class AppleAuthServiceImpl: NSObject, AppleAuthService  {
     
     // 사용자 자격 증명 정보를 방출할 subject
-    private var userCredentialObserver = PublishSubject<UserCredential>()
+    private var userCredentialObserver = PublishSubject<AppleUserCredentialResponse>()
     
-    func fetchUserCredential() -> Observable<UserCredential> {
+    func fetchUserCredential() -> Observable<AppleUserCredentialResponse> {
         performRequest()
         return userCredentialObserver
     }
@@ -48,16 +48,24 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            if let token = appleIDCredential.identityToken {
-                let id = appleIDCredential.user
-                guard let stringToken = String(data: token, encoding: .utf8) else { return }
-                // 성공적으로 사용자 자격 증명을 방출
-                userCredentialObserver.onNext(.init(id: id, token: stringToken))
-                userCredentialObserver.onCompleted()
-            } else {
+            guard let authorizationCode = appleIDCredential.authorizationCode,
+                  let idToken = appleIDCredential.identityToken 
+            else {
                 // 토큰이 없는 경우 오류 방출
                 userCredentialObserver.onError(AuthError.unknownError)
+                return
             }
+            
+            guard let authorizationCode = String(data: authorizationCode, encoding: .utf8),
+                  let idToken = String(data: idToken, encoding: .utf8)
+            else {
+                // 토큰이 없는 경우 오류 방출
+                userCredentialObserver.onError(AuthError.unknownError)
+                return
+            }
+            // 성공적으로 사용자 자격 증명을 방출
+            userCredentialObserver.onNext(.init(authorizationCode: authorizationCode, idToken: idToken))
+            userCredentialObserver.onCompleted()
         default:
             break
         }
