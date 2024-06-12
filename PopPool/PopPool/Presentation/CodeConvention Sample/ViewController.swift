@@ -11,13 +11,17 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
+protocol HomeViewControllerDelegate {
+    func pushToNextViewController()
+}
+
 final class ViewController: UIViewController { // 상속 필요 없을시 Final 키워드 붙이기
     // MARK: - Properties
     
     var viewModel: ViewControllerViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
-    weak var coordinator: MainCoordinator?
+    var delegate: HomeViewControllerDelegate?
     
     var button: UIButton = {
         let button = UIButton()
@@ -88,7 +92,7 @@ extension ViewController {
         
         testButton.rx.tap.bind { _ in
             print("버튼이 눌렸습니다.")
-            self.coordinator?.moveToSecondScreen()
+            self.delegate?.pushToNextViewController()
         }
         .disposed(by: disposeBag)
         

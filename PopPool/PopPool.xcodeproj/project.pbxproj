@@ -41,10 +41,10 @@
 		08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656D2C1485D700BF95AA /* AuthUseCase.swift */; };
 		08B965702C148A2300BF95AA /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */; };
 		08B965732C148AEC00BF95AA /* AuthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965722C148AEC00BF95AA /* AuthType.swift */; };
+		BD56A3F72C19F1E500FDE726 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56A3F62C19F1E500FDE726 /* HomeCoordinator.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
-		BD8B6BEA2C15E448003AC671 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BE92C15E448003AC671 /* Secrets.swift */; };
 		BD8B6BED2C15E4A8003AC671 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */; };
-		BD8B6BEF2C1602E4003AC671 /* ChildrenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BEE2C1602E4003AC671 /* ChildrenCoordinator.swift */; };
+		BD8B6BEF2C1602E4003AC671 /* TestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BEE2C1602E4003AC671 /* TestCoordinator.swift */; };
 		BD8B6BF32C160C1F003AC671 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BF22C160C1F003AC671 /* AppCoordinator.swift */; };
 		BD8B6BF72C16AAB8003AC671 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BF62C16AAB8003AC671 /* TestVC.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
@@ -99,10 +99,10 @@
 		08B9656D2C1485D700BF95AA /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08B9656F2C148A2300BF95AA /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		08B965722C148AEC00BF95AA /* AuthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthType.swift; sourceTree = "<group>"; };
+		BD56A3F62C19F1E500FDE726 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
-		BD8B6BE92C15E448003AC671 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		BD8B6BEE2C1602E4003AC671 /* ChildrenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenCoordinator.swift; sourceTree = "<group>"; };
+		BD8B6BEE2C1602E4003AC671 /* TestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoordinator.swift; sourceTree = "<group>"; };
 		BD8B6BF22C160C1F003AC671 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BD8B6BF62C16AAB8003AC671 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -275,7 +275,6 @@
 				087346192C0AAD2B00534FFA /* Assets.xcassets */,
 				0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */,
 				0873461E2C0AAD2B00534FFA /* Info.plist */,
-				BD8B6BE92C15E448003AC671 /* Secrets.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -423,13 +422,21 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		BD56A3F52C19F19E00FDE726 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		BD8B6BEB2C15E49D003AC671 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				BD8B6BF82C16AE76003AC671 /* Coordinator Test */,
-				BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */,
+				BD56A3F52C19F19E00FDE726 /* Support */,
 				BD8B6BF22C160C1F003AC671 /* AppCoordinator.swift */,
-				BD8B6BEE2C1602E4003AC671 /* ChildrenCoordinator.swift */,
+				BD56A3F62C19F1E500FDE726 /* HomeCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -438,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				BD8B6BF62C16AAB8003AC671 /* TestVC.swift */,
+				BD8B6BEE2C1602E4003AC671 /* TestCoordinator.swift */,
 			);
 			path = "Coordinator Test";
 			sourceTree = "<group>";
@@ -645,8 +653,9 @@
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				BD8B6BED2C15E4A8003AC671 /* Coordinator.swift in Sources */,
-				BD8B6BEF2C1602E4003AC671 /* ChildrenCoordinator.swift in Sources */,
+				BD8B6BEF2C1602E4003AC671 /* TestCoordinator.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
+				BD56A3F72C19F1E500FDE726 /* HomeCoordinator.swift in Sources */,
 				08B9656E2C1485D700BF95AA /* AuthUseCase.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
@@ -660,7 +669,6 @@
 				0851057E2C102F3300ED7DBB /* AuthService.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				08B965732C148AEC00BF95AA /* AuthType.swift in Sources */,
-				BD8B6BEA2C15E448003AC671 /* Secrets.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 			);

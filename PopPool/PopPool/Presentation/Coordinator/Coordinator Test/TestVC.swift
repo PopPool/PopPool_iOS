@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
+protocol TestVCDelegate {
+    func popViewController()
+}
+
 /// Coordinator를 테스트하기 위한 테스트용 VC입니다
 class TestVC: UIViewController {
     // MARK: - Properties
@@ -18,9 +22,15 @@ class TestVC: UIViewController {
     var viewModel: ViewControllerViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
-    weak var coordinator: ChildrenCoordinator?
+    var delegate: TestVCDelegate?
     
     var button: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .green
+        return button
+    }()
+    
+    var popButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
         return button
@@ -70,9 +80,23 @@ extension TestVC {
             make.size.equalTo(100)
             make.center.equalToSuperview()
         }
+        
+        view.addSubview(popButton)
+        popButton.snp.makeConstraints { make in
+            make.size.equalTo(100)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(button.snp.bottom).offset(50)
+        }
     }
     
     func setupBind() {
+        
+        popButton.rx.tap.bind { _ in
+            print("돌아가기 버튼이 눌렸습니다.")
+            self.delegate?.popViewController()
+        }
+        .disposed(by: disposeBag)
+        
         
         let input = ViewControllerViewModel.Input(
             didTapButton: button.rx.tap.asSignal()

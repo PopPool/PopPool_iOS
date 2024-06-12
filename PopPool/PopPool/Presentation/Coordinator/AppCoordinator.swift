@@ -30,27 +30,29 @@ class AppCoordinator: BaseCoordinator {
             // let rootViewModel = ViewControllerViewModel()
             // let root = ViewController(viewModel: rootViewModel)
             // root.coordinator = self
-
-        let coordinator = MainCoordinator(navigationController: navigationController)
-        moveToChild(coordinator: coordinator)
+        showHomeScreen()
+    }
+    
+    func showHomeScreen() {
+        let coordinator = HomeCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        coordinator.start()
+        childCoordinator.append(coordinator)
     }
 }
 
-/// 첫 화면의 transition을 담당하는 MainCoordinator입니다
-class MainCoordinator: BaseCoordinator {
-    
-    // 지정한 ViewController를 navigationConstroller로 올려둡니다
-    override func start() {
-        let rootViewModel = ViewControllerViewModel()
-        let rootVC = ViewController(viewModel: rootViewModel)
-        rootVC.coordinator = self
-        navigationController.pushViewController(rootVC, animated: false)
-    }
-    
-    // 지정한 ViewController로 이동합니다
-    func moveToSecondScreen() {
-        removeChildCoordinators()
-        let coordinator = ChildrenCoordinator(navigationController: navigationController)
-        moveToChild(coordinator: coordinator)
+extension AppCoordinator: HomeCoordinatorDelegate {
+        func pushToNextViewController() {
+            let coordinator = TestCoordinator(navigationController: navigationController)
+            coordinator.delegate = self
+            coordinator.start()
+            childCoordinator.append(coordinator)
+        }
+}
+
+extension AppCoordinator: TestCoordinatorDelegate {
+    func popViewController() {
+        navigationController.popViewController(animated: true)
+        childCoordinator.removeLast()
     }
 }

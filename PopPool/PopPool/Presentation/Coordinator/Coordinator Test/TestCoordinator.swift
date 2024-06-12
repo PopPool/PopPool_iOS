@@ -7,18 +7,22 @@
 
 import UIKit
 
-class ChildrenCoordinator: BaseCoordinator {
+protocol TestCoordinatorDelegate {
+    func popViewController()
+}
+
+class TestCoordinator: BaseCoordinator, TestVCDelegate {
+    
+    var delegate: TestCoordinatorDelegate?
     
     override func start() {
         let viewModel = ViewControllerViewModel()
         let nextVC = TestVC(viewModel: viewModel)
-        nextVC.coordinator = self
+        nextVC.delegate = self
         navigationController.pushViewController(nextVC, animated: true)
     }
     
-    func pushToChild() {
-        removeChildCoordinators()
-        let coordinator = ChildrenCoordinator(navigationController: navigationController)
-        moveToChild(coordinator: coordinator)
+    func popViewController() {
+        delegate?.popViewController()
     }
 }
