@@ -30,27 +30,44 @@ class AppCoordinator: BaseCoordinator {
             // let rootViewModel = ViewControllerViewModel()
             // let root = ViewController(viewModel: rootViewModel)
             // root.coordinator = self
-
-        let coordinator = MainCoordinator(navigationController: navigationController)
-        moveToChild(coordinator: coordinator)
+        showHomeScreen()
+    }
+    
+    func showHomeScreen() {
+        let coordinator = HomeCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        coordinator.start()
+        childCoordinator.append(coordinator)
     }
 }
 
-/// 첫 화면의 transition을 담당하는 MainCoordinator입니다
-class MainCoordinator: BaseCoordinator {
-    
-    // 지정한 ViewController를 navigationConstroller로 올려둡니다
-    override func start() {
-        let rootViewModel = ViewControllerViewModel()
-        let rootVC = ViewController(viewModel: rootViewModel)
-        rootVC.coordinator = self
-        navigationController.pushViewController(rootVC, animated: false)
+extension AppCoordinator: HomeCoordinatorDelegate {
+
+    /// ViewController에서 지정된 다음 화면으로 push하는 메서드입니다
+    func pushToNextViewController() {
+        let coordinator = TestCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        coordinator.start()
+        childCoordinator.append(coordinator)
     }
-    
-    // 지정한 ViewController로 이동합니다
-    func moveToSecondScreen() {
-        removeChildCoordinators()
-        let coordinator = ChildrenCoordinator(navigationController: navigationController)
-        moveToChild(coordinator: coordinator)
+}
+
+extension AppCoordinator: TestCoordinatorDelegate {
+
+    /// 이전 화면으로 되돌아갑니다
+    /// navigation stack에서 화면을 pop하는 방식입니다
+    func popViewController() {
+        navigationController.popViewController(animated: true)
+        childCoordinator.removeLast()
+    }
+
+    /// 지정한 Coordinator를 모달 방식으로 보여줍니다
+    /// 모달 방식이기에 navigationStack에 직접적으로 올라가지 않습니다
+    /// coordinator.presentStart() 참조
+    func presentViewController() {
+        let coordinator = HomeCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        coordinator.presentStart()
+        childCoordinator.append(coordinator)
     }
 }
