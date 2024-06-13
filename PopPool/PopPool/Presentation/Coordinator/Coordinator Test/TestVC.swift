@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
+/// Coordinator를 테스트하기 위한 테스트용 VC입니다
 class TestVC: UIViewController {
     // MARK: - Properties
     

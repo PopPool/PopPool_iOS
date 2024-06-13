@@ -14,8 +14,12 @@ protocol TestVCDelegate {
     func presentViewController()
 }
 
+
 final class TestViewModel: ViewModel {
 
+    /// TestViewModel의 Input 데이터입니다
+    /// 모달 방식으로 화면을 띄워주는 action과
+    /// 화면을 내리는 action을 테스트하는 input입니다
     struct Input {
         var presentButtonTapped: Signal<Void>
         var popButtonTapped: Signal<Void>

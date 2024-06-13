@@ -43,6 +43,7 @@ class AppCoordinator: BaseCoordinator {
 
 extension AppCoordinator: HomeCoordinatorDelegate {
 
+    /// ViewController에서 지정된 다음 화면으로 push하는 메서드입니다
     func pushToNextViewController() {
         let coordinator = TestCoordinator(navigationController: navigationController)
         coordinator.delegate = self
@@ -53,11 +54,16 @@ extension AppCoordinator: HomeCoordinatorDelegate {
 
 extension AppCoordinator: TestCoordinatorDelegate {
 
+    /// 이전 화면으로 되돌아갑니다
+    /// navigation stack에서 화면을 pop하는 방식입니다
     func popViewController() {
         navigationController.popViewController(animated: true)
         childCoordinator.removeLast()
     }
 
+    /// 지정한 Coordinator를 모달 방식으로 보여줍니다
+    /// 모달 방식이기에 navigationStack에 직접적으로 올라가지 않습니다
+    /// coordinator.presentStart() 참조
     func presentViewController() {
         let coordinator = HomeCoordinator(navigationController: navigationController)
         coordinator.delegate = self
