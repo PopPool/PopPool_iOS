@@ -52,6 +52,7 @@
 		BD2418B52C1ACD0800F2FF14 /* TestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2418B42C1ACD0800F2FF14 /* TestCoordinator.swift */; };
 		BD2418B72C1ACDE700F2FF14 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2418B62C1ACDE700F2FF14 /* TestViewModel.swift */; };
 		BD2418BA2C1ACE3400F2FF14 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2418B92C1ACE3400F2FF14 /* HomeCoordinator.swift */; };
+		BD2E90F52C1B17C200BB0313 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2E90F42C1B17C200BB0313 /* Keychain.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD8B6BEA2C15E448003AC671 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BE92C15E448003AC671 /* Secrets.swift */; };
 		BD8B6BED2C15E4A8003AC671 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */; };
@@ -120,6 +121,7 @@
 		BD2418B42C1ACD0800F2FF14 /* TestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoordinator.swift; sourceTree = "<group>"; };
 		BD2418B62C1ACDE700F2FF14 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		BD2418B92C1ACE3400F2FF14 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		BD2E90F42C1B17C200BB0313 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD8B6BE92C15E448003AC671 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD8B6BEC2C15E4A8003AC671 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -465,6 +467,14 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		BD2E90F32C1B17B800BB0313 /* Gateway */ = {
+			isa = PBXGroup;
+			children = (
+				BD2E90F42C1B17C200BB0313 /* Keychain.swift */,
+			);
+			path = Gateway;
+			sourceTree = "<group>";
+		};
 		BD4D31DD2C0C556C00E53195 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +524,7 @@
 		BDD335092C0B1653002C2295 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BD2E90F32C1B17B800BB0313 /* Gateway */,
 				08B965962C16026A00BF95AA /* Repositories */,
 				BDD3350A2C0B1660002C2295 /* Network */,
 			);
@@ -717,6 +728,7 @@
 				08B965952C1601ED00BF95AA /* KakaoLoginRequestDTO.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
+				BD2E90F52C1B17C200BB0313 /* Keychain.swift in Sources */,
 				BDF3B2B42C0BF7B800B079C5 /* TestRequestDTO.swift in Sources */,
 				BD8B6BED2C15E4A8003AC671 /* Coordinator.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
