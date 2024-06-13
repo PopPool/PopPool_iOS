@@ -17,7 +17,7 @@ final class TryLoginUseCaseImpl: TryLoginUseCase {
         self.authRepository = authRepository
     }
     
-    func execute(with type: SocialType, userCredential: UserCredential) -> Observable<LoginResponseDTO> {
-        return authRepository.tryLogin(with: type, userCredential: userCredential)
+    func execute(with request: KakaoUserCredentialResponse) -> Observable<LoginResponseDTO> {
+        return authRepository.tryLogin(with: request)
     }
 }

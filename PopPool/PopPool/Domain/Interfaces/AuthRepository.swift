@@ -11,21 +11,23 @@ import RxSwift
 
 protocol AuthRepository {
     
-    /// 소셜 인증 서비스를 담고 있는 딕셔너리
-    var services: [SocialType: AuthService] { get set }
-    
+    /// Kakao 소셜 인증 서비스
+    var kakaoAuthService: KakaoAuthService { get set }
+    /// Apple 소셜 인증 서비스
+    var appleAuthService: AppleAuthService { get set }
     /// 데이터를 제공하는 Provider
     var provider: Provider { get set }
     
     /// 사용자 자격 증명을 가져오는 함수
-    /// - Parameter type: 소셜 유형
-    /// - Returns: Observable<UserCredential> 형태의 사용자 자격 증명
-    func fetchUserCredential(from type: SocialType) -> Observable<UserCredential>
+    /// - Returns: KakaoUserCredentialResponseDTO 형태의 사용자 자격 증명
+    func fetchUserCredentialFromKakao() -> Observable<KakaoUserCredentialResponse>
     
-    /// 사용자 자격 증명을 사용하여 로그인 시도
-    /// - Parameters:
-    ///   - socialType: 소셜 유형
-    ///   - userCredential: 사용자 자격 증명
-    /// - Returns: Observable<LoginResponseDTO> 형태의 로그인 응답
-    func tryLogin(with socialType: SocialType, userCredential: UserCredential) -> Observable<LoginResponseDTO>
+    /// 사용자 자격 증명을 가져오는 함수
+    /// - Returns: AppleUserCredentialResponseDTO 형태의 사용자 자격 증명
+    func fetchUserCredentialFromApple() -> Observable<AppleUserCredentialResponse>
+    
+    /// KakaoUserCredentialResponseDTO와 함께 로그인을 시도합니다.
+    /// - Parameter request: KakaoUserCredentialResponseDTO 형태의 사용자 자격 증명
+    /// - Returns: LoginResponseDTO 형태의 로그인 응답
+    func tryLogin(with request: KakaoUserCredentialResponse) -> Observable<LoginResponseDTO>
 }
