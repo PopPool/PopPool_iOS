@@ -11,27 +11,33 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-/// Coordinator를 테스트하기 위한 테스트용 VC입니다
 class TestVC: UIViewController {
     // MARK: - Properties
     
-    var viewModel: ViewControllerViewModel
+    var viewModel: TestViewModel
     var provider = ProviderImpl()
     var disposeBag = DisposeBag()
-    weak var coordinator: ChildrenCoordinator?
     
     var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
+        button.setTitle("present", for: .normal)
+        return button
+    }()
+
+    var popButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .blue
+        button.setTitle("pop", for: .normal)
         return button
     }()
     
     // MARK: - init
 
-    init(viewModel: ViewControllerViewModel) {
+    init(viewModel: TestViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +50,7 @@ extension TestVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .green
         setupConstraints()
         setupBind()
     }
@@ -70,21 +76,22 @@ extension TestVC {
             make.size.equalTo(100)
             make.center.equalToSuperview()
         }
+
+        view.addSubview(popButton)
+        popButton.snp.makeConstraints { make in
+            make.size.equalTo(100)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(button.snp.bottom).offset(50)
+        }
     }
     
     func setupBind() {
         
-        let input = ViewControllerViewModel.Input(
-            didTapButton: button.rx.tap.asSignal()
+        let input = TestViewModel.Input(
+            presentButtonTapped: button.rx.tap.asSignal(),
+            popButtonTapped: popButton.rx.tap.asSignal()
         )
         
         let output = viewModel.transform(input: input)
-        
-        output.loadCount
-            .withUnretained(self)
-            .subscribe { owner, count in
-                owner.button.setTitle("\(count) Tap", for: .normal)
-            }
-            .disposed(by: disposeBag)
     }
 }

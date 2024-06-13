@@ -11,10 +11,15 @@ import RxSwift
 import RxCocoa
 import KakaoSDKUser
 
+protocol HomeViewControllerDelegate {
+    func pushToNextViewController()
+}
+
 final class ViewControllerViewModel: ViewModel {
     
     struct Input {
         var didTapButton: Signal<Void>
+        var pushToNextScreen: Signal<Void>
     }
     
     struct Output {
@@ -28,6 +33,8 @@ final class ViewControllerViewModel: ViewModel {
     var disposeBag = DisposeBag()
     
     var count: BehaviorRelay<Int> = .init(value: 0)
+    
+    var delegate: HomeViewControllerDelegate?
 
     // MARK: - Methods
     
@@ -40,10 +47,20 @@ final class ViewControllerViewModel: ViewModel {
         }
         .disposed(by: disposeBag)
         
+        input.pushToNextScreen.emit { [weak self] _ in
+            self?.handleTestTap()
+        }
+        .disposed(by: disposeBag)
+        
         return Output(
             loadCount: self.count
         )
     }
+    
+    func handleTestTap() {
+            print("버튼이 눌렸습니다.")
+            delegate?.pushToNextViewController()
+        }
     
     func testProvider() {
         let requestDTO = TestRequestDTO(query: "cat")
