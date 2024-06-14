@@ -8,6 +8,8 @@
 import Foundation
 import RxSwift
 
+/// 키체인에 저장하는 usecase입니다
+/// 저장 메서드를 실행합니다
 class SaveToKeychainUseCase {
     private let keychaingRepository: KeyChainRepository
     

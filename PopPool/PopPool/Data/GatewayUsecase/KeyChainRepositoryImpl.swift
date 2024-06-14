@@ -15,6 +15,13 @@ enum KeychainError: Error {
 }
 
 class KeyChainRepositoryImpl: KeyChainRepository {
+    /// 키체인에 데이터를 저장하는 메서드입니다
+    /// - Parameters:
+    ///   - key: keychain에 데이터를 저장할 때 사용하는 키 값입니다.
+    ///   임의로 지정을 할 수 있습니다
+    ///   - value: keychain에 저장할 데이터 값을 받습니다.
+    ///   사용자의 비밀번호 등이 될 수 있습니다
+    /// - Returns: 저장의 경우 별도로 반환하는 값이 없어 Completable을 반환합니다.
     func save(key: String, value: String) -> RxSwift.Completable {
         return Completable.create { complete in
             guard let data = value.data(using: .utf8) else {
