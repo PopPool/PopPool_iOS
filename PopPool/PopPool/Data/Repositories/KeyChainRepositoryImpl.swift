@@ -9,6 +9,7 @@ import Foundation
 import Security
 import RxSwift
 
+// 추후 폴더링 변경
 enum KeychainError: Error {
     case dataConversionError(String)
     case duplicateItem(String)
@@ -17,7 +18,7 @@ enum KeychainError: Error {
     case noData(String)
 }
 
-class KeyChainRepositoryImpl: KeyChainRepository {
+final class KeyChainRepositoryImpl: KeyChainRepository {
     /// 키체인에 데이터를 저장하는 메서드입니다
     /// - Parameters:
     ///   - key: keychain에 데이터를 저장할 때 사용하는 키 값입니다.
@@ -25,9 +26,9 @@ class KeyChainRepositoryImpl: KeyChainRepository {
     ///   - value: keychain에 저장할 데이터 값을 받습니다.
     ///   사용자의 비밀번호 등이 될 수 있습니다
     /// - Returns: 저장의 경우 별도로 반환하는 값이 없어 Completable을 반환합니다.
-    func save(id: String, token: String) -> Completable {
+    func save(id: String, key: String) -> Completable {
         return Completable.create { complete in
-            guard let storedToken = token.data(using: .utf8) else {
+            guard let storedToken = key.data(using: .utf8) else {
                 complete(.error(KeychainError.dataConversionError("데이터를 변환하는데 실패했습니다.")))
                 return Disposables.create()
             }
@@ -54,7 +55,7 @@ class KeyChainRepositoryImpl: KeyChainRepository {
     /// 저장된 token 값을 호출하는 메서드입니다
     /// - Parameter key: 토큰 값을 query하기 위한 유저 id값을 받습니다
     /// - Returns: 해당 id의 토큰을 반환합니다
-    func fetchSavedToken(id: String) -> Single<String?> {
+    func fetchSavedToken(id: String) -> Single<String> {
         return Single.create { singleData in
             let query: [String: Any] = [
                 kSecClass as String: kSecClassGenericPassword,
@@ -81,8 +82,12 @@ class KeyChainRepositoryImpl: KeyChainRepository {
             }
             
             // 변형된 Data를 String 타입으로 변환하여 반환합니다
-            let jwtToken = String(data: data, encoding: .utf8)
-            singleData(.success(jwtToken))
+            guard let unwrappedJwtToken = String(data: data, encoding: .utf8) else {
+                singleData(.failure(KeychainError.dataConversionError("String으로 변환을 실패했습니다.")))
+                return Disposables.create()
+            }
+            
+            singleData(.success(unwrappedJwtToken))
             return Disposables.create()
         }
     }
