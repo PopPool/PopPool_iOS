@@ -59,7 +59,7 @@
 		BD8B6BF72C16AAB8003AC671 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B6BF62C16AAB8003AC671 /* TestVC.swift */; };
 		BDB682532C1C308500560E7B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682522C1C308500560E7B /* Secrets.swift */; };
 		BDB682552C1C316000560E7B /* KeyChainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* KeyChainRepository.swift */; };
-		BDB682572C1C35C000560E7B /* KeychainUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682562C1C35C000560E7B /* KeychainUsecase.swift */; };
+		BDB682572C1C35C000560E7B /* KeychainUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682562C1C35C000560E7B /* KeychainUsecases.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
@@ -130,7 +130,7 @@
 		BD8B6BF62C16AAB8003AC671 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		BDB682522C1C308500560E7B /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* KeyChainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainRepository.swift; sourceTree = "<group>"; };
-		BDB682562C1C35C000560E7B /* KeychainUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUsecase.swift; sourceTree = "<group>"; };
+		BDB682562C1C35C000560E7B /* KeychainUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUsecases.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
@@ -450,7 +450,6 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				BDB682542C1C316000560E7B /* KeyChainRepository.swift */,
 				08B965972C16034E00BF95AA /* AuthRepositoryImpl.swift */,
 			);
 			path = Repositories;
@@ -459,6 +458,7 @@
 		08B965992C1604DC00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				BDB682542C1C316000560E7B /* KeyChainRepository.swift */,
 				08B9659A2C1604E900BF95AA /* AuthRepository.swift */,
 			);
 			name = Repositories;
@@ -472,13 +472,13 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		BD2E90F32C1B17B800BB0313 /* GatewayUsecase */ = {
+		BD2E90F32C1B17B800BB0313 /* Gateway */ = {
 			isa = PBXGroup;
 			children = (
 				BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */,
-				BDB682562C1C35C000560E7B /* KeychainUsecase.swift */,
+				BDB682562C1C35C000560E7B /* KeychainUsecases.swift */,
 			);
-			path = GatewayUsecase;
+			path = Gateway;
 			sourceTree = "<group>";
 		};
 		BD4D31DD2C0C556C00E53195 /* DTO */ = {
@@ -530,7 +530,7 @@
 		BDD335092C0B1653002C2295 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				BD2E90F32C1B17B800BB0313 /* GatewayUsecase */,
+				BD2E90F32C1B17B800BB0313 /* Gateway */,
 				08B965962C16026A00BF95AA /* Repositories */,
 				BDD3350A2C0B1660002C2295 /* Network */,
 			);
@@ -728,7 +728,7 @@
 				BDF3B2B62C0BF81600B079C5 /* TestResponseDTO.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				082E43D32C198E8600975B62 /* KakaoUserCredentialResponse.swift in Sources */,
-				BDB682572C1C35C000560E7B /* KeychainUsecase.swift in Sources */,
+				BDB682572C1C35C000560E7B /* KeychainUsecases.swift in Sources */,
 				08B965982C16034E00BF95AA /* AuthRepositoryImpl.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
