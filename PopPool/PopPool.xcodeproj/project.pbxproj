@@ -573,6 +573,26 @@
 			path = "Coordinator Test";
 			sourceTree = "<group>";
 		};
+		BD928DD92C1DBC4C00D5830E /* KeyChainUsecase */ = {
+			isa = PBXGroup;
+			children = (
+				BD928DE02C1DCF1100D5830E /* SaveToKeychainUsecaseImpl.swift */,
+				BD928DE22C1DCF5D00D5830E /* FetchKeychainUsecaseImpl.swift */,
+				BDB682562C1C35C000560E7B /* DeleteKeychainUsecasesImpl.swift */,
+			);
+			path = KeyChainUsecase;
+			sourceTree = "<group>";
+		};
+		BD928DE42C1DD00800D5830E /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				BD928DDC2C1DCAE200D5830E /* SaveToKeychainUsecase.swift */,
+				BD928DDE2C1DCB8100D5830E /* FetchKeychainUseCase.swift */,
+				BD928DE52C1DD08800D5830E /* DeleteKeychainUsecase.swift */,
+			);
+			name = Keychain;
+			sourceTree = "<group>";
+		};
 		BDD335092C0B1653002C2295 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +797,7 @@
 				087A68AD2C1EC7E600CF3631 /* DeleteFromKeyChainUseCase.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				082E43D32C198E8600975B62 /* KakaoUserCredentialResponse.swift in Sources */,
+				BDB682572C1C35C000560E7B /* DeleteKeychainUsecasesImpl.swift in Sources */,
 				08B965982C16034E00BF95AA /* AuthRepositoryImpl.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
@@ -797,6 +818,7 @@
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				BD8B6BF72C16AAB8003AC671 /* TestVC.swift in Sources */,
 				BDF3B2B22C0BF6B300B079C5 /* APIEndpoint.swift in Sources */,
+				BD928DE12C1DCF1100D5830E /* SaveToKeychainUsecaseImpl.swift in Sources */,
 				08B9659D2C16061400BF95AA /* TryLoginUseCaseImpl.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
 				082E43D52C198E9D00975B62 /* AppleUserCredentialResponse.swift in Sources */,
