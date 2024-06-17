@@ -53,25 +53,6 @@ extension AppDelegate {
         )
         
         container.register(
-            type: KakaoAuthService.self,
-            component: KakaoAuthServiceImpl()
-        )
-        
-        container.register(
-            type: AppleAuthService.self,
-            component: AppleAuthServiceImpl()
-        )
-        
-        container.register(
-            type: AuthRepository.self,
-            component: AuthRepositoryImpl(
-                kakaoAuthService: container.resolve(type: KakaoAuthService.self),
-                appleAuthService: container.resolve(type: AppleAuthService.self),
-                provider: container.resolve(type: Provider.self)
-            )
-        )
-        
-        container.register(
             type: KeyChainRepository.self,
             component: KeyChainRepositoryImpl()
         )

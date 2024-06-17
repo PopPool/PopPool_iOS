@@ -10,18 +10,8 @@ import Foundation
 import RxSwift
 
 final class FetchUserCredentialUseCaseImpl: FetchUserCredentialUseCase {
-
-    var authRepository: AuthRepository
     
-    init(authRepository: AuthRepository) {
-        self.authRepository = authRepository
-    }
-    
-    func executeFromKakao() -> Observable<KakaoUserCredentialResponse> {
-        return authRepository.fetchUserCredentialFromKakao()
-    }
-    
-    func executeFromApple() -> Observable<AppleUserCredentialResponse> {
-        return authRepository.fetchUserCredentialFromApple()
+    func execute<T>(service: T) -> Observable<T.Response> where T : AuthService {
+        return service.fetchUserCredential()
     }
 }
