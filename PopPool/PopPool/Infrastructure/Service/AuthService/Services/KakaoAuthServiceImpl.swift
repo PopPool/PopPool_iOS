@@ -10,17 +10,22 @@ import Foundation
 import KakaoSDKUser
 import RxSwift
 
-final class KakaoAuthServiceImpl: KakaoAuthService {
+final class KakaoAuthServiceImpl: AuthService {
+    
+    struct Response {
+        var id: String
+        var token: String
+    }
     
     private let disposeBag = DisposeBag()
     
-    func fetchUserCredential() -> Observable<KakaoUserCredentialResponse> {
+    func fetchUserCredential() -> Observable<Response> {
         
         return fetchToken()
             .flatMap { token in
                 self.fetchUserID()
                     .map { id in
-                        return KakaoUserCredentialResponse(id: id, token: token)
+                        return Response(id: id, token: token)
                     }
             }.catch { error in
                 Observable.error(error)

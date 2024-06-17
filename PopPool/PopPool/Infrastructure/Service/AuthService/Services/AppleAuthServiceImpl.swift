@@ -10,12 +10,17 @@ import Foundation
 import RxSwift
 import AuthenticationServices
 
-final class AppleAuthServiceImpl: NSObject, AppleAuthService  {
+final class AppleAuthServiceImpl: NSObject, AuthService  {
+    
+    struct Response {
+        var authorizationCode: String
+        var idToken: String
+    }
     
     // 사용자 자격 증명 정보를 방출할 subject
-    private var userCredentialObserver = PublishSubject<AppleUserCredentialResponse>()
+    private var userCredentialObserver = PublishSubject<Response>()
     
-    func fetchUserCredential() -> Observable<AppleUserCredentialResponse> {
+    func fetchUserCredential() -> Observable<Response> {
         performRequest()
         return userCredentialObserver
     }
