@@ -84,10 +84,5 @@ extension AppDelegate {
             type: Provider.self,
             component: ProviderImpl()
         )
-        
-        container.register(
-            type: KeyChainRepository.self,
-            component: KeyChainRepositoryImpl()
-        )
     }
 }
