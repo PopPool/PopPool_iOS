@@ -8,15 +8,18 @@
 import Foundation
 
 struct PopPoolAPIEndPoint {
+    
     /// 요청할 API 구조를 구성합니다
-    /// - Parameter requestDTO: 요청하고자 하는 데이터 모델을 담습니다
-    /// - Returns: 해당 요청의 응답 데이터를 받습니다
-    static func tryKakaoLogin(with requestDTO: KakaoLoginRequestDTO) -> Endpoint<LoginResponseDTO> {
+    /// - Parameters:
+    ///   - userCredential: 사용자 자격 증명
+    ///   - path: API 경로
+    /// - Returns: 로그인 응답 DTO를 반환하는 Endpoint
+    static func tryLogin(with userCredential: Encodable, path: String) -> Endpoint<LoginResponseDTO> {
         return Endpoint(
             baseURL: "",
-            path: "/oauth/kakao/login",
+            path: "/oauth/\(path)/login",
             method: .post,
-            bodyParameters: requestDTO
+            bodyParameters: userCredential
         )
     }
 }
