@@ -29,13 +29,27 @@ final class ViewControllerViewModel: ViewModel {
     var provider = ProviderImpl()
     
     // MARK: - Properties
-
+    
     var disposeBag = DisposeBag()
     
     var count: BehaviorRelay<Int> = .init(value: 0)
     
     var delegate: HomeViewControllerDelegate?
-
+    
+    var fetchUserCredentialUseCase: FetchUserCredentialUseCase
+    
+    var authUseCase: AuthUseCase
+    
+    init() {
+        self.fetchUserCredentialUseCase = AppDIContainer.shared.resolve(
+            type: FetchUserCredentialUseCase.self,
+            identifier: SocialType.apple.rawValue
+        )
+        
+        self.authUseCase = AppDIContainer.shared.resolve(
+            type: AuthUseCase.self
+        )
+    }
     // MARK: - Methods
     
     func transform(input: Input) -> Output {
@@ -43,7 +57,7 @@ final class ViewControllerViewModel: ViewModel {
         input.didTapButton.emit { [weak self] _ in
             guard let self = self else { return }
             self.count.accept(self.count.value + 1)
-            testProvider()
+            testLogin()
         }
         .disposed(by: disposeBag)
         
@@ -58,21 +72,25 @@ final class ViewControllerViewModel: ViewModel {
     }
     
     func handleTestTap() {
-            print("버튼이 눌렸습니다.")
-            delegate?.pushToNextViewController()
-        }
+        print("버튼이 눌렸습니다.")
+        delegate?.pushToNextViewController()
+    }
     
-    func testProvider() {
-        let requestDTO = TestRequestDTO(query: "cat")
-        let endpoint = APIEndpoint.fetchData(with: requestDTO)
-        
-        provider.requestData(with: endpoint)
-            .subscribe { data in
-                print(data)
+    func testLogin() {
+        fetchUserCredentialUseCase.execute()
+            .withUnretained(self)
+            .subscribe { (owner, userCredential) in
+                owner.authUseCase
+                    .tryLogIn(userCredential: userCredential, socialType: SocialType.apple.rawValue)
+                    .subscribe { loginResponse in
+                        print(loginResponse)
+                    } onError: { error in
+                        print(error)
+                    }
+                    .disposed(by: owner.disposeBag)
             } onError: { error in
                 print(error)
             }
             .disposed(by: disposeBag)
-
     }
 }

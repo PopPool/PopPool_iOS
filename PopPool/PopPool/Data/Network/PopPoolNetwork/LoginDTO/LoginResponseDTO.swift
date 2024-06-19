@@ -2,7 +2,7 @@
 //  LoginResponseDTO.swift
 //  PopPool
 //
-//  Created by SeoJunYoung on 6/10/24.
+//  Created by SeoJunYoung on 6/19/24.
 //
 
 import Foundation
@@ -15,4 +15,18 @@ struct LoginResponseDTO: Decodable {
     var accessTokenExpiresIn: Int
     var refreshTokenExpiresIn: Int
     var socialType: String
+}
+
+extension LoginResponseDTO {
+    func toDomain() -> LoginResponse {
+        return .init(
+            userId: userId,
+            grantType: grantType,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            accessTokenExpiresIn: accessTokenExpiresIn, 
+            refreshTokenExpiresIn: refreshTokenExpiresIn,
+            socialType: socialType
+        )
+    }
 }
