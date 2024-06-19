@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeyChainAccount: String {
+enum SecureUserAccount: String {
     case accessToken = "accessToken"
     case refreshToken = "refreshToken"
 }
