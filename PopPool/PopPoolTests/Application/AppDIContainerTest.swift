@@ -45,7 +45,6 @@ final class AppDIContainerTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        AppDIContainer.shared.register(type: Animal.self, component: Dog(name: "백구"))
     }
     
     override func tearDown() {
@@ -54,6 +53,7 @@ final class AppDIContainerTest: XCTestCase {
     
     /// Dog 인스턴스 등록 후 반환 값 확인
     func testAppDIContainer() {
+        AppDIContainer.shared.register(type: Animal.self, component: Dog(name: "백구"))
         let dog = AppDIContainer.shared.resolve(type: Animal.self)
         XCTAssertTrue(dog.name == "백구")
     }
@@ -63,5 +63,14 @@ final class AppDIContainerTest: XCTestCase {
         AppDIContainer.shared.register(type: Animal.self, component: Cat(name: "나비"))
         let cat = AppDIContainer.shared.resolve(type: Animal.self)
         XCTAssertTrue(cat.name == "나비")
+    }
+    
+    /// 식별자로 강아지, 고양이 등록후 반환 값 확인
+    func testIdentifier() {
+        AppDIContainer.shared.register(type: Animal.self, identifier: "강아지", component: Dog(name: "백구"))
+        AppDIContainer.shared.register(type: Animal.self, identifier: "고양이", component: Cat(name: "나비"))
+        let dog = AppDIContainer.shared.resolve(type: Animal.self, identifier: "강아지")
+        let cat = AppDIContainer.shared.resolve(type: Animal.self, identifier: "고양이")
+        XCTAssertTrue(cat.name == "나비" && dog.name == "백구")
     }
 }
