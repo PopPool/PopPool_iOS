@@ -12,14 +12,14 @@ import RxSwift
 
 final class KakaoAuthServiceImpl: AuthService {
     
-    struct Response {
+    struct Response: Encodable {
         var id: String
         var token: String
     }
     
     private let disposeBag = DisposeBag()
     
-    func fetchUserCredential() -> Observable<Response> {
+    func fetchUserCredential() -> Observable<Encodable> {
         
         return fetchToken()
             .flatMap { token in

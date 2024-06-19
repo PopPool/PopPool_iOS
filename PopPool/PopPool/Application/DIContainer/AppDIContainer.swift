@@ -84,5 +84,17 @@ extension AppDelegate {
             type: Provider.self,
             component: ProviderImpl()
         )
+        
+        container.register(
+            type: FetchUserCredentialUseCase.self,
+            identifier: "Apple",
+            component: FetchUserCredentialUseCaseImpl(service: AppleAuthServiceImpl())
+        )
+        
+        container.register(
+            type: FetchUserCredentialUseCase.self,
+            identifier: "Kakao",
+            component: FetchUserCredentialUseCaseImpl(service: KakaoAuthServiceImpl())
+        )
     }
 }
