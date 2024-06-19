@@ -11,7 +11,13 @@ import RxSwift
 
 final class FetchUserCredentialUseCaseImpl: FetchUserCredentialUseCase {
     
-    func execute<T>(service: T) -> Observable<T.Response> where T : AuthService {
+    var service: any AuthService
+    
+    init(service: any AuthService) {
+        self.service = service
+    }
+
+    func execute() -> Observable<Encodable> {
         return service.fetchUserCredential()
     }
 }

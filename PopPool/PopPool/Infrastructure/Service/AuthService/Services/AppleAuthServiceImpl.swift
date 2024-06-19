@@ -12,7 +12,7 @@ import AuthenticationServices
 
 final class AppleAuthServiceImpl: NSObject, AuthService  {
     
-    struct Response {
+    struct Response: Encodable {
         var authorizationCode: String
         var idToken: String
     }
@@ -20,9 +20,11 @@ final class AppleAuthServiceImpl: NSObject, AuthService  {
     // 사용자 자격 증명 정보를 방출할 subject
     private var userCredentialObserver = PublishSubject<Response>()
     
-    func fetchUserCredential() -> Observable<Response> {
+    func fetchUserCredential() -> Observable<Encodable> {
         performRequest()
-        return userCredentialObserver
+        return userCredentialObserver.map { response in
+            return Response(authorizationCode: response.authorizationCode, idToken: response.idToken)
+        }
     }
     
     // Apple 인증 요청을 수행하는 함수

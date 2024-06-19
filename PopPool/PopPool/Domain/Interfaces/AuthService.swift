@@ -12,5 +12,5 @@ protocol AuthService: Responsable, AnyObject {
     
     /// 사용자 자격 증명을 가져오는 함수
     /// - Returns: Response 형태의 사용자 자격 증명
-    func fetchUserCredential() -> Observable<Response>
+    func fetchUserCredential() -> Observable<Encodable>
 }
