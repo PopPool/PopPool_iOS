@@ -9,30 +9,22 @@ import Foundation
 import Security
 import RxSwift
 
-// 추후 폴더링 변경
-enum KeychainError: Error {
-    case dataConversionError(String)
-    case duplicateItem(String)
-    case unhandledError(status: OSStatus)
-    case noValueFound(String)
-    case noData(String)
-}
-
-final class KeyChainRepositoryImpl: KeyChainRepository {
-        
-    func create(service: String, account: String, value: String) -> Completable {
+final class KeyChainRepositoryImpl: TokenRepository {
+    private let service: String = "keychain"
+    
+    func save(account: String, token: String) -> Completable {
         return Completable.create { complete in
             
             // allowLossyConversion은 인코딩 과정에서 손실이 되는 것을 허용할 것인지 설정
-            guard let convertValue = value.data(using: .utf8, allowLossyConversion: false) else {
-                complete(.error(KeychainError.dataConversionError("데이터를 변환하는데 실패했습니다.")))
+            guard let convertValue = token.data(using: .utf8, allowLossyConversion: false) else {
+                complete(.error(DatabaseError.dataConversionError("데이터를 변환하는데 실패했습니다.")))
                 return Disposables.create()
             }
             
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrService: service,
+                kSecAttrService: self.service,
                 kSecAttrAccount: account,
                 kSecValueData: convertValue
             ]
@@ -46,19 +38,19 @@ final class KeyChainRepositoryImpl: KeyChainRepository {
             if status == errSecSuccess {
                 complete(.completed)
             } else {
-                complete(.error(KeychainError.unhandledError(status: status)))
+                complete(.error(DatabaseError.unhandledError(status: status)))
             }
             return Disposables.create()
         }
     }
     
-    func fetch(service: String, account: String) -> Single<String> {
+    func fetch(account: String) -> Single<String> {
         return Single.create { singleData in
             
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrService: service,
+                kSecAttrService: self.service,
                 kSecAttrAccount: account,
                 kSecReturnData: kCFBooleanTrue, // CFData타입으로 불러오라는 의미
                 kSecMatchLimit: kSecMatchLimitOne // 중복되는 경우 하나의 값만 가져오라는 의미
@@ -73,18 +65,18 @@ final class KeyChainRepositoryImpl: KeyChainRepository {
             
             // Keychain 내부에 검색한 데이터 상태(존재 여부)를 확인합니다
             if status == errSecItemNotFound {
-                singleData(.failure(KeychainError.noValueFound("저장된 키 값이 없습니다.")))
+                singleData(.failure(DatabaseError.noValueFound("저장된 키 값이 없습니다.")))
             } else if status != errSecSuccess {
-                singleData(.failure(KeychainError.unhandledError(status: status)))
+                singleData(.failure(DatabaseError.unhandledError(status: status)))
             } else {
                 if let data = dataTypeRef as? Data {
                     if let value = String(data: data, encoding: .utf8) {
                         singleData(.success(value))
                     } else {
-                        singleData(.failure(KeychainError.dataConversionError("String Type으로 Convert 실패")))
+                        singleData(.failure(DatabaseError.dataConversionError("String Type으로 Convert 실패")))
                     }
                 } else {
-                    singleData(.failure(KeychainError.dataConversionError("Data Type으로 Convert 실패")))
+                    singleData(.failure(DatabaseError.dataConversionError("Data Type으로 Convert 실패")))
                 }
             }
             
@@ -92,14 +84,13 @@ final class KeyChainRepositoryImpl: KeyChainRepository {
         }
     }
     
-    func delete(service: String, account: String) -> Completable {
-        
+    func delete(account: String) -> Completable {
         return Completable.create { complete in
             
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrService: service,
+                kSecAttrService: self.service,
                 kSecAttrAccount: account
             ]
             
@@ -109,10 +100,11 @@ final class KeyChainRepositoryImpl: KeyChainRepository {
             if status == errSecSuccess {
                 complete(.completed)
             } else {
-                complete(.error(KeychainError.unhandledError(status: status)))
+                complete(.error(DatabaseError.unhandledError(status: status)))
             }
             
             return Disposables.create()
         }
     }
 }
+

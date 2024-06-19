@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeyChainService: String {
+enum SecureService: String {
     case popPool = "popPool"
     case apple = "apple"
     case kakao = "kakao"
