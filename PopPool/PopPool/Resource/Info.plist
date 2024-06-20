@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>GothicA1-Bold</string>
+		<string>GothicA1-Light</string>
+		<string>GothicA1-Medium</string>
+		<string>GothicA1-Regular</string>
+		<string>Poppins-Bold</string>
+		<string>Poppins-Light</string>
+		<string>Poppins-Medium</string>
+		<string>Poppins-Regular</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
