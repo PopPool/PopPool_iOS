@@ -8,22 +8,14 @@
 import Foundation
 import RxSwift
 
-class SaveTokenUsecaseImpl: SaveTokenUsecase {
-    private var repository: TokenRepository
+class SaveTokenUsecaseImpl: LocalSaveUsecase {
+    var repository: LocalDBRepository
     
-    init(repository: TokenRepository) {
+    init(repository: LocalDBRepository) {
         self.repository = repository
     }
     
-    func save(account: String, token: String) -> Completable {
-        repository.save(account: account, token: token)
-    }
-    
-    func fetch(account: String) -> Single<String> {
-        repository.fetch(account: account)
-    }
-    
-    func delete(account: String) -> Completable {
-        repository.delete(account: account)
+    func save(key: String, value: String, to databaseType: String) -> Completable {
+        repository.save(key: key, value: value, to: databaseType)
     }
 }

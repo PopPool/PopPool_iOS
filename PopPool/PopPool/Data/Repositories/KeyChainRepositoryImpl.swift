@@ -9,14 +9,15 @@ import Foundation
 import Security
 import RxSwift
 
-final class KeyChainRepositoryImpl: TokenRepository {
+final class KeyChainRepositoryImpl: LocalDBRepository {
+    
     private let service: String = "keychain"
     
-    func save(account: String, token: String) -> Completable {
+    func save(key: String, value: String, to: String) -> Completable {
         return Completable.create { complete in
             
             // allowLossyConversion은 인코딩 과정에서 손실이 되는 것을 허용할 것인지 설정
-            guard let convertValue = token.data(using: .utf8, allowLossyConversion: false) else {
+            guard let convertValue = value.data(using: .utf8, allowLossyConversion: false) else {
                 complete(.error(DatabaseError.dataConversionError("데이터를 변환하는데 실패했습니다.")))
                 return Disposables.create()
             }
@@ -25,7 +26,7 @@ final class KeyChainRepositoryImpl: TokenRepository {
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrService: self.service,
-                kSecAttrAccount: account,
+                kSecAttrAccount: key,
                 kSecValueData: convertValue
             ]
             
@@ -44,14 +45,14 @@ final class KeyChainRepositoryImpl: TokenRepository {
         }
     }
     
-    func fetch(account: String) -> Single<String> {
+    func fetch(key: String, from: String) -> Single<String> {
         return Single.create { singleData in
             
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrService: self.service,
-                kSecAttrAccount: account,
+                kSecAttrAccount: key,
                 kSecReturnData: kCFBooleanTrue, // CFData타입으로 불러오라는 의미
                 kSecMatchLimit: kSecMatchLimitOne // 중복되는 경우 하나의 값만 가져오라는 의미
             ]
@@ -84,14 +85,14 @@ final class KeyChainRepositoryImpl: TokenRepository {
         }
     }
     
-    func delete(account: String) -> Completable {
+    func delete(key: String, from: String) -> Completable {
         return Completable.create { complete in
             
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrService: self.service,
-                kSecAttrAccount: account
+                kSecAttrAccount: key
             ]
             
             // 2. Delete
