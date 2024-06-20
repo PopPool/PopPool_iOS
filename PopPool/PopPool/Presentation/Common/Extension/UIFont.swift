@@ -10,6 +10,7 @@ import UIKit
 
 extension UIFont {
     
+    /// 폰트의 고정된 값을 제공합니다
     enum Size: CGFloat {
         case _11 = 11
         case _12 = 12
@@ -24,6 +25,7 @@ extension UIFont {
         case _32 = 32
     }
     
+    /// 영문 Poppins 폰트
     enum EngFont {
         case regular(size: Size)
         case light(size: Size)
@@ -40,6 +42,7 @@ extension UIFont {
         }
     }
     
+    /// 국문 Gothic 폰트
     enum KorFont {
         case regular(size: Size)
         case light(size: Size)

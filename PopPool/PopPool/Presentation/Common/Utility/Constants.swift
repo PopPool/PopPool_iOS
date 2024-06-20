@@ -31,6 +31,7 @@ import Foundation
 //    static let spaceGuide: SpaceGuide = SpaceGuide()
 //}
 
+/// Padding 값
 enum SpaceGuide {
     static let _4px = 4
     static let _8px = 8
