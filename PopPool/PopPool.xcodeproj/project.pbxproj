@@ -55,7 +55,7 @@
 		08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E062C24032E002D5202 /* _!_!_!_.swift */; };
 		08F49E092C240335002D5202 /* !_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* !_!_!_.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
-		08F49E0D2C240539002D5202 /* FetchTokenUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0C2C240539002D5202 /* FetchTokenUseCaseImpl.swift */; };
+		08F49E0F2C240A64002D5202 /* FetchTokenUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0E2C240A64002D5202 /* FetchTokenUseCaseImpl.swift */; };
 		BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD8607972C23418800726692 /* DeleteTokenUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607962C23418800726692 /* DeleteTokenUseCaseImpl.swift */; };
@@ -128,7 +128,7 @@
 		08F49E062C24032E002D5202 /* _!_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* !_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
-		08F49E0C2C240539002D5202 /* FetchTokenUseCaseImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchTokenUseCaseImpl.swift; path = ../../../../../../../../Downloads/FetchTokenUseCaseImpl.swift; sourceTree = "<group>"; };
+		08F49E0E2C240A64002D5202 /* FetchTokenUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTokenUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD8607962C23418800726692 /* DeleteTokenUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTokenUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -395,9 +395,9 @@
 			children = (
 				BDC622B42C2294D4009411AE /* SaveTokenUseCaseImpl.swift */,
 				BD8607962C23418800726692 /* DeleteTokenUseCaseImpl.swift */,
-				08F49E0C2C240539002D5202 /* FetchTokenUseCaseImpl.swift */,
 				08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */,
 				08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */,
+				08F49E0E2C240A64002D5202 /* FetchTokenUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -725,9 +725,9 @@
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
-				08F49E0D2C240539002D5202 /* FetchTokenUseCaseImpl.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
 				08F49DF92C24006F002D5202 /* PPC_ToastMSGView.swift in Sources */,
+				08F49E0F2C240A64002D5202 /* FetchTokenUseCaseImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
