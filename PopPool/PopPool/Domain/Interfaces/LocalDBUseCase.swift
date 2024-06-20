@@ -8,19 +8,19 @@
 import Foundation
 import RxSwift
 
-protocol LocalSaveUsecase {
+protocol LocalSaveUseCase {
     var repository: LocalDBRepository { get set }
     
     func save(key: String, value: String, to: String) -> Completable
 }
 
-protocol LocalFetchUsecase {
+protocol LocalFetchUseCase {
     var repository: LocalDBRepository { get set }
     
     func fetch(key: String, from: String) -> Single<String>
 }
 
-protocol LocalDeleteUsecase {
+protocol LocalDeleteUseCase {
     var repository: LocalDBRepository { get set }
     
     func delete(key: String, from: String) -> Completable

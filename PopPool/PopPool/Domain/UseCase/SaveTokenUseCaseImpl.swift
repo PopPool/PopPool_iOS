@@ -1,5 +1,5 @@
 //
-//  SaveTokenUsecaseImpl.swift
+//  SaveTokenUseCaseImpl.swift
 //  PopPool
 //
 //  Created by Porori on 6/19/24.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class SaveTokenUsecaseImpl: LocalSaveUsecase {
+final class SaveTokenUseCaseImpl: LocalSaveUseCase {
     var repository: LocalDBRepository
     
     init(repository: LocalDBRepository) {

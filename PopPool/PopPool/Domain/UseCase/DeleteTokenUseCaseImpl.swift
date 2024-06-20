@@ -1,5 +1,5 @@
 //
-//  DeleteTokenUsecaseImpl.swift
+//  DeleteTokenUseCaseImpl.swift
 //  PopPool
 //
 //  Created by Porori on 6/20/24.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class DeleteTokenUsecaseImpl: LocalDeleteUsecase {
+final class DeleteTokenUseCaseImpl: LocalDeleteUseCase {
     var repository: LocalDBRepository
     
     init(repository: LocalDBRepository) {
