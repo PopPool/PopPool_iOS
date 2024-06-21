@@ -1,5 +1,5 @@
 //
-//  PPC_Button.swift
+//  CMPTButton.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/20/24.
@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 
-enum PPT_Button {
+enum TYPEButton {
     case activated_primary
     case activated_secondary
     case disabled
 }
 
-extension PPT_Button {
+extension TYPEButton {
     
     /// 추후 수정 필요
     var backGroundColor: UIColor {
@@ -43,12 +43,12 @@ extension PPT_Button {
 }
 
 /// 추후 on Tap 등 수정 사항 반영 필요
-final class PPC_Button: UIButton {
+final class CMPTButton: UIButton {
 
     // MARK: - Components
     private let contentsLabel: UILabel = UILabel()
 
-    init(type: PPT_Button, contents: String) {
+    init(type: TYPEButton, contents: String) {
         super.init(frame: .zero)
         contentsLabel.text = contents
         setUpLayer()
@@ -62,7 +62,7 @@ final class PPC_Button: UIButton {
     
 }
 
-private extension PPC_Button {
+private extension CMPTButton {
     
     /// Layer 설정
     func setUpLayer() {
@@ -82,7 +82,7 @@ private extension PPC_Button {
     
     /// 각 타입별 버튼 설정
     /// - Parameter type: PPT_Button Type
-    func setUpButtonType(type: PPT_Button) {
+    func setUpButtonType(type: TYPEButton) {
         self.backgroundColor = type.backGroundColor
         self.contentsLabel.textColor = type.contentsColor
     }

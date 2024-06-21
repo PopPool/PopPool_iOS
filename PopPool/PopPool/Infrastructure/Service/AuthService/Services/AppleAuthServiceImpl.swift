@@ -55,6 +55,16 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
+
+            print("authorizedScopes:", appleIDCredential.authorizedScopes)
+            print("email:", appleIDCredential.email)
+            print("fullName:", appleIDCredential.fullName)
+
+            print("realUserStatus:", appleIDCredential.realUserStatus)
+            print("state:", appleIDCredential.state)
+            print("user:", appleIDCredential.user)
+            print("userAgeRange:", appleIDCredential.userAgeRange)
+            
             guard let authorizationCode = appleIDCredential.authorizationCode,
                   let idToken = appleIDCredential.identityToken 
             else {
@@ -70,6 +80,8 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
                 userCredentialObserver.onError(AuthError.unknownError)
                 return
             }
+                        print("identityToken:", idToken)
+                        print("authorizationCode:", authorizationCode)
             // 성공적으로 사용자 자격 증명을 방출
             userCredentialObserver.onNext(.init(authorizationCode: authorizationCode, idToken: idToken))
             userCredentialObserver.onCompleted()
