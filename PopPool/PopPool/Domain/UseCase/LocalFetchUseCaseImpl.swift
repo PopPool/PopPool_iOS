@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class LocalFetchUseCaseImpl: LocalFetchUseCase {
+final class LocalFetchUseCaseImpl: LocalFetchUseCase {
     
     var repository: LocalDBRepository
     

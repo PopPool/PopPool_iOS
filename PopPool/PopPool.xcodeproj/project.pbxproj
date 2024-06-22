@@ -48,20 +48,19 @@
 		08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF12C23230C002D5202 /* AuthRepository.swift */; };
 		08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF32C232364002D5202 /* AuthUseCase.swift */; };
 		08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */; };
-		08F49DF92C24006F002D5202 /* PPC_ToastMSGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* PPC_ToastMSGView.swift */; };
+		08F49DF92C24006F002D5202 /* CMPTToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */; };
 		08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* CMPTButton.swift */; };
 		08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E062C24032E002D5202 /* _!_!_!_.swift */; };
 		08F49E092C240335002D5202 /* !_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* !_!_!_.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
-		08F49E0F2C240A64002D5202 /* FetchTokenUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0E2C240A64002D5202 /* FetchTokenUseCaseImpl.swift */; };
+		08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */; };
 		BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
-		BD8607972C23418800726692 /* DeleteTokenUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607962C23418800726692 /* DeleteTokenUseCaseImpl.swift */; };
-		BD8607992C2341E600726692 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607982C2341E600726692 /* Secrets.swift */; };
+		BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */; };
 		BD86079B2C23429D00726692 /* DatabaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseType.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
-		BDC622B52C2294D4009411AE /* SaveTokenUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* SaveTokenUseCaseImpl.swift */; };
+		BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */; };
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
@@ -70,6 +69,16 @@
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
 		BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2952C240B95002F4F03 /* UIColor+.swift */; };
 		BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2972C240BA6002F4F03 /* Constants.swift */; };
+		BDF4F29A2C240DB7002F4F03 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2992C240DB7002F4F03 /* Secrets.swift */; };
+		BDF4F29C2C2422DF002F4F03 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F29B2C2422DF002F4F03 /* UIFont.swift */; };
+		BDF4F2A22C243035002F4F03 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F29E2C243035002F4F03 /* Poppins-Regular.ttf */; };
+		BDF4F2A32C243035002F4F03 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F29F2C243035002F4F03 /* Poppins-Bold.ttf */; };
+		BDF4F2A42C243035002F4F03 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A02C243035002F4F03 /* Poppins-Light.ttf */; };
+		BDF4F2A52C243035002F4F03 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A12C243035002F4F03 /* Poppins-Medium.ttf */; };
+		BDF4F2AA2C24304F002F4F03 /* GothicA1-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A62C24304F002F4F03 /* GothicA1-Regular.ttf */; };
+		BDF4F2AB2C24304F002F4F03 /* GothicA1-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A72C24304F002F4F03 /* GothicA1-Medium.ttf */; };
+		BDF4F2AC2C24304F002F4F03 /* GothicA1-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A82C24304F002F4F03 /* GothicA1-Light.ttf */; };
+		BDF4F2AD2C24304F002F4F03 /* GothicA1-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A92C24304F002F4F03 /* GothicA1-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,20 +130,19 @@
 		08F49DF12C23230C002D5202 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		08F49DF32C232364002D5202 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
-		08F49DF82C24006F002D5202 /* PPC_ToastMSGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPC_ToastMSGView.swift; sourceTree = "<group>"; };
+		08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTToastMSGManager.swift; sourceTree = "<group>"; };
 		08F49DFC2C2400FC002D5202 /* CMPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTButton.swift; sourceTree = "<group>"; };
 		08F49E062C24032E002D5202 /* _!_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* !_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
-		08F49E0E2C240A64002D5202 /* FetchTokenUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTokenUseCaseImpl.swift; sourceTree = "<group>"; };
+		08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFetchUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
-		BD8607962C23418800726692 /* DeleteTokenUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTokenUseCaseImpl.swift; sourceTree = "<group>"; };
-		BD8607982C2341E600726692 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDeleteUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD86079A2C23429D00726692 /* DatabaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseType.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
-		BDC622B42C2294D4009411AE /* SaveTokenUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTokenUseCaseImpl.swift; sourceTree = "<group>"; };
+		BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaveUseCaseImpl.swift; sourceTree = "<group>"; };
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
@@ -143,6 +151,16 @@
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
 		BDF4F2952C240B95002F4F03 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		BDF4F2972C240BA6002F4F03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BDF4F2992C240DB7002F4F03 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		BDF4F29B2C2422DF002F4F03 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		BDF4F29E2C243035002F4F03 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		BDF4F29F2C243035002F4F03 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		BDF4F2A02C243035002F4F03 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		BDF4F2A12C243035002F4F03 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		BDF4F2A62C24304F002F4F03 /* GothicA1-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Regular.ttf"; sourceTree = "<group>"; };
+		BDF4F2A72C24304F002F4F03 /* GothicA1-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Medium.ttf"; sourceTree = "<group>"; };
+		BDF4F2A82C24304F002F4F03 /* GothicA1-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Light.ttf"; sourceTree = "<group>"; };
+		BDF4F2A92C24304F002F4F03 /* GothicA1-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,7 +321,8 @@
 		087346412C0AADFD00534FFA /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				BD8607982C2341E600726692 /* Secrets.swift */,
+				BDF4F29D2C242FE8002F4F03 /* Font */,
+				BDF4F2992C240DB7002F4F03 /* Secrets.swift */,
 				087346192C0AAD2B00534FFA /* Assets.xcassets */,
 				0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */,
 				0873461E2C0AAD2B00534FFA /* Info.plist */,
@@ -395,11 +414,11 @@
 		08B9656C2C1485C100BF95AA /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				BDC622B42C2294D4009411AE /* SaveTokenUseCaseImpl.swift */,
-				BD8607962C23418800726692 /* DeleteTokenUseCaseImpl.swift */,
+				BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */,
+				BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */,
 				08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */,
 				08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */,
-				08F49E0E2C240A64002D5202 /* FetchTokenUseCaseImpl.swift */,
+				08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -462,7 +481,7 @@
 		08F49DF72C23FC5F002D5202 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				08F49DF82C24006F002D5202 /* PPC_ToastMSGView.swift */,
+				BD0B8F512C26D59600FFBC24 /* Manager */,
 				08F49DFC2C2400FC002D5202 /* CMPTButton.swift */,
 			);
 			path = Components;
@@ -508,6 +527,14 @@
 				08F49E062C24032E002D5202 /* _!_!_!_.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		BD0B8F512C26D59600FFBC24 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		BDC622AF2C22580E009411AE /* Common */ = {
@@ -566,6 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF4F2952C240B95002F4F03 /* UIColor+.swift */,
+				BDF4F29B2C2422DF002F4F03 /* UIFont.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -576,6 +604,21 @@
 				BDF4F2972C240BA6002F4F03 /* Constants.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		BDF4F29D2C242FE8002F4F03 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				BDF4F2A92C24304F002F4F03 /* GothicA1-Bold.ttf */,
+				BDF4F2A82C24304F002F4F03 /* GothicA1-Light.ttf */,
+				BDF4F2A72C24304F002F4F03 /* GothicA1-Medium.ttf */,
+				BDF4F2A62C24304F002F4F03 /* GothicA1-Regular.ttf */,
+				BDF4F29F2C243035002F4F03 /* Poppins-Bold.ttf */,
+				BDF4F2A02C243035002F4F03 /* Poppins-Light.ttf */,
+				BDF4F2A12C243035002F4F03 /* Poppins-Medium.ttf */,
+				BDF4F29E2C243035002F4F03 /* Poppins-Regular.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -703,8 +746,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDF4F2AC2C24304F002F4F03 /* GothicA1-Light.ttf in Resources */,
+				BDF4F2A22C243035002F4F03 /* Poppins-Regular.ttf in Resources */,
+				BDF4F2A42C243035002F4F03 /* Poppins-Light.ttf in Resources */,
 				0873461D2C0AAD2B00534FFA /* LaunchScreen.storyboard in Resources */,
+				BDF4F2A52C243035002F4F03 /* Poppins-Medium.ttf in Resources */,
 				0873461A2C0AAD2B00534FFA /* Assets.xcassets in Resources */,
+				BDF4F2AB2C24304F002F4F03 /* GothicA1-Medium.ttf in Resources */,
+				BDF4F2AA2C24304F002F4F03 /* GothicA1-Regular.ttf in Resources */,
+				BDF4F2A32C243035002F4F03 /* Poppins-Bold.ttf in Resources */,
+				BDF4F2AD2C24304F002F4F03 /* GothicA1-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,12 +788,13 @@
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
+				BDF4F29C2C2422DF002F4F03 /* UIFont.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
-				08F49DF92C24006F002D5202 /* PPC_ToastMSGView.swift in Sources */,
-				08F49E0F2C240A64002D5202 /* FetchTokenUseCaseImpl.swift in Sources */,
+				08F49DF92C24006F002D5202 /* CMPTToastMSGManager.swift in Sources */,
+				08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
@@ -750,6 +802,7 @@
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
+				BDF4F29A2C240DB7002F4F03 /* Secrets.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialType.swift in Sources */,
@@ -761,7 +814,7 @@
 				08F49E092C240335002D5202 /* !_!_!_.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */,
-				BD8607972C23418800726692 /* DeleteTokenUseCaseImpl.swift in Sources */,
+				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */,
@@ -770,7 +823,7 @@
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
-				BDC622B52C2294D4009411AE /* SaveTokenUseCaseImpl.swift in Sources */,
+				BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
