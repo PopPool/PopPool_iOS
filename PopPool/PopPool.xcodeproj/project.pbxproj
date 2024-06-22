@@ -49,9 +49,7 @@
 		08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF32C232364002D5202 /* AuthUseCase.swift */; };
 		08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */; };
 		08F49DF92C24006F002D5202 /* CMPTToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */; };
-		08F49DFB2C2400E8002D5202 /* PPC_LongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFA2C2400E7002D5202 /* PPC_LongButton.swift */; };
-		08F49DFD2C2400FC002D5202 /* PPC_Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* PPC_Button.swift */; };
-		08F49DFF2C24017B002D5202 /* PPC_Button_Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFE2C24017B002D5202 /* PPC_Button_Bundle.swift */; };
+		08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* CMPTButton.swift */; };
 		08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E062C24032E002D5202 /* _!_!_!_.swift */; };
 		08F49E092C240335002D5202 /* !_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* !_!_!_.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
@@ -133,9 +131,7 @@
 		08F49DF32C232364002D5202 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTToastMSGManager.swift; sourceTree = "<group>"; };
-		08F49DFA2C2400E7002D5202 /* PPC_LongButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPC_LongButton.swift; sourceTree = "<group>"; };
-		08F49DFC2C2400FC002D5202 /* PPC_Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPC_Button.swift; sourceTree = "<group>"; };
-		08F49DFE2C24017B002D5202 /* PPC_Button_Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPC_Button_Bundle.swift; sourceTree = "<group>"; };
+		08F49DFC2C2400FC002D5202 /* CMPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTButton.swift; sourceTree = "<group>"; };
 		08F49E062C24032E002D5202 /* _!_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* !_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
@@ -486,9 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				BD0B8F512C26D59600FFBC24 /* Manager */,
-				08F49DFA2C2400E7002D5202 /* PPC_LongButton.swift */,
-				08F49DFC2C2400FC002D5202 /* PPC_Button.swift */,
-				08F49DFE2C24017B002D5202 /* PPC_Button_Bundle.swift */,
+				08F49DFC2C2400FC002D5202 /* CMPTButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -787,13 +781,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
-				08F49DFD2C2400FC002D5202 /* PPC_Button.swift in Sources */,
+				08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */,
+				BD8607992C2341E600726692 /* Secrets.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseType.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
-				08F49DFF2C24017B002D5202 /* PPC_Button_Bundle.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
@@ -829,7 +823,6 @@
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
-				08F49DFB2C2400E8002D5202 /* PPC_LongButton.swift in Sources */,
 				BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
