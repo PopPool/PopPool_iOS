@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
+// CMPTToastManager는 추가 수정 예정
 final class CMPTToastMSGManager {
     
     static let shared = CMPTToastMSGManager()
@@ -32,12 +33,12 @@ extension CMPTToastMSGManager {
     private func setup(on superview: UIView) {
         superview.addSubview(messageLabel)
         
-        NSLayoutConstraint.activate([
-            messageLabel.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
-            messageLabel.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -120),
-            messageLabel.widthAnchor.constraint(equalToConstant: 180),
-            messageLabel.heightAnchor.constraint(equalToConstant: 38)
-        ])
+        messageLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(superview.snp.bottom).inset(120)
+            make.width.equalTo(180)
+            make.height.equalTo(38)
+        }
     }
     
     /// toastMessage의 메시지 업데이트 메서드
