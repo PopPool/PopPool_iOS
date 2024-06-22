@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CMPTToastMSGManager {
+final class CMPTToastMSGManager {
     
     static let shared = CMPTToastMSGManager()
     private init() {}
@@ -27,18 +27,12 @@ class CMPTToastMSGManager {
 
 extension CMPTToastMSGManager {
     
-    // 화면위에 올리고
-    // 새로 받는 정보로 업데이트
-    // 화면에서 사라져야함
-    
+    /// toastMessage의 화면 구현 메서드
+    /// - Parameter superview: 현재 화면
     private func setup(on superview: UIView) {
         superview.addSubview(messageLabel)
         
         NSLayoutConstraint.activate([
-            // 화면 하단에 뜰 예정
-            // 화면 leading, trailing, bottom이 필요할 것
-            // 특정 길이를 제공하면... 텍스트 크기에 따라 바뀌는 값을 적용할 수 없을수도 있을테니 일단 기초 공사만
-            
             messageLabel.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
             messageLabel.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -120),
             messageLabel.widthAnchor.constraint(equalToConstant: 180),
@@ -46,10 +40,16 @@ extension CMPTToastMSGManager {
         ])
     }
     
+    /// toastMessage의 메시지 업데이트 메서드
+    /// - Parameter message: String 타입의 메시지를 받습니다
     private func updateMessage(message: String) {
         messageLabel.text = message
     }
     
+    /// ToastMessage를 특정 화면에 올리는 메서드
+    /// - Parameters:
+    ///   - superView: 현재 사용하는 화면
+    ///   - message: String 타입의 메시지를 받습니다
     func createToastMSG(on superView: UIView, message: String) {
         setup(on: superView)
         updateMessage(message: message)
@@ -58,11 +58,14 @@ extension CMPTToastMSGManager {
             UIView.animate(
                 withDuration: 4.0,
                 delay: 3.0,
-                options: .curveEaseOut) {
-                    self.messageLabel.alpha = 0
-                } completion: { complete in
-                    self.messageLabel.removeFromSuperview()
-                }
+                options: .curveEaseOut
+            ) {
+                // 에니메이션 효과
+                self.messageLabel.alpha = 0
+            } completion: { complete in
+                // 에니메이션 종료 이후 메모리에서 사라집니다
+                self.messageLabel.removeFromSuperview()
+            }
         }
     }
 }
