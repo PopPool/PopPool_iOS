@@ -9,7 +9,11 @@ import Foundation
 import SnapKit
 import UIKit
 
-class CMPTToastMSG: UIView {
+/// 토스트 메시지를 담는 view 객체입니다
+final class CMPTToastMSG: UIView {
+    
+    // MARK: - Properties
+    
     private let bgView: UIView = {
         let view = UIView()
         view.backgroundColor = .pb70
@@ -28,6 +32,8 @@ class CMPTToastMSG: UIView {
         return label
     }()
     
+    // MARK: - Initializer
+    
     init(message: String) {
         super.init(frame: .zero)
         setup()
@@ -37,6 +43,11 @@ class CMPTToastMSG: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension CMPTToastMSG {
+    
+    // MARK: - Method
     
     private func setup() {
         addSubview(bgView)

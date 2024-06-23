@@ -14,7 +14,9 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CMPTToastMSGManager {
+final class CMPTToastMSGManager {
+    
+    // MARK: - Properties
     
     /// 현재 디바이스 최상단 Window를 지정
     private var window: UIWindow? {
@@ -24,8 +26,16 @@ class CMPTToastMSGManager {
             .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
             .first { $0.isKeyWindow }
     }
+}
+
+extension CMPTToastMSGManager {
     
+    // MARK: - Method
+    
+    /// 토스트 메시지를 생성하는 메서드
+    /// - Parameter message: 토스트 메세지에 담길 String 타입
     func createToast(message: String) {
+        
         let toastMSG = CMPTToastMSG(message: message)
         window?.addSubview(toastMSG)
         
