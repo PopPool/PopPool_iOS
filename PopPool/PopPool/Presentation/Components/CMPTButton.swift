@@ -13,24 +13,27 @@ enum TYPEButton {
     case primary
     case secondary
     case disabled
+    case kakao
+    case apple
 }
 
 extension TYPEButton {
     
-    /// 추후 수정 필요
     var backGroundColor: UIColor {
         switch self {
         case .primary:
-            return .systemBlue
+            return .blu500
         case .secondary:
-//            return .g50
-            return .g100
+            return .g50
         case .disabled:
             return .g100
+        case .kakao:
+            return .init(hexCode: "F8E049")
+        case .apple:
+            return .g900
         }
     }
     
-    /// 추후 수정 필요
     var contentsColor: UIColor {
         switch self {
         case .primary:
@@ -39,33 +42,45 @@ extension TYPEButton {
             return .blu500
         case .disabled:
             return .g400
+        case .kakao:
+            return .black
+        case .apple:
+            return .w100
+        }
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .kakao:
+            return UIImage(named: "brand=kakao")
+        case .apple:
+            return UIImage(named: "brand=apple_light")
+        default:
+            return nil
         }
     }
 }
 
 /// 추후 on Tap 등 수정 사항 반영 필요
 final class CMPTButton: UIButton {
-
-    // MARK: - Components
-    private let contentsLabel: UILabel = {
-        let label = UILabel()
-//        label.font = .customFonts(language: .ko, type: .medium, size: 16)
-        label.textAlignment = .center
-        return label
+    
+    lazy var iconImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
     }()
     
     init(type: TYPEButton, contents: String) {
         super.init(frame: .zero)
-        contentsLabel.text = contents
+        self.setTitle(contents, for: .normal)
+//        self.titleLabel?.font = ?? //수정 필요
         setUpLayer()
-        setUpConstraints()
         setUpButtonType(type: type)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 private extension CMPTButton {
@@ -76,23 +91,23 @@ private extension CMPTButton {
         self.clipsToBounds = true
     }
     
-    /// Constraints 설정
-    func setUpConstraints() {
-        self.addSubview(contentsLabel)
-        contentsLabel.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
-    }
-    
     /// 각 타입별 버튼 설정
     /// - Parameter type: TYPEButton
     func setUpButtonType(type: TYPEButton) {
         self.backgroundColor = type.backGroundColor
-        self.contentsLabel.textColor = type.contentsColor
-        self.setBackgroundColor(.pb7, for: .highlighted)
+        self.setTitleColor(type.contentsColor, for: .normal)
+        
+        switch type {
+        case .apple:
+            self.setTitleColor(.w90, for: .highlighted)
+            setIconImageView(image: type.image)
+        case .kakao:
+            setIconImageView(image: type.image)
+        default:
+            self.setBackgroundColor(.pb7, for: .highlighted)
+        }
     }
-    
+
     func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
         UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
         guard let context = UIGraphicsGetCurrentContext() else { return }
@@ -103,5 +118,19 @@ private extension CMPTButton {
         UIGraphicsEndImageContext()
          
         self.setBackgroundImage(backgroundImage, for: state)
+    }
+    
+    func setIconImageView(image: UIImage?) {
+        self.iconImageView.image = image
+        if let image = self.iconImageView.image {
+            let aspectRatio = image.size.width / image.size.height
+            self.addSubview(iconImageView)
+            iconImageView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().inset(20)
+                make.height.equalTo(22)
+                make.width.equalTo(iconImageView.snp.height).multipliedBy(aspectRatio)
+                make.centerY.equalToSuperview()
+            }
+        }
     }
 }
