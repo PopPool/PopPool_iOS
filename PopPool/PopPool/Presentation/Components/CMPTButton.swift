@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 
 enum TYPEButton {
-    case activated_primary
-    case activated_secondary
+    case primary
+    case secondary
     case disabled
 }
 
@@ -20,24 +20,25 @@ extension TYPEButton {
     /// 추후 수정 필요
     var backGroundColor: UIColor {
         switch self {
-        case .activated_primary:
-            return UIColor.blue
-        case .activated_secondary:
-            return UIColor.systemBlue
+        case .primary:
+            return .systemBlue
+        case .secondary:
+//            return .g50
+            return .g100
         case .disabled:
-            return UIColor.systemGray
+            return .g100
         }
     }
     
     /// 추후 수정 필요
     var contentsColor: UIColor {
         switch self {
-        case .activated_primary:
-            return UIColor.white
-        case .activated_secondary:
-            return UIColor.white
+        case .primary:
+            return .w100
+        case .secondary:
+            return .blu500
         case .disabled:
-            return UIColor.black
+            return .g400
         }
     }
 }
@@ -46,8 +47,13 @@ extension TYPEButton {
 final class CMPTButton: UIButton {
 
     // MARK: - Components
-    private let contentsLabel: UILabel = UILabel()
-
+    private let contentsLabel: UILabel = {
+        let label = UILabel()
+//        label.font = .customFonts(language: .ko, type: .medium, size: 16)
+        label.textAlignment = .center
+        return label
+    }()
+    
     init(type: TYPEButton, contents: String) {
         super.init(frame: .zero)
         contentsLabel.text = contents
@@ -74,16 +80,28 @@ private extension CMPTButton {
     func setUpConstraints() {
         self.addSubview(contentsLabel)
         contentsLabel.snp.makeConstraints { make in
-            make.height.equalTo(52)
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }
     
     /// 각 타입별 버튼 설정
-    /// - Parameter type: PPT_Button Type
+    /// - Parameter type: TYPEButton
     func setUpButtonType(type: TYPEButton) {
         self.backgroundColor = type.backGroundColor
         self.contentsLabel.textColor = type.contentsColor
+        self.setBackgroundColor(.pb7, for: .highlighted)
+    }
+    
+    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
+        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
+
+        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+         
+        self.setBackgroundImage(backgroundImage, for: state)
     }
 }
