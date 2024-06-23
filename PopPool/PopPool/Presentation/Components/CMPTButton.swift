@@ -103,6 +103,9 @@ private extension CMPTButton {
             setIconImageView(image: type.image)
         case .kakao:
             setIconImageView(image: type.image)
+        case .disabled:
+            self.setTitleColor(.blu500, for: .highlighted)
+            self.setBackgroundColor(.g50, for: .normal)
         default:
             self.setBackgroundColor(.pb7, for: .highlighted)
         }
