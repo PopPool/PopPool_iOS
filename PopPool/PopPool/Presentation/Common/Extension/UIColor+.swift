@@ -10,6 +10,7 @@ import UIKit
 extension UIColor {
     
     // 무채색 컬러
+    static let g50 = UIColor(hexCode: "F2F5F7")
     static let g100 = UIColor(hexCode: "DFE2E6")
     static let g200 = UIColor(hexCode: "AFB7C0")
     static let g300 = UIColor(hexCode: "808E9C")
@@ -32,7 +33,7 @@ extension UIColor {
     static let w100 = UIColor(hexCode: "ffffff", alpha: 1.0)
     
     
-    // 펄 블랙
+    // 퓨어 블랙
     static let pb4 = UIColor(hexCode: "141414", alpha: 0.04)
     static let pb7 = UIColor(hexCode: "141414", alpha: 0.07)
     static let pb10 = UIColor(hexCode: "141414", alpha: 0.1)
@@ -44,15 +45,15 @@ extension UIColor {
     static let pb100 = UIColor(hexCode: "141414", alpha: 1.0)
     
     // 블루
-    static let blu100 = UIColor(hexCode: "DFE2E6")
-    static let blu200 = UIColor(hexCode: "AFB7C0")
-    static let blu300 = UIColor(hexCode: "808E9C")
-    static let blu400 = UIColor(hexCode: "626F7F")
-    static let blu500 = UIColor(hexCode: "444E5C")
-    static let blu600 = UIColor(hexCode: "2D3540")
-    static let blu700 = UIColor(hexCode: "1F242B")
-    static let blu800 = UIColor(hexCode: "17191C")
-    static let blu900 = UIColor(hexCode: "141414")
+    static let blu100 = UIColor(hexCode: "E5EEFF")
+    static let blu200 = UIColor(hexCode: "B5CCFE")
+    static let blu300 = UIColor(hexCode: "81ABFD")
+    static let blu400 = UIColor(hexCode: "4F89FC")
+    static let blu500 = UIColor(hexCode: "1562FC")
+    static let blu600 = UIColor(hexCode: "043FC9")
+    static let blu700 = UIColor(hexCode: "023197")
+    static let blu800 = UIColor(hexCode: "022364")
+    static let blu900 = UIColor(hexCode: "011132")
     
     // 제이드
     static let jd100 = UIColor(hexCode: "E6FFFA")
