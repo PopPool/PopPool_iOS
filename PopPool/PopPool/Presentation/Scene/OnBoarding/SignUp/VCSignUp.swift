@@ -14,8 +14,8 @@ import RxSwift
 final class VCSignUp: UIViewController {
     
     private let progressIndicator: CMPTProgressIndicator = CMPTProgressIndicator(totalStep: 4, startPoint: 1)
-    private let bottomButton: CMPTButton = CMPTButton(type: .kakao, contents: "카카오톡으로 로그인")
-    private let midleButton: CMPTButton = CMPTButton(type: .apple, contents: "Apple로 로그인")
+    private let bottomButton: CMPTButton = CMPTButton(type: .kakao, title: "카카오톡으로 로그인")
+    private let midleButton: CMPTButton = CMPTButton(type: .apple, title: "Apple로 로그인")
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {

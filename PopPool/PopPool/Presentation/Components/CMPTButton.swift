@@ -37,7 +37,7 @@ extension TYPEButton {
         }
     }
     
-    var contentsColor: UIColor {
+    var titleColor: UIColor {
         switch self {
         case .primary:
             return .w100
@@ -83,9 +83,9 @@ final class CMPTButton: UIButton {
         return view
     }()
     
-    init(type: TYPEButton, contents: String) {
+    init(type: TYPEButton, title: String) {
         super.init(frame: .zero)
-        self.setTitle(contents, for: .normal)
+        self.setTitle(title, for: .normal)
         self.titleLabel?.font = type.font
         setUpLayer()
         setUpButtonType(type: type)
@@ -109,7 +109,7 @@ private extension CMPTButton {
     /// - Parameter type: TYPEButton
     func setUpButtonType(type: TYPEButton) {
         self.backgroundColor = type.backGroundColor
-        self.setTitleColor(type.contentsColor, for: .normal)
+        self.setTitleColor(type.titleColor, for: .normal)
         
         switch type {
         case .apple:
