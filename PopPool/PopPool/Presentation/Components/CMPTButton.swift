@@ -15,6 +15,7 @@ enum TYPEButton {
     case disabled
     case kakao
     case apple
+    case dft // Default
 }
 
 extension TYPEButton {
@@ -31,6 +32,8 @@ extension TYPEButton {
             return .init(hexCode: "F8E049")
         case .apple:
             return .g900
+        case .dft:
+            return .g100
         }
     }
     
@@ -46,6 +49,8 @@ extension TYPEButton {
             return .black
         case .apple:
             return .w100
+        case .dft:
+            return .g400
         }
     }
     
@@ -57,6 +62,15 @@ extension TYPEButton {
             return UIImage(named: "brand=apple_light")
         default:
             return nil
+        }
+    }
+    
+    var font: UIFont? {
+        switch self {
+        case .kakao, .apple:
+            return .KorFont(style: .medium, size: 15)
+        default:
+            return .KorFont(style: .medium, size: 16)
         }
     }
 }
@@ -73,7 +87,7 @@ final class CMPTButton: UIButton {
     init(type: TYPEButton, contents: String) {
         super.init(frame: .zero)
         self.setTitle(contents, for: .normal)
-//        self.titleLabel?.font = ?? //수정 필요
+        self.titleLabel?.font = type.font
         setUpLayer()
         setUpButtonType(type: type)
     }
