@@ -58,6 +58,7 @@
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */; };
 		BD86079B2C23429D00726692 /* DatabaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseType.swift */; };
+		BD9901CB2C28742B0024F30D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CA2C28742B0024F30D /* Secrets.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
 		BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */; };
@@ -69,7 +70,6 @@
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
 		BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2952C240B95002F4F03 /* UIColor+.swift */; };
 		BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2972C240BA6002F4F03 /* Constants.swift */; };
-		BDF4F29A2C240DB7002F4F03 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2992C240DB7002F4F03 /* Secrets.swift */; };
 		BDF4F29C2C2422DF002F4F03 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F29B2C2422DF002F4F03 /* UIFont.swift */; };
 		BDF4F2A22C243035002F4F03 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F29E2C243035002F4F03 /* Poppins-Regular.ttf */; };
 		BDF4F2A32C243035002F4F03 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F29F2C243035002F4F03 /* Poppins-Bold.ttf */; };
@@ -140,6 +140,7 @@
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDeleteUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD86079A2C23429D00726692 /* DatabaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseType.swift; sourceTree = "<group>"; };
+		BD9901CA2C28742B0024F30D /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaveUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -151,7 +152,6 @@
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
 		BDF4F2952C240B95002F4F03 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		BDF4F2972C240BA6002F4F03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		BDF4F2992C240DB7002F4F03 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BDF4F29B2C2422DF002F4F03 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		BDF4F29E2C243035002F4F03 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		BDF4F29F2C243035002F4F03 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
@@ -322,9 +322,9 @@
 			isa = PBXGroup;
 			children = (
 				BDF4F29D2C242FE8002F4F03 /* Font */,
-				BDF4F2992C240DB7002F4F03 /* Secrets.swift */,
 				087346192C0AAD2B00534FFA /* Assets.xcassets */,
 				0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */,
+				BD9901CA2C28742B0024F30D /* Secrets.swift */,
 				0873461E2C0AAD2B00534FFA /* Info.plist */,
 			);
 			path = Resource;
@@ -782,10 +782,10 @@
 			files = (
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */,
-				BD8607992C2341E600726692 /* Secrets.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseType.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
+				BD9901CB2C28742B0024F30D /* Secrets.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont.swift in Sources */,
@@ -802,7 +802,6 @@
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
-				BDF4F29A2C240DB7002F4F03 /* Secrets.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialType.swift in Sources */,
