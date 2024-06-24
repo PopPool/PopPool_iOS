@@ -75,7 +75,6 @@ extension TYPEButton {
     }
 }
 
-/// 추후 on Tap 등 수정 사항 반영 필요
 final class CMPTButton: UIButton {
     
     lazy var iconImageView: UIImageView = {
@@ -125,7 +124,11 @@ private extension CMPTButton {
             self.setBackgroundColor(.pb7, for: .highlighted)
         }
     }
-
+    
+    /// 버튼 배경색 설정
+    /// - Parameters:
+    ///   - color: 색상
+    ///   - state: 상태
     func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
         UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
         guard let context = UIGraphicsGetCurrentContext() else { return }
@@ -138,6 +141,8 @@ private extension CMPTButton {
         self.setBackgroundImage(backgroundImage, for: state)
     }
     
+    /// 아이콘 이미지 뷰 설정
+    /// - Parameter image: 이미지
     func setIconImageView(image: UIImage?) {
         self.iconImageView.image = image
         if let image = self.iconImageView.image {
