@@ -89,6 +89,7 @@ private extension CMPTButton {
     func setUpLayer() {
         self.layer.cornerRadius = 4
         self.clipsToBounds = true
+        self.configuration?.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
     }
     
     /// 각 타입별 버튼 설정
