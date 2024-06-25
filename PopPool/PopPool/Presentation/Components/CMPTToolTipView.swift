@@ -56,6 +56,11 @@ extension CMPTToolTipView {
     
     private func setupLayer() {
         addSubview(notificationLabel)
+        // call site에서 별도 layout을 잡지 않도록 컴포넌트 자체에 적용
+        self.snp.makeConstraints { make in
+            make.height.equalTo(45)
+            make.width.equalTo(219)
+        }
         
         switch direction {
         case .notifyAbove:
