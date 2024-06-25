@@ -74,6 +74,8 @@ extension CMPTInfoBoxView {
     private func hideInfo(_ sensitiveInfo: String) -> String {
         let length = sensitiveInfo.count
         if length <= 6 { return sensitiveInfo }
+        
+        // 이메일 중, '@' 앞에 있는 데이터만 숨김 처리를 합니다
         if let index = sensitiveInfo.firstIndex(of: "@") {
             let emailData = sensitiveInfo.prefix(upTo: index)
             return String(
