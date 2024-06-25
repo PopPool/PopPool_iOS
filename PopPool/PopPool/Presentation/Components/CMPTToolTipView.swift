@@ -9,12 +9,15 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CMPTToolTipView: UIView {
+final class CMPTToolTipView: UIView {
     
+    /// 방향에 따라 툴팁을 다르게 표시합니다
     enum ToolTipDirection {
         case notifyAbove
         case notifyBelow
     }
+    
+    // MARK: - Properties
     
     private let notificationLabel: UILabel = {
         let label = UILabel()
@@ -28,6 +31,8 @@ class CMPTToolTipView: UIView {
     private let fixedWidth: CGFloat = 219
     private let padding: CGFloat = 10
     private var direction: ToolTipDirection
+    
+    // MARK: - init
     
     init(frame: CGRect, direction: ToolTipDirection) {
         self.direction = direction
@@ -47,6 +52,8 @@ class CMPTToolTipView: UIView {
 
 extension CMPTToolTipView {
     
+    // MARK: - Methods
+    
     private func setupLayer() {
         addSubview(notificationLabel)
         
@@ -64,6 +71,7 @@ extension CMPTToolTipView {
         }
     }
     
+    /// 툴팁을 방향에 맞춰 그립니다
     private func drawToolTip() {
         switch direction {
         case .notifyAbove:
@@ -73,29 +81,7 @@ extension CMPTToolTipView {
         }
     }
     
-    private func drawInverseToolTip() {
-        let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 35))
-        tip.addLine(to: CGPoint(x: fixedWidth/2, y: 45))
-        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 35))
-        tip.close()
-        
-        UIColor.blu500.setFill()
-        tip.fill()
-        
-        let message = UIBezierPath(
-            roundedRect: CGRect(
-                x: 0, y: 0,
-                width: fixedWidth,
-                height: 35
-            ),
-            cornerRadius: 4
-        )
-        
-        UIColor.blu500.setFill()
-        message.fill()
-    }
-    
+    /// 위에서 아래를 가리키는 툴팁을 만듭니다
     private func drawAboveToolTip() {
         let tip = UIBezierPath()
         tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: padding))
@@ -109,6 +95,30 @@ extension CMPTToolTipView {
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 10,
+                width: fixedWidth,
+                height: 35
+            ),
+            cornerRadius: 4
+        )
+        
+        UIColor.blu500.setFill()
+        message.fill()
+    }
+    
+    /// 아래에서 위를 가리키는 툴팁을 만듭니다
+    private func drawInverseToolTip() {
+        let tip = UIBezierPath()
+        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 35))
+        tip.addLine(to: CGPoint(x: fixedWidth/2, y: 45))
+        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 35))
+        tip.close()
+        
+        UIColor.blu500.setFill()
+        tip.fill()
+        
+        let message = UIBezierPath(
+            roundedRect: CGRect(
+                x: 0, y: 0,
                 width: fixedWidth,
                 height: 35
             ),
