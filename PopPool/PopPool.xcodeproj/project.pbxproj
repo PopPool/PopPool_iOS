@@ -36,6 +36,9 @@
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */; };
+		08A28CAA2C27E16F00DF7A90 /* VCSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* VCSignUp.swift */; };
+		08A28CAC2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */; };
+		08A28CB42C280F9600DF7A90 /* CMPTProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */; };
 		08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift */; };
@@ -118,6 +121,9 @@
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 		087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
+		08A28CA92C27E16F00DF7A90 /* VCSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSignUp.swift; sourceTree = "<group>"; };
+		08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTProgressIndicator.swift; sourceTree = "<group>"; };
+		08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTProgressView.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -485,6 +491,8 @@
 			children = (
 				BD0B8F512C26D59600FFBC24 /* Manager */,
 				08F49DFC2C2400FC002D5202 /* CMPTButton.swift */,
+				08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */,
+				08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */,
 				BD9901CC2C2877BF0024F30D /* CMPTToastMSG.swift */,
 			);
 			path = Components;
@@ -528,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				08F49E062C24032E002D5202 /* _!_!_!_.swift */,
+				08A28CA92C27E16F00DF7A90 /* VCSignUp.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -783,6 +792,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08A28CAC2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
@@ -814,8 +824,10 @@
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
 				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
+				08A28CB42C280F9600DF7A90 /* CMPTProgressView.swift in Sources */,
 				08F49E092C240335002D5202 /* !_!_!_.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
+				08A28CAA2C27E16F00DF7A90 /* VCSignUp.swift in Sources */,
 				08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */,
 				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */,

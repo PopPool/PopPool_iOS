@@ -10,56 +10,90 @@ import UIKit
 import SnapKit
 
 enum TYPEButton {
-    case activated_primary
-    case activated_secondary
+    case primary
+    case secondary
     case disabled
+    case kakao
+    case apple
+    case dft // Default
 }
 
 extension TYPEButton {
     
-    /// 추후 수정 필요
     var backGroundColor: UIColor {
         switch self {
-        case .activated_primary:
-            return UIColor.blue
-        case .activated_secondary:
-            return UIColor.systemBlue
+        case .primary:
+            return .blu500
+        case .secondary:
+            return .g50
         case .disabled:
-            return UIColor.systemGray
+            return .g100
+        case .kakao:
+            return .init(hexCode: "F8E049")
+        case .apple:
+            return .g900
+        case .dft:
+            return .g100
         }
     }
     
-    /// 추후 수정 필요
-    var contentsColor: UIColor {
+    var titleColor: UIColor {
         switch self {
-        case .activated_primary:
-            return UIColor.white
-        case .activated_secondary:
-            return UIColor.white
+        case .primary:
+            return .w100
+        case .secondary:
+            return .blu500
         case .disabled:
-            return UIColor.black
+            return .g400
+        case .kakao:
+            return .black
+        case .apple:
+            return .w100
+        case .dft:
+            return .g400
+        }
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .kakao:
+            return UIImage(named: "brand=kakao")
+        case .apple:
+            return UIImage(named: "brand=apple_light")
+        default:
+            return nil
+        }
+    }
+    
+    var font: UIFont? {
+        switch self {
+        case .kakao, .apple:
+            return .KorFont(style: .medium, size: 15)
+        default:
+            return .KorFont(style: .medium, size: 16)
         }
     }
 }
 
-/// 추후 on Tap 등 수정 사항 반영 필요
 final class CMPTButton: UIButton {
-
-    // MARK: - Components
-    private let contentsLabel: UILabel = UILabel()
-
-    init(type: TYPEButton, contents: String) {
+    
+    lazy var iconImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    init(type: TYPEButton, title: String) {
         super.init(frame: .zero)
-        contentsLabel.text = contents
+        self.setTitle(title, for: .normal)
+        self.titleLabel?.font = type.font
         setUpLayer()
-        setUpConstraints()
         setUpButtonType(type: type)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 private extension CMPTButton {
@@ -68,22 +102,58 @@ private extension CMPTButton {
     func setUpLayer() {
         self.layer.cornerRadius = 4
         self.clipsToBounds = true
-    }
-    
-    /// Constraints 설정
-    func setUpConstraints() {
-        self.addSubview(contentsLabel)
-        contentsLabel.snp.makeConstraints { make in
-            make.height.equalTo(52)
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
+        self.configuration?.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
     }
     
     /// 각 타입별 버튼 설정
-    /// - Parameter type: PPT_Button Type
+    /// - Parameter type: TYPEButton
     func setUpButtonType(type: TYPEButton) {
         self.backgroundColor = type.backGroundColor
-        self.contentsLabel.textColor = type.contentsColor
+        self.setTitleColor(type.titleColor, for: .normal)
+        
+        switch type {
+        case .apple:
+            self.setTitleColor(.w90, for: .highlighted)
+            setIconImageView(image: type.image)
+        case .kakao:
+            setIconImageView(image: type.image)
+        case .disabled:
+            self.setTitleColor(.blu500, for: .highlighted)
+            self.setBackgroundColor(.g50, for: .normal)
+        default:
+            self.setBackgroundColor(.pb7, for: .highlighted)
+        }
+    }
+    
+    /// 버튼 배경색 설정
+    /// - Parameters:
+    ///   - color: 색상
+    ///   - state: 상태
+    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
+        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
+
+        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+         
+        self.setBackgroundImage(backgroundImage, for: state)
+    }
+    
+    /// 아이콘 이미지 뷰 설정
+    /// - Parameter image: 이미지
+    func setIconImageView(image: UIImage?) {
+        self.iconImageView.image = image
+        if let image = self.iconImageView.image {
+            let aspectRatio = image.size.width / image.size.height
+            self.addSubview(iconImageView)
+            iconImageView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().inset(20)
+                make.height.equalTo(22)
+                make.width.equalTo(iconImageView.snp.height).multipliedBy(aspectRatio)
+                make.centerY.equalToSuperview()
+            }
+        }
     }
 }
