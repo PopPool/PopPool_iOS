@@ -12,7 +12,6 @@ import SnapKit
 enum TYPEButton {
     case primary
     case secondary
-    case disabled
     case kakao
     case apple
     case dft // Default
@@ -26,8 +25,6 @@ extension TYPEButton {
             return .blu500
         case .secondary:
             return .g50
-        case .disabled:
-            return .g100
         case .kakao:
             return .init(hexCode: "F8E049")
         case .apple:
@@ -43,8 +40,6 @@ extension TYPEButton {
             return .w100
         case .secondary:
             return .blu500
-        case .disabled:
-            return .g400
         case .kakao:
             return .black
         case .apple:
@@ -83,10 +78,13 @@ final class CMPTButton: UIButton {
         return view
     }()
     
-    init(type: TYPEButton, title: String) {
+    init(type: TYPEButton, title: String, disabledTitle: String = "") {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = type.font
+        self.setTitle(disabledTitle, for: .disabled)
+        self.setTitleColor(.g400, for: .disabled)
+        self.setBackgroundColor(.g50, for: .disabled)
         setUpLayer()
         setUpButtonType(type: type)
     }
@@ -117,9 +115,6 @@ private extension CMPTButton {
             setIconImageView(image: type.image)
         case .kakao:
             setIconImageView(image: type.image)
-        case .disabled:
-            self.setTitleColor(.blu500, for: .highlighted)
-            self.setBackgroundColor(.g50, for: .normal)
         default:
             self.setBackgroundColor(.pb7, for: .highlighted)
         }

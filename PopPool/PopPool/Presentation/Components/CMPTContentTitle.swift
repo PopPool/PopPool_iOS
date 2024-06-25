@@ -119,8 +119,8 @@ private extension CMPTContentTitle {
         self.spacing = 0
         self.alignment = .fill
         self.distribution = .fill
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.12
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.5
         titleLabel.font = type.titleFont
         titleLabel.attributedText = NSMutableAttributedString(
             string: title,
