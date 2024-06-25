@@ -74,7 +74,15 @@ extension CMPTInfoBoxView {
     private func hideInfo(_ sensitiveInfo: String) -> String {
         let length = sensitiveInfo.count
         if length <= 6 { return sensitiveInfo }
-        return String(sensitiveInfo.prefix(3) + String(repeating: "*", count: length - 4) + sensitiveInfo.suffix(4))
+        if let index = sensitiveInfo.firstIndex(of: "@") {
+            let emailData = sensitiveInfo.prefix(upTo: index)
+            return String(
+                sensitiveInfo.prefix(2)
+                + String(repeating: "*", count: emailData.count)
+                + sensitiveInfo.suffix(from: index)
+            )
+        }
+        return ""
     }
     
     /// 이메일 형식을 확인하는 메서드
