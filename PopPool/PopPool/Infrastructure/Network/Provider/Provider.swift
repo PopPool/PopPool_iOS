@@ -29,7 +29,8 @@ class ProviderImpl: Provider {
             }
             
             do {
-                let urlRequest = try endpoint.getUrlRequest()
+                var urlRequest = try endpoint.getUrlRequest()
+                urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 
                 RxAlamofire.requestData(urlRequest)
                     .flatMap { (response, data) -> Observable<Data> in
