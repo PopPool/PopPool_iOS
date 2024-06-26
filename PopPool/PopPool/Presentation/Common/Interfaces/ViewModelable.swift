@@ -7,10 +7,7 @@
 
 import RxSwift
 
-protocol ViewModel {
-    associatedtype Input
-    associatedtype Output
-    
+protocol ViewModelable: Inputable, Outputable {
     func transform(input: Input) -> Output
     var disposeBag: DisposeBag { get set }
 }

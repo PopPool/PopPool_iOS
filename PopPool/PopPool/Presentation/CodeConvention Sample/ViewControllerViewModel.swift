@@ -15,7 +15,7 @@ protocol HomeViewControllerDelegate {
     func pushToNextViewController()
 }
 
-final class ViewControllerViewModel: ViewModel {
+final class ViewControllerViewModel: ViewModelable {
     
     struct Input {
         var didTapButton: Signal<Void>

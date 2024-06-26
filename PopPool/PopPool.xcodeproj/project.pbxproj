@@ -30,7 +30,7 @@
 		0873464A2C0AAF7000534FFA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 087346492C0AAF7000534FFA /* RxRelay */; };
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
 		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
-		087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModel.swift */; };
+		087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModelable.swift */; };
 		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
@@ -44,6 +44,8 @@
 		08A28CBE2C2AEAF600DF7A90 /* CMPTCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CBD2C2AEAF600DF7A90 /* CMPTCheckBox.swift */; };
 		08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */; };
 		08A28CC42C2B00B700DF7A90 /* CMPTTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC32C2B00B700DF7A90 /* CMPTTermsView.swift */; };
+		08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC52C2BE1EA00DF7A90 /* Inputable.swift */; };
+		08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC72C2BE1F300DF7A90 /* Outputable.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */; };
 		08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift */; };
@@ -56,7 +58,7 @@
 		08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF12C23230C002D5202 /* AuthRepository.swift */; };
 		08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF32C232364002D5202 /* AuthUseCase.swift */; };
 		08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */; };
-		08F49DF92C24006F002D5202 /* CMPTToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */; };
+		08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* ToastMSGManager.swift */; };
 		08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* CMPTButton.swift */; };
 		08F49E092C240335002D5202 /* !_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* !_!_!_.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
@@ -121,7 +123,7 @@
 		087346312C0AAD2B00534FFA /* PopPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITests.swift; sourceTree = "<group>"; };
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
-		087346512C0ABC4B00534FFA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		087346512C0ABC4B00534FFA /* ViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 		087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
@@ -133,6 +135,8 @@
 		08A28CBD2C2AEAF600DF7A90 /* CMPTCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTCheckBox.swift; sourceTree = "<group>"; };
 		08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep1View.swift; sourceTree = "<group>"; };
 		08A28CC32C2B00B700DF7A90 /* CMPTTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTTermsView.swift; sourceTree = "<group>"; };
+		08A28CC52C2BE1EA00DF7A90 /* Inputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inputable.swift; sourceTree = "<group>"; };
+		08A28CC72C2BE1F300DF7A90 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -146,7 +150,7 @@
 		08F49DF12C23230C002D5202 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		08F49DF32C232364002D5202 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
-		08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTToastMSGManager.swift; sourceTree = "<group>"; };
+		08F49DF82C24006F002D5202 /* ToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGManager.swift; sourceTree = "<group>"; };
 		08F49DFC2C2400FC002D5202 /* CMPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTButton.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* !_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
@@ -360,6 +364,7 @@
 		0873464F2C0ABC2300534FFA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BD0B8F512C26D59600FFBC24 /* Manager */,
 				BDF4F2942C240B86002F4F03 /* Utility */,
 				BDF4F2932C240B70002F4F03 /* Extension */,
 				08F49DE62C231C30002D5202 /* Enums */,
@@ -371,7 +376,9 @@
 		087346502C0ABC2A00534FFA /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				087346512C0ABC4B00534FFA /* ViewModel.swift */,
+				087346512C0ABC4B00534FFA /* ViewModelable.swift */,
+				08A28CC52C2BE1EA00DF7A90 /* Inputable.swift */,
+				08A28CC72C2BE1F300DF7A90 /* Outputable.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -514,7 +521,6 @@
 		08F49DF72C23FC5F002D5202 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BD0B8F512C26D59600FFBC24 /* Manager */,
 				08F49DFC2C2400FC002D5202 /* CMPTButton.swift */,
 				08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */,
 				08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */,
@@ -572,7 +578,7 @@
 		BD0B8F512C26D59600FFBC24 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */,
+				08F49DF82C24006F002D5202 /* ToastMSGManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -823,20 +829,22 @@
 				08A28CBE2C2AEAF600DF7A90 /* CMPTCheckBox.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* CMPTTermsView.swift in Sources */,
-				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
+				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseType.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				BD9901CB2C28742B0024F30D /* Secrets.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
+				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
+				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
-				08F49DF92C24006F002D5202 /* CMPTToastMSGManager.swift in Sources */,
+				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
 				08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
@@ -1055,6 +1063,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1065,6 +1074,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1086,6 +1096,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1096,6 +1107,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
