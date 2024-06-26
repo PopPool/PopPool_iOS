@@ -15,11 +15,11 @@ final class SignUpStep1View: UIStackView {
     // MARK: - Components
     private let topSpacingView = UIView()
     private let middleSpacingView = UIView()
-    private let checkBox = CMPTCheckBox(title: "약관에 모두 동의할게요")
-    private let term1View = CMPTTermsView(title: "[필수] 이용약관")
-    private let term2View = CMPTTermsView(title: "[필수] 개인정보 수집 및 이용")
-    private let term3View = CMPTTermsView(title: "[필수] 만 14세 이상")
-    private let term4View = CMPTTermsView(title: "[선택] 광고성 정보 수신")
+    private let checkBox = CheckBoxCPNT(title: "약관에 모두 동의할게요")
+    private let term1View = TermsViewCPNT(title: "[필수] 이용약관")
+    private let term2View = TermsViewCPNT(title: "[필수] 개인정보 수집 및 이용")
+    private let term3View = TermsViewCPNT(title: "[필수] 만 14세 이상")
+    private let term4View = TermsViewCPNT(title: "[선택] 광고성 정보 수신")
     private let termsStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -55,10 +55,10 @@ private extension SignUpStep1View {
     /// 제약 조건 설정
     func setUpConstraints() {
         topSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(SpaceGuide._48px)
+            make.height.equalTo(Constants.spaceGuide._48px)
         }
         middleSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(SpaceGuide._36px)
+            make.height.equalTo(Constants.spaceGuide._36px)
         }
         termsStackView.addArrangedSubview(term1View)
         termsStackView.addArrangedSubview(term2View)

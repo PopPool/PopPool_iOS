@@ -15,7 +15,7 @@ protocol HomeViewControllerDelegate {
     func pushToNextViewController()
 }
 
-final class ViewControllerViewModel: ViewModel {
+final class ViewControllerViewModel: ViewModelable {
     
     struct Input {
         var didTapButton: Signal<Void>
@@ -43,7 +43,7 @@ final class ViewControllerViewModel: ViewModel {
     init() {
         self.fetchUserCredentialUseCase = AppDIContainer.shared.resolve(
             type: FetchUserCredentialUseCase.self,
-            identifier: SocialType.apple.rawValue
+            identifier: SocialTYPE.apple.rawValue
         )
         
         self.authUseCase = AppDIContainer.shared.resolve(
@@ -81,7 +81,7 @@ final class ViewControllerViewModel: ViewModel {
             .withUnretained(self)
             .subscribe { (owner, userCredential) in
                 owner.authUseCase
-                    .tryLogIn(userCredential: userCredential, socialType: SocialType.apple.rawValue)
+                    .tryLogIn(userCredential: userCredential, socialType: SocialTYPE.apple.rawValue)
                     .subscribe { loginResponse in
                         print(loginResponse)
                     } onError: { error in

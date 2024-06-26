@@ -1,5 +1,5 @@
 //
-//  CMPTTermsView.swift
+//  TermsViewCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/25/24.
@@ -11,7 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class CMPTTermsView: UIStackView {
+final class TermsViewCPNT: UIStackView {
     
     // MARK: - Components
     private let checkButton: UIButton = {
@@ -57,7 +57,7 @@ final class CMPTTermsView: UIStackView {
     
 }
 // MARK: - SetUp
-private extension CMPTTermsView {
+private extension TermsViewCPNT {
     
     /// 뷰 설정
     func setUp() {

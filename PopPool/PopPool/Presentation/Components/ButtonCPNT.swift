@@ -1,5 +1,5 @@
 //
-//  CMPTButton.swift
+//  ButtonCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/20/24.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-enum TYPEButton {
+enum ButtonTYPE {
     case primary
     case secondary
     case kakao
@@ -17,7 +17,7 @@ enum TYPEButton {
     case dft // Default
 }
 
-extension TYPEButton {
+extension ButtonTYPE {
     
     var backGroundColor: UIColor {
         switch self {
@@ -70,7 +70,7 @@ extension TYPEButton {
     }
 }
 
-final class CMPTButton: UIButton {
+final class ButtonCPNT: UIButton {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
@@ -78,7 +78,7 @@ final class CMPTButton: UIButton {
         return view
     }()
     
-    init(type: TYPEButton, title: String, disabledTitle: String = "") {
+    init(type: ButtonTYPE, title: String, disabledTitle: String = "") {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = type.font
@@ -94,7 +94,7 @@ final class CMPTButton: UIButton {
     }
 }
 
-private extension CMPTButton {
+private extension ButtonCPNT {
     
     /// Layer 설정
     func setUpLayer() {
@@ -105,7 +105,7 @@ private extension CMPTButton {
     
     /// 각 타입별 버튼 설정
     /// - Parameter type: TYPEButton
-    func setUpButtonType(type: TYPEButton) {
+    func setUpButtonType(type: ButtonTYPE) {
         self.backgroundColor = type.backGroundColor
         self.setTitleColor(type.titleColor, for: .normal)
         

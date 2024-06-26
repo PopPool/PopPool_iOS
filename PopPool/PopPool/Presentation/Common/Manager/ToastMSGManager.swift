@@ -1,5 +1,5 @@
 //
-//  CMPTToastMSGManager.swift
+//  ToastMSGManager.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/20/24.
@@ -14,12 +14,12 @@ import Foundation
 import UIKit
 import SnapKit
 
-final class CMPTToastMSGManager {
+final class ToastMSGManager {
     
     // MARK: - Properties
     
     /// 현재 디바이스 최상단 Window를 지정
-    private var window: UIWindow? {
+    static var window: UIWindow? {
         return UIApplication
             .shared
             .connectedScenes
@@ -28,15 +28,14 @@ final class CMPTToastMSGManager {
     }
 }
 
-extension CMPTToastMSGManager {
+extension ToastMSGManager {
     
     // MARK: - Method
     
     /// 토스트 메시지를 생성하는 메서드
     /// - Parameter message: 토스트 메세지에 담길 String 타입
-    func createToast(message: String) {
-        
-        let toastMSG = CMPTToastMSG(message: message)
+   static func createToast(message: String) {
+        let toastMSG = ToastMSGCPNT(message: message)
         window?.addSubview(toastMSG)
         
         toastMSG.snp.makeConstraints { make in

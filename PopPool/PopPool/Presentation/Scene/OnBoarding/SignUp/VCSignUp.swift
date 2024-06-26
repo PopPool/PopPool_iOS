@@ -13,23 +13,23 @@ import RxSwift
 
 final class VCSignUp: UIViewController {
     
-    private let progressIndicator: CMPTProgressIndicator = CMPTProgressIndicator(totalStep: 4, startPoint: 1)
+    private let progressIndicator: ProgressIndicatorCPNT = ProgressIndicatorCPNT(totalStep: 4, startPoint: 1)
     
     // MARK: - ContentTitles
-    private var contentTitleViews: [CMPTContentTitle] = [
-        CMPTContentTitle(
+    private var contentTitleViews: [ContentTitleCPNT] = [
+        ContentTitleCPNT(
             title: "서비스 이용을 위한\n약관을 확인해주세요",
             type: .title_fp
         ),
-        CMPTContentTitle(
+        ContentTitleCPNT(
             title: "팝풀에서 사용할\n별명을 설정해볼까요?",
             type: .title_sub_fp(subTitle: "이 단계를 건너뛰시면 자동으로 별명이 만들어져요.")
         ),
-        CMPTContentTitle(
+        ContentTitleCPNT(
             title: "$유저명$님에 대해\n조금 더 알려주시겠어요?",
             type: .title_fp
         ),
-        CMPTContentTitle(
+        ContentTitleCPNT(
             title: "$유저명$님에 대해\n조금 더 알려주시겠어요?",
             type: .title_fp
         )
@@ -45,8 +45,8 @@ final class VCSignUp: UIViewController {
     private let contentStackView: UIStackView = UIStackView()
     
     // MARK: - Buttons
-    private let step1_primaryButton: CMPTButton = {
-        let button = CMPTButton(
+    private let step1_primaryButton: ButtonCPNT = {
+        let button = ButtonCPNT(
             type: .primary,
             title: "확인",
             disabledTitle: "확인"
@@ -54,24 +54,24 @@ final class VCSignUp: UIViewController {
         button.isEnabled = false
         return button
     }()
-    private let step2_primaryButton = CMPTButton(type: .primary, title: "확인", disabledTitle: "다음")
-    private let step2_secondaryButton = CMPTButton(type: .secondary, title: "건너뛰기")
+    private let step2_primaryButton = ButtonCPNT(type: .primary, title: "확인", disabledTitle: "다음")
+    private let step2_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
     lazy var step2_buttons: UIStackView = {
         let view = UIStackView(arrangedSubviews: [self.step2_secondaryButton, self.step2_primaryButton])
         view.spacing = 10
         view.distribution = .fillEqually
         return view
     }()
-    private let step3_primaryButton = CMPTButton(type: .primary, title: "다음", disabledTitle: "다음")
-    private let step3_secondaryButton = CMPTButton(type: .secondary, title: "건너뛰기")
+    private let step3_primaryButton = ButtonCPNT(type: .primary, title: "다음", disabledTitle: "다음")
+    private let step3_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
     lazy var step3_buttons: UIStackView = {
         let view = UIStackView(arrangedSubviews: [self.step3_secondaryButton, self.step3_primaryButton])
         view.spacing = 10
         view.distribution = .fillEqually
         return view
     }()
-    private let step4_primaryButton = CMPTButton(type: .primary, title: "다음", disabledTitle: "다음")
-    private let step4_secondaryButton = CMPTButton(type: .secondary, title: "건너뛰기")
+    private let step4_primaryButton = ButtonCPNT(type: .primary, title: "다음", disabledTitle: "다음")
+    private let step4_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
     lazy var step4_buttons: UIStackView = {
         let view = UIStackView(arrangedSubviews: [self.step4_secondaryButton, self.step4_primaryButton])
         view.spacing = 10
@@ -114,21 +114,21 @@ private extension VCSignUp {
         view.addSubview(buttonStackView)
         
         progressIndicator.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(SpaceGuide._16px)
-            make.leading.trailing.equalToSuperview().inset(SpaceGuide._20px)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(Constants.spaceGuide._16px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
         }
         contentTitleStackView.snp.makeConstraints { make in
             make.top.equalTo(progressIndicator.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(SpaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
         }
         contentStackView.snp.makeConstraints { make in
             make.top.equalTo(contentTitleStackView.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(SpaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
         }
         buttonStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(SpaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
             make.height.equalTo(52)
-            make.bottom.equalToSuperview().inset(SpaceGuide._48px)
+            make.bottom.equalToSuperview().inset(Constants.spaceGuide._48px)
         }
     }
     

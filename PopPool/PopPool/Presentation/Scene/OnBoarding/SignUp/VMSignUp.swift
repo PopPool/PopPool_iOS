@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class VMSignUp: ViewModel {
+final class VMSignUp: ViewModelable {
     
     /// 입력 이벤트
     struct Input {

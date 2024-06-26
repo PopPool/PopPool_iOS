@@ -1,5 +1,5 @@
 //
-//  CMPTContentTitle.swift
+//  ContentTitleCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/25/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 // 제목 타입 열거형 정의
-enum TYPEContentTitle {
+enum ContentTitleTYPE {
     case title_sub_fp(subTitle: String)
     case title_fp
     case title_icon_fp(icon: UIImage?)
@@ -19,7 +19,7 @@ enum TYPEContentTitle {
 }
 
 // 제목 타입 확장
-extension TYPEContentTitle {
+extension ContentTitleTYPE {
     // 제목 폰트 설정
     var titleFont: UIFont? {
         switch self {
@@ -65,7 +65,7 @@ extension TYPEContentTitle {
     }
 }
 
-final class CMPTContentTitle: UIStackView {
+final class ContentTitleCPNT: UIStackView {
     
     // MARK: - Components
     private let titleLabel: UILabel = {
@@ -97,7 +97,7 @@ final class CMPTContentTitle: UIStackView {
         return view
     }()
     
-    init(title: String, type: TYPEContentTitle) {
+    init(title: String, type: ContentTitleTYPE) {
         super.init(frame: .zero)
         setUp(title: title, type: type)
         setUpViewType(type: type)
@@ -108,13 +108,13 @@ final class CMPTContentTitle: UIStackView {
     }
 }
 
-private extension CMPTContentTitle {
+private extension ContentTitleCPNT {
     
     /// 기본 설정 메소드
     /// - Parameters:
     ///   - title: 제목
     ///   - type: TYPEContentTitle
-    func setUp(title: String, type: TYPEContentTitle) {
+    func setUp(title: String, type: ContentTitleTYPE) {
         self.axis = .vertical
         self.spacing = 0
         self.alignment = .fill
@@ -134,7 +134,7 @@ private extension CMPTContentTitle {
     
     /// 뷰 타입별 설정 메소드
     /// - Parameter type: TYPEContentTitle
-    func setUpViewType(type: TYPEContentTitle) {
+    func setUpViewType(type: ContentTitleTYPE) {
         let topSpacingView = UIView()
         let middleSpacingView = UIView()
         
@@ -143,10 +143,10 @@ private extension CMPTContentTitle {
             subTitleLabel.text = subTitle
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._64px)
+                make.height.equalTo(Constants.spaceGuide._64px)
             }
             middleSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._16px)
+                make.height.equalTo(Constants.spaceGuide._16px)
             }
             
             self.addArrangedSubview(topSpacingView)
@@ -155,7 +155,7 @@ private extension CMPTContentTitle {
             self.addArrangedSubview(subTitleLabel)
         case .title_fp:
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._64px)
+                make.height.equalTo(Constants.spaceGuide._64px)
             }
             
             self.addArrangedSubview(topSpacingView)
@@ -166,11 +166,11 @@ private extension CMPTContentTitle {
             subStackView.spacing = 10
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._64px)
+                make.height.equalTo(Constants.spaceGuide._64px)
             }
 
             iconImageView.snp.makeConstraints { make in
-                make.size.equalTo(SpaceGuide._24px)
+                make.size.equalTo(Constants.spaceGuide._24px)
             }
             
             subStackView.addArrangedSubview(titleLabel)
@@ -182,10 +182,10 @@ private extension CMPTContentTitle {
             button.setImage(buttonImage, for: .normal)
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._32px)
+                make.height.equalTo(Constants.spaceGuide._32px)
             }
             middleSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._8px)
+                make.height.equalTo(Constants.spaceGuide._8px)
             }
             button.snp.makeConstraints { make in
                 make.size.equalTo(24)
@@ -201,7 +201,7 @@ private extension CMPTContentTitle {
             button.setImage(buttonImage, for: .normal)
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(SpaceGuide._32px)
+                make.height.equalTo(Constants.spaceGuide._32px)
             }
             button.snp.makeConstraints { make in
                 make.size.equalTo(24)
@@ -215,7 +215,7 @@ private extension CMPTContentTitle {
     }
 }
 
-extension CMPTContentTitle {
+extension ContentTitleCPNT {
     /// 제목 attributedText설정
     /// - Parameter attributedText: NSAttributedString 값
     func setTitleLabel(attributedText: NSAttributedString) {
