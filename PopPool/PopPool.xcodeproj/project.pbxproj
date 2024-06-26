@@ -39,6 +39,11 @@
 		08A28CAA2C27E16F00DF7A90 /* VCSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* VCSignUp.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */; };
 		08A28CB42C280F9600DF7A90 /* CMPTProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */; };
+		08A28CB62C2A97E300DF7A90 /* CMPTContentTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB52C2A97E300DF7A90 /* CMPTContentTitle.swift */; };
+		08A28CBA2C2AC44300DF7A90 /* VMSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB92C2AC44300DF7A90 /* VMSignUp.swift */; };
+		08A28CBE2C2AEAF600DF7A90 /* CMPTCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CBD2C2AEAF600DF7A90 /* CMPTCheckBox.swift */; };
+		08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */; };
+		08A28CC42C2B00B700DF7A90 /* CMPTTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC32C2B00B700DF7A90 /* CMPTTermsView.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */; };
 		08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift */; };
@@ -53,7 +58,6 @@
 		08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */; };
 		08F49DF92C24006F002D5202 /* CMPTToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */; };
 		08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* CMPTButton.swift */; };
-		08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E062C24032E002D5202 /* _!_!_!_.swift */; };
 		08F49E092C240335002D5202 /* !_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* !_!_!_.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
 		08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */; };
@@ -124,6 +128,11 @@
 		08A28CA92C27E16F00DF7A90 /* VCSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSignUp.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTProgressIndicator.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTProgressView.swift; sourceTree = "<group>"; };
+		08A28CB52C2A97E300DF7A90 /* CMPTContentTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTContentTitle.swift; sourceTree = "<group>"; };
+		08A28CB92C2AC44300DF7A90 /* VMSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMSignUp.swift; sourceTree = "<group>"; };
+		08A28CBD2C2AEAF600DF7A90 /* CMPTCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTCheckBox.swift; sourceTree = "<group>"; };
+		08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep1View.swift; sourceTree = "<group>"; };
+		08A28CC32C2B00B700DF7A90 /* CMPTTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTTermsView.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -139,7 +148,6 @@
 		08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		08F49DF82C24006F002D5202 /* CMPTToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTToastMSGManager.swift; sourceTree = "<group>"; };
 		08F49DFC2C2400FC002D5202 /* CMPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPTButton.swift; sourceTree = "<group>"; };
-		08F49E062C24032E002D5202 /* _!_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* !_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!_!_!_.swift"; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
 		08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFetchUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -393,6 +401,23 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		08A28CC02C2AF2C100DF7A90 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				08A28CBD2C2AEAF600DF7A90 /* CMPTCheckBox.swift */,
+				08A28CC32C2B00B700DF7A90 /* CMPTTermsView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		08B965642C147E1B00BF95AA /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +519,7 @@
 				08A28CAB2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift */,
 				08A28CB32C280F9600DF7A90 /* CMPTProgressView.swift */,
 				BD9901CC2C2877BF0024F30D /* CMPTToastMSG.swift */,
+				08A28CB52C2A97E300DF7A90 /* CMPTContentTitle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -535,8 +561,10 @@
 		08F49E042C2402ED002D5202 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				08F49E062C24032E002D5202 /* _!_!_!_.swift */,
+				08A28CC02C2AF2C100DF7A90 /* Components */,
+				08A28CBF2C2AF2B800DF7A90 /* Views */,
 				08A28CA92C27E16F00DF7A90 /* VCSignUp.swift */,
+				08A28CB92C2AC44300DF7A90 /* VMSignUp.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -792,7 +820,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08A28CBE2C2AEAF600DF7A90 /* CMPTCheckBox.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* CMPTProgressIndicator.swift in Sources */,
+				08A28CC42C2B00B700DF7A90 /* CMPTTermsView.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModel.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* CMPTButton.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
@@ -810,6 +840,7 @@
 				08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
+				08A28CB62C2A97E300DF7A90 /* CMPTContentTitle.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
@@ -827,11 +858,12 @@
 				08A28CB42C280F9600DF7A90 /* CMPTProgressView.swift in Sources */,
 				08F49E092C240335002D5202 /* !_!_!_.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
+				08A28CBA2C2AC44300DF7A90 /* VMSignUp.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* VCSignUp.swift in Sources */,
 				08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */,
 				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
-				08F49E072C24032E002D5202 /* _!_!_!_.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
+				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
