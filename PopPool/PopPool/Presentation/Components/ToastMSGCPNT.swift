@@ -1,5 +1,5 @@
 //
-//  CMPTToastMSG.swift
+//  ToastMSGCPNT.swift
 //  PopPool
 //
 //  Created by Porori on 6/24/24.
@@ -10,7 +10,7 @@ import SnapKit
 import UIKit
 
 /// 토스트 메시지를 담는 view 객체입니다
-final class CMPTToastMSG: UIView {
+final class ToastMSGCPNT: UIView {
     
     // MARK: - Properties
     
@@ -45,7 +45,7 @@ final class CMPTToastMSG: UIView {
     }
 }
 
-extension CMPTToastMSG {
+extension ToastMSGCPNT {
     
     // MARK: - Method
     

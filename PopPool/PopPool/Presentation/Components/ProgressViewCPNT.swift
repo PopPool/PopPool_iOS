@@ -1,5 +1,5 @@
 //
-//  CMPTProgressView.swift
+//  ProgressViewCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/23/24.
@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 import SnapKit
 
-final class CMTPProgressView: UIView {
+final class ProgressViewCPNT: UIView {
     
     
     /// CMTPProgressView Animation Type
-    enum CMTPProgressFillAnimation {
+    enum ProgressFillAnimationCPNT {
         case fromLeft
         case fromRight
     }
@@ -48,7 +48,7 @@ final class CMTPProgressView: UIView {
 }
 
 // MARK: - SetUp
-private extension CMTPProgressView {
+private extension ProgressViewCPNT {
     
     /// 뷰 설정
     func setUp() {
@@ -74,11 +74,11 @@ private extension CMTPProgressView {
     }
 }
 
-extension CMTPProgressView {
+extension ProgressViewCPNT {
     
     /// 선택된 뷰를 채우는 애니메이션
     /// - Parameter option: 애니메이션 시작 방향
-    func fillAnimation(option: CMTPProgressFillAnimation) {
+    func fillAnimation(option: ProgressFillAnimationCPNT) {
         let viewWitdh = self.frame.width
         switch option {
         case .fromLeft:
@@ -116,7 +116,7 @@ extension CMTPProgressView {
     
     /// 선택된 뷰를 사라지게 하는 애니메이션
     /// - Parameter option: 애니메이션 시작 방향
-    func disappearAnimation(option: CMTPProgressFillAnimation) {
+    func disappearAnimation(option: ProgressFillAnimationCPNT) {
         let viewWitdh = self.frame.width
         switch option {
         case .fromLeft:

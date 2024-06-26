@@ -35,7 +35,7 @@ extension ToastMSGManager {
     /// 토스트 메시지를 생성하는 메서드
     /// - Parameter message: 토스트 메세지에 담길 String 타입
    static func createToast(message: String) {
-        let toastMSG = CMPTToastMSG(message: message)
+        let toastMSG = ToastMSGCPNT(message: message)
         window?.addSubview(toastMSG)
         
         toastMSG.snp.makeConstraints { make in

@@ -1,5 +1,5 @@
 //
-//  LocalDatabase.swift
+//  DatabaseTYPE.swift
 //  PopPool
 //
 //  Created by Porori on 6/20/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DatabaseType: String {
+enum DatabaseTYPE: String {
     case keychain = "Keychain"
     case userdefault = "Userdefault"
 }

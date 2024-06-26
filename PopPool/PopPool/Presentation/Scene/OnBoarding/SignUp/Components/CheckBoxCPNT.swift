@@ -1,5 +1,5 @@
 //
-//  CMPTCheckBox.swift
+//  CheckBoxCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/25/24.
@@ -11,7 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class CMPTCheckBox: UIButton {
+final class CheckBoxCPNT: UIButton {
     
     // MARK: - Components
     private let contentLabel: UILabel = {
@@ -52,7 +52,7 @@ final class CMPTCheckBox: UIButton {
 }
 
 // MARK: - SetUp
-private extension CMPTCheckBox {
+private extension CheckBoxCPNT {
     
     /// 뷰 설정
     func setUp() {
@@ -72,8 +72,8 @@ private extension CMPTCheckBox {
         stackView.addArrangedSubview(contentLabel)
         self.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(SpaceGuide._20px)
-            make.top.bottom.equalToSuperview().inset(SpaceGuide._12px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.top.bottom.equalToSuperview().inset(Constants.spaceGuide._12px)
         }
     }
     

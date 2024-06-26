@@ -1,5 +1,5 @@
 //
-//  CMPTProgressIndicator.swift
+//  ProgressIndicatorCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/23/24.
@@ -12,10 +12,10 @@ import RxSwift
 import RxCocoa
 
 
-final class CMPTProgressIndicator: UIStackView {
+final class ProgressIndicatorCPNT: UIStackView {
     
     // MARK: - Properties
-    private var progressViews: [CMTPProgressView]
+    private var progressViews: [ProgressViewCPNT]
     private var progressIndex: Int
     
     /// 전체 단계 수와 시작 지점을 기반으로 CMPTProgressIndicator를 초기화
@@ -24,7 +24,7 @@ final class CMPTProgressIndicator: UIStackView {
     ///   - startPoint: 초기 시작 지점 (1부터 시작하는 인덱스)
     init(totalStep: Int, startPoint: Int) {
         self.progressViews = (1...totalStep).map({ index in
-            return CMTPProgressView(isSelected: index == startPoint)
+            return ProgressViewCPNT(isSelected: index == startPoint)
         })
         self.progressIndex = startPoint
         super.init(frame: .zero)
@@ -38,7 +38,7 @@ final class CMPTProgressIndicator: UIStackView {
 }
 
 // MARK: - SetUp
-private extension CMPTProgressIndicator {
+private extension ProgressIndicatorCPNT {
     
     /// 스택 뷰 속성 설정
     func setUp() {
@@ -55,7 +55,7 @@ private extension CMPTProgressIndicator {
     }
 }
 
-extension CMPTProgressIndicator {
+extension ProgressIndicatorCPNT {
     
     /// 진행 인디케이터를 한 단계 앞으로 이동
     func increaseIndicator() {
