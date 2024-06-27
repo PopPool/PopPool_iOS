@@ -30,11 +30,11 @@ final class SignUpVM: ViewModelable {
     struct Output {
         /// 페이지 인덱스 증가 이벤트를 방출하는 Subject
         var increasePageIndex: PublishSubject<Int>
-        /// Step 1의 주요 버튼 활성/비활성 상태를 방출하는 Subject
+        /// Step 1의 primary button 활성/비활성 상태를 방출하는 Subject
         var step1_primaryButton_isEnabled: PublishSubject<Bool>
-
+        /// 카테고리 리스트를 가져오는 Subject
         var fetchCategoryList: PublishSubject<[String]>
-        
+        /// Step 3의 primary button 활성/비활성 상태를 방출하는 Subject
         var step3_primaryButton_isEnabled: PublishSubject<Bool>
     }
     
@@ -97,11 +97,7 @@ final class SignUpVM: ViewModelable {
             }
             .disposed(by: disposeBag)
         
-        input.didChangeInterestList
-            .subscribe { list in
-            }
-            .disposed(by: disposeBag)
-        
+        // 관심사 리스트 변경 이벤트 처리
         input.didChangeInterestList
             .subscribe { list in
                 step3_primaryButton_isEnabled.onNext(list.count > 0 ? true : false)
@@ -110,7 +106,6 @@ final class SignUpVM: ViewModelable {
             }
             .disposed(by: disposeBag)
 
-        
         // Step 3 primary button 탭 이벤트 처리
         input.tap_step3_primaryButton
             .withUnretained(self)

@@ -10,6 +10,7 @@ import SnapKit
 
 final class LargeChipCell: UICollectionViewCell {
     
+    // MARK: - Components
     private let label: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .bold, size: 13)
@@ -27,6 +28,7 @@ final class LargeChipCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// 셀이 선택되었을 때의 동작 정의
     override var isSelected: Bool {
         didSet {
             UIView.transition(with: self.contentView, duration: 0.2, options: .transitionCrossDissolve) {
@@ -39,8 +41,10 @@ final class LargeChipCell: UICollectionViewCell {
     }
 }
 
-extension LargeChipCell {
+// MARK: - SetUp
+private extension LargeChipCell {
     
+    /// 초기 설정
     func setUp() {
         self.contentView.layer.cornerRadius = contentView.frame.height / 2
         self.contentView.layer.borderWidth = self.isSelected ? 0 : 1
@@ -49,6 +53,7 @@ extension LargeChipCell {
         self.label.textColor = self.isSelected ? .w100 : .g400
     }
     
+    /// 제약 조건 설정
     func setUpConstraints() {
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
@@ -58,11 +63,19 @@ extension LargeChipCell {
             make.bottom.equalToSuperview().inset(9)
         }
     }
+}
+
+extension LargeChipCell {
     
+    /// 셀을 구성하는 메서드
+    /// - Parameter title: 라벨에 표시할 문자열
     func configure(title: String?) {
         label.text = title
     }
     
+    /// 셀 크기 리턴 메서드
+    /// - Parameter title: 라벨에 표시할 문자열
+    /// - Returns: 셀 크기
     func adjustCellSize(title: String) -> CGSize {
         let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: UIView.layoutFittingCompressedSize.height)
         return self.contentView.systemLayoutSizeFitting(

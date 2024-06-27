@@ -13,8 +13,9 @@ import RxCocoa
 
 final class SignUpStep3View: UIStackView {
     
+    // MARK: - Components
     private let topSpacingView = UIView()
-    
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "관심이 있는 카테고리를 선택해주세요"
@@ -32,7 +33,7 @@ final class SignUpStep3View: UIStackView {
     }()
     
     private let middleSpacingView = UIView()
-    
+
     private let categoryCollectionView: UICollectionView = {
         let layout = TagsLayout()
         layout.minimumLineSpacing = 16
@@ -45,6 +46,7 @@ final class SignUpStep3View: UIStackView {
         return view
     }()
     
+    // MARK: - Properties
     private let disposeBag = DisposeBag()
     
     private let selectedList: BehaviorRelay<[IndexPath]> = .init(value: [])
@@ -62,14 +64,17 @@ final class SignUpStep3View: UIStackView {
     }
 }
 
+// MARK: - SetUp
 private extension SignUpStep3View {
     
+    /// 초기 설정 메서드
     func setUp() {
         self.axis = .vertical
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
     }
     
+    /// 제약 조건 설정 메서드
     func setUpConstraints() {
         topSpacingView.snp.makeConstraints { make in
             make.height.equalTo(Constants.spaceGuide._48px)
@@ -90,6 +95,7 @@ private extension SignUpStep3View {
         self.addArrangedSubview(categoryCollectionView)
     }
     
+    /// 데이터 바인딩 메서드
     func bind() {
         categoryList
             .withUnretained(self)
@@ -101,6 +107,9 @@ private extension SignUpStep3View {
 }
 
 extension SignUpStep3View {
+    
+    /// 선택된 리스트를 가져오는 메서드
+    /// - Returns: 선택된 카테고리 리스트를 반환하는 옵저버블
     func fetchSelectedList() -> Observable<[String]> {
         return selectedList.map { indexPathList in
             return indexPathList.compactMap { indexPath in
@@ -109,6 +118,8 @@ extension SignUpStep3View {
         }
     }
     
+    /// 카테고리 리스트를 설정하는 메서드
+    /// - Parameter list: 카테고리 리스트
     func setCategoryList(list: [String]) {
         categoryList.accept(list)
     }
@@ -134,6 +145,7 @@ extension SignUpStep3View: UICollectionViewDelegateFlowLayout, UICollectionViewD
         return cell.adjustCellSize(title: title)
     }
     
+    /// 셀이 선택되었을 때의 동작 정의
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let limitSelectedCount = 5
         var selectedListValue = selectedList.value
@@ -145,6 +157,7 @@ extension SignUpStep3View: UICollectionViewDelegateFlowLayout, UICollectionViewD
         }
     }
     
+    /// 셀이 선택 해제되었을 때의 동작 정의
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         var selectedListValue = selectedList.value
         let targetIndex = selectedListValue.firstIndex(of: indexPath)!

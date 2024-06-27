@@ -161,20 +161,21 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
-        output.fetchCategoryList
-            .withUnretained(self)
-            .subscribe { (owner, list) in
-                owner.step3View.setCategoryList(list: list)
-            }
-            .disposed(by: disposeBag)
-        
+        // Step 3 primary button 활성/비활성 상태 처리
         output.step3_primaryButton_isEnabled
             .withUnretained(self)
             .subscribe { (owner, isEnabled) in
                 owner.changeButtonState(button: owner.step3_primaryButton, isEnabled: isEnabled)
             }
             .disposed(by: disposeBag)
-
+        
+        // 카테고리 리스트 가져오기
+        output.fetchCategoryList
+            .withUnretained(self)
+            .subscribe { (owner, list) in
+                owner.step3View.setCategoryList(list: list)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// 페이지 인덱스에 따라 뷰 변경을 처리하는 메서드

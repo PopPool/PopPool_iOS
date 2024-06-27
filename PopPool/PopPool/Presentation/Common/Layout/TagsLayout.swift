@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 왼쪽 정렬 레이아웃
 class TagsLayout: UICollectionViewFlowLayout {
     
     required override init() {super.init(); common()}
