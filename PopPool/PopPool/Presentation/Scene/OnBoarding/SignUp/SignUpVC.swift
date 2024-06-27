@@ -35,11 +35,12 @@ final class SignUpVC: UIViewController {
     // MARK: - ContentViews
     private let step1View = SignUpStep1View()
     private let step3View = SignUpStep3View()
-
+    private let step4View = SignUpStep4View()
     lazy var contentViews = [
         step1View,
         UIView(),
-        step3View
+        step3View,
+        step4View
     ]
     private let contentStackView: UIStackView = UIStackView()
     
