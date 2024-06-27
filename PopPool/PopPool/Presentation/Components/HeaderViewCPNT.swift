@@ -13,7 +13,7 @@ final class HeaderViewCPNT: UIStackView {
     
     enum Style {
         case icon
-        case text
+        case text(String)
     }
     
     // MARK: - Properties
@@ -45,7 +45,7 @@ final class HeaderViewCPNT: UIStackView {
     init(title: String, style: Style) {
         super.init(frame: .zero)
         setupLayout()
-        setupViews(title: title, style: style)
+        setupViews(title: title,style: style)
     }
     
     required init(coder: NSCoder) {
@@ -78,10 +78,10 @@ extension HeaderViewCPNT {
         switch style {
         case .icon:
             leftBarButton.setImage(.icoLine, for: .normal)
-            rightBarButton.setImage(.icoSolid, for: .normal)
-        case .text:
+            rightBarButton.setImage(.icoSolid.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
+        case .text(let buttonText):
             leftBarButton.setImage(.icoLine, for: .normal)
-            rightBarButton.setTitle("둘러보기", for: .normal)
+            rightBarButton.setTitle(buttonText, for: .normal)
             rightBarButton.titleLabel?.font = .KorFont(style: .regular, size: 14)
         }
         titleLabel.text = title
