@@ -16,8 +16,8 @@ struct PopPoolAPIEndPoint {
     /// - Returns: 로그인 응답 DTO를 반환하는 Endpoint
     static func tryLogin(with userCredential: Encodable, path: String) -> Endpoint<LoginResponseDTO> {
         return Endpoint(
-            baseURL: "",
-            path: "/oauth/\(path)/login",
+            baseURL: "http://localhost:8080",
+            path: "/auth/\(path)",
             method: .post,
             bodyParameters: userCredential
         )
