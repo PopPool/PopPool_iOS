@@ -8,32 +8,10 @@
 import Foundation
 import RxSwift
 
-final class SignUpRepositoryImpl {
+final class SignUpRepositoryImpl: SignUpRepository {
     
     let provider = AppDIContainer.shared.resolve(type: Provider.self)
     let disposeBag = DisposeBag()
-    
-//    func trySignUp(
-//        userId: String,
-//        nickName: String,
-//        gender: String,
-//        age: Int,
-//        socialType: String,
-//        interests: [String],
-//        credential: MyAuthenticationCredential
-//    ) {
-//        let requestDTO = TrySignUpRequestDTO(
-//            userId: userId,
-//            nickName: nickName,
-//            gender: gender,
-//            age: age,
-//            socialType: socialType,
-//            interests: interests
-//        )
-//        let endPoint = PopPoolAPIEndPoint.trySignUp(user: requestDTO, credential: credential)
-//        
-//        return 
-//    }
     
     func checkNickName(nickName: String, credential: MyAuthenticationCredential) -> Observable<Bool> {
         let endPoint = PopPoolAPIEndPoint.checkNickName(with: .init(nickName: nickName), credential: credential)

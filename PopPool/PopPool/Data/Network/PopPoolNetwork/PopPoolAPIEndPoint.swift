@@ -23,16 +23,6 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-//    static func trySignUp(user: TrySignUpRequestDTO, credential: MyAuthenticationCredential) -> Endpoint<FetchGendersResponseDTO> {
-//        return Endpoint(
-//            baseURL: "http://localhost:8080",
-//            path: "/signup",
-//            method: .post,
-//            bodyParameters: user,
-//            headers: ["Authorization": "Bearer \(credential.accessToken)"]
-//        )
-//    }
-    
     static func checkNickName(with request: CheckNickNameRequestDTO , credential: MyAuthenticationCredential) -> Endpoint<Bool> {
         return Endpoint(
             baseURL: "http://localhost:8080",
