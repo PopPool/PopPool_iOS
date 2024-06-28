@@ -37,7 +37,7 @@ class LoginVM: ViewModelable {
         // 돌아보기 버튼 입력
         input.tourButtonTapped
             .subscribe { result in
-                print("버튼이 눌렸습니다.")
+                print("로그인없이 메인 화면으로 이동합니다.")
                 // 🚨 로그인 처리없이 메인 화면으로 이동 예정 - 수정 필요
             } onError: { error in
                 print("뒤돌아가기 버튼에서 오류가 발생했습니다.")
@@ -75,5 +75,4 @@ class LoginVM: ViewModelable {
 
         return Output()
     }
-    
 }

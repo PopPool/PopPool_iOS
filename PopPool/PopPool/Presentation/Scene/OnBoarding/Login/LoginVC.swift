@@ -15,8 +15,8 @@ class LoginVC: UIViewController {
         let button = UIBarButtonItem(
             title: "둘러보기",
             style: .plain,
-            target: self,
-            action: #selector(buttonTapped)
+            target: nil,
+            action: nil
         )
         button.tintColor = .g1000
         return button
@@ -69,11 +69,6 @@ class LoginVC: UIViewController {
     
     private let viewModel = LoginVM()
     private var loginServiceChecker: Int = 0
-    
-    @objc func buttonTapped() {
-        
-    }
-    
 }
 
 
@@ -87,8 +82,8 @@ extension LoginVC {
     }
 }
 
-// MARK: - Setup
 
+// MARK: - Setup
 extension LoginVC {
     private func setupLayout() {
         view.backgroundColor = .white
