@@ -13,8 +13,8 @@ import RxSwift
 final class KakaoAuthServiceImpl: AuthService {
     
     struct Response: Encodable {
-        var id: String
-        var token: String
+        var kakaoUserId: Int64
+        var kakaoAccessToken: String
     }
     
     private let disposeBag = DisposeBag()
@@ -25,7 +25,7 @@ final class KakaoAuthServiceImpl: AuthService {
             .flatMap { token in
                 self.fetchUserID()
                     .map { id in
-                        return Response(id: id, token: token)
+                        return Response(kakaoUserId: id, kakaoAccessToken: token)
                     }
             }.catch { error in
                 Observable.error(error)
@@ -64,7 +64,7 @@ private extension KakaoAuthServiceImpl {
         }
     }
     
-    func fetchUserID() -> Observable<String> {
+    func fetchUserID() -> Observable<Int64> {
         
         return Observable.create { [weak self] observer in
             
@@ -78,7 +78,7 @@ private extension KakaoAuthServiceImpl {
                 .subscribe { user in
                     if let id = user.id {
                         // 사용자 ID를 방출하고 observable을 완료함
-                        observer.onNext(String(id))
+                        observer.onNext(id)
                         observer.onCompleted()
                     } else {
                         // 사용자 ID가 nil인 경우 오류를 방출

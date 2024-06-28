@@ -22,7 +22,6 @@ final class CheckBoxCPNT: UIButton {
     private let checkImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "checkBox_disabled_signUp")
-        view.tintColor = .blue
         return view
     }()
     private let stackView: UIStackView = {

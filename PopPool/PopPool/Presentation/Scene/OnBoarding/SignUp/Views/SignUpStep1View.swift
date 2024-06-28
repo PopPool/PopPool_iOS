@@ -26,6 +26,7 @@ final class SignUpStep1View: UIStackView {
         view.spacing = 16
         return view
     }()
+    private let bottomSpacingView = UIView()
     
     // MARK: - Properties
     private let disposeBag = DisposeBag()
@@ -68,6 +69,7 @@ private extension SignUpStep1View {
         self.addArrangedSubview(checkBox)
         self.addArrangedSubview(middleSpacingView)
         self.addArrangedSubview(termsStackView)
+        self.addArrangedSubview(bottomSpacingView)
     }
     
     /// 바인딩 설정

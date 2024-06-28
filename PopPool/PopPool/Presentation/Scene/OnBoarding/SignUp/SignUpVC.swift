@@ -1,5 +1,5 @@
 //
-//  VCSignUp.swift
+//  SignUpVC.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/23/24.
@@ -11,7 +11,7 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-final class VCSignUp: UIViewController {
+final class SignUpVC: UIViewController {
     
     private let progressIndicator: ProgressIndicatorCPNT = ProgressIndicatorCPNT(totalStep: 4, startPoint: 1)
     
@@ -28,29 +28,25 @@ final class VCSignUp: UIViewController {
         ContentTitleCPNT(
             title: "$유저명$님에 대해\n조금 더 알려주시겠어요?",
             type: .title_fp
-        ),
-        ContentTitleCPNT(
-            title: "$유저명$님에 대해\n조금 더 알려주시겠어요?",
-            type: .title_fp
         )
     ]
     private let contentTitleStackView: UIStackView = UIStackView()
     
     // MARK: - ContentViews
     private let step1View = SignUpStep1View()
+    private let step3View = SignUpStep3View()
+    private let step4View = SignUpStep4View()
     lazy var contentViews = [
         step1View,
-        UIView()
+        UIView(),
+        step3View,
+        step4View
     ]
     private let contentStackView: UIStackView = UIStackView()
     
     // MARK: - Buttons
     private let step1_primaryButton: ButtonCPNT = {
-        let button = ButtonCPNT(
-            type: .primary,
-            title: "확인",
-            disabledTitle: "확인"
-        )
+        let button = ButtonCPNT(type: .primary, title: "확인", disabledTitle: "확인")
         button.isEnabled = false
         return button
     }()
@@ -62,7 +58,11 @@ final class VCSignUp: UIViewController {
         view.distribution = .fillEqually
         return view
     }()
-    private let step3_primaryButton = ButtonCPNT(type: .primary, title: "다음", disabledTitle: "다음")
+    private let step3_primaryButton: ButtonCPNT = {
+        let button = ButtonCPNT(type: .primary, title: "다음", disabledTitle: "다음")
+        button.isEnabled = false
+        return button
+    }()
     private let step3_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
     lazy var step3_buttons: UIStackView = {
         let view = UIStackView(arrangedSubviews: [self.step3_secondaryButton, self.step3_primaryButton])
@@ -88,12 +88,12 @@ final class VCSignUp: UIViewController {
     private let buttonStackView: UIStackView = UIStackView()
     
     // MARK: - Properties
-    private let viewModel = VMSignUp()
+    private let viewModel = SignUpVM()
     private let disposeBag = DisposeBag()
 }
 
 // MARK: - Life Cycle
-extension VCSignUp {
+extension SignUpVC {
     override func viewDidLoad() {
         view.backgroundColor = .systemBackground
         setUpConstraints()
@@ -101,7 +101,7 @@ extension VCSignUp {
     }
 }
 // MARK: - SetUp
-private extension VCSignUp {
+private extension SignUpVC {
     
     /// UI 요소의 레이아웃 제약 설정
     func setUpConstraints() {
@@ -121,24 +121,27 @@ private extension VCSignUp {
             make.top.equalTo(progressIndicator.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
         }
-        contentStackView.snp.makeConstraints { make in
-            make.top.equalTo(contentTitleStackView.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
-        }
         buttonStackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
             make.height.equalTo(52)
             make.bottom.equalToSuperview().inset(Constants.spaceGuide._48px)
         }
+        contentStackView.snp.makeConstraints { make in
+            make.top.equalTo(contentTitleStackView.snp.bottom)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.bottom.equalTo(buttonStackView.snp.top)
+        }
+
     }
     
     /// ViewModel과의 바인딩을 설정
     func bind() {
-        let input = VMSignUp.Input(
+        let input = SignUpVM.Input(
             tap_step1_primaryButton: step1_primaryButton.rx.tap,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
-            didChagneTerms: step1View.terms
+            didChangeTerms: step1View.terms,
+            didChangeInterestList: step3View.fetchSelectedList()
         )
         let output = viewModel.transform(input: input)
         
@@ -158,6 +161,22 @@ private extension VCSignUp {
                 owner.changeButtonState(button: owner.step1_primaryButton, isEnabled: isEnabled)
             }
             .disposed(by: disposeBag)
+        
+        // Step 3 primary button 활성/비활성 상태 처리
+        output.step3_primaryButton_isEnabled
+            .withUnretained(self)
+            .subscribe { (owner, isEnabled) in
+                owner.changeButtonState(button: owner.step3_primaryButton, isEnabled: isEnabled)
+            }
+            .disposed(by: disposeBag)
+        
+        // 카테고리 리스트 가져오기
+        output.fetchCategoryList
+            .withUnretained(self)
+            .subscribe { (owner, list) in
+                owner.step3View.setCategoryList(list: list)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// 페이지 인덱스에 따라 뷰 변경을 처리하는 메서드
@@ -167,19 +186,19 @@ private extension VCSignUp {
     ///   - previousIndex: 이전 페이지 인덱스
     func changeViewFrom(pageIndex: Int, previousIndex: Int) {
         if pageIndex < contentTitleViews.count {
-            UIView.transition(with: contentTitleStackView, duration: 0.2, options: .transitionFlipFromBottom) {
+            UIView.transition(with: contentTitleStackView, duration: 0.2, options: .transitionCrossDissolve) {
                 self.contentTitleViews[previousIndex].removeFromSuperview()
                 self.contentTitleStackView.addArrangedSubview(self.contentTitleViews[pageIndex])
             }
         }
         if pageIndex < contentViews.count {
-            UIView.transition(with: contentStackView, duration: 0.2, options: .transitionFlipFromBottom) {
+            UIView.transition(with: contentStackView, duration: 0.2, options: .transitionCrossDissolve) {
                 self.contentViews[previousIndex].removeFromSuperview()
                 self.contentStackView.addArrangedSubview(self.contentViews[pageIndex])
             }
         }
         if pageIndex < bottomButtons.count {
-            UIView.transition(with: buttonStackView, duration: 0.2, options: .transitionFlipFromBottom) {
+            UIView.transition(with: buttonStackView, duration: 0.2, options: .transitionCrossDissolve) {
                 self.bottomButtons[previousIndex].removeFromSuperview()
                 self.buttonStackView.addArrangedSubview(self.bottomButtons[pageIndex])
             }
