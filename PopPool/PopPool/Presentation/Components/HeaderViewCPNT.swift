@@ -12,7 +12,7 @@ import SnapKit
 final class HeaderViewCPNT: UIStackView {
     
     enum Style {
-        case icon
+        case icon(UIImage?)
         case text(String)
     }
     
@@ -21,7 +21,6 @@ final class HeaderViewCPNT: UIStackView {
     let leftBarButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .g1000
-        button.setContentHuggingPriority(.required, for: .horizontal)
         return button
     }()
     
@@ -36,9 +35,12 @@ final class HeaderViewCPNT: UIStackView {
     let rightBarButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(.g1000, for: .normal)
-        button.setContentHuggingPriority(.required, for: .horizontal)
         return button
     }()
+    
+    private let leftTrailingView = UIView()
+    private let centerTrailingView = UIView()
+    private let rightTrailingView = UIView()
     
     // MARK: - Initializer
     
@@ -58,15 +60,28 @@ extension HeaderViewCPNT {
     /// 기본 헤더 뷰의 화면 구성
     private func setupLayout() {
         self.axis = .horizontal
-        self.distribution = .fillProportionally
-        self.spacing = 10
+        self.distribution = .equalSpacing
         
         self.isLayoutMarginsRelativeArrangement = true
         self.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 16)
         
-        self.addArrangedSubview(leftBarButton)
-        self.addArrangedSubview(titleLabel)
-        self.addArrangedSubview(rightBarButton)
+        leftTrailingView.addSubview(leftBarButton)
+        centerTrailingView.addSubview(titleLabel)
+        rightTrailingView.addSubview(rightBarButton)
+        
+        leftBarButton.snp.makeConstraints { make in
+            make.leading.top.bottom.equalToSuperview()
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        rightBarButton.snp.makeConstraints { make in
+            make.trailing.top.bottom.equalToSuperview()
+        }
+        self.addArrangedSubview(leftTrailingView)
+        self.addArrangedSubview(centerTrailingView)
+        self.addArrangedSubview(rightTrailingView)
+
     }
     
     /// 헤더 뷰의 컴포넌트 설정
@@ -74,13 +89,12 @@ extension HeaderViewCPNT {
     ///   - title: 바꿀 제목명을 받습니다
     ///   - style: rightBarButton의 아이콘 타입 (ie. text / icon)
     private func setupViews(title: String, style: Style) {
+        leftBarButton.setImage(UIImage(named: "icoLine"), for: .normal)
         
         switch style {
-        case .icon:
-            leftBarButton.setImage(UIImage(named: "icoLine") , for: .normal)
-            rightBarButton.setImage(UIImage(named: "icoSolid")!.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
+        case .icon(let image):
+            rightBarButton.setImage(image!.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
         case .text(let buttonText):
-            leftBarButton.setImage(.icoLine, for: .normal)
             rightBarButton.setTitle(buttonText, for: .normal)
             rightBarButton.titleLabel?.font = .KorFont(style: .regular, size: 14)
         }
