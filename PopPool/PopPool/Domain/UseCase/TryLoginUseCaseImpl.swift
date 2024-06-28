@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class AuthUseCaseImpl: AuthUseCase {
+final class TryLoginUseCaseImpl: TryLoginUseCase {
     
     var repository: AuthRepository
     

@@ -36,18 +36,18 @@ final class ViewControllerViewModel: ViewModelable {
     
     var delegate: HomeViewControllerDelegate?
     
-    var fetchUserCredentialUseCase: FetchUserCredentialUseCase
+    var fetchUserCredentialUseCase: FetchSocialCredentialUseCase
     
-    var authUseCase: AuthUseCase
+    var authUseCase: TryLoginUseCase
     
     init() {
         self.fetchUserCredentialUseCase = AppDIContainer.shared.resolve(
-            type: FetchUserCredentialUseCase.self,
+            type: FetchSocialCredentialUseCase.self,
             identifier: SocialTYPE.apple.rawValue
         )
         
         self.authUseCase = AppDIContainer.shared.resolve(
-            type: AuthUseCase.self
+            type: TryLoginUseCase.self
         )
     }
     // MARK: - Methods

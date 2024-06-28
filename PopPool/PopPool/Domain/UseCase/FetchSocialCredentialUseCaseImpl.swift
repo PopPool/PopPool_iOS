@@ -1,5 +1,5 @@
 //
-//  AuthUseCaseImpl.swift
+//  FetchSocialCredentialUseCaseImpl.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/8/24.
@@ -9,7 +9,7 @@ import Foundation
 
 import RxSwift
 
-final class FetchUserCredentialUseCaseImpl: FetchUserCredentialUseCase {
+final class FetchSocialCredentialUseCaseImpl: FetchSocialCredentialUseCase {
     
     var service: any AuthService
     

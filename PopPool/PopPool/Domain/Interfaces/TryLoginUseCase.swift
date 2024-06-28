@@ -1,5 +1,5 @@
 //
-//  AuthUseCase.swift
+//  TryLoginUseCase.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/19/24.
@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 /// 인증 관련 UseCase 프로토콜
-protocol AuthUseCase {
+protocol TryLoginUseCase {
     
     /// 인증 관련 저장소
     var repository: AuthRepository { get set }

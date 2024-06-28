@@ -71,9 +71,33 @@ final class SignUpVM: ViewModelable {
             .subscribe { (owner, _) in
                 owner.pageIndex.accept(owner.pageIndex.value + 1)
                 increasePageIndex.onNext(owner.pageIndex.value)
+                let credential = MyAuthenticationCredential(
+                    accessToken: "eyJhbGciOiJIUzUxMiJ9.eyJpc1RlbXBvcmFyeSI6dHJ1ZSwidXNlcklkIjoiMzU5NzQ0MTczOEBrYWthbyJ9.JC48L0Iw_15tWnfcvkWJueTLTj0uoBNU-ltnkWaDMYXAbhKzu3Ub0b9L1hQGxsXw1-Nv8ywdq5mcA-oyR_knwg",
+                    refreshToken: "",
+                    accessTokenExpiresIn: 0,
+                    refreshTokenExpiresIn: 0
+                )
+                let repo = SignUpRepositoryImpl()
+//                repo.checkNickName(nickName: "하이", credential: credential)
+//                    .subscribe(onNext: { response in
+//                        print(response)
+//                    },onError: { error in
+//                        print(error)
+//                    })
+//                    .disposed(by: owner.disposeBag)
+                
+                repo.fetchInterestList(credential: credential)
+                    .subscribe { list in
+                        print(list)
+                    } onError: { error in
+                        print(error)
+                    }
+                    .disposed(by: owner.disposeBag)
+
+
             }
             .disposed(by: disposeBag)
-        
+//        eyJhbGciOiJIUzUxMiJ9.eyJpc1RlbXBvcmFyeSI6dHJ1ZSwidXNlcklkIjoiMzU5NzQ0MTczOEBrYWthbyJ9.JC48L0Iw_15tWnfcvkWJueTLTj0uoBNU-ltnkWaDMYXAbhKzu3Ub0b9L1hQGxsXw1-Nv8ywdq5mcA-oyR_knwg
         // Step 2 primary button 탭 이벤트 처리
         input.tap_step2_primaryButton
             .withUnretained(self)
