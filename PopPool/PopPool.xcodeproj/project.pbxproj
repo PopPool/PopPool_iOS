@@ -67,15 +67,19 @@
 		08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */; };
 		08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* ToastMSGManager.swift */; };
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
-		08F49E092C240335002D5202 /* !_!_!_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* !_!_!_.swift */; };
+		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
 		08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */; };
 		BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */; };
 		BD353B452C2BE42C0004659D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B442C2BE42C0004659D /* Secrets.swift */; };
+		BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B462C2C13460004659D /* HeaderViewCPNT.swift */; };
+		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */; };
 		BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseTYPE.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
+		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
+		BDA0B1372C2E622B007BDCA4 /* ModalAlertCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalAlertCPNT.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
 		BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */; };
@@ -166,15 +170,19 @@
 		08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		08F49DF82C24006F002D5202 /* ToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGManager.swift; sourceTree = "<group>"; };
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
-		08F49E082C240335002D5202 /* !_!_!_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!_!_!_.swift"; sourceTree = "<group>"; };
+		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
 		08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFetchUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD353B442C2BE42C0004659D /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		BD353B462C2C13460004659D /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
+		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDeleteUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD86079A2C23429D00726692 /* DatabaseTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTYPE.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
+		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		BDA0B1362C2E622B007BDCA4 /* ModalAlertCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertCPNT.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaveUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -552,6 +560,7 @@
 				08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */,
 				BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */,
 				08A28CB52C2A97E300DF7A90 /* ContentTitleCPNT.swift */,
+				BD353B462C2C13460004659D /* HeaderViewCPNT.swift */,
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
 			);
 			path = Components;
@@ -586,7 +595,9 @@
 		08F49E032C2402E7002D5202 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				08F49E082C240335002D5202 /* !_!_!_.swift */,
+				BDA0B1352C2E6218007BDCA4 /* Component */,
+				08F49E082C240335002D5202 /* LoginVC.swift */,
+				BD353B4A2C2D3D7D0004659D /* LoginVM.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -608,6 +619,14 @@
 				08F49DF82C24006F002D5202 /* ToastMSGManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		BDA0B1352C2E6218007BDCA4 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				BDA0B1362C2E622B007BDCA4 /* ModalAlertCPNT.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		BDC622AF2C22580E009411AE /* Common */ = {
@@ -677,6 +696,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF4F2972C240BA6002F4F03 /* Constants.swift */,
+				BDA0B1332C2DD102007BDCA4 /* Factory.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -859,6 +879,7 @@
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
+				BDA0B1372C2E622B007BDCA4 /* ModalAlertCPNT.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */,
@@ -888,6 +909,7 @@
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
+				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */,
 				087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */,
@@ -898,8 +920,9 @@
 				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
-				08F49E092C240335002D5202 /* !_!_!_.swift in Sources */,
+				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
+				BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */,
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
 				08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */,
@@ -907,6 +930,7 @@
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
+				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
