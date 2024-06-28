@@ -19,5 +19,5 @@ protocol TryLoginUseCase {
     ///   - userCredential: 사용자 자격 증명 정보 (Encodable)
     ///   - socialType: 소셜 로그인 타입 (예: "google", "facebook")
     /// - Returns: 로그인 응답을 나타내는 Observable 객체
-    func tryLogIn(userCredential: Encodable, socialType: String) -> Observable<LoginResponse>
+    func execute(userCredential: Encodable, socialType: String) -> Observable<LoginResponse>
 }

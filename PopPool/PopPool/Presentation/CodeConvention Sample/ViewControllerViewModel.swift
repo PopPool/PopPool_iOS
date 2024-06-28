@@ -81,7 +81,7 @@ final class ViewControllerViewModel: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, userCredential) in
                 owner.authUseCase
-                    .tryLogIn(userCredential: userCredential, socialType: SocialTYPE.apple.rawValue)
+                    .execute(userCredential: userCredential, socialType: SocialTYPE.apple.rawValue)
                     .subscribe { loginResponse in
                         print(loginResponse)
                     } onError: { error in

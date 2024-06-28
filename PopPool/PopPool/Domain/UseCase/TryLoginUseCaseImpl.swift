@@ -16,7 +16,7 @@ final class TryLoginUseCaseImpl: TryLoginUseCase {
         self.repository = repository
     }
     
-    func tryLogIn(userCredential: Encodable, socialType: String) -> Observable<LoginResponse> {
+    func execute(userCredential: Encodable, socialType: String) -> Observable<LoginResponse> {
         return repository.tryLogIn(userCredential: userCredential, socialType: socialType)
     }
 }
