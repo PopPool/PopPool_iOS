@@ -77,8 +77,8 @@ extension HeaderViewCPNT {
         
         switch style {
         case .icon:
-            leftBarButton.setImage(.icoLine, for: .normal)
-            rightBarButton.setImage(.icoSolid.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
+            leftBarButton.setImage(UIImage(named: "icoLine") , for: .normal)
+            rightBarButton.setImage(UIImage(named: "icoSolid")!.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
         case .text(let buttonText):
             leftBarButton.setImage(.icoLine, for: .normal)
             rightBarButton.setTitle(buttonText, for: .normal)
