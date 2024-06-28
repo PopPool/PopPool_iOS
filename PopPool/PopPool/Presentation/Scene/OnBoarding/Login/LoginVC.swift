@@ -10,6 +10,7 @@ import UIKit
 
 class LoginVC: UIViewController {
     
+// MARK: - Properties
     let rightBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
             title: "둘러보기",
@@ -67,14 +68,30 @@ class LoginVC: UIViewController {
     lazy var spacer156 = SpacingFactory.shared.createSpace(on: self.view, size: 156)
     
     private let viewModel = LoginVM()
+    private var loginServiceChecker: Int = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        setupLayout()
+    @objc func buttonTapped() {
+        
     }
     
+}
+
+
+// MARK: - Life Cycle
+extension LoginVC {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupLayout()
+        bind()
+    }
+}
+
+// MARK: - Setup
+
+extension LoginVC {
     private func setupLayout() {
+        view.backgroundColor = .white
         navigationItem.rightBarButtonItem = rightBarButton
         
         view.addSubview(logoStackView)
@@ -106,8 +123,13 @@ class LoginVC: UIViewController {
         }
     }
     
-    @objc func buttonTapped() {
-        
+    func bind() {
+        let input = LoginVM.Input(
+            tourButtonTapped: rightBarButton.rx.tap,
+            kakaoLoginButtonTapped: kakaoSignInButton.rx.tap,
+            appleLoginButtonTapped: appleSignInButton.rx.tap,
+            inquryButtonTapped: inquiryButton.rx.tap
+        )
+        let output = viewModel.transform(input: input)
     }
-    
 }
