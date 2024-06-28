@@ -1,5 +1,5 @@
 //
-//  VMSignUp.swift
+//  SignUpVM.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/25/24.
@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class VMSignUp: ViewModelable {
-    
+final class SignUpVM: ViewModelable {
+
     /// 입력 이벤트
     struct Input {
         /// Sign Up Step1 primary button  탭 이벤트
@@ -20,15 +20,22 @@ final class VMSignUp: ViewModelable {
         /// Sign Up Step3 primary button  탭 이벤트
         var tap_step3_primaryButton: ControlEvent<Void>
         /// 약관 동의 변경을 전달하는 Subject
-        var didChagneTerms: PublishSubject<[Bool]>
+        var didChangeTerms: PublishSubject<[Bool]>
+        /// 관심사 변경을 전달하는 Subject
+        var didChangeInterestList: Observable<[String]>
+        
     }
     
     /// 출력 이벤트
     struct Output {
         /// 페이지 인덱스 증가 이벤트를 방출하는 Subject
         var increasePageIndex: PublishSubject<Int>
-        /// Step 1의 주요 버튼 활성/비활성 상태를 방출하는 Subject
+        /// Step 1의 primary button 활성/비활성 상태를 방출하는 Subject
         var step1_primaryButton_isEnabled: PublishSubject<Bool>
+        /// 카테고리 리스트를 가져오는 Subject
+        var fetchCategoryList: PublishSubject<[String]>
+        /// Step 3의 primary button 활성/비활성 상태를 방출하는 Subject
+        var step3_primaryButton_isEnabled: PublishSubject<Bool>
     }
     
     var disposeBag: DisposeBag = DisposeBag()
@@ -44,9 +51,11 @@ final class VMSignUp: ViewModelable {
         
         let increasePageIndex: PublishSubject<Int> = .init()
         let step1_primaryButton_isEnabled: PublishSubject<Bool> = .init()
+        let step3_primaryButton_isEnabled: PublishSubject<Bool> = .init()
+        let fetchCategoryList: PublishSubject<[String]> = .init()
         
         // 약관 동의 변경 이벤트 처리
-        input.didChagneTerms.asObserver()
+        input.didChangeTerms.asObserver()
             .subscribe(onNext: { isCheck in
                 if isCheck[0] && isCheck[1] && isCheck[2] {
                     step1_primaryButton_isEnabled.onNext(true)
@@ -71,9 +80,32 @@ final class VMSignUp: ViewModelable {
             .subscribe { (owner, _) in
                 owner.pageIndex.accept(owner.pageIndex.value + 1)
                 increasePageIndex.onNext(owner.pageIndex.value)
+                fetchCategoryList.onNext([
+                    "패션",
+                    "라이프스타일",
+                    "뷰티",
+                    "음식/요리",
+                    "예술",
+                    "반려동물",
+                    "여행",
+                    "엔터테인먼트",
+                    "애니메이션",
+                    "키즈",
+                    "스포츠",
+                    "게임",
+                ])
             }
             .disposed(by: disposeBag)
         
+        // 관심사 리스트 변경 이벤트 처리
+        input.didChangeInterestList
+            .subscribe { list in
+                step3_primaryButton_isEnabled.onNext(list.count > 0 ? true : false)
+            } onError: { error in
+                print("관심사 선택 중 알 수 없는 오류가 발생하였습니다.")
+            }
+            .disposed(by: disposeBag)
+
         // Step 3 primary button 탭 이벤트 처리
         input.tap_step3_primaryButton
             .withUnretained(self)
@@ -85,7 +117,11 @@ final class VMSignUp: ViewModelable {
         
         return Output(
             increasePageIndex: increasePageIndex,
-            step1_primaryButton_isEnabled: step1_primaryButton_isEnabled
+            step1_primaryButton_isEnabled: step1_primaryButton_isEnabled,
+            fetchCategoryList: fetchCategoryList,
+            step3_primaryButton_isEnabled: step3_primaryButton_isEnabled
         )
     }
 }
+
+
