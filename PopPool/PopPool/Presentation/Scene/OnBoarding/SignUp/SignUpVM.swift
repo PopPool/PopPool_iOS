@@ -13,23 +13,32 @@ final class SignUpVM: ViewModelable {
 
     /// 입력 이벤트
     struct Input {
+        /// header cancelButton 탭 이벤트
+        var tap_header_cancelButton: ControlEvent<Void>
+        /// header backButton 탭 이벤트
+        var tap_header_backButton: ControlEvent<Void>
         /// Sign Up Step1 primary button  탭 이벤트
         var tap_step1_primaryButton: ControlEvent<Void>
+        /// 약관 동의 변경을 전달하는 Subject
+        var event_step1_didChangeTerms: PublishSubject<[Bool]>
         /// Sign Up Step2 primary button  탭 이벤트
         var tap_step2_primaryButton: ControlEvent<Void>
         /// Sign Up Step3 primary button  탭 이벤트
         var tap_step3_primaryButton: ControlEvent<Void>
-        /// 약관 동의 변경을 전달하는 Subject
-        var didChangeTerms: PublishSubject<[Bool]>
         /// 관심사 변경을 전달하는 Subject
-        var didChangeInterestList: Observable<[String]>
-        
+        var event_step3_didChangeInterestList: Observable<[String]>
+        /// step 4 gender segmentedControl 이벤트
+        var event_step4_didSelectedGender: ControlProperty<Int>
+        /// step 4 나이 설정 버튼 탭 이벤트
+        var tap_step4_ageButton: ControlEvent<Void>
     }
     
     /// 출력 이벤트
     struct Output {
         /// 페이지 인덱스 증가 이벤트를 방출하는 Subject
         var increasePageIndex: PublishSubject<Int>
+        /// 페이지 인덱스 감소 이벤트를 방출하는 Subject
+        var decreasePageIndex: PublishSubject<Int>
         /// Step 1의 primary button 활성/비활성 상태를 방출하는 Subject
         var step1_primaryButton_isEnabled: PublishSubject<Bool>
         /// 카테고리 리스트를 가져오는 Subject
@@ -42,20 +51,37 @@ final class SignUpVM: ViewModelable {
     
     /// 현재 페이지 인덱스를 관리하는 BehaviorRelay
     private var pageIndex: BehaviorRelay<Int> = .init(value: 0)
+    /// 현재 페이지 인덱스의 증,감소를 관리하는 PublishSubject
+    private let pageIndexIncreaseObserver: PublishSubject<Int> = .init()
+    private let pageIndexDecreaseObserver: PublishSubject<Int> = .init()
     
     /// 입력을 출력으로 변환하는 메서드
     ///
     /// - Parameter input: 입력 구조체
     /// - Returns: 출력 구조체
     func transform(input: Input) -> Output {
-        
-        let increasePageIndex: PublishSubject<Int> = .init()
         let step1_primaryButton_isEnabled: PublishSubject<Bool> = .init()
         let step3_primaryButton_isEnabled: PublishSubject<Bool> = .init()
         let fetchCategoryList: PublishSubject<[String]> = .init()
         
+        // tap_header_cancelButton 이벤트 처리
+        input.tap_header_cancelButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print("tap_header_cancelButton")
+            }
+            .disposed(by: disposeBag)
+        
+        // tap_header_backButton 이벤트 처리
+        input.tap_header_backButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.decreasePageIndex()
+            }
+            .disposed(by: disposeBag)
+        
         // 약관 동의 변경 이벤트 처리
-        input.didChangeTerms.asObserver()
+        input.event_step1_didChangeTerms.asObserver()
             .subscribe(onNext: { isCheck in
                 if isCheck[0] && isCheck[1] && isCheck[2] {
                     step1_primaryButton_isEnabled.onNext(true)
@@ -69,8 +95,7 @@ final class SignUpVM: ViewModelable {
         input.tap_step1_primaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.pageIndex.accept(owner.pageIndex.value + 1)
-                increasePageIndex.onNext(owner.pageIndex.value)
+                owner.increasePageIndex()
             }
             .disposed(by: disposeBag)
         
@@ -78,8 +103,7 @@ final class SignUpVM: ViewModelable {
         input.tap_step2_primaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.pageIndex.accept(owner.pageIndex.value + 1)
-                increasePageIndex.onNext(owner.pageIndex.value)
+                owner.increasePageIndex()
                 fetchCategoryList.onNext([
                     "패션",
                     "라이프스타일",
@@ -98,7 +122,7 @@ final class SignUpVM: ViewModelable {
             .disposed(by: disposeBag)
         
         // 관심사 리스트 변경 이벤트 처리
-        input.didChangeInterestList
+        input.event_step3_didChangeInterestList
             .subscribe { list in
                 step3_primaryButton_isEnabled.onNext(list.count > 0 ? true : false)
             } onError: { error in
@@ -110,13 +134,27 @@ final class SignUpVM: ViewModelable {
         input.tap_step3_primaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.pageIndex.accept(owner.pageIndex.value + 1)
-                increasePageIndex.onNext(owner.pageIndex.value)
+                owner.increasePageIndex()
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 4 segmented Control 이벤트 처리
+        input.event_step4_didSelectedGender
+            .subscribe { selectedIndex in
+                print(selectedIndex)
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 4 tap_step4_ageButton 이벤트 처리
+        input.tap_step4_ageButton
+            .subscribe { _ in
+                print("tap_step4_ageButton")
             }
             .disposed(by: disposeBag)
         
         return Output(
-            increasePageIndex: increasePageIndex,
+            increasePageIndex: pageIndexIncreaseObserver,
+            decreasePageIndex: pageIndexDecreaseObserver,
             step1_primaryButton_isEnabled: step1_primaryButton_isEnabled,
             fetchCategoryList: fetchCategoryList,
             step3_primaryButton_isEnabled: step3_primaryButton_isEnabled
@@ -124,4 +162,16 @@ final class SignUpVM: ViewModelable {
     }
 }
 
-
+private extension SignUpVM {
+    func increasePageIndex() {
+        let index = pageIndex.value + 1
+        pageIndex.accept(index)
+        pageIndexIncreaseObserver.onNext(index)
+    }
+    
+    func decreasePageIndex() {
+        let index = pageIndex.value - 1
+        pageIndex.accept(index)
+        pageIndexDecreaseObserver.onNext(index)
+    }
+}

@@ -60,8 +60,7 @@ extension HeaderViewCPNT {
     /// 기본 헤더 뷰의 화면 구성
     private func setupLayout() {
         self.axis = .horizontal
-        self.distribution = .equalSpacing
-        
+        self.distribution = .fillEqually
         self.isLayoutMarginsRelativeArrangement = true
         self.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 16)
         
