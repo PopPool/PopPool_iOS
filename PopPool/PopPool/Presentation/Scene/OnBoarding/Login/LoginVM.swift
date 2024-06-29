@@ -25,9 +25,10 @@ class LoginVM: ViewModelable {
     
     /// LoginVC으로 출력 이벤트
     struct Output {
-        
+        let showServiceLogin: Observable<Void>
     }
     
+    private let showLoginSubject = PublishSubject<Void>()
     var disposeBag: DisposeBag = DisposeBag()
 
     /// LoginVC로 부터 받은 Input을 Output으로 변환하는 메서드
@@ -47,12 +48,7 @@ class LoginVM: ViewModelable {
         
         // 카카오 로그인 버튼 입력
         input.kakaoLoginButtonTapped
-            .subscribe { transition in
-                print("카카오 로그인 화면 전환이 됩니다.")
-            } onError: { error in
-                print("로그인 버튼에서 오류가 발생했습니다.")
-                print(error.localizedDescription)
-            }
+            .bind(to: showLoginSubject)
             .disposed(by: disposeBag)
         
         // 애플 로그인 버튼 입력
@@ -73,6 +69,8 @@ class LoginVM: ViewModelable {
             }
             .disposed(by: disposeBag)
 
-        return Output()
+        return Output(
+            showServiceLogin: showLoginSubject
+        )
     }
 }
