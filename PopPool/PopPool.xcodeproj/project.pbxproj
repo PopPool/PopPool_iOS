@@ -64,6 +64,7 @@
 		08C813F92C2F267D009239FE /* FetchGendersResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */; };
 		08C813FB2C2F2809009239FE /* TrySignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */; };
 		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
+		08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE72C231C40002D5202 /* SocialTYPE.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
@@ -174,6 +175,7 @@
 		08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGendersResponseDTO.swift; sourceTree = "<group>"; };
 		08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrySignUpRequestDTO.swift; sourceTree = "<group>"; };
 		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
+		08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgeSelectedButton.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE72C231C40002D5202 /* SocialTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTYPE.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */,
 				08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */,
 				08C813D42C2D1F5E009239FE /* SignUpStep3View.swift */,
 				08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */,
@@ -960,6 +963,7 @@
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */,
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
+				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
 				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
