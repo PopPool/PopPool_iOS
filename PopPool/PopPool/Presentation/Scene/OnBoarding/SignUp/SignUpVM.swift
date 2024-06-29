@@ -98,7 +98,7 @@ final class SignUpVM: ViewModelable {
                 owner.increasePageIndex()
             }
             .disposed(by: disposeBag)
-        
+
         // Step 2 primary button 탭 이벤트 처리
         input.tap_step2_primaryButton
             .withUnretained(self)

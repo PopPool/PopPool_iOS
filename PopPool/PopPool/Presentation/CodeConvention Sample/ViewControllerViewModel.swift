@@ -36,18 +36,18 @@ final class ViewControllerViewModel: ViewModelable {
     
     var delegate: HomeViewControllerDelegate?
     
-    var fetchUserCredentialUseCase: FetchUserCredentialUseCase
+    var fetchUserCredentialUseCase: FetchSocialCredentialUseCase
     
-    var authUseCase: AuthUseCase
+    var authUseCase: TryLoginUseCase
     
     init() {
         self.fetchUserCredentialUseCase = AppDIContainer.shared.resolve(
-            type: FetchUserCredentialUseCase.self,
+            type: FetchSocialCredentialUseCase.self,
             identifier: SocialTYPE.apple.rawValue
         )
         
         self.authUseCase = AppDIContainer.shared.resolve(
-            type: AuthUseCase.self
+            type: TryLoginUseCase.self
         )
     }
     // MARK: - Methods
@@ -81,7 +81,7 @@ final class ViewControllerViewModel: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, userCredential) in
                 owner.authUseCase
-                    .tryLogIn(userCredential: userCredential, socialType: SocialTYPE.apple.rawValue)
+                    .execute(userCredential: userCredential, socialType: SocialTYPE.apple.rawValue)
                     .subscribe { loginResponse in
                         print(loginResponse)
                     } onError: { error in

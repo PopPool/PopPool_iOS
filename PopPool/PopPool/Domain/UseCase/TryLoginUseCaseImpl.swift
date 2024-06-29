@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class AuthUseCaseImpl: AuthUseCase {
+final class TryLoginUseCaseImpl: TryLoginUseCase {
     
     var repository: AuthRepository
     
@@ -16,7 +16,7 @@ final class AuthUseCaseImpl: AuthUseCase {
         self.repository = repository
     }
     
-    func tryLogIn(userCredential: Encodable, socialType: String) -> Observable<LoginResponse> {
+    func execute(userCredential: Encodable, socialType: String) -> Observable<LoginResponse> {
         return repository.tryLogIn(userCredential: userCredential, socialType: socialType)
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxAlamofire
+import Alamofire
 
 protocol Provider {
     /// 네트워크 요청을 수행하고 결과를 반환하는 메서드
@@ -43,7 +44,21 @@ class ProviderImpl: Provider {
                         observer.onNext(decodeData)
                         observer.onCompleted()
                     } onError: { error in
-                        observer.onError(error)
+                        if let afError = error as? AFError,
+                            case .responseSerializationFailed(let reason) = afError {
+                             // Alamofire의 responseSerializationFailed 에러 처리
+                             switch reason {
+                             case .inputDataNilOrZeroLength:
+                                 observer.onError(NetworkError.emptyData)
+                             case .decodingFailed(let error):
+                                 observer.onError(NetworkError.decodeError)
+                                 print("Decoding Error: \(error.localizedDescription)")
+                             default:
+                                 observer.onError(error)
+                             }
+                         } else {
+                             observer.onError(error)
+                         }
                     }.disposed(by: self.disposeBag)
             } catch {
                 observer.onError(NetworkError.urlRequest(error))

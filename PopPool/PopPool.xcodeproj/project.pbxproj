@@ -47,8 +47,8 @@
 		08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC52C2BE1EA00DF7A90 /* Inputable.swift */; };
 		08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC72C2BE1F300DF7A90 /* Outputable.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
-		08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */; };
-		08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift */; };
+		08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */; };
+		08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */; };
 		08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */; };
 		08C813D52C2D1F5E009239FE /* SignUpStep3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813D42C2D1F5E009239FE /* SignUpStep3View.swift */; };
 		08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813D62C2D2934009239FE /* UITableViewCell+.swift */; };
@@ -57,6 +57,13 @@
 		08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813DD2C2D50BC009239FE /* TagsLayout.swift */; };
 		08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */; };
 		08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */; };
+		08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */; };
+		08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */; };
+		08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */; };
+		08C813F72C2F15DC009239FE /* FetchInterestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F62C2F15DC009239FE /* FetchInterestListResponseDTO.swift */; };
+		08C813F92C2F267D009239FE /* FetchGendersResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */; };
+		08C813FB2C2F2809009239FE /* TrySignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */; };
+		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
 		08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE72C231C40002D5202 /* SocialTYPE.swift */; };
@@ -64,8 +71,8 @@
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
 		08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */; };
 		08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF12C23230C002D5202 /* AuthRepository.swift */; };
-		08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF32C232364002D5202 /* AuthUseCase.swift */; };
-		08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */; };
+		08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF32C232364002D5202 /* TryLoginUseCase.swift */; };
+		08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF52C2323C2002D5202 /* TryLoginUseCaseImpl.swift */; };
 		08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* ToastMSGManager.swift */; };
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
@@ -151,8 +158,8 @@
 		08A28CC72C2BE1F300DF7A90 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
-		08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
-		08B9658B2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserCredentialUseCase.swift; sourceTree = "<group>"; };
+		08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
+		08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialCredentialUseCase.swift; sourceTree = "<group>"; };
 		08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolAPIEndPoint.swift; sourceTree = "<group>"; };
 		08C813D42C2D1F5E009239FE /* SignUpStep3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep3View.swift; sourceTree = "<group>"; };
 		08C813D62C2D2934009239FE /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
@@ -161,6 +168,13 @@
 		08C813DD2C2D50BC009239FE /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCPNT.swift; sourceTree = "<group>"; };
 		08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep4View.swift; sourceTree = "<group>"; };
+		08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameRequestDTO.swift; sourceTree = "<group>"; };
+		08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthenticationCredential.swift; sourceTree = "<group>"; };
+		08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryImpl.swift; sourceTree = "<group>"; };
+		08C813F62C2F15DC009239FE /* FetchInterestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInterestListResponseDTO.swift; sourceTree = "<group>"; };
+		08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGendersResponseDTO.swift; sourceTree = "<group>"; };
+		08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrySignUpRequestDTO.swift; sourceTree = "<group>"; };
+		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgeSelectedButton.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE72C231C40002D5202 /* SocialTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTYPE.swift; sourceTree = "<group>"; };
@@ -168,8 +182,8 @@
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
 		08F49DF12C23230C002D5202 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		08F49DF32C232364002D5202 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
-		08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
+		08F49DF32C232364002D5202 /* TryLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryLoginUseCase.swift; sourceTree = "<group>"; };
+		08F49DF52C2323C2002D5202 /* TryLoginUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryLoginUseCaseImpl.swift; sourceTree = "<group>"; };
 		08F49DF82C24006F002D5202 /* ToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGManager.swift; sourceTree = "<group>"; };
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -476,6 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				08F49DE92C231CFC002D5202 /* LoginResponse.swift */,
+				08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -485,8 +500,8 @@
 			children = (
 				BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */,
 				BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */,
-				08B965892C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift */,
-				08F49DF52C2323C2002D5202 /* AuthUseCaseImpl.swift */,
+				08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */,
+				08F49DF52C2323C2002D5202 /* TryLoginUseCaseImpl.swift */,
 				08F49E0E2C240A64002D5202 /* LocalFetchUseCaseImpl.swift */,
 			);
 			path = UseCase;
@@ -496,8 +511,8 @@
 			isa = PBXGroup;
 			children = (
 				087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */,
-				08B9658B2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift */,
-				08F49DF32C232364002D5202 /* AuthUseCase.swift */,
+				08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */,
+				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -507,6 +522,7 @@
 			children = (
 				08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */,
 				08B965902C16005300BF95AA /* LoginDTO */,
+				08C813EF2C2EF5F0009239FE /* SignUpDTO */,
 			);
 			path = PopPoolNetwork;
 			sourceTree = "<group>";
@@ -525,6 +541,7 @@
 				BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */,
 				BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */,
 				08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */,
+				08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -534,6 +551,7 @@
 			children = (
 				BDB682542C1C316000560E7B /* LocalDBRepository.swift */,
 				08F49DF12C23230C002D5202 /* AuthRepository.swift */,
+				08C813FC2C2F2C13009239FE /* SignUpRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -544,6 +562,17 @@
 				08C813DD2C2D50BC009239FE /* TagsLayout.swift */,
 			);
 			path = Layout;
+			sourceTree = "<group>";
+		};
+		08C813EF2C2EF5F0009239FE /* SignUpDTO */ = {
+			isa = PBXGroup;
+			children = (
+				08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */,
+				08C813F62C2F15DC009239FE /* FetchInterestListResponseDTO.swift */,
+				08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */,
+				08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */,
+			);
+			path = SignUpDTO;
 			sourceTree = "<group>";
 		};
 		08F49DE62C231C30002D5202 /* Enums */ = {
@@ -884,14 +913,17 @@
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
 				BDA0B1372C2E622B007BDCA4 /* ModalAlertCPNT.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
+				08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
+				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
-				08B9658C2C15FF0600BF95AA /* FetchUserCredentialUseCase.swift in Sources */,
+				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
+				08C813F92C2F267D009239FE /* FetchGendersResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
@@ -900,22 +932,26 @@
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
 				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
 				08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */,
+				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				08C813D92C2D294D009239FE /* UICollectionViewCell+.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
+				08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */,
 				08C813D52C2D1F5E009239FE /* SignUpStep3View.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
+				08C813F72C2F15DC009239FE /* FetchInterestListResponseDTO.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */,
 				087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */,
+				08C813FB2C2F2809009239FE /* TrySignUpRequestDTO.swift in Sources */,
 				BD353B452C2BE42C0004659D /* Secrets.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
@@ -929,17 +965,17 @@
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
-				08F49DF42C232364002D5202 /* AuthUseCase.swift in Sources */,
+				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
-				08B9658A2C15FEBF00BF95AA /* FetchUserCredentialUseCaseImpl.swift in Sources */,
+				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
-				08F49DF62C2323C2002D5202 /* AuthUseCaseImpl.swift in Sources */,
+				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
 				BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */,

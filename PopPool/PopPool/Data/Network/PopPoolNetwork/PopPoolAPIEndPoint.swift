@@ -22,4 +22,32 @@ struct PopPoolAPIEndPoint {
             bodyParameters: userCredential
         )
     }
+    
+    static func checkNickName(with request: CheckNickNameRequestDTO , credential: MyAuthenticationCredential) -> Endpoint<Bool> {
+        return Endpoint(
+            baseURL: "http://localhost:8080",
+            path: "/signup/check-nickname",
+            method: .get,
+            queryParameters: request,
+            headers: ["Authorization": "Bearer \(credential.accessToken)"]
+        )
+    }
+    
+    static func fetchInterestList(credential: MyAuthenticationCredential) -> Endpoint<FetchInterestListResponseDTO> {
+        return Endpoint(
+            baseURL: "http://localhost:8080",
+            path: "/signup/interests",
+            method: .get,
+            headers: ["Authorization": "Bearer \(credential.accessToken)"]
+        )
+    }
+    
+    static func fetchGenders(credential: MyAuthenticationCredential) -> Endpoint<FetchGendersResponseDTO> {
+        return Endpoint(
+            baseURL: "http://localhost:8080",
+            path: "/signup/genders",
+            method: .get,
+            headers: ["Authorization": "Bearer \(credential.accessToken)"]
+        )
+    }
 }
