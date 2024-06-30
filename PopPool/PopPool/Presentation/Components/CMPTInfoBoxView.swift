@@ -79,7 +79,7 @@ extension CMPTInfoBoxView {
         if let index = sensitiveInfo.firstIndex(of: "@") {
             let emailData = sensitiveInfo.prefix(upTo: index)
             return String(
-                sensitiveInfo.prefix(2)
+                sensitiveInfo.prefix(3)
                 + String(repeating: "*", count: emailData.count)
                 + sensitiveInfo.suffix(from: index)
             )
