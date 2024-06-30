@@ -104,7 +104,7 @@ extension CMPTInfoBoxView {
         
         // updated constraint to have top and bottom
         bgView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview()
             make.bottom.top.equalToSuperview()
             make.height.equalTo(53)
         }

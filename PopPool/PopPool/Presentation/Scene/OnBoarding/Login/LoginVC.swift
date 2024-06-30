@@ -30,9 +30,16 @@ class LoginVC: UIViewController {
     
     let notificationLabel: UILabel = {
         let label = UILabel()
-        label.text = "간편하게 SNS 로그인하고\n팝풀 서비스를 이용해보세요"
-        label.font = .KorFont(style: .bold, size: 16)
+        let text = "간편하게 SNS 로그인하고\n팝풀 서비스를 이용해보세요"
         label.numberOfLines = 0
+        label.font = .KorFont(style: .bold, size: 16)
+        let attributedStr = NSMutableAttributedString(string: text)
+        let style = NSMutableParagraphStyle()
+        style.lineHeightMultiple = 1.4
+        label.attributedText = NSMutableAttributedString(
+            string: text,
+            attributes: [.paragraphStyle: style]
+        )
         label.textAlignment = .center
         return label
     }()
