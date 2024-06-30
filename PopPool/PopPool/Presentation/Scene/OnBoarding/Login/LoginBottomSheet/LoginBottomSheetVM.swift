@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class LoginBottomSheetVM: ViewModelable {
+final class LoginBottomSheetVM: ViewModelable {
     struct Input {
         var loginButtonTapped: ControlEvent<Void>
         var cancelButtonTapped: ControlEvent<Void>

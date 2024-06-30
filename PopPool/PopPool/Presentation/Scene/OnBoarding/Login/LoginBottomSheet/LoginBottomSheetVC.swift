@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class LoginBottomSheetVC: ModalViewController {
+final class LoginBottomSheetVC: ModalViewController {
     
     lazy var topStackView: UIStackView = {
         let stack = UIStackView()
