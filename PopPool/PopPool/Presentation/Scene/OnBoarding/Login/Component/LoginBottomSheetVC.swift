@@ -25,8 +25,8 @@ class LoginBottomSheetVC: ModalViewController {
         stack.axis = .horizontal
         stack.spacing = 12
         stack.distribution = .fillEqually
-        stack.addArrangedSubview(loginButton)
         stack.addArrangedSubview(cancelButton)
+        stack.addArrangedSubview(loginButton)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -40,6 +40,7 @@ class LoginBottomSheetVC: ModalViewController {
         return stack
     }()
 
+    lazy var spacer32 = SpacingFactory.shared.createSpace(on: self.view, size: 32)
     lazy var spacer36 = SpacingFactory.shared.createSpace(on: self.view, size: 36)
     lazy var loginButton = ButtonCPNT(type: .primary, title: "로그인")
     lazy var cancelButton = ButtonCPNT(type: .secondary, title: "취소")
@@ -55,6 +56,7 @@ class LoginBottomSheetVC: ModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraint()
+        bind()
     }
     
     private func setUpConstraint() {
@@ -68,9 +70,12 @@ class LoginBottomSheetVC: ModalViewController {
         
         // 스택 적용
         contentStack.addArrangedSubview(titleLabel)
+        contentStack.addArrangedSubview(spacer32)
         contentStack.addArrangedSubview(infoBox)
         contentStack.addArrangedSubview(spacer36)
         contentStack.addArrangedSubview(buttonStack)
+        
+        infoBox.updateLabel(email: "abcdef@gmail.com")
         self.setContent(content: contentStack)
     }
     
@@ -85,10 +90,12 @@ class LoginBottomSheetVC: ModalViewController {
             .subscribe(
                 onNext: { [weak self] in
                     print("메인 화면으로 넘어갑니다.")
-                    // 메인 화면 구현 이후 추가
-                },
-                onError: { error in
+                    ToastMSGManager.createToast(message: "로그인이 완료되었어요")
+                    self?.dismissBottomSheet()
+                    // 메인 화면 구현 이후 추가 - LoginVC에서...
+                }, onError: { error in
                     print("오류가 발생했습니다")
+                    ToastMSGManager.createToast(message: "문제가 발생했어요. 다시 시도해주세요")
                     print(error.localizedDescription)
                 }
             )
@@ -101,6 +108,7 @@ class LoginBottomSheetVC: ModalViewController {
                     self?.dismissBottomSheet()
                 }, onError: { error in
                     print("오류가 발생했습니다")
+                    ToastMSGManager.createToast(message: "문제가 발생했어요. 다시 시도해주세요")
                     print(error.localizedDescription)
                 }
             )
