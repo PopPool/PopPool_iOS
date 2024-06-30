@@ -28,7 +28,7 @@ final class TermsViewCPNT: UIStackView {
         view.image = UIImage(named: "line_signUp")
         return view
     }()
-    private let termsButton: UIButton = {
+    let termsButton: UIButton = {
         let button = UIButton()
         return button
     }()

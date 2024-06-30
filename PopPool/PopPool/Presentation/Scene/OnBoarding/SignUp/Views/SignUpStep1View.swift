@@ -28,6 +28,30 @@ final class SignUpStep1View: UIStackView {
     }()
     private let bottomSpacingView = UIView()
     
+    private let termList: [TermsFormet] = [
+        .init(
+            title: "title1",
+            content: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+        ),
+        .init(
+            title: "title2",
+            content: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+        ),
+        .init(
+            title: "title3",
+            content: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+        ),
+        .init(
+            title: "title4",
+            content: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+        )
+    ]
+    
+    struct TermsFormet {
+        var title: String
+        var content: String
+    }
+    
     // MARK: - Properties
     private let disposeBag = DisposeBag()
     /// 약관 동의 상태를 전달하는 PublishSubject
@@ -96,5 +120,14 @@ private extension SignUpStep1View {
                 owner.checkBox.isCheck.accept(isAllCheck)
             })
             .disposed(by: disposeBag)
+        
+        for (index, view) in termViews.enumerated() {
+            view.termsButton.rx.tap
+                .withUnretained(self)
+                .subscribe { (owner, _) in
+                    print(owner.termList[index])
+                }
+                .disposed(by: disposeBag)
+        }
     }
 }
