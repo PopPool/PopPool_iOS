@@ -44,11 +44,12 @@ final class SignUpVC: UIViewController {
     
     // MARK: - ContentViews
     private let step1_ContentView = SignUpStep1View()
+    private let step2_ContentView = SignUpStep2View()
     private let step3_ContentView = SignUpStep3View()
     private let step4_ContentView = SignUpStep4View()
     private lazy var contentViews = [
         step1_ContentView,
-        UIView(),
+        step2_ContentView,
         step3_ContentView,
         step4_ContentView
     ]
@@ -60,7 +61,11 @@ final class SignUpVC: UIViewController {
         button.isEnabled = false
         return button
     }()
-    private let step2_primaryButton = ButtonCPNT(type: .primary, title: "확인", disabledTitle: "다음")
+    private let step2_primaryButton: ButtonCPNT = {
+        let button = ButtonCPNT(type: .primary, title: "확인", disabledTitle: "다음")
+        button.isEnabled = false
+        return button
+    }()
     private let step2_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
     private lazy var step2_buttons: UIStackView = {
         let view = UIStackView(arrangedSubviews: [self.step2_secondaryButton, self.step2_primaryButton])
@@ -161,6 +166,16 @@ private extension SignUpVC {
             tap_step1_primaryButton: step1_primaryButton.rx.tap,
             event_step1_didChangeTerms: step1_ContentView.terms,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
+            tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap, 
+            event_step2_isAvailableNickName: step2_ContentView.validationTextField.validationState.asObservable()
+                .map({ state in
+                    switch state {
+                    case .available:
+                        return true
+                    default:
+                        return false
+                    }
+                }),
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
             event_step4_didSelectedGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
@@ -194,6 +209,22 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // Step 2 중복확인 button 결과 전달
+        output.step2_isDuplicate
+            .withUnretained(self)
+            .subscribe { (owner, isDuplicate) in
+                owner.step2_ContentView.validationTextField.validationState.accept(isDuplicate ? .duplicateNickname : .available)
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 2 primary button 활성/비활성 상태 처리
+        output.step2_primaryButton_isEnabled
+            .withUnretained(self)
+            .subscribe { (owner, isEnabled) in
+                owner.changeButtonState(button: owner.step2_primaryButton, isEnabled: isEnabled)
+            }
+            .disposed(by: disposeBag)
+        
         // Step 3 primary button 활성/비활성 상태 처리
         output.step3_primaryButton_isEnabled
             .withUnretained(self)
@@ -217,6 +248,7 @@ private extension SignUpVC {
     ///   - pageIndex: 현재 페이지 인덱스
     ///   - previousIndex: 이전 페이지 인덱스
     func reloadView(pageIndex: Int, isIncrease: Bool) {
+        view.endEditing(true)
         let previousIndex = isIncrease ? pageIndex - 1 : pageIndex + 1
         
         UIView.transition(with: contentTitleStackView, duration: 0.2, options: .transitionCrossDissolve) {

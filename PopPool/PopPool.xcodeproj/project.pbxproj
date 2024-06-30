@@ -36,6 +36,8 @@
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */; };
+		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
+		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -57,6 +59,7 @@
 		08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813DD2C2D50BC009239FE /* TagsLayout.swift */; };
 		08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */; };
 		08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */; };
+		08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */; };
 		08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */; };
 		08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */; };
 		08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */; };
@@ -64,7 +67,6 @@
 		08C813F92C2F267D009239FE /* FetchGendersResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */; };
 		08C813FB2C2F2809009239FE /* TrySignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */; };
 		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
-		08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE72C231C40002D5202 /* SocialTYPE.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
@@ -146,6 +148,8 @@
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 		087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
+		089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
+		089D19012C3032EC000435D9 /* SignUpStep2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep2View.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 		08C813DD2C2D50BC009239FE /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCPNT.swift; sourceTree = "<group>"; };
 		08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep4View.swift; sourceTree = "<group>"; };
+		08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgeSelectedButton.swift; sourceTree = "<group>"; };
 		08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameRequestDTO.swift; sourceTree = "<group>"; };
 		08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthenticationCredential.swift; sourceTree = "<group>"; };
 		08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -175,7 +180,6 @@
 		08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGendersResponseDTO.swift; sourceTree = "<group>"; };
 		08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrySignUpRequestDTO.swift; sourceTree = "<group>"; };
 		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
-		08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgeSelectedButton.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE72C231C40002D5202 /* SocialTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTYPE.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -452,6 +456,7 @@
 			children = (
 				08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */,
 				08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */,
+				089D19012C3032EC000435D9 /* SignUpStep2View.swift */,
 				08C813D42C2D1F5E009239FE /* SignUpStep3View.swift */,
 				08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */,
 				08C813DA2C2D3A58009239FE /* LargeChipCell.swift */,
@@ -594,6 +599,7 @@
 				08A28CB52C2A97E300DF7A90 /* ContentTitleCPNT.swift */,
 				BD353B462C2C13460004659D /* HeaderViewCPNT.swift */,
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
+				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -935,6 +941,7 @@
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
+				089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				08C813D92C2D294D009239FE /* UICollectionViewCell+.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
@@ -965,6 +972,7 @@
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
+				089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */,
 				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
@@ -1081,7 +1089,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1138,7 +1146,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
