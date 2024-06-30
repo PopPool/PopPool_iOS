@@ -27,6 +27,7 @@ class LoginVM: ViewModelable {
     struct Output {
         let showLoginBottomSheet: Observable<SocialTYPE>
         let moveToInquryPage: Observable<Void>
+        let moveToSignUpPage: ControlEvent<Void>
     }
     
     private var deliverData = BehaviorRelay(value: UserDefaults.standard.integer(forKey: "serviceValue"))
@@ -56,10 +57,10 @@ class LoginVM: ViewModelable {
             .disposed(by: disposeBag)
         
         // 카카오 로그인 버튼 입력
-        input.kakaoLoginButtonTapped
-            .map { SocialTYPE.kakao }
-            .bind(to: showLoginPlatformSubject)
-            .disposed(by: disposeBag)
+//        input.kakaoLoginButtonTapped
+//            .map { SocialTYPE.kakao }
+//            .bind(to: showLoginPlatformSubject)
+//            .disposed(by: disposeBag)
         
         // 애플 로그인 버튼 입력
         input.appleLoginButtonTapped
@@ -85,7 +86,8 @@ class LoginVM: ViewModelable {
 
         return Output(
             showLoginBottomSheet: showLoginPlatformSubject,
-            moveToInquryPage: moveToInquirySubject
+            moveToInquryPage: moveToInquirySubject,
+            moveToSignUpPage: input.kakaoLoginButtonTapped
         )
     }
     

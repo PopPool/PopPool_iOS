@@ -61,6 +61,8 @@ final class SignUpVM: ViewModelable {
         var step3_primaryButton_isEnabled: PublishSubject<Bool>
         /// 유효한 닉네임 전달 이벤트
         var fetchUserNickname: PublishSubject<String>
+        /// 이전 화면으로 이동
+        var moveToRecentVC: ControlEvent<Void>
     }
     
     var disposeBag: DisposeBag = DisposeBag()
@@ -221,7 +223,8 @@ final class SignUpVM: ViewModelable {
             step2_primaryButton_isEnabled: step2_primaryButton_isEnabled,
             fetchCategoryList: fetchCategoryList,
             step3_primaryButton_isEnabled: step3_primaryButton_isEnabled,
-            fetchUserNickname: userNickName
+            fetchUserNickname: userNickName,
+            moveToRecentVC: input.tap_header_cancelButton
         )
     }
 }

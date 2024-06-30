@@ -105,6 +105,10 @@ final class SignUpVC: UIViewController {
     // MARK: - Properties
     private let viewModel = SignUpVM()
     private let disposeBag = DisposeBag()
+    
+    deinit {
+        print(self, #function)
+    }
 }
 
 // MARK: - Life Cycle
@@ -160,6 +164,13 @@ private extension SignUpVC {
     
     /// ViewModel과의 바인딩을 설정
     func bind() {
+        step2_ContentView.validationTextField.duplicationCheckButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
+        
         let input = SignUpVM.Input(
             tap_header_cancelButton: headerView.rightBarButton.rx.tap,
             tap_header_backButton: headerView.leftBarButton.rx.tap,
@@ -207,6 +218,7 @@ private extension SignUpVC {
         // Step 2 중복확인 button 결과 전달
         output.step2_isDuplicate
             .withUnretained(self)
+            .debounce(.microseconds(200), scheduler: MainScheduler.instance)
             .subscribe { (owner, isDuplicate) in
                 owner.step2_ContentView.validationTextField.validationState.accept(isDuplicate ? .duplicateNickname : .available)
             }
@@ -242,6 +254,13 @@ private extension SignUpVC {
             .subscribe { (owner, nickname) in
                 owner.step3_contentTitleView.setNickName(nickName: nickname)
                 owner.step4_contentTitleView.setNickName(nickName: nickname)
+            }
+            .disposed(by: disposeBag)
+        
+        output.moveToRecentVC
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
     }

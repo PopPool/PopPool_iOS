@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
 
 class LoginVC: UIViewController {
     
@@ -166,5 +167,14 @@ extension LoginVC {
             .subscribe(onNext: { [weak self] _ in
                 // 메인 화면으로 이동
             })
+            .disposed(by: disposeBag)
+        
+        output.moveToSignUpPage
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let vc = SignUpVC()
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
