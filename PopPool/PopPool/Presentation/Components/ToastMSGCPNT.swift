@@ -56,11 +56,12 @@ extension ToastMSGCPNT {
         bgView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(snp.bottom)
+            make.top.equalTo(snp.top)
             make.height.equalTo(38)
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._16px)
             make.centerY.equalToSuperview()
         }
     }
