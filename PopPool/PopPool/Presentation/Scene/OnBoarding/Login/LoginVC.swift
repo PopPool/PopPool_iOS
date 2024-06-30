@@ -12,16 +12,7 @@ import RxSwift
 class LoginVC: UIViewController {
     
 // MARK: - Properties
-    let rightBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(
-            title: "둘러보기",
-            style: .plain,
-            target: nil,
-            action: nil
-        )
-        button.tintColor = .g1000
-        return button
-    }()
+    let headerView = HeaderViewCPNT(title: "둘러보기", style: .text("둘러보기"))
     
     let logoStackView: UIStackView = {
         let stack = UIStackView()
@@ -39,9 +30,16 @@ class LoginVC: UIViewController {
     
     let notificationLabel: UILabel = {
         let label = UILabel()
-        label.text = "간편하게 SNS 로그인하고\n팝풀 서비스를 이용해보세요"
-        label.font = .KorFont(style: .bold, size: 16)
+        let text = "간편하게 SNS 로그인하고\n팝풀 서비스를 이용해보세요"
         label.numberOfLines = 0
+        label.font = .KorFont(style: .bold, size: 16)
+        let attributedStr = NSMutableAttributedString(string: text)
+        let style = NSMutableParagraphStyle()
+        style.lineHeightMultiple = 1.4
+        label.attributedText = NSMutableAttributedString(
+            string: text,
+            attributes: [.paragraphStyle: style]
+        )
         label.textAlignment = .center
         return label
     }()
@@ -67,10 +65,11 @@ class LoginVC: UIViewController {
     lazy var spacer28 = SpacingFactory.shared.createSpace(on: self.view, size: 28)
     lazy var spacer64 = SpacingFactory.shared.createSpace(on: self.view, size: 64)
     lazy var spacer156 = SpacingFactory.shared.createSpace(on: self.view, size: 156)
+    lazy var belowTip = CMPTToolTipView(frame: .zero, direction: .notifyBelow)
+    lazy var aboveTip = CMPTToolTipView(frame: .zero, direction: .notifyAbove)
     
     private let viewModel = LoginVM()
     private let disposeBag = DisposeBag()
-    private var loginServiceChecker: Int = 0
 }
 
 
@@ -88,7 +87,16 @@ extension LoginVC {
 extension LoginVC {
     private func setupLayout() {
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = rightBarButton
+        navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = .systemBackground
+        headerView.leftBarButton.isHidden = true
+        headerView.titleLabel.isHidden = true
+        
+        view.addSubview(headerView)
+        headerView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+        }
         
         view.addSubview(logoStackView)
         logoStackView.addArrangedSubview(spacer64)
@@ -98,7 +106,7 @@ extension LoginVC {
         logoStackView.addArrangedSubview(spacer156)
         
         logoStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(64)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -117,11 +125,29 @@ extension LoginVC {
             make.bottom.equalToSuperview().inset(88)
             make.centerX.equalToSuperview()
         }
+        setToolTip()
+    }
+    
+    private func setToolTip() {
+        
+        if true {
+            view.addSubview(belowTip)
+            belowTip.snp.makeConstraints { make in
+                make.bottom.equalTo(kakaoSignInButton.snp.top).inset(-8)
+                make.centerX.equalToSuperview()
+            }
+        } else {
+            view.addSubview(aboveTip)
+            aboveTip.snp.makeConstraints { make in
+                make.top.equalTo(appleSignInButton.snp.bottom).inset(8)
+                make.centerX.equalToSuperview()
+            }
+        }
     }
     
     func bind() {
         let input = LoginVM.Input(
-            tourButtonTapped: rightBarButton.rx.tap,
+            tourButtonTapped: headerView.rightBarButton.rx.tap,
             kakaoLoginButtonTapped: kakaoSignInButton.rx.tap,
             appleLoginButtonTapped: appleSignInButton.rx.tap,
             inquryButtonTapped: inquiryButton.rx.tap
@@ -129,11 +155,16 @@ extension LoginVC {
         let output = viewModel.transform(input: input)
         
         output.showLoginBottomSheet
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] _ in
                 print("버튼이 눌렸습니다")
-                 let vc = LoginBottomSheetVC()
+                let vc = LoginBottomSheetVC()
                 self?.presentViewControllerModally(vc: vc)
             })
             .disposed(by: disposeBag)
+        
+        output.moveToInquryPage
+            .subscribe(onNext: { [weak self] _ in
+                // 메인 화면으로 이동
+            })
     }
 }

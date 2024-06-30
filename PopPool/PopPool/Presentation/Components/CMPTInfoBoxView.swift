@@ -79,7 +79,7 @@ extension CMPTInfoBoxView {
         if let index = sensitiveInfo.firstIndex(of: "@") {
             let emailData = sensitiveInfo.prefix(upTo: index)
             return String(
-                sensitiveInfo.prefix(2)
+                sensitiveInfo.prefix(3)
                 + String(repeating: "*", count: emailData.count)
                 + sensitiveInfo.suffix(from: index)
             )
@@ -104,7 +104,7 @@ extension CMPTInfoBoxView {
         
         // updated constraint to have top and bottom
         bgView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview()
             make.bottom.top.equalToSuperview()
             make.height.equalTo(53)
         }

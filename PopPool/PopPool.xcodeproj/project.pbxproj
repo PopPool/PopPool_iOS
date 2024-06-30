@@ -412,6 +412,7 @@
 		0873464F2C0ABC2300534FFA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BD3C4C742C31AF550087917B /* ViewController */,
 				08C813DC2C2D50AD009239FE /* Layout */,
 				BD0B8F512C26D59600FFBC24 /* Manager */,
 				BDF4F2942C240B86002F4F03 /* Utility */,
@@ -640,7 +641,7 @@
 		08F49E032C2402E7002D5202 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				BDA0B1352C2E6218007BDCA4 /* Component */,
+				BD3C4C752C31AF6A0087917B /* LoginBottomSheet */,
 				08F49E082C240335002D5202 /* LoginVC.swift */,
 				BD353B4A2C2D3D7D0004659D /* LoginVM.swift */,
 			);
@@ -666,14 +667,21 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		BDA0B1352C2E6218007BDCA4 /* Component */ = {
+		BD3C4C742C31AF550087917B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BD3C4C752C31AF6A0087917B /* LoginBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
 				BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */,
 				BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */,
 			);
-			path = Component;
+			path = LoginBottomSheet;
 			sourceTree = "<group>";
 		};
 		BDC622AF2C22580E009411AE /* Common */ = {
