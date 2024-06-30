@@ -82,13 +82,17 @@
 		BD353B452C2BE42C0004659D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B442C2BE42C0004659D /* Secrets.swift */; };
 		BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B462C2C13460004659D /* HeaderViewCPNT.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
-		BD57D4E82C30C63A0036E874 /* LoginBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheet.swift */; };
+		BD3C4C6A2C30C8880087917B /* CMPTInfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* CMPTInfoBoxView.swift */; };
+		BD3C4C6B2C30C8880087917B /* CMPTToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C692C30C8880087917B /* CMPTToolTipView.swift */; };
+		BD3C4C6D2C30C8AE0087917B /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6C2C30C8AE0087917B /* HeaderViewCPNT.swift */; };
+		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
+		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */; };
 		BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseTYPE.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
-		BDA0B1372C2E622B007BDCA4 /* ModalAlertCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalAlertCPNT.swift */; };
+		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
 		BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */; };
@@ -194,13 +198,17 @@
 		BD353B442C2BE42C0004659D /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD353B462C2C13460004659D /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
-		BD57D4E72C30C63A0036E874 /* LoginBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheet.swift; sourceTree = "<group>"; };
+		BD3C4C682C30C8880087917B /* CMPTInfoBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPTInfoBoxView.swift; sourceTree = "<group>"; };
+		BD3C4C692C30C8880087917B /* CMPTToolTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPTToolTipView.swift; sourceTree = "<group>"; };
+		BD3C4C6C2C30C8AE0087917B /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
+		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
+		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD8607962C23418800726692 /* LocalDeleteUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDeleteUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD86079A2C23429D00726692 /* DatabaseTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTYPE.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
-		BDA0B1362C2E622B007BDCA4 /* ModalAlertCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertCPNT.swift; sourceTree = "<group>"; };
+		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaveUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -590,6 +598,9 @@
 			isa = PBXGroup;
 			children = (
 				08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */,
+				BD3C4C682C30C8880087917B /* CMPTInfoBoxView.swift */,
+				BD3C4C692C30C8880087917B /* CMPTToolTipView.swift */,
+				BD3C4C6C2C30C8AE0087917B /* HeaderViewCPNT.swift */,
 				08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */,
 				08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */,
 				BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */,
@@ -658,8 +669,9 @@
 		BDA0B1352C2E6218007BDCA4 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				BDA0B1362C2E622B007BDCA4 /* ModalAlertCPNT.swift */,
-				BD57D4E72C30C63A0036E874 /* LoginBottomSheet.swift */,
+				BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */,
+				BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */,
+				BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -914,7 +926,8 @@
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
-				BDA0B1372C2E622B007BDCA4 /* ModalAlertCPNT.swift in Sources */,
+				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
+				BD3C4C6B2C30C8880087917B /* CMPTToolTipView.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
 				08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
@@ -930,6 +943,7 @@
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
+				BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
@@ -947,7 +961,7 @@
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
-				BD57D4E82C30C63A0036E874 /* LoginBottomSheet.swift in Sources */,
+				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
 				08C813F72C2F15DC009239FE /* FetchInterestListResponseDTO.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
@@ -965,6 +979,7 @@
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
+				BD3C4C6D2C30C8AE0087917B /* HeaderViewCPNT.swift in Sources */,
 				BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */,
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
@@ -980,6 +995,7 @@
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
+				BD3C4C6A2C30C8880087917B /* CMPTInfoBoxView.swift in Sources */,
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
 				BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */,

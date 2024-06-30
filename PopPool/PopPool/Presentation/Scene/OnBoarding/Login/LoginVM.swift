@@ -25,7 +25,7 @@ class LoginVM: ViewModelable {
     
     /// LoginVC으로 출력 이벤트
     struct Output {
-        let showServiceLogin: Observable<Void>
+        let showLoginBottomSheet: Observable<Void>
     }
     
     private let showLoginSubject = PublishSubject<Void>()
@@ -70,7 +70,7 @@ class LoginVM: ViewModelable {
             .disposed(by: disposeBag)
 
         return Output(
-            showServiceLogin: showLoginSubject
+            showLoginBottomSheet: showLoginSubject
         )
     }
 }

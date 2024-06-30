@@ -128,10 +128,10 @@ extension LoginVC {
         )
         let output = viewModel.transform(input: input)
         
-        output.showServiceLogin
+        output.showLoginBottomSheet
             .subscribe(onNext: { [weak self] in
                 print("버튼이 눌렸습니다")
-                let vc = ModalAlertCPNT()
+                 let vc = LoginBottomSheetVC()
                 self?.presentViewControllerModally(vc: vc)
             })
             .disposed(by: disposeBag)
