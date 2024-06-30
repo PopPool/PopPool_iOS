@@ -13,6 +13,7 @@ import KakaoSDKAuth
 import RxKakaoSDKAuth
 import KakaoSDKUser
 import RxKakaoSDKUser
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //DIContainer register
         registerDIContainer()
+        
+        //IQKeyBoardManager 사용 값 설정
+        IQKeyboardManager.shared.enable = true
+        //IQKeyBoardManager 오토 툴바 사용 설정
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        //IQKeyBoardManager 배경 영역 터치시 키보드 대응 설정
+        IQKeyboardManager.shared.resignOnTouchOutside = true
         
         //KakaoSDK appkey register
         RxKakaoSDK.initSDK(appKey: Secrets.kakaoAuthAppkey_Dev.rawValue)

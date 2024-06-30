@@ -23,14 +23,24 @@ final class SignUpVM: ViewModelable {
         var event_step1_didChangeTerms: PublishSubject<[Bool]>
         /// Sign Up Step2 primary button  탭 이벤트
         var tap_step2_primaryButton: ControlEvent<Void>
+        /// Sign Up Step2 secondary button  탭 이벤트
+        var tap_step2_secondaryButton: ControlEvent<Void>
+        /// Sign Up Step2 중복확인 button  탭 이벤트
+        var tap_step2_nickNameCheckButton: ControlEvent<Void>
+        /// Sign Up Step2 유효한 닉네임 전달 이벤트
+        var event_step2_availableNickName: PublishSubject<String?>
         /// Sign Up Step3 primary button  탭 이벤트
         var tap_step3_primaryButton: ControlEvent<Void>
+        /// Sign Up Step3 secondary button  탭 이벤트
+        var tap_step3_secondaryButton: ControlEvent<Void>
         /// 관심사 변경을 전달하는 Subject
         var event_step3_didChangeInterestList: Observable<[String]>
         /// step 4 gender segmentedControl 이벤트
         var event_step4_didSelectedGender: ControlProperty<Int>
         /// step 4 나이 설정 버튼 탭 이벤트
         var tap_step4_ageButton: ControlEvent<Void>
+        /// Sign Up Step4 secondary button  탭 이벤트
+        var tap_step4_secondaryButton: ControlEvent<Void>
     }
     
     /// 출력 이벤트
@@ -41,10 +51,16 @@ final class SignUpVM: ViewModelable {
         var decreasePageIndex: PublishSubject<Int>
         /// Step 1의 primary button 활성/비활성 상태를 방출하는 Subject
         var step1_primaryButton_isEnabled: PublishSubject<Bool>
+        /// nickName 중복 여부 상태를 방출하는 Subject
+        var step2_isDuplicate: PublishSubject<Bool>
+        /// Step 2의 primary button 활성/비활성 상태를 방출하는 Subject
+        var step2_primaryButton_isEnabled: PublishSubject<Bool>
         /// 카테고리 리스트를 가져오는 Subject
         var fetchCategoryList: PublishSubject<[String]>
         /// Step 3의 primary button 활성/비활성 상태를 방출하는 Subject
         var step3_primaryButton_isEnabled: PublishSubject<Bool>
+        /// 유효한 닉네임 전달 이벤트
+        var fetchUserNickname: PublishSubject<String>
     }
     
     var disposeBag: DisposeBag = DisposeBag()
@@ -55,15 +71,21 @@ final class SignUpVM: ViewModelable {
     private let pageIndexIncreaseObserver: PublishSubject<Int> = .init()
     private let pageIndexDecreaseObserver: PublishSubject<Int> = .init()
     
+    private let userNickName: PublishSubject<String> = .init()
+    
     /// 입력을 출력으로 변환하는 메서드
     ///
     /// - Parameter input: 입력 구조체
     /// - Returns: 출력 구조체
     func transform(input: Input) -> Output {
         let step1_primaryButton_isEnabled: PublishSubject<Bool> = .init()
+        
+        let step2_isDuplicate: PublishSubject<Bool> = .init()
+        let step2_primaryButton_isEnabled: PublishSubject<Bool> = .init()
+        
         let step3_primaryButton_isEnabled: PublishSubject<Bool> = .init()
         let fetchCategoryList: PublishSubject<[String]> = .init()
-        
+
         // tap_header_cancelButton 이벤트 처리
         input.tap_header_cancelButton
             .withUnretained(self)
@@ -104,6 +126,7 @@ final class SignUpVM: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.increasePageIndex()
+                // 네트워크 사용으로 수정 필요
                 fetchCategoryList.onNext([
                     "패션",
                     "라이프스타일",
@@ -121,6 +144,36 @@ final class SignUpVM: ViewModelable {
             }
             .disposed(by: disposeBag)
         
+        // Step 2 secondary button 탭 이벤트 처리
+        input.tap_step2_secondaryButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.increasePageIndex()
+            }
+            .disposed(by: disposeBag)
+        
+        // Step2 중복확인 버튼 이벤트 처리
+        input.tap_step2_nickNameCheckButton
+            .subscribe { _ in
+                // 네트워크 사용으로 수정 필요
+                step2_isDuplicate.onNext(false)
+            }
+            .disposed(by: disposeBag)
+        
+        // Step2 nickName Validation 상태 이벤트 처리
+        input.event_step2_availableNickName
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, nickname) in
+                if let nickname = nickname {
+                    owner.userNickName.onNext(nickname)
+                    step2_primaryButton_isEnabled.onNext(true)
+                } else {
+                    owner.userNickName.onNext("error")
+                    step2_primaryButton_isEnabled.onNext(false)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         // 관심사 리스트 변경 이벤트 처리
         input.event_step3_didChangeInterestList
             .subscribe { list in
@@ -132,6 +185,14 @@ final class SignUpVM: ViewModelable {
 
         // Step 3 primary button 탭 이벤트 처리
         input.tap_step3_primaryButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.increasePageIndex()
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 3 secondary button 탭 이벤트 처리
+        input.tap_step3_secondaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.increasePageIndex()
@@ -156,8 +217,11 @@ final class SignUpVM: ViewModelable {
             increasePageIndex: pageIndexIncreaseObserver,
             decreasePageIndex: pageIndexDecreaseObserver,
             step1_primaryButton_isEnabled: step1_primaryButton_isEnabled,
+            step2_isDuplicate: step2_isDuplicate,
+            step2_primaryButton_isEnabled: step2_primaryButton_isEnabled,
             fetchCategoryList: fetchCategoryList,
-            step3_primaryButton_isEnabled: step3_primaryButton_isEnabled
+            step3_primaryButton_isEnabled: step3_primaryButton_isEnabled,
+            fetchUserNickname: userNickName
         )
     }
 }

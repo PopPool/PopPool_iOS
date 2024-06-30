@@ -36,6 +36,9 @@
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */; };
+		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
+		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
+		089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 089D19052C31A620000435D9 /* IQKeyboardManagerSwift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -151,6 +154,8 @@
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
 		087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
+		089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
+		089D19012C3032EC000435D9 /* SignUpStep2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep2View.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 				087346482C0AAF7000534FFA /* RxCocoa in Frameworks */,
 				085105972C1033E600ED7DBB /* RxKakaoSDKShare in Frameworks */,
 				085105932C1033E600ED7DBB /* RxKakaoSDKCommon in Frameworks */,
+				089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */,
 				0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */,
 				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
@@ -463,6 +469,7 @@
 			children = (
 				08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */,
 				08A28CC12C2AF2DD00DF7A90 /* SignUpStep1View.swift */,
+				089D19012C3032EC000435D9 /* SignUpStep2View.swift */,
 				08C813D42C2D1F5E009239FE /* SignUpStep3View.swift */,
 				08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */,
 				08C813DA2C2D3A58009239FE /* LargeChipCell.swift */,
@@ -608,6 +615,7 @@
 				08A28CB52C2A97E300DF7A90 /* ContentTitleCPNT.swift */,
 				BD353B462C2C13460004659D /* HeaderViewCPNT.swift */,
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
+				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -801,6 +809,7 @@
 				085105962C1033E600ED7DBB /* RxKakaoSDKShare */,
 				085105982C1033E600ED7DBB /* RxKakaoSDKTalk */,
 				0851059A2C1033E600ED7DBB /* RxKakaoSDKUser */,
+				089D19052C31A620000435D9 /* IQKeyboardManagerSwift */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -879,6 +888,7 @@
 				087346462C0AAF6F00534FFA /* XCRemoteSwiftPackageReference "RxSwift" */,
 				085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 				0851058B2C1033E500ED7DBB /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -960,6 +970,7 @@
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
+				089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				08C813D92C2D294D009239FE /* UICollectionViewCell+.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
@@ -992,6 +1003,7 @@
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
+				089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */,
 				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				BD8607972C23418800726692 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
@@ -1109,7 +1121,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1166,7 +1178,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1392,6 +1404,14 @@
 				minimumVersion = 6.7.1;
 			};
 		};
+		089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1459,6 +1479,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 087346462C0AAF6F00534FFA /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		089D19052C31A620000435D9 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
