@@ -164,6 +164,7 @@ final class ValidationTextFieldCPNT: UIStackView {
     }()
     
     let validationState: BehaviorRelay<NickNameValidationState> = .init(value: .none)
+    let nickNameObserver: PublishSubject<String?> = .init()
     private let disposeBag = DisposeBag()
     
     init(placeholder: String) {
@@ -245,6 +246,12 @@ private extension ValidationTextFieldCPNT {
         validationState
             .withUnretained(self)
             .subscribe { (owner, state) in
+                if state == .available {
+                    guard let nickName = owner.textField.text else { return }
+                    owner.nickNameObserver.onNext(nickName)
+                } else {
+                    owner.nickNameObserver.onNext(nil)
+                }
                 owner.changeView(state: state)
             } onError: { error in
                 ToastMSGManager.createToast(message: "ValidationStateError")
@@ -256,6 +263,7 @@ private extension ValidationTextFieldCPNT {
             .subscribe { (owner, _) in
                 owner.textField.text = ""
                 owner.validationState.accept(.none)
+                owner.changeNickNameCount(nickname: "")
             }
             .disposed(by: disposeBag)
     }

@@ -166,20 +166,15 @@ private extension SignUpVC {
             tap_step1_primaryButton: step1_primaryButton.rx.tap,
             event_step1_didChangeTerms: step1_ContentView.terms,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
-            tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap, 
-            event_step2_isAvailableNickName: step2_ContentView.validationTextField.validationState.asObservable()
-                .map({ state in
-                    switch state {
-                    case .available:
-                        return true
-                    default:
-                        return false
-                    }
-                }),
+            tap_step2_secondaryButton: step2_secondaryButton.rx.tap,
+            tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap,
+            event_step2_availableNickName: step2_ContentView.validationTextField.nickNameObserver,
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
+            tap_step3_secondaryButton: step3_secondaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
             event_step4_didSelectedGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
-            tap_step4_ageButton: step4_ContentView.ageButton.rx.tap
+            tap_step4_ageButton: step4_ContentView.ageButton.rx.tap,
+            tap_step4_secondaryButton: step4_secondaryButton.rx.tap
         )
         let output = viewModel.transform(input: input)
         
@@ -238,6 +233,15 @@ private extension SignUpVC {
             .withUnretained(self)
             .subscribe { (owner, list) in
                 owner.step3_ContentView.setCategoryList(list: list)
+            }
+            .disposed(by: disposeBag)
+        
+        // Step3,4 nickname 설정
+        output.fetchUserNickname
+            .withUnretained(self)
+            .subscribe { (owner, nickname) in
+                owner.step3_contentTitleView.setNickName(nickName: nickname)
+                owner.step4_contentTitleView.setNickName(nickName: nickname)
             }
             .disposed(by: disposeBag)
     }

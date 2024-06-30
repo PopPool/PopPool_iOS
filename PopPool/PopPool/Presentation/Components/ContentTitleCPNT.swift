@@ -68,7 +68,7 @@ extension ContentTitleTYPE {
 final class ContentTitleCPNT: UIStackView {
     
     // MARK: - Components
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = . byWordWrapping
@@ -119,15 +119,18 @@ private extension ContentTitleCPNT {
         self.spacing = 0
         self.alignment = .fill
         self.distribution = .fill
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.5
-        titleLabel.font = type.titleFont
-        titleLabel.attributedText = NSMutableAttributedString(
-            string: title,
-            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        )
-        
+        let attributedString = NSMutableAttributedString(string: title)
+        let targetRange = (title as NSString).range(of: "$유저명$")
+        let fullRange = (title as NSString).range(of: title)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.blu500.cgColor, range: targetRange)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: fullRange)
         titleLabel.textColor = type.titleColor
+        titleLabel.font = type.titleFont
+        titleLabel.attributedText = attributedString
+
         subTitleLabel.font = type.subFont
         subTitleLabel.textColor = type.subTitleColor
     }
@@ -216,9 +219,19 @@ private extension ContentTitleCPNT {
 }
 
 extension ContentTitleCPNT {
-    /// 제목 attributedText설정
-    /// - Parameter attributedText: NSAttributedString 값
-    func setTitleLabel(attributedText: NSAttributedString) {
-        titleLabel.attributedText = attributedText
+    
+    /// SignUp Scene nickname set 메서드
+    /// - Parameter nickName: 닉네임
+    func setNickName(nickName: String) {
+        let description = "님에 대해\n조금 더 알려주시겠어요?"
+        let title = nickName + description
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.5
+        let attributedString = NSMutableAttributedString(string: title)
+        let targetRange = (title as NSString).range(of: nickName)
+        let fullRange = (title as NSString).range(of: title)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.blu500.cgColor, range: targetRange)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: fullRange)
+        titleLabel.attributedText = attributedString
     }
 }
