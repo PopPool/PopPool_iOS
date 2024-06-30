@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class LoginVC: UIViewController {
     
@@ -68,6 +69,7 @@ class LoginVC: UIViewController {
     lazy var spacer156 = SpacingFactory.shared.createSpace(on: self.view, size: 156)
     
     private let viewModel = LoginVM()
+    private let disposeBag = DisposeBag()
     private var loginServiceChecker: Int = 0
 }
 
@@ -76,7 +78,6 @@ class LoginVC: UIViewController {
 extension LoginVC {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupLayout()
         bind()
     }
@@ -126,5 +127,13 @@ extension LoginVC {
             inquryButtonTapped: inquiryButton.rx.tap
         )
         let output = viewModel.transform(input: input)
+        
+        output.showLoginBottomSheet
+            .subscribe(onNext: { [weak self] in
+                print("버튼이 눌렸습니다")
+                 let vc = LoginBottomSheetVC()
+                self?.presentViewControllerModally(vc: vc)
+            })
+            .disposed(by: disposeBag)
     }
 }

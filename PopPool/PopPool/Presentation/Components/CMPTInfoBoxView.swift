@@ -40,7 +40,7 @@ final class CMPTInfoBoxView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setLayout()
+        setUpConstraint()
     }
     
     required init?(coder: NSCoder) {
@@ -97,13 +97,15 @@ extension CMPTInfoBoxView {
         return emailPredicate.evaluate(with: email)
     }
     
-    private func setLayout() {
+    private func setUpConstraint() {
         addSubview(bgView)
         bgView.addSubview(logoImageView)
         bgView.addSubview(infoLabel)
         
+        // updated constraint to have top and bottom
         bgView.snp.makeConstraints { make in
-            make.width.equalTo(295)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.top.equalToSuperview()
             make.height.equalTo(53)
         }
         
