@@ -38,6 +38,7 @@
 		087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */; };
 		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
 		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
+		089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 089D19052C31A620000435D9 /* IQKeyboardManagerSwift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -237,6 +238,7 @@
 				087346482C0AAF7000534FFA /* RxCocoa in Frameworks */,
 				085105972C1033E600ED7DBB /* RxKakaoSDKShare in Frameworks */,
 				085105932C1033E600ED7DBB /* RxKakaoSDKCommon in Frameworks */,
+				089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */,
 				0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */,
 				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
@@ -784,6 +786,7 @@
 				085105962C1033E600ED7DBB /* RxKakaoSDKShare */,
 				085105982C1033E600ED7DBB /* RxKakaoSDKTalk */,
 				0851059A2C1033E600ED7DBB /* RxKakaoSDKUser */,
+				089D19052C31A620000435D9 /* IQKeyboardManagerSwift */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -862,6 +865,7 @@
 				087346462C0AAF6F00534FFA /* XCRemoteSwiftPackageReference "RxSwift" */,
 				085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 				0851058B2C1033E500ED7DBB /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -1372,6 +1376,14 @@
 				minimumVersion = 6.7.1;
 			};
 		};
+		089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1439,6 +1451,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 087346462C0AAF6F00534FFA /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		089D19052C31A620000435D9 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
