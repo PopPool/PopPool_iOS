@@ -39,6 +39,7 @@
 		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
 		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
 		089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 089D19052C31A620000435D9 /* IQKeyboardManagerSwift */; };
+		089D190A2C33C4A3000435D9 /* TermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19092C33C4A3000435D9 /* TermsVC.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -156,6 +157,7 @@
 		087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
 		089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
 		089D19012C3032EC000435D9 /* SignUpStep2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep2View.swift; sourceTree = "<group>"; };
+		089D19092C33C4A3000435D9 /* TermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsVC.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -464,6 +466,23 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		089D190B2C33D6A5000435D9 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */,
+				089D19092C33C4A3000435D9 /* TermsVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		089D190C2C33D6BE000435D9 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				08A28CB92C2AC44300DF7A90 /* SignUpVM.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,8 +680,8 @@
 			children = (
 				08A28CC02C2AF2C100DF7A90 /* Components */,
 				08A28CBF2C2AF2B800DF7A90 /* Views */,
-				08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */,
-				08A28CB92C2AC44300DF7A90 /* SignUpVM.swift */,
+				089D190C2C33D6BE000435D9 /* VM */,
+				089D190B2C33D6A5000435D9 /* VC */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -968,6 +987,7 @@
 				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
 				08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */,
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
+				089D190A2C33C4A3000435D9 /* TermsVC.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
 				089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */,
