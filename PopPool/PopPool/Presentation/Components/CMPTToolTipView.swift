@@ -17,6 +17,8 @@ final class CMPTToolTipView: UIView {
         case pointDown
     }
     
+    /// 툴팁의 색상을 지정하였습니다
+    /// 텍스트 컬러 또한 TipColor에 따라 수정됩니다
     enum TipColor {
         case blu500
         case w100
@@ -61,6 +63,10 @@ final class CMPTToolTipView: UIView {
     
     // MARK: - init
     
+    /// 툴팁 뷰를 생성합니다
+    /// - Parameters:
+    ///   - colorType: 툴팁의 색상(UIColor)을 인자로 받습니다 - w100, blu500
+    ///   - direction: 툴팁의 방향을 인자로 받습니다 - up / down
     init(colorType: TipColor, direction: TipDirection) {
         self.colorType = colorType
         self.direction = direction
@@ -109,21 +115,21 @@ extension CMPTToolTipView {
         }
     }
     
-    /// 툴팁을 방향에 맞춰 그립니다
+    /// 툴팁을 방향에 맞춰 그리고 섀도우를 더하는 메서드
     private func drawToolTip() {
         switch direction {
         case .pointUp:
-            drawAboveToolTip()
+            drawUpPointingToolTip()
             addShadow()
             
         case .pointDown:
-            drawInverseToolTip()
+            drawDownPointingTip()
             addShadow()
         }
     }
     
-    /// 위에서 아래를 가리키는 툴팁을 만듭니다
-    private func drawAboveToolTip() {
+    /// 위를 가리키는 툴팁을 만듭니다
+    private func drawUpPointingToolTip() {
         let tip = UIBezierPath()
         tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 10))
         tip.addLine(to: CGPoint(x: fixedWidth/2, y: 0))
@@ -132,23 +138,7 @@ extension CMPTToolTipView {
         
         colorType.color.setFill()
         tip.fill()
-        addMessageView()
-    }
-    
-    /// 아래에서 위를 가리키는 툴팁을 만듭니다
-    private func drawInverseToolTip() {
-        let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 35))
-        tip.addLine(to: CGPoint(x: fixedWidth/2, y: 45))
-        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 35))
-        tip.close()
         
-        colorType.color.setFill()
-        tip.fill()
-        addMessageView()
-    }
-    
-    private func addMessageView() {
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 10,
@@ -163,12 +153,39 @@ extension CMPTToolTipView {
         message.close()
     }
     
+    /// 아래를 가리키는 툴팁을 만듭니다
+    private func drawDownPointingTip() {
+        let tip = UIBezierPath()
+        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 35))
+        tip.addLine(to: CGPoint(x: fixedWidth/2, y: 45))
+        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 35))
+        tip.close()
+        
+        colorType.color.setFill()
+        tip.fill()
+        
+        let message = UIBezierPath(
+            roundedRect: CGRect(
+                x: 0, y: 0,
+                width: fixedWidth,
+                height: 35
+            ),
+            cornerRadius: 4
+        )
+        
+        colorType.color.setFill()
+        message.fill()
+        message.close()
+    }
+    
+    /// 툴팁의 섀도우를 더합니다
     private func addShadow() {
         layer.shadowOffset = CGSize(width: 0, height: 5)
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 5
         
+        // 섀도우를 그릴 때 드는 리소스를 줄이기 위해 캐시를 적용하는 방식
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
     }
