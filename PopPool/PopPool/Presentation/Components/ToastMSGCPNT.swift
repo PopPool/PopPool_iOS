@@ -19,7 +19,6 @@ final class ToastMSGCPNT: UIView {
         view.backgroundColor = .pb70
         view.layer.cornerRadius = 4
         view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.sizeToFit()
         return view
     }()
@@ -28,7 +27,6 @@ final class ToastMSGCPNT: UIView {
         let label = UILabel()
         label.textColor = .w100
         label.font = .KorFont(style: .regular, size: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     

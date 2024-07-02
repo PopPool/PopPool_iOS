@@ -18,14 +18,12 @@ final class CMPTInfoBoxView: UIView {
         view.backgroundColor = .g50
         view.layer.cornerRadius = 4
         view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .infoLogoApple
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -34,7 +32,6 @@ final class CMPTInfoBoxView: UIView {
         label.font = .EngFont(style: .regular, size: 15)
         label.numberOfLines = 0
         label.textColor = .g600
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
