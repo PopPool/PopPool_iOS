@@ -12,19 +12,26 @@ import SnapKit
 final class CMPTToolTipView: UIView {
     
     /// 방향에 따라 툴팁을 다르게 표시합니다
-    enum ToolTipDirection {
+    enum TipDirection {
         case pointUp
         case pointDown
     }
     
-    enum ColorType {
-        case blue400
+    enum TipColor {
+        case blu500
         case w100
         
         var color: UIColor {
             switch self {
-            case .blue400: return UIColor.blu400
+            case .blu500: return UIColor.blu500
             case .w100: return UIColor.w100
+            }
+        }
+        
+        var textColor: UIColor {
+            switch self {
+            case .blu500: return UIColor.w100
+            case .w100: return UIColor.blu500
             }
         }
     }
@@ -38,30 +45,28 @@ final class CMPTToolTipView: UIView {
     
     private let notificationLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .w100
         label.text = "최근에 이 방법으로 로그인했어요"
         label.font = .KorFont(style: .medium, size: 13)
         return label
     }()
     
-    private var colorType = ColorType.blue400 {
+    private var colorType: TipColor {
         didSet {
             self.setNeedsDisplay()
         }
     }
     
     private let fixedWidth: CGFloat = 219
-    private let padding: CGFloat = 10
-    private var direction: ToolTipDirection
+    private var direction: TipDirection
     
     // MARK: - init
     
-    init(colorType: ColorType, direction: ToolTipDirection) {
+    init(colorType: TipColor, direction: TipDirection) {
         self.colorType = colorType
         self.direction = direction
         super.init(frame: .zero)
-        self.backgroundColor = .clear
         setupLayer(color: colorType)
+        notificationLabel.textColor = colorType.textColor
     }
     
     required init?(coder: NSCoder) {
@@ -77,7 +82,8 @@ extension CMPTToolTipView {
     
     // MARK: - Methods
     
-    private func setupLayer(color: ColorType) {
+    private func setupLayer(color: TipColor) {
+        self.backgroundColor = .clear
         addSubview(bgView)
         
         bgView.snp.makeConstraints { make in
@@ -109,6 +115,7 @@ extension CMPTToolTipView {
         case .pointUp:
             drawAboveToolTip()
             addShadow()
+            
         case .pointDown:
             drawInverseToolTip()
             addShadow()
@@ -118,9 +125,9 @@ extension CMPTToolTipView {
     /// 위에서 아래를 가리키는 툴팁을 만듭니다
     private func drawAboveToolTip() {
         let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: padding))
+        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 10))
         tip.addLine(to: CGPoint(x: fixedWidth/2, y: 0))
-        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: padding))
+        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 10))
         tip.close()
         
         colorType.color.setFill()
@@ -142,7 +149,6 @@ extension CMPTToolTipView {
     }
     
     private func addMessageView() {
-        
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 10,
@@ -162,5 +168,8 @@ extension CMPTToolTipView {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 5
+        
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
     }
 }

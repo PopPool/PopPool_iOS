@@ -66,8 +66,8 @@ class LoginVC: UIViewController {
     lazy var spacer28 = SpacingFactory.shared.createSpace(on: self.view, size: 28)
     lazy var spacer64 = SpacingFactory.shared.createSpace(on: self.view, size: 64)
     lazy var spacer156 = SpacingFactory.shared.createSpace(on: self.view, size: 156)
-    lazy var belowTip = CMPTToolTipView(colorType: .blue400, direction: .pointDown)
-    lazy var aboveTip = CMPTToolTipView(colorType: .w100, direction: .pointUp)
+    lazy var belowTip = CMPTToolTipView(colorType: .blu500, direction: .pointDown)
+    lazy var aboveTip = CMPTToolTipView(colorType: .blu500, direction: .pointUp)
     
     private let viewModel = LoginVM()
     private let disposeBag = DisposeBag()
