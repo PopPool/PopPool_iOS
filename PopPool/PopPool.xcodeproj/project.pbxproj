@@ -116,6 +116,7 @@
 		BDF4F2AB2C24304F002F4F03 /* GothicA1-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A72C24304F002F4F03 /* GothicA1-Medium.ttf */; };
 		BDF4F2AC2C24304F002F4F03 /* GothicA1-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A82C24304F002F4F03 /* GothicA1-Light.ttf */; };
 		BDF4F2AD2C24304F002F4F03 /* GothicA1-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDF4F2A92C24304F002F4F03 /* GothicA1-Bold.ttf */; };
+		BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFA49232C342B3600D3C1FB /* UIView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +235,7 @@
 		BDF4F2A72C24304F002F4F03 /* GothicA1-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Medium.ttf"; sourceTree = "<group>"; };
 		BDF4F2A82C24304F002F4F03 /* GothicA1-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Light.ttf"; sourceTree = "<group>"; };
 		BDF4F2A92C24304F002F4F03 /* GothicA1-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothicA1-Bold.ttf"; sourceTree = "<group>"; };
+		BDFA49232C342B3600D3C1FB /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -751,6 +753,7 @@
 				BDF4F29B2C2422DF002F4F03 /* UIFont+.swift */,
 				08C813D62C2D2934009239FE /* UITableViewCell+.swift */,
 				08C813D82C2D294D009239FE /* UICollectionViewCell+.swift */,
+				BDFA49232C342B3600D3C1FB /* UIView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -984,6 +987,7 @@
 				08C813F72C2F15DC009239FE /* FetchInterestListResponseDTO.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
+				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */,

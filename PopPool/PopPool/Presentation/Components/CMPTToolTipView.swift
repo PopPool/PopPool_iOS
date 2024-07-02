@@ -1,5 +1,5 @@
 //
-//  CMPTToolTip.swift
+//  ToolTipViewCPNT.swift
 //  PopPool
 //
 //  Created by Porori on 6/25/24.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-final class CMPTToolTipView: UIView {
+final class ToolTipViewCPNT: UIView {
     
     /// 방향에 따라 툴팁을 다르게 표시합니다
     enum TipDirection {
@@ -47,7 +47,6 @@ final class CMPTToolTipView: UIView {
     
     private let notificationLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근에 이 방법으로 로그인했어요"
         label.font = .KorFont(style: .medium, size: 13)
         return label
     }()
@@ -58,7 +57,7 @@ final class CMPTToolTipView: UIView {
         }
     }
     
-    private let fixedWidth: CGFloat = 219
+    private var midX = UIScreen.main.bounds.midX
     private var direction: TipDirection
     
     // MARK: - init
@@ -67,12 +66,13 @@ final class CMPTToolTipView: UIView {
     /// - Parameters:
     ///   - colorType: 툴팁의 색상(UIColor)을 인자로 받습니다 - w100, blu500
     ///   - direction: 툴팁의 방향을 인자로 받습니다 - up / down
-    init(colorType: TipColor, direction: TipDirection) {
+    init(colorType: TipColor, direction: TipDirection, text: String?) {
         self.colorType = colorType
         self.direction = direction
         super.init(frame: .zero)
         setupLayer(color: colorType)
         notificationLabel.textColor = colorType.textColor
+        notificationLabel.text = text
     }
     
     required init?(coder: NSCoder) {
@@ -84,7 +84,7 @@ final class CMPTToolTipView: UIView {
     }
 }
 
-extension CMPTToolTipView {
+extension ToolTipViewCPNT {
     
     // MARK: - Methods
     
@@ -94,22 +94,20 @@ extension CMPTToolTipView {
         
         bgView.snp.makeConstraints { make in
             make.height.equalTo(45)
-            make.bottom.equalTo(snp.bottom)
-            make.top.equalTo(snp.top)
-            make.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         bgView.addSubview(notificationLabel)
         switch direction {
         case .pointUp:
             notificationLabel.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview().inset(16)
+                make.leading.trailing.equalToSuperview().inset(12)
                 make.bottom.equalToSuperview().inset(11)
             }
             
         case .pointDown:
             notificationLabel.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview().inset(16)
+                make.leading.trailing.equalToSuperview().inset(12)
                 make.top.equalToSuperview().inset(11)
             }
         }
@@ -131,9 +129,9 @@ extension CMPTToolTipView {
     /// 위를 가리키는 툴팁을 만듭니다
     private func drawUpPointingToolTip() {
         let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 10))
-        tip.addLine(to: CGPoint(x: fixedWidth/2, y: 0))
-        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 10))
+        tip.move(to: CGPoint(x: midX/2 - 8, y: 10))
+        tip.addLine(to: CGPoint(x: midX/2, y: 0))
+        tip.addLine(to: CGPoint(x: midX/2 + 8, y: 10))
         tip.close()
         
         colorType.color.setFill()
@@ -142,10 +140,10 @@ extension CMPTToolTipView {
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 10,
-                width: fixedWidth,
+                width: midX + 16,
                 height: 35
             ),
-            cornerRadius: 4
+            cornerRadius: 6
         )
         
         colorType.color.setFill()
@@ -156,9 +154,9 @@ extension CMPTToolTipView {
     /// 아래를 가리키는 툴팁을 만듭니다
     private func drawDownPointingTip() {
         let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: (fixedWidth/2)-8, y: 35))
-        tip.addLine(to: CGPoint(x: fixedWidth/2, y: 45))
-        tip.addLine(to: CGPoint(x: (fixedWidth/2) + 8, y: 35))
+        tip.move(to: CGPoint(x: midX/2 - 8, y: 35))
+        tip.addLine(to: CGPoint(x: midX/2, y: 45))
+        tip.addLine(to: CGPoint(x: midX/2 + 8, y: 35))
         tip.close()
         
         colorType.color.setFill()
@@ -167,10 +165,10 @@ extension CMPTToolTipView {
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 0,
-                width: fixedWidth,
+                width: midX + 16,
                 height: 35
             ),
-            cornerRadius: 4
+            cornerRadius: 6
         )
         
         colorType.color.setFill()
@@ -186,6 +184,7 @@ extension CMPTToolTipView {
         layer.shadowRadius = 5
         
         // 섀도우를 그릴 때 드는 리소스를 줄이기 위해 캐시를 적용하는 방식
+//        layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
     }
