@@ -17,6 +17,8 @@ final class TermsVC: ModalViewController {
         let view = UITextView()
         view.contentInset = .init(top: 0, left: 20, bottom: 0, right: 20)
         view.font = .KorFont(style: .regular, size: 15)
+        view.isEditable = false
+        view.isSelectable = false
         return view
     }()
     
