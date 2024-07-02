@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginVC: UIViewController {
+final class LoginVC: UIViewController {
     
 // MARK: - Properties
     let headerView = HeaderViewCPNT(title: "둘러보기", style: .text("둘러보기"))
@@ -63,11 +63,10 @@ class LoginVC: UIViewController {
     
     let kakaoSignInButton: ButtonCPNT = ButtonCPNT(type: .kakao, title: "카카오톡으로 로그인")
     let appleSignInButton: ButtonCPNT = ButtonCPNT(type: .apple, title: "Apple로 로그인")
-    lazy var spacer28 = SpacingFactory.shared.createSpace(on: self.view, size: 28)
-    lazy var spacer64 = SpacingFactory.shared.createSpace(on: self.view, size: 64)
-    lazy var spacer156 = SpacingFactory.shared.createSpace(on: self.view, size: 156)
-    lazy var belowTip = CMPTToolTipView(colorType: .blu500, direction: .pointDown)
-    lazy var aboveTip = CMPTToolTipView(colorType: .blu500, direction: .pointUp)
+    
+    lazy var spacer28 = SpacingFactory.shared.createSpace(size: 28)
+    lazy var spacer64 = SpacingFactory.shared.createSpace(size: 64)
+    lazy var spacer156 = SpacingFactory.shared.createSpace(size: 156)
     
     private let viewModel = LoginVM()
     private let disposeBag = DisposeBag()
@@ -125,24 +124,6 @@ extension LoginVC {
         inquiryButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(56)
             make.centerX.equalToSuperview()
-        }
-        setToolTip()
-    }
-    
-    private func setToolTip() {
-        
-        if false {
-            view.addSubview(belowTip)
-            belowTip.snp.makeConstraints { make in
-                make.bottom.equalTo(kakaoSignInButton.snp.top).inset(-8)
-                make.centerX.equalToSuperview()
-            }
-        } else {
-            view.addSubview(aboveTip)
-            aboveTip.snp.makeConstraints { make in
-                make.top.equalTo(appleSignInButton.snp.bottom).inset(-8)
-                make.centerX.equalToSuperview()
-            }
         }
     }
     
