@@ -66,8 +66,8 @@ class LoginVC: UIViewController {
     lazy var spacer28 = SpacingFactory.shared.createSpace(on: self.view, size: 28)
     lazy var spacer64 = SpacingFactory.shared.createSpace(on: self.view, size: 64)
     lazy var spacer156 = SpacingFactory.shared.createSpace(on: self.view, size: 156)
-    lazy var belowTip = CMPTToolTipView(frame: .zero, direction: .notifyBelow)
-    lazy var aboveTip = CMPTToolTipView(frame: .zero, direction: .notifyAbove)
+    lazy var belowTip = CMPTToolTipView(colorType: .blue400, direction: .pointDown)
+    lazy var aboveTip = CMPTToolTipView(colorType: .w100, direction: .pointUp)
     
     private let viewModel = LoginVM()
     private let disposeBag = DisposeBag()
@@ -123,7 +123,7 @@ extension LoginVC {
         
         view.addSubview(inquiryButton)
         inquiryButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(88)
+            make.bottom.equalToSuperview().inset(56)
             make.centerX.equalToSuperview()
         }
         setToolTip()
@@ -131,7 +131,7 @@ extension LoginVC {
     
     private func setToolTip() {
         
-        if true {
+        if false {
             view.addSubview(belowTip)
             belowTip.snp.makeConstraints { make in
                 make.bottom.equalTo(kakaoSignInButton.snp.top).inset(-8)
@@ -140,7 +140,7 @@ extension LoginVC {
         } else {
             view.addSubview(aboveTip)
             aboveTip.snp.makeConstraints { make in
-                make.top.equalTo(appleSignInButton.snp.bottom).inset(8)
+                make.top.equalTo(appleSignInButton.snp.bottom).inset(-8)
                 make.centerX.equalToSuperview()
             }
         }
@@ -158,8 +158,8 @@ extension LoginVC {
         output.showLoginBottomSheet
             .subscribe(onNext: { [weak self] _ in
                 print("버튼이 눌렸습니다")
-                let vc = LoginBottomSheetVC()
-                self?.presentViewControllerModally(vc: vc)
+//                let vc = LoginBottomSheetVC()
+//                self?.presentViewControllerModally(vc: vc)
             })
             .disposed(by: disposeBag)
         
