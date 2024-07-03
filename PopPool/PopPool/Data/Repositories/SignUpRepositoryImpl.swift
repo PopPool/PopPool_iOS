@@ -26,11 +26,4 @@ final class SignUpRepositoryImpl: SignUpRepository {
             }
         }
     }
-    
-    func fetchGenders(credential: MyAuthenticationCredential) -> Observable<String> {
-        let endPoint = PopPoolAPIEndPoint.fetchGenders(credential: credential)
-        return provider.requestData(with: endPoint).map { responseDTO in
-            return responseDTO.label
-        }
-    }
 }

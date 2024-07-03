@@ -21,9 +21,4 @@ protocol SignUpRepository{
     /// - Parameter credential: 인증 정보
     /// - Returns: 관심사 리스트를 나타내는 Observable<[String]>
     func fetchInterestList(credential: MyAuthenticationCredential) -> Observable<[String]>
-    
-    /// 성별 정보를 가져오는 메서드
-    /// - Parameter credential: 인증 정보
-    /// - Returns: 성별 정보를 나타내는 Observable<String>
-    func fetchGenders(credential: MyAuthenticationCredential) -> Observable<String>
 }

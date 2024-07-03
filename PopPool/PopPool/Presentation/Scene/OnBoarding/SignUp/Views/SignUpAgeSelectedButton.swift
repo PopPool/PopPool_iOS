@@ -51,6 +51,7 @@ final class SignUpAgeSelectedButton: UIButton {
         return label
     }()
     
+    // MARK: - init
     init() {
         super.init(frame: .zero)
         setUp()
@@ -90,6 +91,7 @@ private extension SignUpAgeSelectedButton {
     }
 }
 
+// MARK: - Methods
 extension SignUpAgeSelectedButton {
     
     /// ageLabel의 text를 설정하며 화면을 변화하는 기능

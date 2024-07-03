@@ -17,17 +17,7 @@ final class LargeChipCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-        setUpConstraints()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    // MARK: - Properties
     /// 셀이 선택되었을 때의 동작 정의
     override var isSelected: Bool {
         didSet {
@@ -38,6 +28,18 @@ final class LargeChipCell: UICollectionViewCell {
                 self.label.textColor = self.isSelected ? .w100 : .g400
             }
         }
+    }
+    
+    // MARK: - init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUp()
+        setUpConstraints()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -64,7 +66,7 @@ private extension LargeChipCell {
         }
     }
 }
-
+// MARK: - Methods
 extension LargeChipCell {
     
     /// 셀을 구성하는 메서드

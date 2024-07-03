@@ -14,7 +14,7 @@ import RxSwift
 final class SignUpVC: UIViewController {
     
     // MARK: - Components
-    private let headerView = HeaderViewCPNT(title: "asdfasdf", style: .text("취소"))
+    private let headerView = HeaderViewCPNT(style: .text("취소"))
     private let progressIndicator = ProgressIndicatorCPNT(totalStep: 4, startPoint: 1)
     
     // MARK: - ContentTitleViews
@@ -176,6 +176,7 @@ private extension SignUpVC {
             tap_header_backButton: headerView.leftBarButton.rx.tap,
             tap_step1_primaryButton: step1_primaryButton.rx.tap,
             event_step1_didChangeTerms: step1_ContentView.terms,
+            tap_step1_termsButton: step1_ContentView.didTapTerms,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
             tap_step2_secondaryButton: step2_secondaryButton.rx.tap,
             tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap,
@@ -215,6 +216,15 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // Step 1 Terms VC 이동 이벤트
+        output.step1_moveToTermsVC
+            .withUnretained(self)
+            .subscribe { (owner, terms) in
+                let vc = TermsVC(title: terms.title, content: terms.content)
+                owner.presentBottomSheet(viewController: vc)
+            }
+            .disposed(by: disposeBag)
+        
         // Step 2 중복확인 button 결과 전달
         output.step2_isDuplicate
             .withUnretained(self)
@@ -241,7 +251,7 @@ private extension SignUpVC {
             .disposed(by: disposeBag)
         
         // 카테고리 리스트 가져오기
-        output.fetchCategoryList
+        output.step3_fetchCategoryList
             .withUnretained(self)
             .subscribe { (owner, list) in
                 owner.step3_ContentView.setCategoryList(list: list)
@@ -249,7 +259,7 @@ private extension SignUpVC {
             .disposed(by: disposeBag)
         
         // Step3,4 nickname 설정
-        output.fetchUserNickname
+        output.step2_fetchUserNickname
             .withUnretained(self)
             .subscribe { (owner, nickname) in
                 owner.step3_contentTitleView.setNickName(nickName: nickname)

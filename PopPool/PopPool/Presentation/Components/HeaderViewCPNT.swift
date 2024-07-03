@@ -16,14 +16,12 @@ final class HeaderViewCPNT: UIStackView {
         case text(String)
     }
     
-    // MARK: - Properties
-    
+    // MARK: - Components
     let leftBarButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .g1000
         return button
     }()
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .regular, size: 15)
@@ -31,20 +29,17 @@ final class HeaderViewCPNT: UIStackView {
         label.textAlignment = .center
         return label
     }()
-    
     let rightBarButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(.g1000, for: .normal)
         return button
     }()
-    
     private let leftTrailingView = UIView()
     private let centerTrailingView = UIView()
     private let rightTrailingView = UIView()
     
     // MARK: - Initializer
-    
-    init(title: String, style: Style) {
+    init(title: String = "", style: Style) {
         super.init(frame: .zero)
         setupLayout()
         setupViews(title: title,style: style)
@@ -55,12 +50,14 @@ final class HeaderViewCPNT: UIStackView {
     }
 }
 
+// MARK: - SetUp
 extension HeaderViewCPNT {
     
     /// 기본 헤더 뷰의 화면 구성
     private func setupLayout() {
         self.axis = .horizontal
-        self.distribution = .fillEqually
+        self.spacing = 0
+        self.distribution = .equalSpacing
         self.isLayoutMarginsRelativeArrangement = true
         self.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 16)
         
@@ -69,13 +66,13 @@ extension HeaderViewCPNT {
         rightTrailingView.addSubview(rightBarButton)
         
         leftBarButton.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         rightBarButton.snp.makeConstraints { make in
-            make.trailing.top.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         self.addArrangedSubview(leftTrailingView)
         self.addArrangedSubview(centerTrailingView)

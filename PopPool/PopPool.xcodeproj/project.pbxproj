@@ -466,23 +466,6 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		089D190B2C33D6A5000435D9 /* VC */ = {
-			isa = PBXGroup;
-			children = (
-				08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */,
-				089D19092C33C4A3000435D9 /* TermsVC.swift */,
-			);
-			path = VC;
-			sourceTree = "<group>";
-		};
-		089D190C2C33D6BE000435D9 /* VM */ = {
-			isa = PBXGroup;
-			children = (
-				08A28CB92C2AC44300DF7A90 /* SignUpVM.swift */,
-			);
-			path = VM;
-			sourceTree = "<group>";
-		};
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,8 +663,9 @@
 			children = (
 				08A28CC02C2AF2C100DF7A90 /* Components */,
 				08A28CBF2C2AF2B800DF7A90 /* Views */,
-				089D190C2C33D6BE000435D9 /* VM */,
-				089D190B2C33D6A5000435D9 /* VC */,
+				08A28CB92C2AC44300DF7A90 /* SignUpVM.swift */,
+				08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */,
+				089D19092C33C4A3000435D9 /* TermsVC.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
