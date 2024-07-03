@@ -103,8 +103,19 @@ final class SignUpVC: UIViewController {
     private let buttonStackView: UIStackView = UIStackView()
     
     // MARK: - Properties
-    private let viewModel = SignUpVM()
+    private let viewModel: SignUpVM
     private let disposeBag = DisposeBag()
+    private let ageRelayObserver: PublishSubject<Int> = .init()
+    
+    // MARK: - init
+    init(viewModel: SignUpVM) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         print(self, #function)
@@ -162,8 +173,11 @@ private extension SignUpVC {
         }
     }
     
-    /// ViewModel과의 바인딩을 설정
+    // MARK: - Bind
+    /// 바인딩 설정
     func bind() {
+        
+        // 중복확인 버튼 클릭시 키보드 다운 처리
         step2_ContentView.validationTextField.duplicationCheckButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -171,6 +185,7 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // MARK: - Input
         let input = SignUpVM.Input(
             tap_header_cancelButton: headerView.rightBarButton.rx.tap,
             tap_header_backButton: headerView.leftBarButton.rx.tap,
@@ -184,12 +199,15 @@ private extension SignUpVC {
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
             tap_step3_secondaryButton: step3_secondaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
-            event_step4_didSelectedGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
+            event_step4_didSelectGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
             tap_step4_ageButton: step4_ContentView.ageButton.rx.tap,
-            tap_step4_secondaryButton: step4_secondaryButton.rx.tap
+            tap_step4_secondaryButton: step4_secondaryButton.rx.tap,
+            event_step4_didSelectAge: ageRelayObserver
         )
+        // MARK: - Output
         let output = viewModel.transform(input: input)
         
+        // MARK: - Common OutPut
         // 페이지 인덱스 증가 이벤트 처리
         output.increasePageIndex
             .withUnretained(self)
@@ -208,6 +226,15 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // 취소 버튼 탭 이벤트 처리
+        output.moveToRecentVC
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: - Step 1 OutPut
         // Step 1 primary button 활성/비활성 상태 처리
         output.step1_primaryButton_isEnabled
             .withUnretained(self)
@@ -220,11 +247,12 @@ private extension SignUpVC {
         output.step1_moveToTermsVC
             .withUnretained(self)
             .subscribe { (owner, terms) in
-                let vc = TermsVC(title: terms.title, content: terms.content)
-                owner.presentBottomSheet(viewController: vc)
+                let vc = SignUpTermsModalVC(title: terms.title, content: terms.content)
+                owner.presentModalViewController(viewController: vc)
             }
             .disposed(by: disposeBag)
         
+        // MARK: - Step 2 OutPut
         // Step 2 중복확인 button 결과 전달
         output.step2_isDuplicate
             .withUnretained(self)
@@ -242,6 +270,7 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // MARK: - Step 3 OutPut
         // Step 3 primary button 활성/비활성 상태 처리
         output.step3_primaryButton_isEnabled
             .withUnretained(self)
@@ -267,14 +296,28 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
-        output.moveToRecentVC
+        // MARK: - Step 4 OutPut
+        // moveToAgeSelectVC 이벤트 처리
+        output.step4_moveToAgeSelectVC
             .withUnretained(self)
-            .subscribe { (owner, _) in
-                owner.navigationController?.popViewController(animated: true)
+            .subscribe { (owner, vcData) in
+                let range = vcData.0
+                let age = vcData.1
+                let vc = SignUpSelectAgeModalVC(ageRange: range ,selectIndex: age)
+                vc.selectIndexRelayObserver
+                    .subscribe(onNext: { index in
+                        owner.step4_ContentView.ageButton.setAge(age: index + range.lowerBound)
+                        owner.ageRelayObserver.onNext(index)
+                    })
+                    .disposed(by: owner.disposeBag)
+                owner.presentModalViewController(viewController: vc)
             }
             .disposed(by: disposeBag)
     }
-    
+}
+// MARK: - Methods
+
+private extension SignUpVC {
     /// 페이지 인덱스에 따라 뷰 변경을 처리하는 메서드
     ///
     /// - Parameters:

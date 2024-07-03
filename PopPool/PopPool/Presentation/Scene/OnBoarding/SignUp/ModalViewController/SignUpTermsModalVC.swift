@@ -1,5 +1,5 @@
 //
-//  TermsVC.swift
+//  SignUpTermsModalVC.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 7/2/24.
@@ -10,8 +10,9 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class TermsVC: ModalViewController {
+final class SignUpTermsModalVC: ModalViewController {
     // MARK: - Components
+    private let topSpacingView = UIView()
     private var headerView: HeaderViewCPNT
     private let textView: UITextView = {
         let view = UITextView()
@@ -46,7 +47,7 @@ final class TermsVC: ModalViewController {
 }
 
 // MARK: - LifeCycle
-extension TermsVC {
+extension SignUpTermsModalVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraints()
@@ -55,7 +56,7 @@ extension TermsVC {
 }
 
 // MARK: - SetUp
-private extension TermsVC {
+private extension SignUpTermsModalVC {
     
     /// 레이아웃 설정 메서드
     func setUpConstraints() {
@@ -63,12 +64,16 @@ private extension TermsVC {
         let textViewHeight = textView.sizeThatFits(size).height
         
         view.addSubview(stackView)
+        topSpacingView.snp.makeConstraints { make in
+            make.height.equalTo(14)
+        }
         textView.snp.makeConstraints { make in
             make.height.equalTo(textViewHeight < (UIScreen.main.bounds.height * 0.8) ? textViewHeight : UIScreen.main.bounds.height * 0.8)
         }
         spacingView.snp.makeConstraints { make in
             make.height.equalTo(Constants.spaceGuide._32px)
         }
+        stackView.addArrangedSubview(topSpacingView)
         stackView.addArrangedSubview(headerView)
         stackView.addArrangedSubview(spacingView)
         stackView.addArrangedSubview(textView)

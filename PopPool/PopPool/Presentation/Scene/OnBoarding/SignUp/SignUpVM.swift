@@ -47,11 +47,13 @@ final class SignUpVM: ViewModelable {
         /// 관심사 변경을 전달하는 Subject
         var event_step3_didChangeInterestList: Observable<[String]>
         /// step 4 gender segmentedControl 이벤트
-        var event_step4_didSelectedGender: ControlProperty<Int>
+        var event_step4_didSelectGender: ControlProperty<Int>
         /// step 4 나이 설정 버튼 탭 이벤트
         var tap_step4_ageButton: ControlEvent<Void>
         /// Sign Up Step4 secondary button  탭 이벤트
         var tap_step4_secondaryButton: ControlEvent<Void>
+        /// Sign Up Step4 나이 선택 후 확인 이벤트
+        var event_step4_didSelectAge: PublishSubject<Int>
     }
     
     /// 출력 이벤트
@@ -83,6 +85,10 @@ final class SignUpVM: ViewModelable {
         var step3_fetchCategoryList: PublishSubject<[String]>
         /// Step 3의 primary button 활성/비활성 상태를 방출하는 Subject
         var step3_primaryButton_isEnabled: PublishSubject<Bool>
+        
+        // MARK: - Step 4 OutPut
+        /// Step 4의 나이선택 모달로 이동
+        var step4_moveToAgeSelectVC: PublishSubject<(ClosedRange<Int>, Int)>
     }
     
     // MARK: - Properties
@@ -97,6 +103,11 @@ final class SignUpVM: ViewModelable {
     
     /// 올바른 유저의 닉네임을 관리하는 subject
     private let userNickName: PublishSubject<String> = .init()
+    
+    /// 나이 Picker 범위
+    private let ageRange = (14...100)
+    /// 유저 나이
+    private var selectAgeIndex: Int = 16
     
     // MARK: - init
     init() {
@@ -117,6 +128,8 @@ final class SignUpVM: ViewModelable {
         
         let step3_primaryButton_isEnabled: PublishSubject<Bool> = .init()
         let fetchCategoryList: PublishSubject<[String]> = .init()
+        
+        let step4_moveToAgeSelectVC: PublishSubject<(ClosedRange<Int>, Int)> = .init()
 
         // MARK: - Common transform
         // tap_header_cancelButton 이벤트 처리
@@ -236,17 +249,26 @@ final class SignUpVM: ViewModelable {
             .disposed(by: disposeBag)
         
         // MARK: - Step 4 transform
-        // Step 4 segmented Control 이벤트 처리
-        input.event_step4_didSelectedGender
+        // Step 4 성별 segmented Control 이벤트 처리
+        input.event_step4_didSelectGender
             .subscribe { selectedIndex in
-                print(selectedIndex)
+//                print(selectedIndex)
             }
             .disposed(by: disposeBag)
         
-        // Step 4 tap_step4_ageButton 이벤트 처리
+        // Step 4 ageButton Tap 이벤트 처리
         input.tap_step4_ageButton
-            .subscribe { _ in
-                print("tap_step4_ageButton")
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                step4_moveToAgeSelectVC.onNext((owner.ageRange, owner.selectAgeIndex))
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 4 age select 이벤트 처리
+        input.event_step4_didSelectAge
+            .withUnretained(self)
+            .subscribe { (owner, index) in
+                owner.selectAgeIndex = index
             }
             .disposed(by: disposeBag)
         
@@ -260,7 +282,8 @@ final class SignUpVM: ViewModelable {
             step2_primaryButton_isEnabled: step2_primaryButton_isEnabled,
             step2_fetchUserNickname: userNickName,
             step3_fetchCategoryList: fetchCategoryList,
-            step3_primaryButton_isEnabled: step3_primaryButton_isEnabled
+            step3_primaryButton_isEnabled: step3_primaryButton_isEnabled,
+            step4_moveToAgeSelectVC: step4_moveToAgeSelectVC
         )
     }
 }

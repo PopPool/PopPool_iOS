@@ -172,7 +172,7 @@ extension LoginVC {
         output.moveToSignUpPage
             .withUnretained(self)
             .subscribe { (owner, _) in
-                let vc = SignUpVC()
+                let vc = SignUpVC(viewModel: SignUpVM())
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

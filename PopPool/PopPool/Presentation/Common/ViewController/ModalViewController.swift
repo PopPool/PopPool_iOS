@@ -13,6 +13,7 @@ import RxCocoa
 
 class ModalViewController: UIViewController {
     
+    // MARK: - Components
     /// 메인 바텀 시트 컨테이너 뷰
     private lazy var mainContainerView: UIView = {
         let view = UIView()
@@ -22,20 +23,17 @@ class ModalViewController: UIViewController {
         view.alpha = 0
         return view
     }()
-    
     /// 동적 콘텐츠를 담을 뷰
     private lazy var contentView: UIView = {
         let view = UIView()
         return view
     }()
-    
     /// 상단 바 뷰, 드래그하여 닫을 수 있음
     private lazy var topBarView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         return view
     }()
-    
     /// 어두운 배경 뷰
     private lazy var dimmedView: UIView = {
         let view = UIView()
@@ -45,7 +43,6 @@ class ModalViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    
     /// 어두운 배경 뷰의 최대 alpha 값
     private let maxDimmedAlpha: CGFloat = 0.8
     /// 바텀 시트를 닫을 수 있는 최소 수직 드래그 거리
@@ -55,6 +52,7 @@ class ModalViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
+    // MARK: - init
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,8 +102,7 @@ private extension ModalViewController {
         
         mainContainerView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(topBarView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
     
@@ -200,7 +197,7 @@ extension ModalViewController {
 /// UIViewController 확장
 extension UIViewController {
     /// 바텀 시트를 표시하는 메서드
-    func presentBottomSheet(viewController: ModalViewController) {
+    func presentModalViewController(viewController: ModalViewController) {
         viewController.modalPresentationStyle = .overFullScreen
         present(viewController, animated: false, completion: nil)
     }
