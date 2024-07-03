@@ -16,7 +16,7 @@ protocol LocalDBRepository {
     ///   - account: 계정 이름
     ///   - value: 저장할 값
     /// - Returns: 작업의 성공 또는 실패를 알리는 Completable
-    func save(key: String, value: String, to: String) -> Completable
+    func save(key: String, value: String) -> Completable
     
     /// DB에 값을 가져옵니다.
     /// - Parameters:

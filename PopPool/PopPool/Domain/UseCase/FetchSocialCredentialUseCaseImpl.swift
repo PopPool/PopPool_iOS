@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import RxSwift
 
 final class FetchSocialCredentialUseCaseImpl: FetchSocialCredentialUseCase {

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 // Userdefault를 활용한 Data Layer
-class UserdefaultRepositoryImpl: LocalDBRepository {
+final class UserdefaultRepositoryImpl: LocalDBRepository {
     
     /// Userdefault 데이터 저장 메서드
     /// - Parameters:
@@ -17,7 +17,7 @@ class UserdefaultRepositoryImpl: LocalDBRepository {
     ///   - value: 저장하는 데이터 값 i.e) access token 등
     ///   - to: 로컬 데이터베이스 타입 - DatabaseType
     /// - Returns: 별도 안내 없음
-    func save(key: String, value: String, to: String) -> Completable {
+    func save(key: String, value: String) -> Completable {
         return Completable.create { complete in
             UserDefaults.standard.set(value, forKey: key)
             complete(.completed)

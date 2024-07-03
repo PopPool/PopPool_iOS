@@ -2,7 +2,7 @@
 //  LocalFetchUseCaseImpl.swift
 //  PopPool
 //
-//  Created by Porori on 6/19/24.
+//  Created by Porori on 7/4/24.
 //
 
 import Foundation
@@ -16,7 +16,7 @@ final class LocalFetchUseCaseImpl: LocalFetchUseCase {
         self.repository = repository
     }
     
-    func fetch(key: String, from databaseType: String) -> RxSwift.Single<String> {
-        repository.fetch(key: key, from: databaseType)
+    func execute(key: String, from database: String) -> Single<String> {
+        repository.fetch(key: key, from: database)
     }
 }

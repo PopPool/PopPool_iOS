@@ -9,13 +9,14 @@ import Foundation
 import RxSwift
 
 final class LocalSaveUseCaseImpl: LocalSaveUseCase {
+
     var repository: LocalDBRepository
     
     init(repository: LocalDBRepository) {
         self.repository = repository
     }
     
-    func save(key: String, value: String, to databaseType: String) -> Completable {
-        repository.save(key: key, value: value, to: databaseType)
+    func execute(key: String, value: String) -> Completable {
+        repository.save(key: key, value: value)
     }
 }
