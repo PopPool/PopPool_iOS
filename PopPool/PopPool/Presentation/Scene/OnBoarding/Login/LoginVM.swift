@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class LoginVM: ViewModelable {
+final class LoginVM: ViewModelable {
 
     /// LoginVC의 입력 이벤트
     struct Input {
