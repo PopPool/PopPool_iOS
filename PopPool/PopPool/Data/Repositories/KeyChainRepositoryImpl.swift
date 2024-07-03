@@ -13,7 +13,7 @@ final class KeyChainRepositoryImpl: LocalDBRepository {
     
     private let service: String = "keychain"
     
-    func save(key: String, value: String, to: String) -> Completable {
+    func save(key: String, value: String) -> Completable {
         return Completable.create { complete in
             
             // allowLossyConversion은 인코딩 과정에서 손실이 되는 것을 허용할 것인지 설정
