@@ -10,16 +10,7 @@ import RxSwift
 import SnapKit
 
 final class LoginBottomSheetVC: ModalViewController {
-    
-    lazy var topStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.spacing = 32
-        stack.axis = .vertical
-        stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(infoBox)
-        return stack
-    }()
-    
+
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -35,6 +26,8 @@ final class LoginBottomSheetVC: ModalViewController {
         stack.axis = .vertical
         stack.distribution = .fill
         stack.spacing = 10
+        stack.layoutMargins = .init(top: 0, left: 20, bottom: 0, right: 20)
+        stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
 
@@ -47,8 +40,8 @@ final class LoginBottomSheetVC: ModalViewController {
         title: "이미 등록된 계정이 있어요\n아래 계정으로 로그인할까요?",
         type: .title_bs(buttonImage: nil)
     )
-    private let infoBox = CMPTInfoBoxView()
-    
+
+    private let infoBox = InfoBoxViewCPNT(content: .list(["이렇게", "해보면", "된다는 걸", "느낀다!!"]))
     private let viewModel = LoginBottomSheetVM()
     private let disposeBag = DisposeBag()
     
@@ -74,7 +67,6 @@ final class LoginBottomSheetVC: ModalViewController {
         contentStack.addArrangedSubview(spacer36)
         contentStack.addArrangedSubview(buttonStack)
         
-        infoBox.updateLabel(email: "abcdef@gmail.com")
         self.setContent(content: contentStack)
     }
     

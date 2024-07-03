@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 import SnapKit
 
-final class CMPTInfoBoxView: UIView {
+enum Info {
+    case email(String)
+    case list([String])
+}
+
+final class InfoBoxViewCPNT: UIView {
     
     // MARK: - Properties
     
@@ -35,35 +40,26 @@ final class CMPTInfoBoxView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        setUpConstraint()
-    }
+    private let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.spacing = 8
+        stack.axis = .vertical
+        return stack
+    }()
     
+    init(content: Info) {
+        super.init(frame: .zero)
+        setContentConstraint(content: content)
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension CMPTInfoBoxView {
+extension InfoBoxViewCPNT {
     
     // MARK: - Methods
-    
-    /// 인포박스에 이메일을 바꾸면서 일부를 가리는 메서드
-    /// - Parameter email: 가리고자 하는 이메일을 받습니다
-    func updateLabel(email: String) {
-        
-        // 이메일 형식인지 먼저 확인
-        guard checkIfCorrectFormat(email: email) else { return }
-        
-        // 맞을 경우, 가려진 형식으로 변환
-        let displayableEmail = hideInfo(email)
-        
-        // 변환된 값을 infoLabel에 업데이트
-        DispatchQueue.main.async {
-            self.infoLabel.text = displayableEmail
-        }
-    }
     
     /// 이메일 일부를 가리는 메서드
     /// - Parameter sensitiveInfo: 가리고자 하는 이메일을 받습니다
@@ -94,17 +90,34 @@ extension CMPTInfoBoxView {
         return emailPredicate.evaluate(with: email)
     }
     
-    private func setUpConstraint() {
-        addSubview(bgView)
-        bgView.addSubview(logoImageView)
-        bgView.addSubview(infoLabel)
+    /// 콘텐츠에 따라 제약을 다르게 잡습니다
+    /// - Parameter content: Content 타입을 받습니다 (email, list)
+    private func setContentConstraint(content: Info) {
         
-        // updated constraint to have top and bottom
+        switch content {
+        case .email(let email):
+            setLayoutForEmail()
+            
+            guard checkIfCorrectFormat(email: email) else { return }
+            let displayableEmail = hideInfo(email)
+            self.infoLabel.text = displayableEmail
+            
+        case .list(let list):
+            setLayoutForList()
+            setListData(content: list)
+        }
+    }
+    
+    private func setLayoutForEmail() {
+        addSubview(bgView)
         bgView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.top.equalToSuperview()
             make.height.equalTo(53)
         }
+        
+        bgView.addSubview(logoImageView)
+        bgView.addSubview(infoLabel)
         
         logoImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(41)
@@ -115,6 +128,35 @@ extension CMPTInfoBoxView {
         infoLabel.snp.makeConstraints { make in
             make.leading.equalTo(logoImageView.snp.trailing).offset(4)
             make.centerY.equalTo(logoImageView.snp.centerY)
+        }
+    }
+    
+    private func setLayoutForList() {
+        addSubview(bgView)
+        bgView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.top.equalToSuperview()
+        }
+        
+        bgView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(20)
+        }
+    }
+    
+    private func setListData(content: [String]) {
+        for content in content {
+            let bulletPoint = "\u{2022}"
+            var bulletText = bulletPoint + content
+            bulletText.insert(" ", at: bulletText.index(after: bulletPoint.startIndex))
+            
+            let listLabel = UILabel()
+            listLabel.font = .EngFont(style: .regular, size: 15)
+            listLabel.numberOfLines = 0
+            listLabel.textColor = .g600
+            
+            stackView.addArrangedSubview(listLabel)
+            listLabel.text = bulletText
         }
     }
 }
