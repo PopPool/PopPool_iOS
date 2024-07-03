@@ -108,6 +108,7 @@ extension InfoBoxViewCPNT {
         }
     }
     
+    /// 단일 이메일 데이터를 위한 제약입니다
     private func setLayoutForEmail() {
         addSubview(bgView)
         bgView.snp.makeConstraints { make in
@@ -131,6 +132,7 @@ extension InfoBoxViewCPNT {
         }
     }
     
+    /// 배열 타입 데이터를 위한 제약입니다
     private func setLayoutForList() {
         addSubview(bgView)
         bgView.snp.makeConstraints { make in
@@ -144,6 +146,8 @@ extension InfoBoxViewCPNT {
         }
     }
     
+    /// 배열 데이터에 bulletpoint가 더해져 보이도록 처리하는 메서드
+    /// - Parameter content: String 타입의 배열 데이터를 받습니다
     private func setListData(content: [String]) {
         for content in content {
             let bulletPoint = "\u{2022}"
