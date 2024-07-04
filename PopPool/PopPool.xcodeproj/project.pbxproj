@@ -42,6 +42,7 @@
 		089D190A2C33C4A3000435D9 /* SignUpTermsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19092C33C4A3000435D9 /* SignUpTermsModalVC.swift */; };
 		089D19102C352E1E000435D9 /* SignUpSelectAgeModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D190F2C352E1E000435D9 /* SignUpSelectAgeModalVC.swift */; };
 		089D19132C3544DB000435D9 /* PickerCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19122C3544DB000435D9 /* PickerCPNT.swift */; };
+		089D19152C366E1A000435D9 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19142C366E1A000435D9 /* Interest.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -67,9 +68,8 @@
 		08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */; };
 		08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */; };
 		08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */; };
-		08C813F72C2F15DC009239FE /* FetchInterestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F62C2F15DC009239FE /* FetchInterestListResponseDTO.swift */; };
-		08C813F92C2F267D009239FE /* FetchGendersResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */; };
-		08C813FB2C2F2809009239FE /* TrySignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */; };
+		08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */; };
+		08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */; };
 		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE72C231C40002D5202 /* SocialTYPE.swift */; };
@@ -162,6 +162,7 @@
 		089D19092C33C4A3000435D9 /* SignUpTermsModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsModalVC.swift; sourceTree = "<group>"; };
 		089D190F2C352E1E000435D9 /* SignUpSelectAgeModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSelectAgeModalVC.swift; sourceTree = "<group>"; };
 		089D19122C3544DB000435D9 /* PickerCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCPNT.swift; sourceTree = "<group>"; };
+		089D19142C366E1A000435D9 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -188,9 +189,8 @@
 		08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameRequestDTO.swift; sourceTree = "<group>"; };
 		08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthenticationCredential.swift; sourceTree = "<group>"; };
 		08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryImpl.swift; sourceTree = "<group>"; };
-		08C813F62C2F15DC009239FE /* FetchInterestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInterestListResponseDTO.swift; sourceTree = "<group>"; };
-		08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGendersResponseDTO.swift; sourceTree = "<group>"; };
-		08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrySignUpRequestDTO.swift; sourceTree = "<group>"; };
+		08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestListResponseDTO.swift; sourceTree = "<group>"; };
+		08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
 		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE72C231C40002D5202 /* SocialTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTYPE.swift; sourceTree = "<group>"; };
@@ -524,6 +524,7 @@
 			children = (
 				08F49DE92C231CFC002D5202 /* LoginResponse.swift */,
 				08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */,
+				089D19142C366E1A000435D9 /* Interest.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -601,9 +602,8 @@
 			isa = PBXGroup;
 			children = (
 				08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */,
-				08C813F62C2F15DC009239FE /* FetchInterestListResponseDTO.swift */,
-				08C813F82C2F267D009239FE /* FetchGendersResponseDTO.swift */,
-				08C813FA2C2F2809009239FE /* TrySignUpRequestDTO.swift */,
+				08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */,
+				08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */,
 			);
 			path = SignUpDTO;
 			sourceTree = "<group>";
@@ -974,7 +974,6 @@
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
-				08C813F92C2F267D009239FE /* FetchGendersResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
@@ -985,6 +984,7 @@
 				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
 				08F49E0F2C240A64002D5202 /* LocalFetchUseCaseImpl.swift in Sources */,
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
+				089D19152C366E1A000435D9 /* Interest.swift in Sources */,
 				089D190A2C33C4A3000435D9 /* SignUpTermsModalVC.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
@@ -1000,14 +1000,14 @@
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
-				08C813F72C2F15DC009239FE /* FetchInterestListResponseDTO.swift in Sources */,
+				08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */,
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */,
 				087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */,
-				08C813FB2C2F2809009239FE /* TrySignUpRequestDTO.swift in Sources */,
+				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
 				BD353B452C2BE42C0004659D /* Secrets.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,

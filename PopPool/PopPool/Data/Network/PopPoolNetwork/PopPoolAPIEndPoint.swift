@@ -33,19 +33,10 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-    static func fetchInterestList(credential: MyAuthenticationCredential) -> Endpoint<FetchInterestListResponseDTO> {
+    static func fetchInterestList(credential: MyAuthenticationCredential) -> Endpoint<InterestListResponseDTO> {
         return Endpoint(
             baseURL: "http://localhost:8080",
             path: "/signup/interests",
-            method: .get,
-            headers: ["Authorization": "Bearer \(credential.accessToken)"]
-        )
-    }
-    
-    static func fetchGenders(credential: MyAuthenticationCredential) -> Endpoint<FetchGendersResponseDTO> {
-        return Endpoint(
-            baseURL: "http://localhost:8080",
-            path: "/signup/genders",
             method: .get,
             headers: ["Authorization": "Bearer \(credential.accessToken)"]
         )
