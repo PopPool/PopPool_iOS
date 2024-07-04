@@ -139,9 +139,11 @@ extension LoginVC {
         output.showLoginBottomSheet
             .subscribe(onNext: { [weak self] _ in
                 print("버튼이 눌렸습니다")
-                let vc = LoginBottomSheetVC()
+                let vc = SignUpCompletedVC(nickname: "바다사자 바다사자", tags: ["카테고리","카테고리"])
 //                self?.presentViewControllerModally(vc: vc)
-                self?.presentBottomSheet(viewController: vc)
+//                self?.presentBottomSheet(viewController: vc)
+//                self?.presentModalViewController(viewController: vc)
+                self?.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
         
