@@ -18,6 +18,7 @@ final class ProgressIndicatorCPNT: UIStackView {
     private var progressViews: [ProgressViewCPNT]
     private var progressIndex: Int
     
+    // MARK: - init
     /// 전체 단계 수와 시작 지점을 기반으로 CMPTProgressIndicator를 초기화
     /// - Parameters:
     ///   - totalStep: 전체 단계 수
@@ -55,6 +56,7 @@ private extension ProgressIndicatorCPNT {
     }
 }
 
+// MARK: - Methods
 extension ProgressIndicatorCPNT {
     
     /// 진행 인디케이터를 한 단계 앞으로 이동

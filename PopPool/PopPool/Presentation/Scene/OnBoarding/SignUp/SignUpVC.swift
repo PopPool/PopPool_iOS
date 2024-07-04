@@ -14,7 +14,7 @@ import RxSwift
 final class SignUpVC: UIViewController {
     
     // MARK: - Components
-    private let headerView = HeaderViewCPNT(title: "asdfasdf", style: .text("취소"))
+    private let headerView = HeaderViewCPNT(style: .text("취소"))
     private let progressIndicator = ProgressIndicatorCPNT(totalStep: 4, startPoint: 1)
     
     // MARK: - ContentTitleViews
@@ -24,7 +24,7 @@ final class SignUpVC: UIViewController {
     )
     private let step2_contentTitleView = ContentTitleCPNT(
         title: "팝풀에서 사용할\n별명을 설정해볼까요?",
-        type: .title_sub_fp(subTitle: "이 단계를 건너뛰시면 자동으로 별명이 만들어져요.")
+        type: .title_sub_fp(subTitle: "이후 이 별명으로 팝풀에서 활동할 예정이에요.")
     )
     private let step3_contentTitleView = ContentTitleCPNT(
         title: "$유저명$님에 대해\n조금 더 알려주시겠어요?",
@@ -66,13 +66,6 @@ final class SignUpVC: UIViewController {
         button.isEnabled = false
         return button
     }()
-    private let step2_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
-    private lazy var step2_buttons: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [self.step2_secondaryButton, self.step2_primaryButton])
-        view.spacing = 10
-        view.distribution = .fillEqually
-        return view
-    }()
     private let step3_primaryButton: ButtonCPNT = {
         let button = ButtonCPNT(type: .primary, title: "다음", disabledTitle: "다음")
         button.isEnabled = false
@@ -95,7 +88,7 @@ final class SignUpVC: UIViewController {
     }()
     private lazy var bottomButtons = [
         step1_primaryButton,
-        step2_buttons,
+        step2_primaryButton,
         step3_buttons,
         step4_buttons
         
@@ -103,8 +96,19 @@ final class SignUpVC: UIViewController {
     private let buttonStackView: UIStackView = UIStackView()
     
     // MARK: - Properties
-    private let viewModel = SignUpVM()
+    private let viewModel: SignUpVM
     private let disposeBag = DisposeBag()
+    private let ageRelayObserver: PublishSubject<Int> = .init()
+    
+    // MARK: - init
+    init(viewModel: SignUpVM) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         print(self, #function)
@@ -162,8 +166,11 @@ private extension SignUpVC {
         }
     }
     
-    /// ViewModel과의 바인딩을 설정
+    // MARK: - Bind
+    /// 바인딩 설정
     func bind() {
+        
+        // 중복확인 버튼 클릭시 키보드 다운 처리
         step2_ContentView.validationTextField.duplicationCheckButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -171,24 +178,28 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // MARK: - Input
         let input = SignUpVM.Input(
             tap_header_cancelButton: headerView.rightBarButton.rx.tap,
             tap_header_backButton: headerView.leftBarButton.rx.tap,
             tap_step1_primaryButton: step1_primaryButton.rx.tap,
             event_step1_didChangeTerms: step1_ContentView.terms,
+            tap_step1_termsButton: step1_ContentView.didTapTerms,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
-            tap_step2_secondaryButton: step2_secondaryButton.rx.tap,
             tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap,
             event_step2_availableNickName: step2_ContentView.validationTextField.nickNameObserver,
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
             tap_step3_secondaryButton: step3_secondaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
-            event_step4_didSelectedGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
+            event_step4_didSelectGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
             tap_step4_ageButton: step4_ContentView.ageButton.rx.tap,
-            tap_step4_secondaryButton: step4_secondaryButton.rx.tap
+            tap_step4_secondaryButton: step4_secondaryButton.rx.tap,
+            event_step4_didSelectAge: ageRelayObserver
         )
+        // MARK: - Output
         let output = viewModel.transform(input: input)
         
+        // MARK: - Common OutPut
         // 페이지 인덱스 증가 이벤트 처리
         output.increasePageIndex
             .withUnretained(self)
@@ -207,6 +218,15 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // 취소 버튼 탭 이벤트 처리
+        output.moveToRecentVC
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: - Step 1 OutPut
         // Step 1 primary button 활성/비활성 상태 처리
         output.step1_primaryButton_isEnabled
             .withUnretained(self)
@@ -215,6 +235,16 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // Step 1 Terms VC 이동 이벤트
+        output.step1_moveToTermsVC
+            .withUnretained(self)
+            .subscribe { (owner, terms) in
+                let vc = SignUpTermsModalVC(title: terms.title, content: terms.content)
+                owner.presentModalViewController(viewController: vc)
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: - Step 2 OutPut
         // Step 2 중복확인 button 결과 전달
         output.step2_isDuplicate
             .withUnretained(self)
@@ -232,6 +262,7 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
+        // MARK: - Step 3 OutPut
         // Step 3 primary button 활성/비활성 상태 처리
         output.step3_primaryButton_isEnabled
             .withUnretained(self)
@@ -241,7 +272,7 @@ private extension SignUpVC {
             .disposed(by: disposeBag)
         
         // 카테고리 리스트 가져오기
-        output.fetchCategoryList
+        output.step3_fetchCategoryList
             .withUnretained(self)
             .subscribe { (owner, list) in
                 owner.step3_ContentView.setCategoryList(list: list)
@@ -249,7 +280,7 @@ private extension SignUpVC {
             .disposed(by: disposeBag)
         
         // Step3,4 nickname 설정
-        output.fetchUserNickname
+        output.step2_fetchUserNickname
             .withUnretained(self)
             .subscribe { (owner, nickname) in
                 owner.step3_contentTitleView.setNickName(nickName: nickname)
@@ -257,14 +288,28 @@ private extension SignUpVC {
             }
             .disposed(by: disposeBag)
         
-        output.moveToRecentVC
+        // MARK: - Step 4 OutPut
+        // moveToAgeSelectVC 이벤트 처리
+        output.step4_moveToAgeSelectVC
             .withUnretained(self)
-            .subscribe { (owner, _) in
-                owner.navigationController?.popViewController(animated: true)
+            .subscribe { (owner, vcData) in
+                let range = vcData.0
+                let age = vcData.1
+                let vc = SignUpSelectAgeModalVC(ageRange: range ,selectIndex: age)
+                vc.selectIndexRelayObserver
+                    .subscribe(onNext: { index in
+                        owner.step4_ContentView.ageButton.setAge(age: index + range.lowerBound)
+                        owner.ageRelayObserver.onNext(index)
+                    })
+                    .disposed(by: owner.disposeBag)
+                owner.presentModalViewController(viewController: vc)
             }
             .disposed(by: disposeBag)
     }
-    
+}
+// MARK: - Methods
+
+private extension SignUpVC {
     /// 페이지 인덱스에 따라 뷰 변경을 처리하는 메서드
     ///
     /// - Parameters:

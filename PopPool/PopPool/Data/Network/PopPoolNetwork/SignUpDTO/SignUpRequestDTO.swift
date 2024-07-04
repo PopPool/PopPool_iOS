@@ -1,5 +1,5 @@
 //
-//  TrySignUpRequestDTO.swift
+//  SignUpRequestDTO.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/29/24.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TrySignUpRequestDTO: Encodable {
+struct SignUpRequestDTO: Encodable {
     var userId: String
     var nickName: String
     var gender: String
-    var age: Int
+    var age: Int32
     var socialType: String
     var interests: [String]
 }

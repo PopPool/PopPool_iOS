@@ -53,6 +53,7 @@ final class SignUpStep3View: UIStackView {
     
     private let categoryList: BehaviorRelay<[String]> = .init(value: [])
 
+    // MARK: - init
     init() {
         super.init(frame: .zero)
         setUp()
@@ -105,7 +106,7 @@ private extension SignUpStep3View {
             .disposed(by: disposeBag)
     }
 }
-
+// MARK: - Methods
 extension SignUpStep3View {
     
     /// 선택된 리스트를 가져오는 메서드
@@ -148,7 +149,7 @@ extension SignUpStep3View: UICollectionViewDelegateFlowLayout, UICollectionViewD
     /// 셀이 선택되었을 때의 동작 정의
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let limitSelectedCount = 5
-        var selectedListValue = selectedList.value
+        let selectedListValue = selectedList.value
         if selectedListValue.count >= limitSelectedCount {
             collectionView.deselectItem(at: indexPath, animated: false)
             ToastMSGManager.createToast(message: "최대 5개 까지 선택할 수 있어요")

@@ -52,6 +52,7 @@ final class SignUpStep4View: UIStackView {
     let ageButton = SignUpAgeSelectedButton()
     private let bottomSpacingView = UIView()
     
+    // MARK: - init
     init() {
         super.init(frame: .zero)
         setUp()

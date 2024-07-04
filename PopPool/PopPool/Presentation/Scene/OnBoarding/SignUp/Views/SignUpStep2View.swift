@@ -14,6 +14,7 @@ final class SignUpStep2View: UIStackView {
     let validationTextField = ValidationTextFieldCPNT(placeholder: "별명을 입력해주세요")
     private let bottomSpacingView = UIView()
     
+    // MARK: - init
     init() {
         super.init(frame: .zero)
         setUp()
