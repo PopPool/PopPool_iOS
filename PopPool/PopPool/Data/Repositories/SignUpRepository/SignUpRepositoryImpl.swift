@@ -11,7 +11,6 @@ import RxSwift
 final class SignUpRepositoryImpl: SignUpRepository {
     
     let provider = AppDIContainer.shared.resolve(type: Provider.self)
-    let disposeBag = DisposeBag()
     
     func checkNickName(nickName: String, credential: MyAuthenticationCredential) -> Observable<Bool> {
         let endPoint = PopPoolAPIEndPoint.checkNickName(with: .init(nickName: nickName), credential: credential)
