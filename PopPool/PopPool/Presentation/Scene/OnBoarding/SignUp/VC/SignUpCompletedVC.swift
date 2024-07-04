@@ -5,32 +5,33 @@
 //  Created by Porori on 7/3/24.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 import RxSwift
 
-class SignUpCompletedVC: UIViewController {
+final class SignUpCompletedVC: UIViewController {
     
-    // MARK: - Properties
-    let headerView = HeaderViewCPNT(title: "", style: .text("취소"))
-    let iconImageView: UIImageView = {
+    // MARK: - Components
+    
+    private let headerView = HeaderViewCPNT(title: "", style: .text("취소"))
+    private let iconImageView: UIImageView = {
         let logoView = UIImageView()
         logoView.image = UIImage(named: "check_fill_signUp")?.withTintColor(UIColor.blu500)
         logoView.contentMode = .scaleAspectFit
         return logoView
     }()
     
-    let notificationLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-
-    let tagNotificationLabel: UILabel = {
+    private let notificationLabel: UILabel = {
         let label = UILabel()
         return label
     }()
     
+    private let tagNotificationLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    // 완료 화면 전체 프로퍼티를 담는 Stackview
     private lazy var notificationStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -43,16 +44,19 @@ class SignUpCompletedVC: UIViewController {
         return stack
     }()
     
-    let confirmButton = ButtonCPNT(type: .primary, title: "바로가기")
-    let spacer80 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._80px)
-    let spacer32 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._32px)
-    let spacer16 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._16px)
+    // MARK: - Properties
     
-    let userName: String?
-    var categoryTags: [String]?
-    let disposeBag = DisposeBag()
+    private let confirmButton = ButtonCPNT(type: .primary, title: "바로가기")
+    private let spacer80 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._80px)
+    private let spacer32 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._32px)
+    private let spacer16 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._16px)
+    
+    private let userName: String?
+    private let categoryTags: [String]?
+    private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
+    
     init(nickname: String?, tags: [String]?) {
         self.userName = nickname
         self.categoryTags = tags
@@ -74,6 +78,7 @@ class SignUpCompletedVC: UIViewController {
 extension SignUpCompletedVC {
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraints()
@@ -81,14 +86,17 @@ extension SignUpCompletedVC {
     }
 }
 
-extension SignUpCompletedVC {
+private extension SignUpCompletedVC {
     
     // MARK: - Methods
-    private func setNickName() {
+    
+    /// 닉네임 폰트, 스타일을 커스텀 적용하는 메서드
+    func setNickName() {
         let greeting = "가입완료!\n"
         let description = "님의\n피드를 확인해보세요"
         let text = greeting + (userName ?? "홍길동") + description
         
+        // 전체 안내문과 닉네임에 각각 font와 컬러를 스타일로 적용합니다
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.5
         let attributedString = NSMutableAttributedString(string: text)
@@ -96,18 +104,21 @@ extension SignUpCompletedVC {
         let fullRange = (text as NSString).range(of: text)
         attributedString.addAttribute(.foregroundColor, value: UIColor.blu500.cgColor, range: targetRange)
         attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: fullRange)
-        notificationLabel.attributedText = attributedString
+        attributedString.addAttribute(.font, value: UIFont.KorFont(style: .bold, size: 20)!, range: fullRange)
         
-        notificationLabel.font = UIFont.KorFont(style: .bold, size: 20)
-        notificationLabel.textAlignment = .center
+        notificationLabel.attributedText = attributedString
         notificationLabel.numberOfLines = 0
+        notificationLabel.textAlignment = .center
     }
     
-    private func setCategory() {
+    /// 카테고리에 폰트 및 스타일을 적용하는 메서드
+    func setCategory() {
         let description = "와\n연관된 팝업스토어 정보를 안내해드릴게요"
         let tags = categoryTags?.map { $0 } ?? []
         let groupTags = tags.joined(separator: ", ")
         let text = groupTags + description
+        
+        // 카테고리에 각각 알맞는 font와 컬러를 스타일로 적용합니다
         let style = NSMutableParagraphStyle()
         style.lineHeightMultiple = 1.5
         let attributedText = NSMutableAttributedString(string: text)
@@ -116,12 +127,14 @@ extension SignUpCompletedVC {
         attributedText.addAttribute(.foregroundColor, value: UIColor.g600.cgColor, range: full)
         attributedText.addAttribute(.font, value: UIFont.KorFont(style: .bold, size: 15)!, range: range)
         attributedText.addAttribute(.paragraphStyle, value: style, range: full)
+        
         tagNotificationLabel.attributedText = attributedText
         tagNotificationLabel.numberOfLines = 0
         tagNotificationLabel.textAlignment = .center
     }
     
-    private func setUpConstraints() {
+    /// 컴포넌트별 제약을 잡습니다
+    func setUpConstraints() {
         view.backgroundColor = .systemBackground
         
         view.addSubview(headerView)
@@ -130,13 +143,14 @@ extension SignUpCompletedVC {
         headerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(44)
         }
         
         view.addSubview(notificationStack)
         notificationStack.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(headerView.snp.bottom)
         }
         
         view.addSubview(confirmButton)
@@ -148,16 +162,17 @@ extension SignUpCompletedVC {
         }
     }
     
-    private func dismissVC() {
-        // 메인 화면으로 navigationController를 교체
+    /// 완료 버튼이 탭된 이후 현재 navigationController를 이후 넘어가는 loginVC로 교체됩니다
+    func dismissVC() {
         let vc = LoginVC()
         navigationController?.setViewControllers([vc], animated: true)
     }
     
-    private func bind() {
+    func bind() {
         confirmButton.rx.tap
-            .bind { [weak self] in
-                self?.dismissVC()
+            .withUnretained(self)
+            .bind { (owner, _) in
+                owner.dismissVC()
             }
             .disposed(by: disposeBag)
     }
