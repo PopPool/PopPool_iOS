@@ -71,7 +71,7 @@ private extension SignUpTermsModalVC {
             make.height.equalTo(textViewHeight < (UIScreen.main.bounds.height * 0.8) ? textViewHeight : UIScreen.main.bounds.height * 0.8)
         }
         spacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._32px)
+            make.height.equalTo(Constants.spaceGuide.medium100)
         }
         stackView.addArrangedSubview(topSpacingView)
         stackView.addArrangedSubview(headerView)

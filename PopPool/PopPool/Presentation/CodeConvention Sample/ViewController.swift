@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-final class ViewController: UIViewController { // 상속 필요 없을시 Final 키워드 붙이기
+final class ViewController: BaseViewController { // 상속 필요 없을시 Final 키워드 붙이기
     // MARK: - Properties
     
     var viewModel: ViewControllerViewModel
@@ -35,7 +35,7 @@ final class ViewController: UIViewController { // 상속 필요 없을시 Final 
 
     init(viewModel: ViewControllerViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
         self.view.backgroundColor = .red
     }
     

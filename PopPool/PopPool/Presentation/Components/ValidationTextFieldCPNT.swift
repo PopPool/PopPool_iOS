@@ -203,7 +203,7 @@ private extension ValidationTextFieldCPNT {
     func setUpConstraints() {
         textFieldTrailingView.addSubview(textFieldStackView)
         textFieldStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
             make.top.equalToSuperview().inset(16)
             make.height.equalTo(21)
             make.bottom.equalToSuperview().inset(15)

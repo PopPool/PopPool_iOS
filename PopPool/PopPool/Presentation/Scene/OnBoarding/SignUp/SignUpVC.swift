@@ -11,7 +11,7 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-final class SignUpVC: UIViewController {
+final class SignUpVC: BaseViewController {
     
     // MARK: - Components
     private let headerView = HeaderViewCPNT(style: .text("취소"))
@@ -103,15 +103,11 @@ final class SignUpVC: UIViewController {
     // MARK: - init
     init(viewModel: SignUpVM) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        print(self, #function)
     }
 }
 
@@ -143,25 +139,25 @@ private extension SignUpVC {
         view.addSubview(buttonStackView)
         
         headerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(Constants.spaceGuide._16px)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(Constants.spaceGuide.small100)
             make.leading.trailing.equalToSuperview()
         }
         progressIndicator.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(Constants.spaceGuide._16px)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.top.equalTo(headerView.snp.bottom).offset(Constants.spaceGuide.small100)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
         }
         contentTitleStackView.snp.makeConstraints { make in
             make.top.equalTo(progressIndicator.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
         }
         buttonStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
             make.height.equalTo(52)
-            make.bottom.equalToSuperview().inset(Constants.spaceGuide._48px)
+            make.bottom.equalToSuperview().inset(Constants.spaceGuide.medium400)
         }
         contentStackView.snp.makeConstraints { make in
             make.top.equalTo(contentTitleStackView.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
             make.bottom.equalTo(buttonStackView.snp.top)
         }
     }

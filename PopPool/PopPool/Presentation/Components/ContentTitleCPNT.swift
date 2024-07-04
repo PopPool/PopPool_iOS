@@ -146,10 +146,10 @@ private extension ContentTitleCPNT {
             subTitleLabel.text = subTitle
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._64px)
+                make.height.equalTo(Constants.spaceGuide.large100)
             }
             middleSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._16px)
+                make.height.equalTo(Constants.spaceGuide.small100)
             }
             
             self.addArrangedSubview(topSpacingView)
@@ -158,7 +158,7 @@ private extension ContentTitleCPNT {
             self.addArrangedSubview(subTitleLabel)
         case .title_fp:
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._64px)
+                make.height.equalTo(Constants.spaceGuide.large100)
             }
             
             self.addArrangedSubview(topSpacingView)
@@ -169,11 +169,11 @@ private extension ContentTitleCPNT {
             subStackView.spacing = 10
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._64px)
+                make.height.equalTo(Constants.spaceGuide.large100)
             }
 
             iconImageView.snp.makeConstraints { make in
-                make.size.equalTo(Constants.spaceGuide._24px)
+                make.size.equalTo(Constants.spaceGuide.small300)
             }
             
             subStackView.addArrangedSubview(titleLabel)
@@ -185,10 +185,10 @@ private extension ContentTitleCPNT {
             button.setImage(buttonImage, for: .normal)
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._32px)
+                make.height.equalTo(Constants.spaceGuide.medium100)
             }
             middleSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._8px)
+                make.height.equalTo(Constants.spaceGuide.micro200)
             }
             button.snp.makeConstraints { make in
                 make.size.equalTo(24)
@@ -204,7 +204,7 @@ private extension ContentTitleCPNT {
             button.setImage(buttonImage, for: .normal)
             
             topSpacingView.snp.makeConstraints { make in
-                make.height.equalTo(Constants.spaceGuide._32px)
+                make.height.equalTo(Constants.spaceGuide.medium100)
             }
             button.snp.makeConstraints { make in
                 make.size.equalTo(24)

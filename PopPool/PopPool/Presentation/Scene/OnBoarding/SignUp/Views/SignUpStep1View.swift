@@ -88,10 +88,10 @@ private extension SignUpStep1View {
     /// 제약 조건 설정
     func setUpConstraints() {
         topSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._48px)
+            make.height.equalTo(Constants.spaceGuide.medium400)
         }
         middleSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._36px)
+            make.height.equalTo(Constants.spaceGuide.medium200)
         }
         termsView.forEach { view in
             termsStackView.addArrangedSubview(view)

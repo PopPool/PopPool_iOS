@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 
-final class SignUpCompletedVC: UIViewController {
+final class SignUpCompletedVC: BaseViewController {
 
     // MARK: - Components
 
@@ -47,9 +47,9 @@ final class SignUpCompletedVC: UIViewController {
     // MARK: - Properties
 
     private let confirmButton = ButtonCPNT(type: .primary, title: "바로가기")
-    private let spacer80 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._80px)
-    private let spacer32 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._32px)
-    private let spacer16 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide._16px)
+    private let spacer80 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide.large200)
+    private let spacer32 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide.medium100)
+    private let spacer16 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide.small100)
 
     private let userName: String?
     private let categoryTags: [String]?
@@ -60,7 +60,7 @@ final class SignUpCompletedVC: UIViewController {
     init(nickname: String?, tags: [String]?) {
         self.userName = nickname
         self.categoryTags = tags
-        super.init(nibName: nil, bundle: nil)
+        super.init()
         setUpConstraints()
         setNickName()
         setCategory()
@@ -68,10 +68,6 @@ final class SignUpCompletedVC: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        print(self, #function)
     }
 }
 
@@ -136,21 +132,20 @@ private extension SignUpCompletedVC {
 
     /// 컴포넌트별 제약을 잡습니다
     func setUpConstraints() {
-        view.backgroundColor = .systemBackground
 
         view.addSubview(headerView)
         headerView.rightBarButton.isHidden = true
         headerView.leftBarButton.isHidden = true
+        
         headerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(44)
         }
 
         view.addSubview(notificationStack)
         notificationStack.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
             make.top.equalTo(headerView.snp.bottom)
         }
 
@@ -158,8 +153,8 @@ private extension SignUpCompletedVC {
         confirmButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(52)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
-            make.bottom.equalToSuperview().inset(Constants.spaceGuide._48px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
+            make.bottom.equalToSuperview().inset(Constants.spaceGuide.medium400)
         }
     }
 

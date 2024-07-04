@@ -71,8 +71,8 @@ private extension CheckBoxCPNT {
         stackView.addArrangedSubview(contentLabel)
         self.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._20px)
-            make.top.bottom.equalToSuperview().inset(Constants.spaceGuide._12px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
+            make.top.bottom.equalToSuperview().inset(Constants.spaceGuide.micro300)
         }
     }
     

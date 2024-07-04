@@ -11,7 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class ModalViewController: UIViewController {
+class ModalViewController: BaseViewController {
     
     // MARK: - Components
     /// 메인 바텀 시트 컨테이너 뷰
@@ -51,15 +51,6 @@ class ModalViewController: UIViewController {
     private var minTopSpacing: CGFloat = 80
     
     private let disposeBag = DisposeBag()
-    
-    // MARK: - init
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 // MARK: - LifeCycle

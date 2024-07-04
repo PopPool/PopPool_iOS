@@ -75,7 +75,7 @@ private extension SignUpStep4View {
     // 뷰 제약 설정
     func setUpConstraints() {
         topSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._36px)
+            make.height.equalTo(Constants.spaceGuide.medium200)
         }
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(22)
@@ -84,22 +84,22 @@ private extension SignUpStep4View {
             make.height.equalTo(18)
         }
         subLabelBottomspacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._36px)
+            make.height.equalTo(Constants.spaceGuide.medium200)
         }
         genderLabel.snp.makeConstraints { make in
             make.height.equalTo(20)
         }
         genderLabelBottomspacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._8px)
+            make.height.equalTo(Constants.spaceGuide.micro200)
         }
         genderSegmentedControlBottomSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._36px)
+            make.height.equalTo(Constants.spaceGuide.medium200)
         }
         ageLabel.snp.makeConstraints { make in
             make.height.equalTo(20)
         }
         ageLabelBottomSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._8px)
+            make.height.equalTo(Constants.spaceGuide.micro200)
         }
         ageButton.snp.makeConstraints { make in
             make.height.equalTo(72)

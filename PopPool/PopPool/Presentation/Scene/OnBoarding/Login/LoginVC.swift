@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class LoginVC: UIViewController {
+final class LoginVC: BaseViewController {
     
 // MARK: - Properties
     let headerView = HeaderViewCPNT(title: "둘러보기", style: .text("둘러보기"))

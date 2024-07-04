@@ -38,7 +38,7 @@ private extension SignUpStep2View {
         self.addArrangedSubview(bottomSpacingView)
         
         topSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._48px)
+            make.height.equalTo(Constants.spaceGuide.medium400)
         }
     }
 }

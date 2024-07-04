@@ -78,7 +78,7 @@ private extension SignUpStep3View {
     /// 제약 조건 설정 메서드
     func setUpConstraints() {
         topSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._48px)
+            make.height.equalTo(Constants.spaceGuide.medium400)
         }
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(22)
@@ -87,7 +87,7 @@ private extension SignUpStep3View {
             make.height.equalTo(18)
         }
         middleSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._36px)
+            make.height.equalTo(Constants.spaceGuide.medium200)
         }
         self.addArrangedSubview(topSpacingView)
         self.addArrangedSubview(titleLabel)

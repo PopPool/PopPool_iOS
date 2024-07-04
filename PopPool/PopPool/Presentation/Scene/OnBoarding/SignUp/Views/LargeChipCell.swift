@@ -60,7 +60,7 @@ private extension LargeChipCell {
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
             make.height.equalTo(18)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._16px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small100)
             make.top.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().inset(9)
         }

@@ -59,7 +59,7 @@ extension ToastMSGCPNT {
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide._16px)
+            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small100)
             make.centerY.equalToSuperview()
         }
     }

@@ -75,7 +75,7 @@ private extension SignUpSelectAgeModalVC {
     func setUpConstraints() {
         
         topSpacingView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide._24px)
+            make.height.equalTo(Constants.spaceGuide.small300)
         }
         titlelabel.snp.makeConstraints { make in
             make.height.equalTo(25)
