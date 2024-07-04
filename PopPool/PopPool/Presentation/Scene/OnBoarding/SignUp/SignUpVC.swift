@@ -24,7 +24,7 @@ final class SignUpVC: UIViewController {
     )
     private let step2_contentTitleView = ContentTitleCPNT(
         title: "팝풀에서 사용할\n별명을 설정해볼까요?",
-        type: .title_sub_fp(subTitle: "이 단계를 건너뛰시면 자동으로 별명이 만들어져요.")
+        type: .title_sub_fp(subTitle: "이후 이 별명으로 팝풀에서 활동할 예정이에요.")
     )
     private let step3_contentTitleView = ContentTitleCPNT(
         title: "$유저명$님에 대해\n조금 더 알려주시겠어요?",
@@ -66,13 +66,6 @@ final class SignUpVC: UIViewController {
         button.isEnabled = false
         return button
     }()
-    private let step2_secondaryButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
-    private lazy var step2_buttons: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [self.step2_secondaryButton, self.step2_primaryButton])
-        view.spacing = 10
-        view.distribution = .fillEqually
-        return view
-    }()
     private let step3_primaryButton: ButtonCPNT = {
         let button = ButtonCPNT(type: .primary, title: "다음", disabledTitle: "다음")
         button.isEnabled = false
@@ -95,7 +88,7 @@ final class SignUpVC: UIViewController {
     }()
     private lazy var bottomButtons = [
         step1_primaryButton,
-        step2_buttons,
+        step2_primaryButton,
         step3_buttons,
         step4_buttons
         
@@ -193,7 +186,6 @@ private extension SignUpVC {
             event_step1_didChangeTerms: step1_ContentView.terms,
             tap_step1_termsButton: step1_ContentView.didTapTerms,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
-            tap_step2_secondaryButton: step2_secondaryButton.rx.tap,
             tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap,
             event_step2_availableNickName: step2_ContentView.validationTextField.nickNameObserver,
             tap_step3_primaryButton: step3_primaryButton.rx.tap,

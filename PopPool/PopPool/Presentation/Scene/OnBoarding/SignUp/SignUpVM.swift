@@ -30,8 +30,6 @@ final class SignUpVM: ViewModelable {
         // MARK: - Step 2 Input
         /// Sign Up Step2 primary button  탭 이벤트
         var tap_step2_primaryButton: ControlEvent<Void>
-        /// Sign Up Step2 secondary button  탭 이벤트
-        var tap_step2_secondaryButton: ControlEvent<Void>
         /// Sign Up Step2 중복확인 button  탭 이벤트
         var tap_step2_nickNameCheckButton: ControlEvent<Void>
         /// Sign Up Step2 유효한 닉네임 전달 이벤트
@@ -189,14 +187,6 @@ final class SignUpVM: ViewModelable {
                     "스포츠",
                     "게임",
                 ])
-            }
-            .disposed(by: disposeBag)
-        
-        // Step 2 secondary button 탭 이벤트 처리
-        input.tap_step2_secondaryButton
-            .withUnretained(self)
-            .subscribe { (owner, _) in
-                owner.increasePageIndex()
             }
             .disposed(by: disposeBag)
         
