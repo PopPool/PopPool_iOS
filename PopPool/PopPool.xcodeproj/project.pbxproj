@@ -44,6 +44,7 @@
 		089D19132C3544DB000435D9 /* PickerCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19122C3544DB000435D9 /* PickerCPNT.swift */; };
 		089D19152C366E1A000435D9 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19142C366E1A000435D9 /* Interest.swift */; };
 		089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */; };
+		089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19192C368C73000435D9 /* SignUpCompletedVC.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -166,6 +167,7 @@
 		089D19122C3544DB000435D9 /* PickerCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCPNT.swift; sourceTree = "<group>"; };
 		089D19142C366E1A000435D9 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryTest.swift; sourceTree = "<group>"; };
+		089D19192C368C73000435D9 /* SignUpCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCompletedVC.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 				08A28CC02C2AF2C100DF7A90 /* Components */,
 				08A28CBF2C2AF2B800DF7A90 /* Views */,
 				08A28CB92C2AC44300DF7A90 /* SignUpVM.swift */,
+				089D19192C368C73000435D9 /* SignUpCompletedVC.swift */,
 				08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */,
 			);
 			path = SignUp;
@@ -1010,6 +1013,7 @@
 				08C813D52C2D1F5E009239FE /* SignUpStep3View.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
+				089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
