@@ -46,6 +46,8 @@
 		089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */; };
 		089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19192C368C73000435D9 /* SignUpCompletedVC.swift */; };
 		089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D191C2C36B16D000435D9 /* MyPageMainVC.swift */; };
+		089D19242C3912CC000435D9 /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19232C3912CC000435D9 /* MenuListCell.swift */; };
+		089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -171,6 +173,8 @@
 		089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryTest.swift; sourceTree = "<group>"; };
 		089D19192C368C73000435D9 /* SignUpCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCompletedVC.swift; sourceTree = "<group>"; };
 		089D191C2C36B16D000435D9 /* MyPageMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainVC.swift; sourceTree = "<group>"; };
+		089D19232C3912CC000435D9 /* MenuListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuListCell.swift; path = ../../../../../../../../../../Documents/MenuListCell.swift; sourceTree = "<group>"; };
+		089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainProfileView.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -434,6 +438,7 @@
 		0873464F2C0ABC2300534FFA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				089D19202C391275000435D9 /* Cells */,
 				BD3C4C742C31AF550087917B /* ViewController */,
 				08C813DC2C2D50AD009239FE /* Layout */,
 				BD0B8F512C26D59600FFBC24 /* Manager */,
@@ -501,9 +506,43 @@
 		089D191B2C36B138000435D9 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				089D19252C3AEB3E000435D9 /* Views */,
 				089D191C2C36B16D000435D9 /* MyPageMainVC.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		089D19202C391275000435D9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				089D19222C3912A3000435D9 /* UITableViewCell */,
+				089D19212C391293000435D9 /* UICollectionViewCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		089D19212C391293000435D9 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				08C813DA2C2D3A58009239FE /* LargeChipCell.swift */,
+			);
+			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
+		089D19222C3912A3000435D9 /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				089D19232C3912CC000435D9 /* MenuListCell.swift */,
+			);
+			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		089D19252C3AEB3E000435D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
@@ -514,7 +553,6 @@
 				089D19012C3032EC000435D9 /* SignUpStep2View.swift */,
 				08C813D42C2D1F5E009239FE /* SignUpStep3View.swift */,
 				08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */,
-				08C813DA2C2D3A58009239FE /* LargeChipCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1011,6 +1049,7 @@
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
 				BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
+				089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
 				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
@@ -1066,6 +1105,7 @@
 				BD27D0922C35A9130092FC36 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
+				089D19242C3912CC000435D9 /* MenuListCell.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
