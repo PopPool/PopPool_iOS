@@ -12,14 +12,25 @@ import RxSwift
 
 final class MyPageMainVC : BaseViewController {
     // MARK: - Components
-    private let headerView = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
-    lazy var profileView = MyPageMainProfileView(frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: 256))
+    private let headerTopView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
+    private let headerView: HeaderViewCPNT = {
+        let view = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
+        return view
+    }()
+    private lazy var profileView = MyPageMainProfileView(
+        frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: self.profileViewHeight)
+    )
     private let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         return view
     }()
     
     // MARK: - Properties
+    private let profileViewHeight: CGFloat = 256
     private let disposeBag = DisposeBag()
 }
 
@@ -50,6 +61,16 @@ private extension MyPageMainVC {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        tableView.addSubview(headerView)
+        headerView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        tableView.addSubview(headerTopView)
+        headerTopView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(view)
+            make.bottom.equalTo(headerView.snp.bottom)
+        }
+        tableView.bringSubviewToFront(headerView)
     }
 }
 
@@ -73,6 +94,17 @@ extension MyPageMainVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        profileView.scrollViewDidScroll(scrollView: scrollView)
+        let limitScroll = profileViewHeight - headerTopView.bounds.maxY
+        let scrollValue = scrollView.contentOffset.y + view.safeAreaLayoutGuide.layoutFrame.minY
+        let alpha: Double = scrollValue / limitScroll
+        
+        if alpha >= 0.05 && alpha <= 1 {
+            headerTopView.alpha = alpha
+        } else if alpha > 1 {
+            headerTopView.alpha = 1
+        } else {
+            headerTopView.alpha = 0
+        }
+        profileView.scrollViewDidScroll(scrollView: scrollView, alpha: alpha)
     }
 }

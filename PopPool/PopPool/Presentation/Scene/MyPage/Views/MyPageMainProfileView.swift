@@ -13,8 +13,9 @@ final class MyPageMainProfileView: UIView {
     // MARK: - Components
     private var containerView: UIView = UIView()
     private var imageView: UIImageView = UIImageView()
-    
+    private let testLabel = UILabel()
     private let bottomHoleView: UIView = UIView()
+    private let bottomHoleBlockView: UIView = UIView()
     
     // MARK: - Properties
     private var containerViewHeight: Constraint?
@@ -44,6 +45,7 @@ private extension MyPageMainProfileView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         bottomHoleView.backgroundColor = .systemBackground
+        bottomHoleBlockView.backgroundColor = .systemBackground
     }
     
     func setUpConstraints() {
@@ -64,6 +66,15 @@ private extension MyPageMainProfileView {
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(49)
         }
+        containerView.addSubview(bottomHoleBlockView)
+        bottomHoleBlockView.snp.makeConstraints { make in
+            make.edges.equalTo(bottomHoleView)
+        }
+        containerView.addSubview(testLabel)
+        testLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        testLabel.text = "TestTest"
     }
     
     func setUpMask() {
@@ -76,7 +87,6 @@ private extension MyPageMainProfileView {
         let size: CGSize = .init(width: frame.width, height: frame.height)
         path.addRect(CGRect(origin: .zero, size: size))
         let maskLayer = CAShapeLayer()
-        maskLayer.backgroundColor = UIColor.black.cgColor
         maskLayer.path = path
         maskLayer.fillRule = .evenOdd
         bottomHoleView.layer.mask = maskLayer
@@ -85,11 +95,12 @@ private extension MyPageMainProfileView {
 
 // MARK: - Methods
 extension MyPageMainProfileView {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(scrollView: UIScrollView, alpha: Double) {
         containerViewHeight?.update(offset: scrollView.contentInset.top)
         let offsetY = -(scrollView.contentOffset.y + scrollView.contentInset.top)
         containerView.clipsToBounds = offsetY <= 0
         imageViewBottom?.update(offset: offsetY >= 0 ? 0 : -offsetY / 2)
         imageViewHeight?.update(offset: max(offsetY + scrollView.contentInset.top, scrollView.contentInset.top))
+        bottomHoleBlockView.alpha = alpha
     }
 }
