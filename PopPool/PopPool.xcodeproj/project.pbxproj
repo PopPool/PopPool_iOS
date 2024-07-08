@@ -97,11 +97,13 @@
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD7C6A052C37B75200C557D9 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7C6A042C37B75200C557D9 /* TestVC.swift */; };
 		BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseTYPE.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
+		BDBB4D1B2C3999AA008E2857 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBB4D1A2C3999AA008E2857 /* BaseTextFieldCPNT.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
 		BDC622B52C2294D4009411AE /* LocalSaveUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */; };
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
@@ -111,6 +113,7 @@
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
 		BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AD2C0BE69700B079C5 /* Provider.swift */; };
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
+		BDF3BF952C3A837000222692 /* TextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3BF942C3A837000222692 /* TextFieldCPNT.swift */; };
 		BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2952C240B95002F4F03 /* UIColor+.swift */; };
 		BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F2972C240BA6002F4F03 /* Constants.swift */; };
 		BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4F29B2C2422DF002F4F03 /* UIFont+.swift */; };
@@ -222,11 +225,13 @@
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD7C6A042C37B75200C557D9 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		BD86079A2C23429D00726692 /* DatabaseTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTYPE.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
+		BDBB4D1A2C3999AA008E2857 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		BDC622B42C2294D4009411AE /* LocalSaveUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaveUseCaseImpl.swift; sourceTree = "<group>"; };
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -236,6 +241,7 @@
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BDF3B2AD2C0BE69700B079C5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
+		BDF3BF942C3A837000222692 /* TextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCPNT.swift; sourceTree = "<group>"; };
 		BDF4F2952C240B95002F4F03 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		BDF4F2972C240BA6002F4F03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BDF4F29B2C2422DF002F4F03 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -648,6 +654,8 @@
 				BD353B462C2C13460004659D /* HeaderViewCPNT.swift */,
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
 				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
+				BDBB4D1A2C3999AA008E2857 /* BaseTextFieldCPNT.swift */,
+				BDF3BF942C3A837000222692 /* TextFieldCPNT.swift */,
 				089D19122C3544DB000435D9 /* PickerCPNT.swift */,
 			);
 			path = Components;
@@ -684,6 +692,7 @@
 			children = (
 				BD3C4C752C31AF6A0087917B /* LoginBottomSheet */,
 				08F49E082C240335002D5202 /* LoginVC.swift */,
+				BD7C6A042C37B75200C557D9 /* TestVC.swift */,
 				BD353B4A2C2D3D7D0004659D /* LoginVM.swift */,
 			);
 			path = Login;
@@ -988,6 +997,7 @@
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */,
+				BDBB4D1B2C3999AA008E2857 /* BaseTextFieldCPNT.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
@@ -1026,6 +1036,7 @@
 				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
+				BDF3BF952C3A837000222692 /* TextFieldCPNT.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */,
@@ -1040,6 +1051,7 @@
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
+				BD7C6A052C37B75200C557D9 /* TestVC.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BD3C4C6D2C30C8AE0087917B /* HeaderViewCPNT.swift in Sources */,
 				BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */,

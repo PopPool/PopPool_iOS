@@ -11,7 +11,7 @@ import SnapKit
 final class SignUpStep2View: UIStackView {
     // MARK: - Components
     private let topSpacingView = UIView()
-    let validationTextField = ValidationTextFieldCPNT(placeholder: "별명을 입력해주세요")
+    let validationTextField = ValidationTextFieldCPNT(type: .nickname)
     private let bottomSpacingView = UIView()
     
     // MARK: - init

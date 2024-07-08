@@ -12,6 +12,38 @@ import RxSwift
 
 final class ValidationTextFieldCPNT: UIStackView {
     
+    enum ContentType {
+        case nickname
+        case social
+        case email(SocialTYPE)
+
+        var placeholder: String {
+            switch self {
+            case .email:
+                return "이메일 주소를 입력해주세요"
+            case .nickname:
+                return "별명을 입력해주세요"
+            case .social:
+                return "인스타그램 ID를 입력해주세요"
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .email(let email):
+                if email.rawValue == "apple" {
+                    return "애플에 연동된 이메일 주소입니다"
+                } else {
+                    return "카카오에 연동된 이메일 주소입니다"
+                }
+            case .nickname:
+                return "사용중인 별명이에요"
+            case .social:
+                return "인스타그램 코멘트와 마이페이지에 ID가 노출됩니다"
+            }
+        }
+    }
+    
     enum NickNameValidationState {
         case available
         case none
@@ -167,11 +199,39 @@ final class ValidationTextFieldCPNT: UIStackView {
     let nickNameObserver: PublishSubject<String?> = .init()
     private let disposeBag = DisposeBag()
     
-    init(placeholder: String) {
+    init(type: ContentType) {
         super.init(frame: .zero)
-        setUp(placeholder: placeholder)
-        setUpConstraints()
-        bind()
+        switch type {
+        case .nickname:
+            setUp(type: type)
+            setUpConstraints()
+            bind()
+            
+        case .social:
+            setUp(type: type)
+            setUpConstraints()
+            bind()
+            
+            
+            
+        case .email:
+            setUp(type: type)
+            setUpConstraints()
+            bind()
+            
+            textFieldTrailingView.backgroundColor = UIColor.g200
+            textField.isUserInteractionEnabled = false
+            cancelButton.isHidden = true
+            textCountLabel.isHidden = true
+            duplicationCheckStackView.isHidden = true
+            
+            if let text = textField.text, !text.isEmpty {
+                validationLabel.text = type.description
+            } else {
+                validationLabel.text = type.description
+                textField.placeholder = type.placeholder
+            }
+        }
     }
     
     required init(coder: NSCoder) {
@@ -183,7 +243,7 @@ private extension ValidationTextFieldCPNT {
     
     /// 초기 설정을 수행하는 메서드
     /// - Parameter placeholder: 텍스트 필드의 플레이스홀더
-    func setUp(placeholder: String) {
+    func setUp(type: ContentType) {
         self.axis = .vertical
         self.spacing = 6
         textFieldTrailingView.layer.borderWidth = 1.2
@@ -191,7 +251,7 @@ private extension ValidationTextFieldCPNT {
         textFieldTrailingView.layer.cornerRadius = 4
         
         textField.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
+            string: type.placeholder,
             attributes: [
                 .foregroundColor: UIColor.g200,
                 .font: UIFont.KorFont(style: .medium, size: 14)!
