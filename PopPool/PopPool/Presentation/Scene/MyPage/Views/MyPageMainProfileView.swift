@@ -12,8 +12,16 @@ final class MyPageMainProfileView: UIView {
     
     // MARK: - Components
     private var containerView: UIView = UIView()
-    private var imageView: UIImageView = UIImageView()
-    private let testLabel = UILabel()
+    private var backGroundImageView: UIImageView = UIImageView()
+    private let contentView: UIView = UIView()
+    private let profileImageView = ProfileImageViewCPNT(size: .midium)
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .KorFont(style: .light, size: 11)
+        label.text = "가고 싶은 곳을 다니고, 입고 싶은 것을 입어요"
+        return label
+    }()
+    
     private let bottomHoleView: UIView = UIView()
     private let bottomHoleBlockView: UIView = UIView()
     
@@ -40,10 +48,17 @@ final class MyPageMainProfileView: UIView {
 private extension MyPageMainProfileView {
     
     func setUp() {
-        imageView.image = UIImage(systemName: "folder")
-        imageView.backgroundColor = .yellow
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+//        backGroundImageView.image = UIImage(systemName: "folder")
+//        backGroundImageView.image = UIImage(named: "TestImage")
+        backGroundImageView.clipsToBounds = true
+        backGroundImageView.contentMode = .scaleAspectFill
+        // 블러 처리
+        let blurEffect = UIBlurEffect(style: .light)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        backGroundImageView.addSubview(visualEffectView)
+        visualEffectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         bottomHoleView.backgroundColor = .systemBackground
         bottomHoleBlockView.backgroundColor = .systemBackground
     }
@@ -55,11 +70,17 @@ private extension MyPageMainProfileView {
             make.centerX.equalToSuperview()
             containerViewHeight = make.height.equalToSuperview().constraint
         }
-        containerView.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
+        containerView.addSubview(backGroundImageView)
+        backGroundImageView.snp.makeConstraints { make in
             make.width.equalTo(containerView)
             imageViewBottom = make.bottom.equalTo(containerView).constraint
             imageViewHeight = make.height.equalTo(containerView).constraint
+        }
+        containerView.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width - 40)
+            make.center.equalToSuperview()
         }
         containerView.addSubview(bottomHoleView)
         bottomHoleView.snp.makeConstraints { make in
@@ -70,11 +91,16 @@ private extension MyPageMainProfileView {
         bottomHoleBlockView.snp.makeConstraints { make in
             make.edges.equalTo(bottomHoleView)
         }
-        containerView.addSubview(testLabel)
-        testLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        contentView.addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(88)
         }
-        testLabel.text = "TestTest"
+        contentView.addSubview(profileImageView)
+        profileImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.bottom.equalTo(descriptionLabel.snp.top).offset(-25)
+        }
     }
     
     func setUpMask() {

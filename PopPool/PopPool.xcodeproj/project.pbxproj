@@ -48,6 +48,7 @@
 		089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D191C2C36B16D000435D9 /* MyPageMainVC.swift */; };
 		089D19242C3912CC000435D9 /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19232C3912CC000435D9 /* MenuListCell.swift */; };
 		089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */; };
+		089D19292C3BD318000435D9 /* ProfileImageViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19282C3BD318000435D9 /* ProfileImageViewCPNT.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -175,6 +176,7 @@
 		089D191C2C36B16D000435D9 /* MyPageMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainVC.swift; sourceTree = "<group>"; };
 		089D19232C3912CC000435D9 /* MenuListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuListCell.swift; path = ../../../../../../../../../../Documents/MenuListCell.swift; sourceTree = "<group>"; };
 		089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainProfileView.swift; sourceTree = "<group>"; };
+		089D19282C3BD318000435D9 /* ProfileImageViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewCPNT.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -697,6 +699,7 @@
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
 				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
 				089D19122C3544DB000435D9 /* PickerCPNT.swift */,
+				089D19282C3BD318000435D9 /* ProfileImageViewCPNT.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1101,6 +1104,7 @@
 				089D19132C3544DB000435D9 /* PickerCPNT.swift in Sources */,
 				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
+				089D19292C3BD318000435D9 /* ProfileImageViewCPNT.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				BD27D0922C35A9130092FC36 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
