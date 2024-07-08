@@ -78,6 +78,7 @@ private extension MyPageMainProfileView {
     }
     
     func setUpMask() {
+        // Bottom Hole Mask 생성
         let path = CGMutablePath()
         path.addArc(center: CGPoint(x: bounds.midX, y: bottomHoleView.bounds.midY),
                     radius: 12,
@@ -96,6 +97,7 @@ private extension MyPageMainProfileView {
 // MARK: - Methods
 extension MyPageMainProfileView {
     func scrollViewDidScroll(scrollView: UIScrollView, alpha: Double) {
+        //stretch view 제약 설정
         containerViewHeight?.update(offset: scrollView.contentInset.top)
         let offsetY = -(scrollView.contentOffset.y + scrollView.contentInset.top)
         containerView.clipsToBounds = offsetY <= 0

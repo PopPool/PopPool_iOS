@@ -12,15 +12,12 @@ import RxSwift
 
 final class MyPageMainVC : BaseViewController {
     // MARK: - Components
-    private let headerTopView: UIView = {
+    private let headerBackGroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
         return view
     }()
-    private let headerView: HeaderViewCPNT = {
-        let view = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
-        return view
-    }()
+    private let headerView: HeaderViewCPNT = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
     private lazy var profileView = MyPageMainProfileView(
         frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: self.profileViewHeight)
     )
@@ -65,8 +62,8 @@ private extension MyPageMainVC {
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
-        tableView.addSubview(headerTopView)
-        headerTopView.snp.makeConstraints { make in
+        tableView.addSubview(headerBackGroundView)
+        headerBackGroundView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view)
             make.bottom.equalTo(headerView.snp.bottom)
         }
@@ -94,16 +91,19 @@ extension MyPageMainVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let limitScroll = profileViewHeight - headerTopView.bounds.maxY
+        // scroll시 header alpha값 변경
+        // 총 스크롤 값 프로필 뷰 높이 - headerBackGroundView의 높이
+        let limitScroll = profileViewHeight - headerBackGroundView.bounds.maxY
         let scrollValue = scrollView.contentOffset.y + view.safeAreaLayoutGuide.layoutFrame.minY
         let alpha: Double = scrollValue / limitScroll
         
-        if alpha >= 0.05 && alpha <= 1 {
-            headerTopView.alpha = alpha
-        } else if alpha > 1 {
-            headerTopView.alpha = 1
+        // alpha값 변경
+        if alpha <= 0.05 {
+            headerBackGroundView.alpha = 0
+        } else if (0.05...0.95).contains(alpha) {
+            headerBackGroundView.alpha = alpha
         } else {
-            headerTopView.alpha = 0
+            headerBackGroundView.alpha = 1
         }
         profileView.scrollViewDidScroll(scrollView: scrollView, alpha: alpha)
     }
