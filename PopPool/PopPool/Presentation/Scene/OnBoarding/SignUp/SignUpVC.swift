@@ -167,7 +167,7 @@ private extension SignUpVC {
     func bind() {
         
         // 중복확인 버튼 클릭시 키보드 다운 처리
-        step2_ContentView.validationTextField.duplicationCheckButton.rx.tap
+        step2_ContentView.validationTextField.checkValidationButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.view.endEditing(true)
@@ -182,8 +182,8 @@ private extension SignUpVC {
             event_step1_didChangeTerms: step1_ContentView.terms,
             tap_step1_termsButton: step1_ContentView.didTapTerms,
             tap_step2_primaryButton: step2_primaryButton.rx.tap,
-            tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.duplicationCheckButton.rx.tap,
-            event_step2_availableNickName: step2_ContentView.validationTextField.nickNameObserver,
+            tap_step2_nickNameCheckButton: step2_ContentView.validationTextField.checkValidationButton.rx.tap,
+            event_step2_availableNickName: step2_ContentView.validationTextField.nameObserver,
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
             tap_step3_secondaryButton: step3_secondaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
@@ -246,7 +246,9 @@ private extension SignUpVC {
             .withUnretained(self)
             .debounce(.microseconds(200), scheduler: MainScheduler.instance)
             .subscribe { (owner, isDuplicate) in
-                owner.step2_ContentView.validationTextField.validationState.accept(isDuplicate ? .duplicateNickname : .available)
+                // 텍스트 필드 컴포넌트의 observer를 통해 다음 값을 넘김
+                // 중복일 경우 duplicate - 아닐 경우 통과
+                owner.step2_ContentView.validationTextField.stateObserver.onNext(isDuplicate ? .duplicateNickname : .valid)
             }
             .disposed(by: disposeBag)
         

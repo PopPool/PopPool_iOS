@@ -25,6 +25,17 @@ final class ValidationTextField: BaseTextFieldCPNT {
         case shortText
         case duplicateNickname
         case valid
+        
+        var string: String? {
+            switch self {
+            case .valid:
+                return "valid"
+            case .duplicateNickname:
+                return "duplicateNickname"
+            default:
+                return nil
+            }
+        }
     }
     
     struct ValidationOutPut {
@@ -118,7 +129,7 @@ final class ValidationTextField: BaseTextFieldCPNT {
         return stack
     }()
     
-    private let checkValidationButton: UIButton = {
+    let checkValidationButton: UIButton = {
         let button = UIButton()
         button.setTitle("중복체크", for: .normal)
         button.titleLabel?.font = .KorFont(style: .regular, size: 13)
@@ -137,7 +148,8 @@ final class ValidationTextField: BaseTextFieldCPNT {
     
     /// 상태 값의 변화를 감지하는 옵저버
     /// bind()에서 텍스트필드의 입력 값에 따라 변경된 값을 적용하는 것을 돕습니다
-    private let stateObserver:PublishSubject<ValidationState> = .init()
+    let stateObserver:PublishSubject<ValidationState> = .init()
+    let nameObserver: PublishSubject<String?> = .init()
     private let type: ValidationType
     
     // MARK: - Initializer
@@ -167,6 +179,16 @@ final class ValidationTextField: BaseTextFieldCPNT {
             .subscribe { (owner, state) in
                 let output = ValidationOutPut(type: owner.type, state: state)
                 owner.setUpViewFrom(output: output)
+                
+                // 다음 버튼을 활성화하기 위한 값을 넘기는 동작 - But 검수를 진행하지 않음
+                if state == .valid {
+                    guard let nickName = owner.textField.text else { return }
+                    self.nameObserver.onNext(nickName)
+                } else {
+                    self.nameObserver.onNext(nil)
+                }
+                
+                owner.nameObserver.onNext(state.string)
             }
             .disposed(by: disposeBag)
         
@@ -182,13 +204,6 @@ final class ValidationTextField: BaseTextFieldCPNT {
             .withUnretained(self)
             .subscribe { (owner, value) in
                 owner.textField.text = ""
-            }
-            .disposed(by: disposeBag)
-        
-        checkValidationButton.rx.tap
-            .withUnretained(self)
-            .subscribe { (owner, value) in
-                print("중복 체크 버튼이 눌렸습니다.")
             }
             .disposed(by: disposeBag)
     }
