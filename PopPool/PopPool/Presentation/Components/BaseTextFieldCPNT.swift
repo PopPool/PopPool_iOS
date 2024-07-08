@@ -2,88 +2,83 @@
 //  BaseTextFieldCPNT.swift
 //  PopPool
 //
-//  Created by Porori on 7/7/24.
+//  Created by SeoJunYoung on 7/8/24.
 //
 
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 class BaseTextFieldCPNT: UIStackView {
     
-    // MARK: - Components
-    
-    /// 전체 뷰
-    let containerView: UIView = {
+    let textFieldBackGroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.w100
+        view.backgroundColor = .systemBackground
         view.layer.borderColor = UIColor.g100.cgColor
         view.layer.borderWidth = 1.2
         view.layer.cornerRadius = 4
-        view.clipsToBounds = true
         return view
     }()
     
-    /// textfield + 버튼 stack
     let textFieldStackView: UIStackView = {
         let view = UIStackView()
-        view.axis = .horizontal
         return view
     }()
     
-    /// textfield 자체
     let textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "기본 값"
-        textField.font = .KorFont(style: .medium, size: 14)
-        return textField
+        let view = UITextField()
+        view.font = .KorFont(style: .medium, size: 14)
+        view.textColor = UIColor.g1000
+        return view
     }()
     
-    /// 텍스트 필드에서의 삭제 버튼
-    let cancelButton: UIButton = {
+    let clearButton: UIButton = {
         let button = UIButton()
-        let backgroudImage = UIImage(named: "cancel_signUp")
-        button.setBackgroundImage(backgroudImage, for: .normal)
-        button.setBackgroundImage(backgroudImage, for: .highlighted)
+        button.setImage(UIImage(named: "cancel_signUp"), for: .normal)
         return button
     }()
     
-    /// valdiationLabel + 0/0자
-    let validationStackView: UIStackView = {
+    let bottomStackView: UIStackView = {
         let view = UIStackView()
-        view.axis = .horizontal
-        view.directionalLayoutMargins = .init(top: 0, leading: 4, bottom: 0, trailing: 4)
+        view.layoutMargins = .init(top: 0, left: 4, bottom: 0, right: 4)
         view.isLayoutMarginsRelativeArrangement = true
         return view
     }()
     
-    /// 문제가 있을 때 하단에 등장하는 validationLabel
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .regular, size: 12)
-        label.text = "기본 값"
+        label.textColor = UIColor.g500
         return label
     }()
     
-    /// 0/0자
     let textCountLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .right
         label.font = .KorFont(style: .regular, size: 12)
-        label.textColor = .g500
-        label.text = "기본 값"
+        label.textAlignment = .right
+        label.textColor = UIColor.g500
         return label
     }()
     
-    private let disposeBag = DisposeBag()
+    // MARK: - Properties
     
-    // MARK: - Initializer
+    let limitTextCount: Int
     
-    // init 단계에서 인자를 받는다?
-    init() {
+    let disposeBag = DisposeBag()
+    
+    // MARK: - init
+    
+    init(isEnable: Bool = true, placeHolder: String?, description: String? = nil, limitTextCount: Int? = nil) {
+        if let limitTextCount = limitTextCount {
+            self.limitTextCount = limitTextCount
+        } else {
+            self.limitTextCount = 0
+        }
         super.init(frame: .zero)
-        setAutoLayout()
-        
+        setUp(isEnable: isEnable, placeHolder: placeHolder, description: description, limitTextCount: limitTextCount)
+        setUpConstraints(description: description, limitTextCount: limitTextCount)
+        bind()
     }
     
     required init(coder: NSCoder) {
@@ -91,44 +86,72 @@ class BaseTextFieldCPNT: UIStackView {
     }
 }
 
-extension BaseTextFieldCPNT {
-    
-    // MARK: - Methods
-    
-    private func setAutoLayout() {
-        self.spacing = 6
+// MARK: - SetUp
+
+private extension BaseTextFieldCPNT {
+    func setUp(isEnable: Bool, placeHolder: String?, description: String?, limitTextCount: Int?) {
         self.axis = .vertical
+        self.spacing = 6
         
-        setUpContainerView()
-        setUpTextfield()
-        setUpDescriptionLabels()
-    }
-    
-    private func setUpContainerView() {
-        addArrangedSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.height.equalTo(52)
+        textField.placeholder = placeHolder
+        descriptionLabel.text = description
+        textCountLabel.text = "0 / \(self.limitTextCount)자"
+        
+        if !isEnable {
+            self.isUserInteractionEnabled = false
+            self.textFieldBackGroundView.backgroundColor = .pb4
         }
     }
     
-    private func setUpTextfield() {
-        containerView.addSubview(textFieldStackView)
+    func setUpConstraints(description: String?, limitTextCount: Int?) {
+        clearButton.snp.makeConstraints { make in
+            make.size.equalTo(20)
+        }
+        textField.snp.makeConstraints { make in
+            make.height.equalTo(20)
+        }
+        textFieldBackGroundView.addSubview(textFieldStackView)
+        textFieldStackView.addArrangedSubview(textField)
         textFieldStackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.top.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(15)
         }
         
-        textFieldStackView.addArrangedSubview(textField)
-        textFieldStackView.addArrangedSubview(cancelButton)
-        cancelButton.snp.makeConstraints { make in
-            make.width.equalTo(21)
+        if let _ = description {
+            bottomStackView.addArrangedSubview(descriptionLabel)
+        }
+        
+        if let _ = limitTextCount {
+            bottomStackView.addArrangedSubview(textCountLabel)
+        }
+        self.addArrangedSubview(textFieldBackGroundView)
+        if description != nil || limitTextCount != nil {
+            self.addArrangedSubview(bottomStackView)
         }
     }
     
-    private func setUpDescriptionLabels() {
-        validationStackView.addArrangedSubview(descriptionLabel)
-        validationStackView.addArrangedSubview(textCountLabel)
-        self.addArrangedSubview(validationStackView)
+    func bind() {
+        textField.rx.controlEvent(.editingDidBegin)
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.textFieldBackGroundView.layer.borderColor = UIColor.g1000.cgColor
+                owner.textFieldStackView.addArrangedSubview(owner.clearButton)
+            }
+            .disposed(by: disposeBag)
+        textField.rx.text
+            .orEmpty
+            .withUnretained(self)
+            .subscribe { (owner, text) in
+                owner.textCountLabel.text = "\(text.count) / \(owner.limitTextCount)자"
+            }
+            .disposed(by: disposeBag)
+        textField.rx.controlEvent(.editingDidEnd)
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.textFieldBackGroundView.layer.borderColor = UIColor.g100.cgColor
+                owner.clearButton.removeFromSuperview()
+            }
+            .disposed(by: disposeBag)
     }
 }
