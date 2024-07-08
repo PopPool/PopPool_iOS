@@ -45,6 +45,8 @@
 		089D19152C366E1A000435D9 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19142C366E1A000435D9 /* Interest.swift */; };
 		089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */; };
 		089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19192C368C73000435D9 /* SignUpCompletedVC.swift */; };
+		089D192B2C3BFE95000435D9 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D192A2C3BFE94000435D9 /* BaseTextFieldCPNT.swift */; };
+		089D192D2C3C0AC2000435D9 /* ValidationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D192C2C3C0AC2000435D9 /* ValidationTextField.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
 		08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */; };
 		08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */; };
@@ -169,6 +171,8 @@
 		089D19142C366E1A000435D9 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
 		089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryTest.swift; sourceTree = "<group>"; };
 		089D19192C368C73000435D9 /* SignUpCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCompletedVC.swift; sourceTree = "<group>"; };
+		089D192A2C3BFE94000435D9 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
+		089D192C2C3C0AC2000435D9 /* ValidationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextField.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		08A28CAB2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCPNT.swift; sourceTree = "<group>"; };
 		08A28CB32C280F9600DF7A90 /* ProgressViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewCPNT.swift; sourceTree = "<group>"; };
@@ -649,6 +653,8 @@
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
 				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
 				089D19122C3544DB000435D9 /* PickerCPNT.swift */,
+				089D192A2C3BFE94000435D9 /* BaseTextFieldCPNT.swift */,
+				089D192C2C3C0AC2000435D9 /* ValidationTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -995,6 +1001,7 @@
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
+				089D192B2C3BFE95000435D9 /* BaseTextFieldCPNT.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
@@ -1008,6 +1015,7 @@
 				089D190A2C33C4A3000435D9 /* SignUpTermsModalVC.swift in Sources */,
 				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
+				089D192D2C3C0AC2000435D9 /* ValidationTextField.swift in Sources */,
 				089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				089D19102C352E1E000435D9 /* SignUpSelectAgeModalVC.swift in Sources */,

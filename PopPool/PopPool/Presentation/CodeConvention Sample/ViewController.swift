@@ -82,6 +82,11 @@ extension ViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(button.snp.bottom).offset(50)
         }
+        view.addSubview(test)
+        test.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
     }
     
     func setupBind() {
