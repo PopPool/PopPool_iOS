@@ -10,11 +10,11 @@ import RxSwift
 
 final class SignUpRepositoryTest: SignUpRepository {
     
-    func checkNickName(nickName: String, credential: MyAuthenticationCredential) -> Observable<Bool> {
+    func checkNickName(nickName: String) -> Observable<Bool> {
         return Observable.just(true)
     }
     
-    func fetchInterestList(credential: MyAuthenticationCredential) -> Observable<[Interest]> {
+    func fetchInterestList() -> Observable<[Interest]> {
         
         let interest:[Interest] = [
             .init(interestID: "FASION", interestName: "FASION"),

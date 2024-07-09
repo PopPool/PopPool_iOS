@@ -15,6 +15,7 @@ struct LoginResponseDTO: Decodable {
     var accessTokenExpiresIn: Int
     var refreshTokenExpiresIn: Int
     var socialType: String
+    var registeredUser: Bool
 }
 
 extension LoginResponseDTO {
@@ -26,7 +27,8 @@ extension LoginResponseDTO {
             refreshToken: refreshToken,
             accessTokenExpiresIn: accessTokenExpiresIn, 
             refreshTokenExpiresIn: refreshTokenExpiresIn,
-            socialType: socialType
+            socialType: socialType,
+            registeredUser: registeredUser
         )
     }
 }
