@@ -46,7 +46,6 @@
 		089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */; };
 		089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19192C368C73000435D9 /* SignUpCompletedVC.swift */; };
 		089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D191C2C36B16D000435D9 /* MyPageMainVC.swift */; };
-		089D19242C3912CC000435D9 /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19232C3912CC000435D9 /* MenuListCell.swift */; };
 		089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */; };
 		089D19292C3BD318000435D9 /* ProfileImageViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19282C3BD318000435D9 /* ProfileImageViewCPNT.swift */; };
 		08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */; };
@@ -61,6 +60,7 @@
 		08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC72C2BE1F300DF7A90 /* Outputable.swift */; };
 		08B183AB2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */; };
 		08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */; };
+		08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183B52C3D9498006C34BB /* MenuListCell.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */; };
 		08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */; };
@@ -176,7 +176,6 @@
 		089D19172C36715F000435D9 /* SignUpRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryTest.swift; sourceTree = "<group>"; };
 		089D19192C368C73000435D9 /* SignUpCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCompletedVC.swift; sourceTree = "<group>"; };
 		089D191C2C36B16D000435D9 /* MyPageMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainVC.swift; sourceTree = "<group>"; };
-		089D19232C3912CC000435D9 /* MenuListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuListCell.swift; path = ../../../../../../../../../../Documents/MenuListCell.swift; sourceTree = "<group>"; };
 		089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMainProfileView.swift; sourceTree = "<group>"; };
 		089D19282C3BD318000435D9 /* ProfileImageViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewCPNT.swift; sourceTree = "<group>"; };
 		08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		08A28CC72C2BE1F300DF7A90 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
 		08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialUserCredentialUseCaseTest.swift; sourceTree = "<group>"; };
 		08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
+		08B183B52C3D9498006C34BB /* MenuListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCell.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -522,7 +522,7 @@
 		089D19202C391275000435D9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				089D19222C3912A3000435D9 /* UITableViewCell */,
+				08B183B42C3D948C006C34BB /* UITableViewCell */,
 				089D19212C391293000435D9 /* UICollectionViewCell */,
 			);
 			path = Cells;
@@ -534,14 +534,6 @@
 				08C813DA2C2D3A58009239FE /* LargeChipCell.swift */,
 			);
 			path = UICollectionViewCell;
-			sourceTree = "<group>";
-		};
-		089D19222C3912A3000435D9 /* UITableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				089D19232C3912CC000435D9 /* MenuListCell.swift */,
-			);
-			path = UITableViewCell;
 			sourceTree = "<group>";
 		};
 		089D19252C3AEB3E000435D9 /* Views */ = {
@@ -595,6 +587,14 @@
 				08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */,
 			);
 			path = Interceptor;
+			sourceTree = "<group>";
+		};
+		08B183B42C3D948C006C34BB /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				08B183B52C3D9498006C34BB /* MenuListCell.swift */,
+			);
+			path = UITableViewCell;
 			sourceTree = "<group>";
 		};
 		08B965642C147E1B00BF95AA /* Domain */ = {
@@ -1060,6 +1060,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A28CBE2C2AEAF600DF7A90 /* CheckBoxCPNT.swift in Sources */,
+				08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
@@ -1140,7 +1141,6 @@
 				BD27D0922C35A9130092FC36 /* LocalDeleteUseCaseImpl.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
-				089D19242C3912CC000435D9 /* MenuListCell.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
