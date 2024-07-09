@@ -13,6 +13,12 @@ import Alamofire
 protocol Provider {
     /// 네트워크 요청을 수행하고 결과를 반환하는 메서드
     /// - Parameter endpoint: 요청 엔드포인트
+    /// - Parameter interceptor: RequestInterceptor
+    /// - Returns: 요청에 대한 결과를 Observable로 반환
+    func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E, interceptor: RequestInterceptor) -> Observable<R> where R == E.Response
+    
+    /// 네트워크 요청을 수행하고 결과를 반환하는 메서드
+    /// - Parameter endpoint: 요청 엔드포인트
     /// - Returns: 요청에 대한 결과를 Observable로 반환
     func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E) -> Observable<R> where R == E.Response
 }
@@ -20,6 +26,50 @@ protocol Provider {
 class ProviderImpl: Provider {
     
     let disposeBag = DisposeBag()
+    
+    func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E, interceptor: RequestInterceptor) -> Observable<R> where R == E.Response {
+        
+        return Observable.create {[weak self] observer in
+            
+            guard let self = self else {
+                return Disposables.create()
+            }
+            
+            do {
+                var urlRequest = try endpoint.getUrlRequest()
+                RxAlamofire.requestData(urlRequest, interceptor: interceptor)
+                    .flatMap { (response, data) -> Observable<Data> in
+                        return self.checkError(with: data, response)
+                    }
+                    .flatMap { data -> Observable<R> in
+                        return self.decodeData(data: data)
+                    }
+                    .subscribe { decodeData in
+                        observer.onNext(decodeData)
+                        observer.onCompleted()
+                    } onError: { error in
+                        if let afError = error as? AFError,
+                            case .responseSerializationFailed(let reason) = afError {
+                             // Alamofire의 responseSerializationFailed 에러 처리
+                             switch reason {
+                             case .inputDataNilOrZeroLength:
+                                 observer.onError(NetworkError.emptyData)
+                             case .decodingFailed(let error):
+                                 observer.onError(NetworkError.decodeError)
+                                 print("Decoding Error: \(error.localizedDescription)")
+                             default:
+                                 observer.onError(error)
+                             }
+                         } else {
+                             observer.onError(error)
+                         }
+                    }.disposed(by: self.disposeBag)
+            } catch {
+                observer.onError(NetworkError.urlRequest(error))
+            }
+            return Disposables.create()
+        }
+    }
     
     func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E) -> Observable<R> where R == E.Response {
         
