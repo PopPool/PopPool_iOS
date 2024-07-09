@@ -59,6 +59,7 @@
 		08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC32C2B00B700DF7A90 /* TermsViewCPNT.swift */; };
 		08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC52C2BE1EA00DF7A90 /* Inputable.swift */; };
 		08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A28CC72C2BE1F300DF7A90 /* Outputable.swift */; };
+		08B183AB2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */; };
 		08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */; };
@@ -187,6 +188,7 @@
 		08A28CC32C2B00B700DF7A90 /* TermsViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewCPNT.swift; sourceTree = "<group>"; };
 		08A28CC52C2BE1EA00DF7A90 /* Inputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inputable.swift; sourceTree = "<group>"; };
 		08A28CC72C2BE1F300DF7A90 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
+		08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialUserCredentialUseCaseTest.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */,
+				08B183A82C3D233D006C34BB /* Domain */,
 				087346582C0AED5A00534FFA /* Application */,
 			);
 			path = PopPoolTests;
@@ -566,6 +569,22 @@
 				08A28CC32C2B00B700DF7A90 /* TermsViewCPNT.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		08B183A82C3D233D006C34BB /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				08B183A92C3D2342006C34BB /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		08B183A92C3D2342006C34BB /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 		08B965642C147E1B00BF95AA /* Domain */ = {
@@ -1126,6 +1145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08B183AB2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift in Sources */,
 				BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */,
 				0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */,
 				087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */,
