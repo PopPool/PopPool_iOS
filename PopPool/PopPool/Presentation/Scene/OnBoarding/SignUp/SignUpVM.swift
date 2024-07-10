@@ -31,9 +31,9 @@ final class SignUpVM: ViewModelable {
         /// Sign Up Step2 primary button  탭 이벤트
         var tap_step2_primaryButton: ControlEvent<Void>
         /// Sign Up Step2 중복확인 button  탭 이벤트
-        var tap_step2_nickNameCheckButton: ControlEvent<Void>
+//        var tap_step2_nickNameCheckButton: ControlEvent<Void>
         /// Sign Up Step2 유효한 닉네임 전달 이벤트
-        var event_step2_availableNickName: PublishSubject<String?>
+//        var event_step2_availableNickName: PublishSubject<String?>
         
         // MARK: - Step 3 Input
         /// Sign Up Step3 primary button  탭 이벤트
@@ -191,26 +191,26 @@ final class SignUpVM: ViewModelable {
             .disposed(by: disposeBag)
         
         // Step2 중복확인 버튼 이벤트 처리
-        input.tap_step2_nickNameCheckButton
-            .subscribe { _ in
-                // 네트워크 사용으로 수정 필요
-                step2_isDuplicate.onNext(false)
-            }
-            .disposed(by: disposeBag)
+//        input.tap_step2_nickNameCheckButton
+//            .subscribe { _ in
+//                // 네트워크 사용으로 수정 필요
+//                step2_isDuplicate.onNext(false)
+//            }
+//            .disposed(by: disposeBag)
         
         // Step2 nickName Validation 상태 이벤트 처리
-        input.event_step2_availableNickName
-            .withUnretained(self)
-            .subscribe(onNext: { (owner, nickname) in
-                if let nickname = nickname {
-                    owner.userNickName.onNext(nickname)
-                    step2_primaryButton_isEnabled.onNext(true)
-                } else {
-                    owner.userNickName.onNext("error")
-                    step2_primaryButton_isEnabled.onNext(false)
-                }
-            })
-            .disposed(by: disposeBag)
+//        input.event_step2_availableNickName
+//            .withUnretained(self)
+//            .subscribe(onNext: { (owner, nickname) in
+//                if let nickname = nickname {
+//                    owner.userNickName.onNext(nickname)
+//                    step2_primaryButton_isEnabled.onNext(true)
+//                } else {
+//                    owner.userNickName.onNext("error")
+//                    step2_primaryButton_isEnabled.onNext(false)
+//                }
+//            })
+//            .disposed(by: disposeBag)
         
         // MARK: - Step 3 transform
         // 관심사 리스트 변경 이벤트 처리
