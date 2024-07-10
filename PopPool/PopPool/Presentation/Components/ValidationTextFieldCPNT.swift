@@ -88,9 +88,9 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 x 버튼의 출력 여부
         var isClearButtonHidden: Bool {
             switch state {
-            case .shortText, .buttonTapError, .overText, .requestButtonTap:
+            case .shortText, .buttonTapError, .overText, .requestButtonTap, .requestKorOrEn:
                 return false
-            case .none, .requestKorOrEn, .valid:
+            case .none, .valid:
                 return true
             }
         }
