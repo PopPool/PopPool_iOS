@@ -47,9 +47,9 @@ final class SignUpCompletedVC: BaseViewController {
     // MARK: - Properties
 
     private let confirmButton = ButtonCPNT(type: .primary, title: "바로가기")
-    private let spacer80 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide.large200)
-    private let spacer32 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide.medium100)
-    private let spacer16 = SpacingFactory.shared.createSpace(size: Constants.spaceGuide.small100)
+    private let spacer80 = SpacingFactory.createSpace(size: Constants.spaceGuide.large200)
+    private let spacer32 = SpacingFactory.createSpace(size: Constants.spaceGuide.medium100)
+    private let spacer16 = SpacingFactory.createSpace(size: Constants.spaceGuide.small100)
 
     private let userName: String?
     private let categoryTags: [String]?
@@ -160,8 +160,8 @@ private extension SignUpCompletedVC {
 
     /// 완료 버튼이 탭된 이후 현재 navigationController를 이후 넘어가는 loginVC로 교체됩니다
     func dismissVC() {
-        let vc = LoginVC()
-        navigationController?.setViewControllers([vc], animated: true)
+//        let vc = LoginVC(viewModel: LoginVM())
+//        navigationController?.setViewControllers([vc], animated: true)
     }
 
     func bind() {

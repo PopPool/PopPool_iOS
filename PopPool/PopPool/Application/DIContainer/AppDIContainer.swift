@@ -92,13 +92,13 @@ extension AppDelegate {
         
         container.register(
             type: FetchSocialCredentialUseCase.self,
-            identifier: SocialTYPE.apple.rawValue,
+            identifier: Constants.socialType.apple,
             component: FetchSocialCredentialUseCaseImpl(service: AppleAuthServiceImpl())
         )
         
         container.register(
             type: FetchSocialCredentialUseCase.self,
-            identifier: SocialTYPE.kakao.rawValue,
+            identifier: Constants.socialType.kakao,
             component: FetchSocialCredentialUseCaseImpl(service: KakaoAuthServiceImpl())
         )
         

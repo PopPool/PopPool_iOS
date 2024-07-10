@@ -9,11 +9,9 @@ import Foundation
 import UIKit
 import SnapKit
 
-class SpacingFactory {
-    static let shared = SpacingFactory()
-    private init() {}
+struct SpacingFactory {
     
-    func createSpace(size: Int) -> UIView {
+    static func createSpace(size: Int) -> UIView {
         let spacer = UIView()
         spacer.snp.makeConstraints { make in
             make.height.equalTo(size)

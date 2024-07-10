@@ -25,84 +25,93 @@ final class LoginVM: ViewModelable {
     
     /// LoginVC으로 출력 이벤트
     struct Output {
-        let showLoginBottomSheet: Observable<SocialTYPE>
-        let moveToInquryPage: Observable<Void>
-        let moveToSignUpPage: ControlEvent<Void>
+        let moveToInquryVC: ControlEvent<Void>
+        let moveToSignUpVC: PublishSubject<String>
     }
     
-    private var deliverData = BehaviorRelay(value: UserDefaults.standard.integer(forKey: "serviceValue"))
-    var dataObservable: Observable<Int> {
-        return deliverData.asObservable()
-    }
-    private let showLoginPlatformSubject = PublishSubject<SocialTYPE>()
-    private let moveToInquirySubject = PublishSubject<Void>()
-    private var userdefault = UserDefaults.standard
+    private var fetchSocialUserCredencialUseCase: FetchSocialCredentialUseCase!
+    private let tryLoginUseCase: TryLoginUseCase
     var disposeBag: DisposeBag = DisposeBag()
     
+    init() {
+        self.tryLoginUseCase = AppDIContainer.shared.resolve(type: TryLoginUseCase.self)
+    }
     
     /// LoginVC로 부터 받은 Input을 Output으로 변환하는 메서드
     /// - Parameter input: LoginVC에서 발생한 입력에 대한 이벤트 구조체
     /// - Returns: LoginVC에 발생할 출력 구조체
     func transform(input: Input) -> Output {
-        // 돌아보기 버튼 입력
-        input.tourButtonTapped
-            .subscribe { result in
-                print("로그인없이 메인 화면으로 이동합니다.")
-                ToastMSGManager.createToast(message: "로그인없이 메인 화면으로 이동합니다.")
-                // 🚨 로그인 처리없이 메인 화면으로 이동 예정 - 수정 필요
-            } onError: { error in
-                print("뒤돌아가기 버튼에서 오류가 발생했습니다.")
-                print(error.localizedDescription)
-            }
-            .disposed(by: disposeBag)
+        let fetchSocialUserCredencialSubject: PublishSubject<String> = .init()
+        let tryLoginSubject: PublishSubject<(Encodable, String)> = .init()
+        let moveToSignUpVCSubject: PublishSubject<String> = .init()
+        let moveToHomeVCSubject: PublishSubject<LoginResponse> = .init()
         
         // 카카오 로그인 버튼 입력
-//        input.kakaoLoginButtonTapped
-//            .map { SocialTYPE.kakao }
-//            .bind(to: showLoginPlatformSubject)
-//            .disposed(by: disposeBag)
+        input.kakaoLoginButtonTapped
+            .map{ Constants.socialType.kakao }
+            .subscribe { socialType in
+                fetchSocialUserCredencialSubject.onNext(socialType)
+            }
+            .disposed(by: disposeBag)
         
         // 애플 로그인 버튼 입력
         input.appleLoginButtonTapped
-            .map { SocialTYPE.apple }
-            .bind(to: showLoginPlatformSubject)
-            .disposed(by: disposeBag)
-        
-        input.inquryButtonTapped
-            .subscribe { complete in
-                print("문의하기 화면으로 이동")
-                ToastMSGManager.createToast(message: "문의하기 화면은 구현 중에 있습니다")
-                // 문의하기 페이지 구현 이후 연결 필요
-            } onError: { error in
-                print(error.localizedDescription)
+            .map{ Constants.socialType.apple }
+            .subscribe { socialType in
+                fetchSocialUserCredencialSubject.onNext(socialType)
             }
             .disposed(by: disposeBag)
         
-        showLoginPlatformSubject
-            .subscribe(onNext: { [weak self] platform in
-                self?.setLoginServiceChecker(service: platform)
-            })
+        // 소셜 로그인 이벤트 처리
+        fetchSocialUserCredencialSubject
+            .withUnretained(self)
+            .subscribe { (owner, socialType) in
+                // 이벤트 버튼에 따라 useCase 생성
+                owner.fetchSocialUserCredencialUseCase = AppDIContainer.shared.resolve(
+                    type: FetchSocialCredentialUseCase.self,
+                    identifier: socialType
+                )
+                // 소셜 인증 유즈 케이스 실행
+                owner.fetchSocialUserCredencialUseCase
+                    .execute()
+                    .subscribe(onNext: { response in
+                        tryLoginSubject.onNext((response, socialType))
+                    },onError: { error in
+                        // 소셜 인증 error handle
+                        ToastMSGManager.createToast(message: "SocialLogin Error")
+                        print(error.localizedDescription)
+                    })
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        // 로그인 시도 이벤트
+        tryLoginSubject
+            .withUnretained(self)
+            .subscribe { (owner, source) in
+                let credencial = source.0
+                let type = source.1
+                owner.tryLoginUseCase
+                    .execute(userCredential: credencial, socialType: type)
+                    .subscribe { loginResponse in
+                        // 등록된 유저인지를 분기하여 이벤트 전달
+                        if loginResponse.registeredUser {
+                            moveToHomeVCSubject.onNext(loginResponse)
+                        } else {
+                            moveToSignUpVCSubject.onNext(loginResponse.socialType)
+                        }
+                    } onError: { error in
+                        // 로그인 error handle
+                        ToastMSGManager.createToast(message: "LoginError")
+                        print(error.localizedDescription)
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
             .disposed(by: disposeBag)
 
         return Output(
-            showLoginBottomSheet: showLoginPlatformSubject,
-            moveToInquryPage: moveToInquirySubject,
-            moveToSignUpPage: input.kakaoLoginButtonTapped
+            moveToInquryVC: input.inquryButtonTapped,
+            moveToSignUpVC: moveToSignUpVCSubject
         )
-    }
-    
-    private func setLoginServiceChecker(service: SocialTYPE) {
-        var serviceValue: Int
-        
-        switch service {
-        case .kakao:
-            serviceValue = 0
-            userdefault.setValue(serviceValue, forKey: "kakao")
-            
-        case .apple:
-            serviceValue = 1
-            userdefault.setValue(serviceValue, forKey: "apple")
-        }
-        deliverData.accept(serviceValue)
     }
 }

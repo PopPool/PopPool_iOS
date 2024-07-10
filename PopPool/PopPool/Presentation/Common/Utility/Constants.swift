@@ -12,6 +12,7 @@ import Foundation
 /// 추후 SpaceGuide 변경점 추가
 class Constants {
     static let spaceGuide = SpaceGuide()
+    static let socialType = SocialTYPE()
 }
 
 /// Padding 값
@@ -31,4 +32,9 @@ struct SpaceGuide {
     let large200 = 80
     let large300 = 120
     let large400 = 156
+}
+
+struct SocialTYPE {
+    let apple = "apple"
+    let kakao = "kakao"
 }
