@@ -41,9 +41,6 @@ final class LoginVM: ViewModelable {
     /// - Parameter input: LoginVC에서 발생한 입력에 대한 이벤트 구조체
     /// - Returns: LoginVC에 발생할 출력 구조체
     func transform(input: Input) -> Output {
-        
-//        let moveToSignUpPageSubject: PublishSubject<Encodable> = .init()
-//        let tryLoginSubject: PublishSubject<SocialTYPE> = .init()
         let fetchSocialUserCredencialSubject: PublishSubject<String> = .init()
         let tryLoginSubject: PublishSubject<(Encodable, String)> = .init()
         let moveToSignUpVCSubject: PublishSubject<String> = .init()
@@ -81,7 +78,8 @@ final class LoginVM: ViewModelable {
                         tryLoginSubject.onNext((response, socialType))
                     },onError: { error in
                         // 소셜 인증 error handle
-                        ToastMSGManager.createToast(message: "SocialLogin Error:\(error)")
+                        ToastMSGManager.createToast(message: "SocialLogin Error")
+                        print(error.localizedDescription)
                     })
                     .disposed(by: owner.disposeBag)
             }
@@ -104,7 +102,8 @@ final class LoginVM: ViewModelable {
                         }
                     } onError: { error in
                         // 로그인 error handle
-                        ToastMSGManager.createToast(message: "LoginError:\(error.localizedDescription)")
+                        ToastMSGManager.createToast(message: "LoginError")
+                        print(error.localizedDescription)
                     }
                     .disposed(by: owner.disposeBag)
             }

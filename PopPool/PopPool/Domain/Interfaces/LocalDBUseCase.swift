@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 
+// TODO: - 파일 분리 및 from 제거
 protocol LocalSaveUseCase {
     var repository: LocalDBRepository { get set }
     
