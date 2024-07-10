@@ -31,8 +31,8 @@ final class LoginBottomSheetVC: ModalViewController {
         return stack
     }()
 
-    lazy var spacer32 = SpacingFactory.shared.createSpace(size: 32)
-    lazy var spacer36 = SpacingFactory.shared.createSpace(size: 36)
+    lazy var spacer32 = SpacingFactory.createSpace(size: 32)
+    lazy var spacer36 = SpacingFactory.createSpace(size: 36)
     
     lazy var loginButton = ButtonCPNT(type: .primary, title: "로그인")
     lazy var cancelButton = ButtonCPNT(type: .secondary, title: "취소")

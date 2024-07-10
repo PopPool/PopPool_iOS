@@ -20,7 +20,6 @@
 		085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851059F2C1038EB00ED7DBB /* AuthError.swift */; };
 		087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
 		087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346122C0AAD2900534FFA /* SceneDelegate.swift */; };
-		087346152C0AAD2900534FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346142C0AAD2900534FFA /* ViewController.swift */; };
 		0873461A2C0AAD2B00534FFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 087346192C0AAD2B00534FFA /* Assets.xcassets */; };
 		0873461D2C0AAD2B00534FFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */; };
 		087346322C0AAD2B00534FFA /* PopPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346312C0AAD2B00534FFA /* PopPoolUITests.swift */; };
@@ -29,7 +28,6 @@
 		087346482C0AAF7000534FFA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 087346472C0AAF7000534FFA /* RxCocoa */; };
 		0873464A2C0AAF7000534FFA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 087346492C0AAF7000534FFA /* RxRelay */; };
 		0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0873464B2C0AAF7000534FFA /* RxSwift */; };
-		0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */; };
 		087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346512C0ABC4B00534FFA /* ViewModelable.swift */; };
 		087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
@@ -80,7 +78,6 @@
 		08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */; };
 		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
-		08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE72C231C40002D5202 /* SocialTYPE.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
 		08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */; };
@@ -155,7 +152,6 @@
 		0873460D2C0AAD2900534FFA /* PopPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346102C0AAD2900534FFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		087346122C0AAD2900534FFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		087346142C0AAD2900534FFA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		087346192C0AAD2B00534FFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0873461C2C0AAD2B00534FFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0873461E2C0AAD2B00534FFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -163,7 +159,6 @@
 		0873462D2C0AAD2B00534FFA /* PopPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		087346312C0AAD2B00534FFA /* PopPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITests.swift; sourceTree = "<group>"; };
 		087346332C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
 		087346512C0ABC4B00534FFA /* ViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
@@ -212,7 +207,6 @@
 		08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
 		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		08F49DE72C231C40002D5202 /* SocialTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTYPE.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -438,7 +432,6 @@
 			children = (
 				08F49E012C2402AF002D5202 /* Scene */,
 				08F49DF72C23FC5F002D5202 /* Components */,
-				087346532C0ABC7200534FFA /* CodeConvention Sample */,
 				0873464F2C0ABC2300534FFA /* Common */,
 			);
 			path = Presentation;
@@ -467,15 +460,6 @@
 				08A28CC72C2BE1F300DF7A90 /* Outputable.swift */,
 			);
 			path = Interfaces;
-			sourceTree = "<group>";
-		};
-		087346532C0ABC7200534FFA /* CodeConvention Sample */ = {
-			isa = PBXGroup;
-			children = (
-				087346142C0AAD2900534FFA /* ViewController.swift */,
-				0873464D2C0AB1CA00534FFA /* ViewControllerViewModel.swift */,
-			);
-			path = "CodeConvention Sample";
 			sourceTree = "<group>";
 		};
 		087346542C0AEBBA00534FFA /* DIContainer */ = {
@@ -710,7 +694,6 @@
 		08F49DE62C231C30002D5202 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				08F49DE72C231C40002D5202 /* SocialTYPE.swift */,
 				BD86079A2C23429D00726692 /* DatabaseTYPE.swift */,
 			);
 			path = Enums;
@@ -1075,7 +1058,6 @@
 				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
 				BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
-				087346152C0AAD2900534FFA /* ViewController.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
@@ -1112,13 +1094,11 @@
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
 				08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */,
-				0873464E2C0AB1CA00534FFA /* ViewControllerViewModel.swift in Sources */,
 				089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
-				08F49DE82C231C40002D5202 /* SocialTYPE.swift in Sources */,
 				087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */,
 				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
