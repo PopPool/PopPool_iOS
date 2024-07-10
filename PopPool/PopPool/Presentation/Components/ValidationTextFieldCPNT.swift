@@ -56,9 +56,9 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
             switch state {
             case .overText, .buttonTapError, .shortText, .requestKorOrEn:
                 return UIColor.re500
-            case .none, .requestButtonTap:
+            case .none:
                 return UIColor.g100
-            case .valid:
+            case .valid, .requestButtonTap:
                 return UIColor.g1000
             }
         }
@@ -88,22 +88,20 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 x 버튼의 출력 여부
         var isClearButtonHidden: Bool {
             switch state {
-            case .none, .requestKorOrEn, .requestButtonTap, .valid:
-                return true
-            case .shortText, .buttonTapError, .overText:
+            case .shortText, .buttonTapError, .overText, .requestButtonTap:
                 return false
+            case .none, .requestKorOrEn, .valid:
+                return true
             }
         }
         
         /// state별로 '중복체크' 버튼의 출력 여부
         var isDuplicateCheckButtonHidden: Bool {
             switch state {
-            case .none, .shortText, .overText, .buttonTapError:
-                return true
-            case .requestButtonTap:
+            case .none :
                 return false
             default:
-                return false
+                return true
             }
         }
     }
@@ -160,17 +158,20 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     }
     
     private func bind() {
+        
         textField.rx.text.orEmpty
             .withUnretained(self)
             .subscribe { (owner, text) in
                 let state = owner.fetchValidationState(text: text)
                 owner.stateObserver.onNext(state)
-                print(text)
-                print("상태는 이렇습니다", state)
-                
-                // show when text is empty?
-                owner.clearButton.isHidden = text.isEmpty
-                owner.checkValidationStack.isHidden = !text.isEmpty
+            }
+            .disposed(by: disposeBag)
+        
+        // 텍스트 입력 이후 '중복체크' 버튼이 보이기 위한 controlEvent binding
+        textField.rx.controlEvent([.editingDidEnd])
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.checkValidationStack.isHidden = false
             }
             .disposed(by: disposeBag)
         
@@ -180,11 +181,8 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
                 let output = ValidationOutPut(type: owner.type, state: state)
                 owner.setUpViewFrom(output: output)
                 
-                // 다음 버튼을 활성화하기 위한 값을 넘기는 동작 - But 검수를 진행하지 않음
-                print("상태 값 =", state)
                 if state == .valid {
                     guard let nickName = owner.textField.text else { return }
-                    print("값이 넘어왔어요",nickName)
                     self.nameObserver.onNext(nickName)
                 } else {
                     self.nameObserver.onNext(nil)
@@ -196,16 +194,15 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
             .withUnretained(self)
             .subscribe { (owner, value) in
                 owner.textField.text = ""
-                // hide when tapped
-                owner.clearButton.isHidden = true
+                owner.stateObserver.onNext(.none)
             }
             .disposed(by: disposeBag)
         
-        textField.rx.controlEvent(.editingDidEnd)
+        checkValidationButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.checkValidationStack.isHidden = false
-                owner.clearButton.isHidden = true
+                // 중복체크 버튼 탭 이후 처리
+                print("중복 체크 버튼이 눌렸습니다.")
             }
             .disposed(by: disposeBag)
     }
@@ -235,17 +232,14 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     /// 상태에 맞는 컬러 값을 바꾸고 특정 버튼 등을 숨김 처리합니다.
     /// - Parameter output: 상태 값 타입인 ValidationOutPut을 받습니다
     private func setUpViewFrom(output: ValidationOutPut) {
-        print(#function)
         
-        // 색상 적용
         self.descriptionLabel.text = output.description
         self.descriptionLabel.textColor = output.descriptionColor
         self.textFieldBackGroundView.layer.borderColor = output.borderColor.cgColor
         self.textCountLabel.textColor = output.countLabelColor
         
-        // 텍스트 필드 반전
-//        self.clearButton.isHidden = output.isClearButtonHidden
-//        self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
+        self.clearButton.isHidden = output.isClearButtonHidden
+        self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
     }
     
     required init(coder: NSCoder) {
