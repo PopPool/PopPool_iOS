@@ -2,314 +2,247 @@
 //  ValidationTextFieldCPNT.swift
 //  PopPool
 //
-//  Created by SeoJunYoung on 6/29/24.
+//  Created by SeoJunYoung on 7/8/24.
 //
 
 import UIKit
 import SnapKit
-import RxCocoa
 import RxSwift
+import RxCocoa
 
-final class ValidationTextFieldCPNT: UIStackView {
+final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     
-    enum NickNameValidationState {
-        case available
+    enum ValidationType {
+        case nickName
+    }
+    
+    /// 입력 상태를 정리하기 위한 enum입니다
+    /// 텍스트필드별 추가되는 상태를 적용해주세요
+    enum ValidationState {
         case none
-        case requiredDuplicateCheck
-        case requiredKrOrEn
-        case shortLength
-        case longLength
-        case duplicateNickname
+        case requestKorOrEn
+        case requestButtonTap
+        case overText
+        case shortText
+        case buttonTapError
+        case valid
+    }
+    
+    struct ValidationOutPut {
+        var type: ValidationType
+        var state: ValidationState
         
         var description: String? {
-            switch self {
-            case .available:
-                return "사용 가능한 별명이에요"
+            switch state {
             case .none:
                 return nil
-            case .requiredDuplicateCheck:
-                return "중복체크를 진행해주세요"
-            case .requiredKrOrEn:
+            case .requestKorOrEn:
                 return "한글, 영문으로만 입력해주세요"
-            case .shortLength:
-                return "2글자 이상 입력해주세요"
-            case .longLength:
+            case .requestButtonTap:
+                return "중복체크를 진행해주세요"
+            case .overText:
                 return "10글자까지만 입력할 수 있어요"
-            case .duplicateNickname:
+            case .shortText:
+                return "2글자 이상 입력해주세요"
+            case .buttonTapError:
                 return "이미 사용되고 있는 별명이에요"
+            case .valid:
+                return "사용 가능한 별명이에요"
             }
         }
         
-        var descriptionIsHidden: Bool {
-            switch self {
-            case .none:
-                return true
-            default:
-                return false
-            }
-        }
+        /// 텍스트필드를 감싸는 view의 컬러값
         var borderColor: UIColor {
-            switch self {
+            switch state {
+            case .overText, .buttonTapError, .shortText, .requestKorOrEn:
+                return UIColor.re500
             case .none:
-                return .g200
-            case .available, .requiredDuplicateCheck:
-                return .g700
-            default:
-                return .re500
+                return UIColor.g100
+            case .valid, .requestButtonTap:
+                return UIColor.g1000
             }
         }
-        var cancelButtonIsHidden: Bool {
-            switch self {
-            case .requiredDuplicateCheck:
-                return true
+        
+        /// 텍스트필드 하단의 획의 count 컬러값
+        var countLabelColor: UIColor {
+            switch state {
+            case .overText, .shortText:
+                return UIColor.re500
             default:
-                return false
+                return UIColor.g500
             }
         }
-        var duplicateCheckButtonIsHidden: Bool {
-            switch self {
-            case .requiredDuplicateCheck:
-                return false
-            default:
-                return true
-            }
-        }
-        var textColor: UIColor {
-            switch self {
-            case .available, .requiredDuplicateCheck, .none:
-                return .g1000
-            default:
-                return .re500
-            }
-        }
+        
+        /// 텍스트필드 하단의 각 설명의 컬러값
         var descriptionColor: UIColor {
-            switch self {
-            case .available:
-                return .blu500
-            case .requiredDuplicateCheck:
-                return .g500
-            default:
-                return .re500
+            switch state {
+            case .overText, .buttonTapError, .shortText, .requestKorOrEn:
+                return UIColor.re500
+            case .none, .requestButtonTap:
+                return UIColor.g500
+            case .valid:
+                return UIColor.blu500
             }
-            
         }
-        var countColor: UIColor {
-            switch self {
-            case .available, .requiredDuplicateCheck, .none:
-                return .g500
+        
+        /// state별로 x 버튼의 출력 여부
+        var isClearButtonHidden: Bool {
+            switch state {
+            case .shortText, .buttonTapError, .overText, .requestButtonTap, .requestKorOrEn:
+                return false
+            case .none, .valid:
+                return true
+            }
+        }
+        
+        /// state별로 '중복체크' 버튼의 출력 여부
+        var isDuplicateCheckButtonHidden: Bool {
+            switch state {
+            case .none :
+                return false
             default:
-                return .re500
+                return true
             }
         }
     }
     
     // MARK: - Components
-    private let textFieldTrailingView: UIView = {
-        let view = UIView()
-        return view
+    
+    private let checkValidationStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        return stack
     }()
-    private let textFieldStackView: UIStackView = {
-        let view = UIStackView()
-        view.spacing = 1
-        return view
-    }()
-    private let textField: UITextField = {
-        let textField = UITextField()
-        textField.font = .KorFont(style: .medium, size: 14)
-        return textField
-    }()
-    private let cancelButton: UIButton = {
-        let button = UIButton()
-        let backgroudImage = UIImage(named: "cancel_signUp")
-        button.setBackgroundImage(backgroudImage, for: .normal)
-        button.setBackgroundImage(backgroudImage, for: .highlighted)
-        return button
-    }()
-    private let duplicationCheckStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.isHidden = true
-        return view
-    }()
-    let duplicationCheckButton: UIButton = {
+    
+    let checkValidationButton: UIButton = {
         let button = UIButton()
         button.setTitle("중복체크", for: .normal)
         button.titleLabel?.font = .KorFont(style: .regular, size: 13)
         button.setTitleColor(.g1000, for: .normal)
         return button
     }()
-    private let lineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .g1000
-        return view
-    }()
-    private let validationStackView: UIStackView = {
-        let view = UIStackView()
-        view.directionalLayoutMargins = .init(top: 0, leading: 4, bottom: 0, trailing: 4)
-        view.isLayoutMarginsRelativeArrangement = true
-        return view
-    }()
-    private let validationLabel: UILabel = {
-        let label = UILabel()
-        label.font = .KorFont(style: .regular, size: 12)
-        label.text = "하이"
-        return label
-    }()
-    private let textCountLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.font = .KorFont(style: .regular, size: 12)
-        label.textColor = .g500
-        return label
+    
+    private let checkValidationLine: UIView = {
+        let line = UIView()
+        line.layer.borderColor = UIColor.g300.cgColor
+        line.layer.borderWidth = 1
+        return line
     }()
     
-    let validationState: BehaviorRelay<NickNameValidationState> = .init(value: .none)
-    let nickNameObserver: PublishSubject<String?> = .init()
-    private let disposeBag = DisposeBag()
+    // MARK: - Properties
     
-    init(placeholder: String) {
-        super.init(frame: .zero)
-        setUp(placeholder: placeholder)
-        setUpConstraints()
+    /// 상태 값의 변화를 감지하는 옵저버
+    /// bind()에서 텍스트필드의 입력 값에 따라 변경된 값을 적용하는 것을 돕습니다
+    let stateObserver:PublishSubject<ValidationState> = .init()
+    let nameObserver: PublishSubject<String?> = .init()
+    private let type: ValidationType
+    
+    // MARK: - Initializer
+    
+    init(placeHolder: String?, type: ValidationType = .nickName, limitTextCount: Int) {
+        self.type = type
+        super.init(placeHolder: placeHolder, description: "", limitTextCount: limitTextCount)
+        setUpDuplicatecheck()
         bind()
+    }
+    
+    // MARK: - Methods
+    
+    private func setUpDuplicatecheck() {
+        checkValidationStack.addArrangedSubview(checkValidationButton)
+        checkValidationStack.addArrangedSubview(checkValidationLine)
+        checkValidationLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
+        textFieldStackView.addArrangedSubview(checkValidationStack)
+    }
+    
+    private func bind() {
+        
+        textField.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe { (owner, text) in
+                let state = owner.fetchValidationState(text: text)
+                owner.stateObserver.onNext(state)
+            }
+            .disposed(by: disposeBag)
+        
+        // 텍스트 입력 이후 '중복체크' 버튼이 보이기 위한 controlEvent binding
+        textField.rx.controlEvent([.editingDidEnd])
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.checkValidationStack.isHidden = false
+            }
+            .disposed(by: disposeBag)
+        
+        stateObserver
+            .withUnretained(self)
+            .subscribe { (owner, state) in
+                let output = ValidationOutPut(type: owner.type, state: state)
+                owner.setUpViewFrom(output: output)
+                
+                if state == .valid {
+                    guard let nickName = owner.textField.text else { return }
+                    self.nameObserver.onNext(nickName)
+                } else {
+                    self.nameObserver.onNext(nil)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        clearButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, value) in
+                owner.textField.text = ""
+                owner.stateObserver.onNext(.none)
+            }
+            .disposed(by: disposeBag)
+        
+        checkValidationButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                // 중복체크 버튼 탭 이후 처리
+                print("중복 체크 버튼이 눌렸습니다.")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 텍스트필드 입력 값에 반응하는 메서드
+    /// - Parameter text: 텍스트 필드에 입력된 String 타입을 받습니다
+    /// - Returns: ValidationState로 상태 값을 반환합니다
+    private func fetchValidationState(text: String) -> ValidationState {
+        if text.count == 0 {
+            return .none
+        } else if text.count < 2 {
+            return .shortText
+        } else if text.count > 10 {
+            return .overText
+        }
+        
+        // 국문, 영문을 확인하는 Regex 코드
+        let regex = "^[가-힣A-Za-z0-9\\s]*$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        if !predicate.evaluate(with: text) {
+            return .requestKorOrEn
+        }
+        return .requestButtonTap
+    }
+    
+    /// ValidationOutput 상태 값에 반응하는 메서드
+    /// 상태에 맞는 컬러 값을 바꾸고 특정 버튼 등을 숨김 처리합니다.
+    /// - Parameter output: 상태 값 타입인 ValidationOutPut을 받습니다
+    private func setUpViewFrom(output: ValidationOutPut) {
+        
+        self.descriptionLabel.text = output.description
+        self.descriptionLabel.textColor = output.descriptionColor
+        self.textFieldBackGroundView.layer.borderColor = output.borderColor.cgColor
+        self.textCountLabel.textColor = output.countLabelColor
+        
+        self.clearButton.isHidden = output.isClearButtonHidden
+        self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-// MARK: - SetUp
-private extension ValidationTextFieldCPNT {
-    
-    /// 초기 설정을 수행하는 메서드
-    /// - Parameter placeholder: 텍스트 필드의 플레이스홀더
-    func setUp(placeholder: String) {
-        self.axis = .vertical
-        self.spacing = 6
-        textFieldTrailingView.layer.borderWidth = 1.2
-        textFieldTrailingView.layer.borderColor = UIColor.g100.cgColor
-        textFieldTrailingView.layer.cornerRadius = 4
-        
-        textField.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [
-                .foregroundColor: UIColor.g200,
-                .font: UIFont.KorFont(style: .medium, size: 14)!
-            ]
-        )
-    }
-    
-    /// 제약 조건을 설정하는 메서드
-    func setUpConstraints() {
-        textFieldTrailingView.addSubview(textFieldStackView)
-        textFieldStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
-            make.top.equalToSuperview().inset(16)
-            make.height.equalTo(21)
-            make.bottom.equalToSuperview().inset(15)
-        }
-        validationStackView.addArrangedSubview(validationLabel)
-        validationStackView.addArrangedSubview(textCountLabel)
-        validationLabel.snp.makeConstraints { make in
-            make.height.equalTo(18)
-        }
-        duplicationCheckStackView.addArrangedSubview(duplicationCheckButton)
-        duplicationCheckStackView.addArrangedSubview(lineView)
-        duplicationCheckButton.snp.makeConstraints { make in
-            make.height.equalTo(20)
-        }
-        lineView.snp.makeConstraints { make in
-            make.height.equalTo(1)
-        }
-        textFieldStackView.addArrangedSubview(textField)
-        textFieldStackView.addArrangedSubview(cancelButton)
-        textFieldStackView.addArrangedSubview(duplicationCheckStackView)
-        cancelButton.snp.makeConstraints { make in
-            make.width.equalTo(21)
-        }
-        self.addArrangedSubview(textFieldTrailingView)
-        self.addArrangedSubview(validationStackView)
-    }
-    
-    /// 바인딩 설정을 수행하는 메서드
-    func bind() {
-        textField.rx.text.orEmpty
-            .withUnretained(self)
-            .debounce(.microseconds(300), scheduler: MainScheduler.instance)
-            .subscribe { (owner, nickName) in
-                owner.changeNickNameCount(nickname: nickName)
-                owner.checkValidation(nickName: nickName)
-            } onError: { error in
-                ToastMSGManager.createToast(message: "TextFieldError")
-            }
-            .disposed(by: disposeBag)
-        validationState
-            .withUnretained(self)
-            .subscribe { (owner, state) in
-                if state == .available {
-                    guard let nickName = owner.textField.text else { return }
-                    owner.nickNameObserver.onNext(nickName)
-                } else {
-                    owner.nickNameObserver.onNext(nil)
-                }
-                owner.changeView(state: state)
-            } onError: { error in
-                ToastMSGManager.createToast(message: "ValidationStateError")
-            }
-            .disposed(by: disposeBag)
-        
-        cancelButton.rx.tap
-            .withUnretained(self)
-            .subscribe { (owner, _) in
-                owner.textField.text = ""
-                owner.validationState.accept(.none)
-                owner.changeNickNameCount(nickname: "")
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    /// nickName 유효성을 검사하는 메서드
-    /// - Parameter nickName: 입력된 별명
-    func checkValidation(nickName: String) {
-        if nickName.count == 0 {
-            validationState.accept(.none)
-            return
-        }
-        if nickName.count < 2 {
-            validationState.accept(.shortLength)
-            return
-        }
-        if nickName.count > 10 {
-            validationState.accept(.longLength)
-            return
-        }
-        
-        // 한글, 영어, 숫자, 공백을 허용하는 정규 표현식
-        let regex = "^[가-힣A-Za-z0-9\\s]*$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        if !predicate.evaluate(with: nickName) {
-            validationState.accept(.requiredKrOrEn)
-            return
-        }
-        validationState.accept(.requiredDuplicateCheck)
-    }
-    
-    /// 뷰를 변경하는 메서드
-    /// - Parameter state: 닉네임 유효성 상태
-    func changeView(state: NickNameValidationState) {
-            self.validationLabel.isHidden = state.descriptionIsHidden
-            self.cancelButton.isHidden = state.cancelButtonIsHidden
-            self.validationLabel.text = state.description
-            self.textFieldTrailingView.layer.borderColor = state.borderColor.cgColor
-            self.duplicationCheckStackView.isHidden = state.duplicateCheckButtonIsHidden
-            self.textCountLabel.textColor = state.countColor
-            self.validationLabel.textColor = state.descriptionColor
-    }
-    
-    /// 닉네임 글자 수를 변경하는 메서드
-    /// - Parameter nickname: 입력된 닉네임
-    func changeNickNameCount(nickname: String) {
-        let count = nickname.count
-            self.textCountLabel.text = "\(count) / 10 자"
     }
 }
