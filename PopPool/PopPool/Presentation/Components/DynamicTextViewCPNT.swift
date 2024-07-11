@@ -14,13 +14,13 @@ final class DynamicTextViewCPNT: UIStackView {
     /// TF 상태값
     enum TextViewState {
         case none_active
-        case normal_active
+        case normal_active(String)
         case overText_active(Int)
         case none
-        case normal
+        case normal(String)
         case overText(Int)
         
-        var borderColor: UIColor {
+        var stateColor: UIColor {
             switch self {
             case .none, .normal:
                 return .g200
@@ -62,7 +62,6 @@ final class DynamicTextViewCPNT: UIStackView {
     }
     
     //MARK: - Components
-    
     private let bgView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
@@ -112,8 +111,8 @@ final class DynamicTextViewCPNT: UIStackView {
     
     //MARK: - Properties
     let textViewStateObserver: PublishSubject<TextViewState> = .init()
-    let textLimitCount: Int
-    let disposeBag = DisposeBag()
+    private let textLimitCount: Int
+    private let disposeBag = DisposeBag()
     private var isActive = false
     
     //MARK: - Initializer
@@ -131,6 +130,7 @@ final class DynamicTextViewCPNT: UIStackView {
     }
 }
 
+// MARK: - SetUp
 private extension DynamicTextViewCPNT {
 
     func setUp(placeholder: String) {
@@ -199,18 +199,19 @@ private extension DynamicTextViewCPNT {
             .disposed(by: disposeBag)
     }
 }
+
 //MARK: - Methods
 private extension DynamicTextViewCPNT {
     /// 상태에 따라 컴포넌트의 UI를 변경합니다
     /// - Parameter state: TextFieldstate 타입 - 상태 값을 받습니다
     func changeView(from: TextViewState) {
         textView.textColor = from.textColor
-        bgView.layer.borderColor = from.borderColor.cgColor
+        bgView.layer.borderColor = from.stateColor.cgColor
         descriptionLabel.text = from.description
         descriptionLabel.textColor = from.textColor
         countLabel.textColor = from.textColor
         placeholderLabel.isHidden = from.placeHolderIsHidden
-        countLabel.textColor = from.borderColor
+        countLabel.textColor = from.stateColor
     }
     
     /// 텍스트 필드의 최대 입력 범위를 걸어두는 메서드
@@ -235,7 +236,7 @@ private extension DynamicTextViewCPNT {
             } else if text.count > textLimitCount {
                 state = .overText_active(textLimitCount)
             } else {
-                state = .normal_active
+                state = .normal_active(text)
             }
         } else {
             if text.count == 0 {
@@ -243,7 +244,7 @@ private extension DynamicTextViewCPNT {
             } else if text.count > textLimitCount {
                 state = .overText(textLimitCount)
             } else {
-                state = .normal
+                state = .normal(text)
             }
         }
         textViewStateObserver.onNext(state)
