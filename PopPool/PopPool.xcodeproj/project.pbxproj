@@ -99,7 +99,7 @@
 		BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */; };
 		BD3C4C6D2C30C8AE0087917B /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6C2C30C8AE0087917B /* HeaderViewCPNT.swift */; };
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
-		BD54FA5B2C3F743B00D685A6 /* DynamicTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextFieldCPNT.swift */; };
+		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseTYPE.swift */; };
@@ -229,7 +229,7 @@
 		BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C6C2C30C8AE0087917B /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
-		BD54FA5A2C3F743B00D685A6 /* DynamicTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextFieldCPNT.swift; sourceTree = "<group>"; };
+		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD86079A2C23429D00726692 /* DatabaseTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTYPE.swift; sourceTree = "<group>"; };
@@ -716,7 +716,7 @@
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
 				BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */,
 				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
-				BD54FA5A2C3F743B00D685A6 /* DynamicTextFieldCPNT.swift */,
+				BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */,
 				089D19122C3544DB000435D9 /* PickerCPNT.swift */,
 				089D19282C3BD318000435D9 /* ProfileImageViewCPNT.swift */,
 			);
@@ -1128,7 +1128,7 @@
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
-				BD54FA5B2C3F743B00D685A6 /* DynamicTextFieldCPNT.swift in Sources */,
+				BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */,
 				BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
