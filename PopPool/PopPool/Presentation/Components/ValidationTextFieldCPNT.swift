@@ -114,7 +114,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         return stack
     }()
     
-    let checkValidationButton: UIButton = {
+    private let checkValidationButton: UIButton = {
         let button = UIButton()
         button.setTitle("중복체크", for: .normal)
         button.titleLabel?.font = .KorFont(style: .regular, size: 13)
@@ -146,9 +146,16 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         bind()
     }
     
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private extension ValidationTextFieldCPNT {
+    
     // MARK: - Methods
     
-    private func setUpDuplicatecheck() {
+    func setUpDuplicatecheck() {
         checkValidationStack.addArrangedSubview(checkValidationButton)
         checkValidationStack.addArrangedSubview(checkValidationLine)
         checkValidationLine.snp.makeConstraints { make in
@@ -157,7 +164,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         textFieldStackView.addArrangedSubview(checkValidationStack)
     }
     
-    private func bind() {
+    func bind() {
         
         textField.rx.text.orEmpty
             .withUnretained(self)
@@ -210,7 +217,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     /// 텍스트필드 입력 값에 반응하는 메서드
     /// - Parameter text: 텍스트 필드에 입력된 String 타입을 받습니다
     /// - Returns: ValidationState로 상태 값을 반환합니다
-    private func fetchValidationState(text: String) -> ValidationState {
+    func fetchValidationState(text: String) -> ValidationState {
         if text.count == 0 {
             return .none
         } else if text.count < 2 {
@@ -231,8 +238,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     /// ValidationOutput 상태 값에 반응하는 메서드
     /// 상태에 맞는 컬러 값을 바꾸고 특정 버튼 등을 숨김 처리합니다.
     /// - Parameter output: 상태 값 타입인 ValidationOutPut을 받습니다
-    private func setUpViewFrom(output: ValidationOutPut) {
-        
+    func setUpViewFrom(output: ValidationOutPut) {
         self.descriptionLabel.text = output.description
         self.descriptionLabel.textColor = output.descriptionColor
         self.textFieldBackGroundView.layer.borderColor = output.borderColor.cgColor
@@ -240,9 +246,5 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         
         self.clearButton.isHidden = output.isClearButtonHidden
         self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
