@@ -60,6 +60,13 @@ final class DynamicTextFieldCPNT: UIStackView {
         return view
     }()
     
+    private let placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "테스팅"
+        label.font = UIFont.KorFont(style: .regular, size: 12)
+        return label
+    }()
+    
     private let textField: UITextView = {
         let tf = UITextView()
         tf.isScrollEnabled = false
@@ -100,8 +107,8 @@ final class DynamicTextFieldCPNT: UIStackView {
     
     init(placeholder: String, textLimit: Int) {
         super.init(frame: .zero)
-        setupLayout()
-        setup(placeholder: placeholder)
+        setUpConstraint()
+        setUp(placeholder: placeholder)
         bind(placeholder: placeholder, limit: textLimit)
     }
     
@@ -129,26 +136,25 @@ private extension DynamicTextFieldCPNT {
         textField.rx.didBeginEditing
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.bgView.layer.borderColor = UIColor.g1000.cgColor
+                owner.placeholderLabel.isHidden = true
             }
             .disposed(by: disposeBag)
         
         textField.rx.didEndEditing
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.bgView.layer.borderColor = UIColor.g200.cgColor
-                
                 if let text = owner.textField.text, text.isEmpty {
-                    owner.textField.textColor = UIColor.g200
-                    owner.textField.text = placeholder
+                    owner.placeholderLabel.isHidden = false
+                    owner.placeholderLabel.text = placeholder
+                    owner.placeholderLabel.textColor = UIColor.g200
                 }
             }
             .disposed(by: disposeBag)
     }
     
-    private func setup(placeholder: String) {
-        textField.text = placeholder
-        textField.textColor = UIColor.g200
+    private func setUp(placeholder: String) {
+        placeholderLabel.text = placeholder
+        placeholderLabel.textColor = UIColor.g200
     }
     
     /// 텍스트 필드의 최대 입력 범위를 걸어두는 메서드
@@ -184,9 +190,14 @@ private extension DynamicTextFieldCPNT {
         countLabel.textColor = state.textColor
     }
     
-    private func setupLayout() {
+    private func setUpConstraint() {
         self.addArrangedSubview(bgView)
         bgView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+        }
+        
+        textField.addSubview(placeholderLabel)
+        placeholderLabel.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
         }
         
