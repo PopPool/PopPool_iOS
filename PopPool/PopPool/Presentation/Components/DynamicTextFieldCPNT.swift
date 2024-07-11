@@ -11,6 +11,7 @@ import SnapKit
 
 final class DynamicTextFieldCPNT: UIStackView {
     
+    /// TF 상태값
     enum TextFieldstate {
         case none
         case typing
@@ -47,6 +48,8 @@ final class DynamicTextFieldCPNT: UIStackView {
             }
         }
     }
+    
+    //MARK: - Components
     
     private let bgView: UIView = {
         let view = UIView()
@@ -89,7 +92,11 @@ final class DynamicTextFieldCPNT: UIStackView {
         return stack
     }()
     
+    //MARK: - Properties
+    
     let disposeBag = DisposeBag()
+    
+    //MARK: - Initializer
     
     init(placeholder: String, textLimit: Int) {
         super.init(frame: .zero)
@@ -97,6 +104,15 @@ final class DynamicTextFieldCPNT: UIStackView {
         setup(placeholder: placeholder)
         bind(placeholder: placeholder, limit: textLimit)
     }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private extension DynamicTextFieldCPNT {
+
+    //MARK: - Methods
     
     private func bind(placeholder: String, limit: Int) {
         // 텍스트 입력 시 countLabel 변경
@@ -135,11 +151,20 @@ final class DynamicTextFieldCPNT: UIStackView {
         textField.textColor = UIColor.g200
     }
     
+    /// 텍스트 필드의 최대 입력 범위를 걸어두는 메서드
+    /// - Parameters:
+    ///   - text: String 타입 - 현재 작성되고 있는 텍스트를 받습니다
+    ///   - limit: Int 타입 -  작성할 수 있는 최대 글자 수를 받습니다
     private func setTextLimit(text: String, limit: Int) {
         let count = text.count
         self.countLabel.text = "\(count) / \(limit)자"
     }
     
+    /// 텍스트 필드의 상태 변화를 감지하기 위한 메서드
+    /// - Parameters:
+    ///   - text: String 타입 - 현재 작성되고 있는 텍스트를 받습니다
+    ///   - textLimit: Int 타입 -  작성할 수 있는 최대 글자 수를 받습니다
+    /// - Returns: 상황에 알맞는 상태값을 리턴합니다
     private func fetchState(text: String, textLimit: Int) -> TextFieldstate {
         if text.count == 0 {
             return .none
@@ -149,6 +174,8 @@ final class DynamicTextFieldCPNT: UIStackView {
         return .typing
     }
     
+    /// 상태에 따라 컴포넌트의 UI를 변경합니다
+    /// - Parameter state: TextFieldstate 타입 - 상태 값을 받습니다
     private func updateUI(state: TextFieldstate) {
         textField.textColor = state.textColor
         bgView.layer.borderColor = state.borderColor.cgColor
@@ -177,7 +204,4 @@ final class DynamicTextFieldCPNT: UIStackView {
         }
     }
 
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
