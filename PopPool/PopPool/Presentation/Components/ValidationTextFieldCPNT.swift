@@ -20,10 +20,14 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     /// 텍스트필드별 추가되는 상태를 적용해주세요
     enum ValidationState {
         case none
+        case activeNone
         case requestKorOrEn
         case requestButtonTap
-        case overText
+        case activeRequestButtonTap
+        case overText(Int)
+        case activeOverText(Int)
         case shortText
+        case activeShortText
         case buttonTapError
         case valid
     }
@@ -34,15 +38,15 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         
         var description: String? {
             switch state {
-            case .none:
+            case .none, .activeNone:
                 return nil
             case .requestKorOrEn:
                 return "한글, 영문으로만 입력해주세요"
-            case .requestButtonTap:
+            case .requestButtonTap, .activeRequestButtonTap:
                 return "중복체크를 진행해주세요"
-            case .overText:
-                return "10글자까지만 입력할 수 있어요"
-            case .shortText:
+            case .overText(let textLimit), .activeOverText(let textLimit):
+                return "\(textLimit)글자까지만 입력할 수 있어요"
+            case .shortText, .activeShortText:
                 return "2글자 이상 입력해주세요"
             case .buttonTapError:
                 return "이미 사용되고 있는 별명이에요"
@@ -54,11 +58,11 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// 텍스트필드를 감싸는 view의 컬러값
         var borderColor: UIColor {
             switch state {
-            case .overText, .buttonTapError, .shortText, .requestKorOrEn:
+            case .overText, .buttonTapError, .shortText, .requestKorOrEn, .activeOverText, .activeShortText:
                 return UIColor.re500
             case .none:
                 return UIColor.g100
-            case .valid, .requestButtonTap:
+            case .valid, .activeNone, .requestButtonTap, .activeRequestButtonTap:
                 return UIColor.g1000
             }
         }
@@ -66,7 +70,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// 텍스트필드 하단의 획의 count 컬러값
         var countLabelColor: UIColor {
             switch state {
-            case .overText, .shortText:
+            case .overText, .activeOverText(_), .activeShortText, .shortText:
                 return UIColor.re500
             default:
                 return UIColor.g500
@@ -76,9 +80,9 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// 텍스트필드 하단의 각 설명의 컬러값
         var descriptionColor: UIColor {
             switch state {
-            case .overText, .buttonTapError, .shortText, .requestKorOrEn:
+            case .overText, .buttonTapError, .shortText, .requestKorOrEn, .activeOverText, .activeShortText:
                 return UIColor.re500
-            case .none, .requestButtonTap:
+            case .none, .activeNone, .requestButtonTap, .activeRequestButtonTap:
                 return UIColor.g500
             case .valid:
                 return UIColor.blu500
@@ -88,17 +92,17 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 x 버튼의 출력 여부
         var isClearButtonHidden: Bool {
             switch state {
-            case .shortText, .buttonTapError, .overText, .requestButtonTap, .requestKorOrEn:
-                return false
-            case .none, .valid:
+            case .none, .activeNone, .requestButtonTap:
                 return true
+            default:
+                return false
             }
         }
         
         /// state별로 '중복체크' 버튼의 출력 여부
         var isDuplicateCheckButtonHidden: Bool {
             switch state {
-            case .none :
+            case .requestButtonTap:
                 return false
             default:
                 return true
@@ -135,6 +139,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     /// bind()에서 텍스트필드의 입력 값에 따라 변경된 값을 적용하는 것을 돕습니다
     let stateObserver:PublishSubject<ValidationState> = .init()
     let nameObserver: PublishSubject<String?> = .init()
+    private var isActive: Bool = false
     private let type: ValidationType
     
     // MARK: - Initializer
@@ -174,11 +179,25 @@ private extension ValidationTextFieldCPNT {
             }
             .disposed(by: disposeBag)
         
-        // 텍스트 입력 이후 '중복체크' 버튼이 보이기 위한 controlEvent binding
-        textField.rx.controlEvent([.editingDidEnd])
+        
+        textField.rx.controlEvent([.editingDidBegin])
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.checkValidationStack.isHidden = false
+                owner.isActive = true
+                guard let text = owner.textField.text else { return }
+                let state = owner.fetchValidationState(text: text)
+                owner.stateObserver.onNext(state)
+            }
+            .disposed(by: disposeBag)
+        
+        textField.rx.controlEvent(.editingDidEnd)
+            .withUnretained(self)
+            .subscribe {(owner, _) in
+                owner.isActive = false
+                guard let text = owner.textField.text else { return }
+                let state = owner.fetchValidationState(text: text)
+                print("시점 체크", state)
+                owner.stateObserver.onNext(state)
             }
             .disposed(by: disposeBag)
         
@@ -187,13 +206,13 @@ private extension ValidationTextFieldCPNT {
             .subscribe { (owner, state) in
                 let output = ValidationOutPut(type: owner.type, state: state)
                 owner.setUpViewFrom(output: output)
-                
-                if state == .valid {
-                    guard let nickName = owner.textField.text else { return }
-                    self.nameObserver.onNext(nickName)
-                } else {
-                    self.nameObserver.onNext(nil)
-                }
+//                
+////                if state == .valid {
+////                    guard let nickName = owner.textField.text else { return }
+////                    self.nameObserver.onNext(nickName)
+////                } else {
+////                    self.nameObserver.onNext(nil)
+////                }
             }
             .disposed(by: disposeBag)
         
@@ -218,21 +237,35 @@ private extension ValidationTextFieldCPNT {
     /// - Parameter text: 텍스트 필드에 입력된 String 타입을 받습니다
     /// - Returns: ValidationState로 상태 값을 반환합니다
     func fetchValidationState(text: String) -> ValidationState {
-        if text.count == 0 {
-            return .none
-        } else if text.count < 2 {
-            return .shortText
-        } else if text.count > 10 {
-            return .overText
+        if isActive {
+            if text.count == 0 {
+                return .activeNone
+            } else if text.count < 2 {
+                return .activeShortText
+            } else if text.count > limitTextCount {
+                return .activeOverText(limitTextCount)
+            }
+        } else {
+            if text.count == 0 {
+                return .none
+            } else if text.count < 2 {
+                return .shortText
+            } else if text.count > limitTextCount {
+                return .overText(limitTextCount)
+            }
         }
         
-        // 국문, 영문을 확인하는 Regex 코드
         let regex = "^[가-힣A-Za-z0-9\\s]*$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         if !predicate.evaluate(with: text) {
             return .requestKorOrEn
         }
-        return .requestButtonTap
+        
+        if isActive {
+            return .activeRequestButtonTap
+        } else {
+            return .requestButtonTap
+        }
     }
     
     /// ValidationOutput 상태 값에 반응하는 메서드
@@ -243,8 +276,8 @@ private extension ValidationTextFieldCPNT {
         self.descriptionLabel.textColor = output.descriptionColor
         self.textFieldBackGroundView.layer.borderColor = output.borderColor.cgColor
         self.textCountLabel.textColor = output.countLabelColor
-        
         self.clearButton.isHidden = output.isClearButtonHidden
         self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
+        
     }
 }
