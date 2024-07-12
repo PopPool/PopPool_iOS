@@ -92,7 +92,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 x 버튼의 출력 여부
         var isClearButtonHidden: Bool {
             switch state {
-            case .none, .activeNone, .requestButtonTap:
+            case .none, .activeNone, .requestButtonTap, .overText:
                 return true
             default:
                 return false
@@ -102,10 +102,28 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 '중복체크' 버튼의 출력 여부
         var isDuplicateCheckButtonHidden: Bool {
             switch state {
-            case .requestButtonTap:
+            case .requestButtonTap, .overText:
                 return false
             default:
                 return true
+            }
+        }
+        
+        var buttonColor: UIColor? {
+            switch state {
+            case .overText, .valid, .shortText, .buttonTapError:
+                return .g200
+            default:
+                return .g1000
+            }
+        }
+        
+        var isButtonEnabled: Bool {
+            switch state {
+            case .requestButtonTap, .activeRequestButtonTap:
+                return true
+            default:
+                return false
             }
         }
     }
@@ -114,11 +132,12 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     
     private let checkValidationStack: UIStackView = {
         let stack = UIStackView()
+        stack.isHidden = true
         stack.axis = .vertical
         return stack
     }()
     
-    private let checkValidationButton: UIButton = {
+    let checkValidationButton: UIButton = {
         let button = UIButton()
         button.setTitle("중복체크", for: .normal)
         button.titleLabel?.font = .KorFont(style: .regular, size: 13)
@@ -178,7 +197,7 @@ private extension ValidationTextFieldCPNT {
             }
             .disposed(by: disposeBag)
         
-        
+        // 텍스트 필드가 입력되는 시점을 확인합니다
         textField.rx.controlEvent([.editingDidBegin])
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -189,6 +208,7 @@ private extension ValidationTextFieldCPNT {
             }
             .disposed(by: disposeBag)
         
+        // 텍스트 필드가 입력이 끝날 때를 확인합니다
         textField.rx.controlEvent(.editingDidEnd)
             .withUnretained(self)
             .subscribe {(owner, _) in
@@ -211,14 +231,8 @@ private extension ValidationTextFieldCPNT {
             .withUnretained(self)
             .subscribe { (owner, value) in
                 owner.textField.text = ""
+                owner.setTextLimit(text: "")
                 owner.stateObserver.onNext(.none)
-            }
-            .disposed(by: disposeBag)
-        
-        checkValidationButton.rx.tap
-            .withUnretained(self)
-            .subscribe { (owner, _) in
-                print("중복 체크 버튼이 눌렸습니다.")
             }
             .disposed(by: disposeBag)
     }
@@ -230,6 +244,7 @@ private extension ValidationTextFieldCPNT {
         return isActive ? fetchWhenActive(text: text) : fetchWhenInactive(text: text)
     }
     
+    /// 텍스트필드가 활성화되어 있는 시점의 상태를 반환합니다
     func fetchWhenActive(text: String) -> ValidationState {
         if text.isEmpty {
             return .activeNone
@@ -244,6 +259,7 @@ private extension ValidationTextFieldCPNT {
         }
     }
     
+    /// 텍스트필드가 비활성화되어 있는 시점의 상태를 반환합니다
     func fetchWhenInactive(text: String) -> ValidationState {
         if text.isEmpty {
             return .none
@@ -258,6 +274,8 @@ private extension ValidationTextFieldCPNT {
         }
     }
     
+    /// 텍스트 필드 값이 유효한 문자인지 확인합니다.
+    /// *영문, 한글인지 확인합니다
     func checkIfValid(text: String) -> Bool {
         let regex = "^[가-힣A-Za-z0-9\\s]*$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
@@ -270,9 +288,14 @@ private extension ValidationTextFieldCPNT {
     func setUpViewFrom(output: ValidationOutPut) {
         self.descriptionLabel.text = output.description
         self.descriptionLabel.textColor = output.descriptionColor
+        
+        self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
+        self.checkValidationButton.setTitleColor(output.buttonColor, for: .normal)
+        self.checkValidationLine.backgroundColor = output.buttonColor
+        self.checkValidationButton.isEnabled = output.isButtonEnabled
+        
         self.textFieldBackGroundView.layer.borderColor = output.borderColor.cgColor
         self.textCountLabel.textColor = output.countLabelColor
         self.clearButton.isHidden = output.isClearButtonHidden
-        self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
     }
 }

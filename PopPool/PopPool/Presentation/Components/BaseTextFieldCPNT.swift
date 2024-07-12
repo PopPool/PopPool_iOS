@@ -84,6 +84,11 @@ class BaseTextFieldCPNT: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setTextLimit(text: String) {
+        let count = text.count
+        self.textCountLabel.text = "\(count) / \(limitTextCount)자"
+    }
 }
 
 // MARK: - SetUp
@@ -154,10 +159,5 @@ private extension BaseTextFieldCPNT {
                 owner.textFieldBackGroundView.layer.borderColor = UIColor.g100.cgColor
             }
             .disposed(by: disposeBag)
-    }
-    
-    func setTextLimit(text: String) {
-        let count = text.count
-        self.textCountLabel.text = "\(count) / \(limitTextCount)자"
     }
 }
