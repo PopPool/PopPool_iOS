@@ -22,14 +22,14 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         case none
         case activeNone
         case requestKorOrEn
-        case requestButtonTap
+        case requestButtonTap(String)
         case activeRequestButtonTap
         case overText(Int)
         case activeOverText(Int)
         case shortText
         case activeShortText
         case buttonTapError
-        case valid
+        case valid(String)
     }
     
     struct ValidationOutPut {
@@ -138,7 +138,6 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     /// 상태 값의 변화를 감지하는 옵저버
     /// bind()에서 텍스트필드의 입력 값에 따라 변경된 값을 적용하는 것을 돕습니다
     let stateObserver:PublishSubject<ValidationState> = .init()
-    let nameObserver: PublishSubject<String?> = .init()
     private var isActive: Bool = false
     private let type: ValidationType
     
@@ -196,7 +195,6 @@ private extension ValidationTextFieldCPNT {
                 owner.isActive = false
                 guard let text = owner.textField.text else { return }
                 let state = owner.fetchValidationState(text: text)
-                print("시점 체크", state)
                 owner.stateObserver.onNext(state)
             }
             .disposed(by: disposeBag)
@@ -206,13 +204,6 @@ private extension ValidationTextFieldCPNT {
             .subscribe { (owner, state) in
                 let output = ValidationOutPut(type: owner.type, state: state)
                 owner.setUpViewFrom(output: output)
-//                
-////                if state == .valid {
-////                    guard let nickName = owner.textField.text else { return }
-////                    self.nameObserver.onNext(nickName)
-////                } else {
-////                    self.nameObserver.onNext(nil)
-////                }
             }
             .disposed(by: disposeBag)
         
@@ -227,7 +218,6 @@ private extension ValidationTextFieldCPNT {
         checkValidationButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
-                // 중복체크 버튼 탭 이후 처리
                 print("중복 체크 버튼이 눌렸습니다.")
             }
             .disposed(by: disposeBag)
@@ -237,35 +227,41 @@ private extension ValidationTextFieldCPNT {
     /// - Parameter text: 텍스트 필드에 입력된 String 타입을 받습니다
     /// - Returns: ValidationState로 상태 값을 반환합니다
     func fetchValidationState(text: String) -> ValidationState {
-        if isActive {
-            if text.count == 0 {
-                return .activeNone
-            } else if text.count < 2 {
-                return .activeShortText
-            } else if text.count > limitTextCount {
-                return .activeOverText(limitTextCount)
-            }
+        return isActive ? fetchWhenActive(text: text) : fetchWhenInactive(text: text)
+    }
+    
+    func fetchWhenActive(text: String) -> ValidationState {
+        if text.isEmpty {
+            return .activeNone
+        } else if text.count < 2 {
+            return .activeShortText
+        } else if text.count > limitTextCount {
+            return .activeOverText(limitTextCount)
+        } else if !checkIfValid(text: text) {
+            return .requestKorOrEn
         } else {
-            if text.count == 0 {
-                return .none
-            } else if text.count < 2 {
-                return .shortText
-            } else if text.count > limitTextCount {
-                return .overText(limitTextCount)
-            }
+            return .activeRequestButtonTap
         }
-        
+    }
+    
+    func fetchWhenInactive(text: String) -> ValidationState {
+        if text.isEmpty {
+            return .none
+        } else if text.count < 2 {
+            return .shortText
+        } else if text.count > limitTextCount {
+            return .overText(limitTextCount)
+        } else if !checkIfValid(text: text) {
+            return .requestKorOrEn
+        } else {
+            return .requestButtonTap(text)
+        }
+    }
+    
+    func checkIfValid(text: String) -> Bool {
         let regex = "^[가-힣A-Za-z0-9\\s]*$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        if !predicate.evaluate(with: text) {
-            return .requestKorOrEn
-        }
-        
-        if isActive {
-            return .activeRequestButtonTap
-        } else {
-            return .requestButtonTap
-        }
+        return predicate.evaluate(with: text)
     }
     
     /// ValidationOutput 상태 값에 반응하는 메서드
@@ -278,6 +274,5 @@ private extension ValidationTextFieldCPNT {
         self.textCountLabel.textColor = output.countLabelColor
         self.clearButton.isHidden = output.isClearButtonHidden
         self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
-        
     }
 }
