@@ -14,7 +14,7 @@ final class MyPageMainProfileView: UIView {
     private var containerView: UIView = UIView()
     private var backGroundImageView: UIImageView = UIImageView()
     private let contentView: UIView = UIView()
-    private let profileImageView = ProfileImageViewCPNT(size: .midium)
+    private let profileImageView = ProfileCircleImageViewCPNT(size: .midium)
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .light, size: 11)
@@ -32,8 +32,10 @@ final class MyPageMainProfileView: UIView {
     
     
     // MARK: - init
-    override init(frame: CGRect) {
+    init(frame: CGRect, profileImage: UIImage?) {
         super.init(frame: frame)
+        self.backGroundImageView.image = profileImage
+        self.profileImageView.image = profileImage
         setUp()
         setUpConstraints()
         setUpMask()
@@ -48,8 +50,6 @@ final class MyPageMainProfileView: UIView {
 private extension MyPageMainProfileView {
     
     func setUp() {
-//        backGroundImageView.image = UIImage(systemName: "folder")
-//        backGroundImageView.image = UIImage(named: "TestImage")
         backGroundImageView.clipsToBounds = true
         backGroundImageView.contentMode = .scaleAspectFill
         // 블러 처리

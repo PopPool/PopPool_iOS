@@ -1,5 +1,5 @@
 //
-//  ProfileImageViewCPNT.swift
+//  ProfileCircleImageViewCPNT.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 7/8/24.
@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 
-final class ProfileImageViewCPNT: UIImageView {
+final class ProfileCircleImageViewCPNT: UIImageView {
     enum ProfileSize: CGFloat {
         case large = 96
         case midium = 64
         case small = 36
     }
     
+    // MARK: - init
     init(size: ProfileSize) {
         super.init(frame: .zero)
         setUp(size: size)
@@ -26,12 +27,11 @@ final class ProfileImageViewCPNT: UIImageView {
     }
 }
 
-private extension ProfileImageViewCPNT {
+// MARK: - SetUp
+private extension ProfileCircleImageViewCPNT {
     func setUp(size: ProfileSize) {
-//        image = UIImage(named: "Profile_Logo")
-//        image = UIImage(named: "TestImage")
+        // TODO: - 수정 필요
         contentMode = .scaleAspectFill
-        backgroundColor = .g100
         layer.cornerRadius = size.rawValue / 2
         clipsToBounds = true
         layer.borderWidth = 1

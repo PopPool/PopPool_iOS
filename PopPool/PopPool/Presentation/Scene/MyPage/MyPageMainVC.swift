@@ -19,14 +19,18 @@ final class MyPageMainVC : BaseViewController {
     }()
     private let headerView: HeaderViewCPNT = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
     private lazy var profileView = MyPageMainProfileView(
-        frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: self.profileViewHeight)
+        frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: self.profileViewHeight),
+        profileImage: UIImage(systemName: "folder")
     )
     private let tableView: UITableView = {
-        let view = UITableView(frame: .zero, style: .plain)
+        let view = UITableView(frame: .zero, style: .grouped)
+        view.tableFooterView = UIView(frame: .zero)
+        view.sectionFooterHeight = 0
         return view
     }()
     
     // MARK: - Properties
+    private let viewModel = MyPageMainVM()
     private let profileViewHeight: CGFloat = 256
     private let disposeBag = DisposeBag()
 }
@@ -37,6 +41,7 @@ extension MyPageMainVC {
         super.viewDidLoad()
         setUp()
         setUpConstraints()
+        bind()
     }
 }
 
@@ -47,10 +52,9 @@ private extension MyPageMainVC {
         self.navigationController?.navigationBar.isHidden = true
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MenuListCell.self, forCellReuseIdentifier: MenuListCell.identifier)
         tableView.separatorStyle = .none
-
         tableView.tableHeaderView = profileView
+
     }
     
     func setUpConstraints() {
@@ -58,16 +62,21 @@ private extension MyPageMainVC {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        tableView.addSubview(headerView)
+        view.addSubview(headerView)
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
-        tableView.addSubview(headerBackGroundView)
+        view.addSubview(headerBackGroundView)
         headerBackGroundView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view)
             make.bottom.equalTo(headerView.snp.bottom)
         }
-        tableView.bringSubviewToFront(headerView)
+        view.bringSubviewToFront(headerView)
+    }
+    
+    func bind() {
+        let input = MyPageMainVM.Input()
+        let output = viewModel.transform(input: input)
     }
 }
 
@@ -78,16 +87,21 @@ private extension MyPageMainVC {
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension MyPageMainVC : UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.menuList.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return viewModel.menuList[section].sectionCellInputList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuListCell.identifier) as? MenuListCell else {
-            return UITableViewCell()
-        }
-        cell.configure(title: "TEST\(indexPath.row)", subTitle: "test", subTitleColor: .red)
+        let cell = viewModel.menuList[indexPath.section].getCell(tableView: tableView, indexPath: indexPath)
         return cell
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return viewModel.menuList[section].makeHeaderView()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
