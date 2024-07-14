@@ -33,7 +33,6 @@
 		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
-		087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */; };
 		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
 		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
 		089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 089D19052C31A620000435D9 /* IQKeyboardManagerSwift */; };
@@ -163,7 +162,6 @@
 		087346512C0ABC4B00534FFA /* ViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
-		087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBUseCase.swift; sourceTree = "<group>"; };
 		089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
 		089D19012C3032EC000435D9 /* SignUpStep2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep2View.swift; sourceTree = "<group>"; };
 		089D19092C33C4A3000435D9 /* SignUpTermsModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsModalVC.swift; sourceTree = "<group>"; };
@@ -628,7 +626,6 @@
 		08B965712C148A3600BF95AA /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				087A68B02C1ECEBC00CF3631 /* LocalDBUseCase.swift */,
 				08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */,
 				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
 			);
@@ -1102,7 +1099,6 @@
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
-				087A68B12C1ECEBC00CF3631 /* LocalDBUseCase.swift in Sources */,
 				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
