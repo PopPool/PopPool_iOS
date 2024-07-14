@@ -16,7 +16,7 @@ final class LocalFetchUseCaseImpl: LocalFetchUseCase {
         self.repository = repository
     }
     
-    func execute(key: String, from database: String) -> Single<String> {
-        repository.fetch(key: key, from: database)
+    func execute(key: String) -> Single<String> {
+        repository.fetch(key: key)
     }
 }

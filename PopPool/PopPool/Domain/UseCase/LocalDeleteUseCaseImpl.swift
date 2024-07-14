@@ -16,7 +16,7 @@ final class LocalDeleteUseCaseImpl: LocalDeleteUseCase {
         self.repository = repository
     }
     
-    func execute(key: String, from database: String) -> Completable {
-        repository.delete(key: key, from: database)
+    func execute(key: String) -> Completable {
+        repository.delete(key: key)
     }
 }

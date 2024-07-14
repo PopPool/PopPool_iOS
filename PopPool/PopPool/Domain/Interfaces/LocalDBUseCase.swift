@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-// TODO: - 파일 분리 및 from 제거
+// TODO: - 파일 분리
 protocol LocalSaveUseCase {
     var repository: LocalDBRepository { get set }
     
@@ -28,8 +28,8 @@ protocol LocalFetchUseCase {
     /// - Parameters:
     ///   - key: 계정 이름 ie) ID, accessKey 등
     ///   - from: 로컬 DB
-    /// - Returns: 로컬 DB에서 지정된 키의 값을 반환합니다
-    func execute(key: String, from database: String) -> Single<String>
+    /// - Returns: 로컬 DB에서 지정된 키의 값을 반환합니다`_40px`
+    func execute(key: String) -> Single<String>
 }
 
 protocol LocalDeleteUseCase {
@@ -40,5 +40,5 @@ protocol LocalDeleteUseCase {
     ///   - key: 계정 이름 ie) ID, accessKey 등
     ///   - from: 로컬 DB
     /// - Returns: 반환하는 값 없음
-    func execute(key: String, from database: String) -> Completable
+    func execute(key: String) -> Completable
 }
