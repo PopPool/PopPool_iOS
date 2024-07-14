@@ -45,7 +45,7 @@ final class KeyChainRepositoryImpl: LocalDBRepository {
         }
     }
     
-    func fetch(key: String, from: String) -> Single<String> {
+    func fetch(key: String) -> Single<String> {
         return Single.create { singleData in
             
             // 1. query작성
@@ -85,7 +85,7 @@ final class KeyChainRepositoryImpl: LocalDBRepository {
         }
     }
     
-    func delete(key: String, from: String) -> Completable {
+    func delete(key: String) -> Completable {
         return Completable.create { complete in
             
             // 1. query작성
