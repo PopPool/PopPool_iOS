@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 // TODO: - 파일 분리
-protocol LocalSaveUseCase {
+protocol SaveLocalUseCase {
     var repository: LocalDBRepository { get set }
     
     /// 로컬 DB에 값을 저장합니다.
@@ -21,7 +21,7 @@ protocol LocalSaveUseCase {
     func execute(key: String, value: String) -> Completable
 }
 
-protocol LocalFetchUseCase {
+protocol FetchLocalUseCase {
     var repository: LocalDBRepository { get set }
     
     /// 로컬 DB에서 값을 가져옵니다
@@ -32,7 +32,7 @@ protocol LocalFetchUseCase {
     func execute(key: String) -> Single<String>
 }
 
-protocol LocalDeleteUseCase {
+protocol DeleteLocalUseCase {
     var repository: LocalDBRepository { get set }
     
     /// 로컬 DB에서 값을 삭제합니다

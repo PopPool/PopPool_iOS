@@ -1,5 +1,5 @@
 //
-//  LocalFetchUseCaseImpl.swift
+//  LocalDeleteUseCaseImpl.swift
 //  PopPool
 //
 //  Created by Porori on 7/4/24.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class LocalFetchUseCaseImpl: LocalFetchUseCase {
+final class DeleteLocalUseCaseImpl: DeleteLocalUseCase {
     
     var repository: LocalDBRepository
     
@@ -16,7 +16,7 @@ final class LocalFetchUseCaseImpl: LocalFetchUseCase {
         self.repository = repository
     }
     
-    func execute(key: String) -> Single<String> {
-        repository.fetch(key: key)
+    func execute(key: String) -> Completable {
+        repository.delete(key: key)
     }
 }

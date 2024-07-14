@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class LocalSaveUseCaseImpl: LocalSaveUseCase {
+final class SaveLocalUseCaseImpl: SaveLocalUseCase {
 
     var repository: LocalDBRepository
     
