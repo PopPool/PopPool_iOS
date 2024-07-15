@@ -10,66 +10,32 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-// TODO: - 수정필요
-struct MyCommentCircleListCellSection: TableViewSectionable {
-    
-    struct Input {
-        var sectionTitle: String?
-    }
-    
-    struct Output {
-        var didTapRightButton: ControlEvent<Void>
-    }
-    
-    typealias CellType = MyCommentCircleListCell
-    
-    var sectionInput: Input
-    
-    var sectionCellInputList: [MyCommentCircleListCell.Input]
-    
-    lazy var titleView: ListTitleViewCPNT = {
-        let view = ListTitleViewCPNT(title: sectionInput.sectionTitle, size: .medium)
-        view.titleLabel.font = .KorFont(style: .bold, size: 16)
-        return view
-    }()
-    
-    
-    mutating func makeHeaderView() -> UIView? {
-        let containerView = UIView()
-        containerView.backgroundColor = .systemBackground
-        containerView.addSubview(titleView)
-        titleView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview().inset(Constants.spaceGuide.small100)
-        }
-        return containerView
-    }
-    
-    mutating func sectionOutput() -> Output {
-        return Output(didTapRightButton: titleView.rightButton.rx.tap)
-    }
-    
-    func makeFooterView() -> UIView? {
-        return nil
-    }
-}
-
 // TODO: - 수정 필요
 final class MyCommentCircleListCell: UITableViewCell {
     
     // MARK: - Components
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .KorFont(style: .regular, size: 15)
-        return label
+    
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = .init(width: 68, height: 90)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 16
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.contentInset = .init(top: 0, left: 20, bottom: 0, right: 0)
+        view.showsHorizontalScrollIndicator = false
+        return view
     }()
+    
+    private var cellInputList: BehaviorRelay<[CircleFeedCell.Input]> = .init(value: [])
+    
+    private let disposeBag = DisposeBag()
     
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
         setUpConstraints()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -79,37 +45,66 @@ final class MyCommentCircleListCell: UITableViewCell {
 
 // MARK: - SetUp
 private extension MyCommentCircleListCell {
+    
     func setUp() {
-        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CircleFeedCell.self, forCellWithReuseIdentifier: CircleFeedCell.identifier)
     }
     
     func setUpConstraints() {
-        contentView.backgroundColor = .red
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.height.equalTo(100)
+        contentView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
+            make.height.equalTo(90)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(24)
         }
+    }
+    
+    func bind() {
+        cellInputList
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.collectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
-// MARK: - Methods
-extension MyCommentCircleListCell: Cellable {
-
+extension MyCommentCircleListCell : UICollectionViewDelegate, UICollectionViewDataSource {
     
-    struct Output {
-        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cellInputList.value.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CircleFeedCell.identifier, for: indexPath) as! CircleFeedCell
+        let input = cellInputList.value[indexPath.row]
+        cell.injectionWith(input: input)
+        return cell
+    }
+}
+
+// MARK: - Cellable
+extension MyCommentCircleListCell: Cellable {
+
+    struct Output {
+        var didSelectCell: ControlEvent<IndexPath>
+    }
     
     struct Input {
-
+        var cellInputList: [CircleFeedCell.Input]
     }
     
     func injectionWith(input: Input) {
+        cellInputList.accept(input.cellInputList)
     }
     
     func getOutput() -> Output {
-        return Output()
+        return Output(
+            didSelectCell: collectionView.rx.itemSelected
+        )
     }
 }
+

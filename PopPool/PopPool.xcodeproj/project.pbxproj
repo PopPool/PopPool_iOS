@@ -85,6 +85,9 @@
 		08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */; };
 		08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */; };
 		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
+		08E23A3B2C4502E5004B77B6 /* CircleFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */; };
+		08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */; };
+		08E23A412C452571004B77B6 /* MyCommentCircleListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
@@ -223,6 +226,9 @@
 		08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestListResponseDTO.swift; sourceTree = "<group>"; };
 		08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
 		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
+		08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleFeedCell.swift; sourceTree = "<group>"; };
+		08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCellSection.swift; sourceTree = "<group>"; };
+		08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCircleListCellSection.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
@@ -529,6 +535,7 @@
 		089D19202C391275000435D9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				08E23A3D2C452515004B77B6 /* TableViewSection */,
 				08B183B42C3D948C006C34BB /* UITableViewCell */,
 				089D19212C391293000435D9 /* UICollectionViewCell */,
 			);
@@ -539,6 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				08C813DA2C2D3A58009239FE /* LargeChipCell.swift */,
+				08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */,
 			);
 			path = UICollectionViewCell;
 			sourceTree = "<group>";
@@ -729,6 +737,15 @@
 				08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */,
 			);
 			path = SignUpDTO;
+			sourceTree = "<group>";
+		};
+		08E23A3D2C452515004B77B6 /* TableViewSection */ = {
+			isa = PBXGroup;
+			children = (
+				08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */,
+				08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */,
+			);
+			path = TableViewSection;
 			sourceTree = "<group>";
 		};
 		08F49DE62C231C30002D5202 /* Enums */ = {
@@ -1154,6 +1171,7 @@
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
+				08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */,
 				BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */,
 				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
@@ -1177,6 +1195,8 @@
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */,
+				08E23A3B2C4502E5004B77B6 /* CircleFeedCell.swift in Sources */,
+				08E23A412C452571004B77B6 /* MyCommentCircleListCellSection.swift in Sources */,
 				BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
