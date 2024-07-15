@@ -1,8 +1,8 @@
 //
-//  LocalFetchUseCaseImpl.swift
+//  FetchLocalUseCase.swift
 //  PopPool
 //
-//  Created by Porori on 7/4/24.
+//  Created by SeoJunYoung on 7/15/24.
 //
 
 import Foundation
@@ -17,17 +17,4 @@ protocol FetchLocalUseCase {
     ///   - from: 로컬 DB
     /// - Returns: 로컬 DB에서 지정된 키의 값을 반환합니다`_40px`
     func execute(key: String) -> Single<String>
-}
-
-final class FetchLocalUseCaseImpl: FetchLocalUseCase {
-    
-    var repository: LocalDBRepository
-    
-    init(repository: LocalDBRepository) {
-        self.repository = repository
-    }
-    
-    func execute(key: String) -> Single<String> {
-        repository.fetch(key: key)
-    }
 }
