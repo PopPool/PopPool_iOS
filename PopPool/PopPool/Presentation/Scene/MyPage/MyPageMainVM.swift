@@ -47,7 +47,14 @@ final class MyPageMainVM: ViewModelable {
     private var myCommentSection = MyCommentCircleListCellSection(
         sectionInput: .init(sectionTitle: "내 코멘트"),
         sectionCellInputList: [
-            .init()
+            .init(cellInputList: [
+                .init(title: "팝업스토어1", isActive: true, image: UIImage(systemName: "person")),
+                .init(title: "팝업스토어2", isActive: false, image: UIImage(systemName: "person")),
+                .init(title: "팝업스토어3", isActive: false, image: UIImage(systemName: "person")),
+                .init(title: "팝업스토어4", isActive: false, image: UIImage(systemName: "person")),
+                .init(title: "팝업스토어5", isActive: false, image: UIImage(systemName: "person")),
+                .init(title: "팝업스토어6", isActive: false, image: UIImage(systemName: "person")),
+            ])
         ])
     // 일반 Section
     private var normalSection = MenuListCellSection(
@@ -82,6 +89,15 @@ final class MyPageMainVM: ViewModelable {
                 print("MyComment section Button Tapped")
             }
             .disposed(by: disposeBag)
+        
+        myCommentSection.sectionCellOutput.subscribe { (output, indexPath) in
+            output.didSelectCell.subscribe { cellIndexPath in
+                print(indexPath,cellIndexPath)
+            }
+            .disposed(by: self.disposeBag)
+        }
+        .disposed(by: disposeBag)
+        
         return Output()
     }
 }
