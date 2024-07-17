@@ -35,7 +35,7 @@ protocol DIContainer {
 }
 
 final class AppDIContainer: DIContainer {
-
+    
     // AppDIContainer의 싱글톤 인스턴스
     static let shared = AppDIContainer()
     
@@ -106,5 +106,26 @@ extension AppDelegate {
             type: TryLoginUseCase.self,
             component: TryLoginUseCaseImpl(repository: container.resolve(type: AuthRepository.self))
         )
+        
+        container.register(
+            type: KeyChainService.self,
+            component: KeyChainServiceImpl()
+        )
+        
+        container.register(
+            type: KeyChainServiceUseCase.self,
+            component: KeyChainServiceUseCaseImpl(service: container.resolve(type: KeyChainService.self))
+        )
+        
+        container.register(
+            type: SignUpRepository.self,
+            component: SignUpRepositoryImpl()
+        )
+        
+        container.register(
+            type: SignUpUseCase.self,
+            component: SignUpUseCaseImpl(repository: container.resolve(type: SignUpRepository.self))
+        )
+        
     }
 }

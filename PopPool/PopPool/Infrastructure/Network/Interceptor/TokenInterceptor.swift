@@ -18,6 +18,8 @@ final class TokenInterceptor: RequestInterceptor {
 
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let keyChainService = KeyChainServiceImpl()
+        
+        // Request Header에 Token 추가
         keyChainService.fetchToken(type: .accessToken)
             .subscribe { accessToken in
                 urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
@@ -34,16 +36,7 @@ final class TokenInterceptor: RequestInterceptor {
             completion(.doNotRetryWithError(error))
             return
         }
-//        response.allHeaderFields
 
-//        RefreshTokenAPI.refreshToken { result in
-//            switch result {
-//            case .success(let accessToken):
-//                KeychainServiceImpl.shared.accessToken = accessToken
-//                completion(.retry)
-//            case .failure(let error):
-//                completion(.doNotRetryWithError(error))
-//            }
-//        }
+        // 응답 Header에서 Token 추출 코드 작성 필요
     }
 }

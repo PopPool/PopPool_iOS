@@ -9,19 +9,9 @@ import Foundation
 import Security
 import RxSwift
 
-final class KeyChainServiceImpl {
+final class KeyChainServiceImpl: KeyChainService {
     
-    struct KeyChainConstants {
-        let service = "keyChain"
-    }
-    
-    enum TokenType: String {
-        case accessToken = "accessToken"
-        case refreshToken = "refreshToken"
-    }
-    
-    private let constants = KeyChainConstants()
-    
+    private let service = "keyChain"
     
     func fetchToken(type: TokenType) -> Single<String>{
         return fetch(key: type.rawValue)
@@ -51,7 +41,7 @@ private extension KeyChainServiceImpl {
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrService: self.constants.service,
+                kSecAttrService: self.service,
                 kSecAttrAccount: key,
                 kSecValueData: convertValue
             ]
@@ -77,7 +67,7 @@ private extension KeyChainServiceImpl {
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrService: self.constants.service,
+                kSecAttrService: self.service,
                 kSecAttrAccount: key,
                 kSecReturnData: kCFBooleanTrue, // CFData타입으로 불러오라는 의미
                 kSecMatchLimit: kSecMatchLimitOne // 중복되는 경우 하나의 값만 가져오라는 의미
@@ -117,7 +107,7 @@ private extension KeyChainServiceImpl {
             // 1. query작성
             let keyChainQuery: NSDictionary = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrService: self.constants.service,
+                kSecAttrService: self.service,
                 kSecAttrAccount: key
             ]
             

@@ -88,6 +88,11 @@
 		08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */; };
 		08E23A412C452571004B77B6 /* MyCommentCircleListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */; };
 		08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A432C477965004B77B6 /* KeyChainServiceImpl.swift */; };
+		08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A452C4781AF004B77B6 /* KeyChainService.swift */; };
+		08E23A4A2C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */; };
+		08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */; };
+		08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */; };
+		08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
@@ -103,7 +108,6 @@
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
 		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
-		BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */; };
 		BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B462C2C13460004659D /* HeaderViewCPNT.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
 		BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */; };
@@ -228,6 +232,11 @@
 		08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCellSection.swift; sourceTree = "<group>"; };
 		08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCircleListCellSection.swift; sourceTree = "<group>"; };
 		08E23A432C477965004B77B6 /* KeyChainServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainServiceImpl.swift; sourceTree = "<group>"; };
+		08E23A452C4781AF004B77B6 /* KeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
+		08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainServiceUseCaseImpl.swift; sourceTree = "<group>"; };
+		08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainServiceUseCase.swift; sourceTree = "<group>"; };
+		08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCaseImpl.swift; sourceTree = "<group>"; };
+		08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
@@ -243,7 +252,6 @@
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCaseImpl.swift; sourceTree = "<group>"; };
-		BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD353B462C2C13460004659D /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBoxViewCPNT.swift; sourceTree = "<group>"; };
@@ -323,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				08F49DDA2C200528002D5202 /* AuthService.swift */,
+				08E23A452C4781AF004B77B6 /* KeyChainService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -665,6 +674,8 @@
 				08B183D12C44494C006C34BB /* LocalUseCaseImpl */,
 				08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */,
 				08F49DF52C2323C2002D5202 /* TryLoginUseCaseImpl.swift */,
+				08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */,
+				08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -675,6 +686,8 @@
 				08B183CA2C4448DF006C34BB /* LocalUseCase */,
 				08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */,
 				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
+				08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */,
+				08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -700,7 +713,6 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				BD2E90F42C1B17C200BB0313 /* KeyChainRepositoryImpl.swift */,
 				BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */,
 				08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */,
 				089D19162C36713C000435D9 /* SignUpRepository */,
@@ -1126,6 +1138,7 @@
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
 				BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */,
+				08E23A4A2C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
@@ -1134,7 +1147,6 @@
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
 				089D19152C366E1A000435D9 /* Interest.swift in Sources */,
 				089D190A2C33C4A3000435D9 /* SignUpTermsModalVC.swift in Sources */,
-				BD2E90F52C1B17C200BB0313 /* KeyChainRepositoryImpl.swift in Sources */,
 				08B183C92C443948006C34BB /* TableViewSectionable.swift in Sources */,
 				08B183BF2C43BEA6006C34BB /* MyCommentCircleListCell.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
@@ -1156,6 +1168,7 @@
 				089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
+				08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */,
 				08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */,
 				089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
@@ -1170,7 +1183,9 @@
 				BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */,
 				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
+				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
+				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BD3C4C6D2C30C8AE0087917B /* HeaderViewCPNT.swift in Sources */,
@@ -1185,6 +1200,7 @@
 				08B183BD2C439F52006C34BB /* MyPageMainVM.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
+				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
 				BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,

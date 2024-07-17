@@ -8,6 +8,6 @@
 import Foundation
 
 struct Interest {
-    let interestID: String
+    let interestID: Int64
     let interestName: String
 }
