@@ -17,18 +17,12 @@ final class SignUpRepositoryTest: SignUpRepository {
     func fetchInterestList() -> Observable<[Interest]> {
         
         let interest:[Interest] = [
-            .init(interestID: "FASION", interestName: "FASION"),
-            .init(interestID: "LIFESTYLE", interestName: "LIFESTYLE"),
-            .init(interestID: "BEAUTY", interestName: "BEAUTY"),
-            .init(interestID: "FOOD_COOKING", interestName: "FOOD_COOKING"),
-            .init(interestID: "ART", interestName: "ART"),
-            .init(interestID: "PETS", interestName: "PETS"),
-            .init(interestID: "TRAVEL", interestName: "TRAVEL"),
-            .init(interestID: "ENTERTAINMENT", interestName: "ENTERTAINMENT"),
-            .init(interestID: "ANIMATION", interestName: "ANIMATION"),
-            .init(interestID: "KIDS", interestName: "KIDS"),
-            .init(interestID: "SPORTS", interestName: "SPORTS"),
-            .init(interestID: "GAMES", interestName: "GAMES"),
+            .init(interestID: 0, interestName: "패션"),
+            .init(interestID: 1, interestName: "패션1"),
+            .init(interestID: 2, interestName: "패션2"),
+            .init(interestID: 3, interestName: "패션3"),
+            .init(interestID: 4, interestName: "패션4"),
+            .init(interestID: 5, interestName: "패션5")
         ]
         return Observable.just(interest)
     }

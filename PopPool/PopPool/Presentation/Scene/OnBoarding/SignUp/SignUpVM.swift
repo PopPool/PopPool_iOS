@@ -31,9 +31,9 @@ final class SignUpVM: ViewModelable {
         /// Sign Up Step2 primary button  탭 이벤트
         var tap_step2_primaryButton: ControlEvent<Void>
         /// Sign Up Step2 중복확인 button  탭 이벤트
-//        var tap_step2_nickNameCheckButton: ControlEvent<Void>
+        var tap_step2_nickNameCheckButton: ControlEvent<Void>
         /// Sign Up Step2 유효한 닉네임 전달 이벤트
-//        var event_step2_availableNickName: PublishSubject<String?>
+        var event_step2_availableNickName: PublishSubject<ValidationTextFieldCPNT.ValidationState>
         
         // MARK: - Step 3 Input
         /// Sign Up Step3 primary button  탭 이벤트
@@ -76,11 +76,11 @@ final class SignUpVM: ViewModelable {
         /// Step 2의 primary button 활성/비활성 상태를 방출하는 Subject
         var step2_primaryButton_isEnabled: PublishSubject<Bool>
         /// 유효한 닉네임 전달 이벤트
-        var step2_fetchUserNickname: PublishSubject<String>
+        var step2_fetchUserNickname: BehaviorRelay<String>
         
         // MARK: - Step 3 OutPut
         /// 카테고리 리스트를 가져오는 Subject
-        var step3_fetchCategoryList: PublishSubject<[String]>
+        var step3_fetchCategoryList: BehaviorRelay<[String]>
         /// Step 3의 primary button 활성/비활성 상태를 방출하는 Subject
         var step3_primaryButton_isEnabled: PublishSubject<Bool>
         
@@ -100,16 +100,19 @@ final class SignUpVM: ViewModelable {
     private let pageIndexDecreaseObserver: PublishSubject<Int> = .init()
     
     /// 올바른 유저의 닉네임을 관리하는 subject
-    private let userNickName: PublishSubject<String> = .init()
+    private let userNickName: BehaviorRelay<String> = .init(value: "$유저명$")
     
     /// 나이 Picker 범위
     private let ageRange = (14...100)
     /// 유저 나이
     private var selectAgeIndex: Int = 16
     
+    // MARK: - UseCase
+    private let signUpUseCase: SignUpUseCase
+    
     // MARK: - init
     init() {
-        
+        self.signUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
     }
     
     // MARK: - transform
@@ -125,7 +128,7 @@ final class SignUpVM: ViewModelable {
         let step2_primaryButton_isEnabled: PublishSubject<Bool> = .init()
         
         let step3_primaryButton_isEnabled: PublishSubject<Bool> = .init()
-        let fetchCategoryList: PublishSubject<[String]> = .init()
+        let fetchCategoryList: BehaviorRelay<[String]> = .init(value: [])
         
         let step4_moveToAgeSelectVC: PublishSubject<(ClosedRange<Int>, Int)> = .init()
 
@@ -171,46 +174,59 @@ final class SignUpVM: ViewModelable {
         input.tap_step2_primaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.increasePageIndex()
-                // 네트워크 사용으로 수정 필요
-                fetchCategoryList.onNext([
-                    "패션",
-                    "라이프스타일",
-                    "뷰티",
-                    "음식/요리",
-                    "예술",
-                    "반려동물",
-                    "여행",
-                    "엔터테인먼트",
-                    "애니메이션",
-                    "키즈",
-                    "스포츠",
-                    "게임",
-                ])
+                if fetchCategoryList.value.isEmpty {
+                    owner.signUpUseCase
+                        .fetchInterestList()
+                        .subscribe { list in
+                            let listString = list.map { list in
+                                list.interestName
+                            }
+                            fetchCategoryList.accept(listString)
+                            owner.increasePageIndex()
+                        } onError: { error in
+                            print("fetchIntersetList Error:\(error.localizedDescription)")
+                        }
+                        .disposed(by: owner.disposeBag)
+                } else {
+                    owner.increasePageIndex()
+                }
             }
             .disposed(by: disposeBag)
         
-        // Step2 중복확인 버튼 이벤트 처리
-//        input.tap_step2_nickNameCheckButton
-//            .subscribe { _ in
-//                // 네트워크 사용으로 수정 필요
-//                step2_isDuplicate.onNext(false)
-//            }
-//            .disposed(by: disposeBag)
+        //Step2 중복확인 버튼 이벤트 처리
+        input.tap_step2_nickNameCheckButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                // 네트워크 사용으로 수정 필요
+                let nickName = owner.userNickName.value
+                owner.signUpUseCase.checkNickName(nickName: nickName)
+                    .subscribe { isDuplicate in
+                        step2_isDuplicate.onNext(isDuplicate)
+                        if isDuplicate {
+                            owner.userNickName.accept("$유저명$")
+                        } else {
+                            owner.userNickName.accept(nickName)
+                        }
+                    } onError: { error in
+                        print(error)
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
         
-        // Step2 nickName Validation 상태 이벤트 처리
-//        input.event_step2_availableNickName
-//            .withUnretained(self)
-//            .subscribe(onNext: { (owner, nickname) in
-//                if let nickname = nickname {
-//                    owner.userNickName.onNext(nickname)
-//                    step2_primaryButton_isEnabled.onNext(true)
-//                } else {
-//                    owner.userNickName.onNext("error")
-//                    step2_primaryButton_isEnabled.onNext(false)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        //Step2 nickName Validation 상태 이벤트 처리
+        input.event_step2_availableNickName
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, state) in
+                switch state {
+                case .valid(let nickName):
+                    owner.userNickName.accept(nickName)
+                    step2_primaryButton_isEnabled.onNext(true)
+                default:
+                    step2_primaryButton_isEnabled.onNext(false)
+                }
+            })
+            .disposed(by: disposeBag)
         
         // MARK: - Step 3 transform
         // 관심사 리스트 변경 이벤트 처리

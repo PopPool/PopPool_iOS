@@ -20,7 +20,7 @@ final class SignUpRepositoryImpl: SignUpRepository {
     func fetchInterestList() -> Observable<[Interest]> {
         let endPoint = PopPoolAPIEndPoint.fetchInterestList()
         return provider.requestData(with: endPoint, interceptor: TokenInterceptor()).map { responseDTO in
-            return responseDTO.interestResponse.map({ $0.toDomain() })
+            return responseDTO.interestResponseList.map({ $0.toDomain() })
         }
     }
 }

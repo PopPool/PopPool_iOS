@@ -9,16 +9,17 @@ import Foundation
 
 // MARK: - InterestListResponseDTO
 struct InterestListResponseDTO: Codable {
-    let interestResponse: [InterestResponseDTO]
+    let interestResponseList: [InterestResponseDTO]
 }
 
 // MARK: - InterestResponse
 struct InterestResponseDTO: Codable {
-    let interestID, interestName: String
+    let interestId: Int64
+    let interestCategory: String
 }
 
 extension InterestResponseDTO {
     func toDomain() -> Interest {
-        return Interest(interestID: interestID, interestName: interestName)
+        return Interest(interestID: interestId, interestName: interestCategory)
     }
 }

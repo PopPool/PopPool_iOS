@@ -31,10 +31,12 @@ final class LoginVM: ViewModelable {
     
     private var fetchSocialUserCredencialUseCase: FetchSocialCredentialUseCase!
     private let tryLoginUseCase: TryLoginUseCase
+    private let keyChainUseCase: KeyChainServiceUseCase
     var disposeBag: DisposeBag = DisposeBag()
     
     init() {
         self.tryLoginUseCase = AppDIContainer.shared.resolve(type: TryLoginUseCase.self)
+        self.keyChainUseCase = AppDIContainer.shared.resolve(type: KeyChainServiceUseCase.self)
     }
     
     /// LoginVC로 부터 받은 Input을 Output으로 변환하는 메서드
@@ -94,6 +96,24 @@ final class LoginVM: ViewModelable {
                 owner.tryLoginUseCase
                     .execute(userCredential: credencial, socialType: type)
                     .subscribe { loginResponse in
+                        // accessToken 저장
+                        owner.keyChainUseCase.saveToken(type: .accessToken, value: loginResponse.accessToken)
+                            .subscribe {
+                                print("AccessToken Save Complete")
+                            } onError: { error in
+                                print("AccessToken Save Error:\(error.localizedDescription)")
+                            }
+                            .disposed(by: owner.disposeBag)
+                        
+                        // refreshToken 저장
+                        owner.keyChainUseCase.saveToken(type: .refreshToken, value: loginResponse.refreshToken)
+                            .subscribe {
+                                print("RefreshToken Save Complete")
+                            } onError: { error in
+                                print("RefreshToken Save Error:\(error.localizedDescription)")
+                            }
+                            .disposed(by: owner.disposeBag)
+
                         // 등록된 유저인지를 분기하여 이벤트 전달
                         if loginResponse.registeredUser {
                             moveToHomeVCSubject.onNext(loginResponse)

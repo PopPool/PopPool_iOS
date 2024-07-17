@@ -1,18 +1,34 @@
 //
-//  KeyChainRepositoryImpl.swift
+//  KeyChainServiceImpl.swift
 //  PopPool
 //
-//  Created by Porori on 6/13/24.
+//  Created by SeoJunYoung on 7/17/24.
 //
 
 import Foundation
 import Security
 import RxSwift
 
-final class KeyChainRepositoryImpl: LocalDBRepository {
+final class KeyChainServiceImpl: KeyChainService {
     
-    private let service: String = "keychain"
+    private let service = "keyChain"
     
+    func fetchToken(type: TokenType) -> Single<String>{
+        return fetch(key: type.rawValue)
+    }
+    
+    func saveToken(type: TokenType, value: String) -> Completable {
+        return save(key: type.rawValue, value: value)
+    }
+    
+    func deleteToken(type: TokenType) -> Completable {
+        return delete(key: type.rawValue)
+    }
+
+}
+// MARK: - Private methods
+
+private extension KeyChainServiceImpl {
     func save(key: String, value: String) -> Completable {
         return Completable.create { complete in
             
@@ -108,4 +124,3 @@ final class KeyChainRepositoryImpl: LocalDBRepository {
         }
     }
 }
-
