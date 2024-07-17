@@ -80,7 +80,6 @@
 		08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */; };
 		08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */; };
 		08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */; };
-		08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */; };
 		08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */; };
 		08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */; };
 		08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */; };
@@ -88,6 +87,7 @@
 		08E23A3B2C4502E5004B77B6 /* CircleFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */; };
 		08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */; };
 		08E23A412C452571004B77B6 /* MyCommentCircleListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */; };
+		08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A432C477965004B77B6 /* KeyChainServiceImpl.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
@@ -113,7 +113,6 @@
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
-		BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86079A2C23429D00726692 /* DatabaseTYPE.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
@@ -221,7 +220,6 @@
 		08C813E12C2D8AA2009239FE /* SignUpStep4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep4View.swift; sourceTree = "<group>"; };
 		08C813E32C2E9FB0009239FE /* SignUpAgeSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgeSelectedButton.swift; sourceTree = "<group>"; };
 		08C813F02C2EF60B009239FE /* CheckNickNameRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameRequestDTO.swift; sourceTree = "<group>"; };
-		08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthenticationCredential.swift; sourceTree = "<group>"; };
 		08C813F42C2EFA3D009239FE /* SignUpRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepositoryImpl.swift; sourceTree = "<group>"; };
 		08C813F62C2F15DC009239FE /* InterestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestListResponseDTO.swift; sourceTree = "<group>"; };
 		08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
@@ -229,6 +227,7 @@
 		08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleFeedCell.swift; sourceTree = "<group>"; };
 		08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCellSection.swift; sourceTree = "<group>"; };
 		08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCircleListCellSection.swift; sourceTree = "<group>"; };
+		08E23A432C477965004B77B6 /* KeyChainServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainServiceImpl.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
@@ -254,7 +253,6 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
-		BD86079A2C23429D00726692 /* DatabaseTYPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTYPE.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +342,7 @@
 				BDF3B2BB2C0BFC3300B079C5 /* Common */,
 				BDF3B2BC2C0BFC9900B079C5 /* EndPoint */,
 				BDF3B2BA2C0BFA0C00B079C5 /* Provider */,
+				08B183AC2C3D25F0006C34BB /* Interceptor */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -470,7 +469,6 @@
 				BD0B8F512C26D59600FFBC24 /* Manager */,
 				BDF4F2942C240B86002F4F03 /* Utility */,
 				BDF4F2932C240B70002F4F03 /* Extension */,
-				08F49DE62C231C30002D5202 /* Enums */,
 				087346502C0ABC2A00534FFA /* Interfaces */,
 			);
 			path = Common;
@@ -646,6 +644,7 @@
 		08B965652C147E4C00BF95AA /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				08E23A422C477941004B77B6 /* KeyChainService */,
 				0851057C2C102EAB00ED7DBB /* AuthService */,
 			);
 			path = Service;
@@ -655,7 +654,6 @@
 			isa = PBXGroup;
 			children = (
 				08F49DE92C231CFC002D5202 /* LoginResponse.swift */,
-				08C813F22C2EF7D8009239FE /* MyAuthenticationCredential.swift */,
 				089D19142C366E1A000435D9 /* Interest.swift */,
 			);
 			path = Entities;
@@ -685,7 +683,6 @@
 			isa = PBXGroup;
 			children = (
 				08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */,
-				08B183AC2C3D25F0006C34BB /* Interceptor */,
 				08B965902C16005300BF95AA /* LoginDTO */,
 				08C813EF2C2EF5F0009239FE /* SignUpDTO */,
 			);
@@ -748,12 +745,12 @@
 			path = TableViewSection;
 			sourceTree = "<group>";
 		};
-		08F49DE62C231C30002D5202 /* Enums */ = {
+		08E23A422C477941004B77B6 /* KeyChainService */ = {
 			isa = PBXGroup;
 			children = (
-				BD86079A2C23429D00726692 /* DatabaseTYPE.swift */,
+				08E23A432C477965004B77B6 /* KeyChainServiceImpl.swift */,
 			);
-			path = Enums;
+			path = KeyChainService;
 			sourceTree = "<group>";
 		};
 		08F49DF72C23FC5F002D5202 /* Components */ = {
@@ -1115,10 +1112,8 @@
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
 				BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
-				08C813F32C2EF7D8009239FE /* MyAuthenticationCredential.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
-				BD86079B2C23429D00726692 /* DatabaseTYPE.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
@@ -1202,6 +1197,7 @@
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
+				08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */,
 				BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */,
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
