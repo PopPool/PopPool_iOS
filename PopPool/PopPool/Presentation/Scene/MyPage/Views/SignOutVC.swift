@@ -67,5 +67,19 @@ class SignOutVC: UIViewController {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+        
+        signOutView.skipButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print("화면 이동 필요")
+            }
+            .disposed(by: disposeBag)
+        
+        signOutView.confirmButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print("다음 화면 이동")
+            }
+            .disposed(by: disposeBag)
     }
 }

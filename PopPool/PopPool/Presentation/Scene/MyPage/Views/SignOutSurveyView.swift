@@ -29,8 +29,8 @@ class SignOutSurveyView: UIStackView {
         return stack
     }()
     
-    private let skipButton: ButtonCPNT
-    private let confirmButton: ButtonCPNT
+    let skipButton: ButtonCPNT
+    let confirmButton: ButtonCPNT
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(skipButton)
