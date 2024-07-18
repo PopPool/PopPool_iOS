@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class SignOutNoticeSheet: ModalViewController {
+final class SignOutNoticeSheet: ModalViewController {
+    
+    // MARK: - Components
     
     private let titleHeader: ContentTitleCPNT
     private let confirmButton: ButtonCPNT
@@ -35,6 +37,12 @@ class SignOutNoticeSheet: ModalViewController {
         return stack
     }()
     
+    // MARK: - Properties
+    
+    let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
+    
     init(userNickname: String, content: [String]) {
         self.titleHeader = ContentTitleCPNT(title: "\(userNickname)님, 팝풀 서비스를\n정말 탈퇴하시겠어요?", type: .title_bs(buttonImage: nil))
         self.confirmButton = ButtonCPNT(type: .primary, title: "동의 후 탈퇴하기")
@@ -47,10 +55,15 @@ class SignOutNoticeSheet: ModalViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        bind()
     }
+    
+    // MARK: - Methods
     
     private func setUp() {
         stackView.addArrangedSubview(titleHeader)
@@ -76,5 +89,24 @@ class SignOutNoticeSheet: ModalViewController {
         }
 
         setContent(content: stackView)
+    }
+    
+    private func bind() {
+        skipButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print(#function, "취소 버튼이 눌렸습니다.")
+                owner.dismissBottomSheet()
+            }
+            .disposed(by: disposeBag)
+        
+        confirmButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print(#function, "confirm 버튼이 눌렸습니다.")
+                // 화면에서 dismiss
+                // survey 화면으로 넘어가기
+            }
+            .disposed(by: disposeBag)
     }
 }
