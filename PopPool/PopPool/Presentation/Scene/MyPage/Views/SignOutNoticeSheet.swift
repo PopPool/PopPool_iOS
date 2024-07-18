@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class SignOutNoticeSheet: ModalViewController {
     
     // MARK: - Components
     
     private let titleHeader: ContentTitleCPNT
-    private let confirmButton: ButtonCPNT
+    let confirmButton: ButtonCPNT
     private let skipButton: ButtonCPNT
     private let noticeLabel: InfoBoxViewCPNT
     private let headerSpaceView = UIView()
@@ -39,7 +40,7 @@ final class SignOutNoticeSheet: ModalViewController {
     
     // MARK: - Properties
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
@@ -101,12 +102,10 @@ final class SignOutNoticeSheet: ModalViewController {
             .disposed(by: disposeBag)
         
         confirmButton.rx.tap
-            .withUnretained(self)
-            .subscribe { (owner, _) in
-                print(#function, "confirm 버튼이 눌렸습니다.")
-                // 화면에서 dismiss
-                // survey 화면으로 넘어가기
-            }
+            .withUnretained(self)     
+            .subscribe(onNext: { (owner, _) in
+                owner.dismissBottomSheet()
+            })
             .disposed(by: disposeBag)
     }
 }
