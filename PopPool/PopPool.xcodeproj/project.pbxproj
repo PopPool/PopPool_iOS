@@ -108,6 +108,7 @@
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
 		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
+		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B462C2C13460004659D /* HeaderViewCPNT.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
 		BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */; };
@@ -252,6 +253,7 @@
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCaseImpl.swift; sourceTree = "<group>"; };
+		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD353B462C2C13460004659D /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBoxViewCPNT.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */,
+				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1119,6 +1122,7 @@
 				08B183C32C442113006C34BB /* ListTitleViewCPNT.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
 				08B183CE2C44490A006C34BB /* FetchLocalUseCase.swift in Sources */,
+				BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
