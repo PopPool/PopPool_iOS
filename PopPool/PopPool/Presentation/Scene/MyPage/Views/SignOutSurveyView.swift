@@ -9,18 +9,23 @@ import UIKit
 import SnapKit
 import RxSwift
 
+// MARK: - SurveyList
+
 struct SurveyList {
     var title: String
 }
 
 class SignOutSurveyView: UIStackView {
     
+    // MARK: - Components
+    
     private let title: ContentTitleCPNT
     private let topSpaceView = UIView()
-    private lazy var surveyView = self.survey.map { reason in
-        return TermsViewCPNT(title: reason.title)
-    }
+    private let buttonTopView = UIView()
+    private let bottomSpaceView = UIView()
     
+    private lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0.title) }
+//    private let surveyTextField: DynamicTextViewCPNT
     private let surveyStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -29,8 +34,6 @@ class SignOutSurveyView: UIStackView {
         return stack
     }()
     
-    let skipButton: ButtonCPNT
-    let confirmButton: ButtonCPNT
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(skipButton)
@@ -39,10 +42,10 @@ class SignOutSurveyView: UIStackView {
         stack.distribution = .fillEqually
         return stack
     }()
+    let skipButton: ButtonCPNT
+    let confirmButton: ButtonCPNT
     
-    private let buttonTopView = UIView()
-    private let bottomSpaceView = UIView()
-    
+    // MARK: - Properties
     
     private let survey: [SurveyList] = [
         SurveyList(title: "원하는 팝업에 대한 정보가 없어요"),
@@ -59,6 +62,7 @@ class SignOutSurveyView: UIStackView {
                                         subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
         self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
         self.skipButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
+//        self.surveyTextField = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
         super.init(frame: .zero)
         setUp()
         setUpLayout()
@@ -70,12 +74,17 @@ class SignOutSurveyView: UIStackView {
     
     private func setUp() {
         self.axis = .vertical
+        self.title.subTitleLabel.numberOfLines = 0
+        self.title.subTitleLabel.lineBreakMode = .byTruncatingTail
+        self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
+//        self.surveyTextField.isHidden = true
     }
     
     private func setUpLayout() {
         self.addArrangedSubview(title)
         self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(surveyStack)
+//        self.addArrangedSubview(surveyTextField)
         self.addArrangedSubview(buttonTopView)
         self.addArrangedSubview(buttonStack)
         self.addArrangedSubview(bottomSpaceView)
@@ -100,6 +109,11 @@ class SignOutSurveyView: UIStackView {
             make.top.equalTo(topSpaceView.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
+        
+//        surveyTextField.snp.makeConstraints { make in
+//            make.leading.trailing.equalToSuperview().inset(20)
+//            make.height.equalTo(88)
+//        }
         
         buttonTopView.snp.makeConstraints { make in
             make.height.greaterThanOrEqualToSuperview().priority(.low)

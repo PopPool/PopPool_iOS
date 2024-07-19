@@ -67,7 +67,10 @@ class SignOutCompleteVC: UIViewController {
         view.backgroundColor = .systemBackground
         signOutNoticeLabel.titleLabel.textAlignment = .center
         signOutNoticeLabel.subTitleLabel.textAlignment = .center
+        
         signOutNoticeLabel.subTitleLabel.numberOfLines = 0
+        signOutNoticeLabel.subTitleLabel.lineBreakMode = .byTruncatingTail
+        signOutNoticeLabel.subTitleLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setUpLayout() {
