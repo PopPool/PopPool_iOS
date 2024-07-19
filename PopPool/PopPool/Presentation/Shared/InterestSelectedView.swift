@@ -104,8 +104,9 @@ extension InterestSelectedView: UICollectionViewDelegate, UICollectionViewDataSo
     /// 셀이 선택 해제되었을 때의 동작 정의
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         var selectedListValue = selectedList.value
-        let targetIndex = selectedListValue.firstIndex(of: indexPath)!
-        selectedListValue.remove(at: targetIndex)
-        selectedList.accept(selectedListValue)
+        if let targetIndex = selectedListValue.firstIndex(of: indexPath) {
+            selectedListValue.remove(at: targetIndex)
+            selectedList.accept(selectedListValue)
+        }
     }
 }
