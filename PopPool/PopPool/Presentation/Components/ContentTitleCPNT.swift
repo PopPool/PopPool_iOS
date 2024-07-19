@@ -75,7 +75,7 @@ final class ContentTitleCPNT: UIStackView {
         return label
     }()
     
-    private let subTitleLabel: UILabel = {
+    let subTitleLabel: UILabel = {
         let label = UILabel()
         return label
     }()
