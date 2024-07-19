@@ -14,8 +14,8 @@ final class SignOutNoticeSheet: ModalViewController {
     
     // MARK: - Components
     
-    private let titleHeader: ContentTitleCPNT
     let confirmButton: ButtonCPNT
+    private let titleHeader: ContentTitleCPNT
     private let skipButton: ButtonCPNT
     private let noticeLabel: InfoBoxViewCPNT
     private let headerSpaceView = UIView()
@@ -55,6 +55,9 @@ final class SignOutNoticeSheet: ModalViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension SignOutNoticeSheet {
     
     // MARK: - LifeCycle
     
@@ -63,10 +66,13 @@ final class SignOutNoticeSheet: ModalViewController {
         setUp()
         bind()
     }
+}
+
+private extension SignOutNoticeSheet {
     
     // MARK: - Methods
     
-    private func setUp() {
+    func setUp() {
         stackView.addArrangedSubview(titleHeader)
         stackView.addArrangedSubview(headerSpaceView)
         stackView.addArrangedSubview(noticeLabel)
@@ -92,7 +98,7 @@ final class SignOutNoticeSheet: ModalViewController {
         setContent(content: stackView)
     }
     
-    private func bind() {
+    func bind() {
         skipButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -103,9 +109,9 @@ final class SignOutNoticeSheet: ModalViewController {
         
         confirmButton.rx.tap
             .withUnretained(self)     
-            .subscribe(onNext: { (owner, _) in
+            .subscribe{ (owner, _) in
                 owner.dismissBottomSheet()
-            })
+            }
             .disposed(by: disposeBag)
     }
 }

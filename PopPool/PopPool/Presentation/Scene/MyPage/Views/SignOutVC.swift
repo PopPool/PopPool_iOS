@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class SignOutVC: UIViewController {
+final class SignOutVC: UIViewController {
+    
+    // MARK: - Components
     
     private var headerView: HeaderViewCPNT
     private let signOutView: SignOutSurveyView
@@ -18,7 +20,11 @@ class SignOutVC: UIViewController {
         return stack
     }()
     
+    // MARK: - Properties
+    
     private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
     
     init() {
         self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
@@ -29,6 +35,11 @@ class SignOutVC: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension SignOutVC {
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +47,19 @@ class SignOutVC: UIViewController {
         setUpLayout()
         bind()
     }
+}
+
+private extension SignOutVC {
     
-    private func setUp() {
+    // MARK: - Method
+    
+    func setUp() {
         view.backgroundColor = .systemBackground
         self.headerView.rightBarButton.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
     }
     
-    private func setUpLayout() {
+    func setUpLayout() {
         view.addSubview(headerView)
         view.addSubview(contentStackView)
         contentStackView.addArrangedSubview(signOutView)
@@ -60,7 +76,7 @@ class SignOutVC: UIViewController {
         }
     }
     
-    private func bind() {
+    func bind() {
         headerView.leftBarButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
