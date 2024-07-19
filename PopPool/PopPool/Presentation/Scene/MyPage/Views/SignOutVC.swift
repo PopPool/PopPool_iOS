@@ -79,6 +79,8 @@ class SignOutVC: UIViewController {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 print("다음 화면 이동")
+                let vc = SignOutCompleteVC()
+                owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
     }

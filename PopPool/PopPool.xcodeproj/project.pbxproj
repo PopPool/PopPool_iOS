@@ -131,6 +131,7 @@
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
+		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
 		BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AD2C0BE69700B079C5 /* Provider.swift */; };
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
@@ -279,6 +280,7 @@
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BDF3B2AD2C0BE69700B079C5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
 				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
+				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
 				BD332D6B2C48EB8A002D0FA9 /* SignOutSurveyVM.swift */,
 			);
 			path = Views;
@@ -1176,6 +1179,7 @@
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */,
+				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */,
 				08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
