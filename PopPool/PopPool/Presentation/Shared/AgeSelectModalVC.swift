@@ -1,5 +1,5 @@
 //
-//  SignUpSelectAgeModalVC.swift
+//  AgeSelectModalVC.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 7/3/24.
@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class SignUpSelectAgeModalVC: ModalViewController {
+final class AgeSelectModalVC: ModalViewController {
     
     // MARK: - Components
     private let contentsStackView: UIStackView = {
@@ -62,7 +62,7 @@ final class SignUpSelectAgeModalVC: ModalViewController {
 }
 
 // MARK: - LifeCycle
-extension SignUpSelectAgeModalVC {
+extension AgeSelectModalVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraints()
@@ -70,7 +70,7 @@ extension SignUpSelectAgeModalVC {
 }
 
 // MARK: - SetUp
-private extension SignUpSelectAgeModalVC {
+private extension AgeSelectModalVC {
     
     func setUpConstraints() {
         

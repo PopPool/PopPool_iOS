@@ -284,7 +284,7 @@ private extension SignUpVC {
             .subscribe { (owner, vcData) in
                 let range = vcData.0
                 let age = vcData.1
-                let vc = SignUpSelectAgeModalVC(ageRange: range ,selectIndex: age)
+                let vc = AgeSelectModalVC(ageRange: range ,selectIndex: age)
                 vc.selectIndexRelayObserver
                     .subscribe(onNext: { index in
                         owner.step4_ContentView.ageButton.setAge(age: index + range.lowerBound)
