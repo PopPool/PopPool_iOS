@@ -24,8 +24,8 @@ class SignOutSurveyView: UIStackView {
     private let buttonTopView = UIView()
     private let bottomSpaceView = UIView()
     
-    private lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0.title) }
-//    private let surveyTextField: DynamicTextViewCPNT
+    lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0.title) }
+    private let surveyTextField: DynamicTextViewCPNT
     private let surveyStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -44,6 +44,8 @@ class SignOutSurveyView: UIStackView {
     }()
     let skipButton: ButtonCPNT
     let confirmButton: ButtonCPNT
+    var isTapped: Bool = false
+    let disposeBag = DisposeBag()
     
     // MARK: - Properties
     
@@ -62,14 +64,26 @@ class SignOutSurveyView: UIStackView {
                                         subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
         self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
         self.skipButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
-//        self.surveyTextField = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
+        self.surveyTextField = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
         super.init(frame: .zero)
         setUp()
         setUpLayout()
+        bind()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bind() {
+        guard let lastView = surveyView.last else { return }
+        
+        lastView.isCheck
+            .withUnretained(self)
+            .subscribe { (owner, isChecked) in
+                owner.surveyTextField.isHidden = !isChecked
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setUp() {
@@ -77,14 +91,14 @@ class SignOutSurveyView: UIStackView {
         self.title.subTitleLabel.numberOfLines = 0
         self.title.subTitleLabel.lineBreakMode = .byTruncatingTail
         self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
-//        self.surveyTextField.isHidden = true
+        self.surveyTextField.isHidden = true
     }
     
     private func setUpLayout() {
         self.addArrangedSubview(title)
         self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(surveyStack)
-//        self.addArrangedSubview(surveyTextField)
+        self.addArrangedSubview(surveyTextField)
         self.addArrangedSubview(buttonTopView)
         self.addArrangedSubview(buttonStack)
         self.addArrangedSubview(bottomSpaceView)
@@ -110,10 +124,12 @@ class SignOutSurveyView: UIStackView {
             make.leading.trailing.equalToSuperview()
         }
         
-//        surveyTextField.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview().inset(20)
-//            make.height.equalTo(88)
-//        }
+        surveyTextField.snp.makeConstraints { make in
+            make.top.equalTo(surveyStack.snp.bottom)
+            make.leading.equalToSuperview().inset(26)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
         
         buttonTopView.snp.makeConstraints { make in
             make.height.greaterThanOrEqualToSuperview().priority(.low)
