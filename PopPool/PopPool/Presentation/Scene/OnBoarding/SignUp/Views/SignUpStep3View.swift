@@ -89,11 +89,9 @@ extension SignUpStep3View {
     
     /// 선택된 리스트를 가져오는 메서드
     /// - Returns: 선택된 카테고리 리스트를 반환하는 옵저버블
-    func fetchSelectedList() -> Observable<[String]> {
+    func fetchSelectedList() -> Observable<[Int]> {
         return categoryCollectionView.selectedList.map { indexPathList in
-            return indexPathList.compactMap { indexPath in
-                return self.categoryCollectionView.categoryList.value[indexPath.row]
-            }
+            return indexPathList.map({ $0.row })
         }
     }
     

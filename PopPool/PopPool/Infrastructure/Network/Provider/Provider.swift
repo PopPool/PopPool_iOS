@@ -98,18 +98,13 @@ class ProviderImpl: Provider {
                 let urlRequest = try request.getUrlRequest()
                 AF.request(urlRequest, interceptor: interceptor)
                     .validate()
-                    .responseData { response in
+                    .response { response in
                         switch response.result {
                         case .success(let data):
-                            if response.response?.statusCode == 200 {
-                                observer(.completed)
-                            } else {
-                                if let statusCode = response.response?.statusCode {
-                                    observer(.error(NetworkError.invalidHttpStatusCode(statusCode)))
-                                }
-                            }
+                            observer(.completed)
                         case .failure(let error):
                             observer(.error(error))
+                            print(error.localizedDescription)
                         }
                     }
             } catch {

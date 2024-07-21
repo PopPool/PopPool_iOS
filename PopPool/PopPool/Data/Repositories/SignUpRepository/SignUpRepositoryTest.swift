@@ -40,7 +40,7 @@ final class SignUpRepositoryTest: SignUpRepository {
         age: Int32,
         socialEmail: String?,
         socialType: String,
-        interests: [String]
+        interests: [Int]
     ) -> Completable {
         return Completable.create { observer in
             observer(.completed)

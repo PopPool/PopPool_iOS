@@ -16,7 +16,7 @@ struct PopPoolAPIEndPoint {
     /// - Returns: 로그인 응답 DTO를 반환하는 Endpoint
     static func tryLogin(with userCredential: Encodable, path: String) -> Endpoint<LoginResponseDTO> {
         return Endpoint(
-            baseURL: "http://localhost:8080",
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/auth/\(path)",
             method: .post,
             bodyParameters: userCredential
@@ -25,7 +25,7 @@ struct PopPoolAPIEndPoint {
     
     static func checkNickName(with request: CheckNickNameRequestDTO) -> Endpoint<Bool> {
         return Endpoint(
-            baseURL: "http://localhost:8080",
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/signup/check-nickname",
             method: .get,
             queryParameters: request
@@ -34,7 +34,7 @@ struct PopPoolAPIEndPoint {
     
     static func fetchInterestList() -> Endpoint<InterestListResponseDTO> {
         return Endpoint(
-            baseURL: "http://localhost:8080",
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/signup/interests",
             method: .get
         )
@@ -42,7 +42,7 @@ struct PopPoolAPIEndPoint {
     
     static func trySignUp(with request: SignUpRequestDTO) -> RequestEndpoint {
         return RequestEndpoint(
-            baseURL: "http://localhost:8080",
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/signup",
             method: .post,
             bodyParameters: request

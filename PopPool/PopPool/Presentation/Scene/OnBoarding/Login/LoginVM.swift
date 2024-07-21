@@ -114,7 +114,12 @@ final class LoginVM: ViewModelable {
 
                         // 등록된 유저인지를 분기하여 이벤트 전달
                         if loginResponse.registeredUser {
-                            moveToHomeVCSubject.onNext(loginResponse)
+                            let vm = SignUpVM()
+                            vm.signUpData.socialType = response.socialType
+                            vm.signUpData.socialEmail = response.userEmail
+                            vm.signUpData.userId = loginResponse.userId
+                            moveToSignUpVCSubject.onNext(vm)
+//                            moveToHomeVCSubject.onNext(loginResponse)
                         } else {
                             let vm = SignUpVM()
                             vm.signUpData.socialType = response.socialType

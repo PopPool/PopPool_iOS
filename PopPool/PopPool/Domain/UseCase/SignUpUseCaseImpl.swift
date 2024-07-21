@@ -21,7 +21,7 @@ final class SignUpUseCaseImpl: SignUpUseCase {
         age: Int32,
         socialEmail: String?,
         socialType: String,
-        interests: [String]
+        interests: [Int]
     ) -> Completable {
         return repository.trySignUp(
             userId: userId,
