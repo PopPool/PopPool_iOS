@@ -298,6 +298,16 @@ private extension SignUpVC {
                 owner.presentModalViewController(viewController: vc)
             }
             .disposed(by: disposeBag)
+        
+        output.step4_moveToSignUpCompleteVC
+            .withUnretained(self)
+            .subscribe { (owner, source) in
+                let nickName = source.0
+                let list = source.1
+                let vc = SignUpCompletedVC(nickname: nickName, tags: list)
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 // MARK: - Methods

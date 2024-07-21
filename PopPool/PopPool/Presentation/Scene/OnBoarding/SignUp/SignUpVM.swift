@@ -17,7 +17,7 @@ final class SignUpVM: ViewModelable {
         var nickName: String
         var gender: String
         var age: Int32
-        var socialEmail: String
+        var socialEmail: String?
         var socialType: String
         var interests: [String]
     }
@@ -100,6 +100,8 @@ final class SignUpVM: ViewModelable {
         // MARK: - Step 4 OutPut
         /// Step 4의 나이선택 모달로 이동
         var step4_moveToAgeSelectVC: PublishSubject<(ClosedRange<Int>, Int)>
+        /// 회원가입 완료 VC로 이동
+        var step4_moveToSignUpCompleteVC: PublishSubject<(String, [String])> = .init()
     }
     
     // MARK: - Properties
@@ -135,8 +137,7 @@ final class SignUpVM: ViewModelable {
     
     // MARK: - init
     init() {
-//        self.signUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
-        self.signUpUseCase = SignUpUseCaseImpl(repository: SignUpRepositoryTest())
+        self.signUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
     }
     
     // MARK: - transform
@@ -155,6 +156,7 @@ final class SignUpVM: ViewModelable {
         let fetchCategoryList: BehaviorRelay<[String]> = .init(value: [])
         
         let step4_moveToAgeSelectVC: PublishSubject<(ClosedRange<Int>, Int)> = .init()
+        let step4_moveToSignUpCompleteVC: PublishSubject<(String, [String])> = .init()
         
         // MARK: - Common transform
         // tap_header_cancelButton 이벤트 처리
@@ -312,7 +314,23 @@ final class SignUpVM: ViewModelable {
         input.tap_step4_primaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
-                print(owner.signUpData)
+                owner.signUpUseCase.trySignUp(
+                    userId: owner.signUpData.userId,
+                    nickName: owner.signUpData.nickName,
+                    gender: owner.signUpData.gender,
+                    age: owner.signUpData.age,
+                    socialEmail: owner.signUpData.socialEmail,
+                    socialType: owner.signUpData.socialType,
+                    interests: owner.signUpData.interests
+                )
+                .subscribe {
+                    step4_moveToSignUpCompleteVC.onNext((owner.signUpData.nickName, owner.signUpData.interests))
+                } onError: { error in
+                    ToastMSGManager.createToast(message: "SignUpError")
+                    print(error)
+                }
+                .disposed(by: owner.disposeBag)
+
             }
             .disposed(by: disposeBag)
         
@@ -327,7 +345,8 @@ final class SignUpVM: ViewModelable {
             step2_fetchUserNickname: userNickName,
             step3_fetchCategoryList: fetchCategoryList,
             step3_primaryButton_isEnabled: step3_primaryButton_isEnabled,
-            step4_moveToAgeSelectVC: step4_moveToAgeSelectVC
+            step4_moveToAgeSelectVC: step4_moveToAgeSelectVC,
+            step4_moveToSignUpCompleteVC: step4_moveToSignUpCompleteVC
         )
     }
 }

@@ -66,7 +66,8 @@ class ProviderImpl: Provider {
         return Observable.create { observer in
             
             do {
-                let urlRequest = try endpoint.getUrlRequest()
+                var urlRequest = try endpoint.getUrlRequest()
+                urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 AF.request(urlRequest)
                     .validate()
                     .responseData { response in
@@ -100,7 +101,13 @@ class ProviderImpl: Provider {
                     .responseData { response in
                         switch response.result {
                         case .success(let data):
-                            observer(.completed)
+                            if response.response?.statusCode == 200 {
+                                observer(.completed)
+                            } else {
+                                if let statusCode = response.response?.statusCode {
+                                    observer(.error(NetworkError.invalidHttpStatusCode(statusCode)))
+                                }
+                            }
                         case .failure(let error):
                             observer(.error(error))
                         }

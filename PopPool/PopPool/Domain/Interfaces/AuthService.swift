@@ -19,5 +19,5 @@ protocol AuthService: AnyObject {
 struct AuthServiceResponse {
     var credential: Encodable
     var socialType: String
-    var userEmail: String
+    var userEmail: String?
 }
