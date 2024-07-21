@@ -12,6 +12,7 @@ struct SignUpRequestDTO: Encodable {
     var nickName: String
     var gender: String
     var age: Int32
+    var socialEmail: String
     var socialType: String
     var interests: [String]
 }

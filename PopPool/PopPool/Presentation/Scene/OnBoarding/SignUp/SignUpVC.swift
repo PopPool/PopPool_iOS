@@ -179,9 +179,13 @@ private extension SignUpVC {
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
             tap_step3_secondaryButton: step3_secondaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
-            event_step4_didSelectGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
+            event_step4_didSelectGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex.map({ [weak self] index in
+                guard let self = self else { return "" }
+                return self.step4_ContentView.genderList[index]
+            }),
             tap_step4_ageButton: step4_ContentView.ageButton.rx.tap,
             tap_step4_secondaryButton: step4_secondaryButton.rx.tap,
+            tap_step4_primaryButton: step4_primaryButton.rx.tap,
             event_step4_didSelectAge: ageRelayObserver
         )
         // MARK: - Output

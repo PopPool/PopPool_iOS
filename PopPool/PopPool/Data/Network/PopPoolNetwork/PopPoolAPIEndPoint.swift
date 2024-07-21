@@ -39,4 +39,13 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
+    
+    static func trySignUp(with request: SignUpRequestDTO) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: "http://localhost:8080",
+            path: "/signup",
+            method: .post,
+            bodyParameters: request
+        )
+    }
 }

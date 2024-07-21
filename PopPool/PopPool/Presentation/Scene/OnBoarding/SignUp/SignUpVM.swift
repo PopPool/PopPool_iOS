@@ -11,6 +11,17 @@ import RxCocoa
 
 final class SignUpVM: ViewModelable {
     
+    // MARK: - SignUpRequest
+    struct SignUpRequest {
+        var userId: String
+        var nickName: String
+        var gender: String
+        var age: Int32
+        var socialEmail: String
+        var socialType: String
+        var interests: [String]
+    }
+    
     /// 입력 이벤트
     struct Input {
         // MARK: - HeaderInput
@@ -40,16 +51,18 @@ final class SignUpVM: ViewModelable {
         var tap_step3_primaryButton: ControlEvent<Void>
         /// Sign Up Step3 secondary button  탭 이벤트
         var tap_step3_secondaryButton: ControlEvent<Void>
-        
-        // MARK: - Step 4 Input
         /// 관심사 변경을 전달하는 Subject
         var event_step3_didChangeInterestList: Observable<[String]>
+        
+        // MARK: - Step 4 Input
         /// step 4 gender segmentedControl 이벤트
-        var event_step4_didSelectGender: ControlProperty<Int>
+        var event_step4_didSelectGender: Observable<String>
         /// step 4 나이 설정 버튼 탭 이벤트
         var tap_step4_ageButton: ControlEvent<Void>
         /// Sign Up Step4 secondary button  탭 이벤트
         var tap_step4_secondaryButton: ControlEvent<Void>
+        /// Sign Up Step4 primary button  탭 이벤트
+        var tap_step4_primaryButton: ControlEvent<Void>
         /// Sign Up Step4 나이 선택 후 확인 이벤트
         var event_step4_didSelectAge: PublishSubject<Int>
     }
@@ -106,13 +119,24 @@ final class SignUpVM: ViewModelable {
     private let ageRange = (14...100)
     /// 유저 나이
     private var selectAgeIndex: Int = 16
+    // 유저 데이터
+    var signUpData: SignUpRequest = .init(
+        userId: "",
+        nickName: "",
+        gender: "",
+        age: 30,
+        socialEmail: "",
+        socialType: "",
+        interests: []
+    )
     
     // MARK: - UseCase
     private let signUpUseCase: SignUpUseCase
     
     // MARK: - init
     init() {
-        self.signUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
+//        self.signUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
+        self.signUpUseCase = SignUpUseCaseImpl(repository: SignUpRepositoryTest())
     }
     
     // MARK: - transform
@@ -131,7 +155,7 @@ final class SignUpVM: ViewModelable {
         let fetchCategoryList: BehaviorRelay<[String]> = .init(value: [])
         
         let step4_moveToAgeSelectVC: PublishSubject<(ClosedRange<Int>, Int)> = .init()
-
+        
         // MARK: - Common transform
         // tap_header_cancelButton 이벤트 처리
         input.tap_header_cancelButton
@@ -221,6 +245,7 @@ final class SignUpVM: ViewModelable {
                 switch state {
                 case .valid(let nickName):
                     owner.userNickName.accept(nickName)
+                    owner.signUpData.nickName = nickName
                     step2_primaryButton_isEnabled.onNext(true)
                 default:
                     step2_primaryButton_isEnabled.onNext(false)
@@ -231,13 +256,15 @@ final class SignUpVM: ViewModelable {
         // MARK: - Step 3 transform
         // 관심사 리스트 변경 이벤트 처리
         input.event_step3_didChangeInterestList
-            .subscribe { list in
+            .withUnretained(self)
+            .subscribe { (owner, list) in
+                owner.signUpData.interests = list
                 step3_primaryButton_isEnabled.onNext(list.count > 0 ? true : false)
             } onError: { error in
                 print("관심사 선택 중 알 수 없는 오류가 발생하였습니다.")
             }
             .disposed(by: disposeBag)
-
+        
         // Step 3 primary button 탭 이벤트 처리
         input.tap_step3_primaryButton
             .withUnretained(self)
@@ -257,8 +284,9 @@ final class SignUpVM: ViewModelable {
         // MARK: - Step 4 transform
         // Step 4 성별 segmented Control 이벤트 처리
         input.event_step4_didSelectGender
-            .subscribe { selectedIndex in
-//                print(selectedIndex)
+            .withUnretained(self)
+            .subscribe { (owner, gender) in
+                owner.signUpData.gender = gender
             }
             .disposed(by: disposeBag)
         
@@ -275,6 +303,16 @@ final class SignUpVM: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, index) in
                 owner.selectAgeIndex = index
+                let ageRange = owner.ageRange.map{ Int($0) }
+                owner.signUpData.age = Int32(ageRange[index])
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 4 primary button 탭 이벤트 처리
+        input.tap_step4_primaryButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print(owner.signUpData)
             }
             .disposed(by: disposeBag)
         

@@ -23,4 +23,25 @@ final class SignUpRepositoryImpl: SignUpRepository {
             return responseDTO.interestResponseList.map({ $0.toDomain() })
         }
     }
+    
+    func trySignUp(
+        userId: String,
+        nickName: String,
+        gender: String,
+        age: Int32,
+        socialEmail: String,
+        socialType: String,
+        interests: [String]
+    ) -> Completable {
+        let endPoint = PopPoolAPIEndPoint.trySignUp(with: .init(
+            userId: userId,
+            nickName: nickName,
+            gender: gender,
+            age: age,
+            socialEmail: socialEmail,
+            socialType: socialType,
+            interests: interests)
+        )
+        return provider.request(with: endPoint, interceptor: TokenInterceptor())
+    }
 }

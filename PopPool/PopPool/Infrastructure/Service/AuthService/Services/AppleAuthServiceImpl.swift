@@ -12,19 +12,18 @@ import AuthenticationServices
 
 final class AppleAuthServiceImpl: NSObject, AuthService  {
     
-    struct Response: Encodable {
-        var authorizationCode: String
+    struct Credential: Encodable {
         var idToken: String
     }
     
     // 사용자 자격 증명 정보를 방출할 subject
-    private var userCredentialObserver = PublishSubject<Response>()
+    private var userCredentialObserver = PublishSubject<Credential>()
     
-    func fetchUserCredential() -> Observable<Encodable> {
+    private var authServiceResponse: PublishSubject<AuthServiceResponse> = .init()
+    
+    func fetchUserCredential() -> Observable<AuthServiceResponse> {
         performRequest()
-        return userCredentialObserver.map { response in
-            return Response(authorizationCode: response.authorizationCode, idToken: response.idToken)
-        }
+        return authServiceResponse
     }
     
     // Apple 인증 요청을 수행하는 함수
@@ -57,7 +56,8 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
             guard let authorizationCode = appleIDCredential.authorizationCode,
-                  let idToken = appleIDCredential.identityToken 
+                  let idToken = appleIDCredential.identityToken,
+                  let email = appleIDCredential.email
             else {
                 // 토큰이 없는 경우 오류 방출
                 userCredentialObserver.onError(AuthError.unknownError)
@@ -72,8 +72,8 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
                 return
             }
             // 성공적으로 사용자 자격 증명을 방출
-            userCredentialObserver.onNext(.init(authorizationCode: authorizationCode, idToken: idToken))
-            userCredentialObserver.onCompleted()
+            let credential: Credential = .init(idToken: idToken)
+            authServiceResponse.onNext(.init(credential: credential, socialType: "APPLE", userEmail: email))
         default:
             break
         }

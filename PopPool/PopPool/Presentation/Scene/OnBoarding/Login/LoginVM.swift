@@ -26,7 +26,7 @@ final class LoginVM: ViewModelable {
     /// LoginVC으로 출력 이벤트
     struct Output {
         let moveToInquryVC: ControlEvent<Void>
-        let moveToSignUpVC: PublishSubject<String>
+        let moveToSignUpVC: PublishSubject<SignUpVM>
     }
     
     private var fetchSocialUserCredencialUseCase: FetchSocialCredentialUseCase!
@@ -44,8 +44,8 @@ final class LoginVM: ViewModelable {
     /// - Returns: LoginVC에 발생할 출력 구조체
     func transform(input: Input) -> Output {
         let fetchSocialUserCredencialSubject: PublishSubject<String> = .init()
-        let tryLoginSubject: PublishSubject<(Encodable, String)> = .init()
-        let moveToSignUpVCSubject: PublishSubject<String> = .init()
+        let tryLoginSubject: PublishSubject<AuthServiceResponse> = .init()
+        let moveToSignUpVCSubject: PublishSubject<SignUpVM> = .init()
         let moveToHomeVCSubject: PublishSubject<LoginResponse> = .init()
         
         // 카카오 로그인 버튼 입력
@@ -77,7 +77,7 @@ final class LoginVM: ViewModelable {
                 owner.fetchSocialUserCredencialUseCase
                     .execute()
                     .subscribe(onNext: { response in
-                        tryLoginSubject.onNext((response, socialType))
+                        tryLoginSubject.onNext(response)
                     },onError: { error in
                         // 소셜 인증 error handle
                         ToastMSGManager.createToast(message: "SocialLogin Error")
@@ -90,11 +90,9 @@ final class LoginVM: ViewModelable {
         // 로그인 시도 이벤트
         tryLoginSubject
             .withUnretained(self)
-            .subscribe { (owner, source) in
-                let credencial = source.0
-                let type = source.1
+            .subscribe { (owner, response) in
                 owner.tryLoginUseCase
-                    .execute(userCredential: credencial, socialType: type)
+                    .execute(userCredential: response.credential, socialType: response.socialType.lowercased())
                     .subscribe { loginResponse in
                         // accessToken 저장
                         owner.keyChainUseCase.saveToken(type: .accessToken, value: loginResponse.accessToken)
@@ -118,7 +116,11 @@ final class LoginVM: ViewModelable {
                         if loginResponse.registeredUser {
                             moveToHomeVCSubject.onNext(loginResponse)
                         } else {
-                            moveToSignUpVCSubject.onNext(loginResponse.socialType)
+                            let vm = SignUpVM()
+                            vm.signUpData.socialType = response.socialType
+                            vm.signUpData.socialEmail = response.userEmail
+                            vm.signUpData.userId = loginResponse.userId
+                            moveToSignUpVCSubject.onNext(vm)
                         }
                     } onError: { error in
                         // 로그인 error handle
