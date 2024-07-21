@@ -42,6 +42,6 @@ final class SignUpRepositoryImpl: SignUpRepository {
             socialType: socialType,
             interests: interests)
         )
-        return provider.request(with: endPoint, interceptor: TokenInterceptor())
+        return provider.request(with: endPoint, interceptor: RequestTokenInterceptor())
     }
 }

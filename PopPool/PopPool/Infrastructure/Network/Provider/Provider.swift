@@ -100,11 +100,17 @@ class ProviderImpl: Provider {
                     .validate()
                     .response { response in
                         switch response.result {
-                        case .success(let data):
+                        case .success:
                             observer(.completed)
                         case .failure(let error):
-                            observer(.error(error))
-                            print(error.localizedDescription)
+                            if let data = response.data {
+                                if let errorMessage = String(data: data, encoding: .utf8) {
+                                    print(errorMessage)
+                                    observer(.error(NetworkError.serverError(errorMessage)))
+                                }
+                            } else {
+                                observer(.error(error))
+                            }
                         }
                     }
             } catch {
