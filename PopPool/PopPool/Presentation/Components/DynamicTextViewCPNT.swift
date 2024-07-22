@@ -128,6 +128,14 @@ final class DynamicTextViewCPNT: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func activate() {
+        self.textView.becomeFirstResponder()
+    }
+    
+    func deactivate() {
+        self.textView.resignFirstResponder()
+    }
 }
 
 // MARK: - SetUp

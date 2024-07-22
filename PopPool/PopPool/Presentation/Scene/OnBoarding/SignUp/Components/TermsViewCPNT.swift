@@ -23,7 +23,7 @@ final class TermsViewCPNT: UIStackView {
         label.font = .KorFont(style: .regular, size: 14)
         return label
     }()
-    private let iconImageView: UIImageView = {
+    let iconImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "line_signUp")
         return view

@@ -25,15 +25,21 @@ class SignOutSurveyView: UIStackView {
     private let bottomSpaceView = UIView()
     
     lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0.title) }
-    private let surveyTextField: DynamicTextViewCPNT
     private let surveyStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.layoutMargins = UIEdgeInsets(top: 13, left: 0, bottom: 12, right: 0)
-        stack.isLayoutMarginsRelativeArrangement = true
+        stack.distribution = .fill
         return stack
     }()
     
+    private let surveyTextView: DynamicTextViewCPNT
+    private let textViewContainer: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let skipButton: ButtonCPNT
+    let confirmButton: ButtonCPNT
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(skipButton)
@@ -42,12 +48,11 @@ class SignOutSurveyView: UIStackView {
         stack.distribution = .fillEqually
         return stack
     }()
-    let skipButton: ButtonCPNT
-    let confirmButton: ButtonCPNT
-    var isTapped: Bool = false
-    let disposeBag = DisposeBag()
     
     // MARK: - Properties
+    
+    let disposeBag = DisposeBag()
+    let tappedValues: PublishSubject<[Int]> = .init()
     
     private let survey: [SurveyList] = [
         SurveyList(title: "원하는 팝업에 대한 정보가 없어요"),
@@ -64,7 +69,7 @@ class SignOutSurveyView: UIStackView {
                                         subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
         self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
         self.skipButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
-        self.surveyTextField = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
+        self.surveyTextView = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
         super.init(frame: .zero)
         setUp()
         setUpLayout()
@@ -77,13 +82,17 @@ class SignOutSurveyView: UIStackView {
     
     private func bind() {
         guard let lastView = surveyView.last else { return }
-        
         lastView.isCheck
             .withUnretained(self)
             .subscribe { (owner, isChecked) in
-                owner.surveyTextField.isHidden = !isChecked
+                owner.surveyTextView.isHidden = !isChecked
+                isChecked ? owner.surveyTextView.activate() : owner.surveyTextView.deactivate()
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func setButtonToHidden(_ view: TermsViewCPNT) {
+        view.iconImageView.isHidden = true
     }
     
     private func setUp() {
@@ -91,21 +100,19 @@ class SignOutSurveyView: UIStackView {
         self.title.subTitleLabel.numberOfLines = 0
         self.title.subTitleLabel.lineBreakMode = .byTruncatingTail
         self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
-        self.surveyTextField.isHidden = true
     }
     
     private func setUpLayout() {
         self.addArrangedSubview(title)
         self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(surveyStack)
-        self.addArrangedSubview(surveyTextField)
+        self.addArrangedSubview(textViewContainer)
         self.addArrangedSubview(buttonTopView)
         self.addArrangedSubview(buttonStack)
         self.addArrangedSubview(bottomSpaceView)
         
         title.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(182)
         }
         
         topSpaceView.snp.makeConstraints { make in
@@ -114,6 +121,7 @@ class SignOutSurveyView: UIStackView {
         
         surveyView.forEach { list in
             surveyStack.addArrangedSubview(list)
+            self.setButtonToHidden(list)
             list.snp.makeConstraints { make in
                 make.height.equalTo(49)
             }
@@ -124,11 +132,14 @@ class SignOutSurveyView: UIStackView {
             make.leading.trailing.equalToSuperview()
         }
         
-        surveyTextField.snp.makeConstraints { make in
-            make.top.equalTo(surveyStack.snp.bottom)
+        textViewContainer.addSubview(surveyTextView)
+        textViewContainer.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(80)
+        }
+        
+        surveyTextView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(26)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(50)
+            make.top.bottom.trailing.equalToSuperview()
         }
         
         buttonTopView.snp.makeConstraints { make in
