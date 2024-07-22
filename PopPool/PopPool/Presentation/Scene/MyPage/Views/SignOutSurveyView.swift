@@ -73,10 +73,21 @@ class SignOutSurveyView: UIStackView {
         super.init(frame: .zero)
         setUp()
         setUpLayout()
+        bind()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bind() {
+        Observable.from(surveyView)
+            .withUnretained(self)
+            .enumerated()
+            .subscribe { (owner, index) in
+                print("어떤 값?:", index)
+            }
+            .disposed(by: disposeBag)
     }
     
     func makeTextViewActive(_ isChecked: Bool) {
