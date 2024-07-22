@@ -23,12 +23,20 @@ final class SignOutVC: UIViewController {
     // MARK: - Properties
     
     private let disposeBag = DisposeBag()
+    private let survey: [String] = [
+        "원하는 팝업에 대한 정보가 없어요",
+        "팝업 정보가 적어요",
+        "이용빈도가 낮아요",
+        "다시 가입하고 싶어요",
+        "앱에 오류가 많이 생겨요",
+        "기타"
+    ]
     
     // MARK: - Initializer
     
     init() {
         self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
-        self.signOutView = SignOutSurveyView()
+        self.signOutView = SignOutSurveyView(surveyDetails: survey)
         super.init(nibName: nil, bundle: nil)
     }
     

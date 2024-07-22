@@ -48,26 +48,19 @@ final class SignOutSurveyView: UIStackView {
     // MARK: - Properties
     
     let disposeBag = DisposeBag()
+    private var survey: [String] = []
     let tappedValues: PublishSubject<[Int]> = .init()
-    
-    private let survey: [String] = [
-        "원하는 팝업에 대한 정보가 없어요",
-        "팝업 정보가 적어요",
-        "이용빈도가 낮아요",
-        "다시 가입하고 싶어요",
-        "앱에 오류가 많이 생겨요",
-        "기타"
-    ]
     
     // MARK: - Initializer
     
-    init() {
+    init(surveyDetails: [String]) {
         self.title = ContentTitleCPNT(title: "탈퇴하려는 이유가\n무엇인가요?",
                                       type: .title_sub_fp(
                                         subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
         self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
         self.skipButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
         self.surveyTextView = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
+        self.survey = surveyDetails
         super.init(frame: .zero)
         setUp()
         setUpConstraints()
@@ -96,7 +89,7 @@ private extension SignOutSurveyView {
             .withUnretained(self)
             .enumerated()
             .subscribe { (owner, index) in
-                print("어떤 값?:", index)
+                
             }
             .disposed(by: disposeBag)
     }    
