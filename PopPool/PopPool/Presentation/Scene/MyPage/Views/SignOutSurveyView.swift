@@ -59,6 +59,8 @@ final class SignOutSurveyView: UIStackView {
         "기타"
     ]
     
+    // MARK: - Initializer
+    
     init() {
         self.title = ContentTitleCPNT(title: "탈퇴하려는 이유가\n무엇인가요?",
                                       type: .title_sub_fp(
@@ -76,7 +78,20 @@ final class SignOutSurveyView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func bind() {
+    // MARK: - Public Method
+    
+    /// 텍스트뷰의 visibility를 설정합니다
+    /// - Parameter isChecked: check 버튼의 눌림 여부를 파악합니다
+    func makeTextViewActive(_ isChecked: Bool) {
+        self.surveyTextView.isHidden = !isChecked
+        isChecked ? self.surveyTextView.activate() : self.surveyTextView.deactivate()
+    }
+}
+
+    // MARK: - Private Methods
+
+private extension SignOutSurveyView {
+    func bind() {
         Observable.from(surveyView)
             .withUnretained(self)
             .enumerated()
@@ -84,25 +99,22 @@ final class SignOutSurveyView: UIStackView {
                 print("어떤 값?:", index)
             }
             .disposed(by: disposeBag)
-    }
+    }    
     
-    func makeTextViewActive(_ isChecked: Bool) {
-        self.surveyTextView.isHidden = !isChecked
-        isChecked ? self.surveyTextView.activate() : self.surveyTextView.deactivate()
-    }
-    
-    private func setButtonsAsHidden(_ view: TermsViewCPNT) {
+    /// 서베이 화면에 활용된 TermsViewCPNT의 아이콘을 숨김처리합니다
+    /// - Parameter view: TermsViewCPNT를 받습니다
+    func setIconsAsHidden(_ view: TermsViewCPNT) {
         view.iconImageView.isHidden = true
     }
     
-    private func setUp() {
+    func setUp() {
         self.axis = .vertical
         self.title.subTitleLabel.numberOfLines = 0
         self.title.subTitleLabel.lineBreakMode = .byTruncatingTail
         self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
     }
     
-    private func setUpConstraints() {
+    func setUpConstraints() {
         self.addArrangedSubview(title)
         self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(surveyStack)
@@ -121,7 +133,7 @@ final class SignOutSurveyView: UIStackView {
         
         surveyView.forEach { list in
             surveyStack.addArrangedSubview(list)
-            self.setButtonsAsHidden(list)
+            self.setIconsAsHidden(list)
             list.snp.makeConstraints { make in
                 make.height.equalTo(49)
             }

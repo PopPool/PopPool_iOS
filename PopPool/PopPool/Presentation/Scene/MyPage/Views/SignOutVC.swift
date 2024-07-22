@@ -100,6 +100,7 @@ private extension SignOutVC {
             }
             .disposed(by: disposeBag)
         
+        /// 마지막 뷰 탭 시, 숨겨진 textView가 보입니다.
         guard let lastView = signOutView.surveyView.last else { return }
         lastView.isCheck
             .withUnretained(self)

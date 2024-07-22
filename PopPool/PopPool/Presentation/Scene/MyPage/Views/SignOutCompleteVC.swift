@@ -11,6 +11,8 @@ import RxSwift
 
 final class SignOutCompleteVC: UIViewController {
     
+    // MARK: - Components
+    
     private var headerView: HeaderViewCPNT
     private let topSpaceView = UIView()
     private let signOutConfirmImage: UIImageView
@@ -29,7 +31,11 @@ final class SignOutCompleteVC: UIViewController {
         return stack
     }()
     
+    // MARK: - Properties
+    
     private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
     
     init() {
         self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
@@ -45,6 +51,7 @@ final class SignOutCompleteVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +59,12 @@ final class SignOutCompleteVC: UIViewController {
         setUpConstraints()
         bind()
     }
+}
+
+    // MARK: - Private Methods
     
-    private func bind() {
+extension SignOutCompleteVC {
+    func bind() {
         confirmButton.rx.tap
             .withUnretained(self)
             .subscribe{ (owner, _) in
@@ -62,7 +73,7 @@ final class SignOutCompleteVC: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setUp() {
+    func setUp() {
         headerView.isHidden = true
         view.backgroundColor = .systemBackground
         signOutNoticeLabel.titleLabel.textAlignment = .center
@@ -73,7 +84,7 @@ final class SignOutCompleteVC: UIViewController {
         signOutNoticeLabel.subTitleLabel.adjustsFontSizeToFitWidth = true
     }
     
-    private func setUpConstraints() {
+    func setUpConstraints() {
         view.addSubview(headerView)
         view.addSubview(stackView)
         view.addSubview(confirmButton)
