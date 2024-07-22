@@ -575,8 +575,8 @@
 				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
 				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
-				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
 				BD332D6B2C48EB8A002D0FA9 /* SignOutSurveyVM.swift */,
+				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -73,25 +73,18 @@ class SignOutSurveyView: UIStackView {
         super.init(frame: .zero)
         setUp()
         setUpLayout()
-        bind()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func bind() {
-        guard let lastView = surveyView.last else { return }
-        lastView.isCheck
-            .withUnretained(self)
-            .subscribe { (owner, isChecked) in
-                owner.surveyTextView.isHidden = !isChecked
-                isChecked ? owner.surveyTextView.activate() : owner.surveyTextView.deactivate()
-            }
-            .disposed(by: disposeBag)
+    func makeTextViewActive(_ isChecked: Bool) {
+        self.surveyTextView.isHidden = !isChecked
+        isChecked ? self.surveyTextView.activate() : self.surveyTextView.deactivate()
     }
     
-    private func setButtonToHidden(_ view: TermsViewCPNT) {
+    private func setButtonsAsHidden(_ view: TermsViewCPNT) {
         view.iconImageView.isHidden = true
     }
     
@@ -121,7 +114,7 @@ class SignOutSurveyView: UIStackView {
         
         surveyView.forEach { list in
             surveyStack.addArrangedSubview(list)
-            self.setButtonToHidden(list)
+            self.setButtonsAsHidden(list)
             list.snp.makeConstraints { make in
                 make.height.equalTo(49)
             }

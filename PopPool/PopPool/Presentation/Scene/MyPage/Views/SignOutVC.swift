@@ -99,5 +99,13 @@ private extension SignOutVC {
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        guard let lastView = signOutView.surveyView.last else { return }
+        lastView.isCheck
+            .withUnretained(self)
+            .subscribe { (owner, isChecked) in
+                owner.signOutView.makeTextViewActive(isChecked)
+            }
+            .disposed(by: disposeBag)
     }
 }
