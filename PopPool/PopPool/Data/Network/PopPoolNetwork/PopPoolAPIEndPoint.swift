@@ -9,12 +9,8 @@ import Foundation
 
 struct PopPoolAPIEndPoint {
     
-    /// 요청할 API 구조를 구성합니다
-    /// - Parameters:
-    ///   - userCredential: 사용자 자격 증명
-    ///   - path: API 경로
-    /// - Returns: 로그인 응답 DTO를 반환하는 Endpoint
-    static func tryLogin(with userCredential: Encodable, path: String) -> Endpoint<LoginResponseDTO> {
+    // MARK: - Auth API
+    static func auth_tryLogin(with userCredential: Encodable, path: String) -> Endpoint<LoginResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/auth/\(path)",
@@ -23,7 +19,8 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-    static func checkNickName(with request: CheckNickNameRequestDTO) -> Endpoint<Bool> {
+    // MARK: - SignUp API
+    static func signUp_checkNickName(with request: CheckNickNameRequestDTO) -> Endpoint<Bool> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/signup/check-nickname",
@@ -32,7 +29,7 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-    static func fetchInterestList() -> Endpoint<InterestListResponseDTO> {
+    static func signUp_fetchInterestList() -> Endpoint<InterestListResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/signup/interests",
@@ -40,7 +37,7 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-    static func trySignUp(with request: SignUpRequestDTO) -> RequestEndpoint {
+    static func signUp_trySignUp(with request: SignUpRequestDTO) -> RequestEndpoint {
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/signup",
@@ -48,4 +45,45 @@ struct PopPoolAPIEndPoint {
             bodyParameters: request
         )
     }
+    
+    // MARK: - User API
+    
+    /// 마이페이지 조회
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<MyPageResponseDTO>
+    static func user_fetchMyPage(userId: String) -> Endpoint<MyPageResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)",
+            method: .get
+        )
+    }
+    
+    /// 내가 쓴 일반 코멘트 조회
+    /// - Parameter userId: 유저 아이디
+    /// - Parameter pageable: Pagination
+    /// - Returns: Endpoint<MyPageResponseDTO>
+    static func user_fetchMyComment(userId: String, pageable: PageableDTO) -> Endpoint<MyPageResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/comments",
+            method: .get,
+            queryParameters: pageable
+        )
+    }
+    
+    /// 회원탈퇴
+    /// - Parameters:
+    ///   - userId: 유저 아이디
+    ///   - survey: 탈퇴 설문 조사
+    /// - Returns: 회원탈퇴 RequestEndpoint
+    static func user_tryWithdraw(userId: String, survey: CheckedSurveyListRequestDTO) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/delete",
+            method: .get,
+            bodyParameters: survey
+        )
+    }
+    
 }
