@@ -17,6 +17,7 @@ enum NetworkError: Error {
     case parsing(Error)
     case emptyData
     case decodeError
+    case serverError(String)
 
     var errorDescription: String? {
         switch self {
@@ -36,6 +37,8 @@ enum NetworkError: Error {
             return "data가 비어있습니다."
         case .decodeError:
             return "decode 에러가 발생했습니다."
+        case .serverError(let message):
+            return message
         }
     }
 }

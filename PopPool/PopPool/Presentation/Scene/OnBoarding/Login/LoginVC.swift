@@ -142,9 +142,8 @@ private extension LoginVC {
         
         output.moveToSignUpVC
             .withUnretained(self)
-            .subscribe { (owner, socialType) in
-                let vm = SignUpVM()
-                let vc = SignUpVC(viewModel: vm)
+            .subscribe { (owner, viewModel) in
+                let vc = SignUpVC(viewModel: viewModel)
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

@@ -179,9 +179,13 @@ private extension SignUpVC {
             tap_step3_primaryButton: step3_primaryButton.rx.tap,
             tap_step3_secondaryButton: step3_secondaryButton.rx.tap,
             event_step3_didChangeInterestList: step3_ContentView.fetchSelectedList(),
-            event_step4_didSelectGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex,
+            event_step4_didSelectGender: step4_ContentView.genderSegmentedControl.rx.selectedSegmentIndex.map({ [weak self] index in
+                guard let self = self else { return "" }
+                return self.step4_ContentView.genderList[index]
+            }),
             tap_step4_ageButton: step4_ContentView.ageButton.rx.tap,
             tap_step4_secondaryButton: step4_secondaryButton.rx.tap,
+            tap_step4_primaryButton: step4_primaryButton.rx.tap,
             event_step4_didSelectAge: ageRelayObserver
         )
         // MARK: - Output
@@ -284,7 +288,7 @@ private extension SignUpVC {
             .subscribe { (owner, vcData) in
                 let range = vcData.0
                 let age = vcData.1
-                let vc = SignUpSelectAgeModalVC(ageRange: range ,selectIndex: age)
+                let vc = AgeSelectModalVC(ageRange: range ,selectIndex: age)
                 vc.selectIndexRelayObserver
                     .subscribe(onNext: { index in
                         owner.step4_ContentView.ageButton.setAge(age: index + range.lowerBound)
@@ -292,6 +296,16 @@ private extension SignUpVC {
                     })
                     .disposed(by: owner.disposeBag)
                 owner.presentModalViewController(viewController: vc)
+            }
+            .disposed(by: disposeBag)
+        
+        output.step4_moveToSignUpCompleteVC
+            .withUnretained(self)
+            .subscribe { (owner, source) in
+                let nickName = source.0
+                let list = source.1
+                let vc = SignUpCompletedVC(nickname: nickName, tags: list)
+                owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
     }

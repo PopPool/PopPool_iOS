@@ -48,7 +48,7 @@ private extension LargeChipCell {
     
     /// 초기 설정
     func setUp() {
-        self.contentView.layer.cornerRadius = contentView.frame.height / 2
+        self.contentView.layer.cornerRadius = 36 / 2
         self.contentView.layer.borderWidth = self.isSelected ? 0 : 1
         self.contentView.layer.borderColor = self.isSelected ? nil : UIColor.g200.cgColor
         self.contentView.backgroundColor = self.isSelected ? .blu500 : .clear
@@ -67,12 +67,23 @@ private extension LargeChipCell {
     }
 }
 // MARK: - Methods
-extension LargeChipCell {
+extension LargeChipCell: Cellable {
+
     
-    /// 셀을 구성하는 메서드
-    /// - Parameter title: 라벨에 표시할 문자열
-    func configure(title: String?) {
-        label.text = title
+    struct Input {
+        var title: String?
+    }
+    
+    struct Output {
+        
+    }
+    
+    func injectionWith(input: Input) {
+        label.text = input.title
+    }
+    
+    func getOutput() -> Output {
+        return Output()
     }
     
     /// 셀 크기 리턴 메서드

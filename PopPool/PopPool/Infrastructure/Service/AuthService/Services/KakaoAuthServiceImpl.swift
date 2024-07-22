@@ -12,20 +12,24 @@ import RxSwift
 
 final class KakaoAuthServiceImpl: AuthService {
     
-    struct Response: Encodable {
+    struct Credential: Encodable {
         var kakaoUserId: Int64
         var kakaoAccessToken: String
     }
     
     private let disposeBag = DisposeBag()
     
-    func fetchUserCredential() -> Observable<Encodable> {
+    private var userEmail: String = ""
+    
+    func fetchUserCredential() -> Observable<AuthServiceResponse> {
         
         return fetchToken()
-            .flatMap { token in
-                self.fetchUserID()
+            .withUnretained(self)
+            .flatMap { (owner, token) in
+                owner.fetchUserID()
                     .map { id in
-                        return Response(kakaoUserId: id, kakaoAccessToken: token)
+                        let credential: Credential = Credential(kakaoUserId: id, kakaoAccessToken: token)
+                        return AuthServiceResponse(credential: credential, socialType: "KAKAO", userEmail: owner.userEmail)
                     }
             }.catch { error in
                 Observable.error(error)
@@ -77,9 +81,12 @@ private extension KakaoAuthServiceImpl {
             UserApi.shared.rx.me()
                 .subscribe { user in
                     if let id = user.id {
-                        // 사용자 ID를 방출하고 observable을 완료함
-                        observer.onNext(id)
-                        observer.onCompleted()
+                        if let email = user.kakaoAccount?.email {
+                            self.userEmail = email
+                            // 사용자 ID를 방출하고 observable을 완료함
+                            observer.onNext(id)
+                            observer.onCompleted()
+                        }
                     } else {
                         // 사용자 ID가 nil인 경우 오류를 방출
                         observer.onError(AuthError.emptyData)
