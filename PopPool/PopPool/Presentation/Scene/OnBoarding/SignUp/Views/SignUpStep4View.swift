@@ -35,9 +35,9 @@ final class SignUpStep4View: UIStackView {
         return label
     }()
     private let genderLabelBottomspacingView = UIView()
-    let genderSegmentedControl: SegmentedControlCPNT = SegmentedControlCPNT(
+    lazy var genderSegmentedControl: SegmentedControlCPNT = SegmentedControlCPNT(
         type: .base,
-        segments: ["남성", "여성", "선택안함"],
+        segments: self.genderList,
         selectedSegmentIndex: 2
     )
     private let genderSegmentedControlBottomSpacingView = UIView()
@@ -51,6 +51,8 @@ final class SignUpStep4View: UIStackView {
     private let ageLabelBottomSpacingView = UIView()
     let ageButton = SignUpAgeSelectedButton()
     private let bottomSpacingView = UIView()
+    
+    let genderList: [String] = ["남성", "여성", "선택안함"]
     
     // MARK: - init
     init() {

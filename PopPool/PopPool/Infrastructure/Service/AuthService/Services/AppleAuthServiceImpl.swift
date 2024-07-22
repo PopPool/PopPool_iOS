@@ -12,18 +12,17 @@ import AuthenticationServices
 
 final class AppleAuthServiceImpl: NSObject, AuthService  {
     
-    struct Response: Encodable {
-        var authorizationCode: String
+    struct Credential: Encodable {
         var idToken: String
     }
     
     // 사용자 자격 증명 정보를 방출할 subject
-    private var userCredentialObserver = PublishSubject<Response>()
+    private var authServiceResponse: PublishSubject<AuthServiceResponse> = .init()
     
-    func fetchUserCredential() -> Observable<Encodable> {
+    func fetchUserCredential() -> Observable<AuthServiceResponse> {
         performRequest()
-        return userCredentialObserver.map { response in
-            return Response(authorizationCode: response.authorizationCode, idToken: response.idToken)
+        return authServiceResponse.map { response in
+            return AuthServiceResponse(credential: response.credential, socialType: response.socialType, userEmail: response.userEmail)
         }
     }
     
@@ -42,12 +41,16 @@ final class AppleAuthServiceImpl: NSObject, AuthService  {
 }
 
 extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProviding,
-                                ASAuthorizationControllerDelegate 
+                                ASAuthorizationControllerDelegate
 {
     
     // 인증 컨트롤러의 프레젠테이션 앵커를 반환하는 함수
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        guard let window = UIApplication.shared.windows.first else { return UIWindow() }
+        let scenes = UIApplication.shared.connectedScenes
+        let windowSecne = scenes.first as? UIWindowScene
+        guard let window = windowSecne?.windows.first else {
+            return UIWindow()
+        }
         return window
     }
     
@@ -56,24 +59,22 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
-            guard let authorizationCode = appleIDCredential.authorizationCode,
-                  let idToken = appleIDCredential.identityToken 
+            guard let idToken = appleIDCredential.identityToken
             else {
                 // 토큰이 없는 경우 오류 방출
-                userCredentialObserver.onError(AuthError.unknownError)
+                authServiceResponse.onError(AuthError.unknownError)
                 return
             }
             
-            guard let authorizationCode = String(data: authorizationCode, encoding: .utf8),
-                  let idToken = String(data: idToken, encoding: .utf8)
+            guard let idToken = String(data: idToken, encoding: .utf8) 
             else {
                 // 토큰이 없는 경우 오류 방출
-                userCredentialObserver.onError(AuthError.unknownError)
+                authServiceResponse.onError(AuthError.unknownError)
                 return
             }
             // 성공적으로 사용자 자격 증명을 방출
-            userCredentialObserver.onNext(.init(authorizationCode: authorizationCode, idToken: idToken))
-            userCredentialObserver.onCompleted()
+            let credential: Credential = .init(idToken: idToken)
+            authServiceResponse.onNext(.init(credential: credential, socialType: "APPLE", userEmail: appleIDCredential.email))
         default:
             break
         }
@@ -81,6 +82,6 @@ extension AppleAuthServiceImpl: ASAuthorizationControllerPresentationContextProv
     
     // 인증 실패 시 호출되는 함수
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        userCredentialObserver.onError(error)
+        authServiceResponse.onError(error)
     }
 }

@@ -32,4 +32,19 @@ final class SignUpRepositoryTest: SignUpRepository {
         ]
         return Observable.just(interest)
     }
+    
+    func trySignUp(
+        userId: String,
+        nickName: String,
+        gender: String,
+        age: Int32,
+        socialEmail: String?,
+        socialType: String,
+        interests: [Int]
+    ) -> Completable {
+        return Completable.create { observer in
+            observer(.completed)
+            return Disposables.create()
+        }
+    }
 }

@@ -16,7 +16,7 @@ final class FetchSocialCredentialUseCaseImpl: FetchSocialCredentialUseCase {
         self.service = service
     }
 
-    func execute() -> Observable<Encodable> {
+    func execute() -> Observable<AuthServiceResponse> {
         return service.fetchUserCredential()
     }
 }
