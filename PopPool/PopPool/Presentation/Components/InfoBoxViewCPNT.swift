@@ -155,12 +155,19 @@ extension InfoBoxViewCPNT {
             bulletText.insert(" ", at: bulletText.index(after: bulletPoint.startIndex))
             
             let listLabel = UILabel()
+            let style = NSMutableParagraphStyle()
+            style.firstLineHeadIndent = 0
+            style.headIndent = 8
+            let attributedString = NSMutableAttributedString(string: bulletText,
+                                                             attributes: [
+                                                                .paragraphStyle: style
+                                                             ])
             listLabel.font = .EngFont(style: .regular, size: 15)
             listLabel.numberOfLines = 0
             listLabel.textColor = .g600
             
+            listLabel.attributedText = attributedString
             stackView.addArrangedSubview(listLabel)
-            listLabel.text = bulletText
         }
     }
 }

@@ -75,7 +75,7 @@ final class ContentTitleCPNT: UIStackView {
         return label
     }()
     
-    private let subTitleLabel: UILabel = {
+    let subTitleLabel: UILabel = {
         let label = UILabel()
         return label
     }()
@@ -143,7 +143,12 @@ private extension ContentTitleCPNT {
         
         switch type {
         case .title_sub_fp(let subTitle):
-            subTitleLabel.text = subTitle
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.5
+            subTitleLabel.attributedText = NSMutableAttributedString(
+                string: subTitle,
+                attributes: [.paragraphStyle: paragraphStyle]
+            )
             
             topSpacingView.snp.makeConstraints { make in
                 make.height.equalTo(Constants.spaceGuide.large100)
