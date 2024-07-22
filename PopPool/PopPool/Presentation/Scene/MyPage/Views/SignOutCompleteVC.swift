@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class SignOutCompleteVC: UIViewController {
+final class SignOutCompleteVC: UIViewController {
     
     private var headerView: HeaderViewCPNT
     private let topSpaceView = UIView()
@@ -49,7 +49,7 @@ class SignOutCompleteVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        setUpLayout()
+        setUpConstraints()
         bind()
     }
     
@@ -73,7 +73,7 @@ class SignOutCompleteVC: UIViewController {
         signOutNoticeLabel.subTitleLabel.adjustsFontSizeToFitWidth = true
     }
     
-    private func setUpLayout() {
+    private func setUpConstraints() {
         view.addSubview(headerView)
         view.addSubview(stackView)
         view.addSubview(confirmButton)

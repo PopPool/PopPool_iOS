@@ -11,11 +11,7 @@ import RxSwift
 
 // MARK: - SurveyList
 
-struct SurveyList {
-    var title: String
-}
-
-class SignOutSurveyView: UIStackView {
+final class SignOutSurveyView: UIStackView {
     
     // MARK: - Components
     
@@ -24,7 +20,7 @@ class SignOutSurveyView: UIStackView {
     private let buttonTopView = UIView()
     private let bottomSpaceView = UIView()
     
-    lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0.title) }
+    lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0) }
     private let surveyStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -54,13 +50,13 @@ class SignOutSurveyView: UIStackView {
     let disposeBag = DisposeBag()
     let tappedValues: PublishSubject<[Int]> = .init()
     
-    private let survey: [SurveyList] = [
-        SurveyList(title: "원하는 팝업에 대한 정보가 없어요"),
-        SurveyList(title: "팝업 정보가 적어요"),
-        SurveyList(title: "이용빈도가 낮아요"),
-        SurveyList(title: "다시 가입하고 싶어요"),
-        SurveyList(title: "앱에 오류가 많이 생겨요"),
-        SurveyList(title: "기타")
+    private let survey: [String] = [
+        "원하는 팝업에 대한 정보가 없어요",
+        "팝업 정보가 적어요",
+        "이용빈도가 낮아요",
+        "다시 가입하고 싶어요",
+        "앱에 오류가 많이 생겨요",
+        "기타"
     ]
     
     init() {
@@ -72,7 +68,7 @@ class SignOutSurveyView: UIStackView {
         self.surveyTextView = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
         super.init(frame: .zero)
         setUp()
-        setUpLayout()
+        setUpConstraints()
         bind()
     }
     
@@ -106,7 +102,7 @@ class SignOutSurveyView: UIStackView {
         self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
     }
     
-    private func setUpLayout() {
+    private func setUpConstraints() {
         self.addArrangedSubview(title)
         self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(surveyStack)

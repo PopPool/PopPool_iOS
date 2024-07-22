@@ -44,7 +44,7 @@ extension SignOutVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        setUpLayout()
+        setUpConstraints()
         bind()
     }
 }
@@ -59,7 +59,7 @@ private extension SignOutVC {
         self.navigationController?.navigationBar.isHidden = true
     }
     
-    func setUpLayout() {
+    func setUpConstraints() {
         view.addSubview(headerView)
         view.addSubview(contentStackView)
         contentStackView.addArrangedSubview(signOutView)

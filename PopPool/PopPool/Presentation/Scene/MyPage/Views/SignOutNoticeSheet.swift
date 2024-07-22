@@ -63,7 +63,7 @@ extension SignOutNoticeSheet {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
+        setUpConstraints()
         bind()
     }
 }
@@ -72,7 +72,7 @@ private extension SignOutNoticeSheet {
     
     // MARK: - Methods
     
-    func setUp() {
+    func setUpConstraints() {
         stackView.addArrangedSubview(titleHeader)
         stackView.addArrangedSubview(headerSpaceView)
         stackView.addArrangedSubview(noticeLabel)

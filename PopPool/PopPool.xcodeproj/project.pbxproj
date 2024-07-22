@@ -110,7 +110,6 @@
 		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
-		BD332D6C2C48EB8A002D0FA9 /* SignOutSurveyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D6B2C48EB8A002D0FA9 /* SignOutSurveyVM.swift */; };
 		BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */; };
 		BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B462C2C13460004659D /* HeaderViewCPNT.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
@@ -259,7 +258,6 @@
 		BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
-		BD332D6B2C48EB8A002D0FA9 /* SignOutSurveyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutSurveyVM.swift; sourceTree = "<group>"; };
 		BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutSurveyView.swift; sourceTree = "<group>"; };
 		BD353B462C2C13460004659D /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
@@ -575,7 +573,6 @@
 				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
 				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
-				BD332D6B2C48EB8A002D0FA9 /* SignOutSurveyVM.swift */,
 				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
 			);
 			path = Views;
@@ -1205,7 +1202,6 @@
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
-				BD332D6C2C48EB8A002D0FA9 /* SignOutSurveyVM.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
 				BD3C4C6D2C30C8AE0087917B /* HeaderViewCPNT.swift in Sources */,
 				BD353B472C2C13460004659D /* HeaderViewCPNT.swift in Sources */,
