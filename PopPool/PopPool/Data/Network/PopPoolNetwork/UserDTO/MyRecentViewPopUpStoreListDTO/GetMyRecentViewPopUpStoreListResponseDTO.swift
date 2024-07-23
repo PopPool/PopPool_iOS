@@ -12,3 +12,13 @@ struct GetMyRecentViewPopUpStoreListResponseDTO: Decodable, PageableResponse {
     var totalPages: Int32
     var totalElements: Int64
 }
+
+extension GetMyRecentViewPopUpStoreListResponseDTO {
+    func toDomain() -> GetMyRecentViewPopUpStoreListResponse {
+        return GetMyRecentViewPopUpStoreListResponse (
+            popUpInfoList: popUpInfoList.map({ $0.toDomain() }),
+            totalPages: totalPages,
+            totalElements: totalElements
+        )
+    }
+}

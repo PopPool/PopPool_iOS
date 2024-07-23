@@ -11,3 +11,12 @@ struct SurveyDTO: Codable {
     var id: Int64
     var survey: String
 }
+
+extension SurveyDTO {
+    func toDomain() -> Survey {
+        return Survey(
+            id: id,
+            survey: survey
+        )
+    }
+}

@@ -11,3 +11,12 @@ struct PopUpInfoDTO: Decodable {
     var popUpStoreId: Int64
     var popUpStoreName: String
 }
+
+extension PopUpInfoDTO {
+    func toDomain() -> PopUpInfo {
+        return PopUpInfo(
+            popUpStoreId: popUpStoreId,
+            popUpStoreName: popUpStoreName
+        )
+    }
+}

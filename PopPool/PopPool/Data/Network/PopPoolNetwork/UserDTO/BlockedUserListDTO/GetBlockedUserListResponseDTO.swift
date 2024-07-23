@@ -12,3 +12,14 @@ struct GetBlockedUserListResponseDTO: Decodable, PageableResponse {
     var totalPages: Int32
     var totalElements: Int64
 }
+
+extension GetBlockedUserListResponseDTO {
+    func toDomain() -> GetBlockedUserListResponse {
+        return GetBlockedUserListResponse(
+            blockedUserInfoList: blockedUserInfoList.map({ $0.toDomain() }),
+            totalPages: totalPages,
+            totalElements: totalElements
+        )
+    }
+}
+

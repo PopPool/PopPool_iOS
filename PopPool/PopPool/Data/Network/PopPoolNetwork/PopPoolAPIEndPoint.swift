@@ -191,7 +191,7 @@ struct PopPoolAPIEndPoint {
     
     /// 탈퇴 설문 목록을 조회합니다.
     /// - Returns: Endpoint<GetWithDrawlSurveyResponse>
-    static func user_fetchWithdrawlSurveryList() -> Endpoint<GetWithDrawlSurveyResponse> {
+    static func user_getWithdrawlSurveryList() -> Endpoint<GetWithDrawlSurveyResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/withdrawl/surveys",
@@ -204,7 +204,7 @@ struct PopPoolAPIEndPoint {
     /// 유저 프로필을 조회합니다.
     /// - Parameter userId: 유저 아이디
     /// - Returns: Endpoint<GetProfileResponseDTO>
-    static func user_fetchProfile(userId: String) -> Endpoint<GetProfileResponseDTO> {
+    static func user_getProfile(userId: String) -> Endpoint<GetProfileResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/\(userId)/profiles",

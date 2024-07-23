@@ -12,5 +12,15 @@ struct BlockedUserInfoDTO: Decodable {
     var profileImage: String
     var nickname: String
     var instagramId: String
-    
+}
+
+extension BlockedUserInfoDTO {
+    func toDomain() -> BlockedUserInfo {
+        return BlockedUserInfo(
+            userId: userId,
+            profileImage: URL(string: profileImage),
+            nickname: nickname,
+            instagramId: instagramId
+        )
+    }
 }

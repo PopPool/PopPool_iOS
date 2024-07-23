@@ -12,3 +12,15 @@ struct GetMyCommentResponseDTO: Decodable, PageableResponse {
     var totalPages: Int32
     var totalElements: Int64
 }
+
+extension GetMyCommentResponseDTO {
+    func toDomain() -> GetMyCommentResponse {
+        return GetMyCommentResponse(
+            myCommentList: myCommentList.map({ $0.toDomain() }),
+            totalPages: totalPages,
+            totalElements: totalElements
+        )
+    }
+}
+
+

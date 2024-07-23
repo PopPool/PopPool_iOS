@@ -12,3 +12,13 @@ struct GetMyCommentedPopUpStoreListResponseDTO: Decodable, PageableResponse {
     var totalPages: Int32
     var totalElements: Int64
 }
+
+extension GetMyCommentedPopUpStoreListResponseDTO {
+    func toDomain() -> GetMyCommentedPopUpStoreListResponse {
+        return GetMyCommentedPopUpStoreListResponse(
+            popUpInfoList: popUpInfoList.map({ $0.toDomain() }),
+            totalPages: totalPages,
+            totalElements: totalElements
+        )
+    }
+}

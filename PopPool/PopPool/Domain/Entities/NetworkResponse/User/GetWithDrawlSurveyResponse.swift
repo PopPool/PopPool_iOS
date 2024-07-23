@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct GetWithDrawlSurveyResponse: Decodable {
-    var withDrawlSurveyList: [SurveyDTO]
+struct GetWithDrawlSurveyResponse {
+    var withDrawlSurveyList: [Survey]
 }

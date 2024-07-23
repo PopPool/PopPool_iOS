@@ -11,3 +11,11 @@ struct MyInterestInfoDTO: Decodable {
     var interestId: Int64
     var interestCategory: String
 }
+extension MyInterestInfoDTO {
+    func toDomain() -> MyInterestInfo {
+        return MyInterestInfo(
+            interestId: interestId,
+            interestCategory: interestCategory
+        )
+    }
+}

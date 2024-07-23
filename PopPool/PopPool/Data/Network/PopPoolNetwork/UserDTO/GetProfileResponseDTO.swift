@@ -18,4 +18,17 @@ struct GetProfileResponseDTO: Decodable {
     var interestList: [MyInterestInfoDTO]
 }
 
-
+extension GetProfileResponseDTO {
+    func toDomain() -> GetProfileResponse{
+        return GetProfileResponse(
+            profileImage: URL(string: profileImage),
+            nickname: nickname,
+            email: email,
+            instagramId: instagramId,
+            intro: intro,
+            gender: gender,
+            age: age,
+            interestList: interestList.map({ $0.toDomain() })
+        )
+    }
+}
