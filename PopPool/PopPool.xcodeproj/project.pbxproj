@@ -128,6 +128,7 @@
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
 		BDBE5E2F2C4E573200260FFC /* ListMenuCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE5E2E2C4E573200260FFC /* ListMenuCPNT.swift */; };
+		BDBE5E372C4F8FD500260FFC /* ListInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE5E362C4F8FD500260FFC /* ListInfoButton.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
 		BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */; };
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
@@ -280,6 +281,7 @@
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
 		BDBE5E2E2C4E573200260FFC /* ListMenuCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMenuCPNT.swift; sourceTree = "<group>"; };
+		BDBE5E362C4F8FD500260FFC /* ListInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButton.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 				089D19282C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift */,
 				08B183C22C442113006C34BB /* ListTitleViewCPNT.swift */,
 				BDBE5E2E2C4E573200260FFC /* ListMenuCPNT.swift */,
+				BDBE5E362C4F8FD500260FFC /* ListInfoButton.swift */,
 				08B183C42C4421D5006C34BB /* TextUnderBarButtonCPNT.swift */,
 			);
 			path = Components;
@@ -1198,6 +1201,7 @@
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */,
+				BDBE5E372C4F8FD500260FFC /* ListInfoButton.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */,
 				08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */,
