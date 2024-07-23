@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SurveyDTO: Encodable {
+struct SurveyDTO: Codable {
     var id: Int64
     var survey: String
 }
