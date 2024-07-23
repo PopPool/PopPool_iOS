@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         
 //        window?.rootViewController = UINavigationController(rootViewController: ViewController(viewModel: ViewControllerViewModel()))
-        window?.rootViewController = UINavigationController(rootViewController: LoginVC(viewModel: LoginVM()))
+//        window?.rootViewController = UINavigationController(rootViewController: LoginVC(viewModel: LoginVM()))
+        window?.rootViewController = UINavigationController(rootViewController: BlockedUserVC(blockCount: 3))
         window?.makeKeyAndVisible()
     }
 
