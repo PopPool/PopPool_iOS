@@ -9,64 +9,68 @@ import UIKit
 import RxSwift
 import SnapKit
 
-class ListMenuCPNT: UIStackView {
+final class ListMenuCPNT: UIStackView {
     
-    enum MenuOption {
+    //MARK: - Menu Button Options
+    
+    enum MenuStyle {
         case none
-        case menu
+        case menu(String)
         case filter(UIImage?)
     }
     
-    // 타이틀
-    let titleLabel: UILabel = {
+    //MARK: - Components
+    
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .regular, size: 15)
         return label
     }()
     
-    // 서브 버튼 텍스트
-    let optionTitle: UILabel = {
+    private let subTitle: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .regular, size: 13)
         return label
     }()
     
-    let icon: UIButton = {
+    private let iconButton: UIButton = {
         let button = UIButton()
         return button
     }()
     
-    let topSpaceView = UIView()
-    let bottomSpaceView = UIView()
-    
     lazy var titleStack: UIStackView = {
         let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.backgroundColor = .green
         stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(optionTitle)
-        stack.addArrangedSubview(icon)
+        stack.addArrangedSubview(subTitle)
+        stack.addArrangedSubview(iconButton)
+        stack.spacing = 6
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 18)
         stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
     
-    init(menuTitle: String, style: MenuOption) {
-        self.titleLabel.text = menuTitle
+    private let topSpaceView = UIView()
+    private let bottomSpaceView = UIView()
+    
+    //MARK: - Initializer
+    
+    init(titleText: String, style: MenuStyle) {
+        self.titleLabel.text = titleText
         super.init(frame: .zero)
         setUp()
         setUpConstraints()
-        setStyle(title: menuTitle, style: style)
+        setStyle(title: titleText, style: style)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Method
+    
     private func setUp() {
         self.axis = .vertical
-        topSpaceView.backgroundColor = .yellow
-        bottomSpaceView.backgroundColor = .yellow
+        self.titleLabel.textColor = .g1000
     }
     
     private func setUpConstraints() {
@@ -82,24 +86,33 @@ class ListMenuCPNT: UIStackView {
             make.height.equalTo(Constants.spaceGuide.small100)
         }
         
-        icon.snp.makeConstraints { make in
+        iconButton.snp.makeConstraints { make in
             make.size.equalTo(22)
         }
     }
     
-    private func setStyle(title: String, style: MenuOption) {
+    /// 버튼 스타일에 따라 다른 값을 제공하는 메서드입니다
+    /// - Parameters:
+    ///   - title: String 타입을 받습니다
+    ///   - style: MenuStyle을 받아 switch로 분기를 확인합니다
+    private func setStyle(title: String, style: MenuStyle) {
         titleLabel.text = title
-        icon.setImage(UIImage(named: "line_signUp"), for: .normal)
+        iconButton.setImage(UIImage(named: "line_signUp"), for: .normal)
+        titleStack.setCustomSpacing(42, after: titleLabel)
         
         switch style {
         case .filter(let image):
-            optionTitle.text = "필터옵션"
-            icon.setImage(image, for: .normal)
-        case .menu:
-            optionTitle.text = "메뉴정보"
-            optionTitle.textColor = .blu500
+            subTitle.text = "필터옵션"
+            subTitle.textColor = .g1000
+            titleLabel.textColor = .g400
+            iconButton.setImage(image, for: .normal)
+            
+        case .menu(let title):
+            subTitle.text = title
+            subTitle.textColor = .blu500
+            
         case .none:
-            optionTitle.text = ""
+            subTitle.text = ""
         }
     }
 }
