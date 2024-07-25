@@ -60,16 +60,20 @@ final class BlockedUserVC: UIViewController {
         
         // 테이블 뷰 연결
         output.userData
-            .bind(to: tableView.rx.items(
-                cellIdentifier: BlockedUserCell.reuseIdentifier,
-                cellType: BlockedUserCell.self)
-            ) { (row, element, cell) in
-                print("열:", row)
-                print("요소?/",element)
-                print("셀?:", cell)
+            .bind(to: tableView.rx
+                .items(cellIdentifier: BlockedUserCell.reuseIdentifier,
+                       cellType: BlockedUserCell.self)) { (row, element, cell) in
                 cell.setStyle(title: element.instagramId,
                               subTitle: element.nickname,
                               style: .button("차단 완료"))
+                
+                // cell 내부 remove 버튼 연결
+                cell.removeButton.rx.tap
+                    .withUnretained(self)
+                    .subscribe { (owner, _) in
+                        print("\(row)번이 눌렸습니다")
+                    }
+                    .disposed(by: self.disposeBag)
             }
             .disposed(by: disposeBag)
         
@@ -113,22 +117,3 @@ final class BlockedUserVC: UIViewController {
         }
     }
 }
-
-//extension BlockedUserVC: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let userList = viewModel.userData.blockedUserInfoList
-//        return userList.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: BlockedUserCell.reuseIdentifier,
-//                                                 for: indexPath) as? BlockedUserCell {
-//            let userList = viewModel.userData.blockedUserInfoList
-//            cell.setStyle(title: userList[indexPath.row].instagramId,
-//                          subTitle: userList[indexPath.row].nickname,
-//                          style: .button("차단"))
-//            return cell
-//        }
-//        return UITableViewCell()
-//    }
-//}

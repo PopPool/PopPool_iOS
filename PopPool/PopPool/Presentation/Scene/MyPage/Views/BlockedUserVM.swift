@@ -40,7 +40,12 @@ final class BlockedUserVM: ViewModelable {
                     userId: "스티브",
                     profileImage: "circle",
                     nickname: "이동후",
-                    instagramId: "543225432")
+                    instagramId: "543225432"),
+                UserBlocked(
+                    userId: "변경",
+                    profileImage: "이래도?",
+                    nickname: "이후",
+                    instagramId: "231231")
             ],
             totalPages: 1,
             totalElements: 3)
