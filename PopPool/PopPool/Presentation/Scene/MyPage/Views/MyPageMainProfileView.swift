@@ -34,12 +34,12 @@ final class MyPageMainProfileView: UIView {
         label.text = "상관없는 금붕어"
         return label
     }()
-    private let instargramLabel: UILabel = {
+    private let instagramLabel: UILabel = {
         let label = UILabel()
         label.font = .EngFont(style: .regular, size: 14)
         label.textColor = .g1000
         // TODO: - 제거 필요
-        label.text = "@instargram_id"
+        label.text = "@instagram_id"
         return label
     }()
     private let bottomHoleView: UIView = UIView()
@@ -125,11 +125,11 @@ private extension MyPageMainProfileView {
         nickNameLabel.snp.makeConstraints { make in
             make.height.equalTo(22)
         }
-        instargramLabel.snp.makeConstraints { make in
+        instagramLabel.snp.makeConstraints { make in
             make.height.equalTo(20)
         }
         labelStackView.addArrangedSubview(nickNameLabel)
-        labelStackView.addArrangedSubview(instargramLabel)
+        labelStackView.addArrangedSubview(instagramLabel)
         
         contentView.addSubview(labelStackView)
         labelStackView.snp.makeConstraints { make in
@@ -161,13 +161,13 @@ extension MyPageMainProfileView: InputableView {
 
     struct Input {
         var nickName: String
-        var instargramId: String
+        var instagramId: String
         var profileImage: URL?
     }
     
     func injectionWith(input: Input) {
         nickNameLabel.text = input.nickName
-        instargramLabel.text = input.instargramId
+        instagramLabel.text = input.instagramId
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView, alpha: Double) {
