@@ -13,7 +13,7 @@ final class BlockedUserVC: UIViewController {
     
     let viewModel: BlockedUserVM
     let headerView = HeaderViewCPNT(title: "차단한 사용자 관리", style: .icon(nil))
-    lazy var contentHeader = ListMenuCPNT(titleText: "총 \(viewModel.userData.blockedUserInfoList.count)건", style: .none)
+    lazy var contentHeader = ListMenuCPNT(titleText: "총 \(viewModel.userDataRelay.value.count)건", style: .none)
     let topSpaceView = UIView()
     
     private let tableView: UITableView = {
@@ -35,6 +35,8 @@ final class BlockedUserVC: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
+    // Observable.of는 0이라는 값을 출력만 하다가 사라진다. 계속 감시해야하는 상황과 다르다?
+    private let removeUserSubject = PublishSubject<Int>()
     
     init(viewModel: BlockedUserVM) {
         self.viewModel = viewModel
@@ -54,25 +56,27 @@ final class BlockedUserVC: UIViewController {
     
     private func bindViewModel() {
         let input = BlockedUserVM.Input(
-            returnTap: headerView.leftBarButton.rx.tap
+            returnTap: headerView.leftBarButton.rx.tap,
+            removeUser: removeUserSubject.asObservable()
         )
         let output = viewModel.transform(input: input)
         
         // 테이블 뷰 연결
         output.userData
-            .bind(to: tableView.rx
-                .items(cellIdentifier: BlockedUserCell.reuseIdentifier,
-                       cellType: BlockedUserCell.self)) { (row, element, cell) in
+            .bind(to: tableView.rx.items(
+                cellIdentifier: BlockedUserCell.reuseIdentifier,
+                cellType: BlockedUserCell.self)) { (row, element, cell) in
                 cell.setStyle(title: element.instagramId,
                               subTitle: element.nickname,
                               style: .button("차단 완료"))
                 
                 // cell 내부 remove 버튼 연결
                 cell.removeButton.rx.tap
-                    .withUnretained(self)
-                    .subscribe { (owner, _) in
-                        print("\(row)번이 눌렸습니다")
-                    }
+                        .compactMap { [weak self] _ in
+                            guard let indexPath = self?.tableView.indexPath(for: cell) else { return -1 }
+                            return indexPath.row
+                        }
+                    .bind(to: self.removeUserSubject)
                     .disposed(by: self.disposeBag)
             }
             .disposed(by: disposeBag)
@@ -90,8 +94,6 @@ final class BlockedUserVC: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
         headerView.rightBarButton.isHidden = true
-        
-        
     }
     
     private func setUpConstraints() {
