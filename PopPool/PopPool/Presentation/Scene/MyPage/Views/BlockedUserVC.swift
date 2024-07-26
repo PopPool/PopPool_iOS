@@ -35,7 +35,6 @@ final class BlockedUserVC: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    // Observable.of는 0이라는 값을 출력만 하다가 사라진다. 계속 감시해야하는 상황과 다르다?
     private let removeUserSubject = PublishSubject<Int>()
     
     init(viewModel: BlockedUserVM) {
@@ -57,27 +56,31 @@ final class BlockedUserVC: UIViewController {
     private func bindViewModel() {
         let input = BlockedUserVM.Input(
             returnTap: headerView.leftBarButton.rx.tap,
+            // 삭제가 아닌 해제
+            // VC에서 VM으로 제공하는 데이터 값
             removeUser: removeUserSubject.asObservable()
         )
         let output = viewModel.transform(input: input)
         
         // 테이블 뷰 연결
         output.userData
-            .bind(to: tableView.rx.items(
-                cellIdentifier: BlockedUserCell.reuseIdentifier,
-                cellType: BlockedUserCell.self)) { (row, element, cell) in
+            .bind(to: tableView.rx.items(cellIdentifier: BlockedUserCell.reuseIdentifier, cellType: BlockedUserCell.self)) { [weak self] (row, element, cell) in
                 cell.setStyle(title: element.instagramId,
                               subTitle: element.nickname,
                               style: .button("차단 완료"))
                 
-                // cell 내부 remove 버튼 연결
+                // observable sequence that emits value
                 cell.removeButton.rx.tap
-                        .compactMap { [weak self] _ in
-                            guard let indexPath = self?.tableView.indexPath(for: cell) else { return -1 }
-                            return indexPath.row
-                        }
-                    .bind(to: self.removeUserSubject)
-                    .disposed(by: self.disposeBag)
+                    // 300 millisecond timeframe, to prevent double taps
+                    .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                    // transforms tap events to row index of cell - recieved from tableView bind
+                    .map { row }
+                    // subscribing to the observable sequence created previously
+                    .bind(onNext: { [weak self] index in
+                        // with the tap, row index is emitted to removeUserSubject
+                        self?.removeUserSubject.onNext(index)
+                    })
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         

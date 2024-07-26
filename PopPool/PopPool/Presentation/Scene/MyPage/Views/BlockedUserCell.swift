@@ -83,6 +83,8 @@ class BlockedUserCell: UITableViewCell {
         return button
     }()
     
+    var disposeBag = DisposeBag()
+    
     // MARK: - Initializer
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

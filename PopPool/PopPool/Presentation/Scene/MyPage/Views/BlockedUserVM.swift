@@ -54,26 +54,14 @@ final class BlockedUserVM: ViewModelable {
         
         userDataRelay = BehaviorRelay(value: userData.blockedUserInfoList)
     }
-    
-    // getData를 통해 Observable을 리턴. of로 전달하여 이벤트 생성
-//    private func getData() -> BehaviorRelay<[UserBlocked]> {
-//        // static type, unable to emit changes
-//        return Observable.of(userData.blockedUserInfoList)
-//    }
         
     func transform(input: Input) -> Output {
-//        let userDataObservable = getData()
         
         input.removeUser
             .withLatestFrom(userDataRelay) { indexPath, users in
                 var updatedUsers = users
-                if indexPath >= 0 && indexPath < updatedUsers.count {
-                    updatedUsers.remove(at: indexPath)
-                    print("===============")
-                    print("사용자:", updatedUsers)
-                } else {
-                    print("index: \(indexPath), 현재 Count: \(updatedUsers.count)")
-                }
+                guard indexPath >= 0 && indexPath < updatedUsers.count else { return users }
+                updatedUsers.remove(at: indexPath)
                 return updatedUsers
             }
             .bind(to: userDataRelay)
