@@ -97,6 +97,8 @@ final class ListMenuCPNT: UIStackView {
     ///   - style: MenuStyle을 받아 switch로 분기를 확인합니다
     private func setStyle(title: String, style: MenuStyle) {
         titleLabel.text = title
+        titleLabel.textColor = .g400
+        
         iconButton.setImage(UIImage(named: "line_signUp"), for: .normal)
         titleStack.setCustomSpacing(42, after: titleLabel)
         
