@@ -96,6 +96,7 @@
 		08E23A532C4A2351004B77B6 /* InterestSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A522C4A2351004B77B6 /* InterestSelectedView.swift */; };
 		08E23A552C4CBC42004B77B6 /* RequestEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A542C4CBC42004B77B6 /* RequestEndPoint.swift */; };
 		08E23A572C4D3450004B77B6 /* RequestTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A562C4D3450004B77B6 /* RequestTokenInterceptor.swift */; };
+		08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC62C50E63E004B77B6 /* InputableView.swift */; };
 		08E23A5C2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A5B2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift */; };
 		08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A5E2C4E1719004B77B6 /* PopUpInfoDTO.swift */; };
 		08E23A632C4E1925004B77B6 /* MyCommentInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A622C4E1925004B77B6 /* MyCommentInfoDTO.swift */; };
@@ -286,6 +287,7 @@
 		08E23A522C4A2351004B77B6 /* InterestSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestSelectedView.swift; sourceTree = "<group>"; };
 		08E23A542C4CBC42004B77B6 /* RequestEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEndPoint.swift; sourceTree = "<group>"; };
 		08E23A562C4D3450004B77B6 /* RequestTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTokenInterceptor.swift; sourceTree = "<group>"; };
+		08E23AC62C50E63E004B77B6 /* InputableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputableView.swift; sourceTree = "<group>"; };
 		08E23A5B2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponseDTO.swift; sourceTree = "<group>"; };
 		08E23A5E2C4E1719004B77B6 /* PopUpInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpInfoDTO.swift; sourceTree = "<group>"; };
 		08E23A622C4E1925004B77B6 /* MyCommentInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentInfoDTO.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 				08A28CC72C2BE1F300DF7A90 /* Outputable.swift */,
 				08B183C62C443925006C34BB /* Cellable.swift */,
 				08B183C82C443948006C34BB /* TableViewSectionable.swift */,
+				08E23AC62C50E63E004B77B6 /* InputableView.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1493,6 +1496,7 @@
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
+				08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
 				08E23A702C4E1CE1004B77B6 /* CheckedSurveyListRequestDTO.swift in Sources */,
