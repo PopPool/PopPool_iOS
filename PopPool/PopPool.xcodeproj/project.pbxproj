@@ -137,11 +137,14 @@
 		08E23AC52C4F9298004B77B6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC42C4F9298004B77B6 /* UserRepository.swift */; };
 		08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC62C50E63E004B77B6 /* InputableView.swift */; };
 		08E23ACA2C534FB2004B77B6 /* FavoritePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC92C534FB2004B77B6 /* FavoritePopUpVC.swift */; };
-		08E23ACE2C535486004B77B6 /* FilterMenuListViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ACD2C535485004B77B6 /* FilterMenuListViewCPNT.swift */; };
+		08E23ACE2C535486004B77B6 /* ListMenuViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */; };
 		08E23AD02C535DB5004B77B6 /* SavedPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ACF2C535DB5004B77B6 /* SavedPopUpCell.swift */; };
 		08E23AD22C54D387004B77B6 /* FavoritePopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AD12C54D387004B77B6 /* FavoritePopUpVM.swift */; };
 		08E23AD42C54D574004B77B6 /* FavoritePopUpFilterModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AD32C54D574004B77B6 /* FavoritePopUpFilterModalVC.swift */; };
 		08E23AD62C54E171004B77B6 /* ViewedPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AD52C54E171004B77B6 /* ViewedPopUpCell.swift */; };
+		08E23ADC2C54EB9A004B77B6 /* RecentPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ADB2C54EB9A004B77B6 /* RecentPopUpVC.swift */; };
+		08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ADD2C54F085004B77B6 /* GridLayout.swift */; };
+		08E23AE02C54F12A004B77B6 /* CardListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ADF2C54F12A004B77B6 /* CardListLayout.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
@@ -334,11 +337,14 @@
 		08E23AC42C4F9298004B77B6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		08E23AC62C50E63E004B77B6 /* InputableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputableView.swift; sourceTree = "<group>"; };
 		08E23AC92C534FB2004B77B6 /* FavoritePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePopUpVC.swift; sourceTree = "<group>"; };
-		08E23ACD2C535485004B77B6 /* FilterMenuListViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMenuListViewCPNT.swift; sourceTree = "<group>"; };
+		08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMenuViewCPNT.swift; sourceTree = "<group>"; };
 		08E23ACF2C535DB5004B77B6 /* SavedPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPopUpCell.swift; sourceTree = "<group>"; };
 		08E23AD12C54D387004B77B6 /* FavoritePopUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePopUpVM.swift; sourceTree = "<group>"; };
 		08E23AD32C54D574004B77B6 /* FavoritePopUpFilterModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePopUpFilterModalVC.swift; sourceTree = "<group>"; };
 		08E23AD52C54E171004B77B6 /* ViewedPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewedPopUpCell.swift; sourceTree = "<group>"; };
+		08E23ADB2C54EB9A004B77B6 /* RecentPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPopUpVC.swift; sourceTree = "<group>"; };
+		08E23ADD2C54F085004B77B6 /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		08E23ADF2C54F12A004B77B6 /* CardListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListLayout.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
@@ -851,6 +857,8 @@
 			isa = PBXGroup;
 			children = (
 				08C813DD2C2D50BC009239FE /* TagsLayout.swift */,
+				08E23ADD2C54F085004B77B6 /* GridLayout.swift */,
+				08E23ADF2C54F12A004B77B6 /* CardListLayout.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1057,6 +1065,14 @@
 			path = FavoritePopUp;
 			sourceTree = "<group>";
 		};
+		08E23ADA2C54EB8A004B77B6 /* RecentPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				08E23ADB2C54EB9A004B77B6 /* RecentPopUpVC.swift */,
+			);
+			path = RecentPopUp;
+			sourceTree = "<group>";
+		};
 		08F49DF72C23FC5F002D5202 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -1077,7 +1093,7 @@
 				089D19282C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift */,
 				08B183C22C442113006C34BB /* ListTitleViewCPNT.swift */,
 				08B183C42C4421D5006C34BB /* TextUnderBarButtonCPNT.swift */,
-				08E23ACD2C535485004B77B6 /* FilterMenuListViewCPNT.swift */,
+				08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1095,6 +1111,7 @@
 		08F49E012C2402AF002D5202 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				08E23ADA2C54EB8A004B77B6 /* RecentPopUp */,
 				08E23AC82C534F77004B77B6 /* FavoritePopUp */,
 				08F49E002C24023E002D5202 /* OnBoarding */,
 				089D191B2C36B138000435D9 /* MyPage */,
@@ -1430,6 +1447,7 @@
 				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
 				08E23A9E2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
+				08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
@@ -1475,6 +1493,7 @@
 				08E23AB12C4F8700004B77B6 /* GetMyCommentResponse.swift in Sources */,
 				08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */,
 				BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */,
+				08E23AE02C54F12A004B77B6 /* CardListLayout.swift in Sources */,
 				08E23A532C4A2351004B77B6 /* InterestSelectedView.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				089D19102C352E1E000435D9 /* AgeSelectModalVC.swift in Sources */,
@@ -1536,11 +1555,12 @@
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
-				08E23ACE2C535486004B77B6 /* FilterMenuListViewCPNT.swift in Sources */,
+				08E23ACE2C535486004B77B6 /* ListMenuViewCPNT.swift in Sources */,
 				089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */,
 				089D19132C3544DB000435D9 /* PickerCPNT.swift in Sources */,
 				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
+				08E23ADC2C54EB9A004B77B6 /* RecentPopUpVC.swift in Sources */,
 				08B183BD2C439F52006C34BB /* MyPageMainVM.swift in Sources */,
 				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,

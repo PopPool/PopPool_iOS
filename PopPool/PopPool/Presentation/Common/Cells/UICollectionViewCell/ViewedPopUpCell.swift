@@ -37,7 +37,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
         return label
     }()
 
-    private let bookmarkButton: UIButton = {
+    let bookmarkButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "bookmark"), for: .normal)
         return button

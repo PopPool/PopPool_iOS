@@ -16,8 +16,8 @@ final class FavoritePopUpVC: BaseViewController {
         let view = HeaderViewCPNT(title: "찜한 팝업", style: .text(""))
         return view
     }()
-    private let filterView: FilterMenuListViewCPNT = {
-        let view = FilterMenuListViewCPNT(.init(title: "총 5건", filterTitle: "크게보기"))
+    private let filterView: ListMenuViewCPNT = {
+        let view = ListMenuViewCPNT(title: "총 5건", style: .filter(nil))
         return view
     }()
     private let collectionView: UICollectionView = {
@@ -97,7 +97,7 @@ private extension FavoritePopUpVC {
         output.viewType
             .withUnretained(self)
             .subscribe { (owner, viewType) in
-                owner.filterView.injectionWith(input: .init(title: "총 5건", filterTitle: viewType.title))
+                owner.filterView.injectionWith(input: .init(title: "총 5건", rightTitle: viewType.title))
                 owner.collectionView.collectionViewLayout = viewType.layout
                 owner.collectionView.reloadData()
             }
@@ -114,7 +114,7 @@ extension FavoritePopUpVC: UICollectionViewDelegate, UICollectionViewDataSource 
         let viewType = viewModel.viewType.value
         
         switch viewType {
-        case .list:
+        case .cardList:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedPopUpCell.identifier, for: indexPath) as? SavedPopUpCell else {
                 return UICollectionViewCell()
             }
