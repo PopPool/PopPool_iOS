@@ -43,6 +43,7 @@ final class FilterMenuListViewCPNT: UIView {
         return button
     }()
     
+    // MARK: - init
     init(_ input: Input) {
         super.init(frame: .zero)
         setUpConstraints()
