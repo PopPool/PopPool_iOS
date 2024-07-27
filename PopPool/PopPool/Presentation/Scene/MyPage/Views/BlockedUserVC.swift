@@ -65,22 +65,17 @@ final class BlockedUserVC: UIViewController {
         // 테이블 뷰 연결
         output.userData
             .bind(to: tableView.rx.items(cellIdentifier: BlockedUserCell.reuseIdentifier, cellType: BlockedUserCell.self)) { [weak self] (row, element, cell) in
-                cell.setStyle(title: element.instagramId,
-                              subTitle: element.nickname,
-                              style: .button("차단 완료"))
+                cell.configure(title: element.instagramId,
+                               subTitle: element.nickname,
+                               buttonType: .button("차단 완료"))
                 
-                // observable sequence that emits value
-                cell.removeButton.rx.tap
-                    // 300 millisecond timeframe, to prevent double taps
-                    .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-                    // transforms tap events to row index of cell - recieved from tableView bind
-                    .map { row }
-                    // subscribing to the observable sequence created previously
-                    .bind(onNext: { [weak self] index in
-                        // with the tap, row index is emitted to removeUserSubject
-                        self?.removeUserSubject.onNext(index)
-                    })
-                    .disposed(by: cell.disposeBag)
+//                cell.removeButton.rx.tap
+//                    .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+//                    .map { _ in
+//                        cell.cellStateObserver.value == .blocked ? UserState.blocked : UserState.unblocked
+//                    }
+//                    .bind(to: cell.cellStateObserver)
+//                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         

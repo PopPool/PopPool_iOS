@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 
 class BlockedUserCell: UITableViewCell {
     
@@ -15,6 +16,29 @@ class BlockedUserCell: UITableViewCell {
         case button(String)
         case icon
         case toggle
+    }
+    
+    enum UserState {
+        case blocked
+        case unblocked
+        
+        var stateDescription: String? {
+            switch self {
+            case .blocked:
+                return "차단 완료"
+            case .unblocked:
+                return "차단 해제"
+            }
+        }
+        
+        var stateColor: UIColor {
+            switch self {
+            case .blocked:
+                return .re600
+            case .unblocked:
+                return .g200
+            }
+        }
     }
 
     static let reuseIdentifier = "BlockedUserCell"
@@ -83,6 +107,7 @@ class BlockedUserCell: UITableViewCell {
         return button
     }()
     
+    let cellStateObserver: BehaviorRelay<UserState> = .init(value: .blocked)
     var disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -105,7 +130,71 @@ class BlockedUserCell: UITableViewCell {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.height/2
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        bind()
+    }
+    
     // MARK: - Methods
+    
+    func bind() {
+        // cell의 상태를 확인
+        cellStateObserver
+            .withUnretained(self)
+            .subscribe { (owner, state) in
+                self.updateCell(from: state)
+            }
+            .disposed(by: disposeBag)
+        
+        removeButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let newState: UserState = self.cellStateObserver.value == .blocked ? .unblocked : .blocked
+                self.cellStateObserver.accept(newState)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    // 상태에 따라 셀의 모습을 업데이트
+    private func updateCell(from state: UserState) {
+        removeButton.setTitle(state.stateDescription, for: .normal)
+        removeButton.backgroundColor = state.stateColor
+    }
+    
+    public func configure(title: String, subTitle: String, buttonType: ButtonStyle) {
+        let isDate = checkIfDate(input: subTitle)
+        titleLabel.text = title
+        subLabel.text = isDate
+        subLabel.textColor = .g400
+        
+        switch buttonType {
+        case .button(let buttonName):
+            removeButton.setTitle(buttonName, for: .normal)
+            profileStack.setCustomSpacing(42, after: titleStack)
+            profileStack.addArrangedSubview(removeButton)
+            
+        case .icon:
+            removeButton.setImage(UIImage(named: "line_signUp"), for: .normal)
+            removeButton.contentMode = .scaleAspectFit
+            removeButton.contentEdgeInsets = UIEdgeInsets(top: 9.5, left: 0, bottom: 9.5, right: 0)
+            
+            removeButton.snp.makeConstraints { make in
+                make.width.equalTo(22)
+            }
+            
+            profileStack.setCustomSpacing(42, after: titleStack)
+            profileStack.addArrangedSubview(removeButton)
+            
+        case .toggle:
+            let toggle = UISwitch()
+            toggle.onTintColor = .blu400
+            toggle.bringSubviewToFront(self)
+            profileStack.addArrangedSubview(toggle)
+        }
+        
+        bind()
+    }
     
     private func setUpConstraints() {
         addSubview(containerStack)
@@ -136,39 +225,6 @@ class BlockedUserCell: UITableViewCell {
             return formattedDate
         } else {
             return input
-        }
-    }
-    
-    public func setStyle(title: String, subTitle: String, style: ButtonStyle) {
-        let isDate = checkIfDate(input: subTitle)
-        titleLabel.text = title
-        subLabel.text = isDate
-        subLabel.textColor = .g400
-        
-        switch style {
-        case .button(let buttonName):
-            removeButton.backgroundColor = .red
-            removeButton.setTitle(buttonName, for: .normal)
-            profileStack.setCustomSpacing(42, after: titleStack)
-            profileStack.addArrangedSubview(removeButton)
-            
-        case .icon:
-            removeButton.setImage(UIImage(named: "line_signUp"), for: .normal)
-            removeButton.contentMode = .scaleAspectFit
-            removeButton.contentEdgeInsets = UIEdgeInsets(top: 9.5, left: 0, bottom: 9.5, right: 0)
-            
-            removeButton.snp.makeConstraints { make in
-                make.width.equalTo(22)
-            }
-            
-            profileStack.setCustomSpacing(42, after: titleStack)
-            profileStack.addArrangedSubview(removeButton)
-            
-        case .toggle:
-            let toggle = UISwitch()
-            toggle.onTintColor = .blu400
-            toggle.bringSubviewToFront(self)
-            profileStack.addArrangedSubview(toggle)
         }
     }
 }
