@@ -13,7 +13,7 @@ final class BlockedUserVC: UIViewController {
     
     private let viewModel: BlockedUserVM
     private let headerView = HeaderViewCPNT(title: "차단한 사용자 관리", style: .icon(nil))
-    private lazy var contentHeader = ListMenuCPNT(titleText: "총 \(viewModel.userDataRelay.value.count)건", style: .none)
+    private lazy var contentHeader = ListMenuCPNT(titleText: "", style: .none)
     private let topSpaceView = UIView()
     
     private let tableView: UITableView = {
@@ -62,6 +62,9 @@ final class BlockedUserVC: UIViewController {
         
         // 테이블 뷰 연결
         output.userData
+            .do(onNext: { [weak self] users in
+                self?.updateCount(count: users.count)
+            })
             .bind(to: tableView.rx.items(
                 cellIdentifier: BlockedUserCell.reuseIdentifier,
                 cellType: BlockedUserCell.self)) { [weak self] (row, element, cell) in
@@ -69,6 +72,16 @@ final class BlockedUserVC: UIViewController {
                                    subTitle: element.nickname,
                                    initialState: .blocked)
                     cell.selectionStyle = .none
+                    
+                    cell.stateChangeSubject
+                        .throttle(.milliseconds(300), scheduler: MainScheduler())
+                        .filter { $0 == .unblocked }
+                        .subscribe { [weak self] _ in
+                            self?.removeUserSubject.onNext(row)
+                            if let indexPath = self?.tableView.indexPath(for: cell) {
+                                self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                            }
+                        }
                 }
                 .disposed(by: disposeBag)
         
@@ -79,6 +92,10 @@ final class BlockedUserVC: UIViewController {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func updateCount(count: Int) {
+        contentHeader.titleLabel.text = "총 \(count)건"
     }
     
     private func setUp() {

@@ -80,6 +80,8 @@ final class BlockedUserCell: UITableViewCell {
     
     static let reuseIdentifier = "BlockedUserCell"
     private let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
+    let stateChangeSubject = PublishSubject<UserState>()
+    
     private var disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -119,6 +121,7 @@ final class BlockedUserCell: UITableViewCell {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 let newState = owner.fetchState()
+                owner.stateChangeSubject.onNext(newState)
                 owner.cellStateRelay.accept(newState)
             }
             .disposed(by: disposeBag)

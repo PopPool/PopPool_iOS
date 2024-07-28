@@ -21,7 +21,7 @@ final class ListMenuCPNT: UIStackView {
     
     //MARK: - Components
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .regular, size: 15)
         return label
