@@ -84,15 +84,15 @@ final class BlockedUserVC: UIViewController {
                     cell.selectionStyle = .none
                     
                     // 셀 데이터 삭제
-                    cell.stateChangeSubject
-                        .throttle(.milliseconds(300), scheduler: MainScheduler())
-                        .filter { $0 == .unblocked }
-                        .subscribe { [weak self] _ in
-                            self?.removeUserSubject.onNext(row)
-                            if let indexPath = self?.tableView.indexPath(for: cell) {
-                                self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                            }
-                        }
+//                    cell.stateChangeSubject
+//                        .throttle(.milliseconds(300), scheduler: MainScheduler())
+//                        .filter { $0 == .unblocked }
+//                        .subscribe { [weak self] _ in
+//                            self?.removeUserSubject.onNext(row)
+//                            if let indexPath = self?.tableView.indexPath(for: cell) {
+//                                self?.tableView.deleteRows(at: [indexPath], with: .fade)
+//                            }
+//                        }
                 }
                 .disposed(by: disposeBag)
         
