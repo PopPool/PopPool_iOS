@@ -123,6 +123,7 @@
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */; };
 		BD85EB682C4FDC1A000DBD05 /* BlockedUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD85EB672C4FDC1A000DBD05 /* BlockedUserResponse.swift */; };
 		BD85EB6A2C50045D000DBD05 /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */; };
 		BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8733842C50C75D0063499C /* BlockedUserCell.swift */; };
@@ -278,6 +279,7 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButtonCPNT.swift; sourceTree = "<group>"; };
 		BD85EB672C4FDC1A000DBD05 /* BlockedUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserResponse.swift; sourceTree = "<group>"; };
 		BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD8733842C50C75D0063499C /* BlockedUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCell.swift; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 				08A28CB52C2A97E300DF7A90 /* ContentTitleCPNT.swift */,
 				BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */,
 				BD2975092C51140D0090147C /* ListMenuCPNT.swift */,
+				BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */,
 				08C813DF2C2D82EF009239FE /* SegmentedControlCPNT.swift */,
 				BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */,
 				089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */,
@@ -1237,6 +1240,7 @@
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
+				BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
 				BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,

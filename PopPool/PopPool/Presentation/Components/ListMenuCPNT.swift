@@ -33,12 +33,12 @@ final class ListMenuCPNT: UIStackView {
         return label
     }()
     
-    private let iconButton: UIButton = {
+    let iconButton: UIButton = {
         let button = UIButton()
         return button
     }()
     
-    lazy var titleStack: UIStackView = {
+    private lazy var titleStack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(subTitle)

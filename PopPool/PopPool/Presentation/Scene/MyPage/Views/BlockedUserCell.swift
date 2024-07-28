@@ -12,12 +12,6 @@ import RxRelay
 
 class BlockedUserCell: UITableViewCell {
     
-    enum ButtonStyle {
-        case button(String)
-        case icon
-        case toggle
-    }
-    
     enum UserState {
         case blocked
         case unblocked
@@ -36,78 +30,57 @@ class BlockedUserCell: UITableViewCell {
             case .blocked:
                 return .re600
             case .unblocked:
+                return .w30
+            }
+        }
+        
+        var textColor: UIColor {
+            switch self {
+            case .blocked:
+                return .w100
+            case .unblocked:
+                return .g400
+            }
+        }
+        
+        var borderColor: UIColor? {
+            switch self {
+            case .blocked:
+                return nil
+            case .unblocked:
                 return .g200
             }
         }
+        
+        var borderWidth: CGFloat {
+            switch self {
+            case .blocked:
+                return 0
+            case .unblocked:
+                return 1
+            }
+        }
     }
-
+    
     static let reuseIdentifier = "BlockedUserCell"
         
     // MARK: - Component
-    
-    private let topSpaceView = UIView()
-    private let bottomSpaceView = UIView()
-    
     private lazy var containerStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.addArrangedSubview(topSpaceView)
-        stack.addArrangedSubview(profileStack)
+        stack.addArrangedSubview(component)
         stack.addArrangedSubview(bottomSpaceView)
         return stack
     }()
     
-    private let profileImageView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = UIImage(systemName: "person.fill")
-        imgView.backgroundColor = .black
-        imgView.contentMode = .scaleAspectFit
-        imgView.clipsToBounds = true
-        return imgView
-    }()
+    private let topSpaceView = UIView()
+    private let bottomSpaceView = UIView()
+    private let component: ListInfoButtonCPNT = ListInfoButtonCPNT(infoTitle: "메인 텍스트",
+                                                                   subTitle: "서브 텍스트",
+                                                                   style: .button("버튼 텍스트"))
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .KorFont(style: .bold, size: 14)
-        return label
-    }()
-    
-    private let subLabel: UILabel = {
-        let label = UILabel()
-        label.font = .KorFont(style: .regular, size: 12)
-        return label
-    }()
-    
-    lazy var titleStack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(subLabel)
-        return stack
-    }()
-    
-    lazy var profileStack: UIStackView = {
-        let stack = UIStackView()
-        stack.addArrangedSubview(profileImageView)
-        stack.addArrangedSubview(titleStack)
-        stack.spacing = 12
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        stack.isLayoutMarginsRelativeArrangement = true
-        return stack
-    }()
-    
-    let removeButton: UIButton = {
-        let button = UIButton()
-        button.setContentHuggingPriority(.required, for: .horizontal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-        
-        button.titleLabel?.font = .EngFont(style: .regular, size: 13)
-        button.layer.cornerRadius = 4
-        button.clipsToBounds = true
-        return button
-    }()
-    
-    let cellStateObserver: BehaviorRelay<UserState> = .init(value: .blocked)
+    let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
     var disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -115,6 +88,7 @@ class BlockedUserCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpConstraints()
+        bind()
     }
     
     required init(coder: NSCoder) {
@@ -126,10 +100,6 @@ class BlockedUserCell: UITableViewCell {
         sendSubviewToBack(contentView)
     }
     
-    override func layoutSubviews() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.height/2
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
@@ -139,73 +109,41 @@ class BlockedUserCell: UITableViewCell {
     // MARK: - Methods
     
     func bind() {
-        // cell의 상태를 확인
-        cellStateObserver
+        cellStateRelay
             .withUnretained(self)
             .subscribe { (owner, state) in
-                self.updateCell(from: state)
+                owner.setUpComponent(from: state)
             }
             .disposed(by: disposeBag)
         
-        removeButton.rx.tap
+        component.actionButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
-                let newState: UserState = self.cellStateObserver.value == .blocked ? .unblocked : .blocked
-                self.cellStateObserver.accept(newState)
+                let newState: UserState = owner.cellStateRelay.value == .blocked ? .unblocked : .blocked
+                owner.cellStateRelay.accept(newState)
             }
             .disposed(by: disposeBag)
     }
     
-    // 상태에 따라 셀의 모습을 업데이트
-    private func updateCell(from state: UserState) {
-        removeButton.setTitle(state.stateDescription, for: .normal)
-        removeButton.backgroundColor = state.stateColor
+    public func configure(title: String, subTitle: String, initialState: UserState) {
+        component.update(title: title, subTitle: subTitle)
+        cellStateRelay.accept(initialState)
     }
-    
-    public func configure(title: String, subTitle: String, buttonType: ButtonStyle) {
-        let isDate = checkIfDate(input: subTitle)
-        titleLabel.text = title
-        subLabel.text = isDate
-        subLabel.textColor = .g400
         
-        switch buttonType {
-        case .button(let buttonName):
-            removeButton.setTitle(buttonName, for: .normal)
-            profileStack.setCustomSpacing(42, after: titleStack)
-            profileStack.addArrangedSubview(removeButton)
-            
-        case .icon:
-            removeButton.setImage(UIImage(named: "line_signUp"), for: .normal)
-            removeButton.contentMode = .scaleAspectFit
-            removeButton.contentEdgeInsets = UIEdgeInsets(top: 9.5, left: 0, bottom: 9.5, right: 0)
-            
-            removeButton.snp.makeConstraints { make in
-                make.width.equalTo(22)
-            }
-            
-            profileStack.setCustomSpacing(42, after: titleStack)
-            profileStack.addArrangedSubview(removeButton)
-            
-        case .toggle:
-            let toggle = UISwitch()
-            toggle.onTintColor = .blu400
-            toggle.bringSubviewToFront(self)
-            profileStack.addArrangedSubview(toggle)
-        }
-        
-        bind()
+    private func setUpComponent(from state: UserState) {
+        component.actionButton.setTitle(state.stateDescription, for: .normal)
+        component.actionButton.setTitleColor(state.textColor, for: .normal)
+        component.actionButton.backgroundColor = state.stateColor
+        component.actionButton.layer.borderColor = state.borderColor?.cgColor
+        component.actionButton.layer.borderWidth = state.borderWidth
     }
     
     private func setUpConstraints() {
         addSubview(containerStack)
 
         containerStack.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(Constants.spaceGuide.small100)
+            make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-        }
-                
-        profileImageView.snp.makeConstraints { make in
-            make.size.equalTo(Constants.spaceGuide.medium200)
         }
     }
     
