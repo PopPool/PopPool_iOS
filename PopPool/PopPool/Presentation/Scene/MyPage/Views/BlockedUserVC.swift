@@ -11,6 +11,8 @@ import RxSwift
 
 final class BlockedUserVC: UIViewController {
     
+    // MARK: - Components
+    
     private let viewModel: BlockedUserVM
     private let headerView = HeaderViewCPNT(title: "차단한 사용자 관리", style: .icon(nil))
     private lazy var contentHeader = ListMenuCPNT(titleText: "", style: .none)
@@ -34,8 +36,12 @@ final class BlockedUserVC: UIViewController {
         return stack
     }()
     
+    // MARK: - Properties
+    
     private let disposeBag = DisposeBag()
     private let removeUserSubject = PublishSubject<Int>()
+    
+    // MARK: - Initializer
     
     init(viewModel: BlockedUserVM) {
         self.viewModel = viewModel
@@ -46,12 +52,16 @@ final class BlockedUserVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
         setUpConstraints()
         bindViewModel()
     }
+    
+    // MARK: - Methods
     
     private func bindViewModel() {
         let input = BlockedUserVM.Input(
@@ -73,6 +83,7 @@ final class BlockedUserVC: UIViewController {
                                    initialState: .blocked)
                     cell.selectionStyle = .none
                     
+                    // 셀 데이터 삭제
                     cell.stateChangeSubject
                         .throttle(.milliseconds(300), scheduler: MainScheduler())
                         .filter { $0 == .unblocked }

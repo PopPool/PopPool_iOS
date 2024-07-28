@@ -63,6 +63,7 @@ final class BlockedUserCell: UITableViewCell {
     }
     
     // MARK: - Component
+    
     private lazy var containerStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -78,10 +79,11 @@ final class BlockedUserCell: UITableViewCell {
                                                                    subTitle: "서브 텍스트",
                                                                    style: .button("버튼 텍스트"))
     
-    static let reuseIdentifier = "BlockedUserCell"
-    private let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
-    let stateChangeSubject = PublishSubject<UserState>()
+    // MARK: - Properties
     
+    static let reuseIdentifier = "BlockedUserCell"
+    let stateChangeSubject = PublishSubject<UserState>()
+    private let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
     private var disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -110,6 +112,7 @@ final class BlockedUserCell: UITableViewCell {
     // MARK: - Methods
     
     private func bind() {
+        // 상태에 따라 view 업데이트
         cellStateRelay
             .withUnretained(self)
             .subscribe { (owner, state) in
@@ -117,6 +120,7 @@ final class BlockedUserCell: UITableViewCell {
             }
             .disposed(by: disposeBag)
         
+        // 버튼 탭으로 상태 값을 전달
         component.actionButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -127,11 +131,18 @@ final class BlockedUserCell: UITableViewCell {
             .disposed(by: disposeBag)
     }
     
+    /// BlockedUserVC에서 셀을 업데이트하는 메서드입니다
+    /// - Parameters:
+    ///   - title: 셀의 제목 영역의 값을 받습니다
+    ///   - subTitle: 셀의 부제목 영역의 값을 받습니다
+    ///   - initialState: BlockedUserVC에서 설정하는 초기값을 받습니다
     public func configure(title: String, subTitle: String, initialState: UserState) {
         component.update(title: title, subTitle: subTitle)
         cellStateRelay.accept(initialState)
     }
     
+    /// 현재 상태를 호출합니다
+    /// - Returns: UserState (.blocked, .unblocked 여부를 반환합니다)
     private func fetchState() -> UserState {
         self.cellStateRelay.value == .blocked ? .unblocked : .blocked
     }
