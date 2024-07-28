@@ -80,8 +80,8 @@ class BlockedUserCell: UITableViewCell {
                                                                    subTitle: "서브 텍스트",
                                                                    style: .button("버튼 텍스트"))
     
-    let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
-    var disposeBag = DisposeBag()
+    private let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
+    private var disposeBag = DisposeBag()
     
     // MARK: - Initializer
 
@@ -108,7 +108,7 @@ class BlockedUserCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func bind() {
+    private func bind() {
         cellStateRelay
             .withUnretained(self)
             .subscribe { (owner, state) in

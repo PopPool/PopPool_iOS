@@ -25,7 +25,7 @@ final class BlockedUserVC: UIViewController {
         return table
     }()
     
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.addArrangedSubview(headerView)
