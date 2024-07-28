@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxRelay
 
-class BlockedUserCell: UITableViewCell {
+final class BlockedUserCell: UITableViewCell {
     
     enum UserState {
         case blocked
@@ -62,8 +62,6 @@ class BlockedUserCell: UITableViewCell {
         }
     }
     
-    static let reuseIdentifier = "BlockedUserCell"
-        
     // MARK: - Component
     private lazy var containerStack: UIStackView = {
         let stack = UIStackView()
@@ -80,6 +78,7 @@ class BlockedUserCell: UITableViewCell {
                                                                    subTitle: "서브 텍스트",
                                                                    style: .button("버튼 텍스트"))
     
+    static let reuseIdentifier = "BlockedUserCell"
     private let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
     private var disposeBag = DisposeBag()
     
@@ -119,7 +118,7 @@ class BlockedUserCell: UITableViewCell {
         component.actionButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
-                let newState: UserState = owner.cellStateRelay.value == .blocked ? .unblocked : .blocked
+                let newState = owner.fetchState()
                 owner.cellStateRelay.accept(newState)
             }
             .disposed(by: disposeBag)
@@ -128,6 +127,10 @@ class BlockedUserCell: UITableViewCell {
     public func configure(title: String, subTitle: String, initialState: UserState) {
         component.update(title: title, subTitle: subTitle)
         cellStateRelay.accept(initialState)
+    }
+    
+    private func fetchState() -> UserState {
+        self.cellStateRelay.value == .blocked ? .unblocked : .blocked
     }
         
     private func setUpComponent(from state: UserState) {
