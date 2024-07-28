@@ -82,9 +82,8 @@ final class BlockedUserCell: UITableViewCell {
     // MARK: - Properties
     
     static let reuseIdentifier = "BlockedUserCell"
-    let stateChangeSubject = PublishSubject<UserState>()
-    private let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
-    private var disposeBag = DisposeBag()
+    let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
+    var disposeBag = DisposeBag()
     
     // MARK: - Initializer
 
@@ -105,13 +104,14 @@ final class BlockedUserCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposeBag = DisposeBag()
         bind()
+        disposeBag = DisposeBag()
     }
     
     // MARK: - Methods
     
     private func bind() {
+        
         // 상태에 따라 view 업데이트
         cellStateRelay
             .withUnretained(self)
@@ -125,7 +125,6 @@ final class BlockedUserCell: UITableViewCell {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 let newState = owner.fetchState()
-                owner.stateChangeSubject.onNext(newState)
                 owner.cellStateRelay.accept(newState)
             }
             .disposed(by: disposeBag)

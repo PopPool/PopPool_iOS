@@ -36,6 +36,24 @@ final class BlockedUserVC: UIViewController {
         return stack
     }()
     
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "차단한 사용자가 없어요"
+        label.font = .KorFont(style: .regular, size: 14)
+        label.textAlignment = .center
+        label.textColor = .g400
+        return label
+    }()
+    
+    private let emptyTopView = UIView()
+    private let emptyBottomView = UIView()
+    
+    private var emptyStateStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        return stack
+    }()
+    
     // MARK: - Properties
     
     private let disposeBag = DisposeBag()
@@ -70,6 +88,16 @@ final class BlockedUserVC: UIViewController {
         )
         let output = viewModel.transform(input: input)
         
+        output.userData
+            .map { !$0.isEmpty }
+            .withUnretained(self)
+            .bind { (owner, hasData) in
+                owner.tableView.isHidden = !hasData
+                owner.contentHeader.isHidden = !hasData
+                owner.emptyStateStack.isHidden = hasData
+            }
+            .disposed(by: disposeBag)
+        
         // 테이블 뷰 연결
         output.userData
             .do(onNext: { [weak self] users in
@@ -78,21 +106,24 @@ final class BlockedUserVC: UIViewController {
             .bind(to: tableView.rx.items(
                 cellIdentifier: BlockedUserCell.reuseIdentifier,
                 cellType: BlockedUserCell.self)) { [weak self] (row, element, cell) in
+                    
                     cell.configure(title: element.instagramId,
                                    subTitle: element.nickname,
                                    initialState: .blocked)
                     cell.selectionStyle = .none
                     
-                    // 셀 데이터 삭제
-//                    cell.stateChangeSubject
-//                        .throttle(.milliseconds(300), scheduler: MainScheduler())
-//                        .filter { $0 == .unblocked }
-//                        .subscribe { [weak self] _ in
-//                            self?.removeUserSubject.onNext(row)
-//                            if let indexPath = self?.tableView.indexPath(for: cell) {
-//                                self?.tableView.deleteRows(at: [indexPath], with: .fade)
-//                            }
-//                        }
+                    // ToastMessage 출력
+                    cell.cellStateRelay
+                        .subscribe(onNext: { [weak self] state in
+                            guard let self = self else { return }
+                            switch state {
+                            case .blocked:
+                                ToastMSGManager.createToast(message: "\(element.nickname)님을 차단했습니다.")
+                            case .unblocked:
+                                ToastMSGManager.createToast(message: "차단 해제 완")
+                            }
+                        })
+                        .disposed(by: cell.disposeBag)
                 }
                 .disposed(by: disposeBag)
         
@@ -119,6 +150,10 @@ final class BlockedUserVC: UIViewController {
     private func setUpConstraints() {
         view.addSubview(stackView)
         view.addSubview(tableView)
+        view.addSubview(emptyStateStack)
+        emptyStateStack.addArrangedSubview(emptyTopView)
+        emptyStateStack.addArrangedSubview(emptyLabel)
+        emptyStateStack.addArrangedSubview(emptyBottomView)
         
         stackView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
@@ -136,6 +171,19 @@ final class BlockedUserVC: UIViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom)
             make.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        emptyTopView.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.large200)
+        }
+        
+        emptyBottomView.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.large200)
+        }
+        
+        emptyStateStack.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(contentHeader.snp.bottom)
         }
     }
 }
