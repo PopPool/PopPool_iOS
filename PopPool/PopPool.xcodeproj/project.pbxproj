@@ -96,7 +96,6 @@
 		08E23A532C4A2351004B77B6 /* InterestSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A522C4A2351004B77B6 /* InterestSelectedView.swift */; };
 		08E23A552C4CBC42004B77B6 /* RequestEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A542C4CBC42004B77B6 /* RequestEndPoint.swift */; };
 		08E23A572C4D3450004B77B6 /* RequestTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A562C4D3450004B77B6 /* RequestTokenInterceptor.swift */; };
-		08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC62C50E63E004B77B6 /* InputableView.swift */; };
 		08E23A5C2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A5B2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift */; };
 		08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A5E2C4E1719004B77B6 /* PopUpInfoDTO.swift */; };
 		08E23A632C4E1925004B77B6 /* MyCommentInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A622C4E1925004B77B6 /* MyCommentInfoDTO.swift */; };
@@ -136,6 +135,7 @@
 		08E23AC12C4F8FCB004B77B6 /* MyInterestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC02C4F8FCB004B77B6 /* MyInterestInfo.swift */; };
 		08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC22C4F904D004B77B6 /* GetProfileResponse.swift */; };
 		08E23AC52C4F9298004B77B6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC42C4F9298004B77B6 /* UserRepository.swift */; };
+		08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC62C50E63E004B77B6 /* InputableView.swift */; };
 		08F49DDB2C200528002D5202 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DDA2C200528002D5202 /* AuthService.swift */; };
 		08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DE92C231CFC002D5202 /* LoginResponse.swift */; };
 		08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */; };
@@ -163,6 +163,10 @@
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */; };
+		BD79E1832C57499100CCEE07 /* NoticeBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */; };
+		BD79E1852C5763A200CCEE07 /* NoticeDetailBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1842C5763A200CCEE07 /* NoticeDetailBoardVC.swift */; };
+		BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
@@ -287,7 +291,6 @@
 		08E23A522C4A2351004B77B6 /* InterestSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestSelectedView.swift; sourceTree = "<group>"; };
 		08E23A542C4CBC42004B77B6 /* RequestEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEndPoint.swift; sourceTree = "<group>"; };
 		08E23A562C4D3450004B77B6 /* RequestTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTokenInterceptor.swift; sourceTree = "<group>"; };
-		08E23AC62C50E63E004B77B6 /* InputableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputableView.swift; sourceTree = "<group>"; };
 		08E23A5B2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponseDTO.swift; sourceTree = "<group>"; };
 		08E23A5E2C4E1719004B77B6 /* PopUpInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpInfoDTO.swift; sourceTree = "<group>"; };
 		08E23A622C4E1925004B77B6 /* MyCommentInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentInfoDTO.swift; sourceTree = "<group>"; };
@@ -327,6 +330,7 @@
 		08E23AC02C4F8FCB004B77B6 /* MyInterestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInterestInfo.swift; sourceTree = "<group>"; };
 		08E23AC22C4F904D004B77B6 /* GetProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileResponse.swift; sourceTree = "<group>"; };
 		08E23AC42C4F9298004B77B6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		08E23AC62C50E63E004B77B6 /* InputableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputableView.swift; sourceTree = "<group>"; };
 		08F49DDA2C200528002D5202 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		08F49DE92C231CFC002D5202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		08F49DEB2C231D13002D5202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
@@ -354,6 +358,10 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardVC.swift; sourceTree = "<group>"; };
+		BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardVM.swift; sourceTree = "<group>"; };
+		BD79E1842C5763A200CCEE07 /* NoticeDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailBoardVC.swift; sourceTree = "<group>"; };
+		BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -630,6 +638,10 @@
 				089D19252C3AEB3E000435D9 /* Views */,
 				089D191C2C36B16D000435D9 /* MyPageMainVC.swift */,
 				08B183BC2C439F52006C34BB /* MyPageMainVM.swift */,
+				BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */,
+				BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */,
+				BD79E1842C5763A200CCEE07 /* NoticeDetailBoardVC.swift */,
+				BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1412,6 +1424,7 @@
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
+				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
@@ -1443,6 +1456,7 @@
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
 				08E23A8D2C4F6F07004B77B6 /* PageableResponse.swift in Sources */,
 				08E23A572C4D3450004B77B6 /* RequestTokenInterceptor.swift in Sources */,
+				BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */,
 				089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */,
 				08E23AB12C4F8700004B77B6 /* GetMyCommentResponse.swift in Sources */,
 				08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */,
@@ -1451,6 +1465,7 @@
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				089D19102C352E1E000435D9 /* AgeSelectModalVC.swift in Sources */,
 				08E23AA72C4F7D27004B77B6 /* PopUpInfo.swift in Sources */,
+				BD79E1852C5763A200CCEE07 /* NoticeDetailBoardVC.swift in Sources */,
 				BD1D886A2C3D952500380F80 /* Secrets.swift in Sources */,
 				08E23A822C4F6CD2004B77B6 /* GetMyCommentedPopUpStoreListRequestDTO.swift in Sources */,
 				08C813D92C2D294D009239FE /* UICollectionViewCell+.swift in Sources */,
@@ -1523,6 +1538,7 @@
 				BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */,
 				08E23A3B2C4502E5004B77B6 /* CircleFeedCell.swift in Sources */,
 				08E23A412C452571004B77B6 /* MyCommentCircleListCellSection.swift in Sources */,
+				BD79E1832C57499100CCEE07 /* NoticeBoardVM.swift in Sources */,
 				BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */,
 				08E23A7A2C4F6A0A004B77B6 /* UserBlockRequestDTO.swift in Sources */,
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
