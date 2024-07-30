@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxRelay
+import RxCocoa
 
 final class BlockedUserCell: UITableViewCell {
     
@@ -82,7 +83,6 @@ final class BlockedUserCell: UITableViewCell {
     // MARK: - Properties
     
     static let reuseIdentifier = "BlockedUserCell"
-    let cellStateRelay: BehaviorRelay<UserState> = .init(value: .blocked)
     var disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -111,23 +111,7 @@ final class BlockedUserCell: UITableViewCell {
     // MARK: - Methods
     
     private func bind() {
-        
-        // 상태에 따라 view 업데이트
-        cellStateRelay
-            .withUnretained(self)
-            .subscribe { (owner, state) in
-                owner.setUpComponent(from: state)
-            }
-            .disposed(by: disposeBag)
-        
-        // 버튼 탭으로 상태 값을 전달
-        component.actionButton.rx.tap
-            .withUnretained(self)
-            .subscribe { (owner, _) in
-                let newState = owner.fetchState()
-                owner.cellStateRelay.accept(newState)
-            }
-            .disposed(by: disposeBag)
+
     }
     
     /// BlockedUserVC에서 셀을 업데이트하는 메서드입니다
@@ -137,13 +121,6 @@ final class BlockedUserCell: UITableViewCell {
     ///   - initialState: BlockedUserVC에서 설정하는 초기값을 받습니다
     public func configure(title: String, subTitle: String, initialState: UserState) {
         component.update(title: title, subTitle: subTitle)
-        cellStateRelay.accept(initialState)
-    }
-    
-    /// 현재 상태를 호출합니다
-    /// - Returns: UserState (.blocked, .unblocked 여부를 반환합니다)
-    private func fetchState() -> UserState {
-        self.cellStateRelay.value == .blocked ? .unblocked : .blocked
     }
         
     private func setUpComponent(from state: UserState) {

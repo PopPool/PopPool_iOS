@@ -54,7 +54,7 @@ final class BlockedUserVC: BaseTableViewVC {
             }
             .disposed(by: disposeBag)
         
-//        // 테이블 뷰 연결
+        // 테이블 뷰 연결
         output.userData
             .do(onNext: { user in
                 self.updateCount(count: user.count)
@@ -69,34 +69,6 @@ final class BlockedUserVC: BaseTableViewVC {
                             initialState: .blocked)
                     }.disposed(by: disposeBag)
         
-//        output.userData
-//            .do(onNext: { [weak self] users in
-//                self?.updateCount(count: users.count)
-//            })
-//            .bind(to: tableView.rx.items(
-//                cellIdentifier: BlockedUserCell.reuseIdentifier,
-//                cellType: BlockedUserCell.self)) { [weak self] (row, element, cell) in
-//                    
-//                    cell.configure(title: element.instagramId,
-//                                   subTitle: element.nickname,
-//                                   initialState: .blocked)
-//                    cell.selectionStyle = .none
-//                    
-//                    // ToastMessage 출력
-//                    cell.cellStateRelay
-//                        .subscribe(onNext: { [weak self] state in
-//                            guard let self = self else { return }
-//                            switch state {
-//                            case .blocked:
-//                                ToastMSGManager.createToast(message: "\(element.nickname)님을 차단했습니다.")
-//                            case .unblocked:
-//                                ToastMSGManager.createToast(message: "차단 해제 완")
-//                            }
-//                        })
-//                        .disposed(by: cell.disposeBag)
-//                }
-//                .disposed(by: disposeBag)
-//        
         // 리턴 버튼 연결
         output.dismissScreen
             .withUnretained(self)

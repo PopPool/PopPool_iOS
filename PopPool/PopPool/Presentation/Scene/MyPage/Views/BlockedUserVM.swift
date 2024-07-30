@@ -19,27 +19,24 @@ final class BlockedUserVM: ViewModelable {
         let userData: Observable<[[String]]>
     }
     
-    private let userDataRelay: BehaviorRelay<[[String]]>
     var disposeBag = DisposeBag()
-    
-    init() {
-        let mockData = [
-            ["honn", "lasso", "닉네임", "123123"],
-            ["이렇게할 수 있을까", "person", "사람입니다", "312312"],
-            ["변경", "circle", "이동후", "543225432"],
-            ["스티브", "circle", "이후", "231231"]
-        ]
-        
-        userDataRelay = BehaviorRelay(value: mockData)
-    }
-        // mock data
-//        userDataRelay = BehaviorRelay(value: userData)
+    private let mockData: [[String]] = [
+        ["honn", "lasso", "닉네임", "123123"],
+        ["이렇게할 수 있을까", "person", "사람입니다", "312312"],
+        ["변경", "circle", "이동후", "543225432"],
+        ["스티브", "circle", "이후", "231231"]
+    ]
         
     func transform(input: Input) -> Output {
+        input.returnTap
+            .subscribe {
+                print("버튼이 눌렸습니다.")
+            }
+            .disposed(by: disposeBag)
         
         return Output(
             dismissScreen: input.returnTap,
-            userData: userDataRelay.asObservable()
+            userData: userDataSubject
         )
     }
 }
