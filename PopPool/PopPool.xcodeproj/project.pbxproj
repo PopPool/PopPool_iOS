@@ -125,7 +125,6 @@
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */; };
 		BD79E1792C5740C200CCEE07 /* BaseTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */; };
-		BD85EB682C4FDC1A000DBD05 /* BlockedUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD85EB672C4FDC1A000DBD05 /* BlockedUserResponse.swift */; };
 		BD85EB6A2C50045D000DBD05 /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */; };
 		BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8733842C50C75D0063499C /* BlockedUserCell.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
@@ -282,7 +281,6 @@
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButtonCPNT.swift; sourceTree = "<group>"; };
 		BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewVC.swift; sourceTree = "<group>"; };
-		BD85EB672C4FDC1A000DBD05 /* BlockedUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserResponse.swift; sourceTree = "<group>"; };
 		BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD8733842C50C75D0063499C /* BlockedUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCell.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
@@ -697,7 +695,6 @@
 		08B965662C14846100BF95AA /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				BD85EB672C4FDC1A000DBD05 /* BlockedUserResponse.swift */,
 				08F49DE92C231CFC002D5202 /* LoginResponse.swift */,
 				089D19142C366E1A000435D9 /* Interest.swift */,
 			);
@@ -1222,7 +1219,6 @@
 				089D19182C36715F000435D9 /* SignUpRepositoryTest.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
-				BD85EB682C4FDC1A000DBD05 /* BlockedUserResponse.swift in Sources */,
 				BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */,
 				08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */,
 				08C813F72C2F15DC009239FE /* InterestListResponseDTO.swift in Sources */,
