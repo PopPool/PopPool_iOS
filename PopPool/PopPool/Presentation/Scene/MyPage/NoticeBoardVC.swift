@@ -12,7 +12,6 @@ import RxSwift
 class NoticeBoardVC: BaseTableViewVC {
     
     private let viewModel: NoticeBoardVM
-    private let noticeSelectSubject = PublishSubject<IndexPath>()
     
     init(viewModel: NoticeBoardVM) {
         self.viewModel = viewModel
@@ -31,7 +30,7 @@ class NoticeBoardVC: BaseTableViewVC {
     
     private func bind() {
         let input = NoticeBoardVM.Input(
-            selectedNotice: noticeSelectSubject.asObservable()
+            itemSelected: tableView.rx.itemSelected.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -42,12 +41,8 @@ class NoticeBoardVC: BaseTableViewVC {
                 cellIdentifier: NoticeTableViewCell.reuseIdentifier,
                 cellType: NoticeTableViewCell.self)) { [weak self] (row, element, cell) in
                     print("이건 어딘데", cell)
+                    print("view 업데이트", element)
             }
-            .disposed(by: disposeBag)
-        
-        // 테이블 뷰 데이터 전달
-        tableView.rx.itemSelected
-            .bind(to: noticeSelectSubject)
             .disposed(by: disposeBag)
         
         // 테이블 뷰 되돌아가기 버튼
@@ -64,6 +59,7 @@ class NoticeBoardVC: BaseTableViewVC {
         tableView.register(NoticeTableViewCell.self,
                            forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
         headerView.titleLabel.text = "공지사항"
+        contentHeader.isHidden = true
         emptyLabel.removeFromSuperview()
     }
 }

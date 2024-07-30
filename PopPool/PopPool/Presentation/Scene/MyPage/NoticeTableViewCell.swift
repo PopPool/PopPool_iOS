@@ -36,6 +36,7 @@ class NoticeTableViewCell: UITableViewCell {
     private func setUpConstraint() {
         contentView.addSubview(component)
         component.snp.makeConstraints { make in
+            make.height.equalTo(82)
             make.edges.equalToSuperview()
         }
     }

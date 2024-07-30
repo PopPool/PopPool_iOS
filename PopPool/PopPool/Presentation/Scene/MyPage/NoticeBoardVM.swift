@@ -11,26 +11,42 @@ import RxCocoa
 
 final class NoticeBoardVM: ViewModelable {
     struct Input {
-        let selectedNotice: Observable<IndexPath>
+        // Viewcontroller에서 발생한 모든 이벤트
+        let itemSelected: Observable<IndexPath>
     }
     
     struct Output {
-        let notices: Observable<[String]>
+        let notices: Observable<[NoticeContent]>
+        let selectedNotice: Observable<NoticeContent>
     }
     
-    private let noticeRelay = BehaviorRelay<[String]>(value: [])
     var disposeBag = DisposeBag()
     
-    init() {
-        // mockData
-        let mockData = ["제목", "작성자", "콘텐츠 주저리주저리"]
-        noticeRelay.accept(mockData)
-    }
-
+    let mockData: [NoticeContent] = [
+        NoticeContent(id: 0, title: "test", writer: "testWriter", content: "alskflashvlslv"),
+        NoticeContent(id: 1, title: "test1", writer: "testWriter1", content: "asdfaxcvqwe"),
+        NoticeContent(id: 2, title: "test2", writer: "testWriter2", content: "ㅁㄴㅇㄹㅊㅁㄴㅇㄹ"),
+        NoticeContent(id: 3, title: "test3", writer: "testWriter3", content: "ㅂㅈㅊㅋㅌㅍ")
+    ]
+    
     func transform(input: Input) -> Output {
+        let noticeOutput = Observable.just(mockData)
+        
+        let selectedNotice = input.itemSelected
+            .withLatestFrom(noticeOutput) { indexPath, notices in
+                notices[indexPath.row]
+            }
         
         return Output(
-            notices: noticeRelay.asObservable()
+            notices: noticeOutput,
+            selectedNotice: selectedNotice
         )
     }
+}
+
+struct NoticeContent {
+    let id: Int
+    let title: String
+    let writer: String
+    let content: String
 }
