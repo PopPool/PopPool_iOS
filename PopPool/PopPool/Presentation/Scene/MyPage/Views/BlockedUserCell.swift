@@ -144,12 +144,6 @@ final class BlockedUserCell: UITableViewCell {
         cellStateSubject.on(.next(initialState))
     }
 
-    /// 현재 상태를 호출합니다
-    /// - Returns: UserState (.blocked, .unblocked 여부를 반환합니다)
-//    private func fetchState() -> UserState {
-//        return currentState
-//    }
-
     private func setUpComponent(from state: UserState) {
         component.actionButton.setTitle(state.stateDescription, for: .normal)
         component.actionButton.setTitleColor(state.textColor, for: .normal)
