@@ -12,11 +12,12 @@ import RxCocoa
 final class BlockedUserVM: ViewModelable {
     struct Input {
         let returnTap: ControlEvent<Void>
+        let removeUser: Observable<Int>
     }
     
     struct Output {
         let dismissScreen: ControlEvent<Void>
-        let userData: Observable<[[String]]>
+        let userData: BehaviorSubject<[[String]]>
     }
     
     var disposeBag = DisposeBag()
@@ -28,10 +29,18 @@ final class BlockedUserVM: ViewModelable {
     ]
         
     func transform(input: Input) -> Output {
-        input.returnTap
-            .subscribe {
-                print("버튼이 눌렸습니다.")
+        let userDataSubject = BehaviorSubject<[[String]]>(value: [[]])
+        userDataSubject.on(.next(mockData))
+        
+        // 삭제 기능 필요시 연결
+        input.removeUser
+            .withLatestFrom(userDataSubject) { indexPath, users in
+                var updatedUsers = users
+                guard indexPath >= 0 && indexPath < updatedUsers.count else { return users }
+                updatedUsers.remove(at: indexPath)
+                return updatedUsers
             }
+            .bind(to: userDataSubject)
             .disposed(by: disposeBag)
         
         return Output(
