@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import SnapKit
 
-class NoticeDetailBoardVC: UIViewController, UIScrollViewDelegate {
+final class NoticeDetailBoardVC: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Components
     
@@ -129,7 +129,6 @@ class NoticeDetailBoardVC: UIViewController, UIScrollViewDelegate {
     }
     
     private func setUpConstraint() {
-        
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         

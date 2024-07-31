@@ -9,9 +9,13 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class NoticeBoardVC: BaseTableViewVC {
+final class NoticeBoardVC: BaseTableViewVC {
+    
+    // MARK: - Properties
     
     private let viewModel: NoticeBoardVM
+    
+    // MARK: - Initializer
     
     init(viewModel: NoticeBoardVM) {
         self.viewModel = viewModel
@@ -22,12 +26,18 @@ class NoticeBoardVC: BaseTableViewVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableViewCell()
         bind()
     }
     
+    // MARK: - Method
+    
+    /// 공지사항 안내 건 수와 View의 메인 제목을 변경하기 위한 메서드입니다
+    /// - Parameter notice: 공지사항 총 갯수 파악이 필요하여 Int를 받습니다
     private func updateView(notice: Int) {
         emptyLabel.removeFromSuperview()
         headerView.titleLabel.text = "공지사항"
@@ -37,6 +47,7 @@ class NoticeBoardVC: BaseTableViewVC {
         contentHeader.iconButton.isHidden = true
     }
     
+    /// BaseTableViewVC과 다른 테이블뷰 셀을 등록할 수 있는 메서드입니다
     private func registerTableViewCell() {
         tableView.register(NoticeTableViewCell.self,
                            forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
@@ -49,7 +60,8 @@ class NoticeBoardVC: BaseTableViewVC {
         )
         let output = viewModel.transform(input: input)
         
-        // 셀 등록
+        // 셀에 공지사항 데이터를 제공합니다
+        // 더미 데이터로 구성하여 데이터 구조는 변경할 예정입니다
         output.notices
             .do(onNext: { [weak self] notice in
                 self?.updateView(notice: notice.count)
@@ -63,6 +75,7 @@ class NoticeBoardVC: BaseTableViewVC {
                 }
                 .disposed(by: disposeBag)
         
+        // 선택된 데이터로 화면을 이동합니다
         output.selectedNotice
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
@@ -72,7 +85,7 @@ class NoticeBoardVC: BaseTableViewVC {
             })
             .disposed(by: disposeBag)
         
-        // 이전 화면으로 되돌아가기
+        // 해당 공지사항 페이지에서 rootViewController로 나갑니다
         output.popToRoot
             .subscribe(onNext: { [weak self] in
                 print("root로 돌아갑니다")

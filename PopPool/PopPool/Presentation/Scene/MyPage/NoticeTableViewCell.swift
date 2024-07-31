@@ -89,6 +89,10 @@ final class NoticeTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     
+    /// 셀의 제목과 부제목/날짜를 호출하기 위한 메서드입니다.
+    /// - Parameters:
+    ///   - title: String 타입을 받습니다.
+    ///   - subTitle: String 타입을 받습니다.
     public func updateView(title: String, subTitle: String) {
         titleLabel.text = title
         subTitleLabel.text = subTitle
