@@ -1,5 +1,5 @@
 //
-//  InterestListResponseDTO.swift
+//  GetInterestListResponseDTO.swift
 //  PopPool
 //
 //  Created by SeoJunYoung on 6/29/24.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - InterestListResponseDTO
-struct InterestListResponseDTO: Codable {
+// MARK: - GetInterestListResponseDTO
+struct GetInterestListResponseDTO: Codable {
     let interestResponseList: [InterestResponseDTO]
 }
 

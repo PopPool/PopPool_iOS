@@ -21,7 +21,27 @@ final class MyPageMainProfileView: UIView {
         label.text = "가고 싶은 곳을 다니고, 입고 싶은 것을 입어요"
         return label
     }()
-    
+    private let labelStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        return view
+    }()
+    private let nickNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .KorFont(style: .bold, size: 16)
+        label.textColor = .g1000
+        // TODO: - 제거 필요
+        label.text = "상관없는 금붕어"
+        return label
+    }()
+    private let instagramLabel: UILabel = {
+        let label = UILabel()
+        label.font = .EngFont(style: .regular, size: 14)
+        label.textColor = .g1000
+        // TODO: - 제거 필요
+        label.text = "@instagram_id"
+        return label
+    }()
     private let bottomHoleView: UIView = UIView()
     private let bottomHoleBlockView: UIView = UIView()
     
@@ -29,7 +49,7 @@ final class MyPageMainProfileView: UIView {
     private var containerViewHeight: Constraint?
     private var imageViewHeight: Constraint?
     private var imageViewBottom: Constraint?
-    
+    private var contentViewY: Constraint?
     
     // MARK: - init
     init(frame: CGRect, profileImage: UIImage?) {
@@ -78,9 +98,10 @@ private extension MyPageMainProfileView {
         }
         containerView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.height.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width - 40)
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            contentViewY =  make.centerY.equalToSuperview().constraint
         }
         containerView.addSubview(bottomHoleView)
         bottomHoleView.snp.makeConstraints { make in
@@ -100,6 +121,21 @@ private extension MyPageMainProfileView {
         profileImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.bottom.equalTo(descriptionLabel.snp.top).offset(-25)
+        }
+        nickNameLabel.snp.makeConstraints { make in
+            make.height.equalTo(22)
+        }
+        instagramLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+        }
+        labelStackView.addArrangedSubview(nickNameLabel)
+        labelStackView.addArrangedSubview(instagramLabel)
+        
+        contentView.addSubview(labelStackView)
+        labelStackView.snp.makeConstraints { make in
+            make.leading.equalTo(profileImageView.snp.trailing).offset(10)
+            make.trailing.equalToSuperview()
+            make.centerY.equalTo(profileImageView.snp.centerY)
         }
     }
     
@@ -121,7 +157,19 @@ private extension MyPageMainProfileView {
 }
 
 // MARK: - Methods
-extension MyPageMainProfileView {
+extension MyPageMainProfileView: InputableView {
+
+    struct Input {
+        var nickName: String
+        var instagramId: String
+        var profileImage: URL?
+    }
+    
+    func injectionWith(input: Input) {
+        nickNameLabel.text = input.nickName
+        instagramLabel.text = input.instagramId
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView, alpha: Double) {
         //stretch view 제약 설정
         containerViewHeight?.update(offset: scrollView.contentInset.top)
@@ -130,5 +178,7 @@ extension MyPageMainProfileView {
         imageViewBottom?.update(offset: offsetY >= 0 ? 0 : -offsetY / 2)
         imageViewHeight?.update(offset: max(offsetY + scrollView.contentInset.top, scrollView.contentInset.top))
         bottomHoleBlockView.alpha = alpha
+        //ContentView 인터렉션
+        contentViewY?.update(offset: alpha * 300)
     }
 }
