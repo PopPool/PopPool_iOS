@@ -39,8 +39,8 @@ final class NoticeBoardVC: BaseTableViewVC {
     /// 공지사항 안내 건 수와 View의 메인 제목을 변경하기 위한 메서드입니다
     /// - Parameter notice: 공지사항 총 갯수 파악이 필요하여 Int를 받습니다
     private func updateView(notice: Int) {
-        emptyLabel.removeFromSuperview()
         headerView.titleLabel.text = "공지사항"
+        emptyLabel.text = "아직 등록된 공지사항이 없어요"
         
         // 이전에 작성한 코드와 비교 이후 아래 코드 삭제 여부 판단 필요
         contentHeader.titleLabel.text = "총 \(notice) 건"
@@ -59,6 +59,16 @@ final class NoticeBoardVC: BaseTableViewVC {
             selectedCell: tableView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
+        
+        output.notices
+            .map { !$0.isEmpty }
+            .withUnretained(self)
+            .bind { (owner, hasData) in
+                owner.tableView.isHidden = !hasData
+                owner.contentHeader.isHidden = !hasData
+                owner.emptyStateStack.isHidden = hasData
+            }
+            .disposed(by: disposeBag)
         
         // 셀에 공지사항 데이터를 제공합니다
         // 더미 데이터로 구성하여 데이터 구조는 변경할 예정입니다
