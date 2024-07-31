@@ -35,7 +35,7 @@ final class NoticeTableViewCell: UITableViewCell {
     private lazy var titleLabelStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = 2
+        stack.spacing = 5
         stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(subTitleLabel)
         return stack

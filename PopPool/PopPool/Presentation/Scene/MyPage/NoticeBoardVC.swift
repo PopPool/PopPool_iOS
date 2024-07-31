@@ -24,34 +24,53 @@ class NoticeBoardVC: BaseTableViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
+        registerTableViewCell()
         bind()
     }
     
-    private func bind() {
+    private func updateView(notice: Int) {
+        emptyLabel.removeFromSuperview()
+        headerView.titleLabel.text = "공지사항"
         
+        // 이전에 작성한 코드와 비교 이후 아래 코드 삭제 여부 판단 필요
+        contentHeader.titleLabel.text = "총 \(notice) 건"
+        contentHeader.iconButton.isHidden = true
+    }
+    
+    private func registerTableViewCell() {
+        tableView.register(NoticeTableViewCell.self,
+                           forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
+    }
+    
+    private func bind() {
         let input = NoticeBoardVM.Input(
-            returnTapped: headerView.leftBarButton.rx.tap
+            returnTapped: headerView.leftBarButton.rx.tap,
+            selectedCell: tableView.rx.itemSelected.asObservable()
         )
         let output = viewModel.transform(input: input)
         
         // 셀 등록
         output.notices
+            .do(onNext: { [weak self] notice in
+                self?.updateView(notice: notice.count)
+            })
             .bind(to: tableView.rx.items(
                 cellIdentifier: NoticeTableViewCell.reuseIdentifier,
-                cellType: NoticeTableViewCell.self)) { [weak self] (row, element, cell) in
+                cellType: NoticeTableViewCell.self)) { (row, element, cell) in
                     cell.selectionStyle = .none
                     cell.updateView(title: element[0],
                                     subTitle: element[1])
-                    
-                    cell.actionButton.rx.tap
-                        .subscribe(onNext: {
-                            // navigationController push
-                            print("\(row), indexPath의 버튼이 눌렸습니다.")
-                        })
-                        .disposed(by: cell.disposeBag)
                 }
                 .disposed(by: disposeBag)
+        
+        output.selectedNotice
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                let detailBoardVM = NoticeDetailBoardVM(data: data)
+                let detailVC = NoticeDetailBoardVC(viewModel: detailBoardVM)
+                owner.navigationController?.pushViewController(detailVC, animated: true)
+            })
+            .disposed(by: disposeBag)
         
         // 이전 화면으로 되돌아가기
         output.popToRoot
@@ -60,12 +79,5 @@ class NoticeBoardVC: BaseTableViewVC {
                 self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func setUp() {
-        tableView.register(NoticeTableViewCell.self,
-                           forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
-        headerView.titleLabel.text = "공지사항"
-        emptyLabel.removeFromSuperview()
     }
 }
