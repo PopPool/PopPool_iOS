@@ -29,10 +29,10 @@ class NoticeBoardVC: BaseTableViewVC {
     }
     
     private func bind() {
-        let input = NoticeBoardVM.Input(
-            itemSelected: tableView.rx.itemSelected.asObservable()
-        )
         
+        let input = NoticeBoardVM.Input(
+            returnTapped: headerView.leftBarButton.rx.tap
+        )
         let output = viewModel.transform(input: input)
         
         // 셀 등록
@@ -40,18 +40,25 @@ class NoticeBoardVC: BaseTableViewVC {
             .bind(to: tableView.rx.items(
                 cellIdentifier: NoticeTableViewCell.reuseIdentifier,
                 cellType: NoticeTableViewCell.self)) { [weak self] (row, element, cell) in
-                    print("이건 어딘데", cell)
-                    print("view 업데이트", element)
-            }
-            .disposed(by: disposeBag)
+                    cell.selectionStyle = .none
+                    cell.updateView(title: element[0],
+                                    subTitle: element[1])
+                    
+                    cell.actionButton.rx.tap
+                        .subscribe(onNext: {
+                            // navigationController push
+                            print("\(row), indexPath의 버튼이 눌렸습니다.")
+                        })
+                        .disposed(by: cell.disposeBag)
+                }
+                .disposed(by: disposeBag)
         
-        // 테이블 뷰 되돌아가기 버튼
-        headerView.leftBarButton.rx.tap
-            .withUnretained(self)
-            .bind { _ in
-                print("navigationController에서 되돌아갑니다")
-                self.navigationController?.popViewController(animated: true)
-            }
+        // 이전 화면으로 되돌아가기
+        output.popToRoot
+            .subscribe(onNext: { [weak self] in
+                print("root로 돌아갑니다")
+                self?.navigationController?.popViewController(animated: true)
+            })
             .disposed(by: disposeBag)
     }
     
@@ -59,7 +66,6 @@ class NoticeBoardVC: BaseTableViewVC {
         tableView.register(NoticeTableViewCell.self,
                            forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
         headerView.titleLabel.text = "공지사항"
-        contentHeader.isHidden = true
         emptyLabel.removeFromSuperview()
     }
 }

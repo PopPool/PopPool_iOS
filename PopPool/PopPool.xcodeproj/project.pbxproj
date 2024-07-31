@@ -639,9 +639,9 @@
 				089D191C2C36B16D000435D9 /* MyPageMainVC.swift */,
 				08B183BC2C439F52006C34BB /* MyPageMainVM.swift */,
 				BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */,
+				BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */,
 				BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */,
 				BD79E1842C5763A200CCEE07 /* NoticeDetailBoardVC.swift */,
-				BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";

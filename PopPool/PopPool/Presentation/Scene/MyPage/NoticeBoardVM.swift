@@ -11,42 +11,30 @@ import RxCocoa
 
 final class NoticeBoardVM: ViewModelable {
     struct Input {
-        // Viewcontroller에서 발생한 모든 이벤트
-        let itemSelected: Observable<IndexPath>
+        let returnTapped: ControlEvent<Void>
     }
     
     struct Output {
-        let notices: Observable<[NoticeContent]>
-        let selectedNotice: Observable<NoticeContent>
+        let notices: Observable<[[String]]>
+        let popToRoot: ControlEvent<Void>
     }
     
     var disposeBag = DisposeBag()
     
-    let mockData: [NoticeContent] = [
-        NoticeContent(id: 0, title: "test", writer: "testWriter", content: "alskflashvlslv"),
-        NoticeContent(id: 1, title: "test1", writer: "testWriter1", content: "asdfaxcvqwe"),
-        NoticeContent(id: 2, title: "test2", writer: "testWriter2", content: "ㅁㄴㅇㄹㅊㅁㄴㅇㄹ"),
-        NoticeContent(id: 3, title: "test3", writer: "testWriter3", content: "ㅂㅈㅊㅋㅌㅍ")
+    // MockUpData
+    let mockData: [[String]] = [
+        ["테스트 제목1", "작성자", "콘텐츠"],
+        ["테스트 제목2", "작성자2", "콘텐츠"],
+        ["테스트 제목3", "작성자3", "콘텐츠"],
+        ["테스트 제목4", "작성자4", "콘텐츠"],
     ]
     
     func transform(input: Input) -> Output {
         let noticeOutput = Observable.just(mockData)
         
-        let selectedNotice = input.itemSelected
-            .withLatestFrom(noticeOutput) { indexPath, notices in
-                notices[indexPath.row]
-            }
-        
         return Output(
             notices: noticeOutput,
-            selectedNotice: selectedNotice
+            popToRoot: input.returnTapped
         )
     }
-}
-
-struct NoticeContent {
-    let id: Int
-    let title: String
-    let writer: String
-    let content: String
 }
