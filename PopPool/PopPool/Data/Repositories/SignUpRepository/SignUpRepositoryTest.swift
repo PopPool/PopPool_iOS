@@ -14,21 +14,21 @@ final class SignUpRepositoryTest: SignUpRepository {
         return Observable.just(false)
     }
     
-    func fetchInterestList() -> Observable<[Interest]> {
+    func fetchCategoryList() -> Observable<[Category]> {
         
-        let interest:[Interest] = [
-            .init(interestID: 0, interestName: "게임"),
-            .init(interestID: 1, interestName: "라이프스타일"),
-            .init(interestID: 2, interestName: "반려동물"),
-            .init(interestID: 3, interestName: "뷰티"),
-            .init(interestID: 4, interestName: "스포츠"),
-            .init(interestID: 5, interestName: "애니메이션"),
-            .init(interestID: 6, interestName: "엔터테인먼트"),
-            .init(interestID: 7, interestName: "여행"),
-            .init(interestID: 8, interestName: "예술"),
-            .init(interestID: 9, interestName: "음식/요리"),
-            .init(interestID: 10, interestName: "키즈"),
-            .init(interestID: 11, interestName: "패션")
+        let interest:[Category] = [
+            .init(categoryId: 0, category: "게임"),
+            .init(categoryId: 1, category: "라이프스타일"),
+            .init(categoryId: 2, category: "반려동물"),
+            .init(categoryId: 3, category: "뷰티"),
+            .init(categoryId: 4, category: "스포츠"),
+            .init(categoryId: 5, category: "애니메이션"),
+            .init(categoryId: 6, category: "엔터테인먼트"),
+            .init(categoryId: 7, category: "여행"),
+            .init(categoryId: 8, category: "예술"),
+            .init(categoryId: 9, category: "음식/요리"),
+            .init(categoryId: 10, category: "키즈"),
+            .init(categoryId: 11, category: "패션")
         ]
         return Observable.just(interest)
     }

@@ -41,10 +41,10 @@ struct PopPoolAPIEndPoint {
     
     /// 관심사 목록을 가져옵니다.
     /// - Returns: Endpoint<GetInterestListResponseDTO>
-    static func signUp_getInterestList() -> Endpoint<GetInterestListResponseDTO> {
+    static func signUp_getCategoryList() -> Endpoint<GetCategoryListResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/signup/interests",
+            path: "/signup/categories",
             method: .get
         )
     }

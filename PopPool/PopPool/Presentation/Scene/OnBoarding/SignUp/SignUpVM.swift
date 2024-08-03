@@ -202,10 +202,10 @@ final class SignUpVM: ViewModelable {
             .subscribe { (owner, _) in
                 if fetchCategoryList.value.isEmpty {
                     owner.signUpUseCase
-                        .fetchInterestList()
+                        .fetchCategoryList()
                         .subscribe { list in
                             let listString = list.map { list in
-                                list.interestName
+                                list.category
                             }
                             fetchCategoryList.accept(listString)
                             owner.increasePageIndex()

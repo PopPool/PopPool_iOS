@@ -41,6 +41,6 @@ protocol SignUpUseCase {
     /// 관심사 리스트를 가져오는 메서드
     /// - Parameter credential: 인증 정보
     /// - Returns: 관심사 리스트를 나타내는 Observable<[Interest]>
-    func fetchInterestList() -> Observable<[Interest]>
+    func fetchCategoryList() -> Observable<[Category]>
 
 }
