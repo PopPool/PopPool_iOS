@@ -89,7 +89,9 @@ extension HeaderViewCPNT {
         
         switch style {
         case .icon(let image):
-            rightBarButton.setImage(image!.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
+            if let image = image {
+                rightBarButton.setImage(image.withTintColor(.g1000, renderingMode: .alwaysOriginal), for: .normal)
+            }
         case .text(let buttonText):
             rightBarButton.setTitle(buttonText, for: .normal)
             rightBarButton.titleLabel?.font = .KorFont(style: .regular, size: 14)
