@@ -69,7 +69,7 @@ struct PopPoolAPIEndPoint {
     static func user_getMyPage(userId: String) -> Endpoint<GetMyPageResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/users/\(userId)",
+            path: "/users/\(userId)/my-page",
             method: .get
         )
     }

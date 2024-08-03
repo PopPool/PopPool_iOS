@@ -33,6 +33,8 @@
 		087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346552C0AEBD900534FFA /* AppDIContainer.swift */; };
 		0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346592C0AED6C00534FFA /* AppDIContainerTest.swift */; };
 		0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087346102C0AAD2900534FFA /* AppDelegate.swift */; };
+		08933CEC2C5E533B006F6632 /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */; };
+		08933CEE2C5E555F006F6632 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08933CED2C5E555F006F6632 /* UserUseCase.swift */; };
 		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
 		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
 		089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 089D19052C31A620000435D9 /* IQKeyboardManagerSwift */; };
@@ -243,6 +245,8 @@
 		087346512C0ABC4B00534FFA /* ViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
 		087346552C0AEBD900534FFA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		087346592C0AED6C00534FFA /* AppDIContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainerTest.swift; sourceTree = "<group>"; };
+		08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
+		08933CED2C5E555F006F6632 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
 		089D19012C3032EC000435D9 /* SignUpStep2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep2View.swift; sourceTree = "<group>"; };
 		089D19092C33C4A3000435D9 /* SignUpTermsModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsModalVC.swift; sourceTree = "<group>"; };
@@ -824,6 +828,7 @@
 				08F49DF52C2323C2002D5202 /* TryLoginUseCaseImpl.swift */,
 				08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */,
 				08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */,
+				08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -836,6 +841,7 @@
 				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
 				08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */,
 				08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */,
+				08933CED2C5E555F006F6632 /* UserUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1505,6 +1511,7 @@
 				08E23AB72C4F8AD5004B77B6 /* GetMyRecentViewPopUpStoreListResponse.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				08E23ACA2C534FB2004B77B6 /* FavoritePopUpVC.swift in Sources */,
+				08933CEC2C5E533B006F6632 /* UserUseCaseImpl.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
 				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
 				08E23A762C4F6749004B77B6 /* GetMyCommentedPopUpStoreListResponseDTO.swift in Sources */,
@@ -1547,6 +1554,7 @@
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */,
+				08933CEE2C5E555F006F6632 /* UserUseCase.swift in Sources */,
 				08E23A632C4E1925004B77B6 /* MyCommentInfoDTO.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */,

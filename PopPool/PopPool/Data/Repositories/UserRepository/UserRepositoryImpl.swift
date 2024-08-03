@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct UserRepositoryImpl: UserRepository {
+final class UserRepositoryImpl: UserRepository {
     
     private let provider = AppDIContainer.shared.resolve(type: Provider.self)
     private let tokenInterceptor = TokenInterceptor()
