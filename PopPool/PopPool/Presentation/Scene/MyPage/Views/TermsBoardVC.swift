@@ -9,9 +9,13 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class TermsBoardVC: BaseTableViewVC {
+final class TermsBoardVC: BaseTableViewVC {
     
-    let viewModel: TermsBoardVM
+    // MARK: - Properties
+    
+    private let viewModel: TermsBoardVM
+    
+    // MARK: - Initializer
     
     init(viewModel: TermsBoardVM) {
         self.viewModel = viewModel
@@ -22,11 +26,15 @@ class TermsBoardVC: BaseTableViewVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
         bind()
     }
+    
+    // MARK: - Methods
     
     private func setUp() {
         tableView.register(NoticeTableViewCell.self,
@@ -45,6 +53,7 @@ class TermsBoardVC: BaseTableViewVC {
         )
         let output = viewModel.transform(input: input)
         
+        // 데이터 존재 여부에 따라 emptyState 안내
         output.terms
             .map { !$0.isEmpty }
             .withUnretained(self)
@@ -53,20 +62,22 @@ class TermsBoardVC: BaseTableViewVC {
             })
             .disposed(by: disposeBag)
         
+        // 데이터를 테이블 뷰에 제공
         output.terms
             .do(onNext: { [weak self] term in
                 self?.updateView(data: term.count)
             })
-             // 테이블 뷰 연결
             .bind(to: tableView.rx.items(
                 cellIdentifier: NoticeTableViewCell.reuseIdentifier,
                 cellType: NoticeTableViewCell.self)) { row, element, cell in
                     
+                    // NoticeDTO 활용하여 변경 예정
                     cell.updateView(title: element[0],
                                     subTitle: nil)
                 }
                 .disposed(by: disposeBag)
         
+        // 선택된 공지사항 출력
         output.selectedTerm
             .subscribe(onNext: { [weak self] term in
                 let vc = TermsDetailBoardVC(viewModel: TermsDetailBoardVM())
@@ -77,7 +88,6 @@ class TermsBoardVC: BaseTableViewVC {
 
         output.returnButtonTapped
             .subscribe(onNext: { [weak self] in
-                print("뒤돌아가기 버튼이 눌렸습니다")
                 self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)

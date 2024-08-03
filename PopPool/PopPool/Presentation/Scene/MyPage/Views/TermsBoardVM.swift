@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class TermsBoardVM: ViewModelable {
+final class TermsBoardVM: ViewModelable {
     struct Input {
         let returnButtonTapped: ControlEvent<Void>
         let termSelected: Observable<IndexPath>
@@ -20,6 +20,8 @@ class TermsBoardVM: ViewModelable {
         let selectedTerm: Observable<[String]>
         let terms: Observable<[[String]]>
     }
+    
+    // MARK: - Properties
     
     var disposeBag = DisposeBag()
     lazy var mockDataSubject = BehaviorSubject<[[String]]>(value: mockData)
@@ -37,6 +39,8 @@ class TermsBoardVM: ViewModelable {
         ["개인정보처리방침", "데이터가 있습니다1"],
         ["오픈소스라이선스", "데이터가 있습니다2"]
     ]
+    
+    // MARK: - Methods
     
     private func getTerms() -> Observable<[[String]]> {
         return mockDataSubject.asObservable()

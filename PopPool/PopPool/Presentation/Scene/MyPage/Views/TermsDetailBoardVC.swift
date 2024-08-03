@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import SnapKit
 
-class TermsDetailBoardVC: ModalViewController {
+final class TermsDetailBoardVC: ModalViewController {
     
     // MARK: - Components
     

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class TermsDetailBoardVM: ViewModelable {
+final class TermsDetailBoardVM: ViewModelable {
     struct Input {
         let dismissTapped: ControlEvent<Void>
         let data: Observable<[String]>
@@ -21,10 +21,9 @@ class TermsDetailBoardVM: ViewModelable {
         let dismissFromScreen: ControlEvent<Void>
     }
     
-    var disposeBag: DisposeBag = DisposeBag()
+    // MARK: - Properties
     
-    init() {
-    }
+    var disposeBag: DisposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         
