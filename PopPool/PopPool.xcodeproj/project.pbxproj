@@ -160,6 +160,8 @@
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
 		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
+		BD282FC72C5A8889003F1ADD /* TermsBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */; };
+		BD282FC92C5A8892003F1ADD /* TermsBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
 		BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */; };
@@ -172,6 +174,7 @@
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD6FAFCD2C5DCBEA00322405 /* TermsDetailBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
@@ -360,6 +363,8 @@
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCaseImpl.swift; sourceTree = "<group>"; };
+		BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVC.swift; sourceTree = "<group>"; };
+		BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVM.swift; sourceTree = "<group>"; };
 		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
 		BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutSurveyView.swift; sourceTree = "<group>"; };
@@ -372,6 +377,7 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -681,6 +687,9 @@
 				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
 				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
+				BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */,
+				BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */,
+				BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1507,6 +1516,7 @@
 				08E23ABF2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
 				08E23ABD2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift in Sources */,
+				BD282FC72C5A8889003F1ADD /* TermsBoardVC.swift in Sources */,
 				08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */,
 				08C813D52C2D1F5E009239FE /* SignUpStep3View.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
@@ -1534,6 +1544,7 @@
 				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */,
+				BD6FAFCD2C5DCBEA00322405 /* TermsDetailBoardVC.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
 				08E23AAB2C4F7F98004B77B6 /* MyCommentInfo.swift in Sources */,
 				08E23A5C2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift in Sources */,
@@ -1580,6 +1591,7 @@
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
+				BD282FC92C5A8892003F1ADD /* TermsBoardVM.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
 				08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */,
 				BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */,
