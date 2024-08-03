@@ -27,6 +27,7 @@ final class LoginVM: ViewModelable {
     struct Output {
         let moveToInquryVC: ControlEvent<Void>
         let moveToSignUpVC: PublishSubject<SignUpVM>
+        let moveToHomeVC: PublishSubject<LoginResponse>
     }
     
     private var fetchSocialUserCredencialUseCase: FetchSocialCredentialUseCase!
@@ -133,7 +134,8 @@ final class LoginVM: ViewModelable {
 
         return Output(
             moveToInquryVC: input.inquryButtonTapped,
-            moveToSignUpVC: moveToSignUpVCSubject
+            moveToSignUpVC: moveToSignUpVCSubject,
+            moveToHomeVC: moveToHomeVCSubject
         )
     }
 }

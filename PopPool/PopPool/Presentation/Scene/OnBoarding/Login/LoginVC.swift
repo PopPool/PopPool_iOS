@@ -147,5 +147,14 @@ private extension LoginVC {
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.moveToHomeVC
+            .withUnretained(self)
+            .subscribe { (owner, loginResponse) in
+                // TODO: - 로그인 성공 시 MyPageMain으로 임시 연결 추후 변경 필요
+                let vc = MyPageMainVC()
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
