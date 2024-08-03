@@ -43,6 +43,7 @@ class TermsDetailBoardVC: ModalViewController {
     // MARK: - Properties
     
     private let viewModel: TermsDetailBoardVM
+    private let dataSubject = BehaviorSubject<[String]>(value: [])
     private let disposeBag = DisposeBag()
     
     // MARK: - LifeCycle
@@ -69,10 +70,19 @@ class TermsDetailBoardVC: ModalViewController {
     
     private func bind() {
         let input = TermsDetailBoardVM.Input(
-            dismissTapped: headerView.rightBarButton.rx.tap
+            dismissTapped: headerView.rightBarButton.rx.tap,
+            data: dataSubject.asObservable()
         )
         
         let output = viewModel.transform(input: input)
+        
+        output.title
+            .bind(to: headerView.titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.content
+            .bind(to: textLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.dismissFromScreen
             .subscribe(onNext: {
@@ -80,6 +90,10 @@ class TermsDetailBoardVC: ModalViewController {
                 self.dismissBottomSheet()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func configure(with data: [String]) {
+        dataSubject.onNext(data)
     }
     
     private func setUp() {

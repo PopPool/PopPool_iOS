@@ -69,8 +69,8 @@ class TermsBoardVC: BaseTableViewVC {
         
         output.selectedTerm
             .subscribe(onNext: { [weak self] term in
-                print("\(term) term이 눌렸습니다.")
                 let vc = TermsDetailBoardVC(viewModel: TermsDetailBoardVM())
+                vc.configure(with: term)
                 self?.presentModalViewController(viewController: vc)
             })
             .disposed(by: disposeBag)
