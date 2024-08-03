@@ -42,7 +42,7 @@ class TermsDetailBoardVC: ModalViewController {
     
     // MARK: - Properties
     
-    private let data: [String]
+    private let viewModel: TermsDetailBoardVM
     private let disposeBag = DisposeBag()
     
     // MARK: - LifeCycle
@@ -51,16 +51,14 @@ class TermsDetailBoardVC: ModalViewController {
         super.viewDidLoad()
         setUp()
         setUpConstraints()
+        bind()
     }
     
     // MARK: - Initializer
     
-    init(data: [String]) {
-        self.data = data
+    init(viewModel: TermsDetailBoardVM) {
+        self.viewModel = viewModel
         super.init()
-        setUp()
-        setUpConstraints()
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -70,18 +68,23 @@ class TermsDetailBoardVC: ModalViewController {
     // MARK: - Methods
     
     private func bind() {
-        headerView.rightBarButton.rx.tap
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.dismissBottomSheet()
-            }).disposed(by: disposeBag)
+        let input = TermsDetailBoardVM.Input(
+            dismissTapped: headerView.rightBarButton.rx.tap
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.dismissFromScreen
+            .subscribe(onNext: {
+                print("버튼 눌림")
+                self.dismissBottomSheet()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setUp() {
         headerView.leftBarButton.isHidden = true
         headerView.titleLabel.font = .KorFont(style: .bold, size: 15)
-        headerView.titleLabel.text = data[0]
-        textLabel.text = data[1]
     }
     
     private func setUpConstraints() {

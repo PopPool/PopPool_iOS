@@ -175,6 +175,7 @@
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD6FAFCD2C5DCBEA00322405 /* TermsDetailBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */; };
+		BD6FAFD12C5DE29700322405 /* TermsDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
@@ -378,6 +379,7 @@
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
+		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -688,8 +690,9 @@
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
 				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
 				BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */,
-				BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */,
 				BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */,
+				BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */,
+				BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1566,6 +1569,7 @@
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
+				BD6FAFD12C5DE29700322405 /* TermsDetailBoardVM.swift in Sources */,
 				08E23ACE2C535486004B77B6 /* ListMenuViewCPNT.swift in Sources */,
 				089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */,
 				089D19132C3544DB000435D9 /* PickerCPNT.swift in Sources */,
