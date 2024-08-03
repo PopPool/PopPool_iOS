@@ -37,8 +37,8 @@ protocol SignUpRepository{
         nickName: String,
         gender: String,
         age: Int32,
-        socialEmail: String?,
+        socialEmail: String,
         socialType: String,
-        interests: [Int]
+        interests: [Int64]
     ) -> Completable
 }

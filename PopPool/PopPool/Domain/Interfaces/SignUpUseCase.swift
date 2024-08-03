@@ -26,9 +26,9 @@ protocol SignUpUseCase {
         nickName: String,
         gender: String,
         age: Int32,
-        socialEmail: String?,
+        socialEmail: String,
         socialType: String,
-        interests: [Int]
+        interests: [Int64]
     ) -> Completable
     
     /// 닉네임 중복 여부를 확인하는 메서드

@@ -29,9 +29,9 @@ final class SignUpRepositoryImpl: SignUpRepository {
         nickName: String,
         gender: String,
         age: Int32,
-        socialEmail: String?,
+        socialEmail: String,
         socialType: String,
-        interests: [Int]
+        interests: [Int64]
     ) -> Completable {
         let endPoint = PopPoolAPIEndPoint.signUp_trySignUp(with: .init(
             userId: userId,
@@ -40,7 +40,7 @@ final class SignUpRepositoryImpl: SignUpRepository {
             age: age,
             socialEmail: socialEmail,
             socialType: socialType,
-            interests: interests)
+            interestCategories: interests)
         )
         return provider.request(with: endPoint, interceptor: RequestTokenInterceptor())
     }

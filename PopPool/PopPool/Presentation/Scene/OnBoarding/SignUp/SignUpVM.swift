@@ -19,7 +19,7 @@ final class SignUpVM: ViewModelable {
         var age: Int32
         var socialEmail: String?
         var socialType: String
-        var interests: [Int]
+        var interests: [Int64]
     }
     
     /// 입력 이벤트
@@ -52,7 +52,7 @@ final class SignUpVM: ViewModelable {
         /// Sign Up Step3 secondary button  탭 이벤트
         var tap_step3_secondaryButton: ControlEvent<Void>
         /// 관심사 변경을 전달하는 Subject
-        var event_step3_didChangeInterestList: Observable<[Int]>
+        var event_step3_didChangeInterestList: Observable<[Int64]>
         
         // MARK: - Step 4 Input
         /// step 4 gender segmentedControl 이벤트
@@ -319,14 +319,21 @@ final class SignUpVM: ViewModelable {
                     nickName: owner.signUpData.nickName,
                     gender: owner.signUpData.gender,
                     age: owner.signUpData.age,
-                    socialEmail: owner.signUpData.socialEmail,
+                    // TODO: - socialEmail 옵셔널 체이닝 변경 혹은 대응 필요
+                    socialEmail: owner.signUpData.socialEmail ?? "",
                     socialType: owner.signUpData.socialType,
                     interests: owner.signUpData.interests
                 )
                 .subscribe {
-                    step4_moveToSignUpCompleteVC.onNext((owner.signUpData.nickName, owner.signUpData.interests.map({ index in
-                        return fetchCategoryList.value[index]
-                    })))
+                    step4_moveToSignUpCompleteVC
+                        .onNext(
+                            (
+                                owner.signUpData.nickName,
+                                owner.signUpData.interests.map{ index in
+                                    return fetchCategoryList.value[Int(index)]
+                                }
+                            )
+                        )
                 } onError: { error in
                     ToastMSGManager.createToast(message: "SignUpError")
                 }
