@@ -16,6 +16,8 @@ final class ListDropDownCPNT: UIStackView {
         case inactive
     }
     
+    // MARK: - Component
+    
     private lazy var contentStack: UIStackView = {
         let stack = UIStackView()
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 16)
@@ -27,13 +29,6 @@ final class ListDropDownCPNT: UIStackView {
         stack.setCustomSpacing(42, after: titleLabel)
         return stack
     }()
-//    
-//    private lazy var dropDownNoticeStack: UIStackView = {
-//        let stack = UIStackView()
-//        stack.spacing = 8
-//        
-//        return stack
-//    }()
     
     private let questionLabel: UILabel = {
         let label = UILabel()
@@ -66,9 +61,10 @@ final class ListDropDownCPNT: UIStackView {
         return view
     }()
     
-    private let dropDownText: UILabel = {
+    private let dropDownLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .regular, size: 14)
+        label.numberOfLines = 0
         label.textColor = .g600
         return label
     }()
@@ -81,10 +77,14 @@ final class ListDropDownCPNT: UIStackView {
     
     private let topSpaceView = UIView()
     private let bottomSpaceView = UIView()
-    private let disposeBag = DisposeBag()
     
-    var buttonStateObserver: PublishSubject<DropDownState> = .init()
+    // MARK: - Properties
+    
+    private let disposeBag = DisposeBag()
     private var buttonState: DropDownState = .inactive
+    var buttonStateObserver: PublishSubject<DropDownState> = .init()
+    
+    // MARK: - Initializer
     
     init() {
         super.init(frame: .zero)
@@ -96,6 +96,8 @@ final class ListDropDownCPNT: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
     
     private func bind() {
         actionButton.rx.tap
@@ -114,11 +116,16 @@ final class ListDropDownCPNT: UIStackView {
             }.disposed(by: disposeBag)
     }
     
+    public func configure(title: String, content: String) {
+        self.titleLabel.text = title
+        self.dropDownLabel.text = content
+    }
+    
     private func setUp() {
         self.axis = .vertical
         questionLabel.text = "Q"
         titleLabel.text = "제목명"
-        dropDownText.text = "내용 텍스트"
+        dropDownLabel.text = "이런 저런 내용이 있다면"
     }
     
     private func setUpConstraints() {
@@ -142,6 +149,8 @@ final class ListDropDownCPNT: UIStackView {
         }
     }
     
+    /// 상태에 따라 화면 UI를 업데이트하는 메서드입니다
+    /// - Parameter state: active, inactive 여부를 받습니다
     private func updateUI(from state: DropDownState) {
         switch state {
         case .active:
@@ -156,9 +165,10 @@ final class ListDropDownCPNT: UIStackView {
         }
     }
     
+    /// 숨겨진 view를 구성합니다
     private func setUpDropDown() {
         addSubview(dropDownContainer)
-        dropDownContainer.addSubview(dropDownText)
+        dropDownContainer.addSubview(dropDownLabel)
         
         dropDownContainer.snp.makeConstraints { make in
             make.top.equalTo(lineContainerView.snp.bottom)
@@ -166,12 +176,11 @@ final class ListDropDownCPNT: UIStackView {
             make.height.greaterThanOrEqualTo(54)
         }
 
-        dropDownText.snp.makeConstraints { make in
+        dropDownLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(44)
             make.trailing.equalToSuperview().inset(20)
             make.top.bottom.equalToSuperview().inset(16)
         }
-        
         layoutIfNeeded()
     }
 }
