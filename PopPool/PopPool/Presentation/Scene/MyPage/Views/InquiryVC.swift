@@ -11,18 +11,24 @@ import SnapKit
 
 class InquiryVC: BaseTableViewVC {
     
-    let header = HeaderViewCPNT(title: "고객문의", style: .icon(nil))
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init() {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .green
+        headerView.titleLabel.text = "고객문의"
+//        setUp()
+    }
+    
+    private func setUp() {
+        tableView.register(InquiryTableViewCell.self,
+                           forCellReuseIdentifier: InquiryTableViewCell.reuseIdentifier)
     }
     
     private func bind() {
@@ -30,7 +36,4 @@ class InquiryVC: BaseTableViewVC {
         // 셀 바인딩
         // section별로 탭 시 늘어나는...
     }
-
-    
-
 }
