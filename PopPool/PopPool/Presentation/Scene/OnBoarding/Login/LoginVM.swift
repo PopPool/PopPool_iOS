@@ -52,6 +52,7 @@ final class LoginVM: ViewModelable {
         input.kakaoLoginButtonTapped
             .map{ Constants.socialType.kakao }
             .subscribe { socialType in
+                print("🔑 Kakao Login Attempt")
                 fetchSocialUserCredencialSubject.onNext(socialType)
             }
             .disposed(by: disposeBag)
@@ -77,6 +78,8 @@ final class LoginVM: ViewModelable {
                 owner.fetchSocialUserCredencialUseCase
                     .execute()
                     .subscribe(onNext: { response in
+                        print("🔑 Social Credential Fetched: \(response)")
+
                         tryLoginSubject.onNext(response)
                     },onError: { error in
                         // 소셜 인증 error handle
@@ -97,6 +100,9 @@ final class LoginVM: ViewModelable {
                         // accessToken 저장
                         owner.keyChainUseCase.saveToken(type: .accessToken, value: loginResponse.accessToken)
                             .subscribe {
+                                print("🔑 Login Success - Access Token: \(loginResponse.accessToken)")
+                                print("👤 Login Success - User ID: \(loginResponse.userId)")
+
                                 print("AccessToken Save Complete")
                             } onError: { error in
                                 print("AccessToken Save Error:\(error.localizedDescription)")
