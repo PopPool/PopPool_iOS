@@ -37,6 +37,7 @@ final class TermsBoardVC: BaseTableViewVC {
     // MARK: - Methods
     
     private func setUp() {
+        headerView.titleLabel.text = "약관"
         tableView.register(NoticeTableViewCell.self,
                            forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
     }
