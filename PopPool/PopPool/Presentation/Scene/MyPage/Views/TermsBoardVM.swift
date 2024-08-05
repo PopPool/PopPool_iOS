@@ -57,7 +57,6 @@ final class TermsBoardVM: ViewModelable {
         
         let selectedData = input.termSelected
             .withLatestFrom(mockDataSubject) { indexPath, terms in
-                print("데이터가 보이나요")
                 return terms[indexPath.row]
             }
         

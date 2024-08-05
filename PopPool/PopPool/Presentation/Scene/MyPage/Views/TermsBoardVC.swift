@@ -53,6 +53,12 @@ final class TermsBoardVC: BaseTableViewVC {
         )
         let output = viewModel.transform(input: input)
         
+        tableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                self.tableView.deselectRow(at: indexPath, animated: false)
+            })
+            .disposed(by: disposeBag)
+        
         // 데이터 존재 여부에 따라 emptyState 안내
         output.terms
             .map { !$0.isEmpty }
