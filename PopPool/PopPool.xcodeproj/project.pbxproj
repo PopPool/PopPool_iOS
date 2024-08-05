@@ -165,6 +165,7 @@
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
+		4E4DC0032C614726007CE63A /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4DC0022C614726007CE63A /* GoogleMaps */; };
 		BD1D886A2C3D952500380F80 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D88692C3D952500380F80 /* Secrets.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
@@ -458,6 +459,7 @@
 			files = (
 				0851059B2C1033E600ED7DBB /* RxKakaoSDKUser in Frameworks */,
 				0873464A2C0AAF7000534FFA /* RxRelay in Frameworks */,
+				4E4DC0032C614726007CE63A /* GoogleMaps in Frameworks */,
 				085105992C1033E600ED7DBB /* RxKakaoSDKTalk in Frameworks */,
 				0851058F2C1033E600ED7DBB /* RxKakaoSDKAuth in Frameworks */,
 				087346482C0AAF7000534FFA /* RxCocoa in Frameworks */,
@@ -1472,6 +1474,7 @@
 				0851059A2C1033E600ED7DBB /* RxKakaoSDKUser */,
 				089D19052C31A620000435D9 /* IQKeyboardManagerSwift */,
 				08AF8D912C67682B006B8A11 /* Kingfisher */,
+				4E4DC0022C614726007CE63A /* GoogleMaps */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -1552,6 +1555,7 @@
 				0851058B2C1033E500ED7DBB /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -2186,6 +2190,12 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.12.0;
+		4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/ios-maps-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2265,6 +2275,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		4E4DC0022C614726007CE63A /* GoogleMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			productName = GoogleMaps;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
