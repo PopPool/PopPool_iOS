@@ -20,18 +20,20 @@ final class ListDropDownCPNT: UIStackView {
         let stack = UIStackView()
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 16)
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.addArrangedSubview(dropDownNoticeStack)
-        stack.addArrangedSubview(actionButton)
-        return stack
-    }()
-    
-    private lazy var dropDownNoticeStack: UIStackView = {
-        let stack = UIStackView()
         stack.spacing = 8
         stack.addArrangedSubview(questionLabel)
         stack.addArrangedSubview(titleLabel)
+        stack.addArrangedSubview(actionButton)
+        stack.setCustomSpacing(42, after: titleLabel)
         return stack
     }()
+//    
+//    private lazy var dropDownNoticeStack: UIStackView = {
+//        let stack = UIStackView()
+//        stack.spacing = 8
+//        
+//        return stack
+//    }()
     
     private let questionLabel: UILabel = {
         let label = UILabel()
@@ -120,12 +122,6 @@ final class ListDropDownCPNT: UIStackView {
     }
     
     private func setUpConstraints() {
-        dropDownNoticeStack.snp.makeConstraints { make in
-            make.height.equalTo(22)
-        }
-        
-        contentStack.setCustomSpacing(42, after: dropDownNoticeStack)
-        
         lineContainerView.addSubview(lineView)
         addArrangedSubview(topSpaceView)
         addArrangedSubview(contentStack)
@@ -150,9 +146,12 @@ final class ListDropDownCPNT: UIStackView {
         switch state {
         case .active:
             self.actionButton.setImage(UIImage(named: "arrow_down"), for: .normal)
+            self.lineContainerView.isHidden = true
             self.setUpDropDown()
+            
         case .inactive:
             self.actionButton.setImage(UIImage(named: "arrow_up"), for: .normal)
+            self.lineContainerView.isHidden = false
             self.dropDownContainer.removeFromSuperview()
         }
     }
