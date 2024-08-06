@@ -152,8 +152,16 @@ private extension LoginVC {
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
                 // TODO: - 로그인 성공 시 MyPageMain으로 임시 연결 추후 변경 필요
-                let vc = MyPageMainVC()
-                owner.navigationController?.pushViewController(vc, animated: true)
+                let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
+                useCase.fetchMyPage(userId: loginResponse.userId)
+                    .subscribe(onNext: { myPageResponse in
+                        var response = myPageResponse
+                        response.login = true
+                        let vm = MyPageMainVM(response: response)
+                        let vc = MyPageMainVC(viewModel: vm)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    })
+                    .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
     }

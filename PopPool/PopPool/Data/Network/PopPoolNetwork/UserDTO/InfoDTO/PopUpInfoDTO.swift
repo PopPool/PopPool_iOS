@@ -21,7 +21,12 @@ extension PopUpInfoDTO {
     func toDomain() -> PopUpInfo {
         return PopUpInfo(
             popUpStoreId: popUpStoreId,
-            popUpStoreName: popUpStoreName
+            popUpStoreName: popUpStoreName,
+            desc: desc,
+            startDate: startDate,
+            endDate: endDate,
+            address: address,
+            closedYn: closedYn
         )
     }
 }
