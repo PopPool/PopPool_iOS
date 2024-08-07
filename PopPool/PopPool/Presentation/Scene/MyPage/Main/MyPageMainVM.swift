@@ -19,6 +19,7 @@ final class MyPageMainVM: ViewModelable {
     struct Output {
         var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
         var moveToVC: PublishSubject<BaseViewController>
+        var moveToLoginVC: Observable<Void>
     }
     
     // MARK: - Propoerties
@@ -130,7 +131,8 @@ final class MyPageMainVM: ViewModelable {
             .disposed(by: disposeBag)
         return Output(
             myPageAPIResponse: myPageAPIResponse,
-            moveToVC: moveToVC
+            moveToVC: moveToVC,
+            moveToLoginVC: input.profileLoginButtonTapped.asObservable()
         )
     }
     
