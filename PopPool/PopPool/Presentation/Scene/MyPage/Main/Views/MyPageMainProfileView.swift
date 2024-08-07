@@ -39,7 +39,26 @@ final class MyPageMainProfileView: UIView {
     }()
     private let bottomHoleView: UIView = UIView()
     private let bottomHoleBlockView: UIView = UIView()
-    
+    let loginButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 4
+        return button
+    }()
+    private let loginButtonLabel: UILabel = {
+        let label = UILabel()
+        label.font = .KorFont(style: .medium, size: 13)
+        label.text = "로그인/회원가입"
+        label.textColor = .w100
+        return label
+    }()
+    private let loginDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "나에게 맞는\n팝업스토어 만나러 가기"
+        label.numberOfLines = 0
+        label.textColor = .w100
+        label.font = .KorFont(style: .bold, size: 18)
+        return label
+    }()
     // MARK: - Properties
     private var containerViewHeight: Constraint?
     private var imageViewHeight: Constraint?
@@ -153,7 +172,26 @@ private extension MyPageMainProfileView {
     }
     
     func setUpLoginView() {
-        self.backgroundColor = .g800
+        self.backGroundImageView.backgroundColor = .g800
+        loginButton.addSubview(loginButtonLabel)
+        loginButtonLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(12)
+            make.trailing.equalToSuperview().inset(8)
+            make.height.equalTo(20)
+            make.top.bottom.equalToSuperview().inset(6)
+        }
+        contentView.addSubview(loginButton)
+        loginButton.backgroundColor = .w10
+        loginButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(97)
+            make.leading.equalToSuperview()
+        }
+        contentView.addSubview(loginDescriptionLabel)
+        loginDescriptionLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(loginButton.snp.top).offset(-16)
+            make.leading.equalToSuperview()
+            make.height.equalTo(50)
+        }
     }
 }
 

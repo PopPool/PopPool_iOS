@@ -13,6 +13,7 @@ final class MyPageMainVM: ViewModelable {
     
     struct Input {
         var cellTapped: ControlEvent<IndexPath>
+        var profileLoginButtonTapped: ControlEvent<Void>
     }
     
     struct Output {
@@ -121,6 +122,12 @@ final class MyPageMainVM: ViewModelable {
                 }
             })
             .disposed(by: disposeBag)
+        input.profileLoginButtonTapped
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                print("LoginButtonTapped")
+            }
+            .disposed(by: disposeBag)
         return Output(
             myPageAPIResponse: myPageAPIResponse,
             moveToVC: moveToVC
@@ -136,17 +143,17 @@ final class MyPageMainVM: ViewModelable {
         } else if title == "내가 모은 배지" {
             return BaseViewController()
         } else if title == "차단한 사용자 관리" {
-            return BaseViewController()
+            return BlockedUserVC(viewModel: BlockedUserVM())
         } else if title == "알림 설정" {
             return BaseViewController()
-        } else if title == "공지 사항" {
-            return BaseViewController()
+        } else if title == "공지사항" {
+            return NoticeBoardVC(viewModel: NoticeBoardVM())
         } else if title == "고객문의" {
             return BaseViewController()
         } else if title == "약관" {
             return BaseViewController()
         } else if title == "회원탈퇴" {
-            return BaseViewController()
+            return SignOutVC()
         } else {
             return BaseViewController()
         }

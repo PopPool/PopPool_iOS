@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 
-final class SignOutVC: UIViewController {
+final class SignOutVC: BaseViewController {
     
     // MARK: - Components
     
@@ -34,10 +34,10 @@ final class SignOutVC: UIViewController {
     
     // MARK: - Initializer
     
-    init() {
+    override init() {
         self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
         self.signOutView = SignOutSurveyView(surveyDetails: survey)
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {

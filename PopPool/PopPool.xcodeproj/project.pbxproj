@@ -463,6 +463,81 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		082025AA2C63A93900FC9BA4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				082025AB2C63B17B00FC9BA4 /* Views */,
+				089D191C2C36B16D000435D9 /* MyPageMainVC.swift */,
+				08B183BC2C439F52006C34BB /* MyPageMainVM.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		082025AB2C63B17B00FC9BA4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		082025AC2C63B19300FC9BA4 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				082025AF2C63B1BC00FC9BA4 /* Cells */,
+				082025AE2C63B1AF00FC9BA4 /* Detail */,
+				082025AD2C63B1A800FC9BA4 /* Main */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		082025AD2C63B1A800FC9BA4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */,
+				BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		082025AE2C63B1AF00FC9BA4 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				BD79E1842C5763A200CCEE07 /* NoticeDetailBoardVC.swift */,
+				BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		082025AF2C63B1BC00FC9BA4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		082025B02C63B1CD00FC9BA4 /* SignOut */ = {
+			isa = PBXGroup;
+			children = (
+				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
+				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
+				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
+				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
+			);
+			path = SignOut;
+			sourceTree = "<group>";
+		};
+		082025B12C63B1E200FC9BA4 /* Blocked */ = {
+			isa = PBXGroup;
+			children = (
+				BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */,
+				BD2975072C5112390090147C /* BlockedUserVM.swift */,
+				BD8733842C50C75D0063499C /* BlockedUserCell.swift */,
+			);
+			path = Blocked;
+			sourceTree = "<group>";
+		};
 		082E43DC2C19A11700975B62 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,14 +744,11 @@
 		089D191B2C36B138000435D9 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				089D19252C3AEB3E000435D9 /* Views */,
-				089D191C2C36B16D000435D9 /* MyPageMainVC.swift */,
-				08B183BC2C439F52006C34BB /* MyPageMainVM.swift */,
-				BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */,
-				BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */,
-				BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */,
-				BD79E1842C5763A200CCEE07 /* NoticeDetailBoardVC.swift */,
-				BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */,
+				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
+				082025B02C63B1CD00FC9BA4 /* SignOut */,
+				082025AA2C63A93900FC9BA4 /* Main */,
+				082025AC2C63B19300FC9BA4 /* Notice */,
+				082025B12C63B1E200FC9BA4 /* Blocked */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -700,22 +772,6 @@
 				08E23AD52C54E171004B77B6 /* ViewedPopUpCell.swift */,
 			);
 			path = UICollectionViewCell;
-			sourceTree = "<group>";
-		};
-		089D19252C3AEB3E000435D9 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */,
-				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
-				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
-				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
-				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
-				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
-				BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */,
-				BD2975072C5112390090147C /* BlockedUserVM.swift */,
-				BD8733842C50C75D0063499C /* BlockedUserCell.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {

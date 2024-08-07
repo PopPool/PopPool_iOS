@@ -84,7 +84,8 @@ private extension MyPageMainVC {
     
     func bind() {
         let input = MyPageMainVM.Input(
-            cellTapped: tableView.rx.itemSelected
+            cellTapped: tableView.rx.itemSelected,
+            profileLoginButtonTapped: profileView.loginButton.rx.tap
         )
         let output = viewModel.transform(input: input)
         
@@ -113,6 +114,7 @@ private extension MyPageMainVC {
                 } else {
                     owner.tableView.tableFooterView = nil
                 }
+                owner.headerView.rightBarButton.isHidden = !myPageResponse.login
                 owner.tableView.reloadData()
             })
             .disposed(by: disposeBag)
