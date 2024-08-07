@@ -7,6 +7,7 @@
 
 import UIKit
 
+import GoogleMaps
 import KakaoSDKCommon
 import RxKakaoSDKCommon
 import KakaoSDKAuth
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        GMSServices.provideAPIKey(Secrets.popPoolApiKey.rawValue)
+
         //DIContainer register
         registerDIContainer()
         

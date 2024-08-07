@@ -157,6 +157,13 @@
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
 		4E4DC0032C614726007CE63A /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4DC0022C614726007CE63A /* GoogleMaps */; };
+		4E4DC0072C61D40A007CE63A /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0062C61D40A007CE63A /* MapVC.swift */; };
+		4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC00A2C61F7F7007CE63A /* PopUpStore.swift */; };
+		4E4DC00D2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC00C2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift */; };
+		4E4DC0112C61FD49007CE63A /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0102C61FD49007CE63A /* MapRepository.swift */; };
+		4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */; };
+		4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */; };
+		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
 		BD1D886A2C3D952500380F80 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D88692C3D952500380F80 /* Secrets.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
@@ -367,6 +374,13 @@
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
+		4E4DC0062C61D40A007CE63A /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		4E4DC00A2C61F7F7007CE63A /* PopUpStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStore.swift; sourceTree = "<group>"; };
+		4E4DC00C2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPopUpStoresUseCase.swift; sourceTree = "<group>"; };
+		4E4DC0102C61FD49007CE63A /* MapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
+		4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepositoryImpl.swift; sourceTree = "<group>"; };
+		4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStoreDTO.swift; sourceTree = "<group>"; };
+		4E4DC0172C620251007CE63A /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		BD1D88692C3D952500380F80 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -813,6 +827,7 @@
 		08B965662C14846100BF95AA /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				4E4DC00A2C61F7F7007CE63A /* PopUpStore.swift */,
 				08E23AAC2C4F865E004B77B6 /* NetworkResponse */,
 			);
 			path = Entities;
@@ -833,6 +848,7 @@
 		08B965712C148A3600BF95AA /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				4E4DC00C2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift */,
 				08B183CA2C4448DF006C34BB /* LocalUseCase */,
 				08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */,
 				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
@@ -845,6 +861,7 @@
 		08B9658D2C16003300BF95AA /* PopPoolNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				4E4DC0142C620199007CE63A /* MapDTO */,
 				08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */,
 				08E23A7B2C4F6B45004B77B6 /* Protocol */,
 				08B965902C16005300BF95AA /* LoginDTO */,
@@ -865,6 +882,7 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				4E4DC00F2C61FD34007CE63A /* MapRepository */,
 				BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */,
 				08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */,
 				089D19162C36713C000435D9 /* SignUpRepository */,
@@ -1143,6 +1161,7 @@
 		08F49E012C2402AF002D5202 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				4E4DC0052C61D3E7007CE63A /* Map */,
 				08E23ADA2C54EB8A004B77B6 /* RecentPopUp */,
 				08E23AC82C534F77004B77B6 /* FavoritePopUp */,
 				08F49E002C24023E002D5202 /* OnBoarding */,
@@ -1180,6 +1199,32 @@
 				08A28CA92C27E16F00DF7A90 /* SignUpVC.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		4E4DC0052C61D3E7007CE63A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4E4DC0062C61D40A007CE63A /* MapVC.swift */,
+				4E4DC0172C620251007CE63A /* MapVM.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		4E4DC00F2C61FD34007CE63A /* MapRepository */ = {
+			isa = PBXGroup;
+			children = (
+				4E4DC0102C61FD49007CE63A /* MapRepository.swift */,
+				4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */,
+			);
+			path = MapRepository;
+			sourceTree = "<group>";
+		};
+		4E4DC0142C620199007CE63A /* MapDTO */ = {
+			isa = PBXGroup;
+			children = (
+				4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */,
+			);
+			path = MapDTO;
 			sourceTree = "<group>";
 		};
 		BD0B8F512C26D59600FFBC24 /* Manager */ = {
@@ -1482,6 +1527,7 @@
 				08E23A9E2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */,
+				4E4DC0182C620251007CE63A /* MapVM.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
@@ -1492,11 +1538,13 @@
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
+				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
 				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
+				4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */,
 				08E23AA22C4F7A43004B77B6 /* UserUnblockRequestDTO.swift in Sources */,
 				08C813E02C2D82EF009239FE /* SegmentedControlCPNT.swift in Sources */,
 				BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */,
@@ -1505,10 +1553,12 @@
 				08E23A4A2C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */,
+				4E4DC0112C61FD49007CE63A /* MapRepository.swift in Sources */,
 				08E23A7F2C4F6BCD004B77B6 /* GetMyCommentRequestDTO.swift in Sources */,
 				08E23AB72C4F8AD5004B77B6 /* GetMyRecentViewPopUpStoreListResponse.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				08E23ACA2C534FB2004B77B6 /* FavoritePopUpVC.swift in Sources */,
+				4E4DC00D2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,
 				08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */,
 				08E23A762C4F6749004B77B6 /* GetMyCommentedPopUpStoreListResponseDTO.swift in Sources */,
@@ -1566,6 +1616,7 @@
 				08E23AA92C4F7DC9004B77B6 /* GetMyPageResponse.swift in Sources */,
 				089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */,
 				BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */,
+				4E4DC0072C61D40A007CE63A /* MapVC.swift in Sources */,
 				08E23AB52C4F89D6004B77B6 /* GetMyCommentedPopUpStoreListResponse.swift in Sources */,
 				BDC2C3432C5A6EE400FEF069 /* NoticeDetailBoardVM.swift in Sources */,
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
@@ -1607,6 +1658,7 @@
 				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
+				4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */,
 				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
 				BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
