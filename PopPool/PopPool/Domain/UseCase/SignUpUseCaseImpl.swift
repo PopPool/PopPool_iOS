@@ -21,7 +21,7 @@ final class SignUpUseCaseImpl: SignUpUseCase {
         age: Int32,
         socialEmail: String?,
         socialType: String,
-        interests: [Int]
+        interests: [Int64]
     ) -> Completable {
         return repository.trySignUp(
             userId: userId,
@@ -37,7 +37,7 @@ final class SignUpUseCaseImpl: SignUpUseCase {
         return repository.checkNickName(nickName: nickName)
     }
     
-    func fetchInterestList() -> Observable<[Interest]> {
-        return repository.fetchInterestList()
+    func fetchCategoryList() -> Observable<[Category]> {
+        return repository.fetchCategoryList()
     }
 }
