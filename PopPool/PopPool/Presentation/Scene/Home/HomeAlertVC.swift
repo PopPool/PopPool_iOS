@@ -30,12 +30,17 @@ class HomeAlertVC: BaseTableViewVC {
         }
     }
 
+    let viewModel = HomeAlertVM()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        bind()
     }
     
     private func setUp() {
+        view.backgroundColor = .g50
+        tableView.backgroundColor = .g50
         headerView.titleLabel.text = "알림"
         contentHeader.isHidden = true
         emptyStateStack.isHidden = true
@@ -44,6 +49,15 @@ class HomeAlertVC: BaseTableViewVC {
         tableView.dataSource = self
         tableView.sectionHeaderTopPadding = 0
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+    }
+    
+    private func bind() {
+        headerView.leftBarButton.rx.tap
+            .subscribe { [weak self] _ in
+                print("탭탭")
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -59,8 +73,16 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = UIView()
-        footer.backgroundColor = .gray
+        footer.backgroundColor = .g100
         return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let section = Section.allCases[section]
+        switch section {
+        case .today: return CGFloat(Constants.spaceGuide.small100)
+        case .all: return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -71,6 +93,7 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
         headerView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         headerView.isLayoutMarginsRelativeArrangement = true
         headerView.rightButton.isHidden = true
+        headerView.backgroundColor = .g50
         headerView.titleLabel.textColor = .blu500
         
         switch section {
@@ -93,6 +116,7 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = "namename"
+        cell.backgroundColor = .g50
         return cell
     }
 }
