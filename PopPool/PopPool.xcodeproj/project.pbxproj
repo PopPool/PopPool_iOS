@@ -176,6 +176,7 @@
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
 		BD6FAFCD2C5DCBEA00322405 /* TermsDetailBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */; };
 		BD6FAFD12C5DE29700322405 /* TermsDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */; };
 		BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */; };
@@ -392,6 +393,7 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
 		BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButtonCPNT.swift; sourceTree = "<group>"; };
@@ -1210,6 +1212,7 @@
 				08B183C22C442113006C34BB /* ListTitleViewCPNT.swift */,
 				08B183C42C4421D5006C34BB /* TextUnderBarButtonCPNT.swift */,
 				08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */,
+				BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1711,6 +1714,7 @@
 				08F49DF02C2321B8002D5202 /* AuthRepositoryImpl.swift in Sources */,
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
+				BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */,
 				BD282FC92C5A8892003F1ADD /* TermsBoardVM.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
 				08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */,
