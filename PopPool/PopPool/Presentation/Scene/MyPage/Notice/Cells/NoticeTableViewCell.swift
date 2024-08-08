@@ -93,7 +93,7 @@ final class NoticeTableViewCell: UITableViewCell {
     /// - Parameters:
     ///   - title: String 타입을 받습니다.
     ///   - subTitle: String 타입을 받습니다.
-    public func updateView(title: String, subTitle: String) {
+    public func updateView(title: String, subTitle: String?) {
         titleLabel.text = title
         subTitleLabel.text = subTitle
     }

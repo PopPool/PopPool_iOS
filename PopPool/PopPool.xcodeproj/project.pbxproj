@@ -162,8 +162,6 @@
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
 		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
-		BD282FC72C5A8889003F1ADD /* TermsBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */; };
-		BD282FC92C5A8892003F1ADD /* TermsBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */; };
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
 		BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975092C51140D0090147C /* ListMenuCPNT.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
@@ -177,8 +175,6 @@
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
-		BD6FAFCD2C5DCBEA00322405 /* TermsDetailBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */; };
-		BD6FAFD12C5DE29700322405 /* TermsDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */; };
 		BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */; };
 		BD79E1792C5740C200CCEE07 /* BaseTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */; };
 		BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */; };
@@ -200,6 +196,10 @@
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
 		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
+		BDF089FD2C6505000098486D /* TermsBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF089F92C6504FF0098486D /* TermsBoardVM.swift */; };
+		BDF089FE2C6505000098486D /* TermsDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF089FA2C6504FF0098486D /* TermsDetailBoardVM.swift */; };
+		BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF089FB2C6504FF0098486D /* TermsBoardVC.swift */; };
+		BDF08A002C6505000098486D /* TermsDetailBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF089FC2C6505000098486D /* TermsDetailBoardVC.swift */; };
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
 		BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2AD2C0BE69700B079C5 /* Provider.swift */; };
 		BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2C02C0C318E00B079C5 /* Responsable.swift */; };
@@ -393,9 +393,9 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
-		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
+		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
 		BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButtonCPNT.swift; sourceTree = "<group>"; };
 		BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewVC.swift; sourceTree = "<group>"; };
 		BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardVC.swift; sourceTree = "<group>"; };
@@ -417,6 +417,10 @@
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
+		BDF089F92C6504FF0098486D /* TermsBoardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsBoardVM.swift; sourceTree = "<group>"; };
+		BDF089FA2C6504FF0098486D /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
+		BDF089FB2C6504FF0098486D /* TermsBoardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsBoardVC.swift; sourceTree = "<group>"; };
+		BDF089FC2C6505000098486D /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BDF3B2AD2C0BE69700B079C5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		BDF3B2C02C0C318E00B079C5 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
@@ -612,6 +616,7 @@
 				087346262C0AAD2B00534FFA /* PopPoolTests */,
 				087346302C0AAD2B00534FFA /* PopPoolUITests */,
 				0873460E2C0AAD2900534FFA /* Products */,
+				BDF089EF2C6504560098486D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -759,6 +764,7 @@
 				082025AA2C63A93900FC9BA4 /* Main */,
 				082025AC2C63B19300FC9BA4 /* Notice */,
 				082025B12C63B1E200FC9BA4 /* Blocked */,
+				BDF089F02C6504B80098486D /* TermBoard */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -782,22 +788,6 @@
 				08E23AD52C54E171004B77B6 /* ViewedPopUpCell.swift */,
 			);
 			path = UICollectionViewCell;
-			sourceTree = "<group>";
-		};
-		089D19252C3AEB3E000435D9 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */,
-				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
-				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
-				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
-				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
-				BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */,
-				BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */,
-				BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */,
-				BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
@@ -1321,6 +1311,28 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		BDF089EF2C6504560098486D /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */,
+				BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */,
+				BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */,
+				BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		BDF089F02C6504B80098486D /* TermBoard */ = {
+			isa = PBXGroup;
+			children = (
+				BDF089FB2C6504FF0098486D /* TermsBoardVC.swift */,
+				BDF089F92C6504FF0098486D /* TermsBoardVM.swift */,
+				BDF089FC2C6505000098486D /* TermsDetailBoardVC.swift */,
+				BDF089FA2C6504FF0098486D /* TermsDetailBoardVM.swift */,
+			);
+			path = TermBoard;
+			sourceTree = "<group>";
+		};
 		BDF3B2BA2C0BFA0C00B079C5 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1554,17 +1566,20 @@
 				08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
 				08E23A692C4E1BDC004B77B6 /* SurveyDTO.swift in Sources */,
+				BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */,
 				08B183CE2C44490A006C34BB /* FetchLocalUseCase.swift in Sources */,
 				BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */,
 				08E23AD22C54D387004B77B6 /* FavoritePopUpVM.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
+				BDF08A002C6505000098486D /* TermsDetailBoardVC.swift in Sources */,
 				BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
 				08E23A9E2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift in Sources */,
+				BDF089FE2C6505000098486D /* TermsDetailBoardVM.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
@@ -1606,6 +1621,7 @@
 				08B183C92C443948006C34BB /* TableViewSectionable.swift in Sources */,
 				08B183BF2C43BEA6006C34BB /* MyCommentCircleListCell.swift in Sources */,
 				08E23A782C4F68FD004B77B6 /* GetMyRecentViewPopUpStoreListResponseDTO.swift in Sources */,
+				BDF089FD2C6505000098486D /* TermsBoardVM.swift in Sources */,
 				08E23AA52C4F7B7B004B77B6 /* UserRepositoryImpl.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
 				08E23A8D2C4F6F07004B77B6 /* PageableResponse.swift in Sources */,
@@ -1632,7 +1648,6 @@
 				08E23ABF2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
 				08E23ABD2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift in Sources */,
-				BD282FC72C5A8889003F1ADD /* TermsBoardVC.swift in Sources */,
 				08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */,
 				08C813D52C2D1F5E009239FE /* SignUpStep3View.swift in Sources */,
 				087346562C0AEBD900534FFA /* AppDIContainer.swift in Sources */,
@@ -1664,7 +1679,6 @@
 				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */,
-				BD6FAFCD2C5DCBEA00322405 /* TermsDetailBoardVC.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
 				08E23AAB2C4F7F98004B77B6 /* MyCommentInfo.swift in Sources */,
 				08E23A5C2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift in Sources */,
@@ -1686,7 +1700,6 @@
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
 				08A28CAA2C27E16F00DF7A90 /* SignUpVC.swift in Sources */,
-				BD6FAFD12C5DE29700322405 /* TermsDetailBoardVM.swift in Sources */,
 				08E23ACE2C535486004B77B6 /* ListMenuViewCPNT.swift in Sources */,
 				089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */,
 				089D19132C3544DB000435D9 /* PickerCPNT.swift in Sources */,
@@ -1715,7 +1728,6 @@
 				BDF4F2962C240B95002F4F03 /* UIColor+.swift in Sources */,
 				BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */,
 				BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */,
-				BD282FC92C5A8892003F1ADD /* TermsBoardVM.swift in Sources */,
 				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
 				08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */,
 				BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */,
