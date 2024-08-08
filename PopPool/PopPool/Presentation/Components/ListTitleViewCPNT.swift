@@ -71,8 +71,6 @@ private extension ListTitleViewCPNT {
         subTitleLabel.textColor = .g600
         subTitleLabel.font = .KorFont(style: .regular, size: 13)
         iconImageView.image = size.iconImage
-        
-        bottomSpace.backgroundColor = .blue
     }
     
     func setUpConstraints(size: Size) {
