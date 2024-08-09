@@ -19,7 +19,7 @@ final class TermsBoardVC: BaseTableViewVC {
     
     init(viewModel: TermsBoardVM) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {
