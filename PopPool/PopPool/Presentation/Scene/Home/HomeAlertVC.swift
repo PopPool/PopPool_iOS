@@ -39,16 +39,19 @@ class HomeAlertVC: BaseTableViewVC {
     }
     
     private func setUp() {
-        view.backgroundColor = .g50
-        tableView.backgroundColor = .g50
         headerView.titleLabel.text = "알림"
+        view.backgroundColor = .g50
         contentHeader.isHidden = true
         emptyStateStack.isHidden = true
+        headerView.rightBarButton.isHidden = false
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .g50
+        tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = 0
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(HomeAlertCell.self,
+                           forCellReuseIdentifier: HomeAlertCell.reuseIdentifier)
     }
     
     private func bind() {
@@ -57,6 +60,12 @@ class HomeAlertVC: BaseTableViewVC {
                 print("탭탭")
                 self?.navigationController?.popViewController(animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        headerView.rightBarButton.rx.tap
+            .subscribe(onNext: {
+                print("버튼 탭")
+            })
             .disposed(by: disposeBag)
     }
 }
@@ -114,8 +123,7 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "namename"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeAlertCell.reuseIdentifier, for: indexPath) as? HomeAlertCell else { return UITableViewCell() }
         cell.backgroundColor = .g50
         return cell
     }
