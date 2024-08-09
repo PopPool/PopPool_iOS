@@ -156,6 +156,7 @@
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
+		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
 		BD1D886A2C3D952500380F80 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D88692C3D952500380F80 /* Secrets.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
@@ -369,6 +370,7 @@
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
+		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
 		BD1D88692C3D952500380F80 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -1199,6 +1201,7 @@
 			isa = PBXGroup;
 			children = (
 				BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */,
+				BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */,
 				BD7B47DE2C650E9C00DA116D /* HomeAlertCell.swift */,
 				BDA698CF2C64869D0056450A /* HomeAlertVM.swift */,
 			);
@@ -1600,6 +1603,7 @@
 				08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */,
 				BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */,
 				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
+				BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
