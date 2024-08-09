@@ -13,7 +13,8 @@ class BaseTableViewVC: UIViewController {
     
     // MARK: - Components
     
-    let headerView = HeaderViewCPNT(title: "차단한 사용자 관리", style: .icon(nil))
+    let headerView = HeaderViewCPNT(title: "차단한 사용자 관리",
+                                    style: .icon(UIImage(named: "icosolid")))
     lazy var contentHeader = ListMenuCPNT(titleText: "", style: .none)
     private let topSpaceView = UIView()
     
