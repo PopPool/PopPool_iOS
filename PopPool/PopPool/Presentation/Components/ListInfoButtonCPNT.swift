@@ -23,7 +23,7 @@ final class ListInfoButtonCPNT: UIStackView {
     private let topSpaceView = UIView()
     private let bottomSpaceView = UIView()
     
-    private let profileImageView: UIImageView = {
+    let profileImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(systemName: "person.fill")
         imgView.backgroundColor = .black
