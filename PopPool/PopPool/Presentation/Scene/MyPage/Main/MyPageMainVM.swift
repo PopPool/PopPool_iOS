@@ -31,12 +31,21 @@ final class MyPageMainVM: ViewModelable {
         get {
             // 로그인 유무에 따라 List 변경
             if self.myPageAPIResponse.value.login {
-                return [
-                    myCommentSection,
-                    normalSection,
-                    informationSection,
-                    etcSection
-                ]
+                // 내 코멘트 없을 경우 분기
+                if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
+                    return [
+                        normalSection,
+                        informationSection,
+                        etcSection
+                    ]
+                } else {
+                    return [
+                        myCommentSection,
+                        normalSection,
+                        informationSection,
+                        etcSection
+                    ]
+                }
             } else {
                 return [
                     informationSection
@@ -50,18 +59,10 @@ final class MyPageMainVM: ViewModelable {
     
     // MARK: - MenuSection
     // 내 코멘트 Section
-    private var myCommentSection = MyCommentCircleListCellSection(
+    var myCommentSection = MyCommentCircleListCellSection(
         sectionInput: .init(sectionTitle: "내 코멘트"),
-        sectionCellInputList: [
-            .init(cellInputList: [
-                .init(title: "팝업스토어1", isActive: true, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어2", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어3", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어4", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어5", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어6", isActive: false, image: UIImage(systemName: "person")),
-            ])
-        ])
+        sectionCellInputList: []
+    )
     // 일반 Section
     private var normalSection = MenuListCellSection(
         sectionInput: .init(sectionTitle: "일반"),

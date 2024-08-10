@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import SnapKit
+import Kingfisher
 
 final class CircleFeedCell: UICollectionViewCell {
     // MARK: - Components
@@ -78,7 +80,7 @@ extension CircleFeedCell: Cellable {
     struct Input {
         var title: String?
         var isActive: Bool
-        var image: UIImage?
+        var imageURL: String?
     }
     
     struct Output {
@@ -87,7 +89,9 @@ extension CircleFeedCell: Cellable {
     
     func injectionWith(input: Input) {
         titleLabel.text = input.title
-        imageView.image = input.image
+        if let url = URL(string: input.imageURL ?? "") {
+            imageView.kf.setImage(with: url)
+        }
         if input.isActive {
             colorBackGroundView.startAnimatingGradient()
         } else {
