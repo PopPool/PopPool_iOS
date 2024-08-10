@@ -59,6 +59,7 @@
 		08AF8D8A2C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D892C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift */; };
 		08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D8B2C660B89006B8A11 /* MyCommentedPopUpInfo.swift */; };
 		08AF8D8F2C672C3D006B8A11 /* ProfileEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D8E2C672C3D006B8A11 /* ProfileEditVC.swift */; };
+		08AF8D922C67682B006B8A11 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 08AF8D912C67682B006B8A11 /* Kingfisher */; };
 		08B183AB2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */; };
 		08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */; };
 		08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183B52C3D9498006C34BB /* MenuListCell.swift */; };
@@ -456,6 +457,7 @@
 				085105932C1033E600ED7DBB /* RxKakaoSDKCommon in Frameworks */,
 				089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */,
 				0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */,
+				08AF8D922C67682B006B8A11 /* Kingfisher in Frameworks */,
 				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
 				0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */,
@@ -1441,6 +1443,7 @@
 				085105982C1033E600ED7DBB /* RxKakaoSDKTalk */,
 				0851059A2C1033E600ED7DBB /* RxKakaoSDKUser */,
 				089D19052C31A620000435D9 /* IQKeyboardManagerSwift */,
+				08AF8D912C67682B006B8A11 /* Kingfisher */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -1520,6 +1523,7 @@
 				085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 				0851058B2C1033E500ED7DBB /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -2144,6 +2148,14 @@
 				minimumVersion = 7.0.3;
 			};
 		};
+		08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2216,6 +2228,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		08AF8D912C67682B006B8A11 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
