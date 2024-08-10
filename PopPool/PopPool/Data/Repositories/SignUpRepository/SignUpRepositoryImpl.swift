@@ -29,13 +29,13 @@ final class SignUpRepositoryImpl: SignUpRepository {
         nickName: String,
         gender: String,
         age: Int32,
-        socialEmail: String?,
+        socialEmail: String,
         socialType: String,
         interests: [Int64]
     ) -> Completable {
         let endPoint = PopPoolAPIEndPoint.signUp_trySignUp(with: .init(
             userId: userId,
-            nickName: nickName,
+            nickname: nickName,
             gender: gender,
             age: age,
             socialEmail: socialEmail,
