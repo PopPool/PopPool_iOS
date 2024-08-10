@@ -23,7 +23,7 @@ final class DynamicTextViewCPNT: UIStackView {
         var stateColor: UIColor {
             switch self {
             case .none, .normal:
-                return .g200
+                return .g100
             case .normal_active, .none_active:
                 return .g1000
             case .overText, .overText_active(_):
@@ -66,7 +66,7 @@ final class DynamicTextViewCPNT: UIStackView {
         let view = UIView()
         view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 4
-        view.layer.borderColor = UIColor.g200.cgColor
+        view.layer.borderColor = UIColor.g100.cgColor
         view.layer.borderWidth = 1.2
         return view
     }()

@@ -9,9 +9,10 @@ import Foundation
 
 struct GetMyPageResponseDTO: Decodable {
     var nickname: String?
-    var profileImage: String?
+    var profileImageUrl: String?
+    var intro: String?
     var instagramId: String?
-    var popUpInfoList: [PopUpInfoDTO]
+    var myCommentedPopUpList: [MyCommentedPopUpInfoDTO]
     var login: Bool
 }
 
@@ -19,9 +20,9 @@ extension GetMyPageResponseDTO {
     func toDomain() -> GetMyPageResponse {
         return GetMyPageResponse(
             nickname: nickname,
-            profileImage: URL(string: profileImage ?? ""),
+            profileImageURL: URL(string: profileImageUrl ?? ""),
             instagramId: instagramId,
-            popUpInfoList: popUpInfoList.map({ $0.toDomain() }),
+            popUpInfoList: myCommentedPopUpList.map({ $0.toDomain() }),
             login: login
         )
     }

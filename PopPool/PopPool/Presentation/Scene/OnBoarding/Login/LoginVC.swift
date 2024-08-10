@@ -156,7 +156,7 @@ private extension LoginVC {
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
                         var response = myPageResponse
-                        response.login = false
+//                        response.login = true
                         let vm = MyPageMainVM(response: response)
                         let vc = MyPageMainVC(viewModel: vm)
                         owner.navigationController?.pushViewController(vc, animated: true)
