@@ -21,7 +21,7 @@ struct PopUpStoreDTO: Decodable {
         return PopUpStore(
             id: id,
             name: name,
-            category: category,
+            categories: [category], // 문자열을 배열로 변환
             location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
             address: address,
             dateRange: dateRange

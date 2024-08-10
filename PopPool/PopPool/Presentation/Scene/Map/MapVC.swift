@@ -1,4 +1,3 @@
-//
 //  MapVC.swift
 //  PopPool
 //
@@ -12,139 +11,259 @@ import RxSwift
 import RxCocoa
 
 class MapVC: BaseViewController {
+   // MARK: - Properties
+   private let viewModel: MapVM
+   private let disposeBag = DisposeBag()
 
-    // MARK: - Properties
-    private let viewModel: MapVM
-    private let disposeBag = DisposeBag()
+   // MARK: - UI Components
+   private lazy var mapView: GMSMapView = {
+       let camera = GMSCameraPosition.camera(withLatitude: 37.5665, longitude: 126.9780, zoom: 14.0)
+       let mapView = GMSMapView(frame: .zero, camera: camera)
+       return mapView
+   }()
 
-    // MARK: - UI Components
-    private lazy var mapView: GMSMapView = {
-        let camera = GMSCameraPosition.camera(withLatitude: 37.5665, longitude: 126.9780, zoom: 14.0)
-        let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
-        return mapView
-    }()
+   private lazy var searchBar: UISearchBar = {
+       let searchBar = UISearchBar()
+       searchBar.placeholder = "팝업스토어명, 지역을 입력해보세요"
+       searchBar.backgroundColor = .white
+       searchBar.layer.cornerRadius = 8
+       searchBar.clipsToBounds = true
+       return searchBar
+   }()
 
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "위치 검색"
-        searchBar.backgroundColor = .white
-        searchBar.layer.cornerRadius = 8
-        searchBar.clipsToBounds = true
-        return searchBar
-    }()
+   private lazy var filterStackView: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: [locationFilterButton, categoryFilterButton])
+       stackView.axis = .horizontal
+       stackView.spacing = 8
+       stackView.distribution = .fillEqually
+       return stackView
+   }()
 
-    private lazy var filterButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("필터", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 8
-        return button
-    }()
+   private lazy var locationFilterButton: UIButton = {
+       let button = UIButton(type: .system)
+       button.setTitle("서울 / 송파구 외 2개", for: .normal)
+       button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+       button.backgroundColor = .systemBlue
+       button.setTitleColor(.white, for: .normal)
+       button.layer.cornerRadius = 16
+       return button
+   }()
 
-    private lazy var currentLocationButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "location"), for: .normal)
-        button.backgroundColor = .white
-        button.tintColor = .blue
-        button.layer.cornerRadius = 8
-        return button
-    }()
+   private lazy var categoryFilterButton: UIButton = {
+       let button = UIButton(type: .system)
+       button.setTitle("요리 / 음식 외 2개", for: .normal)
+       button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+       button.backgroundColor = .systemBlue
+       button.setTitleColor(.white, for: .normal)
+       button.layer.cornerRadius = 16
+       return button
+   }()
 
-    // MARK: - Initialization
-    init(viewModel: MapVM) {
-        self.viewModel = viewModel
-        super.init(/*nibName: nil, bundle: nil*/)
-    }
+   private lazy var currentLocationButton: UIButton = {
+       let button = UIButton(type: .system)
+       button.setImage(UIImage(systemName: "location"), for: .normal)
+       button.backgroundColor = .white
+       button.tintColor = .systemBlue
+       button.layer.cornerRadius = 20
+       button.layer.shadowColor = UIColor.black.cgColor
+       button.layer.shadowOpacity = 0.2
+       button.layer.shadowOffset = CGSize(width: 0, height: 2)
+       button.layer.shadowRadius = 4
+       return button
+   }()
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   private lazy var listViewButton: UIButton = {
+       let button = UIButton(type: .system)
+       button.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+       button.backgroundColor = .white
+       button.tintColor = .systemBlue
+       button.layer.cornerRadius = 20
+       button.layer.shadowColor = UIColor.black.cgColor
+       button.layer.shadowOpacity = 0.2
+       button.layer.shadowOffset = CGSize(width: 0, height: 2)
+       button.layer.shadowRadius = 4
+       return button
+   }()
 
-    // MARK: - Lifecycle Methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        bindViewModel()
-    }
+   private lazy var popupCardView: PopupCardView = {
+       let view = PopupCardView()
+       return view
+   }()
 
-    // MARK: - Setup Methods
-    private func setupUI() {
-        view.addSubview(mapView)
-        view.addSubview(searchBar)
-        view.addSubview(filterButton)
-        view.addSubview(currentLocationButton)
+   private lazy var popupListView: UITableView = {
+       let tableView = UITableView()
+       tableView.register(PopupListCell.self, forCellReuseIdentifier: PopupListCell.identifier)
+       tableView.isHidden = true
+       return tableView
+   }()
 
-        mapView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+   // MARK: - Initialization
+   init(viewModel: MapVM) {
+       self.viewModel = viewModel
+       super.init()
+   }
 
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalTo(filterButton.snp.leading).offset(-8)
-            make.height.equalTo(40)
-        }
+   required init?(coder: NSCoder) {
+       fatalError("init(coder:) has not been implemented")
+   }
 
-        filterButton.snp.makeConstraints { make in
-            make.top.equalTo(searchBar)
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.equalTo(60)
-            make.height.equalTo(40)
-        }
+   // MARK: - Lifecycle Methods
+   override func viewDidLoad() {
+       super.viewDidLoad()
+       setupUI()
+       bindViewModel()
+   }
 
-        currentLocationButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.width.height.equalTo(40)
-        }
-    }
 
-    private func bindViewModel() {
-        // 검색 기능
-        searchBar.rx.text.orEmpty
-            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .flatMapLatest { [weak self] query -> Observable<CLLocationCoordinate2D?> in
-                guard let self = self, !query.isEmpty else { return .just(nil) }
-                return self.viewModel.searchLocation(query: query)
-            }
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] coordinate in
-                self?.moveCamera(to: coordinate)
-            })
-            .disposed(by: disposeBag)
+   // MARK: - Setup Methods
+   private func setupUI() {
+       view.addSubview(mapView)
+       view.addSubview(searchBar)
+       view.addSubview(filterStackView)
+       view.addSubview(currentLocationButton)
+       view.addSubview(listViewButton)
+       view.addSubview(popupCardView)
+       view.addSubview(popupListView)
 
-        // 현재 위치 버튼
-        currentLocationButton.rx.tap
-            .flatMapLatest { [weak self] _ -> Observable<CLLocationCoordinate2D?> in
-                guard let self = self else { return .just(nil) }
-                return self.viewModel.getCurrentLocation()
-            }
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] coordinate in
-                self?.moveCamera(to: coordinate)
-            })
-            .disposed(by: disposeBag)
+       mapView.snp.makeConstraints { make in
+           make.edges.equalToSuperview()
+       }
 
-        // 필터 버튼 (아직 기능 구현 X)
-        filterButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.showFilterOptions()
-            })
-            .disposed(by: disposeBag)
-    }
+       searchBar.snp.makeConstraints { make in
+           make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+           make.leading.trailing.equalToSuperview().inset(16)
+           make.height.equalTo(40)
+       }
 
-    // MARK: - Helper Methods
-    private func moveCamera(to coordinate: CLLocationCoordinate2D) {
-        let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude,
-                                              longitude: coordinate.longitude,
-                                              zoom: 15.0)
-        mapView.animate(to: camera)
-    }
+       filterStackView.snp.makeConstraints { make in
+           make.top.equalTo(searchBar.snp.bottom).offset(8)
+           make.leading.trailing.equalToSuperview().inset(16)
+           make.height.equalTo(32)
+       }
 
-    private func showFilterOptions() {
-        // 필터 옵션을 보여주는 로직 (아직 미구현)
-        print("Filter options tapped")
-    }
+       currentLocationButton.snp.makeConstraints { make in
+           make.trailing.equalToSuperview().offset(-16)
+           make.bottom.equalTo(popupCardView.snp.top).offset(-16)
+           make.width.height.equalTo(40)
+       }
+
+       listViewButton.snp.makeConstraints { make in
+           make.leading.equalToSuperview().offset(16)
+           make.bottom.equalTo(popupCardView.snp.top).offset(-16)
+           make.width.height.equalTo(40)
+       }
+
+       popupCardView.snp.makeConstraints { make in
+           make.leading.trailing.bottom.equalToSuperview().inset(16)
+           make.height.equalTo(100)
+       }
+
+       popupListView.snp.makeConstraints { make in
+           make.edges.equalToSuperview()
+       }
+   }
+
+   private func bindViewModel() {
+       // 검색 기능 제거
+       /*
+       searchBar.rx.text.orEmpty
+           .bind(to: viewModel.input.searchQuery)
+           .disposed(by: disposeBag)
+       */
+
+       // 필터된 스토어를 기반으로 지도에 팝업 스토어 업데이트
+       viewModel.output.filteredStores
+           .subscribe(onNext: { [weak self] stores in
+               self?.updateMapWithStores(stores)
+           })
+           .disposed(by: disposeBag)
+
+       // 키보드 내리기
+       let tapGesture = UITapGestureRecognizer()
+       mapView.addGestureRecognizer(tapGesture)
+
+       tapGesture.rx.event
+           .subscribe(onNext: { [weak self] _ in
+               self?.view.endEditing(true)
+           })
+           .disposed(by: disposeBag)
+
+       // 현재 위치 버튼
+       currentLocationButton.rx.tap
+           .bind(to: viewModel.input.currentLocationRequested)
+           .disposed(by: disposeBag)
+
+       listViewButton.rx.tap
+           .subscribe(onNext: { [weak self] in
+               self?.showListView()
+           })
+           .disposed(by: disposeBag)
+
+       // 필터 버튼 탭 이벤트
+       locationFilterButton.rx.tap
+              .subscribe(onNext: { [weak self] in
+                  self?.showFilterBottomSheet()
+              })
+              .disposed(by: disposeBag)
+
+          categoryFilterButton.rx.tap
+              .subscribe(onNext: { [weak self] in
+                  self?.showFilterBottomSheet()
+              })
+              .disposed(by: disposeBag)
+
+
+       // 팝업 리스트 데이터를 바인딩하여 테이블 뷰를 업데이트
+       viewModel.output.filteredStores
+           .bind(to: popupListView.rx.items(cellIdentifier: PopupListCell.identifier, cellType: PopupListCell.self)) { index, store, cell in
+               cell.configure(with: store)
+           }
+           .disposed(by: disposeBag)
+
+       // 현재 위치 업데이트
+       viewModel.output.currentLocation
+           .subscribe(onNext: { [weak self] location in
+               guard let location = location else { return }
+               let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 14.0)
+               self?.mapView.animate(to: camera)
+           })
+           .disposed(by: disposeBag)
+
+       // 에러 메시지 표시
+       viewModel.output.errorMessage
+           .subscribe(onNext: { [weak self] message in
+               self?.showError(message)
+           })
+           .disposed(by: disposeBag)
+   }
+
+   // MARK: - Helper Methods
+   private func updateMapWithStores(_ stores: [PopUpStore]) {
+       mapView.clear()
+       for store in stores {
+           let marker = GMSMarker()
+           marker.position = CLLocationCoordinate2D(latitude: store.latitude, longitude: store.longitude)
+           marker.title = store.name
+           marker.snippet = store.address
+           marker.map = mapView
+       }
+   }
+
+   private func showListView() {
+       popupListView.isHidden.toggle()
+   }
+
+   private func showError(_ message: String) {
+       let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+       alert.addAction(UIAlertAction(title: "OK", style: .default))
+       present(alert, animated: true)
+   }
+   private func showFilterBottomSheet() {
+       let filterVC = FilterBottomSheetViewController(viewModel: viewModel)
+       filterVC.modalPresentationStyle = .overFullScreen
+       filterVC.modalTransitionStyle = .coverVertical
+       present(filterVC, animated: true, completion: nil)
+   }
+
+
 }
