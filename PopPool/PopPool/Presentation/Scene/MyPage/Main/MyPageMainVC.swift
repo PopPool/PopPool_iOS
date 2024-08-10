@@ -97,9 +97,9 @@ private extension MyPageMainVC {
                     input: .init(
                         // TODO: - 더미 데이터 제거 후 연결 필요
                         isLogin: myPageResponse.login,
-                        nickName: "Test",
-                        instagramId: "Test",
-                        intro: "Test"
+                        nickName: myPageResponse.nickname,
+                        instagramId: myPageResponse.instagramId,
+                        intro: myPageResponse.intro
                     )
                 )
                 if myPageResponse.login {
