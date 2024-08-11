@@ -119,6 +119,7 @@ final class ListDropDownCPNT: UIStackView {
     public func configure(title: String, content: String) {
         self.titleLabel.text = title
         self.dropDownLabel.text = content
+        self.lineContainerView.isHidden = true
     }
     
     private func setUp() {
