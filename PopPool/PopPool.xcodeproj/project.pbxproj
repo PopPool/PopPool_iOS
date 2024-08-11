@@ -185,6 +185,8 @@
 		BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */; };
 		BD85EB6A2C50045D000DBD05 /* HeaderViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */; };
 		BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8733842C50C75D0063499C /* BlockedUserCell.swift */; };
+		BD8DE8232C68655700C5DE8B /* EntirePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8DE8222C68655700C5DE8B /* EntirePopupVC.swift */; };
+		BD8DE8252C6865A000C5DE8B /* EntirePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8DE8242C6865A000C5DE8B /* EntirePopupVM.swift */; };
 		BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */; };
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
@@ -408,6 +410,8 @@
 		BD79E1862C57B02600CCEE07 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
 		BD85EB692C50045D000DBD05 /* HeaderViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewCPNT.swift; sourceTree = "<group>"; };
 		BD8733842C50C75D0063499C /* BlockedUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserCell.swift; sourceTree = "<group>"; };
+		BD8DE8222C68655700C5DE8B /* EntirePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntirePopupVC.swift; sourceTree = "<group>"; };
+		BD8DE8242C6865A000C5DE8B /* EntirePopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntirePopupVM.swift; sourceTree = "<group>"; };
 		BD9901CC2C2877BF0024F30D /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -762,6 +766,7 @@
 		089D191B2C36B138000435D9 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				BD8DE8212C68653300C5DE8B /* Home */,
 				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
 				08AF8D8D2C672B2D006B8A11 /* ProfileEdit */,
 				08E23ADA2C54EB8A004B77B6 /* RecentPopUp */,
@@ -1299,6 +1304,15 @@
 			path = LoginBottomSheet;
 			sourceTree = "<group>";
 		};
+		BD8DE8212C68653300C5DE8B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BD8DE8222C68655700C5DE8B /* EntirePopupVC.swift */,
+				BD8DE8242C6865A000C5DE8B /* EntirePopupVM.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		BDC622AF2C22580E009411AE /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1573,6 +1587,7 @@
 			files = (
 				08A28CBE2C2AEAF600DF7A90 /* CheckBoxCPNT.swift in Sources */,
 				08E23A722C4E1CF8004B77B6 /* CheckedSurveyDTO.swift in Sources */,
+				BD8DE8252C6865A000C5DE8B /* EntirePopupVM.swift in Sources */,
 				08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */,
 				08E23AB32C4F8817004B77B6 /* Survey.swift in Sources */,
 				08E23A9A2C4F74A0004B77B6 /* MyInterestInfoDTO.swift in Sources */,
@@ -1733,6 +1748,7 @@
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				08E23AD62C54E171004B77B6 /* ViewedPopUpCell.swift in Sources */,
+				BD8DE8232C68655700C5DE8B /* EntirePopupVC.swift in Sources */,
 				BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */,
 				BD79E1792C5740C200CCEE07 /* BaseTableViewVC.swift in Sources */,
 				08E23A3B2C4502E5004B77B6 /* CircleFeedCell.swift in Sources */,
