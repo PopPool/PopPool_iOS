@@ -11,12 +11,15 @@ import RxCocoa
 
 class InquiryVM: ViewModelable {
     struct Input {
-        
+        var questionTapped: Observable<IndexPath>
     }
     
     struct Output {
         var data: Observable<[String]>
+        var openQuestion: Observable<IndexPath>
     }
+    
+    var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         let test = [
@@ -27,9 +30,8 @@ class InquiryVM: ViewModelable {
         let mockData: Observable<[String]> = Observable.just(test)
         
         return Output(
-            data:mockData
+            data:mockData,
+            openQuestion: input.questionTapped.asObservable()
         )
     }
-    
-    var disposeBag = DisposeBag()
 }
