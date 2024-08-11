@@ -68,6 +68,12 @@ final class ListInfoButtonCPNT: UIStackView {
         return button
     }()
     
+    let actionToggle: UISwitch = {
+        let toggle = UISwitch()
+        toggle.onTintColor = .blu400
+        return toggle
+    }()
+    
     private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -163,9 +169,7 @@ final class ListInfoButtonCPNT: UIStackView {
             }
             
         case .toggle:
-            let toggle = UISwitch()
-            toggle.onTintColor = .blu400
-            profileViewStack.addArrangedSubview(toggle)
+            profileViewStack.addArrangedSubview(actionToggle)
             actionButton.isHidden = true
         }
         
