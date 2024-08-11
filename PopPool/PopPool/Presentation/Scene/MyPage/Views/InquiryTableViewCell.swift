@@ -17,6 +17,8 @@ class InquiryTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUpConstraint()
+        bind()
     }
     
     required init?(coder: NSCoder) {
