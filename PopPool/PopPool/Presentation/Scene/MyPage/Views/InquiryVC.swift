@@ -65,30 +65,31 @@ final class InquiryVC: UIViewController {
             .disposed(by: disposeBag)
         
         output.data
+            .do(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                let headerView = self.createHeader(title: "자주 묻는 질문")
+                headerView.frame.size = CGSize(width: self.tableView.frame.width, height: 50)
+                self.tableView.tableHeaderView = headerView
+            })
             .bind(to: tableView.rx.items(
                 cellIdentifier: InquiryTableViewCell.reuseIdentifier,
                 cellType: InquiryTableViewCell.self)) { [weak self] index, element, cell in
                     let indexPath = IndexPath(row: index, section: 0)
-                    cell.configure(at: indexPath, buttonTaps: buttonTaps)
+                    // cell.configure(at: indexPath, buttonTaps: buttonTaps)
                     cell.dropDownList.configure(title: element, content: element)
-                    
-//                    if index == 0 {
-//                        let headerView = self?.createHeader()
-//                        headerView.frame = CGRect(x: 0, y: 0, width: self?.tableView.frame.width ?? 0, height: 50)
-//                        self?.tableView.tableHeaderView = headerView
-//                    }
                 }
                 .disposed(by: disposeBag)
         
         output.openQuestion
             .subscribe(onNext: { [weak self] indexPath in
                 print("noolim \(indexPath)")
-                self?.handleQuestionTap(at: indexPath)
+                
             })
             .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
+                print("noolim")
                 self?.tableView.deselectRow(at: indexPath, animated: false)
             })
             .disposed(by: disposeBag)
@@ -102,18 +103,18 @@ final class InquiryVC: UIViewController {
         }
     }
     
-    private func handleQuestionTap(at indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? InquiryTableViewCell else { return }
-        cell.dropDownList.buttonStateObserver.onNext(.active)
-    }
-    
     private func createHeader(title: String) -> UIView {
+        let container = UIView()
         let sectionHeader = ListTitleViewCPNT(title: title,
                                               size: .large(subtitle: "", image: nil))
-        sectionHeader.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        sectionHeader.isLayoutMarginsRelativeArrangement = true
         sectionHeader.rightButton.isHidden = true
-        return sectionHeader
+        
+        container.addSubview(sectionHeader)
+        sectionHeader.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().inset(20)
+        }
+        return container
     }
     
     private func setUp() {

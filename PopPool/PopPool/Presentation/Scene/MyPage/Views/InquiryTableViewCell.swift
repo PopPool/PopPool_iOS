@@ -28,20 +28,16 @@ class InquiryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func addSubview(_ view: UIView) {
+        super.addSubview(view)
+        sendSubviewToBack(contentView)
+    }
+    
     private func bind() {
         dropDownList.actionButton.rx.tap
             .subscribe(onNext: {
                 print("did press within cell")
             })
-            .disposed(by: disposeBag)
-    }
-    
-    func configure(at indexPath: IndexPath, buttonTaps: PublishRelay<IndexPath>) {
-        self.indexPath = indexPath
-        
-        dropDownList.actionButton.rx.tap
-            .map { [weak self] in self?.indexPath ?? indexPath }
-            .bind(to: buttonTaps)
             .disposed(by: disposeBag)
     }
     
