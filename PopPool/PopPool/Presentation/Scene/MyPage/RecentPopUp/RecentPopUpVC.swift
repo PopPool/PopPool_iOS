@@ -23,7 +23,7 @@ final class RecentPopUpVC: BaseViewController {
         return view
     }()
     private let collectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: GridLayout())
+        let view = UICollectionView(frame: .zero, collectionViewLayout: GridLayout(height: 255))
         return view
     }()
 }

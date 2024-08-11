@@ -8,10 +8,10 @@
 import UIKit
 
 class GridLayout: UICollectionViewFlowLayout {
-    override init() {
+    init(height: CGFloat) {
         super.init()
         let width = (UIScreen.main.bounds.width - 40 - 8) / 2
-        let height: CGFloat = 255
+        let height: CGFloat = height
         self.itemSize = .init(width: width, height: height)
         self.minimumLineSpacing = 12
         self.minimumInteritemSpacing = 8

@@ -34,6 +34,8 @@ final class MyPageMainVM: ViewModelable {
                 // 내 코멘트 없을 경우 분기
                 if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
                     return [
+                        // TODO: - myCommentSection 제거 필요
+                        myCommentSection,
                         normalSection,
                         informationSection,
                         etcSection
@@ -97,7 +99,8 @@ final class MyPageMainVM: ViewModelable {
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
             .subscribe { _ in
-                print("MyComment section Button Tapped")
+                let vc = MyCommentedPopUpVC()
+                moveToVC.onNext(vc)
             }
             .disposed(by: disposeBag)
         
@@ -138,23 +141,25 @@ final class MyPageMainVM: ViewModelable {
     }
     
     func connectVC(title: String) -> BaseViewController {
-        print("SelectedTitle: \(title)")
         if title == "찜한 팝업" {
             return FavoritePopUpVC()
         } else if title == "최근 본 팝업" {
             return RecentPopUpVC()
         } else if title == "내가 모은 배지" {
+            // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "차단한 사용자 관리" {
             return BlockedUserVC(viewModel: BlockedUserVM())
         } else if title == "알림 설정" {
+            // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "공지사항" {
             return NoticeBoardVC(viewModel: NoticeBoardVM())
         } else if title == "고객문의" {
+            // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "약관" {
-            return BaseViewController()
+            return TermsBoardVC(viewModel: TermsBoardVM())
         } else if title == "회원탈퇴" {
             return SignOutVC()
         } else {
