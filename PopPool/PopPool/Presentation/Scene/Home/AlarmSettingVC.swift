@@ -8,27 +8,11 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 
 final class AlarmSetting: UIViewController {
     
-//    enum Section {
-//        case service
-//        case activity
-//        
-//        var sectionTitle: String {
-//            switch self {
-//            case .activity: return "서비스 알림"
-//            case .service: return "활동 알림"
-//            }
-//        }
-//        
-//        var sectionDescription: String {
-//            switch self {
-//            case .activity: return "팝풀의 당야한 이벤트와 혜택을 알려드려요."
-//            case .service: return "내 활동에 대한 반응을 알려드려요."
-//            }
-//        }
-//    }
+    // MARK: - Components
     
     let headerView = HeaderViewCPNT(title: "알림설정", style: .icon(nil))
     let serviceAlarm: ListTitleViewCPNT = ListTitleViewCPNT(
@@ -40,25 +24,34 @@ final class AlarmSetting: UIViewController {
         size: .large(subtitle: "내 활동에 대한 반응을 알려드려요.", image: nil))
     
     let appPush: ListInfoButtonCPNT = ListInfoButtonCPNT(
-        infoTitle: "앱푸시",
-        subTitle: "이건 뭐야", style: .toggle)
+        infoTitle: "앱 푸시",
+        subTitle: "", style: .toggle)
     
     let activityPush: ListInfoButtonCPNT = ListInfoButtonCPNT(
         infoTitle: "활동 알림",
-        subTitle: "이건 뭐야", style: .toggle)
+        subTitle: "", style: .toggle)
     
     let topSpaceView = UIView()
     let secondSpaceView = UIView()
     let dividerView = UIView()
-    let disposeBag = DisposeBag()
     
-    init() {
+    // MARK: - Properties
+    
+    let disposeBag = DisposeBag()
+    let viewModel: AlarmSettingVM
+    
+    // MARK: - Initializer
+    
+    init(viewModel: AlarmSettingVM) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,13 +60,56 @@ final class AlarmSetting: UIViewController {
         bind()
     }
     
+    // MARK: - Methods
+    
     private func bind() {
         headerView.leftBarButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                print("뒤돌아가기")
                 self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
+        
+        appPush.actionToggle.rx.isOn
+            .subscribe(onNext: { [weak self] isOn in
+                self?.viewModel.checkSetting(isOn: isOn)
+                    .subscribe(onNext: { [weak self] isAuthorized in
+                        if !isAuthorized {
+                            self?.createSettingAlert(isOn: isOn)
+                        }
+                    })
+                    .disposed(by: self?.disposeBag ?? DisposeBag())
+            })
+            .disposed(by: disposeBag)
+        
+        activityPush.actionToggle.rx.isOn
+            .subscribe(onNext: { [weak self] isOn in
+                self?.createSettingAlert(isOn: isOn)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func createSettingAlert(isOn: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController(
+                title: "알림 설정",
+                message: """
+            기기의 알림 설정이 껴져있습니다.\n휴대푠 설정 > 알림 > 팝풀에서\n설정을 변경해주세요.
+            """,
+                preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { [weak self] _ in
+                self?.appPush.actionToggle.setOn(!isOn, animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { _ in
+                let url = URL(string: UIApplication.openSettingsURLString)
+                if isOn {
+                    UIApplication.shared.open(url!)
+                }
+            }))
+            
+            self?.present(alert, animated: true)
+        }
     }
     
     private func setUp() {

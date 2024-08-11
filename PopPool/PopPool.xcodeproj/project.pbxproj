@@ -195,6 +195,7 @@
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
+		BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
 		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
 		BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */; };
@@ -409,6 +410,7 @@
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVM.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
 		BDF3B2A92C0BE23D00B079C5 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
@@ -1201,9 +1203,10 @@
 			isa = PBXGroup;
 			children = (
 				BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */,
-				BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */,
-				BD7B47DE2C650E9C00DA116D /* HomeAlertCell.swift */,
 				BDA698CF2C64869D0056450A /* HomeAlertVM.swift */,
+				BD7B47DE2C650E9C00DA116D /* HomeAlertCell.swift */,
+				BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */,
+				BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1505,6 +1508,7 @@
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
 				08E23A982C4F7371004B77B6 /* GetProfileResponseDTO.swift in Sources */,
 				08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */,
+				BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
