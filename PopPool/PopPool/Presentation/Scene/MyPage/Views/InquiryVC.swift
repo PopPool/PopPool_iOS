@@ -12,18 +12,36 @@ import RxRelay
 
 final class InquiryVC: UIViewController {
     
+    // MARK: - Component
+    
     private let headerView = HeaderViewCPNT(title: "고객문의", style: .icon(nil))
-    private let topSpaceView = UIView()
-    private let tableView = UITableView()
+    private let scrollView = UIScrollView()
+    private let containerView = UIView()
+    private let firstSectionHeader = ListTitleViewCPNT(title: "자주 묻는 질문",
+                                                       size: .large(subtitle: "", image: nil))
+    private let secondSectionHeader = ListTitleViewCPNT(title: "직접 문의하기",
+                                                        size: .large(subtitle: "", image: nil))
+    
+    private let pagenationButton = ButtonCPNT(type: .tertiary, title: "더보기")
     private let moveToMailView = ListMenuCPNT(titleText: "메일로 문의", style: .none)
-    private let stackView: UIStackView = {
+    
+    private lazy var listStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
         return stack
     }()
+    private var dropLists: [ListDropDownCPNT] = []
+    private let topSpaceView = UIView()
+    private let paginationSpaceView = UIView()
+    
+    // MARK: - Properties
     
     private let disposeBag = DisposeBag()
     private let viewModel: InquiryVM
+    
+    // MARK: - Initializer
     
     init(viewModel: InquiryVM) {
         self.viewModel = viewModel
@@ -34,6 +52,8 @@ final class InquiryVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -42,13 +62,26 @@ final class InquiryVC: UIViewController {
         bind()
     }
     
+    // MARK: - Method
+    
     private func bind() {
-        let buttonTaps = PublishRelay<IndexPath>()
         
         let input = InquiryVM.Input(
-            questionTapped: buttonTaps.asObservable()
+            
         )
         let output = viewModel.transform(input: input)
+        
+        output.data
+            .subscribe(onNext: { [weak self] dataArray in
+                guard let self = self else { return }
+                self.dropLists.removeAll()
+                for data in dataArray {
+                    let content = self.setUpList(data: data)
+                    self.dropLists.append(content)
+                    self.listStack.addArrangedSubview(content)
+                }
+            })
+            .disposed(by: disposeBag)
         
         headerView.leftBarButton.rx.tap
             .subscribe(onNext: {
@@ -64,37 +97,23 @@ final class InquiryVC: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        output.data
-            .do(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                let headerView = self.createHeader(title: "자주 묻는 질문")
-                headerView.frame.size = CGSize(width: self.tableView.frame.width, height: 50)
-                self.tableView.tableHeaderView = headerView
-            })
-            .bind(to: tableView.rx.items(
-                cellIdentifier: InquiryTableViewCell.reuseIdentifier,
-                cellType: InquiryTableViewCell.self)) { [weak self] index, element, cell in
-                    let indexPath = IndexPath(row: index, section: 0)
-                    // cell.configure(at: indexPath, buttonTaps: buttonTaps)
-                    cell.dropDownList.configure(title: element, content: element)
-                }
-                .disposed(by: disposeBag)
-        
-        output.openQuestion
-            .subscribe(onNext: { [weak self] indexPath in
-                print("noolim \(indexPath)")
-                
+        pagenationButton.rx.tap
+            .subscribe(onNext: {
+                print("화면 늘림")
             })
             .disposed(by: disposeBag)
         
-        tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                print("noolim")
-                self?.tableView.deselectRow(at: indexPath, animated: false)
-            })
-            .disposed(by: disposeBag)
+        for (index, dropList) in dropLists.enumerated() {
+            dropList.actionButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    
+                })
+                .disposed(by: self.disposeBag)
+        }
     }
     
+    /// iOS 시스템 이메일을 열기 위한 메서드입니다
+    /// - Parameter emailAccount: 이메일을 보낼 String 타입 주소를 받습니다
     private func openEmail(emailAccount: String) {
         if let url = URL(string: "mailto:\(emailAccount)") {
             if UIApplication.shared.canOpenURL(url) {
@@ -103,32 +122,41 @@ final class InquiryVC: UIViewController {
         }
     }
     
-    private func createHeader(title: String) -> UIView {
-        let container = UIView()
-        let sectionHeader = ListTitleViewCPNT(title: title,
-                                              size: .large(subtitle: "", image: nil))
-        sectionHeader.rightButton.isHidden = true
-        
-        container.addSubview(sectionHeader)
-        sectionHeader.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().inset(20)
-        }
-        return container
+    /// 콘텐츠 내용을 채우는 ListDropDownCPNT를 생성하는 메서드입니다
+    /// - Parameter data: 컴포넌트 내부를 채울 데이터를 받습니다
+    /// - Returns: ListDropDownCPNT를 생성합니다
+    private func setUpList(data: String) -> ListDropDownCPNT {
+        let dropList = ListDropDownCPNT()
+        dropList.configure(title: data, content: data)
+        return dropList
     }
     
     private func setUp() {
         navigationController?.navigationBar.isHidden = true
-        moveToMailView.titleLabel.textColor = .g1000
-        tableView.separatorStyle = .none
-        tableView.register(InquiryTableViewCell.self,
-                           forCellReuseIdentifier: InquiryTableViewCell.reuseIdentifier)
+        firstSectionHeader.rightButton.isHidden = true
+        secondSectionHeader.rightButton.isHidden = true
     }
     
     private func setUpConstraint() {
-        view.addSubview(headerView)
-        view.addSubview(topSpaceView)
-        view.addSubview(tableView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(headerView)
+        containerView.addSubview(topSpaceView)
+        containerView.addSubview(firstSectionHeader)
+        containerView.addSubview(listStack)
+        containerView.addSubview(paginationSpaceView)
+        containerView.addSubview(secondSectionHeader)
+        containerView.addSubview(moveToMailView)
+        containerView.addSubview(pagenationButton)
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        containerView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.greaterThanOrEqualTo(scrollView.snp.height)
+        }
         
         headerView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -141,18 +169,36 @@ final class InquiryVC: UIViewController {
             make.leading.trailing.equalToSuperview()
         }
         
-        view.addSubview(stackView)
-        stackView.addArrangedSubview(self.createHeader(title: "직접 문의하기"))
-        stackView.addArrangedSubview(moveToMailView)
-        stackView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        firstSectionHeader.snp.makeConstraints { make in
+            make.top.equalTo(topSpaceView.snp.bottom)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        listStack.snp.makeConstraints { make in
+            make.top.equalTo(firstSectionHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
         
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(topSpaceView.snp.bottom)
-            make.bottom.equalTo(stackView.snp.top)
+        paginationSpaceView.snp.makeConstraints { make in
+            make.top.equalTo(listStack.snp.bottom)
+            make.height.equalTo(Constants.spaceGuide.small300)
             make.leading.trailing.equalToSuperview()
+        }
+        
+        pagenationButton.snp.makeConstraints { make in
+            make.top.equalTo(paginationSpaceView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(95)
+        }
+        
+        secondSectionHeader.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        moveToMailView.snp.makeConstraints { make in
+            make.top.equalTo(secondSectionHeader.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }

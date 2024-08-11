@@ -47,10 +47,11 @@ final class ListDropDownCPNT: UIStackView {
     let actionButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "arrow_up"), for: .normal)
+        button.setContentHuggingPriority(.required, for: .horizontal)
         return button
     }()
     
-    private let lineContainerView: UIView = {
+    let lineContainerView: UIView = {
         let container = UIView()
         return container
     }()
@@ -82,6 +83,7 @@ final class ListDropDownCPNT: UIStackView {
     
     private let disposeBag = DisposeBag()
     private var buttonState: DropDownState = .inactive
+    private var isExpanded: Bool = false
     var buttonStateObserver: PublishSubject<DropDownState> = .init()
     
     // MARK: - Initializer
@@ -111,7 +113,6 @@ final class ListDropDownCPNT: UIStackView {
         buttonStateObserver
             .withUnretained(self)
             .subscribe { (owner, state) in
-                print(state)
                 owner.updateUI(from: state)
             }.disposed(by: disposeBag)
     }
@@ -174,7 +175,6 @@ final class ListDropDownCPNT: UIStackView {
         dropDownContainer.snp.makeConstraints { make in
             make.top.equalTo(lineContainerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.height.greaterThanOrEqualTo(54)
         }
 
         dropDownLabel.snp.makeConstraints { make in
@@ -182,6 +182,6 @@ final class ListDropDownCPNT: UIStackView {
             make.trailing.equalToSuperview().inset(20)
             make.top.bottom.equalToSuperview().inset(16)
         }
-        layoutIfNeeded()
+        self.superview?.layoutIfNeeded()
     }
 }
