@@ -197,6 +197,10 @@
 		BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */; };
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
 		BDCA566C2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */; };
+		BDCA566E2C69F10C005C68C8 /* LoggedHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */; };
+		BDCA56702C69F29A005C68C8 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566F2C69F29A005C68C8 /* HomeVM.swift */; };
+		BDCA56722C69FD07005C68C8 /* HomeListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA56712C69FD07005C68C8 /* HomeListCellSection.swift */; };
+		BDCA56742C69FF59005C68C8 /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA56732C69FF59005C68C8 /* HomeListCell.swift */; };
 		BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD335192C0B3AF1002C2295 /* NetworkError.swift */; };
 		BDD335202C0B6ACA002C2295 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
@@ -423,6 +427,10 @@
 		BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
 		BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailPopUpCell.swift; sourceTree = "<group>"; };
+		BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedHomeVC.swift; sourceTree = "<group>"; };
+		BDCA566F2C69F29A005C68C8 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		BDCA56712C69FD07005C68C8 /* HomeListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCellSection.swift; sourceTree = "<group>"; };
+		BDCA56732C69FF59005C68C8 /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
 		BDD335192C0B3AF1002C2295 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BDD3351F2C0B6ACA002C2295 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -862,6 +870,7 @@
 			children = (
 				08B183B52C3D9498006C34BB /* MenuListCell.swift */,
 				08B183BE2C43BEA6006C34BB /* MyCommentCircleListCell.swift */,
+				BDCA56732C69FF59005C68C8 /* HomeListCell.swift */,
 			);
 			path = UITableViewCell;
 			sourceTree = "<group>";
@@ -1006,6 +1015,7 @@
 			children = (
 				08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */,
 				08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */,
+				BDCA56712C69FD07005C68C8 /* HomeListCellSection.swift */,
 			);
 			path = TableViewSection;
 			sourceTree = "<group>";
@@ -1310,8 +1320,10 @@
 			isa = PBXGroup;
 			children = (
 				BD8DE8222C68655700C5DE8B /* EntirePopupVC.swift */,
-				BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */,
 				BD8DE8242C6865A000C5DE8B /* EntirePopupVM.swift */,
+				BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */,
+				BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */,
+				BDCA566F2C69F29A005C68C8 /* HomeVM.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1597,6 +1609,7 @@
 				08B183C32C442113006C34BB /* ListTitleViewCPNT.swift in Sources */,
 				08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
+				BDCA56722C69FD07005C68C8 /* HomeListCellSection.swift in Sources */,
 				08E23A692C4E1BDC004B77B6 /* SurveyDTO.swift in Sources */,
 				BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */,
 				08B183CE2C44490A006C34BB /* FetchLocalUseCase.swift in Sources */,
@@ -1604,6 +1617,7 @@
 				08E23AD22C54D387004B77B6 /* FavoritePopUpVM.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
+				BDCA566E2C69F10C005C68C8 /* LoggedHomeVC.swift in Sources */,
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
 				BDF08A002C6505000098486D /* TermsDetailBoardVC.swift in Sources */,
 				BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */,
@@ -1618,6 +1632,7 @@
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
+				BDCA56742C69FF59005C68C8 /* HomeListCell.swift in Sources */,
 				08E23A982C4F7371004B77B6 /* GetProfileResponseDTO.swift in Sources */,
 				08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
@@ -1742,6 +1757,7 @@
 				08E23ADC2C54EB9A004B77B6 /* RecentPopUpVC.swift in Sources */,
 				08B183BD2C439F52006C34BB /* MyPageMainVM.swift in Sources */,
 				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
+				BDCA56702C69F29A005C68C8 /* HomeVM.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
