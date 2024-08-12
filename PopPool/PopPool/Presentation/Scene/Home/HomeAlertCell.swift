@@ -13,7 +13,7 @@ final class HomeAlertCell: UITableViewCell {
     
     static let reuseIdentifier: String = "HomeAlertCell"
     
-    let content = ListContentCPNT(title: "제목제목", subTitle: "부제부제", info: "날짜날짜")
+    let content = ListContentCPNT(title: "제목제목", subTitle: "부제부제", info: "2024/03/02")
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

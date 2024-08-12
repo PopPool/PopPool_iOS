@@ -26,16 +26,13 @@ class AlarmSettingVM: ViewModelable {
             let center = UNUserNotificationCenter.current()
             
             center.getNotificationSettings { setting in
-                if setting.authorizationStatus == .authorized {
-                    print("화면 설정 가능")
+                if setting.authorizationStatus != .authorized {
+                    observer.onNext(false)
+                    observer.onCompleted()
+                } else if setting.authorizationStatus == .authorized {
+                    print("화면 설정 실패")
                     observer.onNext(true)
                     observer.onCompleted()
-                } else {
-                    center.requestAuthorization(options: [.alert, .badge]) { granted, error in
-                        print("설정 필요", granted)
-                        observer.onNext(granted)
-                        observer.onCompleted()
-                    }
                 }
             }
             return Disposables.create()
@@ -43,7 +40,6 @@ class AlarmSettingVM: ViewModelable {
     }
     
     func transform(input: Input) -> Output {
-        
         return Output()
     }
 }

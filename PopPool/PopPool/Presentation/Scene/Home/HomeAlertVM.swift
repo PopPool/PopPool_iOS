@@ -10,23 +10,11 @@ import RxSwift
 
 class HomeAlertVM: ViewModelable {
     
-    enum Section: CaseIterable {
-        case today
-        case all
-        
-        var sectionTitle: String {
-            switch self {
-            case .today: return "오늘"
-            case .all: return "전체"
-            }
-        }
-        
-        var descriptionTitle: String? {
-            switch self {
-            case .today: return nil
-            case .all: return "최근 30일 동안 수신한 알림을 보여드릴께요"
-            }
-        }
+    struct AlertData {
+        let title: String
+        let description: String
+        let date: String
+        var dateString: String = ""
     }
     
     struct Input {
@@ -34,30 +22,71 @@ class HomeAlertVM: ViewModelable {
     }
     
     struct Output {
-        let tableData: Observable<[String]>
-        let sectionCount: Observable<Int>
+        let tableData: Observable<[AlertData]>
     }
+    
+    var todayData: [AlertData] = []
+    var allData: [AlertData] = []
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     init() {
-        
+        separateData()
     }
     
-    let mockData: [String] = ["제목", "내용", "날짜"]
+    let mockData: [AlertData] = [
+        AlertData(
+            title: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
+            description: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
+            date: "2024/08/12"),
+        AlertData(title: "콘텐츠 타이틀", description: "알린 서브 텍스트", date: "2024/08/08"),
+        AlertData(title: "콘텐츠 타이틀2", description: "알린 서브 텍스트2", date: "2023/05/07")
+    ]
     var disposeBag = DisposeBag()
     
-    func section(at index: Int) -> Section {
-        return Section.allCases[index]
+    private func separateData() {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        for var item in mockData {
+            item.dateString = getRelativeTimeString(from: item.date)
+            if let itemDate = dateFormatter.date(from: item.date),
+               calendar.isDate(itemDate, inSameDayAs: today) {
+                todayData.append(item)
+            } else {
+                allData.append(item)
+            }
+        }
     }
+    
+    func getRelativeTimeString(from dateString: String) -> String {
+            guard let date = dateFormatter.date(from: dateString) else {
+                return "Invalid date"
+            }
+
+            let calendar = Calendar.current
+            let now = Date()
+            let components = calendar.dateComponents([.day, .hour, .minute], from: date, to: now)
+
+            if let day = components.day, day > 0 {
+                return day == 1 ? "1 day ago" : "\(day) days ago"
+            } else if let hour = components.hour, hour > 0 {
+                return hour == 1 ? "1 hour ago" : "\(hour) hours ago"
+            } else if let minute = components.minute, minute > 0 {
+                return minute == 1 ? "1 minute ago" : "\(minute) minutes ago"
+            } else {
+                return "Just now"
+            }
+        }
     
     func transform(input: Input) -> Output {
         let dataOutput = Observable.just(mockData)
-        let sectionData = Observable.just(Section.allCases)
-        
-        let sectionCount = sectionData.map { $0.count }
         
         return Output(
-            tableData: dataOutput,
-            sectionCount: sectionCount
+            tableData: dataOutput
         )
     }
 }

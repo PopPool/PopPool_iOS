@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxRelay
 
-final class AlarmSetting: UIViewController {
+final class AlarmSettingVC: UIViewController {
     
     // MARK: - Components
     
@@ -73,6 +73,7 @@ final class AlarmSetting: UIViewController {
             .subscribe(onNext: { [weak self] isOn in
                 self?.viewModel.checkSetting(isOn: isOn)
                     .subscribe(onNext: { [weak self] isAuthorized in
+                        print("허가 여부", isAuthorized)
                         if !isAuthorized {
                             self?.createSettingAlert(isOn: isOn)
                         }
