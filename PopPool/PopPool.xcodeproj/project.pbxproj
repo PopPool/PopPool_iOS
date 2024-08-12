@@ -59,6 +59,11 @@
 		08AF8D8A2C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D892C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift */; };
 		08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D8B2C660B89006B8A11 /* MyCommentedPopUpInfo.swift */; };
 		08AF8D8F2C672C3D006B8A11 /* ProfileEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D8E2C672C3D006B8A11 /* ProfileEditVC.swift */; };
+		08AF8D922C67682B006B8A11 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 08AF8D912C67682B006B8A11 /* Kingfisher */; };
+		08AF8D952C686BC6006B8A11 /* MyCommentedPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D942C686BC6006B8A11 /* MyCommentedPopUpVC.swift */; };
+		08AF8D9A2C68862F006B8A11 /* PopUpCommentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D992C68862F006B8A11 /* PopUpCommentedCell.swift */; };
+		08AF8D9C2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D9B2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift */; };
+		08AF8D9E2C688D9C006B8A11 /* MyCommentedPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D9D2C688D9C006B8A11 /* MyCommentedPopUpVM.swift */; };
 		08B183AB2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */; };
 		08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */; };
 		08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183B52C3D9498006C34BB /* MenuListCell.swift */; };
@@ -277,6 +282,10 @@
 		08AF8D892C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpInfoDTO.swift; sourceTree = "<group>"; };
 		08AF8D8B2C660B89006B8A11 /* MyCommentedPopUpInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpInfo.swift; sourceTree = "<group>"; };
 		08AF8D8E2C672C3D006B8A11 /* ProfileEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditVC.swift; sourceTree = "<group>"; };
+		08AF8D942C686BC6006B8A11 /* MyCommentedPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpVC.swift; sourceTree = "<group>"; };
+		08AF8D992C68862F006B8A11 /* PopUpCommentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpCommentedCell.swift; sourceTree = "<group>"; };
+		08AF8D9B2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpModalVC.swift; sourceTree = "<group>"; };
+		08AF8D9D2C688D9C006B8A11 /* MyCommentedPopUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpVM.swift; sourceTree = "<group>"; };
 		08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialUserCredentialUseCaseTest.swift; sourceTree = "<group>"; };
 		08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		08B183B52C3D9498006C34BB /* MenuListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCell.swift; sourceTree = "<group>"; };
@@ -456,6 +465,7 @@
 				085105932C1033E600ED7DBB /* RxKakaoSDKCommon in Frameworks */,
 				089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */,
 				0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */,
+				08AF8D922C67682B006B8A11 /* Kingfisher in Frameworks */,
 				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
 				0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */,
@@ -763,6 +773,7 @@
 			isa = PBXGroup;
 			children = (
 				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
+				08AF8D932C686BAA006B8A11 /* MyCommentedPopUp */,
 				08AF8D8D2C672B2D006B8A11 /* ProfileEdit */,
 				08E23ADA2C54EB8A004B77B6 /* RecentPopUp */,
 				08E23AC82C534F77004B77B6 /* FavoritePopUp */,
@@ -823,6 +834,25 @@
 				08AF8D8E2C672C3D006B8A11 /* ProfileEditVC.swift */,
 			);
 			path = ProfileEdit;
+			sourceTree = "<group>";
+		};
+		08AF8D932C686BAA006B8A11 /* MyCommentedPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				08AF8D962C68859A006B8A11 /* Cells */,
+				08AF8D942C686BC6006B8A11 /* MyCommentedPopUpVC.swift */,
+				08AF8D9D2C688D9C006B8A11 /* MyCommentedPopUpVM.swift */,
+				08AF8D9B2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift */,
+			);
+			path = MyCommentedPopUp;
+			sourceTree = "<group>";
+		};
+		08AF8D962C68859A006B8A11 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				08AF8D992C68862F006B8A11 /* PopUpCommentedCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		08B183A82C3D233D006C34BB /* Domain */ = {
@@ -1441,6 +1471,7 @@
 				085105982C1033E600ED7DBB /* RxKakaoSDKTalk */,
 				0851059A2C1033E600ED7DBB /* RxKakaoSDKUser */,
 				089D19052C31A620000435D9 /* IQKeyboardManagerSwift */,
+				08AF8D912C67682B006B8A11 /* Kingfisher */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -1520,6 +1551,7 @@
 				085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 				0851058B2C1033E500ED7DBB /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -1597,6 +1629,7 @@
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
+				08AF8D952C686BC6006B8A11 /* MyCommentedPopUpVC.swift in Sources */,
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
@@ -1708,6 +1741,7 @@
 				BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */,
 				08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
+				08AF8D9C2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift in Sources */,
 				BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
 				08E23A702C4E1CE1004B77B6 /* CheckedSurveyListRequestDTO.swift in Sources */,
@@ -1722,6 +1756,8 @@
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
 				08E23ADC2C54EB9A004B77B6 /* RecentPopUpVC.swift in Sources */,
 				08B183BD2C439F52006C34BB /* MyPageMainVM.swift in Sources */,
+				08AF8D9E2C688D9C006B8A11 /* MyCommentedPopUpVM.swift in Sources */,
+				08AF8D9A2C68862F006B8A11 /* PopUpCommentedCell.swift in Sources */,
 				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
@@ -2144,6 +2180,14 @@
 				minimumVersion = 7.0.3;
 			};
 		};
+		08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2216,6 +2260,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		08AF8D912C67682B006B8A11 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

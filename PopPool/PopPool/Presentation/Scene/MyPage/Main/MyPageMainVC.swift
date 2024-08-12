@@ -92,22 +92,23 @@ private extension MyPageMainVC {
         output.myPageAPIResponse
             .withUnretained(self)
             .subscribe(onNext: { (owner, myPageResponse) in
-                print(myPageResponse)
                 owner.profileView.injectionWith(
                     input: .init(
-                        // TODO: - 더미 데이터 제거 후 연결 필요
                         isLogin: myPageResponse.login,
-                        nickName: "Test",
-                        instagramId: "Test",
-                        intro: "Test"
+                        nickName: myPageResponse.nickname,
+                        instagramId: myPageResponse.instagramId,
+                        intro: myPageResponse.intro,
+                        profileImage: myPageResponse.profileImageURL
                     )
                 )
                 if myPageResponse.login {
-                    let bottomView = UIView(frame: .init(origin: .zero, size: .init(width: owner.view.frame.width, height: 100)))
+                    let bottomView = UIView(frame: .init(origin: .zero, size: .init(width: owner.view.frame.width, height: 200)))
                     bottomView.backgroundColor = .systemBackground
                     bottomView.addSubview(owner.logoutButton)
                     owner.logoutButton.snp.makeConstraints { make in
-                        make.top.leading.trailing.equalToSuperview().inset(20)
+                        make.top.equalToSuperview()
+                        make.centerX.equalToSuperview()
+                        make.width.equalTo(bottomView.frame.width - 40)
                         make.height.equalTo(50)
                     }
                     owner.tableView.tableFooterView = bottomView
