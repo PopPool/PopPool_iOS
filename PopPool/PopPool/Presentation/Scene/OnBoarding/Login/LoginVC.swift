@@ -155,9 +155,15 @@ private extension LoginVC {
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
-                        var response = myPageResponse
-//                        response.login = true
-                        let vm = MyPageMainVM(response: response)
+                        let vm = MyPageMainVM(response: myPageResponse)
+                        vm.myCommentSection.sectionCellInputList = [
+                            .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
+                                title: $0.popUpStoreName,
+                                // TODO: - isActive 부분 논의 후 수정 필요
+                                isActive: false,
+                                imageURL: $0.mainImageUrl)
+                            })
+                        ]
                         let vc = MyPageMainVC(viewModel: vm)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     })

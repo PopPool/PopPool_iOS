@@ -23,6 +23,7 @@ extension GetMyPageResponseDTO {
             profileImageURL: URL(string: profileImageUrl ?? ""),
             instagramId: instagramId,
             popUpInfoList: myCommentedPopUpList.map({ $0.toDomain() }),
+            intro: intro,
             login: login
         )
     }
