@@ -250,7 +250,26 @@ class MapVC: BaseViewController {
    }
 
    private func showListView() {
-       popupListView.isHidden.toggle()
+       popupListView.isHidden = false
+
+       UIView.animate(withDuration: 0.3) {
+              self.popupListView.frame.origin.y = self.view.frame.height / 2
+          }
+       // 리사이즈 인디케이터 추가
+       let resizeIndicator = UIView()
+          resizeIndicator.backgroundColor = .lightGray
+          resizeIndicator.layer.cornerRadius = 2
+          popupListView.addSubview(resizeIndicator)
+
+          resizeIndicator.snp.makeConstraints { make in
+              make.top.equalToSuperview().offset(10)
+              make.centerX.equalToSuperview()
+              make.width.equalTo(40)
+              make.height.equalTo(4)
+          }
+       let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+       popupListView.addGestureRecognizer(panGesture)
+
    }
 
    private func showError(_ message: String) {
@@ -264,6 +283,37 @@ class MapVC: BaseViewController {
        filterVC.modalTransitionStyle = .coverVertical
        present(filterVC, animated: true, completion: nil)
    }
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
 
+        switch gesture.state {
+        case .changed:
+            let newY = max(view.safeAreaInsets.top, popupListView.frame.origin.y + translation.y)
+            popupListView.frame.origin.y = newY
+            gesture.setTranslation(.zero, in: view)
+        case .ended:
+            let velocity = gesture.velocity(in: view)
+            if velocity.y > 0 && popupListView.frame.origin.y > view.frame.height * 0.75 {
+                // 아래로 스와이프하여 닫기
+                UIView.animate(withDuration: 0.3) {
+                    self.popupListView.frame.origin.y = self.view.frame.height
+                } completion: { _ in
+                    self.popupListView.isHidden = true
+                }
+            } else if velocity.y < 0 || popupListView.frame.origin.y < view.frame.height * 0.25 {
+                // 위로 스와이프하여 전체 화면으로 확장
+                UIView.animate(withDuration: 0.3) {
+                    self.popupListView.frame.origin.y = self.view.safeAreaInsets.top
+                }
+            } else {
+                // 중간 위치로 되돌리기
+                UIView.animate(withDuration: 0.3) {
+                    self.popupListView.frame.origin.y = self.view.frame.height / 2
+                }
+            }
+        default:
+            break
+        }
+    }
 
 }

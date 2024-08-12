@@ -173,6 +173,7 @@
 		4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */; };
 		4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */; };
 		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
+		4E8F62052C69D49E002440B8 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F62042C69D49D002440B8 /* CategoryCell.swift */; };
 		4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A02C648DEE000F4095 /* StoresService.swift */; };
 		4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */; };
 		4E9A33A52C64ACF4000F4095 /* PopUpCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A42C64ACF4000F4095 /* PopUpCardView.swift */; };
@@ -410,6 +411,7 @@
 		4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepositoryImpl.swift; sourceTree = "<group>"; };
 		4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStoreDTO.swift; sourceTree = "<group>"; };
 		4E4DC0172C620251007CE63A /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
+		4E8F62042C69D49D002440B8 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		4E9A33A02C648DEE000F4095 /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListCell.swift; sourceTree = "<group>"; };
 		4E9A33A42C64ACF4000F4095 /* PopUpCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpCardView.swift; sourceTree = "<group>"; };
@@ -1377,6 +1379,7 @@
 				4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */,
 				4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */,
 				4E9A33AB2C64CE41000F4095 /* FilterCell.swift */,
+				4E8F62042C69D49D002440B8 /* CategoryCell.swift */,
 			);
 			path = PopUpListView;
 			sourceTree = "<group>";
@@ -1726,6 +1729,7 @@
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
+				4E8F62052C69D49E002440B8 /* CategoryCell.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */,
 				08E23AA22C4F7A43004B77B6 /* UserUnblockRequestDTO.swift in Sources */,

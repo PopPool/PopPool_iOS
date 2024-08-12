@@ -10,8 +10,7 @@ import SnapKit
 
 class FilterCell: UICollectionViewCell {
     private let titleLabel = UILabel()
-    private let cancelButton = UIButton(type: .system)
-
+    private let removeButton = UIButton(type: .system)
     var onRemove: (() -> Void)?
 
     override init(frame: CGRect) {
@@ -24,35 +23,42 @@ class FilterCell: UICollectionViewCell {
     }
 
     private func setupUI() {
+        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        titleLabel.textColor = .systemBlue
+
+        // 버튼 스타일을 변경하여 파란색 테두리를 추가
+        contentView.layer.borderColor = UIColor.systemBlue.cgColor
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.cornerRadius = 8
+        contentView.backgroundColor = .white // 배경을 흰색으로 설정
+
         contentView.addSubview(titleLabel)
-        contentView.addSubview(cancelButton)
+        contentView.addSubview(removeButton)
+
+        titleLabel.sizeToFit()
+        removeButton.sizeToFit()
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(8)
             make.centerY.equalToSuperview()
         }
 
-        cancelButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-8)
+        removeButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(8)
             make.centerY.equalToSuperview()
             make.size.equalTo(20)
         }
 
-        contentView.backgroundColor = .systemBlue
-        contentView.layer.cornerRadius = 15
-
-        titleLabel.textColor = .white
-        cancelButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        cancelButton.tintColor = .white
-
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        removeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        removeButton.tintColor = .black
+        removeButton.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
     }
 
     func configure(with title: String) {
         titleLabel.text = title
     }
 
-    @objc private func cancelButtonTapped() {
+    @objc private func removeButtonTapped() {
         onRemove?()
     }
 }
