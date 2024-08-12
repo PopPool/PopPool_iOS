@@ -1,10 +1,3 @@
-//
-//  MapVM.swift
-//  PopPool
-//
-//  Created by 김기현 on 8/6/24.
-//
-
 import Foundation
 import RxSwift
 import RxCocoa
@@ -113,13 +106,23 @@ class MapVM {
     }
 
     public func applyFilters() {
-        // 필터가 적용될 때 선택된 필터의 로직을 구체적으로 구현
-        // 예를 들어, 지역과 카테고리에 따라 필터링된 데이터를 처리
         let selectedRegions = selectedFilters.value.filter { $0.type == .location }
         let selectedCategories = selectedFilters.value.filter { $0.type == .category }
-        // 이후 로직에서 이 필터를 적용하여 데이터를 필터링
     }
 
+    public func addFilter(_ filter: Filter) {
+        var currentFilters = selectedFilters.value
+        if !currentFilters.contains(where: { $0.id == filter.id }) {
+            currentFilters.append(filter)
+            selectedFilters.accept(currentFilters)
+        }
+    }
+
+    public func removeFilter(_ filter: Filter) {
+        var currentFilters = selectedFilters.value
+        currentFilters.removeAll(where: { $0.id == filter.id })
+        selectedFilters.accept(currentFilters)
+    }
 
     private func getCurrentLocation() -> Observable<CLLocation?> {
         return Observable.create { [weak self] observer in
