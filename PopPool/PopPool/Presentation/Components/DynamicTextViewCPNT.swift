@@ -77,7 +77,7 @@ final class DynamicTextViewCPNT: UIStackView {
         return label
     }()
     
-    private let textView: UITextView = {
+    let textView: UITextView = {
         let tf = UITextView()
         tf.isScrollEnabled = false
         tf.setContentHuggingPriority(.defaultHigh, for: .vertical)

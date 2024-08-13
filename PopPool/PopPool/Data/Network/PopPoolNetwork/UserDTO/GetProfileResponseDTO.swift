@@ -8,27 +8,27 @@
 import Foundation
 
 struct GetProfileResponseDTO: Decodable {
-    var profileImage: String
+    var profileImageUrl: String?
     var nickname: String
-    var email: String
-    var instagramId: String
-    var intro: String
+    var email: String?
+    var instagramId: String?
+    var intro: String?
     var gender: String
     var age: Int32
-    var interestList: [MyInterestInfoDTO]
+    var interestCategoryList: [MyInterestCategoryInfoDTO]
 }
 
 extension GetProfileResponseDTO {
     func toDomain() -> GetProfileResponse{
         return GetProfileResponse(
-            profileImage: URL(string: profileImage),
+            profileImageUrl: profileImageUrl == nil ? nil : URL(string: profileImageUrl ?? ""),
             nickname: nickname,
             email: email,
             instagramId: instagramId,
             intro: intro,
             gender: gender,
             age: age,
-            interestList: interestList.map({ $0.toDomain() })
+            interestCategoryList: interestCategoryList.map({ $0.toDomain() })
         )
     }
 }

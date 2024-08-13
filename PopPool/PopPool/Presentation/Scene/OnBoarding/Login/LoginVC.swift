@@ -152,6 +152,7 @@ private extension LoginVC {
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
                 // TODO: - 로그인 성공 시 MyPageMain으로 임시 연결 추후 변경 필요
+                Constants.userId = loginResponse.userId
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in

@@ -8,12 +8,12 @@
 import Foundation
 
 struct GetProfileResponse {
-    var profileImage: URL?
-    var nickname: String
-    var email: String
-    var instagramId: String
-    var intro: String
+    var profileImageUrl: URL?
+    var nickname: String?
+    var email: String?
+    var instagramId: String?
+    var intro: String?
     var gender: String
     var age: Int32
-    var interestList: [MyInterestInfo]
+    var interestCategoryList: [MyInterestCategoryInfo]
 }

@@ -12,6 +12,7 @@ import RxCocoa
 final class MyPageMainVM: ViewModelable {
     
     struct Input {
+        var settingButtonTapped: ControlEvent<Void>
         var cellTapped: ControlEvent<IndexPath>
         var profileLoginButtonTapped: ControlEvent<Void>
     }
@@ -20,11 +21,13 @@ final class MyPageMainVM: ViewModelable {
         var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
         var moveToVC: PublishSubject<BaseViewController>
         var moveToLoginVC: Observable<Void>
+        var moveToSettingVC: PublishSubject<GetProfileResponse>
     }
     
     // MARK: - Propoerties
     var disposeBag = DisposeBag()
     
+    var userUseCase: UserUseCase = UserUseCaseImpl(repository: UserRepositoryImpl())
     var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
     
     var menuList: [any TableViewSectionable] {
@@ -96,6 +99,22 @@ final class MyPageMainVM: ViewModelable {
     }
     // MARK: - transform
     func transform(input: Input) -> Output {
+        
+        let moveToSettingVC: PublishSubject<GetProfileResponse> = .init()
+        // SettingButtonTapped
+        input.settingButtonTapped
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.userUseCase.fetchProfile(userId: Constants.userId)
+                    .subscribe { profileResponse in
+                        moveToSettingVC.onNext(profileResponse)
+                    } onError: { error in
+                        print(error.localizedDescription)
+                        ToastMSGManager.createToast(message: error.localizedDescription)
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
             .subscribe { _ in
@@ -133,10 +152,12 @@ final class MyPageMainVM: ViewModelable {
                 print("LoginButtonTapped")
             }
             .disposed(by: disposeBag)
+
         return Output(
             myPageAPIResponse: myPageAPIResponse,
             moveToVC: moveToVC,
-            moveToLoginVC: input.profileLoginButtonTapped.asObservable()
+            moveToLoginVC: input.profileLoginButtonTapped.asObservable(),
+            moveToSettingVC: moveToSettingVC
         )
     }
     

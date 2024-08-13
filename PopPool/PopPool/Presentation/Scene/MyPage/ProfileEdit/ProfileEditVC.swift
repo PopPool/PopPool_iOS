@@ -8,6 +8,8 @@
 import UIKit
 
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class ProfileEditVC: BaseViewController {
     // MARK: - Components
@@ -42,6 +44,19 @@ final class ProfileEditVC: BaseViewController {
         placeHolder: "닉네임을 입력해주세요.",
         limitTextCount: 10
     )
+    private let instagramLabel: UILabel = {
+        let label = UILabel()
+        label.text = "인스타그램 링크"
+        label.font = .KorFont(style: .regular, size: 13)
+        return label
+    }()
+    private let instagramTextField: BaseTextFieldCPNT = {
+        let textField = BaseTextFieldCPNT(
+            placeHolder: "인스타그램 링크",
+            description: "인스타그램 코멘트와 마이페이지에 ID가 노출됩니다"
+        )
+        return textField
+    }()
     private let introLabel: UILabel = {
         let label = UILabel()
         label.text = "자기소개"
@@ -72,8 +87,24 @@ final class ProfileEditVC: BaseViewController {
     }()
     private let saveButton: ButtonCPNT = {
         let button = ButtonCPNT(type: .primary, title: "저장", disabledTitle: "저장")
+        button.isEnabled = false
         return button
     }()
+    
+    // MARK: - Properties
+    
+    private let viewModel: ProfileEditVM
+    
+    private let disposeBag = DisposeBag()
+    
+    init(viewModel: ProfileEditVM) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: - LifeCycle
@@ -82,6 +113,7 @@ extension ProfileEditVC {
         super.viewDidLoad()
         setUp()
         setUpConstraints()
+        bind()
     }
 }
 
@@ -135,9 +167,20 @@ private extension ProfileEditVC {
             make.top.equalTo(nickNameLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(20)
         }
+        contentView.addSubview(instagramLabel)
+        instagramLabel.snp.makeConstraints { make in
+            make.top.equalTo(nickNameTextField.snp.bottom).offset(Constants.spaceGuide.small300)
+            make.height.equalTo(20)
+            make.leading.equalToSuperview().inset(20)
+        }
+        contentView.addSubview(instagramTextField)
+        instagramTextField.snp.makeConstraints { make in
+            make.top.equalTo(instagramLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
         contentView.addSubview(introLabel)
         introLabel.snp.makeConstraints { make in
-            make.top.equalTo(nickNameTextField.snp.bottom).offset(Constants.spaceGuide.small300)
+            make.top.equalTo(instagramTextField.snp.bottom).offset(Constants.spaceGuide.small300)
             make.leading.equalToSuperview().inset(20)
         }
         contentView.addSubview(introTextField)
@@ -162,6 +205,30 @@ private extension ProfileEditVC {
             make.top.equalTo(categoryView.snp.bottom)
             make.bottom.equalToSuperview()
         }
+    }
+    
+    func bind() {
+        // HeaderView BackButton Tapped
+        headerView.leftBarButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
         
+        let input = ProfileEditVM.Input()
+        let output = viewModel.transform(input: input)
+        
+        output.originUserData
+            .withUnretained(self)
+            .subscribe { (owner, originData) in
+                owner.nickNameTextField.textField.text = originData.nickname
+                owner.instagramTextField.textField.text = originData.instagramId
+                owner.introTextField.textView.text = originData.intro
+                let categoryString = originData.interestCategoryList.count == 0 ? "" : originData.interestCategoryList.count == 1 ? originData.interestCategoryList.first!.interestCategory : originData.interestCategoryList.first!.interestCategory + "외 \(originData.interestCategoryList.count - 1) 개"
+                owner.categoryView.rightLabel.text = categoryString
+                owner.userInfoView.rightLabel.text = originData.gender + String(originData.age) + "세"
+            }
+            .disposed(by: disposeBag)
     }
 }

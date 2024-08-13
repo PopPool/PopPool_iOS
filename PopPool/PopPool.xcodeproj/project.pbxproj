@@ -64,6 +64,7 @@
 		08AF8D9A2C68862F006B8A11 /* PopUpCommentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D992C68862F006B8A11 /* PopUpCommentedCell.swift */; };
 		08AF8D9C2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D9B2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift */; };
 		08AF8D9E2C688D9C006B8A11 /* MyCommentedPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8D9D2C688D9C006B8A11 /* MyCommentedPopUpVM.swift */; };
+		08AF8DCA2C6B94CB006B8A11 /* ProfileEditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF8DC92C6B94CB006B8A11 /* ProfileEditVM.swift */; };
 		08B183AB2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */; };
 		08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */; };
 		08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183B52C3D9498006C34BB /* MenuListCell.swift */; };
@@ -125,7 +126,7 @@
 		08E23A8F2C4F6F93004B77B6 /* GetBlockedUserListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A8E2C4F6F93004B77B6 /* GetBlockedUserListRequestDTO.swift */; };
 		08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A952C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift */; };
 		08E23A982C4F7371004B77B6 /* GetProfileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A972C4F7371004B77B6 /* GetProfileResponseDTO.swift */; };
-		08E23A9A2C4F74A0004B77B6 /* MyInterestInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A992C4F74A0004B77B6 /* MyInterestInfoDTO.swift */; };
+		08E23A9A2C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A992C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift */; };
 		08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A9B2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift */; };
 		08E23A9E2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A9D2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift */; };
 		08E23AA22C4F7A43004B77B6 /* UserUnblockRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AA12C4F7A43004B77B6 /* UserUnblockRequestDTO.swift */; };
@@ -141,7 +142,7 @@
 		08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ABA2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift */; };
 		08E23ABD2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ABC2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift */; };
 		08E23ABF2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23ABE2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift */; };
-		08E23AC12C4F8FCB004B77B6 /* MyInterestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC02C4F8FCB004B77B6 /* MyInterestInfo.swift */; };
+		08E23AC12C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC02C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift */; };
 		08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC22C4F904D004B77B6 /* GetProfileResponse.swift */; };
 		08E23AC52C4F9298004B77B6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC42C4F9298004B77B6 /* UserRepository.swift */; };
 		08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23AC62C50E63E004B77B6 /* InputableView.swift */; };
@@ -286,6 +287,7 @@
 		08AF8D992C68862F006B8A11 /* PopUpCommentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpCommentedCell.swift; sourceTree = "<group>"; };
 		08AF8D9B2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpModalVC.swift; sourceTree = "<group>"; };
 		08AF8D9D2C688D9C006B8A11 /* MyCommentedPopUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentedPopUpVM.swift; sourceTree = "<group>"; };
+		08AF8DC92C6B94CB006B8A11 /* ProfileEditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditVM.swift; sourceTree = "<group>"; };
 		08B183AA2C3D235A006C34BB /* FetchSocialUserCredentialUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialUserCredentialUseCaseTest.swift; sourceTree = "<group>"; };
 		08B183AD2C3D2601006C34BB /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		08B183B52C3D9498006C34BB /* MenuListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCell.swift; sourceTree = "<group>"; };
@@ -348,7 +350,7 @@
 		08E23A8E2C4F6F93004B77B6 /* GetBlockedUserListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListRequestDTO.swift; sourceTree = "<group>"; };
 		08E23A952C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyInterestRequestDTO.swift; sourceTree = "<group>"; };
 		08E23A972C4F7371004B77B6 /* GetProfileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileResponseDTO.swift; sourceTree = "<group>"; };
-		08E23A992C4F74A0004B77B6 /* MyInterestInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInterestInfoDTO.swift; sourceTree = "<group>"; };
+		08E23A992C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInterestCategoryInfoDTO.swift; sourceTree = "<group>"; };
 		08E23A9B2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileRequestDTO.swift; sourceTree = "<group>"; };
 		08E23A9D2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyTailoredInfoRequestDTO.swift; sourceTree = "<group>"; };
 		08E23AA12C4F7A43004B77B6 /* UserUnblockRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserUnblockRequestDTO.swift; path = ../UserUnblockRequestDTO.swift; sourceTree = "<group>"; };
@@ -364,7 +366,7 @@
 		08E23ABA2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListResponse.swift; sourceTree = "<group>"; };
 		08E23ABC2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWithDrawlSurveyResponseDTO.swift; sourceTree = "<group>"; };
 		08E23ABE2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWithDrawlSurveyResponse.swift; sourceTree = "<group>"; };
-		08E23AC02C4F8FCB004B77B6 /* MyInterestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInterestInfo.swift; sourceTree = "<group>"; };
+		08E23AC02C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInterestCategoryInfo.swift; sourceTree = "<group>"; };
 		08E23AC22C4F904D004B77B6 /* GetProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileResponse.swift; sourceTree = "<group>"; };
 		08E23AC42C4F9298004B77B6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		08E23AC62C50E63E004B77B6 /* InputableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputableView.swift; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 			isa = PBXGroup;
 			children = (
 				08AF8D8E2C672C3D006B8A11 /* ProfileEditVC.swift */,
+				08AF8DC92C6B94CB006B8A11 /* ProfileEditVM.swift */,
 			);
 			path = ProfileEdit;
 			sourceTree = "<group>";
@@ -1120,7 +1123,7 @@
 				08E23A622C4E1925004B77B6 /* MyCommentInfoDTO.swift */,
 				08E23A872C4F6E05004B77B6 /* BlockedUserInfoDTO.swift */,
 				08E23A5E2C4E1719004B77B6 /* PopUpInfoDTO.swift */,
-				08E23A992C4F74A0004B77B6 /* MyInterestInfoDTO.swift */,
+				08E23A992C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift */,
 				08AF8D892C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift */,
 			);
 			path = InfoDTO;
@@ -1195,7 +1198,7 @@
 				08AF8D8B2C660B89006B8A11 /* MyCommentedPopUpInfo.swift */,
 				08E23AB82C4F8C3C004B77B6 /* BlockedUserInfo.swift */,
 				08E23AB02C4F8700004B77B6 /* GetMyCommentResponse.swift */,
-				08E23AC02C4F8FCB004B77B6 /* MyInterestInfo.swift */,
+				08E23AC02C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift */,
 				08E23AA82C4F7DC9004B77B6 /* GetMyPageResponse.swift */,
 				08E23AAA2C4F7F98004B77B6 /* MyCommentInfo.swift */,
 				08E23AB22C4F8817004B77B6 /* Survey.swift */,
@@ -1607,7 +1610,7 @@
 				08E23A722C4E1CF8004B77B6 /* CheckedSurveyDTO.swift in Sources */,
 				08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */,
 				08E23AB32C4F8817004B77B6 /* Survey.swift in Sources */,
-				08E23A9A2C4F74A0004B77B6 /* MyInterestInfoDTO.swift in Sources */,
+				08E23A9A2C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift in Sources */,
 				08B183C32C442113006C34BB /* ListTitleViewCPNT.swift in Sources */,
 				08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
@@ -1763,9 +1766,10 @@
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
 				BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */,
+				08AF8DCA2C6B94CB006B8A11 /* ProfileEditVM.swift in Sources */,
 				08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
-				08E23AC12C4F8FCB004B77B6 /* MyInterestInfo.swift in Sources */,
+				08E23AC12C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				08E23AD62C54E171004B77B6 /* ViewedPopUpCell.swift in Sources */,
