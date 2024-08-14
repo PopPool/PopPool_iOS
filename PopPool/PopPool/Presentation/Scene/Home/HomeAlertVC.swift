@@ -70,8 +70,6 @@ class HomeAlertVC: BaseTableViewVC {
         tableView.sectionHeaderTopPadding = 0
         tableView.register(HomeAlertCell.self,
                            forCellReuseIdentifier: HomeAlertCell.reuseIdentifier)
-        
-        
     }
     
     private func bind() {
@@ -153,7 +151,7 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeAlertCell.reuseIdentifier, for: indexPath) as? HomeAlertCell else { return UITableViewCell() }
-        let section = Section.allCases[indexPath.row]
+        let section = Section.allCases[indexPath.section]
         var item = viewModel.mockData[indexPath.row]
         
         switch section {
