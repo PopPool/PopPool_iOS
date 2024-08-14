@@ -22,4 +22,5 @@ struct PopUpStore {
     var longitude: CLLocationDegrees {
         return location.longitude
     }
+    
 }
