@@ -127,21 +127,17 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
         let headerView = ListTitleViewCPNT(title: section.sectionTitle,
                                            size: .large(subtitle: "", image: nil))
         
-        headerView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        headerView.isLayoutMarginsRelativeArrangement = true
         headerView.rightButton.isHidden = true
         headerView.backgroundColor = .g50
         headerView.titleLabel.textColor = .blu500
+        headerView.layoutMargins = UIEdgeInsets(top: 24, left: 20, bottom: 16, right: 20)
+        headerView.isLayoutMarginsRelativeArrangement = true
         
         switch section {
         case .today:
             headerView.subTitleLabel.removeFromSuperview()
             headerView.titleLabel.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()
-            }
-            
-            headerView.bottomSpace.snp.makeConstraints { make in
-                make.top.equalTo(headerView.titleLabel.snp.bottom)
             }
         case .all:
             headerView.subTitleLabel.text = section.descriptionTitle
@@ -163,7 +159,7 @@ extension HomeAlertVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.content.setUp(title: item.title, subTitle: item.description, info: item.dateString)
         cell.content.titleActionButton.isHidden = true
-        cell.backgroundColor = .g50
+        cell.content.actionButton.isHidden = true
         return cell
     }
 }

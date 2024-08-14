@@ -73,7 +73,7 @@ class HomeAlertVM: ViewModelable {
             date: "2024/08/12"),
         AlertData(title: "콘텐츠 타이틀", description: "알린 서브 텍스트", date: "2024/07/08"),
         AlertData(title: "콘텐츠 타이틀2", description: "알린 서브 텍스트2", date: "2023/05/07"),
-        AlertData(title: "콘텐츠 타이틀3", description: "알린 서브 텍스트3", date: "2024/08/14")
+        AlertData(title: "콘텐츠 타이틀3", description: "알린 서브 텍스트3", date: "2024/08/15")
     ]
     var disposeBag = DisposeBag()
     
@@ -84,10 +84,8 @@ class HomeAlertVM: ViewModelable {
             
             if let itemDate = dateFormatter.date(from: item.date),
                calendar.isDateInToday(itemDate) {
-                print("오늘", item)
                 todayData.append(item)
             } else {
-                print("전체", item)
                 allData.append(item)
             }
         }
@@ -99,8 +97,6 @@ class HomeAlertVM: ViewModelable {
             return .longTime
         }
         let convertedDay = calendar.dateComponents([.year, .month, .weekOfYear, .day, .hour], from: formattedDate, to: today)
-        
-        print("변환 날짜", convertedDay)
         
         if let year = convertedDay.year, year > 0 {
             return .longTime
