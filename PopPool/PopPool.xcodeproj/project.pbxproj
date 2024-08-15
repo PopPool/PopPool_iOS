@@ -166,6 +166,7 @@
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
+		08FF6BE12C6DBBA200B68569 /* Reactive+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6BE02C6DBBA200B68569 /* Reactive+.swift */; };
 		BD1D886A2C3D952500380F80 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D88692C3D952500380F80 /* Secrets.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
@@ -390,6 +391,7 @@
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
+		08FF6BE02C6DBBA200B68569 /* Reactive+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+.swift"; sourceTree = "<group>"; };
 		BD1D88692C3D952500380F80 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -1415,6 +1417,7 @@
 				08C813D62C2D2934009239FE /* UITableViewCell+.swift */,
 				08C813D82C2D294D009239FE /* UICollectionViewCell+.swift */,
 				BDFA49232C342B3600D3C1FB /* UIView+.swift */,
+				08FF6BE02C6DBBA200B68569 /* Reactive+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1761,6 +1764,7 @@
 				08B183BD2C439F52006C34BB /* MyPageMainVM.swift in Sources */,
 				08AF8D9E2C688D9C006B8A11 /* MyCommentedPopUpVM.swift in Sources */,
 				08AF8D9A2C68862F006B8A11 /* PopUpCommentedCell.swift in Sources */,
+				08FF6BE12C6DBBA200B68569 /* Reactive+.swift in Sources */,
 				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,

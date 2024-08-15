@@ -109,16 +109,6 @@ private extension MyPageMainVC {
             }
             .disposed(by: disposeBag)
         
-        // HeaderView SettingButton Tapped
-//        headerView.rightBarButton.rx.tap
-//            .withUnretained(self)
-//            .subscribe { (owner, _) in
-////                let vm = ProfileEditVM(originUserData: owner.viewModel.myPageAPIResponse.value)
-////                let vc = ProfileEditVC(viewModel: vm)
-//                owner.navigationController?.pushViewController(vc, animated: true)
-//            }
-//            .disposed(by: disposeBag)
-        
         let input = MyPageMainVM.Input(
             settingButtonTapped: headerView.rightBarButton.rx.tap,
             cellTapped: tableView.rx.itemSelected,
@@ -166,8 +156,8 @@ private extension MyPageMainVC {
         
         output.moveToSettingVC
             .withUnretained(self)
-            .subscribe { (owner, profileResponse) in
-                let vm = ProfileEditVM(originUserData: profileResponse)
+            .subscribe { (owner, userUseCase) in
+                let vm = ProfileEditVM(userUseCase: userUseCase)
                 let vc = ProfileEditVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
             }

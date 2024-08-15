@@ -21,13 +21,13 @@ final class MyPageMainVM: ViewModelable {
         var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
         var moveToVC: PublishSubject<BaseViewController>
         var moveToLoginVC: Observable<Void>
-        var moveToSettingVC: PublishSubject<GetProfileResponse>
+        var moveToSettingVC: PublishSubject<UserUseCase>
     }
     
     // MARK: - Propoerties
     var disposeBag = DisposeBag()
     
-    var userUseCase: UserUseCase = UserUseCaseImpl(repository: UserRepositoryImpl())
+    var userUseCase: UserUseCase
     var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
     
     var menuList: [any TableViewSectionable] {
@@ -94,25 +94,19 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "회원탈퇴")
         ])
     
-    init(response: GetMyPageResponse) {
+    init(response: GetMyPageResponse, userUseCase: UserUseCase) {
         self.myPageAPIResponse = .init(value: response)
+        self.userUseCase = userUseCase
     }
     // MARK: - transform
     func transform(input: Input) -> Output {
         
-        let moveToSettingVC: PublishSubject<GetProfileResponse> = .init()
+        let moveToSettingVC: PublishSubject<UserUseCase> = .init()
         // SettingButtonTapped
         input.settingButtonTapped
             .withUnretained(self)
             .subscribe { (owner, _) in
-                owner.userUseCase.fetchProfile(userId: Constants.userId)
-                    .subscribe { profileResponse in
-                        moveToSettingVC.onNext(profileResponse)
-                    } onError: { error in
-                        print(error.localizedDescription)
-                        ToastMSGManager.createToast(message: error.localizedDescription)
-                    }
-                    .disposed(by: owner.disposeBag)
+                moveToSettingVC.onNext(owner.userUseCase)
             }
             .disposed(by: disposeBag)
         let moveToVC: PublishSubject<BaseViewController> = .init()

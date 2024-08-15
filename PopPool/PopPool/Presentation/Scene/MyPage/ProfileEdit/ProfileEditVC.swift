@@ -216,18 +216,42 @@ private extension ProfileEditVC {
             }
             .disposed(by: disposeBag)
         
-        let input = ProfileEditVM.Input()
+        let input = ProfileEditVM.Input(
+            viewWillAppear: self.rx.viewWillAppear,
+            nickNameState: nickNameTextField.stateObserver.asObservable(),
+            nickNameButtonTapped: nickNameTextField.checkValidationButton.rx.tap,
+            instaLinkText: instagramTextField.textField.rx.text.orEmpty,
+            introText: introTextField.textViewStateObserver,
+            saveButtonTapped: saveButton.rx.tap
+        )
         let output = viewModel.transform(input: input)
         
         output.originUserData
             .withUnretained(self)
             .subscribe { (owner, originData) in
                 owner.nickNameTextField.textField.text = originData.nickname
+                owner.nickNameTextField.myNickName = originData.nickname
+                owner.nickNameTextField.stateObserver.onNext(.myNickName)
+                owner.nickNameTextField.setTextLimit(text: originData.nickname)
                 owner.instagramTextField.textField.text = originData.instagramId
                 owner.introTextField.textView.text = originData.intro
                 let categoryString = originData.interestCategoryList.count == 0 ? "" : originData.interestCategoryList.count == 1 ? originData.interestCategoryList.first!.interestCategory : originData.interestCategoryList.first!.interestCategory + "외 \(originData.interestCategoryList.count - 1) 개"
                 owner.categoryView.rightLabel.text = categoryString
                 owner.userInfoView.rightLabel.text = originData.gender + String(originData.age) + "세"
+            }
+            .disposed(by: disposeBag)
+        output.nickNameState
+            .withUnretained(self)
+            .subscribe { (owner, state) in
+                owner.nickNameTextField.stateObserver.onNext(state)
+            }
+            .disposed(by: disposeBag)
+        
+        output.saveButtonIsActive
+            .withUnretained(self)
+            .subscribe { (owner, isActive) in
+                print(isActive)
+                owner.saveButton.isEnabled = isActive
             }
             .disposed(by: disposeBag)
     }

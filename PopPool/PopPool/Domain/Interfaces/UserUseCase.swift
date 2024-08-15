@@ -73,9 +73,9 @@ protocol UserUseCase {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable
     
     func updateMyTailoredInfo(userId: String, gender: String, age: Int32) -> Completable

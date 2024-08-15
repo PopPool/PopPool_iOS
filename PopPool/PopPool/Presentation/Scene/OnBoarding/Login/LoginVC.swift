@@ -156,7 +156,7 @@ private extension LoginVC {
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
-                        let vm = MyPageMainVM(response: myPageResponse)
+                        let vm = MyPageMainVM(response: myPageResponse, userUseCase: useCase)
                         vm.myCommentSection.sectionCellInputList = [
                             .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
                                 title: $0.popUpStoreName,

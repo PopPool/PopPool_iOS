@@ -6,13 +6,15 @@
 //
 
 import UIKit
+
+import RxCocoa
 import RxSwift
 import SnapKit
 
 final class DynamicTextViewCPNT: UIStackView {
     
     /// TF 상태값
-    enum TextViewState {
+    enum TextViewState: Equatable {
         case none_active
         case normal_active(String)
         case overText_active(Int)
@@ -200,6 +202,8 @@ private extension DynamicTextViewCPNT {
             .disposed(by: disposeBag)
         
         textViewStateObserver
+            .asObserver()
+            .distinctUntilChanged()
             .withUnretained(self)
             .subscribe { (owner, state) in
                 owner.changeView(from: state)

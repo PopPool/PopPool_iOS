@@ -9,7 +9,7 @@ import Foundation
 
 struct GetProfileResponse {
     var profileImageUrl: URL?
-    var nickname: String?
+    var nickname: String
     var email: String?
     var instagramId: String?
     var intro: String?
