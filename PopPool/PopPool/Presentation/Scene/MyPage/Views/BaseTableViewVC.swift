@@ -20,6 +20,7 @@ class BaseTableViewVC: UIViewController {
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
+        table.backgroundColor = .g50
         table.tableHeaderView = UIView(frame: .zero)
         table.tableFooterView = UIView(frame: .zero)
         table.register(BlockedUserCell.self,

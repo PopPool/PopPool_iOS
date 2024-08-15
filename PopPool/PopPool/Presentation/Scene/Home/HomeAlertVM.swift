@@ -7,8 +7,9 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
-class HomeAlertVM: ViewModelable {
+final class HomeAlertVM: ViewModelable {
     
     enum TimeStamp {
         case today
@@ -36,6 +37,9 @@ class HomeAlertVM: ViewModelable {
         }
     }
     
+    // MARK: - AlertData 데이터 구조체
+    // DTO 생성 이후 변경 필요
+    
     struct AlertData {
         let title: String
         let description: String
@@ -44,15 +48,15 @@ class HomeAlertVM: ViewModelable {
     }
     
     struct Input {
-        
+        let returnToRoot: ControlEvent<Void>
+        let moveToNextPage: ControlEvent<Void>
     }
     
     struct Output {
         let tableData: Observable<[AlertData]>
     }
     
-    var todayData: [AlertData] = []
-    var allData: [AlertData] = []
+    // MARK: - Components
     
     private let calendar = Calendar.current
     private let dateFormatter: DateFormatter = {
@@ -62,9 +66,7 @@ class HomeAlertVM: ViewModelable {
         return formatter
     }()
     
-    init() {
-        separateData()
-    }
+    // MARK: - Properties
     
     let mockData: [AlertData] = [
         AlertData(
@@ -75,8 +77,20 @@ class HomeAlertVM: ViewModelable {
         AlertData(title: "콘텐츠 타이틀2", description: "알린 서브 텍스트2", date: "2023/05/07"),
         AlertData(title: "콘텐츠 타이틀3", description: "알린 서브 텍스트3", date: "2024/08/15")
     ]
+    
+    var todayData: [AlertData] = []
+    var allData: [AlertData] = []
     var disposeBag = DisposeBag()
     
+    // MARK: - Initializer
+    
+    init() {
+        separateData()
+    }
+    
+    // MARK: - Methods
+    
+    /// 데이터를 '오늘, 전체' section으로 구분합니다
     private func separateData() {
         for var item in mockData {
             let formattedDate = dateToString(item.date)
@@ -91,21 +105,28 @@ class HomeAlertVM: ViewModelable {
         }
     }
     
+    /// 알림 데이터에 활용될 Date를 기간에 따라 특정 문구로 변환합니다
+
     private func dateToString(_ date: String) -> TimeStamp {
+        guard let formattedDate = dateFormatter.date(from: date) else { return .longTime }
         let today = Date()
-        guard let formattedDate = dateFormatter.date(from: date) else {
-            return .longTime
-        }
-        let convertedDay = calendar.dateComponents([.year, .month, .weekOfYear, .day, .hour], from: formattedDate, to: today)
         
+        let convertedDay = calendar
+            .dateComponents([.year, .month, .weekOfYear, .day, .hour],
+            from: formattedDate,
+            to: today)
+        
+        // 1년 여부 확인
         if let year = convertedDay.year, year > 0 {
             return .longTime
         }
         
+        // 1달 여부 확인
         if let month = convertedDay.month, month > 0 {
             return .months(month)
         }
         
+        // 하루 여부 확인
         if let day = convertedDay.day {
             if day == 0 { return .today }
             if day < 7 { return .days(day) }
@@ -115,6 +136,7 @@ class HomeAlertVM: ViewModelable {
             }
         }
         
+        // 24시간 이내 여부 확인
         if let hour = convertedDay.hour, hour < 24 {
             return .hours(hour)
         }
