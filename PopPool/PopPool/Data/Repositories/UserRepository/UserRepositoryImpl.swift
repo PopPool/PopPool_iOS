@@ -130,9 +130,9 @@ final class UserRepositoryImpl: UserRepository {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable {
         let imageURL = profileImage?.absoluteString ?? ""
         let endPoint = PopPoolAPIEndPoint.user_updateMyProfile(
