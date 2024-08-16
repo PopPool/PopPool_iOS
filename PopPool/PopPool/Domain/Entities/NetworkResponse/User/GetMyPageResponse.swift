@@ -8,8 +8,10 @@
 import Foundation
 
 struct GetMyPageResponse {
-    var nickname: String
-    var profileImage: URL?
-    var instagramId: String
-    var popUpInfoList: [PopUpInfo]
+    var nickname: String?
+    var profileImageURL: URL?
+    var instagramId: String?
+    var popUpInfoList: [MyCommentedPopUpInfo]
+    var intro: String?
+    var login: Bool
 }

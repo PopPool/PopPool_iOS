@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class BaseTableViewVC: UIViewController {
+class BaseTableViewVC: BaseViewController {
     
     // MARK: - Components
     

@@ -26,9 +26,9 @@ protocol SignUpUseCase {
         nickName: String,
         gender: String,
         age: Int32,
-        socialEmail: String?,
+        socialEmail: String,
         socialType: String,
-        interests: [Int]
+        interests: [Int64]
     ) -> Completable
     
     /// 닉네임 중복 여부를 확인하는 메서드
@@ -41,6 +41,6 @@ protocol SignUpUseCase {
     /// 관심사 리스트를 가져오는 메서드
     /// - Parameter credential: 인증 정보
     /// - Returns: 관심사 리스트를 나타내는 Observable<[Interest]>
-    func fetchInterestList() -> Observable<[Interest]>
+    func fetchCategoryList() -> Observable<[Category]>
 
 }

@@ -10,4 +10,9 @@ import Foundation
 struct PopUpInfo {
     var popUpStoreId: Int64
     var popUpStoreName: String
+    var desc: String
+    var startDate: String
+    var endDate : String
+    var address : String
+    var closedYn: String
 }

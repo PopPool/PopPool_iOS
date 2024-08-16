@@ -27,6 +27,7 @@ final class LoginVM: ViewModelable {
     struct Output {
         let moveToInquryVC: ControlEvent<Void>
         let moveToSignUpVC: PublishSubject<SignUpVM>
+        let moveToHomeVC: PublishSubject<LoginResponse>
     }
     
     private var fetchSocialUserCredencialUseCase: FetchSocialCredentialUseCase!
@@ -90,14 +91,15 @@ final class LoginVM: ViewModelable {
         // 로그인 시도 이벤트
         tryLoginSubject
             .withUnretained(self)
-            .subscribe { (owner, response) in
+            .subscribe(onNext: { (owner, response) in
+                print("socialLoginResponse:", response)
                 owner.tryLoginUseCase
                     .execute(userCredential: response.credential, socialType: response.socialType.lowercased())
                     .subscribe { loginResponse in
                         // accessToken 저장
                         owner.keyChainUseCase.saveToken(type: .accessToken, value: loginResponse.accessToken)
                             .subscribe {
-                                print("AccessToken Save Complete")
+                                print("AccessToken Save Complete: \(loginResponse.accessToken)")
                             } onError: { error in
                                 print("AccessToken Save Error:\(error.localizedDescription)")
                             }
@@ -106,7 +108,7 @@ final class LoginVM: ViewModelable {
                         // refreshToken 저장
                         owner.keyChainUseCase.saveToken(type: .refreshToken, value: loginResponse.refreshToken)
                             .subscribe {
-                                print("RefreshToken Save Complete")
+                                print("RefreshToken Save Complete: \(loginResponse.refreshToken)")
                             } onError: { error in
                                 print("RefreshToken Save Error:\(error.localizedDescription)")
                             }
@@ -128,12 +130,15 @@ final class LoginVM: ViewModelable {
                         print(error.localizedDescription)
                     }
                     .disposed(by: owner.disposeBag)
-            }
+            }, onError: { error in
+                print(error.localizedDescription)
+            })
             .disposed(by: disposeBag)
 
         return Output(
             moveToInquryVC: input.inquryButtonTapped,
-            moveToSignUpVC: moveToSignUpVCSubject
+            moveToSignUpVC: moveToSignUpVCSubject,
+            moveToHomeVC: moveToHomeVCSubject
         )
     }
 }

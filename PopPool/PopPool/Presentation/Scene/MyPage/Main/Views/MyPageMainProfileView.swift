@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import SnapKit
+import Kingfisher
 
 final class MyPageMainProfileView: UIView {
     
@@ -18,7 +20,6 @@ final class MyPageMainProfileView: UIView {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .KorFont(style: .light, size: 11)
-        label.text = "가고 싶은 곳을 다니고, 입고 싶은 것을 입어요"
         return label
     }()
     private let labelStackView: UIStackView = {
@@ -30,21 +31,36 @@ final class MyPageMainProfileView: UIView {
         let label = UILabel()
         label.font = .KorFont(style: .bold, size: 16)
         label.textColor = .g1000
-        // TODO: - 제거 필요
-        label.text = "상관없는 금붕어"
         return label
     }()
     private let instagramLabel: UILabel = {
         let label = UILabel()
         label.font = .EngFont(style: .regular, size: 14)
         label.textColor = .g1000
-        // TODO: - 제거 필요
-        label.text = "@instagram_id"
         return label
     }()
     private let bottomHoleView: UIView = UIView()
     private let bottomHoleBlockView: UIView = UIView()
-    
+    let loginButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 4
+        return button
+    }()
+    private let loginButtonLabel: UILabel = {
+        let label = UILabel()
+        label.font = .KorFont(style: .medium, size: 13)
+        label.text = "로그인/회원가입"
+        label.textColor = .w100
+        return label
+    }()
+    private let loginDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "나에게 맞는\n팝업스토어 만나러 가기"
+        label.numberOfLines = 0
+        label.textColor = .w100
+        label.font = .KorFont(style: .bold, size: 18)
+        return label
+    }()
     // MARK: - Properties
     private var containerViewHeight: Constraint?
     private var imageViewHeight: Constraint?
@@ -52,11 +68,8 @@ final class MyPageMainProfileView: UIView {
     private var contentViewY: Constraint?
     
     // MARK: - init
-    init(frame: CGRect, profileImage: UIImage?) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backGroundImageView.image = profileImage
-        self.profileImageView.image = profileImage
-        setUp()
         setUpConstraints()
         setUpMask()
     }
@@ -79,8 +92,6 @@ private extension MyPageMainProfileView {
         visualEffectView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        bottomHoleView.backgroundColor = .systemBackground
-        bottomHoleBlockView.backgroundColor = .systemBackground
     }
     
     func setUpConstraints() {
@@ -112,6 +123,9 @@ private extension MyPageMainProfileView {
         bottomHoleBlockView.snp.makeConstraints { make in
             make.edges.equalTo(bottomHoleView)
         }
+    }
+    
+    func setUpProfileView() {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -140,6 +154,9 @@ private extension MyPageMainProfileView {
     }
     
     func setUpMask() {
+        bottomHoleView.backgroundColor = .systemBackground
+        bottomHoleBlockView.backgroundColor = .systemBackground
+        
         // Bottom Hole Mask 생성
         let path = CGMutablePath()
         path.addArc(center: CGPoint(x: bounds.midX, y: bottomHoleView.bounds.midY),
@@ -153,6 +170,30 @@ private extension MyPageMainProfileView {
         maskLayer.path = path
         maskLayer.fillRule = .evenOdd
         bottomHoleView.layer.mask = maskLayer
+        self.layoutSubviews()
+    }
+    
+    func setUpLoginView() {
+        self.backGroundImageView.backgroundColor = .g800
+        loginButton.addSubview(loginButtonLabel)
+        loginButtonLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(12)
+            make.trailing.equalToSuperview().inset(8)
+            make.height.equalTo(20)
+            make.top.bottom.equalToSuperview().inset(6)
+        }
+        contentView.addSubview(loginButton)
+        loginButton.backgroundColor = .w10
+        loginButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(97)
+            make.leading.equalToSuperview()
+        }
+        contentView.addSubview(loginDescriptionLabel)
+        loginDescriptionLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(loginButton.snp.top).offset(-16)
+            make.leading.equalToSuperview()
+            make.height.equalTo(50)
+        }
     }
 }
 
@@ -160,14 +201,30 @@ private extension MyPageMainProfileView {
 extension MyPageMainProfileView: InputableView {
 
     struct Input {
-        var nickName: String
-        var instagramId: String
+        var isLogin: Bool
+        var nickName: String?
+        var instagramId: String?
+        var intro: String?
         var profileImage: URL?
     }
     
     func injectionWith(input: Input) {
-        nickNameLabel.text = input.nickName
-        instagramLabel.text = input.instagramId
+        if input.isLogin {
+            setUp()
+            setUpProfileView()
+            if let profileImageViewURL = input.profileImage {
+                backGroundImageView.kf.setImage(with: profileImageViewURL)
+                profileImageView.kf.setImage(with: profileImageViewURL)
+            } else {
+                self.backGroundImageView.image = UIImage(systemName: "folder")
+                self.profileImageView.image = UIImage(systemName: "folder")
+            }
+            nickNameLabel.text = input.nickName
+            instagramLabel.text = input.instagramId
+            descriptionLabel.text = input.intro
+        } else {
+            setUpLoginView()
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView, alpha: Double) {
