@@ -171,6 +171,9 @@
 		4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A72C64B140000F4095 /* ListViewController.swift */; };
 		4E9A33AA2C64CB0D000F4095 /* FilterBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */; };
 		4E9A33AC2C64CE41000F4095 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33AB2C64CE41000F4095 /* FilterCell.swift */; };
+		4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */; };
+		4EB470FA2C6DE83300BBE256 /* FilterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F92C6DE83300BBE256 /* FilterRepository.swift */; };
+		4EB470FC2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470FB2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift */; };
 		4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */; };
 		BD1D886A2C3D952500380F80 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D88692C3D952500380F80 /* Secrets.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
@@ -396,6 +399,9 @@
 		4E9A33A72C64B140000F4095 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterBottomSheetViewController.swift; path = PopPool/Presentation/Scene/Map/FilterBottomSheetViewController.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33AB2C64CE41000F4095 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUseCase.swift; sourceTree = "<group>"; };
+		4EB470F92C6DE83300BBE256 /* FilterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterRepository.swift; path = PopPool/Data/Repositories/MapRepository/FilterRepository.swift; sourceTree = SOURCE_ROOT; };
+		4EB470FB2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonBackgroundView.swift; sourceTree = "<group>"; };
 		BD1D88692C3D952500380F80 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
@@ -865,6 +871,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4DC00C2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift */,
+				4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */,
 				08B183CA2C4448DF006C34BB /* LocalUseCase */,
 				08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */,
 				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
@@ -1231,6 +1238,7 @@
 		4E4DC00F2C61FD34007CE63A /* MapRepository */ = {
 			isa = PBXGroup;
 			children = (
+				4EB470F92C6DE83300BBE256 /* FilterRepository.swift */,
 				4E4DC0102C61FD49007CE63A /* MapRepository.swift */,
 				4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */,
 			);
@@ -1253,6 +1261,7 @@
 				4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */,
 				4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */,
 				4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */,
+				4EB470FB2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift */,
 				4E9A33AB2C64CE41000F4095 /* FilterCell.swift */,
 				4E8F62042C69D49D002440B8 /* CategoryCell.swift */,
 			);
@@ -1656,10 +1665,12 @@
 				BDC2C3432C5A6EE400FEF069 /* NoticeDetailBoardVM.swift in Sources */,
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				08E23A552C4CBC42004B77B6 /* RequestEndPoint.swift in Sources */,
+				4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
+				4EB470FA2C6DE83300BBE256 /* FilterRepository.swift in Sources */,
 				4E9A33AC2C64CE41000F4095 /* FilterCell.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */,
@@ -1677,6 +1688,7 @@
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
 				BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */,
+				4EB470FC2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift in Sources */,
 				08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */,
 				4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
