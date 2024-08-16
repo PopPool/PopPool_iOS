@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import RxRelay
 
-final class InquiryVC: UIViewController {
+final class InquiryVC: BaseViewController {
     
     // MARK: - Component
     
@@ -45,7 +45,7 @@ final class InquiryVC: UIViewController {
     
     init(viewModel: InquiryVM) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +56,6 @@ final class InquiryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         setUp()
         setUpConstraint()
         bind()
@@ -71,6 +70,7 @@ final class InquiryVC: UIViewController {
         )
         let output = viewModel.transform(input: input)
         
+        // viewModel 데이터 바인딩
         output.data
             .subscribe(onNext: { dataArray in
                 self.dropLists.removeAll()
@@ -116,9 +116,9 @@ final class InquiryVC: UIViewController {
     /// 콘텐츠 내용을 채우는 ListDropDownCPNT를 생성하는 메서드입니다
     /// - Parameter data: 컴포넌트 내부를 채울 데이터를 받습니다
     /// - Returns: ListDropDownCPNT를 생성합니다
-    private func setUpList(data: String) -> ListDropDownCPNT {
+    private func setUpList(data: [String]) -> ListDropDownCPNT {
         let dropList = ListDropDownCPNT()
-        dropList.configure(title: data, content: data)
+        dropList.configure(title: data[0], content: data[1])
         return dropList
     }
     

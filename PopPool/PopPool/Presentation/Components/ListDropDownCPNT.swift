@@ -64,9 +64,16 @@ final class ListDropDownCPNT: UIStackView {
     
     private let dropDownLabel: UILabel = {
         let label = UILabel()
+        let text = ""
         label.font = .KorFont(style: .regular, size: 14)
         label.numberOfLines = 0
         label.textColor = .g600
+        let style = NSMutableParagraphStyle()
+        style.lineHeightMultiple = 1.4
+        label.attributedText = NSMutableAttributedString(
+            string: text,
+            attributes: [.paragraphStyle: style]
+        )
         return label
     }()
     
