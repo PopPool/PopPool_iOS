@@ -51,6 +51,24 @@ extension MyPageMainVC {
         setUpConstraints()
         bind()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
+        useCase.fetchMyPage(userId: Constants.userId)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, myPageResponse) in
+                owner.viewModel.myPageAPIResponse.accept(myPageResponse)
+                owner.viewModel.myCommentSection.sectionCellInputList = [
+                    .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
+                        title: $0.popUpStoreName,
+                        // TODO: - isActive 부분 논의 후 수정 필요
+                        isActive: false,
+                        imageURL: $0.mainImageUrl)
+                    })
+                ]
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - SetUp
@@ -62,7 +80,6 @@ private extension MyPageMainVC {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.tableHeaderView = profileView
-
     }
     
     func setUpConstraints() {
@@ -83,7 +100,17 @@ private extension MyPageMainVC {
     }
     
     func bind() {
+        
+        // HeaderView BackButton Tapped
+        headerView.leftBarButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
         let input = MyPageMainVM.Input(
+            settingButtonTapped: headerView.rightBarButton.rx.tap,
             cellTapped: tableView.rx.itemSelected,
             profileLoginButtonTapped: profileView.loginButton.rx.tap
         )
@@ -123,6 +150,15 @@ private extension MyPageMainVC {
         output.moveToVC
             .withUnretained(self)
             .subscribe { (owner, vc) in
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.moveToSettingVC
+            .withUnretained(self)
+            .subscribe { (owner, userUseCase) in
+                let vm = ProfileEditVM(userUseCase: userUseCase)
+                let vc = ProfileEditVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

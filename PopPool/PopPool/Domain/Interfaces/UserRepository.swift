@@ -140,9 +140,9 @@ protocol UserRepository {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable
     
     /// 유저 맞춤 정보를 업데이트합니다.

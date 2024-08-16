@@ -12,6 +12,7 @@ import RxCocoa
 final class MyPageMainVM: ViewModelable {
     
     struct Input {
+        var settingButtonTapped: ControlEvent<Void>
         var cellTapped: ControlEvent<IndexPath>
         var profileLoginButtonTapped: ControlEvent<Void>
     }
@@ -20,11 +21,13 @@ final class MyPageMainVM: ViewModelable {
         var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
         var moveToVC: PublishSubject<BaseViewController>
         var moveToLoginVC: Observable<Void>
+        var moveToSettingVC: PublishSubject<UserUseCase>
     }
     
     // MARK: - Propoerties
     var disposeBag = DisposeBag()
     
+    var userUseCase: UserUseCase
     var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
     
     var menuList: [any TableViewSectionable] {
@@ -91,11 +94,21 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "회원탈퇴")
         ])
     
-    init(response: GetMyPageResponse) {
+    init(response: GetMyPageResponse, userUseCase: UserUseCase) {
         self.myPageAPIResponse = .init(value: response)
+        self.userUseCase = userUseCase
     }
     // MARK: - transform
     func transform(input: Input) -> Output {
+        
+        let moveToSettingVC: PublishSubject<UserUseCase> = .init()
+        // SettingButtonTapped
+        input.settingButtonTapped
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                moveToSettingVC.onNext(owner.userUseCase)
+            }
+            .disposed(by: disposeBag)
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
             .subscribe { _ in
@@ -133,10 +146,12 @@ final class MyPageMainVM: ViewModelable {
                 print("LoginButtonTapped")
             }
             .disposed(by: disposeBag)
+
         return Output(
             myPageAPIResponse: myPageAPIResponse,
             moveToVC: moveToVC,
-            moveToLoginVC: input.profileLoginButtonTapped.asObservable()
+            moveToLoginVC: input.profileLoginButtonTapped.asObservable(),
+            moveToSettingVC: moveToSettingVC
         )
     }
     

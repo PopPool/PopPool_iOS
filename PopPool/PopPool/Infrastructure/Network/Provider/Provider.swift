@@ -77,6 +77,7 @@ class ProviderImpl: Provider {
                                 let decodeData = try JSONDecoder().decode(R.self, from: data)
                                 observer.onNext(decodeData)
                             } catch {
+                                print("DecodeError")
                                 observer.onError(NetworkError.decodeError)
                             }
                         case .failure(let error):
