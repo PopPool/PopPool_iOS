@@ -28,16 +28,16 @@ final class InquiryVC: UIViewController {
     private lazy var listStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.distribution = .fillEqually
         stack.alignment = .fill
         return stack
     }()
-    private var dropLists: [ListDropDownCPNT] = []
+    
     private let topSpaceView = UIView()
     private let paginationSpaceView = UIView()
     
     // MARK: - Properties
     
+    private var dropLists: [ListDropDownCPNT] = []
     private let disposeBag = DisposeBag()
     private let viewModel: InquiryVM
     
@@ -72,8 +72,7 @@ final class InquiryVC: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.data
-            .subscribe(onNext: { [weak self] dataArray in
-                guard let self = self else { return }
+            .subscribe(onNext: { dataArray in
                 self.dropLists.removeAll()
                 for data in dataArray {
                     let content = self.setUpList(data: data)
@@ -85,13 +84,13 @@ final class InquiryVC: UIViewController {
         
         headerView.leftBarButton.rx.tap
             .subscribe(onNext: {
-                print("뒤돌아가기")
                 self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
         
         moveToMailView.iconButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
+                // 사용자 이메일 주소로 변동 필요
                 let test = "test@gmail.com"
                 self?.openEmail(emailAccount: test)
             })
@@ -102,14 +101,6 @@ final class InquiryVC: UIViewController {
                 print("화면 늘림")
             })
             .disposed(by: disposeBag)
-        
-        for (index, dropList) in dropLists.enumerated() {
-            dropList.actionButton.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    
-                })
-                .disposed(by: self.disposeBag)
-        }
     }
     
     /// iOS 시스템 이메일을 열기 위한 메서드입니다

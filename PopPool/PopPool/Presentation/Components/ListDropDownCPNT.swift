@@ -51,7 +51,7 @@ final class ListDropDownCPNT: UIStackView {
         return button
     }()
     
-    let lineContainerView: UIView = {
+    private let lineContainerView: UIView = {
         let container = UIView()
         return container
     }()
@@ -83,8 +83,6 @@ final class ListDropDownCPNT: UIStackView {
     
     private let disposeBag = DisposeBag()
     private var buttonState: DropDownState = .inactive
-    private var isExpanded: Bool = false
-    var buttonStateObserver: PublishSubject<DropDownState> = .init()
     
     // MARK: - Initializer
     
@@ -105,22 +103,64 @@ final class ListDropDownCPNT: UIStackView {
         actionButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
-                let currentState: DropDownState = owner.buttonState == .active ? .inactive : .active
-                owner.buttonState = currentState
-                owner.buttonStateObserver.onNext(currentState)
-            }.disposed(by: disposeBag)
-        
-        buttonStateObserver
-            .withUnretained(self)
-            .subscribe { (owner, state) in
-                owner.updateUI(from: state)
+                owner.toggleDropDown()
             }.disposed(by: disposeBag)
     }
     
+    /// 버튼의 상태 값을 변경하는 메서드
+    public func toggleDropDown() {
+        buttonState = buttonState == .active ? .inactive : .active
+        updateUI(from: buttonState)
+    }
+    
+    /// 데이터를 주입합니다
+    /// - Parameters:
+    ///   - title: String 타입의 제목
+    ///   - content: String 타입의 콘텐츠
     public func configure(title: String, content: String) {
         self.titleLabel.text = title
         self.dropDownLabel.text = content
         self.lineContainerView.isHidden = true
+    }
+    
+    /// 상태에 따라 화면 UI를 업데이트하는 메서드입니다
+    /// - Parameter state: active, inactive 여부를 받습니다
+    private func updateUI(from state: DropDownState) {
+        switch state {
+        case .active:
+            self.actionButton.setImage(UIImage(named: "arrow_down"), for: .normal)
+            self.lineContainerView.isHidden = true
+            self.showDropDown()
+            
+        case .inactive:
+            self.actionButton.setImage(UIImage(named: "arrow_up"), for: .normal)
+            self.lineContainerView.isHidden = false
+            self.removeDropDown()
+        }
+        
+        self.superview?.setNeedsLayout()
+    }
+    
+    /// 숨겨진 view를 구성합니다
+    private func showDropDown() {
+        self.addArrangedSubview(dropDownContainer)
+        dropDownContainer.addSubview(dropDownLabel)
+        
+        dropDownLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(44)
+            make.trailing.equalToSuperview().inset(20)
+            make.top.bottom.equalToSuperview().inset(16)
+        }
+        self.superview?.layoutIfNeeded()
+    }
+    
+    /// 다시 드롭다운 view를 숨김처리합니다
+    private func removeDropDown() {
+        if self.arrangedSubviews.contains(dropDownContainer) {
+            self.removeArrangedSubview(dropDownContainer)
+            dropDownContainer.removeFromSuperview()
+        }
+        self.superview?.layoutIfNeeded()
     }
     
     private func setUp() {
@@ -149,39 +189,5 @@ final class ListDropDownCPNT: UIStackView {
             make.height.equalTo(1)
             make.trailing.leading.equalToSuperview().inset(22)
         }
-    }
-    
-    /// 상태에 따라 화면 UI를 업데이트하는 메서드입니다
-    /// - Parameter state: active, inactive 여부를 받습니다
-    private func updateUI(from state: DropDownState) {
-        switch state {
-        case .active:
-            self.actionButton.setImage(UIImage(named: "arrow_down"), for: .normal)
-            self.lineContainerView.isHidden = true
-            self.setUpDropDown()
-            
-        case .inactive:
-            self.actionButton.setImage(UIImage(named: "arrow_up"), for: .normal)
-            self.lineContainerView.isHidden = false
-            self.dropDownContainer.removeFromSuperview()
-        }
-    }
-    
-    /// 숨겨진 view를 구성합니다
-    private func setUpDropDown() {
-        addSubview(dropDownContainer)
-        dropDownContainer.addSubview(dropDownLabel)
-        
-        dropDownContainer.snp.makeConstraints { make in
-            make.top.equalTo(lineContainerView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-        }
-
-        dropDownLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(44)
-            make.trailing.equalToSuperview().inset(20)
-            make.top.bottom.equalToSuperview().inset(16)
-        }
-        self.superview?.layoutIfNeeded()
     }
 }
