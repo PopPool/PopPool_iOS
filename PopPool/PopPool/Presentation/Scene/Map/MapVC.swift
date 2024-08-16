@@ -25,9 +25,14 @@ class MapVC: BaseViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "팝업스토어명, 지역을 입력해보세요"
-        searchBar.backgroundColor = .white
+//        searchBar.backgroundColor = .white
         searchBar.layer.cornerRadius = 8
         searchBar.clipsToBounds = true
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+               textField.borderStyle = .none
+               textField.layer.cornerRadius = 8
+               textField.layer.masksToBounds = true
+           }
         return searchBar
     }()
 
@@ -118,12 +123,13 @@ class MapVC: BaseViewController {
     // MARK: - Setup Methods
     private func setupUI() {
         view.addSubview(mapView)
+        view.addSubview(popupListView)
         view.addSubview(searchBar)
         view.addSubview(filterStackView)
         view.addSubview(currentLocationButton)
         view.addSubview(listViewButton)
         view.addSubview(popupCardView)
-        view.addSubview(popupListView)
+//        view.addSubview(popupListView)
 
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -330,8 +336,8 @@ class MapVC: BaseViewController {
                     }
                     self.view.layoutIfNeeded()
 
-                    self.searchBar.isHidden = true
-                    self.filterStackView.isHidden = true
+//                    self.searchBar.isHidden = true
+//                    self.filterStackView.isHidden = true
                     self.resizeIndicator.isHidden = true
                 }
             }
