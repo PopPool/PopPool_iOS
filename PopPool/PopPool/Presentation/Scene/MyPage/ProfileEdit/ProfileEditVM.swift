@@ -46,10 +46,10 @@ final class ProfileEditVM: ViewModelable {
     // MARK: - Methods
     func transform(input: Input) -> Output {
         let nickNameState: PublishSubject<ValidationTextFieldCPNT.ValidationState> = .init()
+        
         input.viewWillAppear
             .withUnretained(self)
             .subscribe { (owner, _) in
-                print("viewModel ViewWillAppear")
                 owner.userUseCase.fetchProfile(userId: Constants.userId)
                     .subscribe { profileResponse in
                         owner.originUserDataStatic = profileResponse
@@ -93,6 +93,7 @@ final class ProfileEditVM: ViewModelable {
                     .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
+        
         input.instaLinkText
             .withUnretained(self)
             .subscribe { (owner, instaText) in
@@ -101,10 +102,10 @@ final class ProfileEditVM: ViewModelable {
                 owner.newUserData.accept(newData)
             }
             .disposed(by: disposeBag)
+        
         input.introText
             .withUnretained(self)
             .subscribe { (owner, state) in
-                print(state)
                 var newData = owner.newUserData.value
                 switch state {
                 case .normal_active(let text):
@@ -126,6 +127,7 @@ final class ProfileEditVM: ViewModelable {
                 }
             }
             .disposed(by: disposeBag)
+        
         newUserData
             .withUnretained(self)
             .subscribe { (owner, userData) in
@@ -140,6 +142,7 @@ final class ProfileEditVM: ViewModelable {
                 }
             }
             .disposed(by: disposeBag)
+        
         input.saveButtonTapped
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -163,6 +166,7 @@ final class ProfileEditVM: ViewModelable {
                 .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
+        
         return Output(
             originUserData: originUserData,
             nickNameState: nickNameState,
