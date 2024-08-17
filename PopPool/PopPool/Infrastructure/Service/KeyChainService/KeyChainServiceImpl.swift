@@ -15,12 +15,22 @@ final class KeyChainServiceImpl: KeyChainService {
     
     func fetchToken(type: TokenType) -> Single<String>{
         return fetch(key: type.rawValue)
+            .do(onSuccess: { token in
+                print("🔑 Fetched \(type.rawValue) from KeyChain: \(token)")
+            }, onError: { error in
+                print("❌ Error fetching \(type.rawValue) from KeyChain: \(error)")
+            })
     }
-    
+
     func saveToken(type: TokenType, value: String) -> Completable {
         return save(key: type.rawValue, value: value)
+            .do(onError: { error in
+                print("❌ Error saving \(type.rawValue) to KeyChain: \(error)")
+            }, onCompleted: {
+                print("✅ Saved \(type.rawValue) to KeyChain: \(value)")
+            })
     }
-    
+
     func deleteToken(type: TokenType) -> Completable {
         return delete(key: type.rawValue)
     }
