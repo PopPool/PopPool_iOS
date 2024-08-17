@@ -10,14 +10,14 @@ import SnapKit
 import RxSwift
 
 final class TestingHomeCollectionViewCell: UICollectionViewCell {
-    private var title: UILabel = {
-        let label = UILabel()
-        return label
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "lasso")
+        return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        self.contentView.backgroundColor = .blue
     }
     
     required init?(coder: NSCoder) {
@@ -29,17 +29,16 @@ final class TestingHomeCollectionViewCell: UICollectionViewCell {
         layoutTitle()
     }
     
-    func setLabel(text: String) {
-        self.title.text = text
-        self.title.numberOfLines = 3
+    func setImage(image: UIImage?) {
+        self.imageView.image = image
     }
     
     private func layoutTitle() {
-        if !self.contentView.subviews.contains(title) {
-            self.contentView.addSubview(title)
+        if !self.contentView.subviews.contains(imageView) {
+            self.contentView.addSubview(imageView)
         }
         
-        title.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.centerY.centerX.equalToSuperview()
             make.edges.equalToSuperview()
         }

@@ -8,7 +8,9 @@
 import UIKit
 import SnapKit
 
-class HeaderViewCell: UICollectionReusableView {
+class BannerViewCell: UICollectionReusableView {
+    
+    static let reuseIdentifer = "HeaderViewCell"
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()

@@ -9,8 +9,21 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class HomeDetailPopUpCell: UICollectionViewCell {
-    static let reuseIdentifier: String = "EntirePopupTableViewCell"
+final class HomeDetailPopUpCell: UICollectionViewCell {
+    
+    enum ButtonState {
+        case tapped
+        case untapped
+        
+        var imageState: UIImage? {
+            switch self {
+            case .tapped:
+                return UIImage(named: "bookmark")
+            case .untapped:
+                return UIImage(named: "bookmarkUncheck")
+            }
+        }
+    }
     
     lazy var contentContainer: UIView = {
         let view = UIView()
@@ -21,10 +34,11 @@ class HomeDetailPopUpCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    let bookMarkButton: UIButton = {
+    let bookMark: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "bookmarkUncheck"), for: .normal)
         return button
@@ -66,14 +80,50 @@ class HomeDetailPopUpCell: UICollectionViewCell {
         return label
     }()
     
+    private var currentState: ButtonState = .untapped
+    let bookmarkSubject: PublishSubject<ButtonState> = .init()
+    var disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
         setUpConstraint()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        bind()
+    }
+    
+    private func bind() {
+        bookMark.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.currentState = owner.currentState == .untapped ? .tapped : .untapped
+                owner.bookmarkSubject.onNext(owner.currentState)
+            }
+            .disposed(by: disposeBag)
+        
+        bookmarkSubject
+            .subscribe(onNext: { state in
+                self.updateView(state: state)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func updateView(state: ButtonState) {
+        switch state {
+        case .tapped:
+            self.bookMark.setImage(state.imageState, for: .normal)
+        case .untapped:
+            self.bookMark.setImage(state.imageState, for: .normal)
+        }
     }
     
     private func setUp() {
@@ -121,8 +171,8 @@ class HomeDetailPopUpCell: UICollectionViewCell {
             make.top.equalTo(locationLabel.snp.bottom)
             make.height.equalTo(15)
         }
-        popUpImageView.addSubview(bookMarkButton)
-        bookMarkButton.snp.makeConstraints { make in
+        popUpImageView.addSubview(bookMark)
+        bookMark.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
             make.trailing.equalToSuperview().inset(6)
             make.size.equalTo(24)

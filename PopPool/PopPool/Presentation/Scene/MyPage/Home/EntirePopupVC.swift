@@ -64,7 +64,7 @@ final class EntirePopupVC: BaseViewController {
         entirePopUpCollectionView.delegate = self
         entirePopUpCollectionView.dataSource = self
         entirePopUpCollectionView.register(HomeDetailPopUpCell.self,
-                                           forCellWithReuseIdentifier: HomeDetailPopUpCell.reuseIdentifier)
+                                           forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier)
     }
     
     private func setUpConstraint() {
@@ -89,9 +89,8 @@ extension EntirePopupVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.reuseIdentifier, for: indexPath) as? HomeDetailPopUpCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as? HomeDetailPopUpCell else { return UICollectionViewCell() }
         cell.injectionWith(input: .init(image: UIImage(systemName: "photo"), category: "#카테고리", title: "팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명", location: "서울시 송파구", date: "2024.08.11"))
-        cell.backgroundColor = .green
         return cell
     }
 }

@@ -11,170 +11,219 @@ import SnapKit
 
 final class LoggedHomeVC: BaseViewController {
     
-    enum Section: CaseIterable {
-        case header
+    enum Section: Int, CaseIterable {
+        case banner
+        case recommendedHeader
         case recommended
+        case interestHeader
         case interest
-        case new
+        case latestHeader
+        case latest
+        
+        var items: Int {
+            switch self {
+            case .banner: return 4
+            case .latestHeader, .interestHeader, .recommendedHeader: return 1
+            default: return 6
+            }
+        }
     }
     
     let header = HeaderViewCPNT(title: "교체 예정", style: .icon(nil))
+    
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: self.setLayout())
         view.isScrollEnabled = true
-        view.backgroundColor = .green
         view.clipsToBounds = true
+        
         view.register(TestingHomeCollectionViewCell.self,
                       forCellWithReuseIdentifier: TestingHomeCollectionViewCell.identifier)
-        
-        view.register(HeaderViewCell.self,
-                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                      withReuseIdentifier: TestingHomeCollectionViewCell.identifier)
+        view.register(HomeDetailPopUpCell.self,
+                      forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier)
+        view.register(SectionHeaderCell.self,
+                      forCellWithReuseIdentifier: SectionHeaderCell.identifier)
+        view.register(InterestViewCell.self,
+                      forCellWithReuseIdentifier: InterestViewCell.identifier)
+//        view.register(HeaderViewCell.self,
+//                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+//                      withReuseIdentifier: HeaderViewCell.reuseIdentifer)
         return view
     }()
-    
-    private func setLayout() -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout { (section, env) -> NSCollectionLayoutSection? in
-            switch section {
-            case 0:
-              let itemFractionalWidthFraction = 1.0 / 3.0 // horizontal 3개의 셀
-              let groupFractionalHeightFraction = 1.0 / 4.0 // vertical 4개의 셀
-              let itemInset: CGFloat = 2.5
-              
-              // Item
-              let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(itemFractionalWidthFraction),
-                heightDimension: .fractionalHeight(1)
-              )
-              let item = NSCollectionLayoutItem(layoutSize: itemSize)
-              item.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-              
-              // Group
-              let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(groupFractionalHeightFraction)
-              )
-              let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-              
-              // Section
-              let section = NSCollectionLayoutSection(group: group)
-              section.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-              
-              // header / footer
-              let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100.0))
-              let header = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerFooterSize,
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-              )
-              let footer = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerFooterSize,
-                elementKind: UICollectionView.elementKindSectionFooter,
-                alignment: .bottom
-              )
-              section.boundarySupplementaryItems = [header, footer]
-              
-              return section
-            default:
-              let itemFractionalWidthFraction = 1.0 / 5.0 // horizontal 5개의 셀
-              let groupFractionalHeightFraction = 1.0 / 4.0 // vertical 4개의 셀
-              let itemInset: CGFloat = 2.5
-              
-              // Item
-              let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(itemFractionalWidthFraction),
-                heightDimension: .fractionalHeight(1)
-              )
-              let item = NSCollectionLayoutItem(layoutSize: itemSize)
-              item.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-              
-              // Group
-              let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(groupFractionalHeightFraction)
-              )
-              let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-              
-              // Section
-              let section = NSCollectionLayoutSection(group: group)
-              section.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-              return section
-            }
-          }
-    }
     
     private let viewModel: HomeVM
     
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
         super.init()
-        setUp()
-        setUpConstraint()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUp() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUp()
+        setUpConstraint()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    private func bind() {
         
     }
     
+    private func setUp() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    private func setLayout() -> UICollectionViewCompositionalLayout {
+        UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+            guard let sectionType = Section(rawValue: section) else { return nil }
+            
+            switch sectionType {
+            case .banner: return self.createBannerSection()
+            case .recommendedHeader: return self.createSectionHeader(height: 84)
+            case .recommended: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
+            case .interestHeader: return self.createSectionHeader(height: 84)
+            case .interest: return self.createHorizontalSection(width: 232, height: 332, behavior: .paging)
+            case .latestHeader: return self.createSectionHeader(height: 84)
+            case .latest: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
+            }
+        }
+    }
+    
+    private func createBannerSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.4))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPaging
+        return section
+    }
+    
+    private func createSectionHeader(height: CGFloat) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(height))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(height))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .none
+        return section
+    }
+    
+    private func createHorizontalSection(width: CGFloat, height: CGFloat, behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior) -> NSCollectionLayoutSection {
+        let itemPadding: CGFloat = 8
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(width),
+            heightDimension: .absolute(height))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 0, leading: itemPadding, bottom: 0, trailing: itemPadding)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(width),
+            heightDimension: .absolute(height))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = behavior
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 0, leading: 20-itemPadding, bottom: 40, trailing: 20-itemPadding)
+        return section
+    }
+    
     private func setUpConstraint() {
-        navigationController?.navigationBar.isHidden = true
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         view.addSubview(header)
         header.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
     }
 }
 
-extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {  
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        // scroll시 header alpha값 변경
+//        // 총 스크롤 값 프로필 뷰 높이 - headerBackGroundView의 높이
+//        let limitScroll = profileViewHeight - headerBackGroundView.bounds.maxY
+//        let scrollValue = scrollView.contentOffset.y + view.safeAreaLayoutGuide.layoutFrame.minY
+//        let alpha: Double = scrollValue / limitScroll
+//        
+//        // alpha값 변경
+//        if alpha <= 0.05 {
+//            headerBackGroundView.alpha = 0
+//        } else if (0.05...0.95).contains(alpha) {
+//            headerBackGroundView.alpha = alpha
+//        } else {
+//            headerBackGroundView.alpha = 1
+//        }
+//        profileView.scrollViewDidScroll(scrollView: scrollView, alpha: alpha)
+//    }
+//    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return Section.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        let section = Section.allCases
-        
-//        switch section {
-//        case .header:
-//            return 10
-//        case 1:
-//            return 10
-//        case 2:
-//            return 10
-//        case 3:
-//            return 10
-//        default:
-//            return 0
-//        }
-        return 1
+        return Section(rawValue: section)?.items ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard var cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestingHomeCollectionViewCell.identifier, for: indexPath) as? TestingHomeCollectionViewCell else { return UICollectionViewCell(frame: .zero) }
+        guard let sectionType = Section(rawValue: indexPath.section) else { return UICollectionViewCell() }
         
-//        switch indexPath.section {
-//        case 0:
-//            cell.backgroundColor = .purple
-//            
-//        case 1:
-//            cell.backgroundColor = .red
-//        case 2:
-//            cell.backgroundColor = .orange
-//        case 3:
-//            cell.backgroundColor = .green
-//        default:
-//            cell.backgroundColor = .orange
-//        }
-        cell.setLabel(text: indexPath.description)
-        return cell
+        switch sectionType {
+        case .banner:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestingHomeCollectionViewCell.identifier, for: indexPath) as! TestingHomeCollectionViewCell
+            cell.setImage(image: UIImage(named: "defaultLogo"))
+            return cell
+        case .recommendedHeader, .latestHeader:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
+            cell.configure(title: "집에 가고 싶어요 님을 위한\n맞춤 팝업 큐레이션")
+            return cell
+        case .recommended, .latest:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
+            cell.injectionWith(input: HomeDetailPopUpCell.Input(
+                image: UIImage(named: "defaultLogo"),
+                category: "#카테고리",
+                title: "일이삼사오육칠팔구십일이삼사오육칠팔구십",
+                location: "서울시 송파구",
+                date: "2024.07.03")
+            )
+            return cell
+            
+        case .interestHeader:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
+            cell.configure(title: "팝풀이들은 지금 이런\n팝업에 가장 관심있어요")
+            cell.backgroundColor = .g700
+            return cell
+        case .interest:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
+            cell.configure(title: "#8월 22일까지 열리는\n#패션, #성수동", category: "팝업스토어명 팝업스토어명", image: UIImage(named: "defaultLogo"))
+            cell.backgroundColor = .g700
+            return cell
+        }
     }
 }
