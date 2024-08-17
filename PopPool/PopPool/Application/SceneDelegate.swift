@@ -26,14 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // 기존 코드 (주석 처리)
 //        window?.rootViewController = UINavigationController(rootViewController: ViewController(viewModel: ViewControllerViewModel()))
-//        window?.rootViewController = UINavigationController(rootViewController: LoginVC(viewModel: LoginVM()))
-//        window?.rootViewController = UINavigationController(rootViewController: BlockedUserVC(blockCount: 3))
-
-        // MapVC를 루트 뷰 컨트롤러로 설정
-        let mapViewModel = MapVM()
-        let mapViewController = MapVC(viewModel: mapViewModel)
-        window?.rootViewController = UINavigationController(rootViewController: mapViewController)
-
+        window?.rootViewController = UINavigationController(rootViewController: LoginVC(viewModel: LoginVM()))
+        //window?.rootViewController = UINavigationController(rootViewController: BlockedUserVC(blockCount: 3))
         window?.makeKeyAndVisible()
     }
 

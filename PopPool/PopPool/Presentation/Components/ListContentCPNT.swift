@@ -83,7 +83,7 @@ final class ListContentCPNT: UIStackView {
      
     //MARK: - Methods
     
-    private func setUp(title: String, subTitle: String, info: String) {
+    public func setUp(title: String, subTitle: String, info: String) {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         self.isLayoutMarginsRelativeArrangement = true
         self.axis = .vertical
