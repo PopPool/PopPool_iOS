@@ -13,13 +13,14 @@ import RxCocoa
 final class ProfileEditVM: ViewModelable {
 
     struct Input {
-        var viewWillAppear: ControlEvent<Void>
+        var viewWillAppear: PublishSubject<Void>
         var nickNameState: Observable<ValidationTextFieldCPNT.ValidationState>
         var nickNameButtonTapped: ControlEvent<Void>
         var instaLinkText: ControlProperty<String>
         var introText: PublishSubject<DynamicTextViewCPNT.TextViewState>
         var saveButtonTapped: ControlEvent<Void>
     }
+    
     struct Output {
         var originUserData: PublishSubject<GetProfileResponse>
         var nickNameState: PublishSubject<ValidationTextFieldCPNT.ValidationState>
@@ -29,13 +30,14 @@ final class ProfileEditVM: ViewModelable {
     // MARK: - Properties
     var disposeBag = DisposeBag()
     private var originUserData: PublishSubject<GetProfileResponse> = .init()
-    private var originUserDataStatic: GetProfileResponse = .init(nickname: "", gender: "", age: 0, interestCategoryList: [])
+    var originUserDataStatic: GetProfileResponse = .init(nickname: "", gender: "", age: 0, interestCategoryList: [])
     private var newUserData: BehaviorRelay<GetProfileResponse> = .init(value: .init(nickname: "", gender: "", age: 0, interestCategoryList: []))
-    private var userUseCase: UserUseCase
+    var userUseCase: UserUseCase
     private var signUpUseCase: SignUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
     private var saveButtonIsActive: BehaviorRelay<Bool> = .init(value: false)
     private var isValidNickName: Bool = true
     private var isValidIntro: Bool = true
+    
     // MARK: - init
     init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
@@ -47,6 +49,7 @@ final class ProfileEditVM: ViewModelable {
         input.viewWillAppear
             .withUnretained(self)
             .subscribe { (owner, _) in
+                print("viewModel ViewWillAppear")
                 owner.userUseCase.fetchProfile(userId: Constants.userId)
                     .subscribe { profileResponse in
                         owner.originUserDataStatic = profileResponse
