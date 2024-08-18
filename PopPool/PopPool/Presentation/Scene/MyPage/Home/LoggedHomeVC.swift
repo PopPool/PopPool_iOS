@@ -44,9 +44,9 @@ final class LoggedHomeVC: BaseViewController {
                       forCellWithReuseIdentifier: SectionHeaderCell.identifier)
         view.register(InterestViewCell.self,
                       forCellWithReuseIdentifier: InterestViewCell.identifier)
-//        view.register(HeaderViewCell.self,
-//                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-//                      withReuseIdentifier: HeaderViewCell.reuseIdentifer)
+        view.register(PopUpBackgroundView.self,
+                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                      withReuseIdentifier: PopUpBackgroundView.reuseIdentifer)
         return view
     }()
     
@@ -87,7 +87,7 @@ final class LoggedHomeVC: BaseViewController {
     }
     
     private func setLayout() -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
             guard let sectionType = Section(rawValue: section) else { return nil }
             
             switch sectionType {
@@ -95,11 +95,20 @@ final class LoggedHomeVC: BaseViewController {
             case .recommendedHeader: return self.createSectionHeader(height: 84)
             case .recommended: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
             case .interestHeader: return self.createSectionHeader(height: 84)
-            case .interest: return self.createHorizontalSection(width: 232, height: 332, behavior: .paging)
+            case .interest:
+                let section = self.createHorizontalSection(width: 232, height: 332, behavior: .paging)
+                let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
+                section.decorationItems = [backgroundView]
+                return section
             case .latestHeader: return self.createSectionHeader(height: 84)
             case .latest: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
             }
         }
+        
+        // 특정 section의 백그라운드 등록
+        layout.register(PopUpBackgroundView.self,
+                        forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifer)
+        return layout
     }
     
     private func createBannerSection() -> NSCollectionLayoutSection {
