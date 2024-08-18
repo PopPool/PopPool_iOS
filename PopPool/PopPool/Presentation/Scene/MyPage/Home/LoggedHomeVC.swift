@@ -35,6 +35,7 @@ final class LoggedHomeVC: BaseViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: self.setLayout())
         view.isScrollEnabled = true
         view.clipsToBounds = true
+        view.contentInsetAdjustmentBehavior = .never
         
         view.register(TestingHomeCollectionViewCell.self,
                       forCellWithReuseIdentifier: TestingHomeCollectionViewCell.identifier)
@@ -69,6 +70,7 @@ final class LoggedHomeVC: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -100,7 +102,7 @@ final class LoggedHomeVC: BaseViewController {
                 section.decorationItems = [backgroundView]
                 return section
             case .interest:
-                let section = self.createHorizontalSection(width: 232, height: 332, behavior: .paging)
+                let section = self.createHorizontalSection(width: 232, height: 332, behavior: .groupPaging)
                 let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
                 section.decorationItems = [backgroundView]
                 return section
@@ -167,7 +169,7 @@ final class LoggedHomeVC: BaseViewController {
     private func setUpConstraint() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
         }
         view.addSubview(header)
         header.snp.makeConstraints { make in
@@ -215,12 +217,12 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         case .recommendedHeader, .latestHeader:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
             cell.configure(title: "집에 가고 싶어요 님을 위한\n맞춤 팝업 큐레이션")
-            cell.actionTapped.subscribe(onNext: {
+            cell.actionTapped.subscribe { _ in
                 print("전체보기가 눌렸습니다.")
                 let vm = EntirePopupVM()
                 let vc = EntirePopupVC(viewModel: vm)
                 self.navigationController?.pushViewController(vc, animated: true)
-            })
+            }
             .disposed(by: cell.disposeBag)
             
             return cell
