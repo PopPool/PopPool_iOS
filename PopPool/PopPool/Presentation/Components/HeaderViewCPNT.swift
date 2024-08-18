@@ -37,7 +37,7 @@ final class HeaderViewCPNT: UIStackView {
         button.setTitleColor(.g1000, for: .normal)
         return button
     }()
-    private let leftTrailingView = UIView()
+    let leftTrailingView = UIView()
     private let centerTrailingView = UIView()
     private let rightTrailingView = UIView()
 

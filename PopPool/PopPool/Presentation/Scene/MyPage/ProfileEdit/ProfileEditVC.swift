@@ -97,6 +97,8 @@ final class ProfileEditVC: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
+    private let viewWillAppear: PublishSubject<Void> = .init()
+    
     init(viewModel: ProfileEditVM) {
         self.viewModel = viewModel
         super.init()
@@ -114,6 +116,10 @@ extension ProfileEditVC {
         setUp()
         setUpConstraints()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewWillAppear.onNext(())
     }
 }
 
@@ -216,8 +222,43 @@ private extension ProfileEditVC {
             }
             .disposed(by: disposeBag)
         
+        categoryView.filterButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let selectedList = owner.viewModel.originUserDataStatic.interestCategoryList.map{$0.categoryId}
+                let vm = ProfileEditCategoryBottomSheetVM(selectedCategory: selectedList, userUseCase: owner.viewModel.userUseCase)
+                let vc = ProfileEditCategoryBottomSheetVC(viewModel: vm)
+                owner.presentModalViewController(viewController: vc)
+                vc.rx.viewWillDisappear
+                    .withUnretained(self)
+                    .subscribe { (owner, _) in
+                        owner.viewWillAppear(true)
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        userInfoView.filterButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let userData = owner.viewModel.originUserDataStatic
+                let vm = ProfileEditUserDataBottomSheetVM(
+                    orignUserData: .init(gender: userData.gender, age: userData.age),
+                    userUseCase: owner.viewModel.userUseCase
+                )
+                let vc = ProfileEditUserDataBottomSheetVC(viewModel: vm)
+                vc.rx.viewWillDisappear
+                    .withUnretained(self)
+                    .subscribe { (owner, _) in
+                        owner.viewWillAppear(true)
+                    }
+                    .disposed(by: owner.disposeBag)
+                owner.presentModalViewController(viewController: vc)
+            }
+            .disposed(by: disposeBag)
+        
         let input = ProfileEditVM.Input(
-            viewWillAppear: self.rx.viewWillAppear,
+            viewWillAppear: self.viewWillAppear,
             nickNameState: nickNameTextField.stateObserver.asObservable(),
             nickNameButtonTapped: nickNameTextField.checkValidationButton.rx.tap,
             instaLinkText: instagramTextField.textField.rx.text.orEmpty,
@@ -237,9 +278,10 @@ private extension ProfileEditVC {
                 owner.introTextField.textView.text = originData.intro
                 let categoryString = originData.interestCategoryList.count == 0 ? "" : originData.interestCategoryList.count == 1 ? originData.interestCategoryList.first!.interestCategory : originData.interestCategoryList.first!.interestCategory + "외 \(originData.interestCategoryList.count - 1) 개"
                 owner.categoryView.rightLabel.text = categoryString
-                owner.userInfoView.rightLabel.text = originData.gender + String(originData.age) + "세"
+                owner.userInfoView.rightLabel.text = originData.gender + " " + String(originData.age) + "세"
             }
             .disposed(by: disposeBag)
+        
         output.nickNameState
             .withUnretained(self)
             .subscribe { (owner, state) in
@@ -250,7 +292,6 @@ private extension ProfileEditVC {
         output.saveButtonIsActive
             .withUnretained(self)
             .subscribe { (owner, isActive) in
-                print(isActive)
                 owner.saveButton.isEnabled = isActive
             }
             .disposed(by: disposeBag)

@@ -64,6 +64,10 @@ private extension InterestSelectedView {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.categoryCollectionView.reloadData()
+                let selectedList = owner.selectedList.value
+                for i in selectedList {
+                    owner.categoryCollectionView.selectItem(at: i, animated: true, scrollPosition: .top)
+                }
             }
             .disposed(by: disposeBag)
     }
