@@ -46,6 +46,7 @@ final class ListTitleViewCPNT: UIStackView {
     let titleLabel: UILabel = UILabel()
     let subTitleLabel: UILabel = UILabel()
     let iconImageView: UIImageView = UIImageView()
+    let bottomSpace = UIView()
     let containerView = UIView()
     
     // MARK: - init
@@ -81,6 +82,7 @@ private extension ListTitleViewCPNT {
             containerView.addSubview(titleLabel)
             containerView.addSubview(iconImageView)
             containerView.addSubview(subTitleLabel)
+            containerView.addSubview(bottomSpace)
             titleLabel.snp.makeConstraints { make in
                 make.top.leading.equalToSuperview()
                 make.height.equalTo(22)
@@ -94,6 +96,12 @@ private extension ListTitleViewCPNT {
                 make.top.equalTo(titleLabel.snp.bottom).offset(4)
                 make.leading.trailing.bottom.equalToSuperview()
                 make.height.equalTo(20)
+            }
+            
+            bottomSpace.snp.makeConstraints { make in
+                make.top.equalTo(subTitleLabel.snp.bottom)
+                make.leading.trailing.equalToSuperview()
+                make.height.equalTo(Constants.spaceGuide.small100)
             }
 
             self.addArrangedSubview(containerView)

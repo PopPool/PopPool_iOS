@@ -6,13 +6,15 @@
 //
 
 import UIKit
+
+import RxCocoa
 import RxSwift
 import SnapKit
 
 final class DynamicTextViewCPNT: UIStackView {
     
     /// TF 상태값
-    enum TextViewState {
+    enum TextViewState: Equatable {
         case none_active
         case normal_active(String)
         case overText_active(Int)
@@ -23,7 +25,7 @@ final class DynamicTextViewCPNT: UIStackView {
         var stateColor: UIColor {
             switch self {
             case .none, .normal:
-                return .g200
+                return .g100
             case .normal_active, .none_active:
                 return .g1000
             case .overText, .overText_active(_):
@@ -66,7 +68,7 @@ final class DynamicTextViewCPNT: UIStackView {
         let view = UIView()
         view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 4
-        view.layer.borderColor = UIColor.g200.cgColor
+        view.layer.borderColor = UIColor.g100.cgColor
         view.layer.borderWidth = 1.2
         return view
     }()
@@ -77,7 +79,7 @@ final class DynamicTextViewCPNT: UIStackView {
         return label
     }()
     
-    private let textView: UITextView = {
+    let textView: UITextView = {
         let tf = UITextView()
         tf.isScrollEnabled = false
         tf.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -200,6 +202,8 @@ private extension DynamicTextViewCPNT {
             .disposed(by: disposeBag)
         
         textViewStateObserver
+            .asObserver()
+            .distinctUntilChanged()
             .withUnretained(self)
             .subscribe { (owner, state) in
                 owner.changeView(from: state)

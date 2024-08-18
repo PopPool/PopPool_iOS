@@ -68,6 +68,11 @@ final class ListMenuCPNT: UIStackView {
     
     //MARK: - Method
     
+    func updateView(count: Int) {
+        self.titleLabel.text = "총 \(count) 건"
+        self.iconButton.isHidden = true
+    }
+    
     private func setUp() {
         self.axis = .vertical
         self.titleLabel.textColor = .g1000

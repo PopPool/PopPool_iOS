@@ -1,5 +1,5 @@
 {
-  "originHash" : "3d9248494531e4d3801d7dc16e459436f7bc554a6848662757b497069839e58b",
+  "originHash" : "e52d1748a423c8cd97ebdfec0f29722b26b93df0c611d183c4f747b009e998f6",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
         "version" : "5.9.1"
+      }
+    },
+    {
+      "identity" : "ios-maps-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/googlemaps/ios-maps-sdk.git",
+      "state" : {
+        "revision" : "9a047386dc75d576fc93b82ac5890f88e31dd1d6",
+        "version" : "9.1.0"
       }
     },
     {

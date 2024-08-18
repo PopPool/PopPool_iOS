@@ -41,10 +41,10 @@ struct PopPoolAPIEndPoint {
     
     /// 관심사 목록을 가져옵니다.
     /// - Returns: Endpoint<GetInterestListResponseDTO>
-    static func signUp_getInterestList() -> Endpoint<GetInterestListResponseDTO> {
+    static func signUp_getCategoryList() -> Endpoint<GetCategoryListResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/signup/interests",
+            path: "/signup/categories",
             method: .get
         )
     }
@@ -69,7 +69,7 @@ struct PopPoolAPIEndPoint {
     static func user_getMyPage(userId: String) -> Endpoint<GetMyPageResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/users/\(userId)",
+            path: "/users/\(userId)/my-page",
             method: .get
         )
     }
@@ -262,4 +262,13 @@ struct PopPoolAPIEndPoint {
             bodyParameters: request
         )
     }
-}
+    /// 팝업 스토어 목록을 조회합니다.
+       /// - Returns: Endpoint<[PopUpStoreDTO]>
+       static func map_fetchPopUpStores() -> Endpoint<[PopUpStoreDTO]> {
+           return Endpoint(
+               baseURL: Secrets.popPoolBaseUrl.rawValue,
+               path: "/map/popupstores",
+               method: .get
+           )
+       }
+   }

@@ -130,7 +130,7 @@ protocol UserRepository {
     /// 유저 프로필을 업데이트합니다.
     /// - Parameters:
     ///   - userId: 유저 아이디
-    ///   - profileImage: 프로필 이미지 URL
+    ///   - profileImageURL: 프로필 이미지 URL
     ///   - nickname: 닉네임
     ///   - email: 이메일
     ///   - instagramId: 인스타그램 ID
@@ -140,9 +140,9 @@ protocol UserRepository {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable
     
     /// 유저 맞춤 정보를 업데이트합니다.
