@@ -840,6 +840,8 @@
 				082025AC2C63B19300FC9BA4 /* Notice */,
 				082025B12C63B1E200FC9BA4 /* Blocked */,
 				BDF089F02C6504B80098486D /* TermBoard */,
+				4E184D5C2C6F1FC800573A2E /* RecentPopUp */,
+				4E184D612C6F1FD400573A2E /* FavoritePopUp */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1396,7 +1398,7 @@
 				4E184D602C6F1FD400573A2E /* FavoritePopUpVM.swift */,
 			);
 			name = FavoritePopUp;
-			path = PopPool/Presentation/Scene/Map/FavoritePopUp;
+			path = PopPool/Presentation/Scene/MyPage/FavoritePopUp;
 			sourceTree = SOURCE_ROOT;
 		};
 		4E4DC0052C61D3E7007CE63A /* Map */ = {
@@ -1406,8 +1408,6 @@
 				4E9A33A02C648DEE000F4095 /* StoresService.swift */,
 				4E4DC0062C61D40A007CE63A /* MapVC.swift */,
 				4E4DC0172C620251007CE63A /* MapVM.swift */,
-				4E184D5C2C6F1FC800573A2E /* RecentPopUp */,
-				4E184D612C6F1FD400573A2E /* FavoritePopUp */,
 			);
 			path = Map;
 			sourceTree = "<group>";
