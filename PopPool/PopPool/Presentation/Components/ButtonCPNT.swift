@@ -84,7 +84,7 @@ final class ButtonCPNT: UIButton {
         self.titleLabel?.font = type.font
         self.setTitle(disabledTitle, for: .disabled)
         self.setTitleColor(.g400, for: .disabled)
-        self.setBackgroundColor(.g50, for: .disabled)
+        self.setBackgroundColor(.g100, for: .disabled)
         setUpLayer()
         setUpButtonType(type: type)
     }
