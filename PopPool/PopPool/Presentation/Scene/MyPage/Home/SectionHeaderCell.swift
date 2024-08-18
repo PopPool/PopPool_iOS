@@ -45,7 +45,7 @@ final class SectionHeaderCell: UICollectionViewCell {
         let attributes: [NSMutableAttributedString.Key: Any] = [
             .font: UIFont.KorFont(style: .regular, size: 13),
             .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: UIColor.w100
+            .foregroundColor: UIColor.black
         ]
         let attributedString = NSMutableAttributedString(string: text,
                                                          attributes: attributes)
@@ -56,6 +56,12 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     private let buttonContainer = UIView()
     private let spaceView = UIView()
+    
+    var actionTapped: Observable<Void> {
+        return actionButton.rx.tap.asObservable()
+    }
+    
+    let disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,6 +75,12 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     public func configure(title: String) {
         titleLabel.text = title
+    }
+    
+    public func configureWhite(title: String) {
+        titleLabel.text = title
+        titleLabel.textColor = .w100
+        actionButton.setTitleColor(.w100, for: .normal)
     }
     
     private func setUp() {

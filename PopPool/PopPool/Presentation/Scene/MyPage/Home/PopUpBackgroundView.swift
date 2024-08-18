@@ -13,7 +13,7 @@ class PopUpBackgroundView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .yellow
+        self.backgroundColor = .g700
     }
     
     required init?(coder: NSCoder) {

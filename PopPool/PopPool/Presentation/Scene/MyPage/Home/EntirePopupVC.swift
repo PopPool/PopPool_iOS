@@ -49,17 +49,27 @@ final class EntirePopupVC: BaseViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func bind() {
         header.leftBarButton.rx.tap
             .subscribe(onNext: {
                 print("버튼이 눌렸습니다.")
+                self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
     }
     
     private func setUp() {
         header.rightBarButton.isHidden = true
-        navigationController?.navigationBar.isHidden = true
         entirePopUpCollectionView.backgroundColor = .systemBackground
         entirePopUpCollectionView.delegate = self
         entirePopUpCollectionView.dataSource = self

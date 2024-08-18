@@ -94,7 +94,11 @@ final class LoggedHomeVC: BaseViewController {
             case .banner: return self.createBannerSection()
             case .recommendedHeader: return self.createSectionHeader(height: 84)
             case .recommended: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
-            case .interestHeader: return self.createSectionHeader(height: 84)
+            case .interestHeader: 
+                let section = self.createSectionHeader(height: 84)
+                let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
+                section.decorationItems = [backgroundView]
+                return section
             case .interest:
                 let section = self.createHorizontalSection(width: 232, height: 332, behavior: .paging)
                 let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
@@ -211,6 +215,14 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         case .recommendedHeader, .latestHeader:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
             cell.configure(title: "집에 가고 싶어요 님을 위한\n맞춤 팝업 큐레이션")
+            cell.actionTapped.subscribe(onNext: {
+                print("전체보기가 눌렸습니다.")
+                let vm = EntirePopupVM()
+                let vc = EntirePopupVC(viewModel: vm)
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: cell.disposeBag)
+            
             return cell
         case .recommended, .latest:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
@@ -225,13 +237,11 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
         case .interestHeader:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
-            cell.configure(title: "팝풀이들은 지금 이런\n팝업에 가장 관심있어요")
-            cell.backgroundColor = .g700
+            cell.configureWhite(title: "팝풀이들은 지금 이런\n팝업에 가장 관심있어요")
             return cell
         case .interest:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
             cell.configure(title: "#8월 22일까지 열리는\n#패션, #성수동", category: "팝업스토어명 팝업스토어명", image: UIImage(named: "defaultLogo"))
-            cell.backgroundColor = .g700
             return cell
         }
     }
