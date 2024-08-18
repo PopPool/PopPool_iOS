@@ -167,6 +167,11 @@
 		08FF6C172C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C162C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift */; };
 		08FF6C1B2C70C40300B68569 /* ProfileEditUserDataBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C1A2C70C40300B68569 /* ProfileEditUserDataBottomSheetVC.swift */; };
 		08FF6C1D2C70C97700B68569 /* ProfileEditUserDataBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C1C2C70C97700B68569 /* ProfileEditUserDataBottomSheetVM.swift */; };
+		08FF6C202C721C1800B68569 /* NoticeInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C1F2C721C1800B68569 /* NoticeInfoDTO.swift */; };
+		08FF6C242C721C6500B68569 /* GetNoticeListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C232C721C6500B68569 /* GetNoticeListResponseDTO.swift */; };
+		08FF6C262C721CA800B68569 /* GetNoticeDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C252C721CA800B68569 /* GetNoticeDetailResponseDTO.swift */; };
+		08FF6C282C721CE600B68569 /* CreateNoticeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */; };
+		08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */; };
 		4E184D5D2C6F1FC800573A2E /* RecentPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E184D5B2C6F1FC800573A2E /* RecentPopUpVC.swift */; };
 		4E184D622C6F1FD500573A2E /* FavoritePopUpFilterModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E184D5E2C6F1FD400573A2E /* FavoritePopUpFilterModalVC.swift */; };
 		4E184D632C6F1FD500573A2E /* FavoritePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E184D5F2C6F1FD400573A2E /* FavoritePopUpVC.swift */; };
@@ -420,6 +425,11 @@
 		08FF6C162C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCategoryBottomSheetVM.swift; sourceTree = "<group>"; };
 		08FF6C1A2C70C40300B68569 /* ProfileEditUserDataBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditUserDataBottomSheetVC.swift; sourceTree = "<group>"; };
 		08FF6C1C2C70C97700B68569 /* ProfileEditUserDataBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditUserDataBottomSheetVM.swift; sourceTree = "<group>"; };
+		08FF6C1F2C721C1800B68569 /* NoticeInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeInfoDTO.swift; sourceTree = "<group>"; };
+		08FF6C232C721C6500B68569 /* GetNoticeListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeListResponseDTO.swift; sourceTree = "<group>"; };
+		08FF6C252C721CA800B68569 /* GetNoticeDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeDetailResponseDTO.swift; sourceTree = "<group>"; };
+		08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoticeRequestDTO.swift; sourceTree = "<group>"; };
+		08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoticeRequestDTO.swift; sourceTree = "<group>"; };
 		4E184D5B2C6F1FC800573A2E /* RecentPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPopUpVC.swift; sourceTree = "<group>"; };
 		4E184D5E2C6F1FD400573A2E /* FavoritePopUpFilterModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritePopUpFilterModalVC.swift; sourceTree = "<group>"; };
 		4E184D5F2C6F1FD400573A2E /* FavoritePopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritePopUpVC.swift; sourceTree = "<group>"; };
@@ -1036,6 +1046,7 @@
 				08B965902C16005300BF95AA /* LoginDTO */,
 				08C813EF2C2EF5F0009239FE /* SignUpDTO */,
 				08E23A582C4E14BA004B77B6 /* UserDTO */,
+				08FF6C1E2C721C0000B68569 /* NoticeDTO */,
 			);
 			path = PopPoolNetwork;
 			sourceTree = "<group>";
@@ -1379,6 +1390,18 @@
 				08FF6C1C2C70C97700B68569 /* ProfileEditUserDataBottomSheetVM.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		08FF6C1E2C721C0000B68569 /* NoticeDTO */ = {
+			isa = PBXGroup;
+			children = (
+				08FF6C1F2C721C1800B68569 /* NoticeInfoDTO.swift */,
+				08FF6C232C721C6500B68569 /* GetNoticeListResponseDTO.swift */,
+				08FF6C252C721CA800B68569 /* GetNoticeDetailResponseDTO.swift */,
+				08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */,
+				08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */,
+			);
+			path = NoticeDTO;
 			sourceTree = "<group>";
 		};
 		4E184D5C2C6F1FC800573A2E /* RecentPopUp */ = {
@@ -1764,7 +1787,9 @@
 				08E23A722C4E1CF8004B77B6 /* CheckedSurveyDTO.swift in Sources */,
 				08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */,
 				08E23AB32C4F8817004B77B6 /* Survey.swift in Sources */,
+				08FF6C262C721CA800B68569 /* GetNoticeDetailResponseDTO.swift in Sources */,
 				08E23A9A2C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift in Sources */,
+				08FF6C202C721C1800B68569 /* NoticeInfoDTO.swift in Sources */,
 				08B183C32C442113006C34BB /* ListTitleViewCPNT.swift in Sources */,
 				08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
@@ -1796,6 +1821,7 @@
 				08E23A982C4F7371004B77B6 /* GetProfileResponseDTO.swift in Sources */,
 				08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */,
 				BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */,
+				08FF6C242C721C6500B68569 /* GetNoticeListResponseDTO.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
@@ -1850,9 +1876,11 @@
 				08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */,
 				BD85EB6A2C50045D000DBD05 /* HeaderViewCPNT.swift in Sources */,
 				BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */,
+				08FF6C282C721CE600B68569 /* CreateNoticeRequestDTO.swift in Sources */,
 				08E23AE02C54F12A004B77B6 /* CardListLayout.swift in Sources */,
 				08E23A532C4A2351004B77B6 /* InterestSelectedView.swift in Sources */,
 				BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */,
+				08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
 				089D19102C352E1E000435D9 /* AgeSelectModalVC.swift in Sources */,
 				08E23AA72C4F7D27004B77B6 /* PopUpInfo.swift in Sources */,
