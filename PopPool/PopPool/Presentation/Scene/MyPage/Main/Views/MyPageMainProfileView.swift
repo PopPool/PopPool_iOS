@@ -72,6 +72,7 @@ final class MyPageMainProfileView: UIView {
         super.init(frame: frame)
         setUpConstraints()
         setUpMask()
+        setUp()
     }
     
     required init?(coder: NSCoder) {
@@ -210,7 +211,6 @@ extension MyPageMainProfileView: InputableView {
     
     func injectionWith(input: Input) {
         if input.isLogin {
-            setUp()
             setUpProfileView()
             if let profileImageViewURL = input.profileImage {
                 backGroundImageView.kf.setImage(with: profileImageViewURL)
