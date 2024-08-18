@@ -17,11 +17,13 @@ final class RecentPopUpVC: BaseViewController {
         let view = HeaderViewCPNT(title: "최근 본 팝업", style: .icon(nil))
         return view
     }()
+    
     private let countView: ListMenuViewCPNT = {
         let view = ListMenuViewCPNT(title: "총 5건", style: .filter(nil))
         view.iconImageView.removeFromSuperview()
         return view
     }()
+    
     private let collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: GridLayout(height: 255))
         return view

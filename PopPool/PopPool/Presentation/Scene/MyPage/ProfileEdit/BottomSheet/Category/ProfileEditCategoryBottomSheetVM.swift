@@ -11,10 +11,12 @@ import RxSwift
 import RxCocoa
 
 final class ProfileEditCategoryBottomSheetVM: ViewModelable {
+    
     struct Input {
         var selectedCategory: BehaviorRelay<[IndexPath]>
         var saveButtonTapped: ControlEvent<Void>
     }
+    
     struct Output {
         var categoryList: BehaviorRelay<[Category]>
         var saveButtonIsActive: BehaviorRelay<Bool>
@@ -22,11 +24,17 @@ final class ProfileEditCategoryBottomSheetVM: ViewModelable {
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
+    
     private var categoryList: BehaviorRelay<[Category]> = .init(value: [])
+    
     var originSelectedCategory: [Int64] = []
+    
     private var changeSelectedCategory: BehaviorRelay<[IndexPath]>
+    
     private var signUpUseCase: SignUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
+    
     private var userUseCase: UserUseCase
+    
     private var saveButtonIsActive: BehaviorRelay<Bool> = .init(value: false)
     
     init(selectedCategory: [Int64], userUseCase: UserUseCase) {

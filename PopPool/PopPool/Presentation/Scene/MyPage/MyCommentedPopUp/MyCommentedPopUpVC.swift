@@ -37,6 +37,7 @@ final class MyCommentedPopUpVC: BaseViewController {
         return view
     }()
     
+    // MARK: - Properties
     private let disposeBag = DisposeBag()
     
     private let viewModel: MyCommentedPopUpVM = MyCommentedPopUpVM()
@@ -90,6 +91,7 @@ private extension MyCommentedPopUpVC {
             filterButtonTapped: listFilterView.filterButton.rx.tap
         )
         let output = viewModel.transform(input: input)
+        
         output.moveToBottomModalVC
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -139,6 +141,4 @@ extension MyCommentedPopUpVC: UICollectionViewDelegate, UICollectionViewDataSour
         }
         return cell
     }
-    
-    
 }
