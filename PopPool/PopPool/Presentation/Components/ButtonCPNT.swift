@@ -14,6 +14,7 @@ enum ButtonTYPE {
     case secondary
     case kakao
     case apple
+    case tertiary
     case dft // Default
 }
 
@@ -29,6 +30,8 @@ extension ButtonTYPE {
             return .init(hexCode: "F8E049")
         case .apple:
             return .g900
+        case .tertiary:
+            return .clear
         case .dft:
             return .g100
         }
@@ -44,6 +47,8 @@ extension ButtonTYPE {
             return .black
         case .apple:
             return .w100
+        case .tertiary:
+            return .g300
         case .dft:
             return .g400
         }
@@ -55,6 +60,8 @@ extension ButtonTYPE {
             return UIImage(named: "brand=kakao")
         case .apple:
             return UIImage(named: "brand=apple_light")
+        case .tertiary:
+            return UIImage(named: "arrow_down")
         default:
             return nil
         }
@@ -64,6 +71,8 @@ extension ButtonTYPE {
         switch self {
         case .kakao, .apple:
             return .KorFont(style: .medium, size: 15)
+        case .tertiary:
+            return .KorFont(style: .regular, size: 13)
         default:
             return .KorFont(style: .medium, size: 16)
         }
@@ -115,6 +124,13 @@ private extension ButtonCPNT {
             setIconImageView(image: type.image)
         case .kakao:
             setIconImageView(image: type.image)
+        case .tertiary:
+            titleLabel?.snp.makeConstraints { make in
+                make.leading.equalToSuperview().inset(12)
+            }
+            setEndIconImage(image: type.image)
+            self.layer.borderColor = UIColor.g200.cgColor
+            self.layer.borderWidth = 1
         default:
             self.setBackgroundColor(.pb7, for: .highlighted)
         }
@@ -149,6 +165,21 @@ private extension ButtonCPNT {
                 make.width.equalTo(iconImageView.snp.height).multipliedBy(aspectRatio)
                 make.centerY.equalToSuperview()
             }
+        }
+    }
+    
+    func setEndIconImage(image: UIImage?) {
+        self.iconImageView.image = image
+        if let image = self.iconImageView.image {
+            let aspectRatio = image.size.width / image.size.height
+            self.addSubview(iconImageView)
+            iconImageView.snp.makeConstraints { make in
+                make.trailing.equalToSuperview().inset(8)
+                make.height.equalTo(16)
+                make.width.equalTo(iconImageView.snp.height).multipliedBy(aspectRatio)
+                make.centerY.equalToSuperview()
+            }
+            
         }
     }
 }

@@ -162,6 +162,7 @@
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
 		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
+		BD0109A62C60942E00B2AF21 /* ListDropDownCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */; };
 		08FF6BE12C6DBBA200B68569 /* Reactive+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6BE02C6DBBA200B68569 /* Reactive+.swift */; };
 		08FF6C142C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C132C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift */; };
 		08FF6C172C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C162C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift */; };
@@ -208,6 +209,8 @@
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD6FAFD72C5E4E8B00322405 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */; };
+		BD6FAFD92C5E4E9200322405 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FAFD82C5E4E9200322405 /* InquiryVM.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
 		BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */; };
 		BD79E1792C5740C200CCEE07 /* BaseTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */; };
@@ -415,6 +418,7 @@
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
+		BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDropDownCPNT.swift; sourceTree = "<group>"; };
 		08FF6BE02C6DBBA200B68569 /* Reactive+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+.swift"; sourceTree = "<group>"; };
 		08FF6C132C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCategoryBottomSheetVC.swift; sourceTree = "<group>"; };
 		08FF6C162C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCategoryBottomSheetVM.swift; sourceTree = "<group>"; };
@@ -462,6 +466,8 @@
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVC.swift; sourceTree = "<group>"; };
+		BD6FAFD82C5E4E9200322405 /* InquiryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVM.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
 		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
@@ -863,6 +869,24 @@
 				08E23AD52C54E171004B77B6 /* ViewedPopUpCell.swift */,
 			);
 			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
+		089D19252C3AEB3E000435D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				089D19262C3AEB53000435D9 /* MyPageMainProfileView.swift */,
+				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
+				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
+				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
+				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
+				BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */,
+				BD6FAFD82C5E4E9200322405 /* InquiryVM.swift */,
+				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
+				BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */,
+				BD2975072C5112390090147C /* BlockedUserVM.swift */,
+				BD8733842C50C75D0063499C /* BlockedUserCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		08A28CBF2C2AF2B800DF7A90 /* Views */ = {
@@ -1295,6 +1319,7 @@
 				08B183C22C442113006C34BB /* ListTitleViewCPNT.swift */,
 				08B183C42C4421D5006C34BB /* TextUnderBarButtonCPNT.swift */,
 				08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */,
+				BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */,
 				BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */,
 			);
 			path = Components;
@@ -1776,6 +1801,7 @@
 				BD7B47DF2C650E9C00DA116D /* HomeAlertCell.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
+				BD0109A62C60942E00B2AF21 /* ListDropDownCPNT.swift in Sources */,
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
 				BDF08A002C6505000098486D /* TermsDetailBoardVC.swift in Sources */,
 				BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */,
@@ -1786,6 +1812,7 @@
 				BDF089FE2C6505000098486D /* TermsDetailBoardVM.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */,
+				BD6FAFD92C5E4E9200322405 /* InquiryVM.swift in Sources */,
 				08FF6C1D2C70C97700B68569 /* ProfileEditUserDataBottomSheetVM.swift in Sources */,
 				4E4DC0182C620251007CE63A /* MapVM.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
@@ -1884,6 +1911,7 @@
 				08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
 				BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */,
+				BD6FAFD72C5E4E8B00322405 /* InquiryVC.swift in Sources */,
 				08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */,
 				08C813F72C2F15DC009239FE /* GetCategoryListResponseDTO.swift in Sources */,
 				08E23AA92C4F7DC9004B77B6 /* GetMyPageResponse.swift in Sources */,
