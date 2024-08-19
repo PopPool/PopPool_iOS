@@ -8,7 +8,7 @@
 import Foundation
 
 struct UpdateMyInterestRequestDTO: Encodable {
-    var interestsToAdd: [Int64]
-    var interestsToDelete: [Int64]
-    var interestsToKeep: [Int64]
+    var interestCategoriesToAdd: [Int64]
+    var interestCategoriesToDelete: [Int64]
+    var interestCategoriesToKeep: [Int64]
 }

@@ -118,9 +118,9 @@ final class UserRepositoryImpl: UserRepository {
         let endPoint = PopPoolAPIEndPoint.user_updateMyInterest(
             userId: userId,
             request: .init(
-                interestsToAdd: interestsToAdd,
-                interestsToDelete: interestsToDelete,
-                interestsToKeep: interestsToKeep
+                interestCategoriesToAdd: interestsToAdd,
+                interestCategoriesToDelete: interestsToDelete,
+                interestCategoriesToKeep: interestsToKeep
             )
         )
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
