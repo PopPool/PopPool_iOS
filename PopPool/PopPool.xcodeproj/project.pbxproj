@@ -203,6 +203,8 @@
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
 		BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
+		BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */; };
+		BD3942132C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */; };
 		BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */; };
 		BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */; };
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
@@ -460,6 +462,8 @@
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
 		BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutSurveyView.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponse.swift; sourceTree = "<group>"; };
+		BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponseDTO.swift; sourceTree = "<group>"; };
 		BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBoxViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
@@ -1127,6 +1131,7 @@
 		08E23A582C4E14BA004B77B6 /* UserDTO */ = {
 			isa = PBXGroup;
 			children = (
+				BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */,
 				08E23A5B2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift */,
 				08E23A972C4F7371004B77B6 /* GetProfileResponseDTO.swift */,
 				08E23ABC2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift */,
@@ -1273,6 +1278,7 @@
 				08E23AA82C4F7DC9004B77B6 /* GetMyPageResponse.swift */,
 				08E23AAA2C4F7F98004B77B6 /* MyCommentInfo.swift */,
 				08E23AB22C4F8817004B77B6 /* Survey.swift */,
+				BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */,
 				08E23AB42C4F89D6004B77B6 /* GetMyCommentedPopUpStoreListResponse.swift */,
 				08E23AB62C4F8AD5004B77B6 /* GetMyRecentViewPopUpStoreListResponse.swift */,
 				08E23ABE2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift */,
@@ -1825,6 +1831,7 @@
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
 				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
+				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
@@ -1886,6 +1893,7 @@
 				08FF6C172C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift in Sources */,
 				08E23A822C4F6CD2004B77B6 /* GetMyCommentedPopUpStoreListRequestDTO.swift in Sources */,
 				08C813D92C2D294D009239FE /* UICollectionViewCell+.swift in Sources */,
+				BD3942132C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift in Sources */,
 				08E23A882C4F6E05004B77B6 /* BlockedUserInfoDTO.swift in Sources */,
 				08E23ABF2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift in Sources */,
 				4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */,
