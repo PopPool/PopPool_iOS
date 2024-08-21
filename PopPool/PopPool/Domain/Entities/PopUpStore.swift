@@ -8,7 +8,7 @@
 import CoreLocation
 
 struct PopUpStore {
-    let id: String
+    let id: Int64
     let name: String
     let categories: [String] // 여러 카테고리를 가질 수 있도록 배열로 변경
     let location: CLLocationCoordinate2D
