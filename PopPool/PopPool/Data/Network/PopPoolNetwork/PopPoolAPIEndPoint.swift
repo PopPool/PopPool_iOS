@@ -262,13 +262,22 @@ struct PopPoolAPIEndPoint {
             bodyParameters: request
         )
     }
+    
     /// 팝업 스토어 목록을 조회합니다.
-       /// - Returns: Endpoint<[PopUpStoreDTO]>
-       static func map_fetchPopUpStores() -> Endpoint<[PopUpStoreDTO]> {
-           return Endpoint(
-               baseURL: Secrets.popPoolBaseUrl.rawValue,
-               path: "/map/popupstores",
-               method: .get
-           )
-       }
-   }
+    /// - Returns: Endpoint<[PopUpStoreDTO]>
+    static func map_fetchPopUpStores() -> Endpoint<[PopUpStoreDTO]> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/map/popupstores",
+            method: .get
+        )
+    }
+    
+    static func home_fetchHome(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home",
+            method: .get
+        )
+    }
+}

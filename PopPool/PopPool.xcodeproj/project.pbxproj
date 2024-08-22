@@ -212,6 +212,10 @@
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD60B2792C75A0010062DC96 /* GetHomeInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */; };
 		BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */; };
+		BD60B27F2C75C51D0062DC96 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */; };
+		BD60B2812C75C5AF0062DC96 /* FetchHomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2802C75C5AF0062DC96 /* FetchHomeUseCase.swift */; };
+		BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */; };
+		BD60B2862C75CC1B0062DC96 /* FetchHomeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2852C75CC1B0062DC96 /* FetchHomeUseCaseImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
@@ -473,6 +477,10 @@
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeInfoResponse.swift; sourceTree = "<group>"; };
 		BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeInfoResponseDTO.swift; sourceTree = "<group>"; };
+		BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		BD60B2802C75C5AF0062DC96 /* FetchHomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHomeUseCase.swift; sourceTree = "<group>"; };
+		BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
+		BD60B2852C75CC1B0062DC96 /* FetchHomeUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHomeUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
@@ -1023,6 +1031,7 @@
 				08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */,
 				08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */,
 				08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */,
+				BD60B2852C75CC1B0062DC96 /* FetchHomeUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1038,6 +1047,7 @@
 				08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */,
 				08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */,
 				08933CED2C5E555F006F6632 /* UserUseCase.swift */,
+				BD60B2802C75C5AF0062DC96 /* FetchHomeUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1068,6 +1078,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4DC00F2C61FD34007CE63A /* MapRepository */,
+				BD60B2822C75CA790062DC96 /* HomeRepository */,
 				BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */,
 				08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */,
 				089D19162C36713C000435D9 /* SignUpRepository */,
@@ -1083,6 +1094,7 @@
 				08F49DF12C23230C002D5202 /* AuthRepository.swift */,
 				08C813FC2C2F2C13009239FE /* SignUpRepository.swift */,
 				08E23AC42C4F9298004B77B6 /* UserRepository.swift */,
+				BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -1521,6 +1533,14 @@
 			path = HomeDTO;
 			sourceTree = "<group>";
 		};
+		BD60B2822C75CA790062DC96 /* HomeRepository */ = {
+			isa = PBXGroup;
+			children = (
+				BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */,
+			);
+			path = HomeRepository;
+			sourceTree = "<group>";
+		};
 		BD75F7772C730F9A00524168 /* Inquiry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1889,6 +1909,7 @@
 				BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */,
 				08E23A8B2C4F6EB5004B77B6 /* GetBlockedUserListResponseDTO.swift in Sources */,
 				08B183C92C443948006C34BB /* TableViewSectionable.swift in Sources */,
+				BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */,
 				08B183BF2C43BEA6006C34BB /* MyCommentCircleListCell.swift in Sources */,
 				08E23A782C4F68FD004B77B6 /* GetMyRecentViewPopUpStoreListResponseDTO.swift in Sources */,
 				BDF089FD2C6505000098486D /* TermsBoardVM.swift in Sources */,
@@ -1929,6 +1950,7 @@
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */,
 				08933CEE2C5E555F006F6632 /* UserUseCase.swift in Sources */,
+				BD60B27F2C75C51D0062DC96 /* HomeRepository.swift in Sources */,
 				08E23A632C4E1925004B77B6 /* MyCommentInfoDTO.swift in Sources */,
 				BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
@@ -1936,6 +1958,7 @@
 				BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */,
 				08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
+				BD60B2862C75CC1B0062DC96 /* FetchHomeUseCaseImpl.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
@@ -2028,6 +2051,7 @@
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
 				BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */,
+				BD60B2812C75C5AF0062DC96 /* FetchHomeUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
