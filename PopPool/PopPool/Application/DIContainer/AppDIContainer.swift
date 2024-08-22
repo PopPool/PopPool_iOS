@@ -143,8 +143,8 @@ extension AppDelegate {
         )
         
         container.register(
-            type: FetchHomeUseCase.self,
-            component: FetchHomeUseCaseImpl(repository: container.resolve(type: HomeRepository.self))
+            type: HomeUseCase.self,
+            component: HomeUseCaseImpl(repository: container.resolve(type: HomeRepository.self))
         )
     }
 }

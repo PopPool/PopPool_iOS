@@ -280,4 +280,28 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
+    
+    static func home_fetchRecommendedPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home/custom/popup-stores",
+            method: .get
+        )
+    }
+    
+    static func home_fetchNewPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home/new/popup-stores",
+            method: .get
+        )
+    }
+    
+    static func home_fetchPopularPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home/popular/popup-stores",
+            method: .get
+        )
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  HomeRepository.swift
+//  HomeUseCase.swift
 //  PopPool
 //
 //  Created by Porori on 8/21/24.
@@ -8,7 +8,9 @@
 import Foundation
 import RxSwift
 
-protocol HomeRepository {
+protocol HomeUseCase {
+    
+    var repository: HomeRepository { get set }
     
     func fetchHome(
         userId: String
