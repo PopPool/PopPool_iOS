@@ -29,13 +29,21 @@ final class ProfileEditVM: ViewModelable {
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
+    
     private var originUserData: PublishSubject<GetProfileResponse> = .init()
+    
     var originUserDataStatic: GetProfileResponse = .init(nickname: "", gender: "", age: 0, interestCategoryList: [])
-    private var newUserData: BehaviorRelay<GetProfileResponse> = .init(value: .init(nickname: "", gender: "", age: 0, interestCategoryList: []))
+    
+    private var newUserData: BehaviorRelay<GetProfileResponse> = .init(value: .init(nickname: "", gender: "", age: 0,
+                                                                                    interestCategoryList: []))
     var userUseCase: UserUseCase
+    
     private var signUpUseCase: SignUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
+    
     private var saveButtonIsActive: BehaviorRelay<Bool> = .init(value: false)
+    
     private var isValidNickName: Bool = true
+    
     private var isValidIntro: Bool = true
     
     // MARK: - init

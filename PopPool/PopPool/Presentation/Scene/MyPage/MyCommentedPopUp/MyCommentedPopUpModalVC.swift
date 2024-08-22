@@ -19,26 +19,34 @@ final class MyCommentedPopUpModalVC: ModalViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
+    
     private let titleView: ContentTitleCPNT = {
         let view = ContentTitleCPNT(title: "보기 옵션을 선택해주세요", type: .title_bs(buttonImage: UIImage(named: "xmark_signUp")))
         return view
     }()
+    
     private let titleViewBottomSpacing = SpacingFactory.createSpace(size: 32)
+    
     private let segmentControlTitleView: ListTitleViewCPNT = {
         let view = ListTitleViewCPNT(title: "화면설정", size: .medium)
         view.rightButton.isHidden = true
         return view
     }()
+    
     private let segmentControlTopSpacing = SpacingFactory.createSpace(size: 8)
+    
     private lazy var segmentControl: SegmentedControlCPNT = {
         let view = SegmentedControlCPNT(type: .base, segments: ["최신순", "반응순"], selectedSegmentIndex: 0)
         return view
     }()
+    
     private let segmentControlBottomSpacing = SpacingFactory.createSpace(size: 36)
+    
     private let saveButton = ButtonCPNT(type: .primary, title: "저장", disabledTitle: "저장")
     
     // MARK: - Properties
     private var viewModel: MyCommentedPopUpVM
+    
     private let disposeBag = DisposeBag()
     
     // MARK: - init

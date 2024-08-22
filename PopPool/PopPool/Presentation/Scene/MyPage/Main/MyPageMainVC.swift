@@ -17,22 +17,30 @@ final class MyPageMainVC : BaseViewController {
         view.backgroundColor = .systemBackground
         return view
     }()
+    
     private let headerView: HeaderViewCPNT = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
+    
     private lazy var profileView = MyPageMainProfileView(
         frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: self.profileViewHeight)
     )
+    
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.tableFooterView = UIView(frame: .zero)
         view.sectionFooterHeight = 0
         return view
     }()
+    
     private let logoutButton: ButtonCPNT = ButtonCPNT(type: .secondary, title: "로그아웃")
+    
     // MARK: - Properties
     private let viewModel: MyPageMainVM
+    
     private let profileViewHeight: CGFloat = 256
+    
     private let disposeBag = DisposeBag()
     
+    // MARK: - init
     init(viewModel: MyPageMainVM) {
         self.viewModel = viewModel
         super.init()

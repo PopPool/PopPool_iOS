@@ -43,8 +43,10 @@ final class ProfileEditCategoryBottomSheetVC: ModalViewController {
     
     // MARK: - Properties
     private let viewModel: ProfileEditCategoryBottomSheetVM
+    
     private let disposeBag = DisposeBag()
 
+    // MARK: - init
     init(viewModel: ProfileEditCategoryBottomSheetVM) {
         self.viewModel = viewModel
         super.init()
