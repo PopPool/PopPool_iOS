@@ -11,5 +11,6 @@ struct MyCommentInfo {
     var commentId: Int64
     var content: String
     var image: URL?
-    var likeCount: Int32
+    var likeCount: Int64
+    var createDateTime: String
 }

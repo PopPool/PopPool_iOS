@@ -207,6 +207,8 @@
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
 		BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
+		BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */; };
+		BD3942132C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */; };
 		BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */; };
 		BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */; };
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
@@ -215,6 +217,12 @@
 		BD55E12F2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E12E2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift */; };
 		BD55E1312C70B7B100FAB763 /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
+		BD60B2792C75A0010062DC96 /* GetHomeInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */; };
+		BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */; };
+		BD60B27F2C75C51D0062DC96 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */; };
+		BD60B2812C75C5AF0062DC96 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */; };
+		BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */; };
+		BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
@@ -481,6 +489,8 @@
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
 		BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutSurveyView.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponse.swift; sourceTree = "<group>"; };
+		BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponseDTO.swift; sourceTree = "<group>"; };
 		BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBoxViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
@@ -489,6 +499,12 @@
 		BD55E12E2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingHomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
+		BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeInfoResponse.swift; sourceTree = "<group>"; };
+		BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeInfoResponseDTO.swift; sourceTree = "<group>"; };
+		BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
+		BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
+		BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
@@ -1053,6 +1069,7 @@
 				08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */,
 				08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */,
 				08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */,
+				BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1068,6 +1085,7 @@
 				08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */,
 				08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */,
 				08933CED2C5E555F006F6632 /* UserUseCase.swift */,
+				BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1078,6 +1096,7 @@
 				4E4DC0142C620199007CE63A /* MapDTO */,
 				08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */,
 				08E23A7B2C4F6B45004B77B6 /* Protocol */,
+				BD60B27A2C75A01D0062DC96 /* HomeDTO */,
 				08B965902C16005300BF95AA /* LoginDTO */,
 				08C813EF2C2EF5F0009239FE /* SignUpDTO */,
 				08E23A582C4E14BA004B77B6 /* UserDTO */,
@@ -1098,6 +1117,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4DC00F2C61FD34007CE63A /* MapRepository */,
+				BD60B2822C75CA790062DC96 /* HomeRepository */,
 				BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */,
 				08F49DEF2C2321B8002D5202 /* AuthRepositoryImpl.swift */,
 				089D19162C36713C000435D9 /* SignUpRepository */,
@@ -1113,6 +1133,7 @@
 				08F49DF12C23230C002D5202 /* AuthRepository.swift */,
 				08C813FC2C2F2C13009239FE /* SignUpRepository.swift */,
 				08E23AC42C4F9298004B77B6 /* UserRepository.swift */,
+				BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -1167,6 +1188,7 @@
 		08E23A582C4E14BA004B77B6 /* UserDTO */ = {
 			isa = PBXGroup;
 			children = (
+				BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */,
 				08E23A5B2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift */,
 				08E23A972C4F7371004B77B6 /* GetProfileResponseDTO.swift */,
 				08E23ABC2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift */,
@@ -1279,6 +1301,7 @@
 		08E23AAC2C4F865E004B77B6 /* NetworkResponse */ = {
 			isa = PBXGroup;
 			children = (
+				BD60B2772C759FEC0062DC96 /* Home */,
 				08E23AAD2C4F8687004B77B6 /* Auth */,
 				08E23AAE2C4F8693004B77B6 /* SignUp */,
 				08E23AAF2C4F8698004B77B6 /* User */,
@@ -1313,6 +1336,7 @@
 				08E23AA82C4F7DC9004B77B6 /* GetMyPageResponse.swift */,
 				08E23AAA2C4F7F98004B77B6 /* MyCommentInfo.swift */,
 				08E23AB22C4F8817004B77B6 /* Survey.swift */,
+				BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */,
 				08E23AB42C4F89D6004B77B6 /* GetMyCommentedPopUpStoreListResponse.swift */,
 				08E23AB62C4F8AD5004B77B6 /* GetMyRecentViewPopUpStoreListResponse.swift */,
 				08E23ABE2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift */,
@@ -1543,6 +1567,29 @@
 			path = LoginBottomSheet;
 			sourceTree = "<group>";
 		};
+		BD60B2772C759FEC0062DC96 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BD60B27A2C75A01D0062DC96 /* HomeDTO */ = {
+			isa = PBXGroup;
+			children = (
+				BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */,
+			);
+			path = HomeDTO;
+			sourceTree = "<group>";
+		};
+		BD60B2822C75CA790062DC96 /* HomeRepository */ = {
+			isa = PBXGroup;
+			children = (
+				BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */,
+			);
+			path = HomeRepository;
+			sourceTree = "<group>";
 		BD8DE8212C68653300C5DE8B /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1864,6 +1911,7 @@
 				08E23A692C4E1BDC004B77B6 /* SurveyDTO.swift in Sources */,
 				BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */,
 				08B183CE2C44490A006C34BB /* FetchLocalUseCase.swift in Sources */,
+				BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */,
 				BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */,
 				BD7B47DF2C650E9C00DA116D /* HomeAlertCell.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
@@ -1899,6 +1947,7 @@
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
 				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
+				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
@@ -1933,6 +1982,7 @@
 				BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */,
 				08E23A8B2C4F6EB5004B77B6 /* GetBlockedUserListResponseDTO.swift in Sources */,
 				08B183C92C443948006C34BB /* TableViewSectionable.swift in Sources */,
+				BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */,
 				08B183BF2C43BEA6006C34BB /* MyCommentCircleListCell.swift in Sources */,
 				08E23A782C4F68FD004B77B6 /* GetMyRecentViewPopUpStoreListResponseDTO.swift in Sources */,
 				BDF089FD2C6505000098486D /* TermsBoardVM.swift in Sources */,
@@ -1964,10 +2014,12 @@
 				08E23A822C4F6CD2004B77B6 /* GetMyCommentedPopUpStoreListRequestDTO.swift in Sources */,
 				BDEAE4BE2C716FAA00D96D41 /* PopUpBackgroundView.swift in Sources */,
 				08C813D92C2D294D009239FE /* UICollectionViewCell+.swift in Sources */,
+				BD3942132C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift in Sources */,
 				BDEAE4BA2C7111F900D96D41 /* SectionHeaderCell.swift in Sources */,
 				08E23A882C4F6E05004B77B6 /* BlockedUserInfoDTO.swift in Sources */,
 				08E23ABF2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift in Sources */,
 				4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */,
+				BD60B2792C75A0010062DC96 /* GetHomeInfoResponse.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
 				08E23ABD2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift in Sources */,
 				08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */,
@@ -1976,6 +2028,7 @@
 				08F49DF22C23230C002D5202 /* AuthRepository.swift in Sources */,
 				089D191A2C368C73000435D9 /* SignUpCompletedVC.swift in Sources */,
 				08933CEE2C5E555F006F6632 /* UserUseCase.swift in Sources */,
+				BD60B27F2C75C51D0062DC96 /* HomeRepository.swift in Sources */,
 				08E23A632C4E1925004B77B6 /* MyCommentInfoDTO.swift in Sources */,
 				BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
@@ -1983,6 +2036,7 @@
 				BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */,
 				08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
+				BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
@@ -2081,6 +2135,7 @@
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
 				BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */,
+				BD60B2812C75C5AF0062DC96 /* HomeUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

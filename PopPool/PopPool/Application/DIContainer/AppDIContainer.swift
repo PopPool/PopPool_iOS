@@ -136,5 +136,15 @@ extension AppDelegate {
             type: UserUseCase.self,
             component: UserUseCaseImpl(repository: container.resolve(type: UserRepository.self))
         )
+        
+        container.register(
+            type: HomeRepository.self,
+            component: HomeRepositoryImpl()
+        )
+        
+        container.register(
+            type: HomeUseCase.self,
+            component: HomeUseCaseImpl(repository: container.resolve(type: HomeRepository.self))
+        )
     }
 }

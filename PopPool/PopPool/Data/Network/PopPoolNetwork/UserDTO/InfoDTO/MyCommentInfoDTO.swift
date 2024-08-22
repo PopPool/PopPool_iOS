@@ -11,7 +11,8 @@ struct MyCommentInfoDTO: Decodable {
     var commentId: Int64
     var content: String
     var image: String
-    var likeCount: Int32
+    var likeCount: Int64
+    var createDateTime: String
 }
 
 extension MyCommentInfoDTO {
@@ -20,9 +21,8 @@ extension MyCommentInfoDTO {
             commentId: commentId,
             content: content,
             image: URL(string: image),
-            likeCount: likeCount
+            likeCount: likeCount,
+            createDateTime: createDateTime
         )
     }
 }
-
-
