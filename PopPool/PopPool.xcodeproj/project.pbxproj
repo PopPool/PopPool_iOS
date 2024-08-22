@@ -1590,6 +1590,7 @@
 			);
 			path = HomeRepository;
 			sourceTree = "<group>";
+        };
 		BD8DE8212C68653300C5DE8B /* Home */ = {
 			isa = PBXGroup;
 			children = (
