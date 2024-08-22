@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 struct PopUpStoreDTO: Decodable {
-    let id: String
+    let id: Int64
     let name: String
     let category: String
     let latitude: Double

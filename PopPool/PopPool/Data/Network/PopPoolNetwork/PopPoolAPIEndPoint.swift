@@ -262,6 +262,9 @@ struct PopPoolAPIEndPoint {
             bodyParameters: request
         )
     }
+    
+    // MARK: - HomePopUp API
+  
     /// 팝업 스토어 목록을 조회합니다.
     /// - Returns: Endpoint<[PopUpStoreDTO]>
     static func map_fetchPopUpStores() -> Endpoint<[PopUpStoreDTO]> {
@@ -272,6 +275,44 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    /// 홈 화면에서 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
+    static func home_fetchHome(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home",
+            method: .get
+        )
+    }
+    
+    /// 홈 화면에서 추천 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
+    static func home_fetchRecommendedPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home/custom/popup-stores",
+          
+    /// 홈 화면에서 신규 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
+    static func home_fetchNewPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home/new/popup-stores",
+            method: .get
+        )
+    }
+    
+    /// 홈 화면에서 인기 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
+    static func home_fetchPopularPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/home/popular/popup-stores",
+          
     // MARK: - Notice API
     
     /// 공지사항 작성
@@ -299,7 +340,7 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
-    
+
     /// 공지사항 수정
     /// - Parameters:
     ///   - id: 공지사항 ID

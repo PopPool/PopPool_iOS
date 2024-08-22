@@ -14,7 +14,7 @@ struct PopUpInfoDTO: Decodable {
     var startDate: String
     var endDate: String
     var address: String
-    var closedYn: String
+    var closedYn: Bool
 }
 
 extension PopUpInfoDTO {
