@@ -18,13 +18,17 @@ final class ProfileEditVC: BaseViewController {
         let view = HeaderViewCPNT(title: "프로필 설정", style: .text(""))
         return view
     }()
+    
     private let scrollView: UIScrollView = UIScrollView()
+    
     private let contentView: UIView = UIView()
+    
     private let profileImageView: ProfileCircleImageViewCPNT = {
         let view = ProfileCircleImageViewCPNT(size: .large)
         view.image = UIImage(named: "Profile_Logo")
         return view
     }()
+    
     private let profileImageEditButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "camera"), for: .normal)
@@ -34,22 +38,26 @@ final class ProfileEditVC: BaseViewController {
         button.backgroundColor = .systemBackground
         return button
     }()
+    
     private let nickNameLabel: UILabel = {
         let label = UILabel()
         label.text = "별명"
         label.font = .KorFont(style: .regular, size: 13)
         return label
     }()
+    
     private let nickNameTextField: ValidationTextFieldCPNT = ValidationTextFieldCPNT(
         placeHolder: "닉네임을 입력해주세요.",
         limitTextCount: 10
     )
+    
     private let instagramLabel: UILabel = {
         let label = UILabel()
         label.text = "인스타그램 링크"
         label.font = .KorFont(style: .regular, size: 13)
         return label
     }()
+    
     private let instagramTextField: BaseTextFieldCPNT = {
         let textField = BaseTextFieldCPNT(
             placeHolder: "인스타그램 링크",
@@ -57,34 +65,40 @@ final class ProfileEditVC: BaseViewController {
         )
         return textField
     }()
+    
     private let introLabel: UILabel = {
         let label = UILabel()
         label.text = "자기소개"
         label.font = .KorFont(style: .regular, size: 13)
         return label
     }()
+    
     private let introTextField: DynamicTextViewCPNT = {
         var view = DynamicTextViewCPNT(placeholder: "자기소개", textLimit: 30)
         return view
     }()
+    
     private let sectionLabel: UILabel = {
         let label = UILabel()
         label.text = "맞춤정보"
         label.font = .KorFont(style: .bold, size: 16)
         return label
     }()
+    
     private let categoryView: ListMenuViewCPNT = {
         let view = ListMenuViewCPNT(title: "관심 카테고리", style: .normal)
         view.rightLabel.text = "패션 외 2개"
         view.rightLabel.textColor = .g400
         return view
     }()
+    
     private let userInfoView: ListMenuViewCPNT = {
         let view = ListMenuViewCPNT(title: "사용자 정보", style: .normal)
         view.rightLabel.text = "남성 28세"
         view.rightLabel.textColor = .g400
         return view
     }()
+    
     private let saveButton: ButtonCPNT = {
         let button = ButtonCPNT(type: .primary, title: "저장", disabledTitle: "저장")
         button.isEnabled = false
@@ -99,6 +113,7 @@ final class ProfileEditVC: BaseViewController {
     
     private let viewWillAppear: PublishSubject<Void> = .init()
     
+    // MARK: - init
     init(viewModel: ProfileEditVM) {
         self.viewModel = viewModel
         super.init()
@@ -228,7 +243,9 @@ private extension ProfileEditVC {
                 let selectedList = owner.viewModel.originUserDataStatic.interestCategoryList.map{$0.categoryId}
                 let vm = ProfileEditCategoryBottomSheetVM(selectedCategory: selectedList, userUseCase: owner.viewModel.userUseCase)
                 let vc = ProfileEditCategoryBottomSheetVC(viewModel: vm)
+                
                 owner.presentModalViewController(viewController: vc)
+                
                 vc.rx.viewWillDisappear
                     .withUnretained(self)
                     .subscribe { (owner, _) in
@@ -247,6 +264,7 @@ private extension ProfileEditVC {
                     userUseCase: owner.viewModel.userUseCase
                 )
                 let vc = ProfileEditUserDataBottomSheetVC(viewModel: vm)
+                
                 vc.rx.viewWillDisappear
                     .withUnretained(self)
                     .subscribe { (owner, _) in

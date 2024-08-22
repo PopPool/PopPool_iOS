@@ -17,9 +17,11 @@ final class MyCommentedPopUpVM: ViewModelable {
     struct Input {
         var filterButtonTapped: ControlEvent<Void>
     }
+    
     struct Output {
         var moveToBottomModalVC: PublishSubject<Void>
     }
+    
     func transform(input: Input) -> Output {
         let moveToBottomModalVC: PublishSubject<Void> = .init()
         input.filterButtonTapped

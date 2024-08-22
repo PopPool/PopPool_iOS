@@ -28,6 +28,7 @@ final class MyPageMainVM: ViewModelable {
     var disposeBag = DisposeBag()
     
     var userUseCase: UserUseCase
+    
     var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
     
     var menuList: [any TableViewSectionable] {
@@ -94,10 +95,12 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "회원탈퇴")
         ])
     
+    // MARK: - init
     init(response: GetMyPageResponse, userUseCase: UserUseCase) {
         self.myPageAPIResponse = .init(value: response)
         self.userUseCase = userUseCase
     }
+    
     // MARK: - transform
     func transform(input: Input) -> Output {
         
@@ -109,6 +112,7 @@ final class MyPageMainVM: ViewModelable {
                 moveToSettingVC.onNext(owner.userUseCase)
             }
             .disposed(by: disposeBag)
+        
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
             .subscribe { _ in
@@ -140,6 +144,7 @@ final class MyPageMainVM: ViewModelable {
                 }
             })
             .disposed(by: disposeBag)
+        
         input.profileLoginButtonTapped
             .withUnretained(self)
             .subscribe { (owner, _) in
