@@ -273,6 +273,9 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    /// 홈 화면에서 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
     static func home_fetchHome(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
@@ -281,6 +284,9 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    /// 홈 화면에서 추천 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
     static func home_fetchRecommendedPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
@@ -289,6 +295,9 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    /// 홈 화면에서 신규 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
     static func home_fetchNewPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
@@ -297,6 +306,9 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    /// 홈 화면에서 인기 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
+    /// - Parameter userId: 유저 아이디
+    /// - Returns: Endpoint<GetHomeInfoResponseDTO>
     static func home_fetchPopularPopUp(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
