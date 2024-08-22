@@ -13,6 +13,7 @@ import Foundation
 class Constants {
     static let spaceGuide = SpaceGuide()
     static let socialType = SocialTYPE()
+    static var userId: String = ""
 }
 
 /// Padding 값

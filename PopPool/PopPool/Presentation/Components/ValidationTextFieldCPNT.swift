@@ -30,6 +30,8 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         case activeShortText
         case buttonTapError
         case valid(String)
+        case myNickName
+        case myNickNameActive
     }
     
     struct ValidationOutPut {
@@ -38,6 +40,8 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         
         var description: String? {
             switch state {
+            case .myNickName, .myNickNameActive:
+                return "사용중인 별명이에요"
             case .none, .activeNone:
                 return nil
             case .requestKorOrEn:
@@ -60,9 +64,9 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
             switch state {
             case .overText, .buttonTapError, .shortText, .requestKorOrEn, .activeOverText, .activeShortText:
                 return UIColor.re500
-            case .none:
+            case .none, .myNickName, .valid:
                 return UIColor.g100
-            case .valid, .activeNone, .requestButtonTap, .activeRequestButtonTap:
+            case .activeNone, .requestButtonTap, .activeRequestButtonTap, .myNickNameActive:
                 return UIColor.g1000
             }
         }
@@ -82,7 +86,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
             switch state {
             case .overText, .buttonTapError, .shortText, .requestKorOrEn, .activeOverText, .activeShortText:
                 return UIColor.re500
-            case .none, .activeNone, .requestButtonTap, .activeRequestButtonTap:
+            case .none, .activeNone, .requestButtonTap, .activeRequestButtonTap, .myNickName, .myNickNameActive:
                 return UIColor.g500
             case .valid:
                 return UIColor.blu500
@@ -92,7 +96,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 x 버튼의 출력 여부
         var isClearButtonHidden: Bool {
             switch state {
-            case .none, .activeNone, .requestButtonTap, .overText:
+            case .none, .activeNone, .requestButtonTap, .overText, .myNickName, .valid:
                 return true
             default:
                 return false
@@ -102,7 +106,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         /// state별로 '중복체크' 버튼의 출력 여부
         var isDuplicateCheckButtonHidden: Bool {
             switch state {
-            case .requestButtonTap, .overText:
+            case .requestButtonTap, .overText, .myNickName, .valid:
                 return false
             default:
                 return true
@@ -111,7 +115,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
         
         var buttonColor: UIColor? {
             switch state {
-            case .overText, .valid, .shortText, .buttonTapError:
+            case .overText, .valid, .shortText, .buttonTapError, .myNickName, .myNickNameActive:
                 return .g200
             default:
                 return .g1000
@@ -159,7 +163,7 @@ final class ValidationTextFieldCPNT: BaseTextFieldCPNT {
     let stateObserver:PublishSubject<ValidationState> = .init()
     private var isActive: Bool = false
     private let type: ValidationType
-    
+    var myNickName: String? = "$${myNickName}$$"
     // MARK: - Initializer
     
     init(placeHolder: String?, type: ValidationType = .nickName, limitTextCount: Int) {
@@ -246,6 +250,9 @@ private extension ValidationTextFieldCPNT {
     
     /// 텍스트필드가 활성화되어 있는 시점의 상태를 반환합니다
     func fetchWhenActive(text: String) -> ValidationState {
+        if text == myNickName {
+            return .myNickNameActive
+        }
         if text.isEmpty {
             return .activeNone
         } else if text.count < 2 {
@@ -261,6 +268,10 @@ private extension ValidationTextFieldCPNT {
     
     /// 텍스트필드가 비활성화되어 있는 시점의 상태를 반환합니다
     func fetchWhenInactive(text: String) -> ValidationState {
+        if text == myNickName {
+            return .myNickName
+        }
+        
         if text.isEmpty {
             return .none
         } else if text.count < 2 {

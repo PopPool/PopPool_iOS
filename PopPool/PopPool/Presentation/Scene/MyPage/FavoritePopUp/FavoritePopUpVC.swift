@@ -11,15 +11,18 @@ import RxSwift
 import RxCocoa
 
 final class FavoritePopUpVC: BaseViewController {
+    
     // MARK: - Components
     private let headerView: HeaderViewCPNT = {
         let view = HeaderViewCPNT(title: "찜한 팝업", style: .text(""))
         return view
     }()
+    
     private let filterView: ListMenuViewCPNT = {
         let view = ListMenuViewCPNT(title: "총 5건", style: .filter(nil))
         return view
     }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let width = UIScreen.main.bounds.width - 40
@@ -37,6 +40,7 @@ final class FavoritePopUpVC: BaseViewController {
     
     // MARK: - Properties
     private let disposeBag = DisposeBag()
+    
     private let viewModel = FavoritePopUpVM()
 }
 
@@ -88,12 +92,14 @@ private extension FavoritePopUpVC {
         
         // MARK: - Output
         let output = viewModel.transform(input: input)
+        
         output.moveToFilterModalVC
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.presentModalViewController(viewController: FavoritePopUpFilterModalVC(viewModel: owner.viewModel))
             }
             .disposed(by: disposeBag)
+        
         output.viewType
             .withUnretained(self)
             .subscribe { (owner, viewType) in

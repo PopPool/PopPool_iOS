@@ -12,6 +12,7 @@ import RxCocoa
 final class MyPageMainVM: ViewModelable {
     
     struct Input {
+        var settingButtonTapped: ControlEvent<Void>
         var cellTapped: ControlEvent<IndexPath>
         var profileLoginButtonTapped: ControlEvent<Void>
     }
@@ -20,10 +21,13 @@ final class MyPageMainVM: ViewModelable {
         var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
         var moveToVC: PublishSubject<BaseViewController>
         var moveToLoginVC: Observable<Void>
+        var moveToSettingVC: PublishSubject<UserUseCase>
     }
     
     // MARK: - Propoerties
     var disposeBag = DisposeBag()
+    
+    var userUseCase: UserUseCase
     
     var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
     
@@ -31,12 +35,23 @@ final class MyPageMainVM: ViewModelable {
         get {
             // 로그인 유무에 따라 List 변경
             if self.myPageAPIResponse.value.login {
-                return [
-                    myCommentSection,
-                    normalSection,
-                    informationSection,
-                    etcSection
-                ]
+                // 내 코멘트 없을 경우 분기
+                if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
+                    return [
+                        // TODO: - myCommentSection 제거 필요
+                        myCommentSection,
+                        normalSection,
+                        informationSection,
+                        etcSection
+                    ]
+                } else {
+                    return [
+                        myCommentSection,
+                        normalSection,
+                        informationSection,
+                        etcSection
+                    ]
+                }
             } else {
                 return [
                     informationSection
@@ -50,18 +65,10 @@ final class MyPageMainVM: ViewModelable {
     
     // MARK: - MenuSection
     // 내 코멘트 Section
-    private var myCommentSection = MyCommentCircleListCellSection(
+    var myCommentSection = MyCommentCircleListCellSection(
         sectionInput: .init(sectionTitle: "내 코멘트"),
-        sectionCellInputList: [
-            .init(cellInputList: [
-                .init(title: "팝업스토어1", isActive: true, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어2", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어3", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어4", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어5", isActive: false, image: UIImage(systemName: "person")),
-                .init(title: "팝업스토어6", isActive: false, image: UIImage(systemName: "person")),
-            ])
-        ])
+        sectionCellInputList: []
+    )
     // 일반 Section
     private var normalSection = MenuListCellSection(
         sectionInput: .init(sectionTitle: "일반"),
@@ -88,15 +95,29 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "회원탈퇴")
         ])
     
-    init(response: GetMyPageResponse) {
+    // MARK: - init
+    init(response: GetMyPageResponse, userUseCase: UserUseCase) {
         self.myPageAPIResponse = .init(value: response)
+        self.userUseCase = userUseCase
     }
+    
     // MARK: - transform
     func transform(input: Input) -> Output {
+        
+        let moveToSettingVC: PublishSubject<UserUseCase> = .init()
+        // SettingButtonTapped
+        input.settingButtonTapped
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                moveToSettingVC.onNext(owner.userUseCase)
+            }
+            .disposed(by: disposeBag)
+        
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
             .subscribe { _ in
-                print("MyComment section Button Tapped")
+                let vc = MyCommentedPopUpVC()
+                moveToVC.onNext(vc)
             }
             .disposed(by: disposeBag)
         
@@ -123,37 +144,42 @@ final class MyPageMainVM: ViewModelable {
                 }
             })
             .disposed(by: disposeBag)
+        
         input.profileLoginButtonTapped
             .withUnretained(self)
             .subscribe { (owner, _) in
                 print("LoginButtonTapped")
             }
             .disposed(by: disposeBag)
+
         return Output(
             myPageAPIResponse: myPageAPIResponse,
             moveToVC: moveToVC,
-            moveToLoginVC: input.profileLoginButtonTapped.asObservable()
+            moveToLoginVC: input.profileLoginButtonTapped.asObservable(),
+            moveToSettingVC: moveToSettingVC
         )
     }
     
     func connectVC(title: String) -> BaseViewController {
-        print("SelectedTitle: \(title)")
         if title == "찜한 팝업" {
             return FavoritePopUpVC()
         } else if title == "최근 본 팝업" {
             return RecentPopUpVC()
         } else if title == "내가 모은 배지" {
+            // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "차단한 사용자 관리" {
             return BlockedUserVC(viewModel: BlockedUserVM())
         } else if title == "알림 설정" {
+            // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "공지사항" {
             return NoticeBoardVC(viewModel: NoticeBoardVM())
         } else if title == "고객문의" {
+            // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "약관" {
-            return BaseViewController()
+            return TermsBoardVC(viewModel: TermsBoardVM())
         } else if title == "회원탈퇴" {
             return SignOutVC()
         } else {

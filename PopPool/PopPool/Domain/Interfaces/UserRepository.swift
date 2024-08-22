@@ -116,9 +116,9 @@ protocol UserRepository {
     /// 유저 관심사를 업데이트합니다.
     /// - Parameters:
     ///   - userId: 유저 아이디
-    ///   - interestsToAdd: 추가할 관심사 ID 리스트
-    ///   - interestsToDelete: 삭제할 관심사 ID 리스트
-    ///   - interestsToKeep: 유지할 관심사 ID 리스트
+    ///   - interestCategoriesToAdd: 추가할 관심사 ID 리스트
+    ///   - interestCategoriesToDelete: 삭제할 관심사 ID 리스트
+    ///   - interestCategoriesToKeep: 유지할 관심사 ID 리스트
     /// - Returns: Completable
     func updateMyInterest(
         userId: String,
@@ -140,9 +140,9 @@ protocol UserRepository {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable
     
     /// 유저 맞춤 정보를 업데이트합니다.

@@ -12,5 +12,6 @@ struct GetMyPageResponse {
     var profileImageURL: URL?
     var instagramId: String?
     var popUpInfoList: [MyCommentedPopUpInfo]
+    var intro: String?
     var login: Bool
 }

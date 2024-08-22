@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import SnapKit
+import Kingfisher
 
 final class MyPageMainProfileView: UIView {
     
@@ -70,6 +72,7 @@ final class MyPageMainProfileView: UIView {
         super.init(frame: frame)
         setUpConstraints()
         setUpMask()
+        setUp()
     }
     
     required init?(coder: NSCoder) {
@@ -208,10 +211,14 @@ extension MyPageMainProfileView: InputableView {
     
     func injectionWith(input: Input) {
         if input.isLogin {
-            setUp()
             setUpProfileView()
-            self.backGroundImageView.image = UIImage(systemName: "folder")
-            self.profileImageView.image = UIImage(systemName: "folder")
+            if let profileImageViewURL = input.profileImage {
+                backGroundImageView.kf.setImage(with: profileImageViewURL)
+                profileImageView.kf.setImage(with: profileImageViewURL)
+            } else {
+                self.backGroundImageView.image = UIImage(systemName: "folder")
+                self.profileImageView.image = UIImage(systemName: "folder")
+            }
             nickNameLabel.text = input.nickName
             instagramLabel.text = input.instagramId
             descriptionLabel.text = input.intro

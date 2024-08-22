@@ -8,10 +8,10 @@
 import Foundation
 
 struct UpdateMyProfileRequestDTO: Encodable {
-    var profileImage: String
+    var profileImage: String?
     var nickname: String
-    var email: String
-    var instagramId: String
-    var intro: String
+    var email: String?
+    var instagramId: String?
+    var intro: String?
 }
 

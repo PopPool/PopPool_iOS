@@ -13,12 +13,14 @@ class BaseTableViewVC: BaseViewController {
     
     // MARK: - Components
     
-    let headerView = HeaderViewCPNT(title: "차단한 사용자 관리", style: .icon(nil))
+    let headerView = HeaderViewCPNT(title: "차단한 사용자 관리",
+                                    style: .icon(UIImage(named: "icosolid")))
     lazy var contentHeader = ListMenuCPNT(titleText: "", style: .none)
     private let topSpaceView = UIView()
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
+        table.backgroundColor = .g50
         table.tableHeaderView = UIView(frame: .zero)
         table.tableFooterView = UIView(frame: .zero)
         table.register(BlockedUserCell.self,

@@ -17,22 +17,30 @@ final class MyPageMainVC : BaseViewController {
         view.backgroundColor = .systemBackground
         return view
     }()
+    
     private let headerView: HeaderViewCPNT = HeaderViewCPNT(style: .icon(UIImage(named: "icosolid")))
+    
     private lazy var profileView = MyPageMainProfileView(
         frame: .init(x: 0, y: 0, width: self.view.bounds.width, height: self.profileViewHeight)
     )
+    
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.tableFooterView = UIView(frame: .zero)
         view.sectionFooterHeight = 0
         return view
     }()
+    
     private let logoutButton: ButtonCPNT = ButtonCPNT(type: .secondary, title: "로그아웃")
+    
     // MARK: - Properties
     private let viewModel: MyPageMainVM
+    
     private let profileViewHeight: CGFloat = 256
+    
     private let disposeBag = DisposeBag()
     
+    // MARK: - init
     init(viewModel: MyPageMainVM) {
         self.viewModel = viewModel
         super.init()
@@ -51,6 +59,24 @@ extension MyPageMainVC {
         setUpConstraints()
         bind()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
+        useCase.fetchMyPage(userId: Constants.userId)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, myPageResponse) in
+                owner.viewModel.myPageAPIResponse.accept(myPageResponse)
+                owner.viewModel.myCommentSection.sectionCellInputList = [
+                    .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
+                        title: $0.popUpStoreName,
+                        // TODO: - isActive 부분 논의 후 수정 필요
+                        isActive: false,
+                        imageURL: $0.mainImageUrl)
+                    })
+                ]
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - SetUp
@@ -62,7 +88,6 @@ private extension MyPageMainVC {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.tableHeaderView = profileView
-
     }
     
     func setUpConstraints() {
@@ -83,7 +108,17 @@ private extension MyPageMainVC {
     }
     
     func bind() {
+        
+        // HeaderView BackButton Tapped
+        headerView.leftBarButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
         let input = MyPageMainVM.Input(
+            settingButtonTapped: headerView.rightBarButton.rx.tap,
             cellTapped: tableView.rx.itemSelected,
             profileLoginButtonTapped: profileView.loginButton.rx.tap
         )
@@ -92,22 +127,23 @@ private extension MyPageMainVC {
         output.myPageAPIResponse
             .withUnretained(self)
             .subscribe(onNext: { (owner, myPageResponse) in
-                print(myPageResponse)
                 owner.profileView.injectionWith(
                     input: .init(
-                        // TODO: - 더미 데이터 제거 후 연결 필요
                         isLogin: myPageResponse.login,
-                        nickName: "Test",
-                        instagramId: "Test",
-                        intro: "Test"
+                        nickName: myPageResponse.nickname,
+                        instagramId: myPageResponse.instagramId,
+                        intro: myPageResponse.intro,
+                        profileImage: myPageResponse.profileImageURL
                     )
                 )
                 if myPageResponse.login {
-                    let bottomView = UIView(frame: .init(origin: .zero, size: .init(width: owner.view.frame.width, height: 100)))
+                    let bottomView = UIView(frame: .init(origin: .zero, size: .init(width: owner.view.frame.width, height: 200)))
                     bottomView.backgroundColor = .systemBackground
                     bottomView.addSubview(owner.logoutButton)
                     owner.logoutButton.snp.makeConstraints { make in
-                        make.top.leading.trailing.equalToSuperview().inset(20)
+                        make.top.equalToSuperview()
+                        make.centerX.equalToSuperview()
+                        make.width.equalTo(bottomView.frame.width - 40)
                         make.height.equalTo(50)
                     }
                     owner.tableView.tableFooterView = bottomView
@@ -122,6 +158,15 @@ private extension MyPageMainVC {
         output.moveToVC
             .withUnretained(self)
             .subscribe { (owner, vc) in
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.moveToSettingVC
+            .withUnretained(self)
+            .subscribe { (owner, userUseCase) in
+                let vm = ProfileEditVM(userUseCase: userUseCase)
+                let vc = ProfileEditVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

@@ -118,9 +118,9 @@ final class UserRepositoryImpl: UserRepository {
         let endPoint = PopPoolAPIEndPoint.user_updateMyInterest(
             userId: userId,
             request: .init(
-                interestsToAdd: interestsToAdd,
-                interestsToDelete: interestsToDelete,
-                interestsToKeep: interestsToKeep
+                interestCategoriesToAdd: interestsToAdd,
+                interestCategoriesToDelete: interestsToDelete,
+                interestCategoriesToKeep: interestsToKeep
             )
         )
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
@@ -130,9 +130,9 @@ final class UserRepositoryImpl: UserRepository {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable {
         let imageURL = profileImage?.absoluteString ?? ""
         let endPoint = PopPoolAPIEndPoint.user_updateMyProfile(

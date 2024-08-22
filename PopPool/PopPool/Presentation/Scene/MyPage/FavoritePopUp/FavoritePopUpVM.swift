@@ -30,7 +30,7 @@ final class FavoritePopUpVM: ViewModelable {
             case .cardList:
                 return CardListLayout()
             case .grid:
-                return GridLayout()
+                return GridLayout(height: 255)
             }
         }
     }

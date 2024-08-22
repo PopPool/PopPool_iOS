@@ -143,9 +143,9 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         profileImage: URL?,
         nickname: String,
-        email: String,
-        instagramId: String,
-        intro: String
+        email: String?,
+        instagramId: String?,
+        intro: String?
     ) -> Completable {
         return repository
             .updateMyProfile(
