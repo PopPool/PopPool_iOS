@@ -293,6 +293,9 @@ struct PopPoolAPIEndPoint {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/home/custom/popup-stores",
+            method: .get
+        )
+    }
           
     /// 홈 화면에서 신규 팝업 '전체보기' 탭 시 관련 팝업 데이터를 조회합니다
     /// - Parameter userId: 유저 아이디
@@ -312,6 +315,9 @@ struct PopPoolAPIEndPoint {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/home/popular/popup-stores",
+            method: .get
+        )
+    }
           
     // MARK: - Notice API
     
