@@ -34,7 +34,7 @@ final class MyPageMainVM: ViewModelable {
     var menuList: [any TableViewSectionable] {
         get {
             // 로그인 유무에 따라 List 변경
-            if self.myPageAPIResponse.value.login {
+            if self.myPageAPIResponse.value.isLogin {
                 // 내 코멘트 없을 경우 분기
                 if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
                     return [

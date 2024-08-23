@@ -115,7 +115,7 @@ final class LoginVM: ViewModelable {
                             .disposed(by: owner.disposeBag)
 
                         // 등록된 유저인지를 분기하여 이벤트 전달
-                        if loginResponse.registeredUser {
+                        if loginResponse.isRegisteredUser {
                             moveToHomeVCSubject.onNext(loginResponse)
                         } else {
                             let vm = SignUpVM()

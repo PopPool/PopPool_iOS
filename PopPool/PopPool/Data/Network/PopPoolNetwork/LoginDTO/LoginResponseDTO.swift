@@ -28,7 +28,7 @@ extension LoginResponseDTO {
             accessTokenExpiresAt: accessTokenExpiresAt,
             refreshTokenExpiresAt: refreshTokenExpiresAt,
             socialType: socialType,
-            registeredUser: registeredUserYn
+            isRegisteredUser: registeredUserYn
         )
     }
 }

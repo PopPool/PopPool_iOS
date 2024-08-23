@@ -13,5 +13,5 @@ struct GetMyPageResponse {
     var instagramId: String?
     var popUpInfoList: [MyCommentedPopUpInfo]
     var intro: String?
-    var login: Bool
+    var isLogin: Bool
 }

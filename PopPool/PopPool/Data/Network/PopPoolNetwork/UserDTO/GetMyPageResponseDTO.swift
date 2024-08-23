@@ -24,7 +24,7 @@ extension GetMyPageResponseDTO {
             instagramId: instagramId,
             popUpInfoList: myCommentedPopUpList.map({ $0.toDomain() }),
             intro: intro,
-            login: loginYn
+            isLogin: loginYn
         )
     }
 }
