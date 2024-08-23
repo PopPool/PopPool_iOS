@@ -1,12 +1,13 @@
-//
-//  MapRepositoryImpl.swift
-//  PopPool
-//
-//  Created by 김기현 on 8/6/24.
-//
-
 import Foundation
 import RxSwift
+
+struct PopUpStoreQueryParameters: Encodable {
+    let northEastLat: Double
+    let northEastLon: Double
+    let southWestLat: Double
+    let southWestLon: Double
+    let category: String?
+}
 
 final class MapRepositoryImpl: MapRepository {
     private let provider: Provider
@@ -15,9 +16,28 @@ final class MapRepositoryImpl: MapRepository {
         self.provider = provider
     }
 
-    func fetchPopUpStores() -> Observable<[PopUpStore]> {
-        let endpoint = PopPoolAPIEndPoint.map_fetchPopUpStores()
+    func fetchPopUpStores(northEastLat: Double, northEastLon: Double, southWestLat: Double, southWestLon: Double, category: String?) -> Observable<[PopUpStore]> {
+        let queryParameters = PopUpStoreQueryParameters(
+            northEastLat: northEastLat,
+            northEastLon: northEastLon,
+            southWestLat: southWestLat,
+            southWestLon: southWestLon,
+            category: category
+        )
+
+        let endpoint = Endpoint<[PopUpStoreDTO]>(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/locations/popup-stores",
+            method: .get,
+            queryParameters: queryParameters
+        )
+
         return provider.requestData(with: endpoint)
-            .map { $0.map { $0.toDomain() } }
+            .map { response in
+                response.map { $0.toDomain() }
+            }
+            .catch { error in
+                return .error(error)
+            }
     }
 }

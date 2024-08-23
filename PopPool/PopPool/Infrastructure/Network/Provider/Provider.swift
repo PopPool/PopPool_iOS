@@ -42,6 +42,17 @@ class ProviderImpl: Provider {
                 AF.request(urlRequest, interceptor: interceptor)
                     .validate()
                     .responseData { response in
+                        print("API 응답 상태 코드: \(response.response?.statusCode ?? 0)")
+                        print("API 응답 헤더: \(response.response?.allHeaderFields ?? [:])")
+                        print("API 요청 URL: \(response.request?.url?.absoluteString ?? "알 수 없음")")
+                        print("API 응답 상태 코드: \(response.response?.statusCode ?? 0)")
+                        print("요청 메소드:", response.request?.httpMethod ?? "메소드 없음") // 요청 메소드 출력
+                        if let body = response.request?.httpBody {
+                            print("요청 파라미터:", String(data: body, encoding: .utf8) ?? "파라미터 없음") // 파라미터 출력
+                        } else {
+                            print("요청 파라미터: 파라미터 없음")
+                        }
+
                         switch response.result {
                         case .success(let data):
                             do {

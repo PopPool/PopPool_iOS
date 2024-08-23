@@ -1,9 +1,3 @@
-//  MapVC.swift
-//  PopPool
-//
-//  Created by 김기현 on 8/6/24.
-//
-
 import UIKit
 import GoogleMaps
 import SnapKit
@@ -12,27 +6,32 @@ import RxCocoa
 
 class MapVC: BaseViewController {
     // MARK: - Properties
-    private let viewModel: MapVM
-    private let disposeBag = DisposeBag()
+    private let viewModel: MapVM  // ViewModel과의 바인딩을 위해 사용
+    private let disposeBag = DisposeBag()  // 메모리 관리를 위한 DisposeBag
+    private var selectedCategory: String?  // 사용자가 선택한 카테고리를 저장하는 변수
+    
 
     // MARK: - UI Components
     private lazy var mapView: GMSMapView = {
         let camera = GMSCameraPosition.camera(withLatitude: 37.5665, longitude: 126.9780, zoom: 14.0)
         let mapView = GMSMapView(frame: .zero, camera: camera)
+        mapView.delegate = self  // 지도 이벤트를 감지하기 위해 delegate 설정
         return mapView
     }()
 
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "팝업스토어명, 지역을 입력해보세요"
-//        searchBar.backgroundColor = .white
+        searchBar.backgroundImage = UIImage()  // 기본 배경 이미지 제거
+        searchBar.backgroundColor = .white
         searchBar.layer.cornerRadius = 8
         searchBar.clipsToBounds = true
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-               textField.borderStyle = .none
-               textField.layer.cornerRadius = 8
-               textField.layer.masksToBounds = true
-           }
+            textField.backgroundColor = .white
+            textField.borderStyle = .none
+            textField.layer.cornerRadius = 8
+            textField.layer.masksToBounds = true
+        }
         return searchBar
     }()
 
@@ -107,6 +106,8 @@ class MapVC: BaseViewController {
     init(viewModel: MapVM) {
         self.viewModel = viewModel
         super.init()
+        // 기본값을 설정하여 초기 진입 시 모든 카테고리를 포함하도록 설정
+//        selectedCategory = "all" // "all" 또는 ""로 설정하여 모든 카테고리 필터링
     }
 
     required init?(coder: NSCoder) {
@@ -118,6 +119,7 @@ class MapVC: BaseViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
+        setupTapGesture()
     }
 
     // MARK: - Setup Methods
@@ -129,7 +131,6 @@ class MapVC: BaseViewController {
         view.addSubview(currentLocationButton)
         view.addSubview(listViewButton)
         view.addSubview(popupCardView)
-//        view.addSubview(popupListView)
 
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -166,7 +167,7 @@ class MapVC: BaseViewController {
 
         popupListView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(view.frame.height) // 화면 아래에 숨겨둠
+            make.bottom.equalToSuperview().offset(view.frame.height)
             make.height.equalTo(view.frame.height / 2)
         }
 
@@ -184,53 +185,52 @@ class MapVC: BaseViewController {
     }
 
     private func bindViewModel() {
+        // 검색어 입력에 따른 검색 처리
         searchBar.rx.text.orEmpty
             .bind(to: viewModel.input.searchQuery)
             .disposed(by: disposeBag)
 
+        // 필터링된 스토어 목록을 받아 지도에 표시
         viewModel.output.filteredStores
             .subscribe(onNext: { [weak self] stores in
                 self?.updateMapWithStores(stores)
             })
             .disposed(by: disposeBag)
 
-        let tapGesture = UITapGestureRecognizer()
-        mapView.addGestureRecognizer(tapGesture)
-
-        tapGesture.rx.event
-            .subscribe(onNext: { [weak self] _ in
-                self?.view.endEditing(true)
-            })
-            .disposed(by: disposeBag)
-
+        // 현재 위치 요청에 따른 지도 이동
         currentLocationButton.rx.tap
             .bind(to: viewModel.input.currentLocationRequested)
             .disposed(by: disposeBag)
 
+        // 리스트 보기 버튼 탭 처리
         listViewButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.showListView()
             })
             .disposed(by: disposeBag)
 
+        // 위치 필터 버튼 탭 처리
         locationFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.showFilterBottomSheet()
             })
             .disposed(by: disposeBag)
 
+        // 카테고리 필터 버튼 탭 처리
         categoryFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.showFilterBottomSheet()
             })
             .disposed(by: disposeBag)
 
+        // 필터링된 스토어 목록을 리스트에 표시
         viewModel.output.filteredStores
             .bind(to: popupListView.rx.items(cellIdentifier: PopupListCell.identifier, cellType: PopupListCell.self)) { index, store, cell in
                 cell.configure(with: store)
             }
             .disposed(by: disposeBag)
 
+        // 현재 위치 업데이트
         viewModel.output.currentLocation
             .subscribe(onNext: { [weak self] location in
                 guard let location = location else { return }
@@ -239,9 +239,17 @@ class MapVC: BaseViewController {
             })
             .disposed(by: disposeBag)
 
+        // 에러 메시지 처리
         viewModel.output.errorMessage
             .subscribe(onNext: { [weak self] message in
                 self?.showError(message)
+            })
+            .disposed(by: disposeBag)
+
+        // 검색 버튼 클릭 시 키보드 내리기
+        searchBar.rx.searchButtonClicked
+            .subscribe(onNext: { [weak self] in
+                self?.searchBar.resignFirstResponder()
             })
             .disposed(by: disposeBag)
     }
@@ -259,28 +267,24 @@ class MapVC: BaseViewController {
     }
 
     private func showListView() {
-        print("List view button tapped, y position: \(popupListView.frame.origin.y)")
-
         if popupListView.frame.origin.y >= view.frame.height {
-            // 뷰가 화면 아래에 있는 경우, 위치를 초기화하고 애니메이션으로 올림
             popupListView.snp.updateConstraints { make in
-                make.bottom.equalToSuperview().offset(view.frame.height / 2) // 화면 중간 위치로 초기화
+                make.bottom.equalToSuperview().offset(view.frame.height / 2)
             }
-            view.layoutIfNeeded() // 위치를 즉시 업데이트
+            view.layoutIfNeeded()
 
             popupListView.alpha = 0
             UIView.animate(withDuration: 0.3) {
                 self.popupListView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview() // 화면 하단에 맞춤
+                    make.bottom.equalToSuperview()
                 }
                 self.popupListView.alpha = 1
                 self.view.layoutIfNeeded()
             }
         } else {
-            // 이미 화면에 올라와 있는 상태에서 단순히 위치를 조정
             UIView.animate(withDuration: 0.3) {
                 self.popupListView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview() // 화면 하단에 맞춤
+                    make.bottom.equalToSuperview()
                 }
                 self.view.layoutIfNeeded()
             }
@@ -289,7 +293,6 @@ class MapVC: BaseViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         popupListView.addGestureRecognizer(panGesture)
     }
-
 
     private func showError(_ message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -301,13 +304,21 @@ class MapVC: BaseViewController {
         let filterVC = FilterBottomSheetViewController(viewModel: viewModel)
         filterVC.modalPresentationStyle = .overFullScreen
         filterVC.modalTransitionStyle = .coverVertical
+
+        // 필터가 저장될 때 호출되는 클로저
+        filterVC.onCategoryFilterApplied = { [weak self] selectedCategory in
+            self?.selectedCategory = selectedCategory
+            let categories = selectedCategory.map { [$0] } ?? []
+            self?.viewModel.input.categoryFilterChanged.onNext(selectedCategory != nil ? [selectedCategory!] : [])
+        }
+
         present(filterVC, animated: true, completion: nil)
     }
 
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
-        let topPosition = view.safeAreaInsets.top // 서치바 바로 아래
-        let bottomPosition = view.frame.height // 화면 하단 위치
+        let topPosition = view.safeAreaInsets.top
+        let bottomPosition = view.frame.height
 
         switch gesture.state {
         case .changed:
@@ -319,7 +330,6 @@ class MapVC: BaseViewController {
             let velocity = gesture.velocity(in: view)
 
             if velocity.y > 0 {
-                // 아래로 내려가는 경우
                 UIView.animate(withDuration: 0.3) {
                     self.popupListView.frame.origin.y = bottomPosition
                     self.searchBar.isHidden = false
@@ -327,7 +337,6 @@ class MapVC: BaseViewController {
                     self.resizeIndicator.isHidden = false
                 }
             } else {
-                // 위로 올라가는 경우
                 UIView.animate(withDuration: 0.3) {
                     self.popupListView.frame.origin.y = topPosition
                     self.popupListView.snp.remakeConstraints { make in
@@ -335,9 +344,6 @@ class MapVC: BaseViewController {
                         make.leading.trailing.bottom.equalToSuperview()
                     }
                     self.view.layoutIfNeeded()
-
-//                    self.searchBar.isHidden = true
-//                    self.filterStackView.isHidden = true
                     self.resizeIndicator.isHidden = true
                 }
             }
@@ -346,4 +352,38 @@ class MapVC: BaseViewController {
             break
         }
     }
+
+    // MARK: - 탭 제스처 설정
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
+
+// MARK: - GMSMapViewDelegate 구현
+extension MapVC: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        let bounds = mapView.projection.visibleRegion()
+        let coordinateBounds = GMSCoordinateBounds(region: bounds)
+
+        print("MapVC - mapView idleAt position:")
+        print("Bounds: \(coordinateBounds)")
+        print("Selected Category: \(String(describing: selectedCategory))")
+
+        // 선택된 카테고리가 없을 경우 모든 카테고리를 문자열로 넣기
+        let allCategories = ["패션,라이프스타일,뷰티,음식/요리,예술,반려동물,여행,엔터테인먼트,애니메이션,키즈,스포츠,게임"]
+        let categories = selectedCategory.map { [$0] } ?? allCategories
+        
+
+        // ViewModel에 지도 영역과 선택된(혹은 모든) 카테고리 전달
+        viewModel.input.mapRegionChanged.onNext(coordinateBounds)
+        viewModel.input.categoryFilterChanged.onNext(categories)
+
+    }
+}
+

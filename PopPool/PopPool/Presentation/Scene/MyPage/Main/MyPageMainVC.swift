@@ -181,7 +181,15 @@ extension MyPageMainVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.menuList[section].sectionCellInputList.count
+        // 배열 접근 전에 체크
+        if section < viewModel.menuList.count {
+            let rowCount = viewModel.menuList[section].sectionCellInputList.count
+            print("디버깅: section \(section)에 \(rowCount)개의 행이 있습니다.")
+            return rowCount
+        } else {
+            print("오류: section \(section)에서 menuList 접근 시도. menuList의 크기: \(viewModel.menuList.count)")
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

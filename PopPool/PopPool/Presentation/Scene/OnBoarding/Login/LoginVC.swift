@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class LoginVC: BaseViewController {
-    
+
     // MARK: - Components
     private let headerView = HeaderViewCPNT(title: "둘러보기", style: .text("둘러보기"))
     private let logoStackView: UIStackView = {
@@ -57,23 +57,23 @@ final class LoginVC: BaseViewController {
     }()
     private let kakaoSignInButton: ButtonCPNT = ButtonCPNT(type: .kakao, title: "카카오톡으로 로그인")
     private let appleSignInButton: ButtonCPNT = ButtonCPNT(type: .apple, title: "Apple로 로그인")
-    
+
     // MARK: - Spacer
     // TODO: - space 상수 제거
     private lazy var spacer28 = SpacingFactory.createSpace(size: 28)
     private lazy var spacer64 = SpacingFactory.createSpace(size: 64)
     private lazy var spacer156 = SpacingFactory.createSpace(size: 156)
-    
+
     // MARK: - Properties
     private let viewModel: LoginVM
     private let disposeBag = DisposeBag()
-    
+
     // MARK: - init
     init(viewModel: LoginVM) {
         self.viewModel = viewModel
         super.init()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -90,7 +90,7 @@ extension LoginVC {
 
 // MARK: - Setup
 private extension LoginVC {
-     func setUpConstraints() {
+    func setUpConstraints() {
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .systemBackground
         headerView.leftBarButton.isHidden = true
@@ -151,22 +151,39 @@ private extension LoginVC {
         output.moveToHomeVC
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
-                // TODO: - 로그인 성공 시 MyPageMain으로 임시 연결 추후 변경 필요
-                Constants.userId = loginResponse.userId
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
-                        let vm = MyPageMainVM(response: myPageResponse, userUseCase: useCase)
+                        let storeService = AppDIContainer.shared.resolve(type: StoresService.self)
+                        let provider = AppDIContainer.shared.resolve(type: ProviderImpl.self)
+                        
+                        let customTabBarController = CustomTabBarController(
+                            storeService: storeService,
+                            provider: provider,
+                            myPageResponse: myPageResponse,
+                            accessToken: loginResponse.accessToken
+                        )
+                        
+                        // MapVC 생성
+                        let mapViewModel = MapVM(storeService: storeService)
+                        let mapVC = MapVC(viewModel: mapViewModel)
+                        
+                        // MyPageMainVC 생성 (기존 코드 유지)
+                        let vm = MyPageMainVM(response: myPageResponse)
                         vm.myCommentSection.sectionCellInputList = [
                             .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
                                 title: $0.popUpStoreName,
-                                // TODO: - isActive 부분 논의 후 수정 필요
                                 isActive: false,
                                 imageURL: $0.mainImageUrl)
                             })
                         ]
-                        let vc = MyPageMainVC(viewModel: vm)
-                        owner.navigationController?.pushViewController(vc, animated: true)
+                        let myPageVC = MyPageMainVC(viewModel: vm)
+                        
+                        // CustomTabBarController에 뷰컨트롤러 설정
+                        customTabBarController.viewControllers = [mapVC, myPageVC]
+                        
+                        // 네비게이션 스택 교체
+                        owner.navigationController?.setViewControllers([customTabBarController], animated: true)
                     })
                     .disposed(by: owner.disposeBag)
             }

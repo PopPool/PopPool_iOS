@@ -33,35 +33,24 @@ final class MyPageMainVM: ViewModelable {
     
     var menuList: [any TableViewSectionable] {
         get {
-            // 로그인 유무에 따라 List 변경
+            guard !myCommentSection.sectionCellInputList.isEmpty else {
+                print("오류: myCommentSection.sectionCellInputList가 비어있습니다.")
+                return [informationSection]
+            }
+
             if self.myPageAPIResponse.value.login {
-                // 내 코멘트 없을 경우 분기
-                if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
-                    return [
-                        // TODO: - myCommentSection 제거 필요
-                        myCommentSection,
-                        normalSection,
-                        informationSection,
-                        etcSection
-                    ]
-                } else {
-                    return [
-                        myCommentSection,
-                        normalSection,
-                        informationSection,
-                        etcSection
-                    ]
-                }
+                print("디버깅: 유저가 로그인 상태입니다. 정상적으로 menuList를 반환합니다.")
+                return [myCommentSection, normalSection, informationSection, etcSection]
             } else {
-                return [
-                    informationSection
-                ]
+                print("디버깅: 유저가 로그아웃 상태입니다. informationSection만 반환합니다.")
+                return [informationSection]
             }
         }
         set {
-            
-        }
     }
+
+        }
+    
     
     // MARK: - MenuSection
     // 내 코멘트 Section
