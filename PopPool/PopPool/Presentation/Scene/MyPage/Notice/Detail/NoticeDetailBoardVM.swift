@@ -29,7 +29,7 @@ class NoticeDetailBoardVM: ViewModelable {
             id: 0,
             title: "",
             content: "",
-            createDateTime: ""
+            createDateTime: .now
         )
     )
     

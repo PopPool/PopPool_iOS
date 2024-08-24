@@ -16,6 +16,11 @@ struct GetNoticeDetailResponseDTO: Decodable {
 
 extension GetNoticeDetailResponseDTO {
     func toDomain() -> GetNoticeDetailResponse {
-        return .init(id: id, title: title, content: content, createDateTime: createDateTime)
+        return .init(
+            id: id,
+            title: title,
+            content: content,
+            createDateTime: createDateTime.asDate()
+        )
     }
 }

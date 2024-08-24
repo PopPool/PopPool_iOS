@@ -15,6 +15,6 @@ struct NoticeInfoDTO: Decodable {
 
 extension NoticeInfoDTO {
     func toDomain() -> NoticeInfo {
-        return .init(id: id, title: title, date: createdDateTime)
+        return .init(id: id, title: title, date: createdDateTime.asDate())
     }
 }

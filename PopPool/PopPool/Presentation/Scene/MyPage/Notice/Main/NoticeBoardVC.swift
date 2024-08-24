@@ -81,7 +81,7 @@ final class NoticeBoardVC: BaseTableViewVC {
                 cellIdentifier: NoticeTableViewCell.identifier,
                 cellType: NoticeTableViewCell.self)) { (row, element, cell) in
                     cell.selectionStyle = .none
-                    cell.updateView(title: element.title, subTitle: element.date)
+                    cell.updateView(title: element.title, subTitle: element.date.asString())
                 }
                 .disposed(by: disposeBag)
         

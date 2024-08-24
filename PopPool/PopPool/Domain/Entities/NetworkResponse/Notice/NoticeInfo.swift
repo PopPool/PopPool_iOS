@@ -10,5 +10,5 @@ import Foundation
 struct NoticeInfo {
     var id: Int64
     var title: String
-    var date: String
+    var date: Date
 }

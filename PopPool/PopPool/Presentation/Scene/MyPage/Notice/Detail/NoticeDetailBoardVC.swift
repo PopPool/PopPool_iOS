@@ -108,7 +108,7 @@ final class NoticeDetailBoardVC: UIViewController, UIScrollViewDelegate {
             .withUnretained(self)
             .subscribe { (owner, notice) in
                 owner.mainTitleLabel.text = notice.title
-                owner.dateLabel.text = notice.createDateTime
+                owner.dateLabel.text = notice.createDateTime.asString()
                 owner.contentContainerView.text = notice.content
             }
             .disposed(by: disposeBag)
