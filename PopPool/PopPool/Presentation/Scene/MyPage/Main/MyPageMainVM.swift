@@ -36,7 +36,7 @@ final class MyPageMainVM: ViewModelable {
             // 로그인 유무에 따라 List 변경
             if self.myPageAPIResponse.value.isLogin {
                 // 내 코멘트 없을 경우 분기
-                if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
+                if myCommentSection.sectionCellInputList.isEmpty {
                     return [
                         // TODO: - myCommentSection 제거 필요
                         myCommentSection,
@@ -103,6 +103,20 @@ final class MyPageMainVM: ViewModelable {
     
     // MARK: - transform
     func transform(input: Input) -> Output {
+        
+        myPageAPIResponse
+            .withUnretained(self)
+            .subscribe { (owner, myPageResponse) in
+                owner.myCommentSection.sectionCellInputList = [
+                    .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
+                        title: $0.popUpStoreName,
+                        // TODO: - isActive 부분 논의 후 수정 필요
+                        isActive: false,
+                        imageURL: $0.mainImageUrl)
+                    })
+                ]
+            }
+            .disposed(by: disposeBag)
         
         let moveToSettingVC: PublishSubject<UserUseCase> = .init()
         // SettingButtonTapped
