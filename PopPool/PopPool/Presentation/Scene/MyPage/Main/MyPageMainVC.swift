@@ -129,14 +129,14 @@ private extension MyPageMainVC {
             .subscribe(onNext: { (owner, myPageResponse) in
                 owner.profileView.injectionWith(
                     input: .init(
-                        isLogin: myPageResponse.login,
+                        isLogin: myPageResponse.isLogin,
                         nickName: myPageResponse.nickname,
                         instagramId: myPageResponse.instagramId,
                         intro: myPageResponse.intro,
                         profileImage: myPageResponse.profileImageURL
                     )
                 )
-                if myPageResponse.login {
+                if myPageResponse.isLogin {
                     let bottomView = UIView(frame: .init(origin: .zero, size: .init(width: owner.view.frame.width, height: 200)))
                     bottomView.backgroundColor = .systemBackground
                     bottomView.addSubview(owner.logoutButton)
@@ -150,7 +150,7 @@ private extension MyPageMainVC {
                 } else {
                     owner.tableView.tableFooterView = nil
                 }
-                owner.headerView.rightBarButton.isHidden = !myPageResponse.login
+                owner.headerView.rightBarButton.isHidden = !myPageResponse.isLogin
                 owner.tableView.reloadData()
             })
             .disposed(by: disposeBag)

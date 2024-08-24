@@ -15,5 +15,5 @@ struct LoginResponse: Decodable {
     var accessTokenExpiresAt: String
     var refreshTokenExpiresAt: String
     var socialType: String
-    var registeredUser: Bool
+    var isRegisteredUser: Bool
 }
