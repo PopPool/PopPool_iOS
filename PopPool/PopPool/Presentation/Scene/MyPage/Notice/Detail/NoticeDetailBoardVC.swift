@@ -6,8 +6,10 @@
 //
 
 import UIKit
+
 import RxSwift
 import SnapKit
+import RxCocoa
 
 final class NoticeDetailBoardVC: UIViewController, UIScrollViewDelegate {
     
@@ -102,16 +104,13 @@ final class NoticeDetailBoardVC: UIViewController, UIScrollViewDelegate {
         )
         let output = viewModel.transform(input: input)
         
-        output.title
-            .bind(to: mainTitleLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.date
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        output.content
-            .bind(to: contentContainerView.rx.text)
+        output.notice
+            .withUnretained(self)
+            .subscribe { (owner, notice) in
+                owner.mainTitleLabel.text = notice.title
+                owner.dateLabel.text = notice.createDateTime
+                owner.contentContainerView.text = notice.content
+            }
             .disposed(by: disposeBag)
         
         output.popToNoticeBoard

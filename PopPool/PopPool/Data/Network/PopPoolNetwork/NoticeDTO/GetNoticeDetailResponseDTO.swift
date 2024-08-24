@@ -13,3 +13,9 @@ struct GetNoticeDetailResponseDTO: Decodable {
     var content: String
     var createDateTime: String
 }
+
+extension GetNoticeDetailResponseDTO {
+    func toDomain() -> GetNoticeDetailResponse {
+        return .init(id: id, title: title, content: content, createDateTime: createDateTime)
+    }
+}

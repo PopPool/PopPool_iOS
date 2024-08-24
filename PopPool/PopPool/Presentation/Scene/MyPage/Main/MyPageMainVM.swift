@@ -27,9 +27,9 @@ final class MyPageMainVM: ViewModelable {
     // MARK: - Propoerties
     var disposeBag = DisposeBag()
     
-    var userUseCase: UserUseCase
+    var userUseCase: UserUseCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
     
-    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
+    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(value: .init(popUpInfoList: [], isLogin: true))
     
     var menuList: [any TableViewSectionable] {
         get {
@@ -94,12 +94,6 @@ final class MyPageMainVM: ViewModelable {
         sectionCellInputList: [
             .init(title: "회원탈퇴")
         ])
-    
-    // MARK: - init
-    init(response: GetMyPageResponse, userUseCase: UserUseCase) {
-        self.myPageAPIResponse = .init(value: response)
-        self.userUseCase = userUseCase
-    }
     
     // MARK: - transform
     func transform(input: Input) -> Output {

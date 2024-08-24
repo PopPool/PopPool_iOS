@@ -11,8 +11,6 @@ import RxSwift
 import RxCocoa
 
 final class NoticeTableViewCell: UITableViewCell {
-
-    static let reuseIdentifier = "NoticeTableViewCell"
     
     // MARK: - Components
     

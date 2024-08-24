@@ -16,28 +16,40 @@ class NoticeDetailBoardVM: ViewModelable {
     }
     
     struct Output {
-        let title: Observable<String>
-        let date: Observable<String>
-        let content: Observable<String>
+        let notice: BehaviorRelay<GetNoticeDetailResponse>
         let popToNoticeBoard: ControlEvent<Void>
     }
     
     var disposeBag = DisposeBag()
-    private let notice: [String]
     
-    init(data: [String]) {
-        self.notice = data
+    private let noticeInfo: NoticeInfo
+    private let noticeUseCase: NoticeUseCase
+    private let noticeData: BehaviorRelay<GetNoticeDetailResponse> = .init(
+        value: .init(
+            id: 0,
+            title: "",
+            content: "",
+            createDateTime: ""
+        )
+    )
+    
+    init(noticeInfo: NoticeInfo, noticeUseCase: NoticeUseCase) {
+        self.noticeInfo = noticeInfo
+        self.noticeUseCase = noticeUseCase
     }
     
     func transform(input: Input) -> Output {
-        let title = Observable.just(notice[0])
-        let date = Observable.just(notice[1])
-        let content = Observable.just(notice[2])
+        
+        noticeUseCase.fetchNoticeDetail(noticeId: noticeInfo.id)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, response) in
+                owner.noticeData.accept(response)
+            })
+            .disposed(by: disposeBag)
         
         return Output(
-            title: title,
-            date: date,
-            content: content,
-            popToNoticeBoard: input.returnTapped)
+            notice: noticeData,
+            popToNoticeBoard: input.returnTapped
+        )
     }
 }

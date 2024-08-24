@@ -172,6 +172,13 @@
 		08FF6C262C721CA800B68569 /* GetNoticeDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C252C721CA800B68569 /* GetNoticeDetailResponseDTO.swift */; };
 		08FF6C282C721CE600B68569 /* CreateNoticeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */; };
 		08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */; };
+		08FF6C7F2C79B8E100B68569 /* NoticeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C7E2C79B8E100B68569 /* NoticeRepositoryImpl.swift */; };
+		08FF6C822C79BE6600B68569 /* NoticeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C812C79BE6600B68569 /* NoticeInfo.swift */; };
+		08FF6C862C79BF3C00B68569 /* GetNoticeDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C852C79BF3C00B68569 /* GetNoticeDetailResponse.swift */; };
+		08FF6C882C79C03E00B68569 /* GetNoticeListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C872C79C03E00B68569 /* GetNoticeListResponse.swift */; };
+		08FF6C8A2C79C0C800B68569 /* NoticeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C892C79C0C800B68569 /* NoticeRepository.swift */; };
+		08FF6C8C2C79C15300B68569 /* NoticeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C8B2C79C15300B68569 /* NoticeUseCaseImpl.swift */; };
+		08FF6C8E2C79C1F000B68569 /* NoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C8D2C79C1F000B68569 /* NoticeUseCase.swift */; };
 		4E184D5D2C6F1FC800573A2E /* RecentPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E184D5B2C6F1FC800573A2E /* RecentPopUpVC.swift */; };
 		4E184D622C6F1FD500573A2E /* FavoritePopUpFilterModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E184D5E2C6F1FD400573A2E /* FavoritePopUpFilterModalVC.swift */; };
 		4E184D632C6F1FD500573A2E /* FavoritePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E184D5F2C6F1FD400573A2E /* FavoritePopUpVC.swift */; };
@@ -453,6 +460,13 @@
 		08FF6C252C721CA800B68569 /* GetNoticeDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeDetailResponseDTO.swift; sourceTree = "<group>"; };
 		08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoticeRequestDTO.swift; sourceTree = "<group>"; };
 		08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoticeRequestDTO.swift; sourceTree = "<group>"; };
+		08FF6C7E2C79B8E100B68569 /* NoticeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepositoryImpl.swift; sourceTree = "<group>"; };
+		08FF6C812C79BE6600B68569 /* NoticeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeInfo.swift; sourceTree = "<group>"; };
+		08FF6C852C79BF3C00B68569 /* GetNoticeDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeDetailResponse.swift; sourceTree = "<group>"; };
+		08FF6C872C79C03E00B68569 /* GetNoticeListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeListResponse.swift; sourceTree = "<group>"; };
+		08FF6C892C79C0C800B68569 /* NoticeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepository.swift; sourceTree = "<group>"; };
+		08FF6C8B2C79C15300B68569 /* NoticeUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeUseCaseImpl.swift; sourceTree = "<group>"; };
+		08FF6C8D2C79C1F000B68569 /* NoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeUseCase.swift; sourceTree = "<group>"; };
 		4E184D5B2C6F1FC800573A2E /* RecentPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPopUpVC.swift; sourceTree = "<group>"; };
 		4E184D5E2C6F1FD400573A2E /* FavoritePopUpFilterModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritePopUpFilterModalVC.swift; sourceTree = "<group>"; };
 		4E184D5F2C6F1FD400573A2E /* FavoritePopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritePopUpVC.swift; sourceTree = "<group>"; };
@@ -1070,6 +1084,7 @@
 				08E23A4D2C478870004B77B6 /* SignUpUseCaseImpl.swift */,
 				08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */,
 				BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */,
+				08FF6C8B2C79C15300B68569 /* NoticeUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1086,6 +1101,7 @@
 				08E23A4F2C478900004B77B6 /* SignUpUseCase.swift */,
 				08933CED2C5E555F006F6632 /* UserUseCase.swift */,
 				BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */,
+				08FF6C8D2C79C1F000B68569 /* NoticeUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1093,8 +1109,8 @@
 		08B9658D2C16003300BF95AA /* PopPoolNetwork */ = {
 			isa = PBXGroup;
 			children = (
-				4E4DC0142C620199007CE63A /* MapDTO */,
 				08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */,
+				4E4DC0142C620199007CE63A /* MapDTO */,
 				08E23A7B2C4F6B45004B77B6 /* Protocol */,
 				BD60B27A2C75A01D0062DC96 /* HomeDTO */,
 				08B965902C16005300BF95AA /* LoginDTO */,
@@ -1116,6 +1132,7 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				08FF6C7D2C79B8CC00B68569 /* NoticeRepository */,
 				4E4DC00F2C61FD34007CE63A /* MapRepository */,
 				BD60B2822C75CA790062DC96 /* HomeRepository */,
 				BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */,
@@ -1134,6 +1151,7 @@
 				08C813FC2C2F2C13009239FE /* SignUpRepository.swift */,
 				08E23AC42C4F9298004B77B6 /* UserRepository.swift */,
 				BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */,
+				08FF6C892C79C0C800B68569 /* NoticeRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -1301,6 +1319,7 @@
 		08E23AAC2C4F865E004B77B6 /* NetworkResponse */ = {
 			isa = PBXGroup;
 			children = (
+				08FF6C802C79BE5B00B68569 /* Notice */,
 				BD60B2772C759FEC0062DC96 /* Home */,
 				08E23AAD2C4F8687004B77B6 /* Auth */,
 				08E23AAE2C4F8693004B77B6 /* SignUp */,
@@ -1463,6 +1482,24 @@
 				08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */,
 			);
 			path = NoticeDTO;
+			sourceTree = "<group>";
+		};
+		08FF6C7D2C79B8CC00B68569 /* NoticeRepository */ = {
+			isa = PBXGroup;
+			children = (
+				08FF6C7E2C79B8E100B68569 /* NoticeRepositoryImpl.swift */,
+			);
+			path = NoticeRepository;
+			sourceTree = "<group>";
+		};
+		08FF6C802C79BE5B00B68569 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				08FF6C812C79BE6600B68569 /* NoticeInfo.swift */,
+				08FF6C852C79BF3C00B68569 /* GetNoticeDetailResponse.swift */,
+				08FF6C872C79C03E00B68569 /* GetNoticeListResponse.swift */,
+			);
+			path = Notice;
 			sourceTree = "<group>";
 		};
 		4E184D5C2C6F1FC800573A2E /* RecentPopUp */ = {
@@ -1977,6 +2014,7 @@
 				08AF8D8A2C660AE3006B8A11 /* MyCommentedPopUpInfoDTO.swift in Sources */,
 				08E23A762C4F6749004B77B6 /* GetMyCommentedPopUpStoreListResponseDTO.swift in Sources */,
 				4E184D622C6F1FD500573A2E /* FavoritePopUpFilterModalVC.swift in Sources */,
+				08FF6C8C2C79C15300B68569 /* NoticeUseCaseImpl.swift in Sources */,
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
 				089D19152C366E1A000435D9 /* Category.swift in Sources */,
 				08E23A7D2C4F6B54004B77B6 /* Pageable.swift in Sources */,
@@ -2033,10 +2071,12 @@
 				BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */,
+				08FF6C7F2C79B8E100B68569 /* NoticeRepositoryImpl.swift in Sources */,
 				BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */,
 				08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */,
+				08FF6C862C79BF3C00B68569 /* GetNoticeDetailResponse.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
@@ -2049,6 +2089,7 @@
 				4E4DC0072C61D40A007CE63A /* MapVC.swift in Sources */,
 				08E23AB52C4F89D6004B77B6 /* GetMyCommentedPopUpStoreListResponse.swift in Sources */,
 				BDC2C3432C5A6EE400FEF069 /* NoticeDetailBoardVM.swift in Sources */,
+				08FF6C882C79C03E00B68569 /* GetNoticeListResponse.swift in Sources */,
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				08E23A552C4CBC42004B77B6 /* RequestEndPoint.swift in Sources */,
 				4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */,
@@ -2060,6 +2101,7 @@
 				4E9A33AC2C64CE41000F4095 /* FilterCell.swift in Sources */,
 				08B9658F2C16004D00BF95AA /* PopPoolAPIEndPoint.swift in Sources */,
 				BD55E12F2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift in Sources */,
+				08FF6C8E2C79C1F000B68569 /* NoticeUseCase.swift in Sources */,
 				08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
 				08E23AAB2C4F7F98004B77B6 /* MyCommentInfo.swift in Sources */,
@@ -2070,6 +2112,7 @@
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
 				4E184D632C6F1FD500573A2E /* FavoritePopUpVC.swift in Sources */,
 				08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */,
+				08FF6C822C79BE6600B68569 /* NoticeInfo.swift in Sources */,
 				BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */,
 				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
 				BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */,
@@ -2133,6 +2176,7 @@
 				08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */,
 				BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */,
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
+				08FF6C8A2C79C0C800B68569 /* NoticeRepository.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
 				BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */,
 				BD60B2812C75C5AF0062DC96 /* HomeUseCase.swift in Sources */,
