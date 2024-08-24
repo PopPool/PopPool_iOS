@@ -66,14 +66,6 @@ extension MyPageMainVC {
             .withUnretained(self)
             .subscribe(onNext: { (owner, myPageResponse) in
                 owner.viewModel.myPageAPIResponse.accept(myPageResponse)
-                owner.viewModel.myCommentSection.sectionCellInputList = [
-                    .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
-                        title: $0.popUpStoreName,
-                        // TODO: - isActive 부분 논의 후 수정 필요
-                        isActive: false,
-                        imageURL: $0.mainImageUrl)
-                    })
-                ]
             })
             .disposed(by: disposeBag)
     }

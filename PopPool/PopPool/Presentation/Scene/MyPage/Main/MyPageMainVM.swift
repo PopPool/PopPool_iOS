@@ -27,16 +27,16 @@ final class MyPageMainVM: ViewModelable {
     // MARK: - Propoerties
     var disposeBag = DisposeBag()
     
-    var userUseCase: UserUseCase
+    var userUseCase: UserUseCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
     
-    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse>
+    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(value: .init(popUpInfoList: [], isLogin: true))
     
     var menuList: [any TableViewSectionable] {
         get {
             // 로그인 유무에 따라 List 변경
             if self.myPageAPIResponse.value.isLogin {
                 // 내 코멘트 없을 경우 분기
-                if myCommentSection.sectionCellInputList[0].cellInputList.isEmpty {
+                if myCommentSection.sectionCellInputList.isEmpty {
                     return [
                         // TODO: - myCommentSection 제거 필요
                         myCommentSection,
@@ -95,14 +95,22 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "회원탈퇴")
         ])
     
-    // MARK: - init
-    init(response: GetMyPageResponse, userUseCase: UserUseCase) {
-        self.myPageAPIResponse = .init(value: response)
-        self.userUseCase = userUseCase
-    }
-    
     // MARK: - transform
     func transform(input: Input) -> Output {
+        
+        myPageAPIResponse
+            .withUnretained(self)
+            .subscribe { (owner, myPageResponse) in
+                owner.myCommentSection.sectionCellInputList = [
+                    .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
+                        title: $0.popUpStoreName,
+                        // TODO: - isActive 부분 논의 후 수정 필요
+                        isActive: false,
+                        imageURL: $0.mainImageUrl)
+                    })
+                ]
+            }
+            .disposed(by: disposeBag)
         
         let moveToSettingVC: PublishSubject<UserUseCase> = .init()
         // SettingButtonTapped

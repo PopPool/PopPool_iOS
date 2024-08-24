@@ -339,7 +339,7 @@ struct PopPoolAPIEndPoint {
     /// 공지사항 상세 조회
     /// - Parameter id: 공지사항 ID
     /// - Returns: Endpoint<GetNoticeDetailResponseDTO>
-    static func notice_fetchNoticeDetail(id: String) -> Endpoint<GetNoticeDetailResponseDTO> {
+    static func notice_fetchNoticeDetail(id: Int64) -> Endpoint<GetNoticeDetailResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/notice/\(id)",
@@ -353,7 +353,7 @@ struct PopPoolAPIEndPoint {
     ///   - title: 공지사항 제목
     ///   - content: 공지사항 내용
     /// - Returns: RequestEndpoint
-    static func notice_updateNotice(id: String, title: String, content: String) -> RequestEndpoint {
+    static func notice_updateNotice(id: Int64, title: String, content: String) -> RequestEndpoint {
         let request = UpdateNoticeRequestDTO(title: title, content: content)
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,

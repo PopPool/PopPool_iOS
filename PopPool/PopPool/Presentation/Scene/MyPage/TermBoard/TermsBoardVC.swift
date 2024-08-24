@@ -39,7 +39,7 @@ final class TermsBoardVC: BaseTableViewVC {
     private func setUp() {
         headerView.titleLabel.text = "약관"
         tableView.register(NoticeTableViewCell.self,
-                           forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
+                           forCellReuseIdentifier: NoticeTableViewCell.identifier)
     }
     
     private func updateView(data: Int) {
@@ -75,7 +75,7 @@ final class TermsBoardVC: BaseTableViewVC {
                 self?.updateView(data: term.count)
             })
             .bind(to: tableView.rx.items(
-                cellIdentifier: NoticeTableViewCell.reuseIdentifier,
+                cellIdentifier: NoticeTableViewCell.identifier,
                 cellType: NoticeTableViewCell.self)) { row, element, cell in
                     
                     // NoticeDTO 활용하여 변경 예정

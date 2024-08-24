@@ -50,13 +50,14 @@ final class NoticeBoardVC: BaseTableViewVC {
     /// BaseTableViewVC과 다른 테이블뷰 셀을 등록할 수 있는 메서드입니다
     private func registerTableViewCell() {
         tableView.register(NoticeTableViewCell.self,
-                           forCellReuseIdentifier: NoticeTableViewCell.reuseIdentifier)
+                           forCellReuseIdentifier: NoticeTableViewCell.identifier)
     }
     
     private func bind() {
         let input = NoticeBoardVM.Input(
             returnTapped: headerView.leftBarButton.rx.tap,
-            selectedCell: tableView.rx.itemSelected.asObservable()
+            selectedCell: tableView.rx.itemSelected.asObservable(),
+            viewWillAppear: self.rx.viewWillAppear
         )
         let output = viewModel.transform(input: input)
         
@@ -77,11 +78,10 @@ final class NoticeBoardVC: BaseTableViewVC {
                 self?.updateView(notice: notice.count)
             })
             .bind(to: tableView.rx.items(
-                cellIdentifier: NoticeTableViewCell.reuseIdentifier,
+                cellIdentifier: NoticeTableViewCell.identifier,
                 cellType: NoticeTableViewCell.self)) { (row, element, cell) in
                     cell.selectionStyle = .none
-                    cell.updateView(title: element[0],
-                                    subTitle: element[1])
+                    cell.updateView(title: element.title, subTitle: element.date.asString())
                 }
                 .disposed(by: disposeBag)
         
@@ -89,7 +89,9 @@ final class NoticeBoardVC: BaseTableViewVC {
         output.selectedNotice
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
-                let detailBoardVM = NoticeDetailBoardVM(data: data)
+                let notice = data.0
+                let useCase = data.1
+                let detailBoardVM = NoticeDetailBoardVM(noticeInfo: notice, noticeUseCase: useCase)
                 let detailVC = NoticeDetailBoardVC(viewModel: detailBoardVM)
                 owner.navigationController?.pushViewController(detailVC, animated: true)
             })
