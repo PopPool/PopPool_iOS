@@ -186,8 +186,9 @@ final class MyPageMainVM: ViewModelable {
         } else if title == "공지사항" {
             return NoticeBoardVC(viewModel: NoticeBoardVM())
         } else if title == "고객문의" {
-            // TODO: - 추후 연결필요
-            return BaseViewController()
+            let vm = InquiryVM()
+            let vc = InquiryVC(viewModel: vm)
+            return vc
         } else if title == "약관" {
             return TermsBoardVC(viewModel: TermsBoardVM())
         } else if title == "회원탈퇴" {
