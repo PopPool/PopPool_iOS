@@ -181,8 +181,9 @@ final class MyPageMainVM: ViewModelable {
         } else if title == "차단한 사용자 관리" {
             return BlockedUserVC(viewModel: BlockedUserVM())
         } else if title == "알림 설정" {
-            // TODO: - 추후 연결필요
-            return BaseViewController()
+            let vm = AlarmSettingVM()
+            let vc = AlarmSettingVC(viewModel: vm)
+            return vc
         } else if title == "공지사항" {
             return NoticeBoardVC(viewModel: NoticeBoardVM())
         } else if title == "고객문의" {
