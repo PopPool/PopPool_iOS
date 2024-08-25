@@ -24,6 +24,7 @@ extension PopUpInfoDTO {
         if let imageUrlString = mainImageUrl {
             imageURL = URL(string: imageUrlString)
         } else {
+            print("Image is Empty")
             imageURL = nil
         }
         return PopUpInfo(
