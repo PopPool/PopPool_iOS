@@ -119,7 +119,8 @@ extension RecentPopUpVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.injectionWith(
             input: .init(
                 date: "~\(data.endDate.asString())",
-                title: data.popUpStoreName
+                title: data.popUpStoreName,
+                imageURL: data.mainImageUrl
             )
         )
         cell.bookmarkButton.isHidden = true

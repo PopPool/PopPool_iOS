@@ -11,6 +11,7 @@ struct PopUpInfo {
     var popUpStoreId: Int64
     var popUpStoreName: String
     var desc: String
+    var mainImageUrl: URL?
     var startDate: Date
     var endDate : Date
     var address : String

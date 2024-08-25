@@ -6,9 +6,11 @@
 //
 
 import UIKit
+
 import RxSwift
 import RxCocoa
 import SnapKit
+import Kingfisher
 
 final class ViewedPopUpCell: UICollectionViewCell {
     // MARK: - Components
@@ -139,6 +141,7 @@ extension ViewedPopUpCell : Cellable {
     struct Input {
         var date: String
         var title: String
+        var imageURL: URL?
     }
     
     struct Output {
@@ -148,7 +151,11 @@ extension ViewedPopUpCell : Cellable {
     func injectionWith(input: Input) {
         dateLabel.text = input.date
         popUpTitleLabel.text = input.title
-        imageView.image = UIImage(named: "lightLogo")
+        if let imageURL = input.imageURL {
+            imageView.kf.setImage(with: imageURL)
+        } else {
+            imageView.image = UIImage(named: "lightLogo")
+        }
         setUpHole()
     }
     
