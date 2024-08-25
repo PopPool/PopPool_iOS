@@ -20,7 +20,7 @@ protocol UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyCommentResponse>
     
     func tryWithdraw(
@@ -32,14 +32,14 @@ protocol UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyCommentedPopUpStoreListResponse>
     
     func fetchMyRecentViewPopUpStoreList(
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyRecentViewPopUpStoreListResponse>
     
     func userBlock(
@@ -51,7 +51,7 @@ protocol UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetBlockedUserListResponse>
     
     func logOut() -> Completable

@@ -37,6 +37,7 @@
 		08933CEE2C5E555F006F6632 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08933CED2C5E555F006F6632 /* UserUseCase.swift */; };
 		0896A05C2C79F9300062CC49 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0896A05B2C79F9300062CC49 /* String+.swift */; };
 		0896A05E2C79F9380062CC49 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0896A05D2C79F9380062CC49 /* Date+.swift */; };
+		0896A0602C7AF1530062CC49 /* RecentPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0896A05F2C7AF1530062CC49 /* RecentPopUpVM.swift */; };
 		089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */; };
 		089D19022C3032EC000435D9 /* SignUpStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D19012C3032EC000435D9 /* SignUpStep2View.swift */; };
 		089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 089D19052C31A620000435D9 /* IQKeyboardManagerSwift */; };
@@ -328,6 +329,7 @@
 		08933CED2C5E555F006F6632 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		0896A05B2C79F9300062CC49 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		0896A05D2C79F9380062CC49 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		0896A05F2C7AF1530062CC49 /* RecentPopUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPopUpVM.swift; sourceTree = "<group>"; };
 		089D18FF2C30307A000435D9 /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
 		089D19012C3032EC000435D9 /* SignUpStep2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStep2View.swift; sourceTree = "<group>"; };
 		089D19092C33C4A3000435D9 /* SignUpTermsModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsModalVC.swift; sourceTree = "<group>"; };
@@ -1510,6 +1512,7 @@
 			isa = PBXGroup;
 			children = (
 				4E184D5B2C6F1FC800573A2E /* RecentPopUpVC.swift */,
+				0896A05F2C7AF1530062CC49 /* RecentPopUpVM.swift */,
 			);
 			name = RecentPopUp;
 			path = PopPool/Presentation/Scene/MyPage/RecentPopUp;
@@ -1991,6 +1994,7 @@
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
+				0896A0602C7AF1530062CC49 /* RecentPopUpVM.swift in Sources */,
 				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
 				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,

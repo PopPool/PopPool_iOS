@@ -10,6 +10,6 @@ import Foundation
 protocol Pageable {
     var page: Int32 { get set }
     var size: Int32 { get set }
-    var sort: [String] { get set }
+    var sort: [String]? { get set }
 }
 

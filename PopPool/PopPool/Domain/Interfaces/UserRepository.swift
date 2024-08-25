@@ -28,7 +28,7 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyCommentResponse>
     
     /// 회원탈퇴를 시도합니다.
@@ -49,7 +49,7 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyCommentedPopUpStoreListResponse>
     
     /// 내가 최근에 본 팝업 스토어 리스트를 가져옵니다.
@@ -63,7 +63,7 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyRecentViewPopUpStoreListResponse>
     
     /// 유저를 차단합니다.
@@ -87,7 +87,7 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetBlockedUserListResponse>
     
     /// 로그아웃을 시도합니다.

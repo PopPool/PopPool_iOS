@@ -172,7 +172,9 @@ final class MyPageMainVM: ViewModelable {
         if title == "찜한 팝업" {
             return FavoritePopUpVC()
         } else if title == "최근 본 팝업" {
-            return RecentPopUpVC()
+            let vm = RecentPopUpVM(userUseCase: userUseCase)
+            let vc = RecentPopUpVC(viewModel: vm)
+            return vc
         } else if title == "내가 모은 배지" {
             // TODO: - 추후 연결필요
             return BaseViewController()

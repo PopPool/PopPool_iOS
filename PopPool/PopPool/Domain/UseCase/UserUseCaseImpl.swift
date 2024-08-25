@@ -27,7 +27,7 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyCommentResponse> {
         return repository
             .fetchMyComment(
@@ -53,7 +53,7 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyCommentedPopUpStoreListResponse> {
         return repository
             .fetchMyCommentedPopUpStoreList(
@@ -68,7 +68,7 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyRecentViewPopUpStoreListResponse> {
         return repository
             .fetchMyRecentViewPopUpStoreList(
@@ -94,7 +94,7 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetBlockedUserListResponse> {
         return repository
             .fetchBlockedUserList(
