@@ -5,13 +5,6 @@
 //  Created by SeoJunYoung on 6/1/24.
 //
 
-//
-//  SceneDelegate.swift
-//  PopPool
-//
-//  Created by SeoJunYoung on 6/1/24.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

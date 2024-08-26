@@ -50,6 +50,8 @@ class FilterBottomSheetViewController: UIViewController {
     private var selectedLocationIndex: Int? = nil
     private var subcategoryButtons: [UIButton] = []
 
+    var onCategoryFilterApplied: ((String?) -> Void)?
+
     init(viewModel: MapVM) {
         self.viewModel = viewModel
 
@@ -328,8 +330,6 @@ class FilterBottomSheetViewController: UIViewController {
         return button
     }
 
-
-
     private func setupCollectionView() {
         selectedFiltersCollectionView.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
         selectedFiltersCollectionView.backgroundColor = .clear
@@ -372,7 +372,10 @@ class FilterBottomSheetViewController: UIViewController {
 
         applyButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.viewModel.applyFilters()
+                // 카테고리 필터가 저장되면 onCategoryFilterApplied 클로저를 호출
+                if let selectedCategory = self?.viewModel.getSelectedCategory() {
+                    self?.onCategoryFilterApplied?(selectedCategory)
+                }
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
@@ -398,34 +401,34 @@ class FilterBottomSheetViewController: UIViewController {
     }
 
     @objc private func categoryButtonTapped(_ sender: UIButton) {
-            sender.isSelected = !sender.isSelected
-            updateCategoryButtonAppearance(sender)
+        sender.isSelected = !sender.isSelected
+        updateCategoryButtonAppearance(sender)
 
-            if let category = sender.titleLabel?.text {
-                if sender.isSelected {
-                    viewModel.addFilter(MapVM.Filter(id: UUID().uuidString, name: category, type: .category))
-                } else {
-                    viewModel.removeFilter(MapVM.Filter(id: "", name: category, type: .category))
-                }
+        if let category = sender.titleLabel?.text {
+            if sender.isSelected {
+                viewModel.addFilter(MapVM.Filter(id: UUID().uuidString, name: category, type: .category))
+            } else {
+                viewModel.removeFilter(MapVM.Filter(id: "", name: category, type: .category))
             }
-            selectedFiltersCollectionView.reloadData()
+        }
+        selectedFiltersCollectionView.reloadData()
+    }
+
+    private func updateSubcategoryScrollView() {
+        guard let index = selectedLocationIndex else {
+            balloonBackgroundView.isHidden = true
+            balloonBackgroundView.snp.updateConstraints { make in
+                make.height.equalTo(0)
+            }
+            return
         }
 
-        private func updateSubcategoryScrollView() {
-            guard let index = selectedLocationIndex else {
-                balloonBackgroundView.isHidden = true
-                balloonBackgroundView.snp.updateConstraints { make in
-                    make.height.equalTo(0)
-                }
-                return
-            }
+        let subcategories = locationData[index].sub
+        setupSubcategoryButtons(subcategories)
 
-            let subcategories = locationData[index].sub
-            setupSubcategoryButtons(subcategories)
-
-            balloonBackgroundView.isHidden = false
-            updateBalloonPosition()
-        }
+        balloonBackgroundView.isHidden = false
+        updateBalloonPosition()
+    }
 
     private func setupSubcategoryButtons(_ subcategories: [String]) {
         balloonBackgroundView.subviews.forEach { $0.removeFromSuperview() }
@@ -471,7 +474,6 @@ class FilterBottomSheetViewController: UIViewController {
         view.layoutIfNeeded()
     }
 
-
     @objc private func subcategoryButtonTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
 
@@ -511,7 +513,6 @@ class FilterBottomSheetViewController: UIViewController {
         }
         sender.titleLabel?.font = UIFont.systemFont(ofSize: 12) // 작은 크기로 고정
 
-
         // 버튼의 내부 상태 업데이트
         if let subcategory = sender.titleLabel?.text {
             if sender.isSelected {
@@ -524,70 +525,69 @@ class FilterBottomSheetViewController: UIViewController {
         }
     }
 
+    private func updateBalloonPosition() {
+        guard let selectedButton = locationContentView.subviews.first(where: { ($0 as? UIButton)?.tag == selectedLocationIndex }) as? UIButton else { return }
+        let buttonFrame = selectedButton.convert(selectedButton.bounds, to: view)
+        let buttonCenterX = buttonFrame.midX
+        let totalWidth = view.bounds.size.width
+        balloonBackgroundView.arrowPosition = buttonCenterX / totalWidth
+    }
 
-        private func updateBalloonPosition() {
-            guard let selectedButton = locationContentView.subviews.first(where: { ($0 as? UIButton)?.tag == selectedLocationIndex }) as? UIButton else { return }
-            let buttonFrame = selectedButton.convert(selectedButton.bounds, to: view)
-            let buttonCenterX = buttonFrame.midX
-            let totalWidth = view.bounds.size.width
-            balloonBackgroundView.arrowPosition = buttonCenterX / totalWidth
-        }
-
-        private func updateLocationButtonsUI() {
-            locationContentView.subviews.forEach { view in
-                if let button = view as? UIButton {
-                    button.backgroundColor = button.tag == selectedLocationIndex ? .blue : .systemGray6
-                    button.setTitleColor(button.tag == selectedLocationIndex ? .white : .black, for: .normal)
-                }
-            }
-        }
-
-        private func updateCategoryButtonsUI() {
-            categoryButtons.forEach { button in
-                let isSelected = viewModel.selectedFilters.value.contains { $0.name == button.titleLabel?.text && $0.type == .category }
-                updateCategoryButtonAppearance(button, isSelected: isSelected)
-            }
-        }
-
-        private func updateCategoryButtonAppearance(_ button: UIButton, isSelected: Bool? = nil) {
-            let selected = isSelected ?? button.isSelected
-            UIView.animate(withDuration: 0.3) {
-                if selected {
-                    button.backgroundColor = .blue
-                    button.setTitleColor(.white, for: .normal)
-                } else {
-                    button.backgroundColor = .white
-                    button.setTitleColor(.black, for: .normal)
-                }
-            }
-        }
-
-        private func moveUnderlineView(to index: Int) {
-            let segmentWidth = segmentedControl.frame.width / CGFloat(segmentedControl.numberOfSegments)
-            let targetPosition = segmentWidth * CGFloat(index)
-
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                guard let self = self else { return }
-                self.underlineView.snp.updateConstraints { make in
-                    make.leading.equalTo(self.segmentedControl.snp.leading).offset(targetPosition)
-                }
-                self.view.layoutIfNeeded()
-            }
-        }
-
-        private func updateContentVisibility(_ isCategorySelected: Bool) {
-            UIView.animate(withDuration: 0.3) {
-                self.categoryScrollView.isHidden = !isCategorySelected
-                self.locationScrollView.isHidden = isCategorySelected
-                self.balloonBackgroundView.isHidden = isCategorySelected
+    private func updateLocationButtonsUI() {
+        locationContentView.subviews.forEach { view in
+            if let button = view as? UIButton {
+                button.backgroundColor = button.tag == selectedLocationIndex ? .blue : .systemGray6
+                button.setTitleColor(button.tag == selectedLocationIndex ? .white : .black, for: .normal)
             }
         }
     }
 
-    extension FilterBottomSheetViewController: UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let text = viewModel.selectedFilters.value[indexPath.item].name
-            let textSize = (text as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 14)])
-            return CGSize(width: textSize.width + 40, height: 32)
+    private func updateCategoryButtonsUI() {
+        categoryButtons.forEach { button in
+            let isSelected = viewModel.selectedFilters.value.contains { $0.name == button.titleLabel?.text && $0.type == .category }
+            updateCategoryButtonAppearance(button, isSelected: isSelected)
         }
     }
+
+    private func updateCategoryButtonAppearance(_ button: UIButton, isSelected: Bool? = nil) {
+        let selected = isSelected ?? button.isSelected
+        UIView.animate(withDuration: 0.3) {
+            if selected {
+                button.backgroundColor = .blue
+                button.setTitleColor(.white, for: .normal)
+            } else {
+                button.backgroundColor = .white
+                button.setTitleColor(.black, for: .normal)
+            }
+        }
+    }
+
+    private func moveUnderlineView(to index: Int) {
+        let segmentWidth = segmentedControl.frame.width / CGFloat(segmentedControl.numberOfSegments)
+        let targetPosition = segmentWidth * CGFloat(index)
+
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self = self else { return }
+            self.underlineView.snp.updateConstraints { make in
+                make.leading.equalTo(self.segmentedControl.snp.leading).offset(targetPosition)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func updateContentVisibility(_ isCategorySelected: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.categoryScrollView.isHidden = !isCategorySelected
+            self.locationScrollView.isHidden = isCategorySelected
+            self.balloonBackgroundView.isHidden = isCategorySelected
+        }
+    }
+}
+
+extension FilterBottomSheetViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let text = viewModel.selectedFilters.value[indexPath.item].name
+        let textSize = (text as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 14)])
+        return CGSize(width: textSize.width + 40, height: 32)
+    }
+}

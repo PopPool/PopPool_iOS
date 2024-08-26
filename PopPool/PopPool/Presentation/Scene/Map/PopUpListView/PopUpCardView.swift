@@ -75,10 +75,15 @@ class PopupCardView: UIView {
     }
 
     func configure(with store: PopUpStore) {
-        // imageView.image = UIImage(named: store.imageName) // 이미지 로딩 로직 필요
-        titleLabel.text = store.name
-        categoryLabel.text = store.categories.joined(separator: ", ")
-        addressLabel.text = store.address
-        dateLabel.text = store.dateRange
-    }
+           titleLabel.text = store.name
+           addressLabel.text = store.address
+
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy.MM.dd"
+           let startDateString = dateFormatter.string(from: store.startDate)
+           let endDateString = dateFormatter.string(from: store.endDate)
+           dateLabel.text = "\(startDateString) - \(endDateString)"
+
+           categoryLabel.text = store.categories.joined(separator: ", ")
+       }
 }

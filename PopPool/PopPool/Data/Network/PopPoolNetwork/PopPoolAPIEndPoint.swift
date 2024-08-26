@@ -122,6 +122,7 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+
     /// 유저를 차단합니다.
     /// - Parameter request: 유저 차단 요청 DTO
     /// - Returns: RequestEndpoint

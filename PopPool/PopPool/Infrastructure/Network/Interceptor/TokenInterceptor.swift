@@ -21,21 +21,32 @@ final class TokenInterceptor: RequestInterceptor {
         
         // Request Header에 Token 추가
         keyChainService.fetchToken(type: .accessToken)
-            .subscribe { accessToken in
-                urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-                completion(.success(urlRequest))
-            } onFailure: { error in
-                completion(.failure(error))
-            }
-            .disposed(by: disposeBag)
-    }
-    
+                  .subscribe { accessToken in
+                      urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+                      print("TokenInterceptor - 토큰 추가됨: Bearer \(accessToken)")
+                      print("TokenInterceptor - 요청 헤더:")
+                      urlRequest.allHTTPHeaderFields?.forEach { key, value in
+                          print("  \(key): \(value)")
+                      }
+
+                      completion(.success(urlRequest))
+//                      print("TokenInterceptor - 요청 헤더:")
+
+                  } onFailure: { error in
+                      print("TokenInterceptor - 토큰 가져오기 실패: \(error)")
+                      completion(.failure(error))
+                  }
+                  .disposed(by: disposeBag)
+          }
+
     func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
-        // TODO: - token refresh 코드
-        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
-            completion(.doNotRetryWithError(error))
-            return
-        }
+         print("TokenInterceptor - retry 시작")
+
+         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
+             print("TokenInterceptor - 재시도 불필요: \(error)")
+             completion(.doNotRetryWithError(error))
+             return
+         }
 
         // 응답 Header에서 Token 추출 코드 작성 필요
     }

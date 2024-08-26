@@ -65,9 +65,18 @@ class PopupListCell: UITableViewCell {
 
     func configure(with store: PopUpStore) {
         nameLabel.text = store.name
-        categoryLabel.text = store.categories.joined(separator: ", ")
         addressLabel.text = store.address
-        dateLabel.text = store.dateRange
-        popupImageView.image = UIImage(named: "exampleImage") // 임시 이미지, 실제 데이터로 교체 필요
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let startDateString = dateFormatter.string(from: store.startDate)
+        let endDateString = dateFormatter.string(from: store.endDate)
+        dateLabel.text = "\(startDateString) - \(endDateString)"
+
+        if let firstCategory = store.categories.first {
+            categoryLabel.text = firstCategory
+        } else {
+            categoryLabel.text = "카테고리 없음"
+        }
     }
 }

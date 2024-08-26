@@ -23,7 +23,7 @@ extension Requestable {
     /// - Returns: URLRequest 반환
     func getUrlRequest() throws -> URLRequest {
         let url = try url()
-        print("생성된 url 링크:",url)
+//        print("생성된 url 링크:",url)
         var urlRequest = URLRequest(url: url)
 
         // httpBody
