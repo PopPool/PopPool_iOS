@@ -80,7 +80,7 @@ extension CircleFeedCell: Cellable {
     struct Input {
         var title: String?
         var isActive: Bool
-        var imageURL: String?
+        var imageURL: URL?
     }
     
     struct Output {
@@ -89,8 +89,16 @@ extension CircleFeedCell: Cellable {
     
     func injectionWith(input: Input) {
         titleLabel.text = input.title
-        if let url = URL(string: input.imageURL ?? "") {
-            imageView.kf.setImage(with: url)
+        if let url = input.imageURL {
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: url) { [weak self] result in
+                switch result {
+                case .success:
+                    print("ImageLoad Success")
+                case .failure:
+                    self?.imageView.image = UIImage(named: "defaultLogo")
+                }
+            }
         }
         if input.isActive {
             colorBackGroundView.startAnimatingGradient()

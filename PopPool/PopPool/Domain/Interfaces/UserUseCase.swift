@@ -20,20 +20,14 @@ protocol UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]?
+        sort: [String]?,
+        commentType: CommentType
     ) -> Observable<GetMyCommentResponse>
     
     func tryWithdraw(
         userId: String,
         surveyList: [Survey]
     ) -> Completable
-    
-    func fetchMyCommentedPopUpStoreList(
-        userId: String,
-        page: Int32,
-        size: Int32,
-        sort: [String]?
-    ) -> Observable<GetMyCommentedPopUpStoreListResponse>
     
     func fetchMyRecentViewPopUpStoreList(
         userId: String,

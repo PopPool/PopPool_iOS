@@ -38,8 +38,6 @@ final class MyPageMainVM: ViewModelable {
                 // 내 코멘트 없을 경우 분기
                 if myCommentSection.sectionCellInputList.isEmpty {
                     return [
-                        // TODO: - myCommentSection 제거 필요
-                        myCommentSection,
                         normalSection,
                         informationSection,
                         etcSection
@@ -123,8 +121,10 @@ final class MyPageMainVM: ViewModelable {
         
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
-            .subscribe { _ in
-                let vc = MyCommentedPopUpVC()
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let vm = MyCommentedPopUpVM(userUseCase: owner.userUseCase)
+                let vc = MyCommentedPopUpVC(viewModel: vm)
                 moveToVC.onNext(vc)
             }
             .disposed(by: disposeBag)

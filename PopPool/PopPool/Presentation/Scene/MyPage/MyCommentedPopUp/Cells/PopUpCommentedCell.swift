@@ -16,7 +16,6 @@ final class PopUpCommentedCell: UICollectionViewCell {
     // MARK: - Components
     private let imageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .red
         return view
     }()
     
@@ -68,11 +67,6 @@ private extension PopUpCommentedCell {
             make.top.leading.trailing.equalToSuperview()
             make.width.height.equalTo(contentView.frame.width)
         }
-        contentView.addSubview(dateLabel)
-        dateLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().inset(16)
-        }
     }
     
     func setUpNormalComment() {
@@ -88,6 +82,11 @@ private extension PopUpCommentedCell {
             make.leading.trailing.equalToSuperview().inset(12)
             make.height.equalTo(36)
         }
+        contentView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(12)
+        }
     }
     
     func setUpInstaComment() {
@@ -97,6 +96,12 @@ private extension PopUpCommentedCell {
             make.leading.trailing.equalToSuperview().inset(12)
             make.height.equalTo(54)
         }
+        
+        contentView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(12)
+        }
     }
 }
 
@@ -104,7 +109,7 @@ extension PopUpCommentedCell: Cellable {
 
     struct Input {
         var imageURL: URL?
-        var isNormalComment: Bool
+        var commentType: CommentType
         var title: String?
         var content: String
         var date: String
@@ -115,15 +120,24 @@ extension PopUpCommentedCell: Cellable {
     
     func injectionWith(input: Input) {
         if let url = input.imageURL {
-            imageView.kf.setImage(with: url)
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: url) { [weak self] result in
+                switch result {
+                case .success:
+                    print("ImageLoad Success")
+                case .failure:
+                    self?.imageView.image = UIImage(named: "defaultLogo")
+                }
+            }
         }
         popUpTitleLabel.text = input.title
         contentLabel.text = input.content
         dateLabel.text = input.date
         
-        if input.isNormalComment {
+        switch input.commentType {
+        case .normal:
             setUpNormalComment()
-        } else {
+        case .instagram:
             setUpInstaComment()
         }
     }

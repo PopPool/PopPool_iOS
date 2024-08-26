@@ -12,5 +12,6 @@ struct MyCommentInfo {
     var content: String
     var image: URL?
     var likeCount: Int64
-    var createDateTime: String
+    var createDateTime: Date
+    var popUpStoreInfo: MyCommentedPopUpInfo
 }
