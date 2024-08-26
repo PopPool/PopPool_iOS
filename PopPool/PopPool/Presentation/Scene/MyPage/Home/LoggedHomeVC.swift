@@ -264,11 +264,15 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         case .recommendedHeader, .latestHeader:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
             cell.configure(title: "집에 가고 싶어요 님을 위한\n맞춤 팝업 큐레이션")
-            cell.actionTapped.subscribe { _ in
+            cell.actionTapped
+                .subscribe { _ in
                 print("전체보기가 눌렸습니다.")
-                let vm = EntirePopupVM()
-                let vc = EntirePopupVC(viewModel: vm)
-                self.navigationController?.pushViewController(vc, animated: true)
+                    print("어디?",self.navigationController?.topViewController)
+                    guard self.navigationController?.topViewController == self else { return }
+                    
+                    let vm = EntirePopupVM()
+                    let vc = EntirePopupVC(viewModel: vm)
+                    self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: cell.disposeBag)
             return cell
