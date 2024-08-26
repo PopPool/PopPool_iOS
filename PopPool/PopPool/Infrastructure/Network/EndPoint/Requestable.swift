@@ -54,7 +54,20 @@ extension Requestable {
         var urlQueryItems = [URLQueryItem]()
         if let queryParameters = try queryParameters?.toDictionary() {
             queryParameters.forEach {
-                urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
+                if $0.key == "sort" {
+                    let value = "\($0.value)"
+                    let valueList = value
+                        .components(separatedBy: "\n")
+                        .filter {!["(",")",","].contains($0)}
+                        .map { $0.replacingOccurrences(of: " ", with: "")}
+                    
+                    for valueString in valueList {
+                        urlQueryItems.append(URLQueryItem(name: $0.key, value: valueString))
+                    }
+                    
+                } else {
+                    urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
+                }
             }
         }
         urlComponents.queryItems = !urlQueryItems.isEmpty ? urlQueryItems : nil

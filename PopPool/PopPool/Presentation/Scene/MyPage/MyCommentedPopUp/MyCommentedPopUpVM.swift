@@ -12,16 +12,15 @@ import RxCocoa
 
 final class MyCommentedPopUpVM: ViewModelable {
     
-    
-    
     struct Input {
         var filterButtonTapped: ControlEvent<Void>
     }
     
     struct Output {
-        var instaCommentList: BehaviorRelay<GetMyCommentResponse>
-        var normalCommentList: BehaviorRelay<GetMyCommentResponse>
         var moveToBottomModalVC: PublishSubject<Void>
+        var sortedButtonResponse: BehaviorRelay<Int>
+        var normalCommentList: BehaviorRelay<GetMyCommentResponse>
+        var instaCommentList: BehaviorRelay<GetMyCommentResponse>
     }
     
     
@@ -61,9 +60,7 @@ final class MyCommentedPopUpVM: ViewModelable {
         segmentSelectedIndex
             .withUnretained(self)
             .subscribe { (owner, selectIndex) in
-                
-                let sort = selectIndex == 0 ? nil : ["commentCount,desc"]
-                
+                let sort = selectIndex == 0 ? nil : ["likeCount","desc"]
                 owner.userUseCase.fetchMyComment(
                     userId: Constants.userId,
                     page: 0,
@@ -99,9 +96,10 @@ final class MyCommentedPopUpVM: ViewModelable {
             .disposed(by: disposeBag)
         
         return Output(
-            instaCommentList: instaCommentList,
+            moveToBottomModalVC: moveToBottomModalVC,
+            sortedButtonResponse: segmentSelectedIndex,
             normalCommentList: normalCommentList,
-            moveToBottomModalVC: moveToBottomModalVC
+            instaCommentList: instaCommentList
         )
     }
 }

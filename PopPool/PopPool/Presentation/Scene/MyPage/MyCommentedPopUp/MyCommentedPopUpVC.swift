@@ -133,6 +133,29 @@ private extension MyCommentedPopUpVC {
             }
             .disposed(by: disposeBag)
         
+        output.sortedButtonResponse
+            .withUnretained(self)
+            .subscribe { (owner, selectedIndex) in
+                owner.listFilterView.rightLabel.text = selectedIndex == 0 ? "최신순" : "반응순"
+                owner.normalCollectionView.reloadData()
+                owner.instaCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        output.normalCommentList
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.normalCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        output.instaCommentList
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.instaCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
         segmentControlMenuView.rx.selectedSegmentIndex
             .withUnretained(self)
             .bind { (owner, index) in
@@ -172,6 +195,7 @@ extension MyCommentedPopUpVC: UICollectionViewDelegate, UICollectionViewDataSour
             for: indexPath
         ) as? PopUpCommentedCell else { return UICollectionViewCell() }
         
+        print("ReloadCollectionView~!~!~!~!~!~!")
         if collectionView == normalCollectionView {
             let normalData = viewModel.normalCommentList.value.myCommentList[indexPath.row]
             cell.injectionWith(
