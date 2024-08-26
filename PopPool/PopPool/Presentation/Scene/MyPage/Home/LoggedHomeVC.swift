@@ -29,29 +29,42 @@ final class LoggedHomeVC: BaseViewController {
         }
     }
     
+    let imagePage = UIPageControl()
     let header = HeaderViewCPNT(title: "교체 예정", style: .icon(nil))
     
     private lazy var collectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: self.setLayout())
+        let view = UICollectionView(frame: .zero,
+                                    collectionViewLayout: self.setLayout())
         view.isScrollEnabled = true
         view.clipsToBounds = true
         view.contentInsetAdjustmentBehavior = .never
         
-        view.register(TestingHomeCollectionViewCell.self,
-                      forCellWithReuseIdentifier: TestingHomeCollectionViewCell.identifier)
-        view.register(HomeDetailPopUpCell.self,
-                      forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier)
-        view.register(SectionHeaderCell.self,
-                      forCellWithReuseIdentifier: SectionHeaderCell.identifier)
-        view.register(InterestViewCell.self,
-                      forCellWithReuseIdentifier: InterestViewCell.identifier)
-        view.register(PopUpBackgroundView.self,
-                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                      withReuseIdentifier: PopUpBackgroundView.reuseIdentifer)
+        view.register(
+            HomeCollectionViewCell.self,
+            forCellWithReuseIdentifier: HomeCollectionViewCell.identifier
+        )
+        view.register(
+            HomeDetailPopUpCell.self,
+            forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier
+        )
+        view.register(
+            SectionHeaderCell.self,
+            forCellWithReuseIdentifier: SectionHeaderCell.identifier
+        )
+        view.register(
+            InterestViewCell.self,
+            forCellWithReuseIdentifier: InterestViewCell.identifier
+        )
+        view.register(
+            PopUpBackgroundView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: PopUpBackgroundView.reuseIdentifer
+        )
         return view
     }()
     
-    private let viewModel: HomeVM
+    private var viewModel: HomeVM
+    private let disposeBag = DisposeBag()
     
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
@@ -66,6 +79,7 @@ final class LoggedHomeVC: BaseViewController {
         super.viewDidLoad()
         setUp()
         setUpConstraint()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,12 +94,33 @@ final class LoggedHomeVC: BaseViewController {
     }
     
     private func bind() {
+        let input = HomeVM.Input(fetchHome: Observable.just(())) // 이건 뭐지?
+        let output = viewModel.transform(input: input)
         
+        header.rx.rightButtonTap
+            .subscribe(onNext: {
+                print("버튼 탭")
+            })
+            .disposed(by: disposeBag)
+        
+        output.homeData
+            .subscribe(onNext: { response in
+                print("데이터를 뽑자", response)
+            })
+            .disposed(by: disposeBag)
     }
     
-    private func setUp() {
+    private func setUp() {        
+        // viewModel 데이터 연결
+        let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
+        viewModel = HomeVM(useCase: useCase)
+        
+        // collectionView 연결
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        header.rightBarButton.setImage(UIImage(systemName: "lasso"), for: .normal)
+        header.rightBarButton.isHidden = false
     }
     
     private func setLayout() -> UICollectionViewCompositionalLayout {
@@ -118,14 +153,38 @@ final class LoggedHomeVC: BaseViewController {
     }
     
     private func createBannerSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.4))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(0.4))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
+        
+        section.visibleItemsInvalidationHandler = { [weak self] items , contentOffset, environment in
+            guard let self = self else { return }
+            
+            let pageWidth = environment.container.contentSize.width / CGFloat(Section.banner.items)
+            let bannerIndex = Int(round(contentOffset.x / pageWidth)) / Section.banner.items
+            
+//            print("Content Offset: \(contentOffset.x)") // 실제 content의 x 값 (including invisible)
+//            print("Item Width: \(pageWidth)") // 각 컴포넌트별 넓이 값
+//            print("Banner Index: \(contentOffset.x / pageWidth)") // banner 개당 값
+//            cell.pageIndex.onNext(bannerIndex)
+            
+            for item in items {
+                let indexPath = item.indexPath
+                if indexPath.section == Section.banner.rawValue,
+                   let cell = self.collectionView.cellForItem(at: indexPath) as? HomeCollectionViewCell {
+                    cell.pageIndex.onNext(bannerIndex)
+                }
+            }
+        }
         return section
     }
     
@@ -138,8 +197,8 @@ final class LoggedHomeVC: BaseViewController {
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(height))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .none
         return section
@@ -179,25 +238,7 @@ final class LoggedHomeVC: BaseViewController {
     }
 }
 
-extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {  
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        // scroll시 header alpha값 변경
-//        // 총 스크롤 값 프로필 뷰 높이 - headerBackGroundView의 높이
-//        let limitScroll = profileViewHeight - headerBackGroundView.bounds.maxY
-//        let scrollValue = scrollView.contentOffset.y + view.safeAreaLayoutGuide.layoutFrame.minY
-//        let alpha: Double = scrollValue / limitScroll
-//        
-//        // alpha값 변경
-//        if alpha <= 0.05 {
-//            headerBackGroundView.alpha = 0
-//        } else if (0.05...0.95).contains(alpha) {
-//            headerBackGroundView.alpha = alpha
-//        } else {
-//            headerBackGroundView.alpha = 1
-//        }
-//        profileView.scrollViewDidScroll(scrollView: scrollView, alpha: alpha)
-//    }
-//    
+extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
     }
@@ -207,13 +248,19 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let sectionType = Section(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        guard let sectionType = Section(rawValue: indexPath.section) else {
+            return UICollectionViewCell()
+        }
         
         switch sectionType {
         case .banner:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestingHomeCollectionViewCell.identifier, for: indexPath) as! TestingHomeCollectionViewCell
-            cell.setImage(image: UIImage(named: "defaultLogo"))
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+            let totalCount = Section.banner.items
+            
+            cell.setImage(image: UIImage(named: "defaultLogo")) // 배너 이미지 설정
+            cell.setUpPageControl(totalPage: totalCount) // 전체 갯수 업데이트
             return cell
+            
         case .recommendedHeader, .latestHeader:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
             cell.configure(title: "집에 가고 싶어요 님을 위한\n맞춤 팝업 큐레이션")
@@ -224,8 +271,8 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: cell.disposeBag)
-            
             return cell
+            
         case .recommended, .latest:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
             cell.injectionWith(input: HomeDetailPopUpCell.Input(
@@ -239,11 +286,18 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
         case .interestHeader:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionHeaderCell.identifier, for: indexPath) as! SectionHeaderCell
-            cell.configureWhite(title: "팝풀이들은 지금 이런\n팝업에 가장 관심있어요")
+            cell.configureWhite(
+                title: "팝풀이들은 지금 이런\n팝업에 가장 관심있어요"
+            )
             return cell
+            
         case .interest:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
-            cell.configure(title: "#8월 22일까지 열리는\n#패션, #성수동", category: "팝업스토어명 팝업스토어명", image: UIImage(named: "defaultLogo"))
+            cell.configure(
+                title: "#8월 22일까지 열리는\n#패션, #성수동",
+                category: "팝업스토어명 팝업스토어명",
+                image: UIImage(named: "defaultLogo")
+            )
             return cell
         }
     }
