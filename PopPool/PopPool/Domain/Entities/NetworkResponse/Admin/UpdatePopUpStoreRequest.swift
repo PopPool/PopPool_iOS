@@ -10,6 +10,6 @@ import Foundation
 struct UpdatePopUpStoreRequest {
     let popUpStore: [PopUpStore]
     let location: Location
-    let imagesToAdd: [String]
+    let imagesToAdd: [URL?]
     let imagesToDelete: [Int64]
 }

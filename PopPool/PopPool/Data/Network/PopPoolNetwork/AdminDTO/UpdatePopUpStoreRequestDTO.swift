@@ -10,7 +10,7 @@ import Foundation
 struct UpdatePopUpStoreRequestDTO: Decodable {
     let popUpStore: [PopUpStoreDTO]
     let location: Location
-    let imagesToAdd: [String]
+    let imagesToAdd: [URL?]
     let imagesToDelete: [Int64]
 }
 

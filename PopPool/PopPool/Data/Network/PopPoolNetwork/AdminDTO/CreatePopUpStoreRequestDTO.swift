@@ -12,10 +12,10 @@ struct CreatePopUpStoreRequestDTO: Decodable {
     let category: String
     let desc: String
     let address: String
-    let startDate: String
-    let endDate: String
-    let mainImageUrl: String
-    let imageUrlList: [String]
+    let startDate: Date
+    let endDate: Date
+    let mainImageUrl: URL?
+    let imageUrlList: [URL?]
     let latitude: Double
     let longitude: Double
 }

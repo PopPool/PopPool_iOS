@@ -13,12 +13,12 @@ struct GetAdminPopUpStoreDetailResponseDTO: Decodable {
     let category: String
     let desc: String
     let address: String
-    let startDate: String
-    let endDate: String
+    let startDate: Date
+    let endDate: Date
     let createUserId: String
-    let createDateTime: String
-    let mainImageUrl: String
-    let imageUrlList: [String]
+    let createDateTime: Date
+    let mainImageUrl: URL?
+    let imageUrlList: [URL?]
     let latitude: Double
     let longitude: Double
     let markerTitle: String
