@@ -36,7 +36,7 @@ final class MyCommentedPopUpModalVC: ModalViewController {
     private let segmentControlTopSpacing = SpacingFactory.createSpace(size: 8)
     
     private lazy var segmentControl: SegmentedControlCPNT = {
-        let view = SegmentedControlCPNT(type: .base, segments: ["최신순", "반응순"], selectedSegmentIndex: 0)
+        let view = SegmentedControlCPNT(type: .base, segments: ["최신순", "반응순"], selectedSegmentIndex: viewModel.segmentSelectedIndex.value)
         return view
     }()
     
@@ -91,20 +91,20 @@ private extension MyCommentedPopUpModalVC {
     }
     
     func bind() {
-//        segmentControl.rx.selectedSegmentIndex
-//            .withUnretained(self)
-//            .subscribe { (owner, index) in
-//                owner.saveButton.isEnabled = owner.viewModel.viewType.value.rawValue != index
-//            }
-//            .disposed(by: disposeBag)
-//        
-//        saveButton.rx.tap
-//            .withUnretained(self)
-//            .subscribe { (owner, _) in
-//                let index = owner.segmentControl.selectedSegmentIndex
-//                owner.viewModel.viewType.accept(.init(rawValue: index) ?? .grid)
-//                owner.dismissBottomSheet()
-//            }
-//            .disposed(by: disposeBag)
+        segmentControl.rx.selectedSegmentIndex
+            .withUnretained(self)
+            .subscribe { (owner, index) in
+                owner.saveButton.isEnabled = owner.viewModel.segmentSelectedIndex.value != owner.segmentControl.selectedSegmentIndex
+            }
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let index = owner.segmentControl.selectedSegmentIndex
+                owner.viewModel.segmentSelectedIndex.accept(index)
+                owner.dismissBottomSheet()
+            }
+            .disposed(by: disposeBag)
     }
 }

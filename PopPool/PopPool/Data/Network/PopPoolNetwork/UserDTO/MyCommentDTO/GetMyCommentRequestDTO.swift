@@ -10,5 +10,6 @@ import Foundation
 struct GetMyCommentRequestDTO: Encodable, Pageable {
     var page: Int32
     var size: Int32
-    var sort: [String]
+    var sort: [String]?
+    var commentType: CommentType
 }

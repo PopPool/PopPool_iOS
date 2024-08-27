@@ -28,7 +28,8 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?,
+        commentType: CommentType
     ) -> Observable<GetMyCommentResponse>
     
     /// 회원탈퇴를 시도합니다.
@@ -37,20 +38,6 @@ protocol UserRepository {
     ///   - surveyList: 탈퇴 설문조사 리스트
     /// - Returns: Completable
     func tryWithdraw(userId: String, surveyList: [Survey]) -> Completable
-    
-    /// 내가 댓글을 단 팝업 스토어 리스트를 가져옵니다.
-    /// - Parameters:
-    ///   - userId: 유저 아이디
-    ///   - page: 페이지 번호
-    ///   - size: 페이지 크기
-    ///   - sort: 정렬 기준
-    /// - Returns: Observable<GetMyCommentedPopUpStoreListResponse>
-    func fetchMyCommentedPopUpStoreList(
-        userId: String,
-        page: Int32,
-        size: Int32,
-        sort: [String]
-    ) -> Observable<GetMyCommentedPopUpStoreListResponse>
     
     /// 내가 최근에 본 팝업 스토어 리스트를 가져옵니다.
     /// - Parameters:
@@ -63,7 +50,7 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyRecentViewPopUpStoreListResponse>
     
     /// 유저를 차단합니다.
@@ -87,7 +74,7 @@ protocol UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetBlockedUserListResponse>
     
     /// 로그아웃을 시도합니다.
