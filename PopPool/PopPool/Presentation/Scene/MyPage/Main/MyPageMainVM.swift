@@ -73,7 +73,6 @@ final class MyPageMainVM: ViewModelable {
         sectionCellInputList: [
             .init(title: "찜한 팝업"),
             .init(title: "최근 본 팝업"),
-            .init(title: "내가 모은 배지"),
             .init(title: "차단한 사용자 관리"),
             .init(title: "알림 설정"),
         ])

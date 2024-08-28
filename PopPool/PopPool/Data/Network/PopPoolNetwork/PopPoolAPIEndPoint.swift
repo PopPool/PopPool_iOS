@@ -182,6 +182,43 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    static func user_fetchBookMarkPopUpStoreList(
+        userId: String,
+        reqeust: GetBookMarkPopUpStoreListRequestDTO
+    ) -> Endpoint<GetBookMarkPopUpStoreListResponseDTO> {
+        
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .get
+        )
+    }
+    
+    static func user_updateBookMarkPopUpStore(
+        userId: String,
+        reqeust: UserBookMarkRequestDTO
+    ) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .post,
+            queryParameters: reqeust
+        )
+    }
+    
+    static func user_deleteBookMarkPopUpStore(
+        userId: String,
+        reqeust: UserBookMarkRequestDTO
+    ) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .delete,
+            queryParameters: reqeust
+            
+        )
+    }
+    
     // MARK: - User API, 회원 프로필 API
     
     /// 유저 프로필을 조회합니다.

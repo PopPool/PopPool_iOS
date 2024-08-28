@@ -143,4 +143,21 @@ protocol UserRepository {
         gender: String,
         age: Int32
     ) -> Completable
+    
+    func fetchBookMarkPopUpStoreList(
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
+    ) -> Observable<GetBookMarkPopUpStoreListResponse>
+    
+    func updateBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable
+    
+    func deleteBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable
 }
