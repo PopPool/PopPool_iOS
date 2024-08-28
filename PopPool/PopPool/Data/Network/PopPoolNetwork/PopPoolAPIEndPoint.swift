@@ -261,11 +261,15 @@ struct PopPoolAPIEndPoint {
     /// 홈 화면에서 팝업 데이터를 조회합니다
     /// - Parameter userId: 유저 아이디
     /// - Returns: Endpoint<GetHomeInfoResponseDTO>
-    static func home_fetchHome(userId: String) -> Endpoint<GetHomeInfoResponseDTO> {
+    static func home_fetchHome(
+        userId: String,
+        request: GetMyRecentViewPopUpStoreListRequestDTO
+    ) -> Endpoint<GetHomeInfoResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/home",
-            method: .get
+            method: .get,
+            queryParameters: request
         )
     }
     

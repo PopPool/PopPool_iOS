@@ -207,6 +207,7 @@
 		BD0109A62C60942E00B2AF21 /* ListDropDownCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */; };
 		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
+		BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1E37492C7E2895004931D5 /* HomePopUp.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
 		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
@@ -496,6 +497,7 @@
 		BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDropDownCPNT.swift; sourceTree = "<group>"; };
 		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
+		BD1E37492C7E2895004931D5 /* HomePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePopUp.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVC.swift; sourceTree = "<group>"; };
@@ -1073,6 +1075,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4DC00A2C61F7F7007CE63A /* PopUpStore.swift */,
+				BD1E37492C7E2895004931D5 /* HomePopUp.swift */,
 				08E23AAC2C4F865E004B77B6 /* NetworkResponse */,
 			);
 			path = Entities;
@@ -1978,6 +1981,7 @@
 				08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */,
 				BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */,
 				08FF6C242C721C6500B68569 /* GetNoticeListResponseDTO.swift in Sources */,
+				BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,

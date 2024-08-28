@@ -13,7 +13,10 @@ protocol HomeUseCase {
     var repository: HomeRepository { get set }
     
     func fetchHome(
-        userId: String
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
     ) -> Observable<GetHomeInfoResponse>
     
     func fetchPopular(

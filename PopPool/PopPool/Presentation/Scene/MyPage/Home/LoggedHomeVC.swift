@@ -51,6 +51,7 @@ final class LoggedHomeVC: BaseViewController {
         return view
     }()
     
+    private let disposeBag = DisposeBag()
     private let viewModel: HomeVM
     
     init(viewModel: HomeVM) {
@@ -66,6 +67,7 @@ final class LoggedHomeVC: BaseViewController {
         super.viewDidLoad()
         setUp()
         setUpConstraint()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,10 +82,36 @@ final class LoggedHomeVC: BaseViewController {
     }
     
     private func bind() {
+        let input = HomeVM.Input()
+        let output = viewModel.transform(input: input)
         
+        output.myHomeAPIResponse
+            .withUnretained(self)
+            .subscribe { (owner, response) in
+                // 데이터 전달 완료
+                
+                if response.loginYn {
+                    
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setUp() {
+        let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
+        
+        useCase.fetchHome(
+            userId: Constants.userId,
+            page: 0,
+            size: 1,
+            sort: nil
+        )
+        .withUnretained(self)
+        .subscribe(onNext: { (owner, response) in
+            owner.viewModel.myHomeAPIResponse.accept(response)
+        })
+        .disposed(by: disposeBag)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -96,7 +124,7 @@ final class LoggedHomeVC: BaseViewController {
             case .banner: return self.createBannerSection()
             case .recommendedHeader: return self.createSectionHeader(height: 84)
             case .recommended: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
-            case .interestHeader: 
+            case .interestHeader:
                 let section = self.createSectionHeader(height: 84)
                 let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
                 section.decorationItems = [backgroundView]
@@ -179,25 +207,7 @@ final class LoggedHomeVC: BaseViewController {
     }
 }
 
-extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {  
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        // scroll시 header alpha값 변경
-//        // 총 스크롤 값 프로필 뷰 높이 - headerBackGroundView의 높이
-//        let limitScroll = profileViewHeight - headerBackGroundView.bounds.maxY
-//        let scrollValue = scrollView.contentOffset.y + view.safeAreaLayoutGuide.layoutFrame.minY
-//        let alpha: Double = scrollValue / limitScroll
-//        
-//        // alpha값 변경
-//        if alpha <= 0.05 {
-//            headerBackGroundView.alpha = 0
-//        } else if (0.05...0.95).contains(alpha) {
-//            headerBackGroundView.alpha = alpha
-//        } else {
-//            headerBackGroundView.alpha = 1
-//        }
-//        profileView.scrollViewDidScroll(scrollView: scrollView, alpha: alpha)
-//    }
-//    
+extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
     }
