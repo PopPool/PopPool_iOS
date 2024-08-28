@@ -201,7 +201,8 @@ struct PopPoolAPIEndPoint {
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/\(userId)/bookmark-popupstores",
-            method: .post
+            method: .post,
+            queryParameters: reqeust
         )
     }
     
@@ -212,7 +213,9 @@ struct PopPoolAPIEndPoint {
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/\(userId)/bookmark-popupstores",
-            method: .delete
+            method: .delete,
+            queryParameters: reqeust
+            
         )
     }
     
