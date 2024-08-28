@@ -144,5 +144,31 @@ final class UserRepositoryImpl: UserRepository {
         let endPoint = PopPoolAPIEndPoint.user_updateMyTailoredInfo(userId: userId, request: .init(gender: gender, age: age))
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
+    
+    func fetchBookMarkPopUpStoreList(
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
+    ) -> Observable<GetBookMarkPopUpStoreListResponse> {
+        let endPoint = PopPoolAPIEndPoint.user_fetchBookMarkPopUpStoreList(userId: userId, reqeust: .init(page: page, size: size, sort: sort))
+        return provider.requestData(with: endPoint, interceptor: requestTokenInterceptor).map { $0.toDomain() }
+    }
+    
+    func updateBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        let endPoint = PopPoolAPIEndPoint.user_updateBookMarkPopUpStore(userId: userId, reqeust: .init(popUpStoreId: popUpStoreId))
+        return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
+    }
+    
+    func deleteBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        let endPoint = PopPoolAPIEndPoint.user_deleteBookMarkPopUpStore(userId: userId, reqeust: .init(popUpStoreId: popUpStoreId))
+        return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
+    }
 }
 

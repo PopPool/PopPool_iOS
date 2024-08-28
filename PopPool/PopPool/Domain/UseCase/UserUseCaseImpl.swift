@@ -144,4 +144,27 @@ final class UserUseCaseImpl: UserUseCase {
         return repository
             .updateMyTailoredInfo(userId: userId, gender: gender, age: age)
     }
+    
+    func fetchBookMarkPopUpStoreList(
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
+    ) -> Observable<GetBookMarkPopUpStoreListResponse> {
+        return repository.fetchBookMarkPopUpStoreList(userId: userId, page: page, size: size, sort: sort)
+    }
+    
+    func updateBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        return repository.updateBookMarkPopUpStore(userId: userId, popUpStoreId: popUpStoreId)
+    }
+    
+    func deleteBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        return repository.deleteBookMarkPopUpStore(userId: userId, popUpStoreId: popUpStoreId)
+    }
 }
