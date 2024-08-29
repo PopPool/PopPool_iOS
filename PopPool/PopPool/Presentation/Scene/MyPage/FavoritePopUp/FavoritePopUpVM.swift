@@ -49,7 +49,7 @@ final class FavoritePopUpVM: ViewModelable {
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
-    
+    var hiddenIndex: [Int] = []
     var userUseCase: UserUseCase
     var viewType: BehaviorRelay<ViewType> = .init(value: .cardList)
     var popUpList: BehaviorRelay<GetBookMarkPopUpStoreListResponse> = .init(value: GetBookMarkPopUpStoreListResponse(popUpInfoList: [], totalPages: 0, totalElements: 0))
@@ -80,6 +80,7 @@ final class FavoritePopUpVM: ViewModelable {
                 owner.popUpList.accept(response)
             }
             .disposed(by: disposeBag)
+        
         return Output(
             moveToFilterModalVC: input.didTapFilterButton,
             viewType: viewType,

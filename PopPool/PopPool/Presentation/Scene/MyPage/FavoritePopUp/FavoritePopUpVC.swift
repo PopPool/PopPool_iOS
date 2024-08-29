@@ -122,8 +122,6 @@ private extension FavoritePopUpVC {
         output.viewType
             .withUnretained(self)
             .subscribe { (owner, viewType) in
-                let count = owner.viewModel.popUpList.value.popUpInfoList.count
-                owner.filterView.injectionWith(input: .init(title: "총 \(count)건", rightTitle: viewType.title))
                 owner.collectionView.collectionViewLayout = viewType.layout
                 owner.collectionView.reloadData()
             }
@@ -133,6 +131,7 @@ private extension FavoritePopUpVC {
             .withUnretained(self)
             .subscribe { (owner, response) in
                 owner.filterView.injectionWith(input: .init(title: "총 \(response.popUpInfoList.count)건", rightTitle: owner.viewModel.viewType.value.title))
+                owner.collectionView.collectionViewLayout = owner.viewModel.viewType.value.layout
                 owner.collectionView.reloadData()
             }
             .disposed(by: disposeBag)
@@ -148,17 +147,19 @@ extension FavoritePopUpVC: UICollectionViewDelegate, UICollectionViewDataSource 
         let viewType = viewModel.viewType.value
         let data = viewModel.popUpList.value.popUpInfoList[indexPath.row]
         let date = data.startDate.asString() + " - " + data.endDate.asString()
+        let isHidden = viewModel.hiddenIndex.contains(indexPath.row)
         switch viewType {
         case .cardList:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedPopUpCell.identifier, for: indexPath) as? SavedPopUpCell else {
                 return UICollectionViewCell()
             }
-            cell.injectionWith(input: .init(date: date, title: data.popUpStoreName, address: data.address, imageURL: data.mainImageUrl))
-            cell.getOutput().bookmarkButtonTap
+            cell.injectionWith(input: .init(date: date, title: data.popUpStoreName, address: data.address, imageURL: data.mainImageUrl, buttonIsHidden: isHidden))
+            cell.bookmarkButton.rx.tap
                 .withUnretained(self)
                 .subscribe { (owner, _) in
                     owner.reloadTrigger.onNext(data.popUpStoreId)
                     cell.bookmarkButton.isHidden = true
+                    owner.viewModel.hiddenIndex.append(indexPath.row)
                 }
                 .disposed(by: cell.disposeBag)
             return cell
@@ -167,12 +168,13 @@ extension FavoritePopUpVC: UICollectionViewDelegate, UICollectionViewDataSource 
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ViewedPopUpCell.identifier, for: indexPath) as? ViewedPopUpCell else {
                 return UICollectionViewCell()
             }
-            cell.injectionWith(input: .init(date: date, title: data.popUpStoreName, imageURL: data.mainImageUrl))
+            cell.injectionWith(input: .init(date: date, title: data.popUpStoreName, imageURL: data.mainImageUrl, buttonIsHidden: isHidden))
             cell.bookmarkButton.rx.tap
                 .withUnretained(self)
                 .subscribe { (owner, _) in
                     owner.reloadTrigger.onNext(data.popUpStoreId)
                     cell.bookmarkButton.isHidden = true
+                    owner.viewModel.hiddenIndex.append(indexPath.row)
                 }
                 .disposed(by: cell.disposeBag)
             return cell

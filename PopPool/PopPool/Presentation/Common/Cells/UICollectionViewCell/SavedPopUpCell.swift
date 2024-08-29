@@ -49,7 +49,9 @@ final class SavedPopUpCell: UICollectionViewCell {
         button.setImage(UIImage(named: "bookmark"), for: .normal)
         return button
     }()
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
+    
+    var buttonIsHidden = false
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,6 +63,11 @@ final class SavedPopUpCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
 }
 
@@ -148,6 +155,7 @@ extension SavedPopUpCell : Cellable {
         var title: String
         var address: String
         var imageURL: URL?
+        var buttonIsHidden: Bool
     }
     
     struct Output {
@@ -158,7 +166,7 @@ extension SavedPopUpCell : Cellable {
         dateLabel.text = input.date
         popUpTitleLabel.text = input.title
         addressLabel.text = input.address
-        
+        bookmarkButton.isHidden = input.buttonIsHidden
         if let url = input.imageURL {
             imageView.kf.indicatorType = .activity
             imageView.kf.setImage(with: url) { [weak self] result in
