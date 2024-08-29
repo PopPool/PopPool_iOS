@@ -69,13 +69,34 @@ extension Requestable {
                     urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
                 }
             }
-        }
-        urlComponents.queryItems = !urlQueryItems.isEmpty ? urlQueryItems : nil
 
-        guard let url = urlComponents.url else { throw NetworkError.components }
-        return url
+            var urlQueryItems = [URLQueryItem]()
+
+            if let queryParameters = try queryParameters?.toDictionary() {
+                for (key, value) in queryParameters {
+
+                    // 수정된 부분: 배열 값을 인코딩할 때, 줄바꿈과 공백을 제거하고 처리
+                    if let arrayValue = value as? [String] {
+                        for item in arrayValue {
+                            // 배열 내의 각 항목에서 공백과 줄바꿈을 제거하여 인코딩
+                            let sanitizedItem = item.replacingOccurrences(of: "\n", with: "")
+                                                    .replacingOccurrences(of: " ", with: "")
+                            urlQueryItems.append(URLQueryItem(name: key, value: sanitizedItem))
+                        }
+                    } else {
+                        urlQueryItems.append(URLQueryItem(name: key, value: "\(value)"))
+                    }
+                }
+            }
+
+            urlComponents.queryItems = urlQueryItems.isEmpty ? nil : urlQueryItems
+            guard let url = urlComponents.url else {
+                throw NetworkError.components
+            }
+
+            return url
+        }
     }
-}
 
 extension Encodable {
     

@@ -32,7 +32,7 @@ class MapVM {
             .distinctUntilChanged()
             .flatMapLatest { [weak self] query -> Observable<[PopUpStore]> in
                 guard let self = self, !query.isEmpty else { return .just([]) }
-                return self.storeService.searchStores(query: query, category: nil)
+                return self.storeService.searchStores(query: query)
                     .catch { error in
                         print("검색 실패: \(error)")
                         self.errorMessageSubject.onNext("검색 중 오류가 발생했습니다: \(error.localizedDescription)")
@@ -188,7 +188,7 @@ class MapVM {
         }
     }
 
-    // 헬퍼 메서드 - 스토어가 지도 영역 내에 있는지 확인
+    // 스토어가 지도 영역 내에 있는지 확인
     private func isStoreInBounds(_ store: PopUpStore, bounds: GMSCoordinateBounds) -> Bool {
         let storeLocation = CLLocationCoordinate2D(latitude: store.latitude, longitude: store.longitude)
         return bounds.contains(storeLocation)
@@ -200,7 +200,7 @@ class MapVM {
         return filters.allSatisfy { filter in
             switch filter.type {
             case .category:
-                return store.categories.contains(filter.name)
+                return store.category.contains(filter.name)
             case .location:
                 return store.address.contains(filter.name)
             }

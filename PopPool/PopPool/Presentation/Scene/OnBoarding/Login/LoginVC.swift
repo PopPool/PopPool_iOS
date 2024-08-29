@@ -171,7 +171,10 @@ private extension LoginVC {
                         let mapViewModel = MapVM(storeService: storeService)
                         let mapVC = MapVC(viewModel: mapViewModel)
 
-                        let homeVM = HomeVM()
+                        let homeRepository = HomeRepositoryImpl()
+                        let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
+                        
+                        let homeVM = HomeVM(useCase: homeUseCase)
                         let loggedHomeVC = LoggedHomeVC(viewModel: homeVM)
 
                         let vm = MyPageMainVM(response: myPageResponse, userUseCase: useCase)

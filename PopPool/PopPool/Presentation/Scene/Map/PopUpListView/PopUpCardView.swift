@@ -76,14 +76,20 @@ class PopupCardView: UIView {
 
     func configure(with store: PopUpStore) {
            titleLabel.text = store.name
+           categoryLabel.text = store.category
            addressLabel.text = store.address
 
+           // String 타입의 날짜를 Date 타입으로 변환
            let dateFormatter = DateFormatter()
            dateFormatter.dateFormat = "yyyy.MM.dd"
-           let startDateString = dateFormatter.string(from: store.startDate)
-           let endDateString = dateFormatter.string(from: store.endDate)
-           dateLabel.text = "\(startDateString) - \(endDateString)"
 
-           categoryLabel.text = store.categories.joined(separator: ", ")
+           if let startDate = dateFormatter.date(from: store.startDate),
+              let endDate = dateFormatter.date(from: store.endDate) {
+               let startDateString = dateFormatter.string(from: startDate)
+               let endDateString = dateFormatter.string(from: endDate)
+               dateLabel.text = "\(startDateString) - \(endDateString)"
+           } else {
+               dateLabel.text = "Invalid Date"
+           }
        }
-}
+   }

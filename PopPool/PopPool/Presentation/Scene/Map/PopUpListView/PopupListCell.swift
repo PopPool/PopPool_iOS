@@ -64,19 +64,21 @@ class PopupListCell: UITableViewCell {
     }
 
     func configure(with store: PopUpStore) {
-        nameLabel.text = store.name
-        addressLabel.text = store.address
+           nameLabel.text = store.name
+           categoryLabel.text = store.category
+           addressLabel.text = store.address
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        let startDateString = dateFormatter.string(from: store.startDate)
-        let endDateString = dateFormatter.string(from: store.endDate)
-        dateLabel.text = "\(startDateString) - \(endDateString)"
+           // String 타입의 날짜를 Date 타입으로 변환
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy.MM.dd"
 
-        if let firstCategory = store.categories.first {
-            categoryLabel.text = firstCategory
-        } else {
-            categoryLabel.text = "카테고리 없음"
-        }
-    }
-}
+           if let startDate = dateFormatter.date(from: store.startDate),
+              let endDate = dateFormatter.date(from: store.endDate) {
+               let startDateString = dateFormatter.string(from: startDate)
+               let endDateString = dateFormatter.string(from: endDate)
+               dateLabel.text = "\(startDateString) - \(endDateString)"
+           } else {
+               dateLabel.text = "Invalid Date"
+           }
+       }
+   }

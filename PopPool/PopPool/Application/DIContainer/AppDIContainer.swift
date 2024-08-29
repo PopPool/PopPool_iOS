@@ -164,7 +164,9 @@ extension AppDelegate {
             type: StoresService.self,
             component: StoresService(
                 provider: container.resolve(type: Provider.self),
-                tokenInterceptor: container.resolve(type: TokenInterceptor.self)
+                tokenInterceptor: container.resolve(type: TokenInterceptor.self),
+                keyChainService: container.resolve(type: KeyChainService.self)
+
             )
         )
         

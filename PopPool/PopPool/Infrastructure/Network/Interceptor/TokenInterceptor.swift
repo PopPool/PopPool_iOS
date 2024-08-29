@@ -19,11 +19,10 @@ final class TokenInterceptor: RequestInterceptor {
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let keyChainService = KeyChainServiceImpl()
         
-        // Request Header에 Token 추가
         keyChainService.fetchToken(type: .accessToken)
                   .subscribe { accessToken in
                       urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-                      print("TokenInterceptor - 토큰 추가됨: Bearer \(accessToken)")
+//                      print("TokenInterceptor - 토큰 추가됨: Bearer \(accessToken)")
                       print("TokenInterceptor - 요청 헤더:")
                       urlRequest.allHTTPHeaderFields?.forEach { key, value in
                           print("  \(key): \(value)")
@@ -42,12 +41,11 @@ final class TokenInterceptor: RequestInterceptor {
     func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
          print("TokenInterceptor - retry 시작")
 
-         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
+        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 400 else {
              print("TokenInterceptor - 재시도 불필요: \(error)")
              completion(.doNotRetryWithError(error))
              return
          }
 
-        // 응답 Header에서 Token 추출 코드 작성 필요
     }
 }

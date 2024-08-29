@@ -1,13 +1,14 @@
 import Foundation
 import CoreLocation
 
-struct PopUpStoreDTO: Decodable {
+
+struct PopUpStoreDTO: Codable {
     let id: Int64
-    let categories: [String]
+    let category: String
     let name: String
     let address: String
-    let startDate: String
-    let endDate: String  
+    let startDate: String  // ISO 8601 형식의 날짜 문자열
+    let endDate: String    // ISO 8601 형식의 날짜 문자열
     let latitude: Double
     let longitude: Double
     let markerId: Int
@@ -15,18 +16,21 @@ struct PopUpStoreDTO: Decodable {
     let markerSnippet: String
 
     func toDomain() -> PopUpStore {
-        let dateFormatter = ISO8601DateFormatter()
         return PopUpStore(
             id: id,
+            category: category,
             name: name,
-            categories: categories,
-            location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
             address: address,
-            startDate: dateFormatter.date(from: startDate) ?? Date(),
-            endDate: dateFormatter.date(from: endDate) ?? Date(),
+            startDate: startDate,
+            endDate: endDate,
+            latitude: latitude,
+            longitude: longitude,
             markerId: markerId,
             markerTitle: markerTitle,
             markerSnippet: markerSnippet
         )
     }
+}
+struct GetViewBoundPopUpStoreListResponse: Decodable {
+    var popUpStoreList: [PopUpStoreDTO]
 }

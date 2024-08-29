@@ -375,14 +375,8 @@ extension MapVC: GMSMapViewDelegate {
         print("Bounds: \(coordinateBounds)")
         print("Selected Category: \(String(describing: selectedCategory))")
 
-        // 선택된 카테고리가 없을 경우 모든 카테고리를 문자열로 넣기
-        let allCategories = ["GAME", "LIFESTYLE", "PETS", "BEAUTY", "SPORTS", "ANIMATION", "ENTERTAINMENT", "TRAVEL", "ART", "FOOD_COOKING", "KIDS", "FASHION"]
-
-        let categories = selectedCategory.map { [$0] } ?? allCategories
-        
+        let categories = viewModel.getSelectedCategory().map { [$0] } ?? []
         viewModel.input.categoryFilterChanged.onNext(categories)
         viewModel.input.mapRegionChanged.onNext(coordinateBounds)
-
     }
 }
-
