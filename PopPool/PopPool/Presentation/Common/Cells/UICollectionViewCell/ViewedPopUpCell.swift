@@ -44,7 +44,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
         button.setImage(UIImage(named: "bookmark"), for: .normal)
         return button
     }()
-    
+    var disposeBag = DisposeBag()
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +60,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.layer.mask = nil
+        disposeBag = DisposeBag()
     }
 }
 

@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import RxCocoa
+import RxSwift
+import Kingfisher
 
 final class SavedPopUpCell: UICollectionViewCell {
     // MARK: - Components
@@ -42,12 +44,12 @@ final class SavedPopUpCell: UICollectionViewCell {
         label.textAlignment = .center
         return label
     }()
-    private let bookmarkButton: UIButton = {
+    let bookmarkButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "bookmark"), for: .normal)
         return button
     }()
-    
+    let disposeBag = DisposeBag()
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -140,11 +142,12 @@ private extension SavedPopUpCell {
 }
 
 extension SavedPopUpCell : Cellable {
-
+    
     struct Input {
         var date: String
         var title: String
         var address: String
+        var imageURL: URL?
     }
     
     struct Output {
@@ -155,7 +158,18 @@ extension SavedPopUpCell : Cellable {
         dateLabel.text = input.date
         popUpTitleLabel.text = input.title
         addressLabel.text = input.address
-        imageView.image = UIImage(named: "lightLogo")
+        
+        if let url = input.imageURL {
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: url) { [weak self] result in
+                switch result {
+                case .success:
+                    print("ImageLoad Success")
+                case .failure:
+                    self?.imageView.image = UIImage(named: "defaultLogo")
+                }
+            }
+        }
     }
     
     func getOutput() -> Output {
