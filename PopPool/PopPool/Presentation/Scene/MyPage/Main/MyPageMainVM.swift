@@ -169,7 +169,9 @@ final class MyPageMainVM: ViewModelable {
     
     func connectVC(title: String) -> BaseViewController {
         if title == "찜한 팝업" {
-            return FavoritePopUpVC()
+            let vm = FavoritePopUpVM(userUseCase: userUseCase)
+            let vc = FavoritePopUpVC(viewModel: vm)
+            return vc
         } else if title == "최근 본 팝업" {
             let vm = RecentPopUpVM(userUseCase: userUseCase)
             let vc = RecentPopUpVC(viewModel: vm)

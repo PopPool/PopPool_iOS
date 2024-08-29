@@ -44,7 +44,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
         button.setImage(UIImage(named: "bookmark"), for: .normal)
         return button
     }()
-    
+    var disposeBag = DisposeBag()
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +60,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.layer.mask = nil
+        disposeBag = DisposeBag()
     }
 }
 
@@ -142,6 +143,7 @@ extension ViewedPopUpCell : Cellable {
         var date: String
         var title: String
         var imageURL: URL?
+        var buttonIsHidden: Bool
     }
     
     struct Output {
@@ -151,7 +153,7 @@ extension ViewedPopUpCell : Cellable {
     func injectionWith(input: Input) {
         dateLabel.text = input.date
         popUpTitleLabel.text = input.title
-        
+        bookmarkButton.isHidden = input.buttonIsHidden
         imageView.image = UIImage(named: "lightLogo")
         if let imageURL = input.imageURL {
             imageView.kf.indicatorType = .activity
