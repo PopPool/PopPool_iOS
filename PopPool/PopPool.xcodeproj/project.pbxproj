@@ -207,6 +207,18 @@
 		4EB470FC2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470FB2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift */; };
 		4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */; };
 		BD0109A62C60942E00B2AF21 /* ListDropDownCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */; };
+		BD0D19072C7D8A3D0017D909 /* AdminRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19062C7D8A3D0017D909 /* AdminRepositoryImpl.swift */; };
+		BD0D19092C7D8A5A0017D909 /* AdminRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */; };
+		BD0D190C2C7D8C3B0017D909 /* AdminUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */; };
+		BD0D190F2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D190E2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift */; };
+		BD0D19112C7D8F030017D909 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19102C7D8F030017D909 /* Location.swift */; };
+		BD0D19132C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19122C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift */; };
+		BD0D19152C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19142C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift */; };
+		BD0D19172C7D91040017D909 /* GetAdminPopUpStoreListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19162C7D91040017D909 /* GetAdminPopUpStoreListResponseDTO.swift */; };
+		BD0D19192C7D92580017D909 /* AdminUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19182C7D92580017D909 /* AdminUseCaseImpl.swift */; };
+		BD0D191B2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191A2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift */; };
+		BD0D191D2C7D94960017D909 /* UpdatePopUpStoreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */; };
+		BD0D191F2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */; };
 		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
@@ -498,6 +510,18 @@
 		4EB470FB2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonBackgroundView.swift; sourceTree = "<group>"; };
 		BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDropDownCPNT.swift; sourceTree = "<group>"; };
+		BD0D19062C7D8A3D0017D909 /* AdminRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRepositoryImpl.swift; sourceTree = "<group>"; };
+		BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRepository.swift; sourceTree = "<group>"; };
+		BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUseCase.swift; sourceTree = "<group>"; };
+		BD0D190E2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePopUpStoreRequestDTO.swift; sourceTree = "<group>"; };
+		BD0D19102C7D8F030017D909 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		BD0D19122C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePopUpStoreRequestDTO.swift; sourceTree = "<group>"; };
+		BD0D19142C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpStoreDetailResponseDTO.swift; sourceTree = "<group>"; };
+		BD0D19162C7D91040017D909 /* GetAdminPopUpStoreListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpStoreListResponseDTO.swift; sourceTree = "<group>"; };
+		BD0D19182C7D92580017D909 /* AdminUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUseCaseImpl.swift; sourceTree = "<group>"; };
+		BD0D191A2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpStoreListResponse.swift; sourceTree = "<group>"; };
+		BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePopUpStoreRequest.swift; sourceTree = "<group>"; };
+		BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpStoreDetailResponse.swift; sourceTree = "<group>"; };
 		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -1103,6 +1127,7 @@
 				08933CEB2C5E533B006F6632 /* UserUseCaseImpl.swift */,
 				BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */,
 				08FF6C8B2C79C15300B68569 /* NoticeUseCaseImpl.swift */,
+				BD0D19182C7D92580017D909 /* AdminUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1120,6 +1145,7 @@
 				08933CED2C5E555F006F6632 /* UserUseCase.swift */,
 				BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */,
 				08FF6C8D2C79C1F000B68569 /* NoticeUseCase.swift */,
+				BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1135,6 +1161,7 @@
 				08C813EF2C2EF5F0009239FE /* SignUpDTO */,
 				08E23A582C4E14BA004B77B6 /* UserDTO */,
 				08FF6C1E2C721C0000B68569 /* NoticeDTO */,
+				BD0D190D2C7D8D1A0017D909 /* AdminDTO */,
 				0896A06D2C7CA3740062CC49 /* CommentType.swift */,
 			);
 			path = PopPoolNetwork;
@@ -1151,6 +1178,7 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				BD0D19052C7D8A2E0017D909 /* AdminRepository */,
 				08FF6C7D2C79B8CC00B68569 /* NoticeRepository */,
 				4E4DC00F2C61FD34007CE63A /* MapRepository */,
 				BD60B2822C75CA790062DC96 /* HomeRepository */,
@@ -1171,6 +1199,7 @@
 				08E23AC42C4F9298004B77B6 /* UserRepository.swift */,
 				BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */,
 				08FF6C892C79C0C800B68569 /* NoticeRepository.swift */,
+				BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -1328,6 +1357,7 @@
 		08E23AAC2C4F865E004B77B6 /* NetworkResponse */ = {
 			isa = PBXGroup;
 			children = (
+				BD0D190A2C7D8B1D0017D909 /* Admin */,
 				08FF6C802C79BE5B00B68569 /* Notice */,
 				BD60B2772C759FEC0062DC96 /* Home */,
 				08E23AAD2C4F8687004B77B6 /* Auth */,
@@ -1487,8 +1517,6 @@
 				08FF6C1F2C721C1800B68569 /* NoticeInfoDTO.swift */,
 				08FF6C232C721C6500B68569 /* GetNoticeListResponseDTO.swift */,
 				08FF6C252C721CA800B68569 /* GetNoticeDetailResponseDTO.swift */,
-				08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */,
-				08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */,
 			);
 			path = NoticeDTO;
 			sourceTree = "<group>";
@@ -1582,6 +1610,38 @@
 				08F49DF82C24006F002D5202 /* ToastMSGManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		BD0D19052C7D8A2E0017D909 /* AdminRepository */ = {
+			isa = PBXGroup;
+			children = (
+				BD0D19062C7D8A3D0017D909 /* AdminRepositoryImpl.swift */,
+			);
+			path = AdminRepository;
+			sourceTree = "<group>";
+		};
+		BD0D190A2C7D8B1D0017D909 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				BD0D19102C7D8F030017D909 /* Location.swift */,
+				BD0D191A2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift */,
+				BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */,
+				BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
+		BD0D190D2C7D8D1A0017D909 /* AdminDTO */ = {
+			isa = PBXGroup;
+			children = (
+				08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */,
+				BD0D19162C7D91040017D909 /* GetAdminPopUpStoreListResponseDTO.swift */,
+				BD0D190E2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift */,
+				08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */,
+				BD0D19122C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift */,
+				BD0D19142C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift */,
+			);
+			path = AdminDTO;
 			sourceTree = "<group>";
 		};
 		BD2EF6692C635A6700A93A8C /* Home */ = {
@@ -1974,6 +2034,7 @@
 				BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */,
 				BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
+				BD0D19132C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift in Sources */,
 				08F49DEA2C231CFC002D5202 /* LoginResponse.swift in Sources */,
 				08C813F12C2EF60B009239FE /* CheckNickNameRequestDTO.swift in Sources */,
 				08E23A9E2C4F762E004B77B6 /* UpdateMyTailoredInfoRequestDTO.swift in Sources */,
@@ -2046,6 +2107,7 @@
 				4E184D5D2C6F1FC800573A2E /* RecentPopUpVC.swift in Sources */,
 				08E23A8D2C4F6F07004B77B6 /* PageableResponse.swift in Sources */,
 				08E23A572C4D3450004B77B6 /* RequestTokenInterceptor.swift in Sources */,
+				BD0D19172C7D91040017D909 /* GetAdminPopUpStoreListResponseDTO.swift in Sources */,
 				BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */,
 				089D19002C30307A000435D9 /* ValidationTextFieldCPNT.swift in Sources */,
 				08E23AB12C4F8700004B77B6 /* GetMyCommentResponse.swift in Sources */,
@@ -2054,7 +2116,9 @@
 				BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */,
 				08FF6C282C721CE600B68569 /* CreateNoticeRequestDTO.swift in Sources */,
 				08E23AE02C54F12A004B77B6 /* CardListLayout.swift in Sources */,
+				BD0D191D2C7D94960017D909 /* UpdatePopUpStoreRequest.swift in Sources */,
 				08E23A532C4A2351004B77B6 /* InterestSelectedView.swift in Sources */,
+				BD0D19152C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift in Sources */,
 				BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */,
 				08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
@@ -2073,6 +2137,8 @@
 				4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */,
 				BD60B2792C75A0010062DC96 /* GetHomeInfoResponse.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
+				BD0D190F2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift in Sources */,
+				BD0D19092C7D8A5A0017D909 /* AdminRepository.swift in Sources */,
 				08E23ABD2C4F8E02004B77B6 /* GetWithDrawlSurveyResponseDTO.swift in Sources */,
 				08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */,
 				08C813D52C2D1F5E009239FE /* SignUpStep3View.swift in Sources */,
@@ -2083,6 +2149,7 @@
 				BD60B27F2C75C51D0062DC96 /* HomeRepository.swift in Sources */,
 				08E23A632C4E1925004B77B6 /* MyCommentInfoDTO.swift in Sources */,
 				BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */,
+				BD0D19072C7D8A3D0017D909 /* AdminRepositoryImpl.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */,
 				08FF6C7F2C79B8E100B68569 /* NoticeRepositoryImpl.swift in Sources */,
@@ -2091,12 +2158,14 @@
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
 				BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */,
 				08FF6C862C79BF3C00B68569 /* GetNoticeDetailResponse.swift in Sources */,
+				BD0D190C2C7D8C3B0017D909 /* AdminUseCase.swift in Sources */,
 				087346112C0AAD2900534FFA /* AppDelegate.swift in Sources */,
 				08E23AC32C4F904D004B77B6 /* GetProfileResponse.swift in Sources */,
 				0896A06E2C7CA3740062CC49 /* CommentType.swift in Sources */,
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
 				BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */,
 				08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */,
+				BD0D19192C7D92580017D909 /* AdminUseCaseImpl.swift in Sources */,
 				08C813F72C2F15DC009239FE /* GetCategoryListResponseDTO.swift in Sources */,
 				08E23AA92C4F7DC9004B77B6 /* GetMyPageResponse.swift in Sources */,
 				089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */,
@@ -2119,6 +2188,7 @@
 				08FF6C8E2C79C1F000B68569 /* NoticeUseCase.swift in Sources */,
 				08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
+				BD0D191B2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift in Sources */,
 				08E23AAB2C4F7F98004B77B6 /* MyCommentInfo.swift in Sources */,
 				08E23A5C2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift in Sources */,
 				08FF6C142C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift in Sources */,
@@ -2163,6 +2233,7 @@
 				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
 				BDCA56702C69F29A005C68C8 /* HomeVM.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
+				BD0D19112C7D8F030017D909 /* Location.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */,
 				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
@@ -2193,6 +2264,7 @@
 				BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */,
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08FF6C8A2C79C0C800B68569 /* NoticeRepository.swift in Sources */,
+				BD0D191F2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
 				BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */,
 				BD60B2812C75C5AF0062DC96 /* HomeUseCase.swift in Sources */,
