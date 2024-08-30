@@ -183,7 +183,7 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
 extension HomeDetailPopUpCell: Cellable {
     
     struct Input {
-        var image: UIImage?
+        var image: URL?
         var category: String?
         var title: String?
         var location: String?
@@ -195,7 +195,13 @@ extension HomeDetailPopUpCell: Cellable {
     }
     
     func injectionWith(input: Input) {
-        popUpImageView.image = input.image
+        popUpImageView.kf.indicatorType = .activity
+        if let popularPopUp = input.image {
+            popUpImageView.kf.setImage(with: popularPopUp)
+        } else {
+            popUpImageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
+        }
+        
         titleLabel.text = input.title
         categoryLabel.text = input.category
         locationLabel.text = input.location

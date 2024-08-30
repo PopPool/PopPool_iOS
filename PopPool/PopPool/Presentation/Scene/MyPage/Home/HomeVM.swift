@@ -18,9 +18,11 @@ final class HomeVM: ViewModelable {
         var myHomeAPIResponse: Observable<GetHomeInfoResponse>
     }
     
-    let homeUsecase: HomeUseCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
-    var myHomeAPIResponse: BehaviorRelay<GetHomeInfoResponse> = .init(value: .init(customPopUpStoreList: [], loginYn: true))
-    
+    var myHomeAPIResponse: BehaviorRelay<GetHomeInfoResponse> = .init(
+        value: .init(
+            customPopUpStoreList: [],
+            loginYn: true
+        ))
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {

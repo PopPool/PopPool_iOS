@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class EntirePopupVM: ViewModelable {
     
@@ -15,17 +16,16 @@ class EntirePopupVM: ViewModelable {
     }
     
     struct Output {
-        
+        let fetchedDataResponse: Observable<GetHomeInfoResponse>
     }
+    
+    var response: BehaviorRelay<GetHomeInfoResponse> = .init(value: GetHomeInfoResponse())
     
     var disposeBag = DisposeBag()
-    
-    init() {
-        
-    }
-    
     func transform(input: Input) -> Output {
-        return Output()
+        
+        return Output(
+            fetchedDataResponse: response.asObservable()
+        )
     }
-    
 }

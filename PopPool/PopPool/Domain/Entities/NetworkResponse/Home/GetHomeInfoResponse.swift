@@ -7,7 +7,6 @@
 
 import Foundation
 
-// customPopUpStoreList를 Curated로 변경
 struct GetHomeInfoResponse: Decodable {
     var nickname: String?
     var customPopUpStoreList: [HomePopUp]?
@@ -19,5 +18,5 @@ struct GetHomeInfoResponse: Decodable {
     var newPopUpStoreList: [HomePopUp]?
     var newPopUpStoreTotalPages: Int32?
     var newPopUpStoreTotalElements: Int64?
-    var loginYn: Bool
+    var loginYn: Bool?
 }

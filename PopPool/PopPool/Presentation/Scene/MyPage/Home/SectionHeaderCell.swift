@@ -41,16 +41,6 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     private let actionButton: UIButton = {
         let button = UIButton()
-        let text = "테스트"
-        let attributes: [NSMutableAttributedString.Key: Any] = [
-            .font: UIFont.KorFont(style: .regular, size: 13),
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: UIColor.black
-        ]
-        let attributedString = NSMutableAttributedString(string: text,
-                                                         attributes: attributes)
-        button.setAttributedTitle(attributedString, for: .normal)
-        button.setContentHuggingPriority(.required, for: .horizontal)
         return button
     }()
     
@@ -80,11 +70,23 @@ final class SectionHeaderCell: UICollectionViewCell {
     public func configureWhite(title: String) {
         titleLabel.text = title
         titleLabel.textColor = .w100
-        actionButton.setTitleColor(.w100, for: .normal)
+        setButtonLayout(title: "전체보기", color: .white)
     }
     
     private func setUp() {
-        actionButton.setTitle("전체보기", for: .normal)
+        setButtonLayout(title: "전체보기", color: .black)
+    }
+    
+    private func setButtonLayout(title: String, color: UIColor) {
+        let attributes: [NSMutableAttributedString.Key: Any] = [
+            .font: UIFont.KorFont(style: .regular, size: 13),
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+            .foregroundColor: color
+        ]
+        let attributedString = NSMutableAttributedString(string: title,
+                                                         attributes: attributes)
+        actionButton.setAttributedTitle(attributedString, for: .normal)
+        actionButton.setContentHuggingPriority(.required, for: .horizontal)
     }
     
     private func setUpConstraint() {

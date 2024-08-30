@@ -13,7 +13,6 @@ final class InterestViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo")
         return imageView
     }()
     
@@ -56,6 +55,13 @@ final class InterestViewCell: UICollectionViewCell {
         imageView.image = image
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        descriptionLabel.text = nil
+        titleLabel.text = nil
+        imageView.image = UIImage(systemName: "photo")
+    }
+    
     private func setUp() {
         self.layer.cornerRadius = 4
         self.clipsToBounds = true
@@ -78,5 +84,35 @@ final class InterestViewCell: UICollectionViewCell {
         contentStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+}
+
+extension InterestViewCell: Cellable {
+    
+    struct Input {
+        var image: URL?
+        var category: String?
+        var title: String?
+        var location: String?
+        var date: String?
+    }
+    
+    struct Output {
+        
+    }
+    
+    func injectionWith(input: Input) {
+        imageView.kf.indicatorType = .activity
+        if let popularPopUp = input.image {
+            imageView.kf.setImage(with: popularPopUp)
+            descriptionLabel.text = input.title
+            titleLabel.text = "#\(input.date)까지 열리는\n#\(input.category) #\(input.location)"
+        } else {
+            imageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
+        }
+    }
+    
+    func getOutput() -> Output {
+        return Output()
     }
 }
