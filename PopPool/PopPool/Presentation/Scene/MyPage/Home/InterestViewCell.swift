@@ -11,6 +11,8 @@ import RxSwift
 
 final class InterestViewCell: UICollectionViewCell {
     
+    // MARK: - Component
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -39,6 +41,8 @@ final class InterestViewCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -49,17 +53,19 @@ final class InterestViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(title: String, category: String, image: UIImage?) {
-        titleLabel.text = title
-        descriptionLabel.text = category
-        imageView.image = image
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         descriptionLabel.text = nil
         titleLabel.text = nil
         imageView.image = UIImage(systemName: "photo")
+    }
+    
+    // MARK: - Methods
+    
+    public func configure(title: String, category: String, image: UIImage?) {
+        titleLabel.text = title
+        descriptionLabel.text = category
+        imageView.image = image
     }
     
     private func setUp() {
@@ -101,6 +107,8 @@ extension InterestViewCell: Cellable {
         
     }
     
+    /// 맞춤 관심 역할을 하는 cell에 데이터를 주입하는 메서드
+    /// - Parameter input: Input 값을 받습니다
     func injectionWith(input: Input) {
         imageView.kf.indicatorType = .activity
         if let popularPopUp = input.image {

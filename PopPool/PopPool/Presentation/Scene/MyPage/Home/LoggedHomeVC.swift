@@ -10,7 +10,8 @@ import RxSwift
 import SnapKit
 
 final class LoggedHomeVC: BaseViewController {
-    
+
+    /// 홈을 섹션별로 구분합니다
     enum Section: Int, CaseIterable {
         case banner
         case recommendedHeader
@@ -31,6 +32,8 @@ final class LoggedHomeVC: BaseViewController {
             }
         }
     }
+    
+    //MARK: - Components
     
     let imagePage = UIPageControl()
     let header = HeaderViewCPNT(title: "교체 예정", style: .icon(nil))
@@ -71,9 +74,13 @@ final class LoggedHomeVC: BaseViewController {
         return view
     }()
     
+    //MARK: - Properties
+    
     private let disposeBag = DisposeBag()
     private let viewModel: HomeVM
     private var isLogin: Bool = false
+    
+    //MARK: - Initializer
     
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
@@ -83,6 +90,8 @@ final class LoggedHomeVC: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,6 +126,8 @@ final class LoggedHomeVC: BaseViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    //MARK: - Methods
+    
     private func bind() {
         let input = HomeVM.Input()
         let output = viewModel.transform(input: input)
@@ -124,19 +135,10 @@ final class LoggedHomeVC: BaseViewController {
         output.myHomeAPIResponse
             .withUnretained(self)
             .subscribe { (owner, response) in
-                // 데이터 전달 완료
-//                print("커스텀", response.customPopUpStoreList)
-//                print("커스텀 토탈", response.customPopUpStoreTotalElements)
-//                print("커스텀 토탈 페이지", response.customPopUpStoreTotalPages)
-//                print("로그인", response.loginYn)
-//                print("신규", response.newPopUpStoreList)
-//                print("인기", response.popularPopUpStoreList)
-//                print("닉네임", response.nickname)
                 
                 if let loggedIn = response.loginYn {
                     self.isLogin = loggedIn
-                    // 1 셀에 그대로 주입 > cellable 같은 구조로 가야하는거고
-                    // 2 프로퍼티를 별도로 생성해서 저장 이후 전달 > 지금하는 방식
+                    // 데이터별 연결
                 }
             }
             .disposed(by: disposeBag)
@@ -147,6 +149,8 @@ final class LoggedHomeVC: BaseViewController {
         collectionView.dataSource = self
     }
     
+    /// compositionalLayout을 구성하는 메서드
+    /// - Returns: 섹션별로 UICollectionViewCompositionalLayout를 설정합니다
     private func setLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
             guard let sectionType = Section(rawValue: section) else { return nil }
@@ -170,12 +174,14 @@ final class LoggedHomeVC: BaseViewController {
             }
         }
         
-        // 특정 section의 백그라운드 등록
+        // 특정 section별로 다른 백그라운드 색상을 위한 backgroundView 등록
         layout.register(PopUpBackgroundView.self,
                         forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifer)
         return layout
     }
     
+    /// collectionView 상단의 배너 layout을 생성, 현재 값을 pageControl에 업데이트하는 메서드입니다
+    /// - Returns: 배너의 LayoutSection을 반환합니다
     private func createBannerSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -207,6 +213,9 @@ final class LoggedHomeVC: BaseViewController {
         return section
     }
     
+    /// 섹션별 헤더 레이아웃을 구성합니다
+    /// - Parameter height: 지정된 높이를 받습니다
+    /// - Returns: 섹션별 서로 다른 높이를 가진 LayoutSection을 반환합니다
     private func createSectionHeader(height: CGFloat) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -222,6 +231,12 @@ final class LoggedHomeVC: BaseViewController {
         return section
     }
     
+    /// 가로용 섹션 레이아웃을 구성합니다
+    /// - Parameters:
+    ///   - width: 지정된 넓이 값을 받습니다
+    ///   - height: 지정된 높이 값을 받습니다
+    ///   - behavior: 상황에 따라 레이아웃에 담긴 아이템들이 스와이프에 어떻게 반응하는지 설정할 수 있습니다
+    /// - Returns: LayoutSection 값을 반환합니다
     private func createHorizontalSection(width: CGFloat, height: CGFloat, behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior) -> NSCollectionLayoutSection {
         let itemPadding: CGFloat = 8
         let itemSize = NSCollectionLayoutSize(

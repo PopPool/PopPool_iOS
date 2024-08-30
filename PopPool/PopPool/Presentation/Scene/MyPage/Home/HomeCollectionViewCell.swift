@@ -12,18 +12,21 @@ import Kingfisher
 
 final class HomeCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Component
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "lasso")
         return imageView
     }()
     
-    // pageControl을 생성하는 형식
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.hidesForSinglePage = true
         return pageControl
     }()
+    
+    // MARK: - Properties
     
     var changedPage: Int = 0 {
         didSet {
@@ -32,6 +35,8 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     }
     let pageIndex: PublishSubject<Int> = .init()
     var disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,6 +56,8 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         setUpConstraint()
     }
+    
+    // MARK: - Methods
     
     private func bind() {
         pageIndex
@@ -94,6 +101,8 @@ extension HomeCollectionViewCell: Cellable {
         
     }
     
+    /// 배너 역할을 하는 cell에 데이터를 주입하는 메서드
+    /// - Parameter input: Input 값을 받습니다
     func injectionWith(input: Input) {
         imageView.kf.indicatorType = .activity
         if let bannerImageUrl = input.image {

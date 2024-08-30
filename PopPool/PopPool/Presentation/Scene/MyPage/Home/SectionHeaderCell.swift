@@ -23,6 +23,8 @@ final class SectionHeaderCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Component
+    
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(titleLabel)
@@ -47,11 +49,15 @@ final class SectionHeaderCell: UICollectionViewCell {
     private let buttonContainer = UIView()
     private let spaceView = UIView()
     
+    // MARK: - Properties
+    
     var actionTapped: Observable<Void> {
         return actionButton.rx.tap.asObservable()
     }
     
     let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,6 +68,8 @@ final class SectionHeaderCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
     
     public func configure(title: String) {
         titleLabel.text = title

@@ -25,6 +25,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Component
+    
     lazy var contentContainer: UIView = {
         let view = UIView()
         return view
@@ -80,6 +82,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - Properties
+    
     private var currentState: ButtonState = .untapped
     let bookmarkSubject: PublishSubject<ButtonState> = .init()
     var disposeBag = DisposeBag()
@@ -91,6 +95,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         bind()
     }
     
+    // MARK: - Initializer
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -100,6 +106,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         disposeBag = DisposeBag()
         bind()
     }
+    
+    // MARK: - Methods
     
     private func bind() {
         bookMark.rx.tap

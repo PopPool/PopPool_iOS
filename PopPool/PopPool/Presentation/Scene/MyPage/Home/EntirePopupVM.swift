@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class EntirePopupVM: ViewModelable {
+final class EntirePopupVM: ViewModelable {
     
     struct Input {
         

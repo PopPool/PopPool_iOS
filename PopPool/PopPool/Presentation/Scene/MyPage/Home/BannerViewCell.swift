@@ -8,15 +8,19 @@
 import UIKit
 import SnapKit
 
-class BannerViewCell: UICollectionReusableView {
+final class BannerViewCell: UICollectionReusableView {
     
     static let reuseIdentifer = "HeaderViewCell"
+    
+    // MARK: - Components
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "lasso")
         return imageView
     }()
+    
+    // MARK: - Initializer
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +30,8 @@ class BannerViewCell: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
     
     private func setUpConstraint() {
         addSubview(imageView)
