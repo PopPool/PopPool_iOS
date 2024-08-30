@@ -223,6 +223,7 @@
 		BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */; };
 		BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */; };
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
+		BD3C9E952C81B06F005BFD7B /* ListRowCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */; };
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD55E12F2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E12E2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift */; };
 		BD55E1312C70B7B100FAB763 /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */; };
@@ -516,6 +517,7 @@
 		BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBoxViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
+		BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowCPNT.swift; sourceTree = "<group>"; };
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD55E12E2C707DCA00FAB763 /* TestingHomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingHomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
@@ -1398,6 +1400,7 @@
 				08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */,
 				BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */,
 				BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */,
+				BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2002,6 +2005,7 @@
 				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
 				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
+				BD3C9E952C81B06F005BFD7B /* ListRowCPNT.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
 				4E8F62052C69D49E002440B8 /* CategoryCell.swift in Sources */,
