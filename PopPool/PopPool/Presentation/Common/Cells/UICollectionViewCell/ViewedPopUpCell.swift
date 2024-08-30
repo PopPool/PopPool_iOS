@@ -6,9 +6,11 @@
 //
 
 import UIKit
+
 import RxSwift
 import RxCocoa
 import SnapKit
+import Kingfisher
 
 final class ViewedPopUpCell: UICollectionViewCell {
     // MARK: - Components
@@ -42,7 +44,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
         button.setImage(UIImage(named: "bookmark"), for: .normal)
         return button
     }()
-    
+    var disposeBag = DisposeBag()
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,6 +60,7 @@ final class ViewedPopUpCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.layer.mask = nil
+        disposeBag = DisposeBag()
     }
 }
 
@@ -139,6 +142,8 @@ extension ViewedPopUpCell : Cellable {
     struct Input {
         var date: String
         var title: String
+        var imageURL: URL?
+        var buttonIsHidden: Bool
     }
     
     struct Output {
@@ -148,7 +153,20 @@ extension ViewedPopUpCell : Cellable {
     func injectionWith(input: Input) {
         dateLabel.text = input.date
         popUpTitleLabel.text = input.title
+        bookmarkButton.isHidden = input.buttonIsHidden
         imageView.image = UIImage(named: "lightLogo")
+        if let imageURL = input.imageURL {
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: imageURL) { [weak self] result in
+                switch result {
+                case .success:
+                    print("Image Load Success")
+                case .failure:
+                    print("Image Load Fail")
+                    self?.imageView.image = UIImage(named: "lightLogo")
+                }
+            }
+        }
         setUpHole()
     }
     

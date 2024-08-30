@@ -28,6 +28,21 @@ final class RecentPopUpVC: BaseViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: GridLayout(height: 255))
         return view
     }()
+    
+    // MARK: - Properties
+    
+    private let viewModel: RecentPopUpVM
+
+    private let disposeBag = DisposeBag()
+    
+    init(viewModel: RecentPopUpVM) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: - LifeCycle
@@ -36,6 +51,7 @@ extension RecentPopUpVC {
         super.viewDidLoad()
         setUp()
         setUpConstraints()
+        bind()
     }
 }
 
@@ -66,18 +82,48 @@ private extension RecentPopUpVC {
             make.bottom.equalToSuperview()
         }
     }
+    
+    func bind() {
+        let input = RecentPopUpVM.Input(
+            backButtonTapped: headerView.leftBarButton.rx.tap
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.popUpList
+            .withUnretained(self)
+            .subscribe { (owner, response) in
+                owner.collectionView.reloadData()
+                owner.countView.titleLabel.text = "총 \(response.totalElements)건"
+            }
+            .disposed(by: disposeBag)
+        
+        output.moveToRecentVC
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 extension RecentPopUpVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.popUpList.value.popUpInfoList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ViewedPopUpCell.identifier, for: indexPath) as? ViewedPopUpCell else {
             return UICollectionViewCell()
         }
-        cell.injectionWith(input: .init(date: "~ YYYY.MM.DD", title: "팝업스토어"))
+        let data = viewModel.popUpList.value.popUpInfoList[indexPath.row]
+        cell.injectionWith(
+            input: .init(
+                date: "~\(data.endDate.asString())",
+                title: data.popUpStoreName,
+                imageURL: data.mainImageUrl,
+                buttonIsHidden: true
+            )
+        )
         cell.bookmarkButton.isHidden = true
         return cell
     }

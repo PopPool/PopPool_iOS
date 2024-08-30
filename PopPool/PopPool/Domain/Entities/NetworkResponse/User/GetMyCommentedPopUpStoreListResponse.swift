@@ -8,7 +8,7 @@
 import Foundation
 
 struct GetMyCommentedPopUpStoreListResponse {
-    var popUpInfoList: [PopUpInfo]
+    var myCommentList: [PopUpInfo]
     var totalPages: Int32
     var totalElements: Int64
 }

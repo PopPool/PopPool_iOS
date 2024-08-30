@@ -38,8 +38,6 @@ final class MyPageMainVM: ViewModelable {
                 // 내 코멘트 없을 경우 분기
                 if myCommentSection.sectionCellInputList.isEmpty {
                     return [
-                        // TODO: - myCommentSection 제거 필요
-                        myCommentSection,
                         normalSection,
                         informationSection,
                         etcSection
@@ -75,7 +73,6 @@ final class MyPageMainVM: ViewModelable {
         sectionCellInputList: [
             .init(title: "찜한 팝업"),
             .init(title: "최근 본 팝업"),
-            .init(title: "내가 모은 배지"),
             .init(title: "차단한 사용자 관리"),
             .init(title: "알림 설정"),
         ])
@@ -123,8 +120,10 @@ final class MyPageMainVM: ViewModelable {
         
         let moveToVC: PublishSubject<BaseViewController> = .init()
         myCommentSection.sectionOutput().didTapRightButton
-            .subscribe { _ in
-                let vc = MyCommentedPopUpVC()
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let vm = MyCommentedPopUpVM(userUseCase: owner.userUseCase)
+                let vc = MyCommentedPopUpVC(viewModel: vm)
                 moveToVC.onNext(vc)
             }
             .disposed(by: disposeBag)
@@ -170,22 +169,28 @@ final class MyPageMainVM: ViewModelable {
     
     func connectVC(title: String) -> BaseViewController {
         if title == "찜한 팝업" {
-            return FavoritePopUpVC()
+            let vm = FavoritePopUpVM(userUseCase: userUseCase)
+            let vc = FavoritePopUpVC(viewModel: vm)
+            return vc
         } else if title == "최근 본 팝업" {
-            return RecentPopUpVC()
+            let vm = RecentPopUpVM(userUseCase: userUseCase)
+            let vc = RecentPopUpVC(viewModel: vm)
+            return vc
         } else if title == "내가 모은 배지" {
             // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "차단한 사용자 관리" {
             return BlockedUserVC(viewModel: BlockedUserVM())
         } else if title == "알림 설정" {
-            // TODO: - 추후 연결필요
-            return BaseViewController()
+            let vm = AlarmSettingVM()
+            let vc = AlarmSettingVC(viewModel: vm)
+            return vc
         } else if title == "공지사항" {
             return NoticeBoardVC(viewModel: NoticeBoardVM())
         } else if title == "고객문의" {
-            // TODO: - 추후 연결필요
-            return BaseViewController()
+            let vm = InquiryVM()
+            let vc = InquiryVC(viewModel: vm)
+            return vc
         } else if title == "약관" {
             return TermsBoardVC(viewModel: TermsBoardVM())
         } else if title == "회원탈퇴" {

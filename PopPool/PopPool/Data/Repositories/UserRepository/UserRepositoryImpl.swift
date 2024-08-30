@@ -25,11 +25,12 @@ final class UserRepositoryImpl: UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?,
+        commentType: CommentType
     ) -> Observable<GetMyCommentResponse> {
         let endPoint = PopPoolAPIEndPoint.user_getMyComment(
             userId: userId,
-            request: .init(page: page, size: size, sort: sort)
+            request: .init(page: page, size: size, sort: sort, commentType: commentType)
         )
         return provider.requestData(with: endPoint, interceptor: tokenInterceptor).map({ $0.toDomain() })
     }
@@ -42,24 +43,11 @@ final class UserRepositoryImpl: UserRepository {
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
     
-    func fetchMyCommentedPopUpStoreList(
-        userId: String,
-        page: Int32,
-        size: Int32,
-        sort: [String]
-    ) -> Observable<GetMyCommentedPopUpStoreListResponse> {
-        let endPoint = PopPoolAPIEndPoint.user_getMyCommentedPopUpStoreList(
-            userId: userId, 
-            request: .init(page: page, size: size, sort: sort)
-        )
-        return provider.requestData(with: endPoint, interceptor: tokenInterceptor).map({ $0.toDomain() })
-    }
-    
     func fetchMyRecentViewPopUpStoreList(
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyRecentViewPopUpStoreListResponse> {
         let endPoint = PopPoolAPIEndPoint.user_getMyRecentViewPopUpStoreList(
             userId: userId,
@@ -80,7 +68,7 @@ final class UserRepositoryImpl: UserRepository {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetBlockedUserListResponse> {
         let endPoint = PopPoolAPIEndPoint.user_getBlockedUserList(request: .init(userId: userId, page: page, size: size, sort: sort))
         return provider.requestData(with: endPoint, interceptor: tokenInterceptor).map({ $0.toDomain() })
@@ -154,6 +142,32 @@ final class UserRepositoryImpl: UserRepository {
         age: Int32
     ) -> Completable {
         let endPoint = PopPoolAPIEndPoint.user_updateMyTailoredInfo(userId: userId, request: .init(gender: gender, age: age))
+        return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
+    }
+    
+    func fetchBookMarkPopUpStoreList(
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
+    ) -> Observable<GetBookMarkPopUpStoreListResponse> {
+        let endPoint = PopPoolAPIEndPoint.user_fetchBookMarkPopUpStoreList(userId: userId, reqeust: .init(page: page, size: size, sort: sort))
+        return provider.requestData(with: endPoint, interceptor: requestTokenInterceptor).map { $0.toDomain() }
+    }
+    
+    func updateBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        let endPoint = PopPoolAPIEndPoint.user_updateBookMarkPopUpStore(userId: userId, reqeust: .init(popUpStoreId: popUpStoreId))
+        return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
+    }
+    
+    func deleteBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        let endPoint = PopPoolAPIEndPoint.user_deleteBookMarkPopUpStore(userId: userId, reqeust: .init(popUpStoreId: popUpStoreId))
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
 }

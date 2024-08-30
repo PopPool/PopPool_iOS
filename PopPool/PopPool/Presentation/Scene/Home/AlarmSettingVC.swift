@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxRelay
 
-final class AlarmSettingVC: UIViewController {
+final class AlarmSettingVC: BaseViewController {
     
     // MARK: - Components
     
@@ -44,7 +44,7 @@ final class AlarmSettingVC: UIViewController {
     
     init(viewModel: AlarmSettingVM) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {

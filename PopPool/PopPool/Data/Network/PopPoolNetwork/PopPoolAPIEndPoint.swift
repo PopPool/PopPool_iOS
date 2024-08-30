@@ -105,23 +105,6 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-    /// 내가 댓글을 단 팝업 리스트를 조회합니다.
-    /// - Parameters:
-    ///   - userId: 유저 아이디
-    ///   - pageable: Pagination 요청 DTO
-    /// - Returns: Endpoint<GetMyCommentedPopUpStoreListResponseDTO>
-    static func user_getMyCommentedPopUpStoreList(
-        userId: String,
-        request: GetMyCommentedPopUpStoreListRequestDTO
-    ) -> Endpoint<GetMyCommentedPopUpStoreListResponseDTO> {
-        return Endpoint(
-            baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/users/\(userId)/popupstores/with-comments",
-            method: .get,
-            queryParameters: request
-        )
-    }
-    
     /// 최근 본 팝업 리스트를 조회합니다.
     /// - Parameters:
     ///   - userId: 유저 아이디
@@ -196,6 +179,43 @@ struct PopPoolAPIEndPoint {
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/withdrawl/surveys",
             method: .get
+        )
+    }
+    
+    static func user_fetchBookMarkPopUpStoreList(
+        userId: String,
+        reqeust: GetBookMarkPopUpStoreListRequestDTO
+    ) -> Endpoint<GetBookMarkPopUpStoreListResponseDTO> {
+        
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .get
+        )
+    }
+    
+    static func user_updateBookMarkPopUpStore(
+        userId: String,
+        reqeust: UserBookMarkRequestDTO
+    ) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .post,
+            queryParameters: reqeust
+        )
+    }
+    
+    static func user_deleteBookMarkPopUpStore(
+        userId: String,
+        reqeust: UserBookMarkRequestDTO
+    ) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .delete,
+            queryParameters: reqeust
+            
         )
     }
     

@@ -10,9 +10,9 @@ import Foundation
 struct MyCommentInfoDTO: Decodable {
     var commentId: Int64
     var content: String
-    var image: String
     var likeCount: Int64
     var createDateTime: String
+    var popUpStoreInfo: MyCommentedPopUpInfoDTO
 }
 
 extension MyCommentInfoDTO {
@@ -20,9 +20,9 @@ extension MyCommentInfoDTO {
         return MyCommentInfo(
             commentId: commentId,
             content: content,
-            image: URL(string: image),
             likeCount: likeCount,
-            createDateTime: createDateTime
+            createDateTime: createDateTime.asDate(),
+            popUpStoreInfo: popUpStoreInfo.toDomain()
         )
     }
 }

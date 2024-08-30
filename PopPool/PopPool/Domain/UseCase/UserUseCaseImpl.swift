@@ -10,6 +10,7 @@ import RxSwift
 
 final class UserUseCaseImpl: UserUseCase {
     
+    
     var repository: UserRepository
     
     init(repository: UserRepository) {
@@ -27,15 +28,11 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?,
+        commentType: CommentType
     ) -> Observable<GetMyCommentResponse> {
         return repository
-            .fetchMyComment(
-                userId: userId,
-                page: page,
-                size: size,
-                sort: sort
-            )
+            .fetchMyComment(userId: userId, page: page, size: size, sort: sort, commentType: commentType)
     }
     
     func tryWithdraw(
@@ -49,26 +46,11 @@ final class UserUseCaseImpl: UserUseCase {
             )
     }
     
-    func fetchMyCommentedPopUpStoreList(
-        userId: String,
-        page: Int32,
-        size: Int32,
-        sort: [String]
-    ) -> Observable<GetMyCommentedPopUpStoreListResponse> {
-        return repository
-            .fetchMyCommentedPopUpStoreList(
-                userId: userId,
-                page: page,
-                size: size,
-                sort: sort
-            )
-    }
-    
     func fetchMyRecentViewPopUpStoreList(
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetMyRecentViewPopUpStoreListResponse> {
         return repository
             .fetchMyRecentViewPopUpStoreList(
@@ -94,7 +76,7 @@ final class UserUseCaseImpl: UserUseCase {
         userId: String,
         page: Int32,
         size: Int32,
-        sort: [String]
+        sort: [String]?
     ) -> Observable<GetBlockedUserListResponse> {
         return repository
             .fetchBlockedUserList(
@@ -161,5 +143,28 @@ final class UserUseCaseImpl: UserUseCase {
     func updateMyTailoredInfo(userId: String, gender: String, age: Int32) -> Completable {
         return repository
             .updateMyTailoredInfo(userId: userId, gender: gender, age: age)
+    }
+    
+    func fetchBookMarkPopUpStoreList(
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
+    ) -> Observable<GetBookMarkPopUpStoreListResponse> {
+        return repository.fetchBookMarkPopUpStoreList(userId: userId, page: page, size: size, sort: sort)
+    }
+    
+    func updateBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        return repository.updateBookMarkPopUpStore(userId: userId, popUpStoreId: popUpStoreId)
+    }
+    
+    func deleteBookMarkPopUpStore(
+        userId: String,
+        popUpStoreId: Int64
+    ) -> Completable {
+        return repository.deleteBookMarkPopUpStore(userId: userId, popUpStoreId: popUpStoreId)
     }
 }
