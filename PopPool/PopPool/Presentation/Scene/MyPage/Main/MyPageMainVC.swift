@@ -110,6 +110,7 @@ private extension MyPageMainVC {
             .disposed(by: disposeBag)
         
         let input = MyPageMainVM.Input(
+            logoutButtonTapped: logoutButton.rx.tap,
             settingButtonTapped: headerView.rightBarButton.rx.tap,
             cellTapped: tableView.rx.itemSelected,
             profileLoginButtonTapped: profileView.loginButton.rx.tap
@@ -160,6 +161,13 @@ private extension MyPageMainVC {
                 let vm = ProfileEditVM(userUseCase: userUseCase)
                 let vc = ProfileEditVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.logout
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.viewWillAppear(true)
             }
             .disposed(by: disposeBag)
     }
