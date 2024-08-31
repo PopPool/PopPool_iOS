@@ -180,7 +180,9 @@ final class MyPageMainVM: ViewModelable {
             // TODO: - 추후 연결필요
             return BaseViewController()
         } else if title == "차단한 사용자 관리" {
-            return BlockedUserVC(viewModel: BlockedUserVM())
+            let vm = BlockedUserVM(useUseCase: userUseCase)
+            let vc = BlockedUserVC(viewModel: vm)
+            return vc
         } else if title == "알림 설정" {
             let vm = AlarmSettingVM()
             let vc = AlarmSettingVC(viewModel: vm)
