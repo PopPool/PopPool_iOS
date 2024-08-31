@@ -270,6 +270,7 @@
 		BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
 		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
+		BDE88FD52C83348E00AF9EFF /* CommentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */; };
 		BDEAE4BA2C7111F900D96D41 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */; };
 		BDEAE4BC2C713F9700D96D41 /* InterestViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */; };
 		BDEAE4BE2C716FAA00D96D41 /* PopUpBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4BD2C716FAA00D96D41 /* PopUpBackgroundView.swift */; };
@@ -568,6 +569,7 @@
 		BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVM.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
+		BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTypeVC.swift; sourceTree = "<group>"; };
 		BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
 		BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestViewCell.swift; sourceTree = "<group>"; };
 		BDEAE4BD2C716FAA00D96D41 /* PopUpBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpBackgroundView.swift; sourceTree = "<group>"; };
@@ -924,6 +926,7 @@
 		089D191B2C36B138000435D9 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				BDE88FD32C83345300AF9EFF /* DetailComment */,
 				BD8DE8212C68653300C5DE8B /* Home */,
 				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
 				BD75F7772C730F9A00524168 /* Inquiry */,
@@ -1693,6 +1696,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		BDE88FD32C83345300AF9EFF /* DetailComment */ = {
+			isa = PBXGroup;
+			children = (
+				BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */,
+			);
+			path = DetailComment;
+			sourceTree = "<group>";
+		};
 		BDF089EF2C6504560098486D /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -2062,6 +2073,7 @@
 				BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */,
 				08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
+				BDE88FD52C83348E00AF9EFF /* CommentTypeVC.swift in Sources */,
 				089D19102C352E1E000435D9 /* AgeSelectModalVC.swift in Sources */,
 				08E23AA72C4F7D27004B77B6 /* PopUpInfo.swift in Sources */,
 				BD79E1852C5763A200CCEE07 /* NoticeDetailBoardVC.swift in Sources */,

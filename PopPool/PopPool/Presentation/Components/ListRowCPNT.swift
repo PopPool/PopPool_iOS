@@ -15,6 +15,15 @@ final class ListRowCPNT: UIStackView {
     enum State {
         case isTapped
         case notTapped
+        
+        var imageColor: UIImage? {
+            switch self {
+            case .isTapped:
+                return UIImage(named: "check_signUp")?.withTintColor(.blue, renderingMode: .alwaysOriginal)
+            case .notTapped:
+                return UIImage(named: "check_signUp")
+            }
+        }
     }
     
     //MARK: - Component
@@ -22,15 +31,15 @@ final class ListRowCPNT: UIStackView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "테스트"
-        label.font = .KorFont(style: .bold, size: 18)
+        label.font = .KorFont(style: .regular, size: 15)
         return label
     }()
     
-    let iconView: UIButton = {
-        let button = UIButton()
+    let iconView: UIImageView = {
+        let view = UIImageView()
         let image = UIImage(named: "check_signUp")
-        button.setImage(image, for: .normal)
-        return button
+        view.image = image
+        return view
     }()
     
     private lazy var stackView: UIStackView = {
@@ -41,6 +50,8 @@ final class ListRowCPNT: UIStackView {
         return stack
     }()
     
+    let topSpaceView = UIView()
+    let bottomSpaceView = UIView()
     let lineView = UIView()
     
     //MARK: - Properties
@@ -52,9 +63,9 @@ final class ListRowCPNT: UIStackView {
     
     //MARK: - Initializer
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
+    init(title: String, image: UIImage?) {
+        super.init(frame: .zero)
+        setUp(title: title, image: image)
         setUpConstraint()
         bind()
     }
@@ -64,7 +75,6 @@ final class ListRowCPNT: UIStackView {
     }
     
     private func bind() {
-        
         tapGesture.rx.event
             .withUnretained(self)
             .subscribe(onNext: { (owner, event) in
@@ -72,31 +82,50 @@ final class ListRowCPNT: UIStackView {
                 owner.isTapped = owner.isTapped == .notTapped ? .isTapped : .notTapped
                 owner.tappedObserver.onNext(owner.isTapped)
             })
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
+        
+        tappedObserver
+            .subscribe(onNext: { [weak self] status in
+                self?.updateView(state: status)
+            })
+            .disposed(by: disposeBag)
     }
     
-    private func setUp() {
+    private func updateView(state: State) {
+        iconView.image = state.imageColor
+    }
+    
+    private func setUp(title: String, image: UIImage?) {
         self.axis = .vertical
-        self.spacing = CGFloat(Constants.spaceGuide.small100)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(iconView)
-        stackView.addGestureRecognizer(tapGesture)
+        self.addGestureRecognizer(tapGesture)
         
         lineView.backgroundColor = .g50
         stackView.isUserInteractionEnabled = true
+        
+        // 셋업
+        titleLabel.text = title
     }
     
     private func setUpConstraint() {
+        self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+        self.addArrangedSubview(bottomSpaceView)
+        self.addArrangedSubview(lineView)
+        
+        topSpaceView.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.small100)
         }
         
         iconView.snp.makeConstraints { make in
             make.size.equalTo(22)
         }
         
-        self.addArrangedSubview(lineView)
+        bottomSpaceView.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.small100)
+        }
+        
         lineView.snp.makeConstraints { make in
             make.height.equalTo(1)
         }
