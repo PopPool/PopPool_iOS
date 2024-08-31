@@ -25,7 +25,7 @@ final class ListInfoButtonCPNT: UIStackView {
     
     let profileImageView: UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage(systemName: "person.fill")
+        imgView.image = UIImage(named: "defaultLogo")
         imgView.backgroundColor = .black
         imgView.contentMode = .scaleAspectFit
         imgView.clipsToBounds = true

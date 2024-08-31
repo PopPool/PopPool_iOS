@@ -83,7 +83,7 @@ final class UserRepositoryImpl: UserRepository {
         blockerUserId: String,
         blockedUserId: String
     ) -> Completable {
-        let endPoint = PopPoolAPIEndPoint.user_unblock(request: .init(blockerUserId: blockerUserId, blockedUserId: blockedUserId))
+        let endPoint = PopPoolAPIEndPoint.user_unblock(request: .init(userId: blockerUserId, blockedUserId: blockedUserId))
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
     
