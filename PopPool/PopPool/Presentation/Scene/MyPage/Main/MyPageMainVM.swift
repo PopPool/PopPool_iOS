@@ -12,6 +12,7 @@ import RxCocoa
 final class MyPageMainVM: ViewModelable {
     
     struct Input {
+        var logoutButtonTapped: ControlEvent<Void>
         var settingButtonTapped: ControlEvent<Void>
         var cellTapped: ControlEvent<IndexPath>
         var profileLoginButtonTapped: ControlEvent<Void>
@@ -22,6 +23,7 @@ final class MyPageMainVM: ViewModelable {
         var moveToVC: PublishSubject<BaseViewController>
         var moveToLoginVC: Observable<Void>
         var moveToSettingVC: PublishSubject<UserUseCase>
+        var logout: PublishSubject<Void>
     }
     
     // MARK: - Propoerties
@@ -159,11 +161,44 @@ final class MyPageMainVM: ViewModelable {
             }
             .disposed(by: disposeBag)
 
+        let logoutResponse: PublishSubject<Void> = .init()
+        input.logoutButtonTapped
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.userUseCase.logOut()
+                    .subscribe {
+                        print("logout Success")
+                        let keyChainService = KeyChainServiceImpl()
+                        keyChainService.saveToken(type: .accessToken, value: "logout")
+                            .subscribe {
+                                print("accessTokenRemove")
+                            } onError: { _ in
+                                print("accessTokenRemove Fail")
+                            }
+                            .disposed(by: owner.disposeBag)
+                        
+                        keyChainService.saveToken(type: .refreshToken, value: "logout")
+                            .subscribe {
+                                print("refreshTokenRemove")
+                            } onError: { _ in
+                                print("refreshTokenRemove Fail")
+                            }
+                            .disposed(by: owner.disposeBag)
+                        ToastMSGManager.createToast(message: "로그아웃 되었어요")
+                        logoutResponse.onNext(())
+                    } onError: { _ in
+                        print("logout Fail")
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             myPageAPIResponse: myPageAPIResponse,
             moveToVC: moveToVC,
             moveToLoginVC: input.profileLoginButtonTapped.asObservable(),
-            moveToSettingVC: moveToSettingVC
+            moveToSettingVC: moveToSettingVC,
+            logout: logoutResponse
         )
     }
     

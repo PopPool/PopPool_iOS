@@ -175,6 +175,10 @@ private extension MyPageMainProfileView {
     }
     
     func setUpLoginView() {
+        self.backGroundImageView.image = nil
+        self.profileImageView.removeFromSuperview()
+        self.descriptionLabel.removeFromSuperview()
+        self.labelStackView.removeFromSuperview()
         self.backGroundImageView.backgroundColor = .g800
         loginButton.addSubview(loginButtonLabel)
         loginButtonLabel.snp.makeConstraints { make in

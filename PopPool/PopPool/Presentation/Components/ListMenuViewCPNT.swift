@@ -49,7 +49,7 @@ final class ListMenuViewCPNT: UIView {
             switch self {
             case .normal, .info:
                 return .g1000
-            case .filter(let string):
+            case .filter:
                 return .g400
             }
         }
@@ -58,9 +58,9 @@ final class ListMenuViewCPNT: UIView {
             switch self {
             case .normal:
                 return nil
-            case .info(let string):
+            case .info:
                 return .blu500
-            case .filter(let string):
+            case .filter:
                 return .g1000
             }
         }
