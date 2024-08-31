@@ -35,28 +35,26 @@ final class BlockedUserVM: ViewModelable {
         blokedUser
             .withUnretained(self)
             .subscribe { (owner, target) in
-                let disposeBag = DisposeBag()
                 owner.userUseCase.userBlock(blockerUserId: Constants.userId, blockedUserId: target.userId)
                     .subscribe {
                         ToastMSGManager.createToast(message: "\(target.nickname)님을 차단했습니다.")
                     } onError: { _ in
                         print("Blocked Fail")
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
         
         unblockedUser
             .withUnretained(self)
             .subscribe { (owner, target) in
-                let disposeBag = DisposeBag()
                 owner.userUseCase.userUnblock(blockerUserId: Constants.userId, blockedUserId: target.userId)
                     .subscribe {
                         ToastMSGManager.createToast(message: "차단을 해제했어요")
                     } onError: { _ in
                         print("Unblocked Fail")
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
         
