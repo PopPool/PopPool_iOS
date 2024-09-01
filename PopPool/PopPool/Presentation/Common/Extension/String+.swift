@@ -10,7 +10,7 @@ import Foundation
 extension String {
     func asDate() -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
         dateFormatter.locale = .init(identifier: "ko_KR")
         guard let date = dateFormatter.date(from: self) else {
             print("Date Convert Fail")
