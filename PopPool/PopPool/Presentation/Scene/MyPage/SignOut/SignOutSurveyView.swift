@@ -61,7 +61,8 @@ final class SignOutSurveyView: UIStackView {
                                         subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
         self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
         self.skipButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
-        self.surveyTextView = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
+        self.surveyTextView = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요",
+                                                  textLimit: 500)
         self.survey = surveyDetails
         super.init(frame: .zero)
         setUp()
@@ -89,6 +90,7 @@ private extension SignOutSurveyView {
     func bind() {
         surveyView.enumerated().forEach { index, list in
             list.isCheck
+                .distinctUntilChanged()
                 .withUnretained(self)
                 .subscribe(onNext: { (owner, tapped) in
                     if tapped {
@@ -98,6 +100,7 @@ private extension SignOutSurveyView {
                             owner.result.remove(at: removeIndex)
                         }
                     }
+                    owner.tappedValues.accept(owner.result)
                 })
                 .disposed(by: disposeBag)
             }
