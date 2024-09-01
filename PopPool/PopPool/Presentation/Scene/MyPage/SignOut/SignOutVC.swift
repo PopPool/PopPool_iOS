@@ -13,8 +13,8 @@ final class SignOutVC: BaseViewController {
     
     // MARK: - Components
     
-    private var headerView: HeaderViewCPNT
-    private let signOutView: SignOutSurveyView
+    private let headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
+    private lazy var signOutView = SignOutSurveyView(surveyDetails: self.survey)
     private let contentStackView: UIStackView = {
         let stack = UIStackView()
         return stack
@@ -22,6 +22,7 @@ final class SignOutVC: BaseViewController {
     
     // MARK: - Properties
     
+    private let viewModel = SignOutVM()
     private let disposeBag = DisposeBag()
     private let survey: [String] = [
         "원하는 팝업에 대한 정보가 없어요",
@@ -29,14 +30,13 @@ final class SignOutVC: BaseViewController {
         "이용빈도가 낮아요",
         "다시 가입하고 싶어요",
         "앱에 오류가 많이 생겨요",
+        "이렇게 넣으면?",
         "기타"
     ]
     
     // MARK: - Initializer
     
     override init() {
-        self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
-        self.signOutView = SignOutSurveyView(surveyDetails: survey)
         super.init()
     }
     
@@ -90,6 +90,12 @@ private extension SignOutVC {
             .subscribe { (owner, _) in
                 owner.navigationController?.popViewController(animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        signOutView.tappedValues
+            .subscribe(onNext: { tapped in
+                print("어떤 값?", tapped)
+            })
             .disposed(by: disposeBag)
         
         signOutView.skipButton.rx.tap

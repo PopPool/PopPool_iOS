@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 
 // MARK: - SurveyList
 
@@ -49,7 +50,8 @@ final class SignOutSurveyView: UIStackView {
     
     let disposeBag = DisposeBag()
     private var survey: [String] = []
-    let tappedValues: PublishSubject<[Int]> = .init()
+    let tappedValues: BehaviorRelay<[Int]> = .init(value: [])
+    var result: [Int] = []
     
     // MARK: - Initializer
     
@@ -85,14 +87,21 @@ final class SignOutSurveyView: UIStackView {
 
 private extension SignOutSurveyView {
     func bind() {
-        Observable.from(surveyView)
-            .withUnretained(self)
-            .enumerated()
-            .subscribe { (owner, index) in
-                
+        surveyView.enumerated().forEach { index, list in
+            list.isCheck
+                .withUnretained(self)
+                .subscribe(onNext: { (owner, tapped) in
+                    if tapped {
+                        owner.result.append(index)
+                    } else {
+                        if let removeIndex = owner.result.firstIndex(of: index) {
+                            owner.result.remove(at: removeIndex)
+                        }
+                    }
+                })
+                .disposed(by: disposeBag)
             }
-            .disposed(by: disposeBag)
-    }    
+    }
     
     /// 서베이 화면에 활용된 TermsViewCPNT의 아이콘을 숨김처리합니다
     /// - Parameter view: TermsViewCPNT를 받습니다
