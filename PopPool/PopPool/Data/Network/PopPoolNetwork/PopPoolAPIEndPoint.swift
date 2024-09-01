@@ -190,7 +190,8 @@ struct PopPoolAPIEndPoint {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/\(userId)/bookmark-popupstores",
-            method: .get
+            method: .get,
+            queryParameters: reqeust
         )
     }
     
