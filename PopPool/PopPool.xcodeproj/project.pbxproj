@@ -281,6 +281,7 @@
 		BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
 		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
+		BDE88FD72C83568100AF9EFF /* SignOutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE88FD62C83568100AF9EFF /* SignOutVM.swift */; };
 		BDEAE4BA2C7111F900D96D41 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */; };
 		BDEAE4BC2C713F9700D96D41 /* InterestViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */; };
 		BDEAE4BE2C716FAA00D96D41 /* PopUpBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4BD2C716FAA00D96D41 /* PopUpBackgroundView.swift */; };
@@ -590,6 +591,7 @@
 		BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVM.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
+		BDE88FD62C83568100AF9EFF /* SignOutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVM.swift; sourceTree = "<group>"; };
 		BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
 		BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestViewCell.swift; sourceTree = "<group>"; };
 		BDEAE4BD2C716FAA00D96D41 /* PopUpBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpBackgroundView.swift; sourceTree = "<group>"; };
@@ -715,6 +717,7 @@
 				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
 				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
+				BDE88FD62C83568100AF9EFF /* SignOutVM.swift */,
 				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
 			);
 			path = SignOut;
@@ -2083,6 +2086,7 @@
 				4E184D642C6F1FD500573A2E /* FavoritePopUpVM.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				08933CEC2C5E533B006F6632 /* UserUseCaseImpl.swift in Sources */,
+				BDE88FD72C83568100AF9EFF /* SignOutVM.swift in Sources */,
 				4E4DC00D2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift in Sources */,
 				084BC9602C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */,
 				08F49DDB2C200528002D5202 /* AuthService.swift in Sources */,

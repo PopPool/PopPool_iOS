@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 
 // MARK: - SurveyList
 
@@ -15,12 +16,15 @@ final class SignOutSurveyView: UIStackView {
     
     // MARK: - Components
     
-    private let title: ContentTitleCPNT
+    private let title = ContentTitleCPNT(
+        title: "탈퇴하려는 이유가\n무엇인가요?",
+        type: .title_sub_fp(
+            subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
     private let topSpaceView = UIView()
     private let buttonTopView = UIView()
     private let bottomSpaceView = UIView()
     
-    lazy var surveyView = self.survey.map { return TermsViewCPNT(title: $0) }
+    var surveyView: [TermsViewCPNT] = []
     private let surveyStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -28,14 +32,20 @@ final class SignOutSurveyView: UIStackView {
         return stack
     }()
     
-    private let surveyTextView: DynamicTextViewCPNT
+    private let surveyTextView = DynamicTextViewCPNT(
+        placeholder: "탈퇴 이유를 입력해주세요",
+        textLimit: 500)
     private let textViewContainer: UIView = {
         let view = UIView()
         return view
     }()
     
-    let skipButton: ButtonCPNT
-    let confirmButton: ButtonCPNT
+    let skipButton = ButtonCPNT(
+        type: .secondary,
+        title: "건너뛰기")
+    let confirmButton = ButtonCPNT(
+        type: .primary,
+        title: "확인")
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(skipButton)
@@ -47,19 +57,14 @@ final class SignOutSurveyView: UIStackView {
     
     // MARK: - Properties
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private var survey: [String] = []
-    let tappedValues: PublishSubject<[Int]> = .init()
+    private var result: [Int] = []
+    let tappedValues: BehaviorRelay<[Int]> = .init(value: [])
     
     // MARK: - Initializer
     
     init(surveyDetails: [String]) {
-        self.title = ContentTitleCPNT(title: "탈퇴하려는 이유가\n무엇인가요?",
-                                      type: .title_sub_fp(
-                                        subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
-        self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
-        self.skipButton = ButtonCPNT(type: .secondary, title: "건너뛰기")
-        self.surveyTextView = DynamicTextViewCPNT(placeholder: "탈퇴 이유를 입력해주세요", textLimit: 500)
         self.survey = surveyDetails
         super.init(frame: .zero)
         setUp()
@@ -83,31 +88,61 @@ final class SignOutSurveyView: UIStackView {
 
     // MARK: - Private Methods
 
-private extension SignOutSurveyView {
-    func bind() {
-        Observable.from(surveyView)
-            .withUnretained(self)
-            .enumerated()
-            .subscribe { (owner, index) in
-                
+extension SignOutSurveyView {
+    private func bind() {
+        surveyView.enumerated().forEach { index, list in
+            list.isCheck
+                .distinctUntilChanged()
+                .withUnretained(self)
+                .subscribe(onNext: { (owner, tapped) in
+                    if tapped {
+                        owner.result.append(index)
+                    } else {
+                        if let removeIndex = owner.result.firstIndex(of: index) {
+                            owner.result.remove(at: removeIndex)
+                        }
+                    }
+                    owner.tappedValues.accept(owner.result)
+                })
+                .disposed(by: disposeBag)
             }
-            .disposed(by: disposeBag)
-    }    
+    }
+    
+    /// API 호출 받은 서베이 데이터를 화면에 그립니다.
+    /// - Parameter surveys: 서베이 데이터를 받기 위한 String 타입의 배열
+    public func updateSurvey(_ surveys: [String]) {
+        surveyView = surveys.map { TermsViewCPNT(title: $0) }
+        
+        surveyView.forEach { view in
+            surveyStack.addArrangedSubview(view)
+            setIconsAsHidden(view)
+            view.snp.makeConstraints { make in
+                make.height.equalTo(49)
+            }
+        }
+        
+        // 데이터를 더한 이후 화면을 다시 호출합니다.
+        setNeedsLayout()
+        layoutIfNeeded()
+        
+        bind()
+    }
     
     /// 서베이 화면에 활용된 TermsViewCPNT의 아이콘을 숨김처리합니다
     /// - Parameter view: TermsViewCPNT를 받습니다
-    func setIconsAsHidden(_ view: TermsViewCPNT) {
+    private func setIconsAsHidden(_ view: TermsViewCPNT) {
         view.iconImageView.isHidden = true
     }
     
-    func setUp() {
+    private func setUp() {
         self.axis = .vertical
         self.title.subTitleLabel.numberOfLines = 0
         self.title.subTitleLabel.lineBreakMode = .byTruncatingTail
         self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
+        self.surveyTextView.textView.isScrollEnabled = true
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         self.addArrangedSubview(title)
         self.addArrangedSubview(topSpaceView)
         self.addArrangedSubview(surveyStack)
@@ -122,14 +157,6 @@ private extension SignOutSurveyView {
         
         topSpaceView.snp.makeConstraints { make in
             make.height.equalTo(Constants.spaceGuide.medium400)
-        }
-        
-        surveyView.forEach { list in
-            surveyStack.addArrangedSubview(list)
-            self.setIconsAsHidden(list)
-            list.snp.makeConstraints { make in
-                make.height.equalTo(49)
-            }
         }
         
         surveyStack.snp.makeConstraints { make in
@@ -152,6 +179,7 @@ private extension SignOutSurveyView {
         }
         
         buttonStack.snp.makeConstraints { make in
+            make.top.equalTo(textViewContainer.snp.bottom).offset(10)
             make.height.equalTo(52)
         }
         
