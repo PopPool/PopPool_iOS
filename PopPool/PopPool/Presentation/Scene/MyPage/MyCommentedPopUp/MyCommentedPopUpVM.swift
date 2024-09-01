@@ -115,6 +115,8 @@ final class MyCommentedPopUpVM: ViewModelable {
             .subscribe { (owner, selectIndex) in
                 let sort = selectIndex == 0 ? nil : ["likeCount","desc"]
                 owner.sort = sort
+                owner.instaCommentList.accept(.init(myCommentList: [], totalPages: 0, totalElements: 0))
+                owner.normalCommentList.accept(.init(myCommentList: [], totalPages: 0, totalElements: 0))
                 owner.normalPage.accept(0)
                 owner.instaPage.accept(0)
             }

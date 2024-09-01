@@ -164,7 +164,6 @@ private extension MyCommentedPopUpVC {
                     owner.listFilterView.titleLabel.text = "총 \(count)건"
                 }
                 owner.instaCollectionView.reloadData()
-                print("instaReload")
             }
             .disposed(by: disposeBag)
         
