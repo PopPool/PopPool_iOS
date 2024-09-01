@@ -220,8 +220,8 @@ extension MyPageMainProfileView: InputableView {
                 backGroundImageView.kf.setImage(with: profileImageViewURL)
                 profileImageView.kf.setImage(with: profileImageViewURL)
             } else {
-                self.backGroundImageView.image = UIImage(systemName: "folder")
-                self.profileImageView.image = UIImage(systemName: "folder")
+                self.backGroundImageView.image = UIImage(named: "Profile_Logo")
+                self.profileImageView.image = UIImage(named: "Profile_Logo")
             }
             nickNameLabel.text = input.nickName
             instagramLabel.text = input.instagramId

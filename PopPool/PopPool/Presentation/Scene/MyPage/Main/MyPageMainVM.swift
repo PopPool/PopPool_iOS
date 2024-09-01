@@ -38,7 +38,7 @@ final class MyPageMainVM: ViewModelable {
             // 로그인 유무에 따라 List 변경
             if self.myPageAPIResponse.value.isLogin {
                 // 내 코멘트 없을 경우 분기
-                if myCommentSection.sectionCellInputList.isEmpty {
+                if self.myPageAPIResponse.value.popUpInfoList.isEmpty {
                     return [
                         normalSection,
                         informationSection,
@@ -85,7 +85,7 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "공지사항"),
             .init(title: "고객문의"),
             .init(title: "약관"),
-            .init(title: "버전정보"),
+            .init(title: "버전정보", isVersionCell: true),
         ])
     // etc Section
     private var etcSection = MenuListCellSection(
@@ -100,6 +100,7 @@ final class MyPageMainVM: ViewModelable {
         myPageAPIResponse
             .withUnretained(self)
             .subscribe { (owner, myPageResponse) in
+                print(myPageResponse)
                 owner.myCommentSection.sectionCellInputList = [
                     .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
                         title: $0.popUpStoreName,
@@ -147,8 +148,10 @@ final class MyPageMainVM: ViewModelable {
             .subscribe(onNext: { (owner, indexPath) in
                 if let input = owner.menuList[indexPath.section].sectionCellInputList[indexPath.row] as? MenuListCell.Input {
                     if let title = input.title {
-                        let vc = owner.connectVC(title: title)
-                        moveToVC.onNext(vc)
+                        if title != "버전정보" {
+                            let vc = owner.connectVC(title: title)
+                            moveToVC.onNext(vc)
+                        }
                     }
                 }
             })

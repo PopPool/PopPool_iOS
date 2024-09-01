@@ -134,7 +134,7 @@ private extension MyPageMainVC {
                     bottomView.backgroundColor = .systemBackground
                     bottomView.addSubview(owner.logoutButton)
                     owner.logoutButton.snp.makeConstraints { make in
-                        make.top.equalToSuperview()
+                        make.top.equalToSuperview().inset(28)
                         make.centerX.equalToSuperview()
                         make.width.equalTo(bottomView.frame.width - 40)
                         make.height.equalTo(50)
