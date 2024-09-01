@@ -156,6 +156,29 @@ private extension MyCommentedPopUpVC {
             }
             .disposed(by: disposeBag)
         
+        output.instaCommentList
+            .withUnretained(self)
+            .subscribe { (owner, list) in
+                let count = list.myCommentList.count
+                if owner.segmentControlMenuView.selectedSegmentIndex == 0 {
+                    owner.listFilterView.titleLabel.text = "총 \(count)건"
+                }
+                owner.instaCollectionView.reloadData()
+                print("instaReload")
+            }
+            .disposed(by: disposeBag)
+        
+        output.normalCommentList
+            .withUnretained(self)
+            .subscribe { (owner, list) in
+                let count = list.myCommentList.count
+                if owner.segmentControlMenuView.selectedSegmentIndex == 1 {
+                    owner.listFilterView.titleLabel.text = "총 \(count)건"
+                }
+                owner.normalCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
         segmentControlMenuView.rx.selectedSegmentIndex
             .withUnretained(self)
             .bind { (owner, index) in
@@ -179,8 +202,8 @@ private extension MyCommentedPopUpVC {
 
 extension MyCommentedPopUpVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var normalList = viewModel.normalCommentList.value
-        var instaList = viewModel.instaCommentList.value
+        let normalList = viewModel.normalCommentList.value
+        let instaList = viewModel.instaCommentList.value
         if collectionView == normalCollectionView {
             return normalList.myCommentList.count
         } else {
@@ -195,7 +218,6 @@ extension MyCommentedPopUpVC: UICollectionViewDelegate, UICollectionViewDataSour
             for: indexPath
         ) as? PopUpCommentedCell else { return UICollectionViewCell() }
         
-        print("ReloadCollectionView~!~!~!~!~!~!")
         if collectionView == normalCollectionView {
             let normalData = viewModel.normalCommentList.value.myCommentList[indexPath.row]
             cell.injectionWith(
@@ -220,5 +242,26 @@ extension MyCommentedPopUpVC: UICollectionViewDelegate, UICollectionViewDataSour
             )
         }
         return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView == normalCollectionView {
+            if scrollView.contentOffset.y > normalCollectionView.contentSize.height - normalCollectionView.bounds.size.height {
+                if viewModel.normalCommentList.value.totalPages - 1 > viewModel.normalPage.value {
+                    if !viewModel.normalIsLoading {
+                        viewModel.normalPage.accept(viewModel.normalPage.value + 1)
+                    }
+                }
+            }
+        } else {
+            if scrollView.contentOffset.y > instaCollectionView.contentSize.height - instaCollectionView.bounds.size.height {
+                if viewModel.instaCommentList.value.totalPages - 1 > viewModel.instaPage.value {
+                    if !viewModel.instaIsLoading {
+                        viewModel.instaPage.accept(viewModel.instaPage.value + 1)
+                    }
+                }
+            }
+        }
     }
 }
