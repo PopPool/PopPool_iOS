@@ -15,6 +15,8 @@ final class SignOutVC: BaseViewController {
     
     private let headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
     private lazy var signOutView = SignOutSurveyView(surveyDetails: self.survey)
+    private let scrollView = UIScrollView()
+    private let containerView = UIView()
     private let contentStackView: UIStackView = {
         let stack = UIStackView()
         return stack
@@ -30,7 +32,6 @@ final class SignOutVC: BaseViewController {
         "이용빈도가 낮아요",
         "다시 가입하고 싶어요",
         "앱에 오류가 많이 생겨요",
-        "이렇게 넣으면?",
         "기타"
     ]
     
@@ -62,26 +63,40 @@ private extension SignOutVC {
     // MARK: - Method
     
     func setUp() {
-        view.backgroundColor = .systemBackground
+        scrollView.showsVerticalScrollIndicator = false
         self.headerView.rightBarButton.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
     }
     
     func setUpConstraints() {
-        view.addSubview(headerView)
-        view.addSubview(contentStackView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(view.snp.width)
+        }
+        
+        containerView.addSubview(headerView)
+        containerView.addSubview(contentStackView)
         contentStackView.addArrangedSubview(signOutView)
         
         headerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.top.equalToSuperview()
         }
         
         contentStackView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(containerView.snp.bottom)
         }
+        
+        scrollView.layoutIfNeeded()
+        adjustBehavior()
     }
     
     func bind() {
@@ -122,5 +137,12 @@ private extension SignOutVC {
                 owner.signOutView.makeTextViewActive(isChecked)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func adjustBehavior() {
+        let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.bounds.height
+        
+        scrollView.isScrollEnabled = contentHeight > scrollViewHeight
     }
 }
