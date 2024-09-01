@@ -117,6 +117,7 @@ private extension SignOutSurveyView {
         self.title.subTitleLabel.numberOfLines = 0
         self.title.subTitleLabel.lineBreakMode = .byTruncatingTail
         self.title.subTitleLabel.adjustsFontSizeToFitWidth = true
+        self.surveyTextView.textView.isScrollEnabled = true
     }
     
     func setUpConstraints() {
