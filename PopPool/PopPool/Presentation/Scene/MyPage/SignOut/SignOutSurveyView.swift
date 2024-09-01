@@ -164,6 +164,7 @@ private extension SignOutSurveyView {
         }
         
         buttonStack.snp.makeConstraints { make in
+            make.top.equalTo(textViewContainer.snp.bottom).offset(10)
             make.height.equalTo(52)
         }
         
