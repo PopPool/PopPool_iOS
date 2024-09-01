@@ -76,12 +76,22 @@ extension MenuListCell: Cellable {
         var title: String?
         var subTitle: String?
         var subTitleColor: UIColor?
+        var isVersionCell: Bool = false
     }
     
     func injectionWith(input: Input) {
         titleLabel.text = input.title
         subTitleLabel.text = input.subTitle
         subTitleLabel.textColor = input.subTitleColor
+        if input.isVersionCell {
+            iconImageView.removeFromSuperview()
+            subTitleLabel.textColor = .blu500
+            guard let nowVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else { return }
+            subTitleLabel.text = nowVersion
+        } else {
+            contentStackView.addArrangedSubview(iconImageView)
+            iconImageView.image = UIImage(named: "line_signUp")
+        }
     }
     
     func getOutput() -> Output {
