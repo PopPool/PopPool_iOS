@@ -8,36 +8,27 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class SignOutVC: BaseViewController {
     
     // MARK: - Components
     
     private let headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
-    private lazy var signOutView = SignOutSurveyView(surveyDetails: self.survey)
+    private lazy var signOutView = SignOutSurveyView(surveyDetails: [])
     private let scrollView = UIScrollView()
     private let containerView = UIView()
-    private let contentStackView: UIStackView = {
-        let stack = UIStackView()
-        return stack
-    }()
-    
+    private let contentStackView = UIStackView()
+            
     // MARK: - Properties
     
-    private let viewModel = SignOutVM()
+    private let viewModel: SignOutVM
     private let disposeBag = DisposeBag()
-    private let survey: [String] = [
-        "원하는 팝업에 대한 정보가 없어요",
-        "팝업 정보가 적어요",
-        "이용빈도가 낮아요",
-        "다시 가입하고 싶어요",
-        "앱에 오류가 많이 생겨요",
-        "기타"
-    ]
     
     // MARK: - Initializer
     
-    override init() {
+    init(viewModel: SignOutVM) {
+        self.viewModel = viewModel
         super.init()
     }
     
@@ -100,6 +91,17 @@ private extension SignOutVC {
     }
     
     func bind() {
+        let input = SignOutVM.Input()
+        let output = viewModel.transform(input: input)
+        
+        output.surveylist
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, list) in
+                owner.signOutView.updateSurvey(list)
+            })
+            .disposed(by: disposeBag)
+        
         headerView.leftBarButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -108,8 +110,16 @@ private extension SignOutVC {
             .disposed(by: disposeBag)
         
         signOutView.tappedValues
-            .subscribe(onNext: { tapped in
-                print("어떤 값?", tapped)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, tapped) in
+                
+                if let last = owner.signOutView.surveyView.last {
+                    last.isCheck
+                        .subscribe { isChecked in
+                            owner.signOutView.makeTextViewActive(isChecked)
+                        }
+                        .disposed(by: owner.disposeBag)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -128,17 +138,9 @@ private extension SignOutVC {
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
-        
-        /// 마지막 뷰 탭 시, 숨겨진 textView가 보입니다.
-        guard let lastView = signOutView.surveyView.last else { return }
-        lastView.isCheck
-            .withUnretained(self)
-            .subscribe { (owner, isChecked) in
-                owner.signOutView.makeTextViewActive(isChecked)
-            }
-            .disposed(by: disposeBag)
     }
     
+    /// scrollView 높이가 contentview보다 낮을 경우 scrollable 기능 활성화 여부
     func adjustBehavior() {
         let contentHeight = scrollView.contentSize.height
         let scrollViewHeight = scrollView.bounds.height

@@ -196,7 +196,7 @@ final class MyPageMainVM: ViewModelable {
         } else if title == "약관" {
             return TermsBoardVC(viewModel: TermsBoardVM())
         } else if title == "회원탈퇴" {
-            return SignOutVC()
+            return SignOutVC(viewModel: SignOutVM())
         } else {
             return BaseViewController()
         }

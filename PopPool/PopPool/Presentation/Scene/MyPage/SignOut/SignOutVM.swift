@@ -17,10 +17,29 @@ final class SignOutVM: ViewModelable {
     }
     
     struct Output {
-        
+        var surveylist: Observable<[String]>
+    }
+    
+    private let useCase: UserUseCase
+    
+    init() {
+        self.useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
     }
     
     func transform(input: Input) -> Output {
-        return Output()
+        let fetchedSurvey = PublishSubject<[String]>()
+        
+        useCase.fetchWithdrawlSurveryList()
+            .map { response in
+                return response.withDrawlSurveyList.map { $0.survey }
+            }
+            .subscribe(onNext: { surveyName in
+                fetchedSurvey.onNext(surveyName)
+            })
+            .disposed(by: disposeBag)
+        
+        return Output(
+            surveylist: fetchedSurvey.asObservable()
+        )
     }
 }
