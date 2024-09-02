@@ -27,7 +27,7 @@ final class MyCommentedPopUpVM: ViewModelable {
     
     // MARK: - Properties
     
-    private let size: Int32 = 10
+    private let size: Int32 = 20
     
     let segmentSelectedIndex: BehaviorRelay<Int> = .init(value: 0)
     

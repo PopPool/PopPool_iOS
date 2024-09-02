@@ -80,7 +80,7 @@ final class FavoritePopUpVM: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, page) in
                 owner.isLoading = true
-                owner.userUseCase.fetchBookMarkPopUpStoreList(userId: Constants.userId, page: page, size: 10, sort: nil)
+                owner.userUseCase.fetchBookMarkPopUpStoreList(userId: Constants.userId, page: page, size: 20, sort: nil)
                     .withUnretained(self)
                     .subscribe { (owner, response) in
                         let oldData = owner.popUpList.value.popUpInfoList
