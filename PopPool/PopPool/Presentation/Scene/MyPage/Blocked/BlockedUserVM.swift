@@ -58,23 +58,12 @@ final class BlockedUserVM: ViewModelable {
             }
             .disposed(by: disposeBag)
         
-        userUseCase.fetchBlockedUserList(userId: Constants.userId, page: 0, size: 10, sort: nil)
+        userUseCase.fetchBlockedUserList(userId: Constants.userId, page: 0, size: 30, sort: nil)
             .withUnretained(self)
             .subscribe { (owner, response) in
                 owner.blockedUserList.accept(response.blockedUserInfoList)
             }
             .disposed(by: disposeBag)
-        
-//        // 삭제 기능 필요시 연결
-//        input.removeUser
-//            .withLatestFrom(userDataSubject) { indexPath, users in
-//                var updatedUsers = users
-//                guard indexPath >= 0 && indexPath < updatedUsers.count else { return users }
-//                updatedUsers.remove(at: indexPath)
-//                return updatedUsers
-//            }
-//            .bind(to: userDataSubject)
-//            .disposed(by: disposeBag)
         
         return Output(
             dismissScreen: input.returnTap,

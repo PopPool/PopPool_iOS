@@ -24,6 +24,9 @@ final class RecentPopUpVM: ViewModelable {
     var popUpList: BehaviorRelay<GetMyRecentViewPopUpStoreListResponse> = .init(
         value: .init(popUpInfoList: [], totalPages: 0, totalElements: 0)
     )
+    
+    var page: BehaviorRelay<Int32> = .init(value: 0)
+    var isLoading: Bool = false
     var disposeBag = DisposeBag()
     
     private let userUseCase: UserUseCase
@@ -32,17 +35,26 @@ final class RecentPopUpVM: ViewModelable {
         self.userUseCase = userUseCase
     }
     func transform(input: Input) -> Output {
-        userUseCase.fetchMyRecentViewPopUpStoreList(
-            userId: Constants.userId,
-            page: 0,
-            size: 10,
-            sort: nil
-        )
-        .withUnretained(self)
-        .subscribe { (owner, response) in
-            owner.popUpList.accept(response)
-        }
-        .disposed(by: disposeBag)
+        page
+            .withUnretained(self)
+            .subscribe { (owner, page) in
+                owner.isLoading = true
+                owner.userUseCase.fetchMyRecentViewPopUpStoreList(
+                    userId: Constants.userId,
+                    page: page,
+                    size: 20,
+                    sort: nil
+                )
+                .subscribe { response in
+                    let oldData = owner.popUpList.value.popUpInfoList
+                    var data = response
+                    data.popUpInfoList = oldData + data.popUpInfoList
+                    owner.popUpList.accept(data)
+                    owner.isLoading = false
+                }
+                .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
         
         return Output(
             popUpList: popUpList,
