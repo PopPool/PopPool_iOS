@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
-import RxRelay
+import RxCocoa
 
 final class AlarmSettingVC: BaseViewController {
     
@@ -61,53 +61,80 @@ final class AlarmSettingVC: BaseViewController {
     }
     
     // MARK: - Methods
-    
     private func bind() {
-        headerView.leftBarButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+        NotificationCenter.default.rx.notification(
+            UIApplication.didBecomeActiveNotification)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.didBecomeActive()
+            })
+        
+        let input = AlarmSettingVM.Input(
+            isAlarmToggled: appPush.actionToggle.rx.isOn,
+            isActivityToggled: activityPush.actionToggle.rx.isOn,
+            returnTapped: headerView.leftBarButton.rx.tap
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.returnTapped
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
         
-        appPush.actionToggle.rx.isOn
-            .subscribe(onNext: { [weak self] isOn in
-                self?.viewModel.checkSetting(isOn: isOn)
-                    .subscribe(onNext: { [weak self] isAuthorized in
-                        print("허가 여부", isAuthorized)
-                        if !isAuthorized {
-                            self?.createSettingAlert(isOn: isOn)
-                        }
-                    })
-                    .disposed(by: self?.disposeBag ?? DisposeBag())
-            })
-            .disposed(by: disposeBag)
-        
-        activityPush.actionToggle.rx.isOn
-            .subscribe(onNext: { [weak self] isOn in
-                self?.createSettingAlert(isOn: isOn)
+        output.displayAlert
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, status) in
+                let (isOn, isAuthorized) = status
+                if isOn && !isAuthorized {
+                    owner.createSettingAlert()
+                }
             })
             .disposed(by: disposeBag)
     }
     
-    private func createSettingAlert(isOn: Bool) {
+    /// 사용자가 설정 페이지의 알람 설정을 껐는지 확인, 상태에 맞춰 switch를 변경하는 메서드
+    private func didBecomeActive() {
+        viewModel.checkNotificationSetting()
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, permission) in
+                DispatchQueue.main.async {
+                    if owner.appPush.actionToggle.isOn && !permission {
+                        owner.appPush.actionToggle.setOn(false, animated: true)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func createSettingAlert() {
         DispatchQueue.main.async { [weak self] in
             let alert = UIAlertController(
                 title: "알림 설정",
-                message: """
-            기기의 알림 설정이 껴져있습니다.\n휴대푠 설정 > 알림 > 팝풀에서\n설정을 변경해주세요.
-            """,
+                message: "기기의 알림 설정이 껴져있습니다.\n휴대푠 설정 > 알림 > 팝풀에서\n설정을 변경해주세요.",
                 preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { [weak self] _ in
-                self?.appPush.actionToggle.setOn(!isOn, animated: true)
-            }))
+            alert.addAction(
+                UIAlertAction(title: "취소",
+                              style: .cancel,
+                              handler: { _ in
+                                  if let isOn = self?.appPush.actionToggle.isOn {
+                                      self?.appPush.actionToggle
+                                          .setOn(!isOn, animated: true)
+                                  }
+                              }))
             
-            alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { _ in
-                let url = URL(string: UIApplication.openSettingsURLString)
-                if isOn {
-                    UIApplication.shared.open(url!)
-                }
-            }))
+            alert.addAction(
+                UIAlertAction(title: "설정",
+                              style: .default,
+                              handler: { _ in
+                                  let url = URL(string: UIApplication.openSettingsURLString)
+                                  if let url = url {
+                                      // 디바이스 설정 화면으로 이동
+                                      UIApplication.shared.open(url)
+                                  }
+                              }))
             
             self?.present(alert, animated: true)
         }
