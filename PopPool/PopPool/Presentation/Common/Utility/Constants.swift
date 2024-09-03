@@ -13,6 +13,7 @@ import Foundation
 class Constants {
     static let spaceGuide = SpaceGuide()
     static let socialType = SocialTYPE()
+    static let lottie = Lottie()
     static var userId: String = ""
 }
 
@@ -38,4 +39,8 @@ struct SpaceGuide {
 struct SocialTYPE {
     let apple = "apple"
     let kakao = "kakao"
+}
+
+struct Lottie {
+    let loading = "PP_loading"
 }
