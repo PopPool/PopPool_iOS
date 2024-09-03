@@ -86,6 +86,8 @@ final class LoggedHomeVC: BaseViewController {
     private func setUp() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        let testVC = AlarmSettingVC(viewModel: AlarmSettingVM())
+        testVC.delegate = self
     }
     
     private func setLayout() -> UICollectionViewCompositionalLayout {
@@ -246,5 +248,12 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.configure(title: "#8월 22일까지 열리는\n#패션, #성수동", category: "팝업스토어명 팝업스토어명", image: UIImage(named: "defaultLogo"))
             return cell
         }
+    }
+}
+
+extension LoggedHomeVC: ActivityAlarmDelegate {
+    func activityToggled(image: UIImage?) {
+        header.rightBarButton.setImage(image, for: .normal)
+        print("헤더가 변경되었습니다.")
     }
 }

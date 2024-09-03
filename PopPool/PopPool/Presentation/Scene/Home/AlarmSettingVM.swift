@@ -20,12 +20,14 @@ final class AlarmSettingVM: ViewModelable {
     struct Output {
         let returnTapped: Observable<Void>
         let appPushToggled: BehaviorRelay<(Bool, Bool)>
+        let activityToggled: BehaviorRelay<Bool>
     }
     
     /// appPush를 확인하기 위한 NotificationCenter
     private let center = UNUserNotificationCenter.current()
     private let options: UNAuthorizationOptions = [.alert, .badge, .sound]
     private var isPermissionOn = BehaviorRelay<(Bool, Bool)>(value: (false, false))
+    private var isActivityOn = BehaviorRelay<Bool>(value: false)
     var disposeBag = DisposeBag()
     
     /// 기기의 알림 설정의 상태를 확인하는 메서드
@@ -58,6 +60,13 @@ final class AlarmSettingVM: ViewModelable {
     }
     
     func transform(input: Input) -> Output {
+        input.isActivityToggled
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, isOn) in
+                owner.isActivityOn.accept(isOn)
+            })
+            .disposed(by: disposeBag)
+        
         input.isAlarmToggled
             .withUnretained(self)
             .subscribe(onNext: { (owner, isOn) in
@@ -80,7 +89,8 @@ final class AlarmSettingVM: ViewModelable {
         
         return Output(
             returnTapped: input.returnTapped.asObservable(),
-            appPushToggled: isPermissionOn
+            appPushToggled: isPermissionOn,
+            activityToggled: isActivityOn
         )
     }
 }
