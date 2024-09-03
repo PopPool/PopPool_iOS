@@ -14,31 +14,31 @@ final class AlarmSettingVC: BaseViewController {
     
     // MARK: - Components
     
-    let headerView = HeaderViewCPNT(title: "알림설정", style: .icon(nil))
-    let serviceAlarm: ListTitleViewCPNT = ListTitleViewCPNT(
+    private let headerView = HeaderViewCPNT(title: "알림설정", style: .icon(nil))
+    private let serviceAlarm: ListTitleViewCPNT = ListTitleViewCPNT(
         title: "서비스 알림",
         size: .large(subtitle: "팝풀의 다양한 이벤트와 혜택을 알려드려요.", image: nil))
     
-    let activityAlarm: ListTitleViewCPNT = ListTitleViewCPNT(
+    private let activityAlarm: ListTitleViewCPNT = ListTitleViewCPNT(
         title: "활동 알림",
         size: .large(subtitle: "내 활동에 대한 반응을 알려드려요.", image: nil))
     
-    let appPush: ListInfoButtonCPNT = ListInfoButtonCPNT(
+    private let appPush: ListInfoButtonCPNT = ListInfoButtonCPNT(
         infoTitle: "앱 푸시",
         subTitle: "", style: .toggle)
     
-    let activityPush: ListInfoButtonCPNT = ListInfoButtonCPNT(
+    private let activityPush: ListInfoButtonCPNT = ListInfoButtonCPNT(
         infoTitle: "활동 알림",
         subTitle: "", style: .toggle)
     
-    let topSpaceView = UIView()
-    let secondSpaceView = UIView()
-    let dividerView = UIView()
+    private let topSpaceView = UIView()
+    private let secondSpaceView = UIView()
+    private let dividerView = UIView()
     
     // MARK: - Properties
     
-    let disposeBag = DisposeBag()
-    let viewModel: AlarmSettingVM
+    private let disposeBag = DisposeBag()
+    private let viewModel: AlarmSettingVM
     
     // MARK: - Initializer
     
@@ -83,7 +83,7 @@ final class AlarmSettingVC: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        output.displayAlert
+        output.appPushToggled
             .withUnretained(self)
             .subscribe(onNext: { (owner, status) in
                 let (isOn, isAuthorized) = status
@@ -108,6 +108,7 @@ final class AlarmSettingVC: BaseViewController {
             .disposed(by: disposeBag)
     }
     
+    /// 기기 설정 페이지로 이동하는 안내 메시지
     private func createSettingAlert() {
         DispatchQueue.main.async { [weak self] in
             let alert = UIAlertController(

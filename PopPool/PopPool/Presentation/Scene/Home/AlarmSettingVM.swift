@@ -19,15 +19,17 @@ final class AlarmSettingVM: ViewModelable {
     
     struct Output {
         let returnTapped: Observable<Void>
-        let displayAlert: BehaviorRelay<(Bool, Bool)>
+        let appPushToggled: BehaviorRelay<(Bool, Bool)>
     }
     
+    /// appPush를 확인하기 위한 NotificationCenter
     private let center = UNUserNotificationCenter.current()
     private let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-    
     private var isPermissionOn = BehaviorRelay<(Bool, Bool)>(value: (false, false))
     var disposeBag = DisposeBag()
     
+    /// 기기의 알림 설정의 상태를 확인하는 메서드
+    /// - Returns: 현재 상태에 맞는 Boolean 값을 반환
     func checkNotificationSetting() -> Observable<Bool> {
         return Observable.create { observer in
             self.center.getNotificationSettings { permission in
@@ -43,6 +45,8 @@ final class AlarmSettingVM: ViewModelable {
         }
     }
     
+    /// 알림 설정을 위한 요청을 보냅니다
+    /// - Returns: 요청을 위한 Boolean 값을 반환
     private func requestNotification() -> Observable<Bool> {
         return Observable.create { observer in
             self.center.requestAuthorization(options: self.options) { granted, error in
@@ -53,12 +57,10 @@ final class AlarmSettingVM: ViewModelable {
         }
     }
     
-    
     func transform(input: Input) -> Output {
         input.isAlarmToggled
             .withUnretained(self)
             .subscribe(onNext: { (owner, isOn) in
-                print("===버튼 토글 O")
                 owner.checkNotificationSetting()
                     .flatMapLatest { isAuthorized in
                         if isOn && !isAuthorized {
@@ -70,51 +72,15 @@ final class AlarmSettingVM: ViewModelable {
                         }
                     }
                     .subscribe(onNext: { isAuthorized in
-                        // 여기서 현재 설정 상태 트래킹?
-                        print("상태 트래킹", isAuthorized)
                         owner.isPermissionOn.accept((isOn, isAuthorized))
                     })
                     .disposed(by: owner.disposeBag)
             })
             .disposed(by: disposeBag)
         
-//        let alarmStatus = input.isAlarmToggled
-//            .flatMapLatest { isOn in
-//                if isOn {
-//                    print("====버튼 토글 O")
-//                    return self.checkNotificationSetting()
-//                        .flatMapLatest { isAuthorized -> Observable<(Bool, Bool)> in
-//                            if !isAuthorized {
-//                                print("버튼 토글 값", isOn)
-//                                print("알람 설정 여부", isAuthorized)
-//                                return self.requestNotification().map { (isOn, $0) }
-//                            } else {
-//                                print("버튼 토글 값2", isOn)
-//                                print("알람 설정 여부2", isAuthorized)
-//                                return .just((isOn, isAuthorized))
-//                            }
-//                        }
-//                } else {
-//                    print("====버튼 토글 x")
-//                    return self.checkNotificationSetting()
-//                        .flatMapLatest { isAuthorized -> Observable<(Bool, Bool)> in
-//                            if !isAuthorized {
-//                                print("버튼 토글 값3", isOn)
-//                                print("알람 설정 여부3", isAuthorized)
-//                                return .just((isOn, isAuthorized))
-//                            } else {
-//                                print("알람은 켜져있는데 버튼 토글은 안된 상황")
-//                                // 알림 설정을 끄는 기능을 추가 해야한다.
-//                                print("허용 여부", isAuthorized)
-//                                return .just((isOn, isAuthorized))
-//                            }
-//                        }
-//                }
-//            }
-        
         return Output(
             returnTapped: input.returnTapped.asObservable(),
-            displayAlert: isPermissionOn
+            appPushToggled: isPermissionOn
         )
     }
 }
