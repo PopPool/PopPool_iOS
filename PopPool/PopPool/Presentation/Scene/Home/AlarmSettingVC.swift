@@ -10,6 +10,10 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+protocol ActivityAlarmDelegate: AnyObject {
+    func activityToggled(image: UIImage?)
+}
+
 final class AlarmSettingVC: BaseViewController {
     
     // MARK: - Components
@@ -39,6 +43,7 @@ final class AlarmSettingVC: BaseViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel: AlarmSettingVM
+    var delegate: ActivityAlarmDelegate?
     
     // MARK: - Initializer
     
@@ -68,6 +73,7 @@ final class AlarmSettingVC: BaseViewController {
             .subscribe(onNext: { (owner, _) in
                 owner.didBecomeActive()
             })
+            .disposed(by: disposeBag)
         
         let input = AlarmSettingVM.Input(
             isAlarmToggled: appPush.actionToggle.rx.isOn,
@@ -89,6 +95,18 @@ final class AlarmSettingVC: BaseViewController {
                 let (isOn, isAuthorized) = status
                 if isOn && !isAuthorized {
                     owner.createSettingAlert()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.activityToggled
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, isOn) in
+                print("켜짐", isOn)
+                if isOn {
+                    owner.delegate?.activityToggled(image: UIImage(systemName: "lasso"))
+                } else {
+                    owner.delegate?.activityToggled(image: UIImage(systemName: "photo"))
                 }
             })
             .disposed(by: disposeBag)
