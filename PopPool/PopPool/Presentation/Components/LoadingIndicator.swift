@@ -13,6 +13,7 @@ final class LoadingIndicator: UIView {
     
     private let animationView: LottieAnimationView = {
         let view = LottieAnimationView(name: Constants.lottie.loading)
+        view.animationSpeed = 1.5
         return view
     }()
     
