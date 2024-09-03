@@ -34,6 +34,7 @@ final class LoadingIndicator: UIView {
         self.addSubview(animationView)
         animationView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.centerX.centerY.equalToSuperview()
         }
     }
     
