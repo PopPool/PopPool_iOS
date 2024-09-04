@@ -35,10 +35,10 @@ final class UserRepositoryImpl: UserRepository {
         return provider.requestData(with: endPoint, interceptor: tokenInterceptor).map({ $0.toDomain() })
     }
     
-    func tryWithdraw(userId: String, surveyList: [Survey]) -> Completable {
+    func tryWithdraw(userId: String, surveyList: CheckedSurveyListRequestDTO) -> Completable {
         let endPoint = PopPoolAPIEndPoint.user_tryWithdraw(
             userId: userId,
-            survey: .init(checkedSurveyList: surveyList.map({ $0.toRequestDTO() }))
+            survey: surveyList
         )
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
