@@ -165,7 +165,7 @@
 		08F49DF92C24006F002D5202 /* ToastMSGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DF82C24006F002D5202 /* ToastMSGManager.swift */; };
 		08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */; };
 		08F49E092C240335002D5202 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E082C240335002D5202 /* LoginVC.swift */; };
-		08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* _@_@_.swift */; };
+		08F49E0B2C240345002D5202 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F49E0A2C240345002D5202 /* SplashViewController.swift */; };
 		08FF6BE12C6DBBA200B68569 /* Reactive+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6BE02C6DBBA200B68569 /* Reactive+.swift */; };
 		08FF6C142C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C132C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift */; };
 		08FF6C172C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF6C162C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift */; };
@@ -248,6 +248,7 @@
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */; };
 		BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */; };
+		BD702D632C88511E00142AE0 /* PP_splash.json in Resources */ = {isa = PBXBuildFile; fileRef = BD702D622C88511E00142AE0 /* PP_splash.json */; };
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
@@ -475,7 +476,7 @@
 		08F49DF82C24006F002D5202 /* ToastMSGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMSGManager.swift; sourceTree = "<group>"; };
 		08F49DFC2C2400FC002D5202 /* ButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCPNT.swift; sourceTree = "<group>"; };
 		08F49E082C240335002D5202 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		08F49E0A2C240345002D5202 /* _@_@_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "_@_@_.swift"; sourceTree = "<group>"; };
+		08F49E0A2C240345002D5202 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		08FF6BE02C6DBBA200B68569 /* Reactive+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+.swift"; sourceTree = "<group>"; };
 		08FF6C132C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCategoryBottomSheetVC.swift; sourceTree = "<group>"; };
 		08FF6C162C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCategoryBottomSheetVM.swift; sourceTree = "<group>"; };
@@ -561,10 +562,11 @@
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
 		BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVC.swift; sourceTree = "<group>"; };
 		BD6FAFD82C5E4E9200322405 /* InquiryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVM.swift; sourceTree = "<group>"; };
-		BD75F7782C730FA000524168 /* InquiryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVC.swift; path = PopPool/Presentation/Scene/MyPage/Inquiry/InquiryVC.swift; sourceTree = SOURCE_ROOT; };
-		BD75F7792C730FA000524168 /* InquiryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVM.swift; path = PopPool/Presentation/Scene/MyPage/Inquiry/InquiryVM.swift; sourceTree = SOURCE_ROOT; };
 		BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
 		BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVM.swift; sourceTree = "<group>"; };
+		BD702D622C88511E00142AE0 /* PP_splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PP_splash.json; sourceTree = "<group>"; };
+		BD75F7782C730FA000524168 /* InquiryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVC.swift; path = PopPool/Presentation/Scene/MyPage/Inquiry/InquiryVC.swift; sourceTree = SOURCE_ROOT; };
+		BD75F7792C730FA000524168 /* InquiryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVM.swift; path = PopPool/Presentation/Scene/MyPage/Inquiry/InquiryVM.swift; sourceTree = SOURCE_ROOT; };
 		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
 		BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButtonCPNT.swift; sourceTree = "<group>"; };
 		BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewVC.swift; sourceTree = "<group>"; };
@@ -881,6 +883,7 @@
 				BDF4F29D2C242FE8002F4F03 /* Font */,
 				087346192C0AAD2B00534FFA /* Assets.xcassets */,
 				BDB404242C86F93B005DF672 /* PP_loading.json */,
+				BD702D622C88511E00142AE0 /* PP_splash.json */,
 				0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */,
 				BDB4F0ED2C77354D004EA8FD /* Secrets.swift */,
 				0873461E2C0AAD2B00534FFA /* Info.plist */,
@@ -1473,7 +1476,7 @@
 		08F49E022C2402C9002D5202 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				08F49E0A2C240345002D5202 /* _@_@_.swift */,
+				08F49E0A2C240345002D5202 /* SplashViewController.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -1990,6 +1993,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD702D632C88511E00142AE0 /* PP_splash.json in Resources */,
 				BDF4F2AC2C24304F002F4F03 /* GothicA1-Light.ttf in Resources */,
 				BDF4F2A22C243035002F4F03 /* Poppins-Regular.ttf in Resources */,
 				BDF4F2A42C243035002F4F03 /* Poppins-Light.ttf in Resources */,
@@ -2223,7 +2227,7 @@
 				08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */,
 				08FF6C822C79BE6600B68569 /* NoticeInfo.swift in Sources */,
 				BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */,
-				08F49E0B2C240345002D5202 /* _@_@_.swift in Sources */,
+				08F49E0B2C240345002D5202 /* SplashViewController.swift in Sources */,
 				BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */,
@@ -2473,8 +2477,9 @@
 				DEVELOPMENT_TEAM = W5QTRMS954;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PopPool/Resource/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 지도에 표시하기 위해 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2506,8 +2511,9 @@
 				DEVELOPMENT_TEAM = W5QTRMS954;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PopPool/Resource/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 지도에 표시하기 위해 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

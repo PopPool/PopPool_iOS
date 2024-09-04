@@ -43,4 +43,5 @@ struct SocialTYPE {
 
 struct Lottie {
     let loading = "PP_loading"
+    let splashAnimation = "PP_splash"
 }
