@@ -228,7 +228,6 @@
 		BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
-		BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
 		BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */; };
 		BD3942132C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */; };
@@ -246,6 +245,7 @@
 		BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */; };
 		BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */; };
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
@@ -534,7 +534,6 @@
 		BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAlertVC.swift; sourceTree = "<group>"; };
 		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
-		BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutSurveyView.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponse.swift; sourceTree = "<group>"; };
 		BD3942122C74DAD3009F88B3 /* GetBookMarkPopUpStoreListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponseDTO.swift; sourceTree = "<group>"; };
@@ -556,6 +555,7 @@
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
 		BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVC.swift; sourceTree = "<group>"; };
 		BD6FAFD82C5E4E9200322405 /* InquiryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVM.swift; sourceTree = "<group>"; };
+		BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
 		BD75F7782C730FA000524168 /* InquiryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVC.swift; path = PopPool/Presentation/Scene/MyPage/Views/InquiryVC.swift; sourceTree = SOURCE_ROOT; };
 		BD75F7792C730FA000524168 /* InquiryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVM.swift; path = PopPool/Presentation/Scene/MyPage/Views/InquiryVM.swift; sourceTree = SOURCE_ROOT; };
 		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
@@ -715,7 +715,7 @@
 			isa = PBXGroup;
 			children = (
 				BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */,
-				BD332D6D2C48EF16002D0FA9 /* SignOutSurveyView.swift */,
+				BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */,
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
 				BDE88FD62C83568100AF9EFF /* SignOutVM.swift */,
 				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
@@ -2017,6 +2017,7 @@
 				08FF6C262C721CA800B68569 /* GetNoticeDetailResponseDTO.swift in Sources */,
 				08E23A9A2C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift in Sources */,
 				08FF6C202C721C1800B68569 /* NoticeInfoDTO.swift in Sources */,
+				BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */,
 				08B183C32C442113006C34BB /* ListTitleViewCPNT.swift in Sources */,
 				08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
@@ -2234,7 +2235,6 @@
 				08AF8D9A2C68862F006B8A11 /* PopUpCommentedCell.swift in Sources */,
 				0896A05C2C79F9300062CC49 /* String+.swift in Sources */,
 				08FF6BE12C6DBBA200B68569 /* Reactive+.swift in Sources */,
-				BD332D6E2C48EF16002D0FA9 /* SignOutSurveyView.swift in Sources */,
 				BDCA56702C69F29A005C68C8 /* HomeVM.swift in Sources */,
 				089D19292C3BD318000435D9 /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BD0D19112C7D8F030017D909 /* Location.swift in Sources */,
