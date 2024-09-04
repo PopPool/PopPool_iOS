@@ -100,7 +100,7 @@ struct PopPoolAPIEndPoint {
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/\(userId)/delete",
-            method: .get,
+            method: .post,
             bodyParameters: survey
         )
     }

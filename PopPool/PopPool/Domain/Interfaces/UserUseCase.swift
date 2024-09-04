@@ -26,7 +26,7 @@ protocol UserUseCase {
     
     func tryWithdraw(
         userId: String,
-        surveyList: [Survey]
+        surveyList: CheckedSurveyListRequestDTO
     ) -> Completable
     
     func fetchMyRecentViewPopUpStoreList(

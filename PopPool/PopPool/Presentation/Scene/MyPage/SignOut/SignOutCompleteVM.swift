@@ -32,14 +32,36 @@ final class SignOutCompleteVM: ViewModelable {
         let returnToRoot = input.deleteUserTapped
             .withUnretained(self)
             .do(onNext: { (owner, _) in
-                owner.useCase.tryWithdraw(userId: Constants.userId, surveyList: owner.survey)
-                    .subscribe(onCompleted: {
-                        print("탈퇴가 완료되었습니다.")
-                    })
-                    .disposed(by: owner.disposeBag)
+                print(owner.survey)
+                owner.useCase.tryWithdraw(
+                    userId: Constants.userId,
+                    surveyList: .init(checkedSurveyList: owner.survey.map{ .init(id: $0.id, survey: $0.survey)})
+                )
+                .subscribe(onCompleted: {
+                    let service = KeyChainServiceImpl()
+                    service.saveToken(type: .accessToken, value: "SignOut")
+                        .subscribe(onCompleted: {
+                            print("SignOut Complete AccessToken Remove")
+                        },onError: { _ in
+                            print("SignOut Complete AccessToken Remove Fail")
+                        })
+                        .disposed(by: owner.disposeBag)
+                    
+                    service.saveToken(type: .refreshToken, value: "SignOut")
+                        .subscribe(onCompleted: {
+                            print("SignOut Complete RefreshToken Remove")
+                        },onError: { _ in
+                            print("SignOut Complete RefreshToken Remove Fail")
+                        })
+                        .disposed(by: owner.disposeBag)
+                    print("탈퇴가 완료되었습니다.")
+                },onError: { error in
+                    print(error.localizedDescription)
+                })
+                .disposed(by: owner.disposeBag)
             })
             .map { _ in () }
-            
+        
         return Output(
             returnToRoot: returnToRoot
         )
