@@ -279,6 +279,15 @@ final class SignUpVM: ViewModelable {
         input.tap_step3_secondaryButton
             .withUnretained(self)
             .subscribe { (owner, _) in
+                let categoryListCount = fetchCategoryList.value.count
+                var randomList: [Int] = []
+                while randomList.count < 3 {
+                    let random = Int.random(in: 1...categoryListCount)
+                    if !randomList.contains(random) {
+                        randomList.append(random)
+                    }
+                }
+                owner.signUpData.interests = randomList.map { Int64($0) }
                 owner.increasePageIndex()
             }
             .disposed(by: disposeBag)
@@ -331,6 +340,38 @@ final class SignUpVM: ViewModelable {
                                 owner.signUpData.nickName,
                                 owner.signUpData.interests.map{ index in
                                     return fetchCategoryList.value[Int(index)]
+                                }
+                            )
+                        )
+                } onError: { error in
+                    ToastMSGManager.createToast(message: "SignUpError")
+                }
+                .disposed(by: owner.disposeBag)
+
+            }
+            .disposed(by: disposeBag)
+        
+        // Step 4 Secondary button 탭 이벤트 처리
+        input.tap_step4_secondaryButton
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.signUpUseCase.trySignUp(
+                    userId: owner.signUpData.userId,
+                    nickName: owner.signUpData.nickName,
+                    gender: owner.signUpData.gender,
+                    age: owner.signUpData.age,
+                    // TODO: - socialEmail 옵셔널 체이닝 변경 혹은 대응 필요
+                    socialEmail: owner.signUpData.socialEmail ?? "",
+                    socialType: owner.signUpData.socialType,
+                    interests: owner.signUpData.interests
+                )
+                .subscribe {
+                    step4_moveToSignUpCompleteVC
+                        .onNext(
+                            (
+                                owner.signUpData.nickName,
+                                owner.signUpData.interests.map{ index in
+                                    return fetchCategoryList.value[Int(index - 1)]
                                 }
                             )
                         )
