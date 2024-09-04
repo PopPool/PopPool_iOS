@@ -13,12 +13,16 @@ final class SignOutVM: ViewModelable {
     var disposeBag = DisposeBag()
     
     struct Input {
-//        let cellTapped: Observable<(IndexPath, String?)>
+        let returnActionTapped: ControlEvent<Void>
+        let skipActionTapped: ControlEvent<Void>
+        let confirmActionTapped: ControlEvent<Void>
     }
     
     struct Output {
         let surveylist: Observable<[Survey]>
-//        let selectedSurvey: Observable<Set<String>>
+        let skipScreen: ControlEvent<Void>
+        let moveToNextScreen: ControlEvent<Void>
+        let returnToRoot: ControlEvent<Void>
     }
     
     private let useCase: UserUseCase
@@ -45,8 +49,10 @@ final class SignOutVM: ViewModelable {
             .disposed(by: disposeBag)
                 
         return Output(
-            surveylist: fetchedSurvey.asObservable()
-//            selectedSurvey: selectedSurvey.asObservable()
+            surveylist: fetchedSurvey.asObservable(),
+            skipScreen: input.skipActionTapped,
+            moveToNextScreen: input.confirmActionTapped,
+            returnToRoot: input.returnActionTapped
         )
     }
 }

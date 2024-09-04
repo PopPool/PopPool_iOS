@@ -77,7 +77,6 @@ final class SignOutTableViewCell: UITableViewCell {
         tapStateSubject
             .withUnretained(self)
             .subscribe(onNext: { (owner, state) in
-                print("현재 값", state)
                 owner.currentState = state
                 owner.configure(state: state)
             })

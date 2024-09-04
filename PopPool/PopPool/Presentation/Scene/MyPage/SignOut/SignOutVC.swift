@@ -135,9 +135,36 @@ private extension SignOutVC {
     
     func bind() {
         let input = SignOutVM.Input(
-//            cellTapped: cellTapSubject.asObservable()
+            returnActionTapped: headerView.leftBarButton.rx.tap,
+            skipActionTapped: skipButton.rx.tap,
+            confirmActionTapped: confirmButton.rx.tap
         )
         let output = viewModel.transform(input: input)
+        
+        output.returnToRoot
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.navigationController?.popToRootViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        output.skipScreen
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                let vm = SignOutCompleteVM(survey: [])
+                let vc = SignOutCompleteVC(viewModel: vm)
+                owner.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        output.moveToNextScreen
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                let vm = SignOutCompleteVM(survey: owner.viewModel.selectedArray)
+                let vc = SignOutCompleteVC(viewModel: vm)
+                owner.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: disposeBag)
         
         output.surveylist
             .withUnretained(self)
@@ -146,12 +173,6 @@ private extension SignOutVC {
                 self.tableView.reloadData()
             })
             .disposed(by: disposeBag)
-//        
-//        output.selectedSurvey
-//            .subscribe(onNext: { selected in
-//                print("선택된 값", selected)
-//            })
-//            .disposed(by: disposeBag)
     }
 }
 

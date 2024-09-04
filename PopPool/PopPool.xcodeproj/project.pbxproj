@@ -246,6 +246,7 @@
 		BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */; };
+		BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */; };
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
@@ -556,6 +557,7 @@
 		BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVC.swift; sourceTree = "<group>"; };
 		BD6FAFD82C5E4E9200322405 /* InquiryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVM.swift; sourceTree = "<group>"; };
 		BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
+		BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVM.swift; sourceTree = "<group>"; };
 		BD75F7782C730FA000524168 /* InquiryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVC.swift; path = PopPool/Presentation/Scene/MyPage/Views/InquiryVC.swift; sourceTree = SOURCE_ROOT; };
 		BD75F7792C730FA000524168 /* InquiryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVM.swift; path = PopPool/Presentation/Scene/MyPage/Views/InquiryVM.swift; sourceTree = SOURCE_ROOT; };
 		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
@@ -719,6 +721,7 @@
 				BD332D692C48E89E002D0FA9 /* SignOutVC.swift */,
 				BDE88FD62C83568100AF9EFF /* SignOutVM.swift */,
 				BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */,
+				BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */,
 			);
 			path = SignOut;
 			sourceTree = "<group>";
@@ -2193,6 +2196,7 @@
 				08FF6C8E2C79C1F000B68569 /* NoticeUseCase.swift in Sources */,
 				08E23A9C2C4F757C004B77B6 /* UpdateMyProfileRequestDTO.swift in Sources */,
 				BD9901CD2C2877BF0024F30D /* ToastMSGCPNT.swift in Sources */,
+				BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */,
 				BD0D191B2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift in Sources */,
 				08E23AAB2C4F7F98004B77B6 /* MyCommentInfo.swift in Sources */,
 				08E23A5C2C4E14F1004B77B6 /* GetMyPageResponseDTO.swift in Sources */,
