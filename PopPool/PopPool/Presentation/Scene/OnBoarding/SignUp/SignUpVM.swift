@@ -334,6 +334,14 @@ final class SignUpVM: ViewModelable {
                     interests: owner.signUpData.interests
                 )
                 .subscribe {
+                    let service = UserDefaultService()
+                    service.save(key: "lastLogin", value: owner.signUpData.socialType)
+                        .subscribe {
+                            print("lastLogin data save")
+                        } onError: { error in
+                            print("lastLogin data save fail")
+                        }
+                        .disposed(by: owner.disposeBag)
                     step4_moveToSignUpCompleteVC
                         .onNext(
                             (
@@ -366,6 +374,14 @@ final class SignUpVM: ViewModelable {
                     interests: owner.signUpData.interests
                 )
                 .subscribe {
+                    let service = UserDefaultService()
+                    service.save(key: "lastLogin", value: owner.signUpData.socialType)
+                        .subscribe {
+                            print("lastLogin data save")
+                        } onError: { error in
+                            print("lastLogin data save fail")
+                        }
+                        .disposed(by: owner.disposeBag)
                     step4_moveToSignUpCompleteVC
                         .onNext(
                             (
