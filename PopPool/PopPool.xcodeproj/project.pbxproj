@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		084BC9602C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */; };
 		084BC9622C7F539E00C57494 /* UserBookMarkRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */; };
+		084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */; };
 		085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085105752C0EC13800ED7DBB /* RxAlamofire */; };
 		085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */; };
 		0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 0851058C2C1033E600ED7DBB /* RxKakaoSDK */; };
@@ -80,9 +81,6 @@
 		08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183C42C4421D5006C34BB /* TextUnderBarButtonCPNT.swift */; };
 		08B183C72C443925006C34BB /* Cellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183C62C443925006C34BB /* Cellable.swift */; };
 		08B183C92C443948006C34BB /* TableViewSectionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183C82C443948006C34BB /* TableViewSectionable.swift */; };
-		08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183CB2C4448F4006C34BB /* SaveLocalUseCase.swift */; };
-		08B183CE2C44490A006C34BB /* FetchLocalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183CD2C44490A006C34BB /* FetchLocalUseCase.swift */; };
-		08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B183CF2C44491F006C34BB /* DeleteLocalUseCase.swift */; };
 		08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */; };
 		08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */; };
 		08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */; };
@@ -222,8 +220,6 @@
 		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1E37492C7E2895004931D5 /* HomePopUp.swift */; };
-		BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */; };
-		BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */; };
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
 		BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975092C51140D0090147C /* ListMenuCPNT.swift */; };
 		BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */; };
@@ -275,7 +271,6 @@
 		BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */; };
 		BDC2C3432C5A6EE400FEF069 /* NoticeDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
-		BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */; };
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
 		BDCA566C2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */; };
 		BDCA566E2C69F10C005C68C8 /* LoggedHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */; };
@@ -332,6 +327,7 @@
 /* Begin PBXFileReference section */
 		084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListRequestDTO.swift; sourceTree = "<group>"; };
 		084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookMarkRequestDTO.swift; sourceTree = "<group>"; };
+		084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthServiceImpl.swift; sourceTree = "<group>"; };
 		0851059F2C1038EB00ED7DBB /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		0873460D2C0AAD2900534FFA /* PopPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -390,9 +386,6 @@
 		08B183C42C4421D5006C34BB /* TextUnderBarButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUnderBarButtonCPNT.swift; sourceTree = "<group>"; };
 		08B183C62C443925006C34BB /* Cellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cellable.swift; sourceTree = "<group>"; };
 		08B183C82C443948006C34BB /* TableViewSectionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionable.swift; sourceTree = "<group>"; };
-		08B183CB2C4448F4006C34BB /* SaveLocalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLocalUseCase.swift; sourceTree = "<group>"; };
-		08B183CD2C44490A006C34BB /* FetchLocalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCase.swift; sourceTree = "<group>"; };
-		08B183CF2C44491F006C34BB /* DeleteLocalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCase.swift; sourceTree = "<group>"; };
 		08B9655E2C14410700BF95AA /* PopPool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PopPool.entitlements; sourceTree = "<group>"; };
 		08B9655F2C1441C100BF95AA /* AppleAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceImpl.swift; sourceTree = "<group>"; };
 		08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSocialCredentialUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -532,8 +525,6 @@
 		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD1E37492C7E2895004931D5 /* HomePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePopUp.swift; sourceTree = "<group>"; };
-		BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocalUseCaseImpl.swift; sourceTree = "<group>"; };
-		BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVC.swift; sourceTree = "<group>"; };
 		BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVM.swift; sourceTree = "<group>"; };
 		BD2975072C5112390090147C /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
@@ -590,7 +581,6 @@
 		BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVC.swift; sourceTree = "<group>"; };
 		BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailBoardVM.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
-		BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLocalUseCaseImpl.swift; sourceTree = "<group>"; };
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
 		BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailPopUpCell.swift; sourceTree = "<group>"; };
 		BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedHomeVC.swift; sourceTree = "<group>"; };
@@ -763,6 +753,14 @@
 				084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */,
 			);
 			path = BookMarkDTO;
+			sourceTree = "<group>";
+		};
+		084BC9EC2C889F7E00C57494 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		0851057A2C102E2B00ED7DBB /* Infrastructure */ = {
@@ -1086,26 +1084,6 @@
 			path = UITableViewCell;
 			sourceTree = "<group>";
 		};
-		08B183CA2C4448DF006C34BB /* LocalUseCase */ = {
-			isa = PBXGroup;
-			children = (
-				08B183CB2C4448F4006C34BB /* SaveLocalUseCase.swift */,
-				08B183CD2C44490A006C34BB /* FetchLocalUseCase.swift */,
-				08B183CF2C44491F006C34BB /* DeleteLocalUseCase.swift */,
-			);
-			name = LocalUseCase;
-			sourceTree = "<group>";
-		};
-		08B183D12C44494C006C34BB /* LocalUseCaseImpl */ = {
-			isa = PBXGroup;
-			children = (
-				BDC622B42C2294D4009411AE /* SaveLocalUseCaseImpl.swift */,
-				BD27D08F2C35A9020092FC36 /* FetchLocalUseCaseImpl.swift */,
-				BD27D0912C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift */,
-			);
-			path = LocalUseCaseImpl;
-			sourceTree = "<group>";
-		};
 		08B965642C147E1B00BF95AA /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,7 +1116,6 @@
 		08B9656C2C1485C100BF95AA /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				08B183D12C44494C006C34BB /* LocalUseCaseImpl */,
 				08B965892C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift */,
 				08F49DF52C2323C2002D5202 /* TryLoginUseCaseImpl.swift */,
 				08E23A492C4782FA004B77B6 /* KeyChainServiceUseCaseImpl.swift */,
@@ -1156,7 +1133,6 @@
 			children = (
 				4E4DC00C2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift */,
 				4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */,
-				08B183CA2C4448DF006C34BB /* LocalUseCase */,
 				08B9658B2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift */,
 				08F49DF32C232364002D5202 /* TryLoginUseCase.swift */,
 				08E23A4B2C478388004B77B6 /* KeyChainServiceUseCase.swift */,
@@ -1257,6 +1233,7 @@
 			isa = PBXGroup;
 			children = (
 				08E23A432C477965004B77B6 /* KeyChainServiceImpl.swift */,
+				084BC9EC2C889F7E00C57494 /* UserDefaults */,
 			);
 			path = KeyChainService;
 			sourceTree = "<group>";
@@ -2046,7 +2023,6 @@
 				4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */,
 				08E23A692C4E1BDC004B77B6 /* SurveyDTO.swift in Sources */,
 				BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */,
-				08B183CE2C44490A006C34BB /* FetchLocalUseCase.swift in Sources */,
 				BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */,
 				BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */,
 				BD7B47DF2C650E9C00DA116D /* HomeAlertCell.swift in Sources */,
@@ -2086,7 +2062,6 @@
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
 				0896A0602C7AF1530062CC49 /* RecentPopUpVM.swift in Sources */,
-				08B183CC2C4448F4006C34BB /* SaveLocalUseCase.swift in Sources */,
 				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
 				08E23A652C4E194F004B77B6 /* GetMyCommentResponseDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
@@ -2178,7 +2153,6 @@
 				BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */,
 				BD0D19072C7D8A3D0017D909 /* AdminRepositoryImpl.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
-				08B183D02C44491F006C34BB /* DeleteLocalUseCase.swift in Sources */,
 				08FF6C7F2C79B8E100B68569 /* NoticeRepositoryImpl.swift in Sources */,
 				BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */,
 				08B183C52C4421D5006C34BB /* TextUnderBarButtonCPNT.swift in Sources */,
@@ -2226,7 +2200,6 @@
 				4E184D632C6F1FD500573A2E /* FavoritePopUpVC.swift in Sources */,
 				08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */,
 				08FF6C822C79BE6600B68569 /* NoticeInfo.swift in Sources */,
-				BD27D0902C35A9020092FC36 /* FetchLocalUseCaseImpl.swift in Sources */,
 				08F49E0B2C240345002D5202 /* SplashViewController.swift in Sources */,
 				BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
@@ -2265,7 +2238,6 @@
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */,
 				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
-				BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */,
 				08AF8DCA2C6B94CB006B8A11 /* ProfileEditVM.swift in Sources */,
 				08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
@@ -2294,7 +2266,7 @@
 				08FF6C8A2C79C0C800B68569 /* NoticeRepository.swift in Sources */,
 				BD0D191F2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift in Sources */,
 				08F49DEC2C231D13002D5202 /* LoginResponseDTO.swift in Sources */,
-				BDC622B52C2294D4009411AE /* SaveLocalUseCaseImpl.swift in Sources */,
+				084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */,
 				BD60B2812C75C5AF0062DC96 /* HomeUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

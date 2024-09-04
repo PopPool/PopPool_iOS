@@ -85,6 +85,7 @@ extension LoginVC {
         super.viewDidLoad()
         setUpConstraints()
         bind()
+        showLastLogin()
     }
 }
 
@@ -152,7 +153,32 @@ private extension LoginVC {
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
                 Constants.userId = loginResponse.userId
-                print(loginResponse)
+                let service = UserDefaultService()
+                service.save(key: "lastLogin", value: loginResponse.socialType)
+                    .subscribe {
+                        print("lastLogin data save")
+                    } onError: { error in
+                        print("lastLogin data save fail")
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func showLastLogin() {
+        let service = UserDefaultService()
+        service.fetch(key: "lastLogin")
+            .subscribe { [weak self] socialType in
+                switch socialType {
+                case .success(let social):
+                    if social == "KAKAO" {
+                        self?.kakaoSignInButton.showToolTip(color: .w100, direction: .pointDown, text: "최근에 이 방법으로 로그인했어요")
+                    } else if social == "APPLE" {
+                        self?.appleSignInButton.showToolTip(color: .w100, direction: .pointUp, text: "최근에 이 방법으로 로그인했어요")
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
             .disposed(by: disposeBag)
     }
