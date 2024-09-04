@@ -182,6 +182,44 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    static func user_fetchBookMarkPopUpStoreList(
+        userId: String,
+        reqeust: GetBookMarkPopUpStoreListRequestDTO
+    ) -> Endpoint<GetBookMarkPopUpStoreListResponseDTO> {
+        
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .get,
+            queryParameters: reqeust
+        )
+    }
+    
+    static func user_updateBookMarkPopUpStore(
+        userId: String,
+        reqeust: UserBookMarkRequestDTO
+    ) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .post,
+            queryParameters: reqeust
+        )
+    }
+    
+    static func user_deleteBookMarkPopUpStore(
+        userId: String,
+        reqeust: UserBookMarkRequestDTO
+    ) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/users/\(userId)/bookmark-popupstores",
+            method: .delete,
+            queryParameters: reqeust
+            
+        )
+    }
+    
     // MARK: - User API, 회원 프로필 API
     
     /// 유저 프로필을 조회합니다.
@@ -308,21 +346,6 @@ struct PopPoolAPIEndPoint {
           
     // MARK: - Notice API
     
-    /// 공지사항 작성
-    /// - Parameters:
-    ///   - title: 공지사항 제목
-    ///   - content: 공지사항 내용
-    /// - Returns: RequestEndpoint
-    static func notice_postNotice(title: String, content: String) -> RequestEndpoint {
-        let request = UpdateNoticeRequestDTO(title: title, content: content)
-        return RequestEndpoint(
-            baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/notice",
-            method: .post,
-            bodyParameters: request
-        )
-    }
-    
     /// 공지사항 상세 조회
     /// - Parameter id: 공지사항 ID
     /// - Returns: Endpoint<GetNoticeDetailResponseDTO>
@@ -333,6 +356,33 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
+    
+    /// 공지사항 리스트 조회
+    /// - Returns: Endpoint<GetNoticeListResponseDTO>
+    static func notice_fetchNoticeList() -> Endpoint<GetNoticeListResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/notice/list",
+            method: .get
+        )
+    }
+    
+    // MARK: - ADMIN API
+    
+    /// 공지사항 작성
+    /// - Parameters:
+    ///   - title: 공지사항 제목
+    ///   - content: 공지사항 내용
+    /// - Returns: RequestEndpoint
+    static func admin_postNotice(title: String, content: String) -> RequestEndpoint {
+        let request = CreateNoticeRequestDTO(title: title, content: content)
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/admin/notice",
+            method: .post,
+            bodyParameters: request
+        )
+    }
 
     /// 공지사항 수정
     /// - Parameters:
@@ -340,11 +390,11 @@ struct PopPoolAPIEndPoint {
     ///   - title: 공지사항 제목
     ///   - content: 공지사항 내용
     /// - Returns: RequestEndpoint
-    static func notice_updateNotice(id: Int64, title: String, content: String) -> RequestEndpoint {
+    static func admin_updateNotice(id: Int64, title: String, content: String) -> RequestEndpoint {
         let request = UpdateNoticeRequestDTO(title: title, content: content)
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/notice/\(id)",
+            path: "/admin/notice/\(id)",
             method: .put,
             bodyParameters: request
         )
@@ -355,7 +405,7 @@ struct PopPoolAPIEndPoint {
     ///   - id: 공지사항 ID
     ///   - adminId: 어드민 ID
     /// - Returns: RequestEndpoint
-    static func notice_deleteNotice(id: Int64, adminId: String) -> RequestEndpoint {
+    static func admin_deleteNotice(id: Int64, adminId: String) -> RequestEndpoint {
         struct Request: Encodable {
             var id: Int64
             var adminId: String
@@ -363,19 +413,9 @@ struct PopPoolAPIEndPoint {
         let request = Request(id: id, adminId: adminId)
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/notice/\(id)",
+            path: "/admin/notice/\(id)",
             method: .delete,
             queryParameters: request
-        )
-    }
-    
-    /// 공지사항 리스트 조회
-    /// - Returns: Endpoint<GetNoticeListResponseDTO>
-    static func notice_fetchNoticeList() -> Endpoint<GetNoticeListResponseDTO> {
-        return Endpoint(
-            baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/notice/list",
-            method: .get
         )
     }
 }

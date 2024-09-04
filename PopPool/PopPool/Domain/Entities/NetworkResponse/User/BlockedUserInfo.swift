@@ -11,5 +11,5 @@ struct BlockedUserInfo {
     var userId: String
     var profileImage: URL?
     var nickname: String
-    var instagramId: String
+    var instagramId: String?
 }

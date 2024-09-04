@@ -147,6 +147,8 @@ final class LoggedHomeVC: BaseViewController {
     private func setUp() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        let testVC = AlarmSettingVC(viewModel: AlarmSettingVM())
+        testVC.delegate = self
     }
     
     /// compositionalLayout을 구성하는 메서드
@@ -428,5 +430,12 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             return defaultCell
         }
+    }
+}
+
+extension LoggedHomeVC: ActivityAlarmDelegate {
+    func activityToggled(image: UIImage?) {
+        header.rightBarButton.setImage(image, for: .normal)
+        print("헤더가 변경되었습니다.")
     }
 }

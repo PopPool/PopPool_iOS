@@ -152,6 +152,7 @@ private extension LoginVC {
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
                 Constants.userId = loginResponse.userId
+                print(loginResponse)
             }
             .disposed(by: disposeBag)
     }

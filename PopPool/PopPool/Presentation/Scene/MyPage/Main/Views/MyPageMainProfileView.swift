@@ -175,6 +175,10 @@ private extension MyPageMainProfileView {
     }
     
     func setUpLoginView() {
+        self.backGroundImageView.image = nil
+        self.profileImageView.removeFromSuperview()
+        self.descriptionLabel.removeFromSuperview()
+        self.labelStackView.removeFromSuperview()
         self.backGroundImageView.backgroundColor = .g800
         loginButton.addSubview(loginButtonLabel)
         loginButtonLabel.snp.makeConstraints { make in
@@ -216,8 +220,8 @@ extension MyPageMainProfileView: InputableView {
                 backGroundImageView.kf.setImage(with: profileImageViewURL)
                 profileImageView.kf.setImage(with: profileImageViewURL)
             } else {
-                self.backGroundImageView.image = UIImage(systemName: "folder")
-                self.profileImageView.image = UIImage(systemName: "folder")
+                self.backGroundImageView.image = UIImage(named: "Profile_Logo")
+                self.profileImageView.image = UIImage(named: "Profile_Logo")
             }
             nickNameLabel.text = input.nickName
             instagramLabel.text = input.instagramId

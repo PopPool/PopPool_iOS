@@ -8,35 +8,65 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class SignOutVC: BaseViewController {
     
     // MARK: - Components
     
-    private var headerView: HeaderViewCPNT
-    private let signOutView: SignOutSurveyView
-    private let contentStackView: UIStackView = {
+    private let headerView = HeaderViewCPNT(
+        title: "회원탈퇴",
+        style: .icon(
+            UIImage(systemName: "lasso")))
+    
+    private lazy var headerStack: UIStackView = {
         let stack = UIStackView()
+        stack.axis = .vertical
+        stack.addArrangedSubview(tableHeaderView)
+        stack.addArrangedSubview(headerSpaceView)
         return stack
     }()
     
+    private let tableHeaderView = ContentTitleCPNT(
+        title: "탈퇴하려는 이유가\n무엇인가요?",
+        type: .title_sub_fp(
+            subTitle: "알려주시는 내용을 참고해 더 나은 팝풀을\n만들어볼게요."))
+        
+    private var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.separatorStyle = .none
+        tableView.register(SignOutTableViewCell.self,
+                           forCellReuseIdentifier: SignOutTableViewCell.identifier)
+        return tableView
+    }()
+    
+    let skipButton = ButtonCPNT(
+        type: .secondary,
+        title: "건너뛰기")
+    let confirmButton = ButtonCPNT(
+        type: .primary,
+        title: "확인")
+    private lazy var buttonStack: UIStackView = {
+        let stack = UIStackView()
+        stack.addArrangedSubview(skipButton)
+        stack.addArrangedSubview(confirmButton)
+        stack.spacing = 12
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
+    private let headerSpaceView = UIView()
+    
     // MARK: - Properties
     
+    private let viewModel: SignOutVM
     private let disposeBag = DisposeBag()
-    private let survey: [String] = [
-        "원하는 팝업에 대한 정보가 없어요",
-        "팝업 정보가 적어요",
-        "이용빈도가 낮아요",
-        "다시 가입하고 싶어요",
-        "앱에 오류가 많이 생겨요",
-        "기타"
-    ]
+    private let cellTapSubject = PublishSubject<(Survey, SignOutTableViewCell.SignOutState)>()
     
     // MARK: - Initializer
     
-    override init() {
-        self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
-        self.signOutView = SignOutSurveyView(surveyDetails: survey)
+    init(viewModel: SignOutVM) {
+        self.viewModel = viewModel
         super.init()
     }
     
@@ -62,59 +92,112 @@ private extension SignOutVC {
     // MARK: - Method
     
     func setUp() {
-        view.backgroundColor = .systemBackground
         self.headerView.rightBarButton.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     func setUpConstraints() {
         view.addSubview(headerView)
-        view.addSubview(contentStackView)
-        contentStackView.addArrangedSubview(signOutView)
         
         headerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.top.equalToSuperview()
         }
         
-        contentStackView.snp.makeConstraints { make in
+        view.addSubview(buttonStack)
+        buttonStack.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(Constants.spaceGuide.medium400)
+            make.height.equalTo(52)
+        }
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(Constants.spaceGuide.small200)
-            make.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(buttonStack.snp.top)
+        }
+        
+        tableView.tableHeaderView = self.headerStack
+        headerStack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        headerStack.isLayoutMarginsRelativeArrangement = true
+        headerStack.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 250)
+        
+        headerStack.snp.makeConstraints { make in
+            make.width.equalTo(view.bounds.width)
+        }
+        
+        headerSpaceView.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.medium400)
         }
     }
     
     func bind() {
-        headerView.leftBarButton.rx.tap
+        let input = SignOutVM.Input(
+            returnActionTapped: headerView.leftBarButton.rx.tap,
+            skipActionTapped: skipButton.rx.tap,
+            confirmActionTapped: confirmButton.rx.tap
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.returnToRoot
             .withUnretained(self)
-            .subscribe { (owner, _) in
-                owner.navigationController?.popViewController(animated: true)
-            }
+            .subscribe(onNext: { (owner, _) in
+                owner.navigationController?.popToRootViewController(animated: true)
+            })
             .disposed(by: disposeBag)
         
-        signOutView.skipButton.rx.tap
+        output.skipScreen
             .withUnretained(self)
-            .subscribe { (owner, _) in
-                print("화면 이동 필요")
-            }
-            .disposed(by: disposeBag)
-        
-        signOutView.confirmButton.rx.tap
-            .withUnretained(self)
-            .subscribe { (owner, _) in
-                print("다음 화면 이동")
-                let vc = SignOutCompleteVC()
+            .subscribe(onNext: { (owner, _) in
+                let vm = SignOutCompleteVM(survey: [])
+                let vc = SignOutCompleteVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
-            }
+            })
             .disposed(by: disposeBag)
         
-        /// 마지막 뷰 탭 시, 숨겨진 textView가 보입니다.
-        guard let lastView = signOutView.surveyView.last else { return }
-        lastView.isCheck
+        output.moveToNextScreen
             .withUnretained(self)
-            .subscribe { (owner, isChecked) in
-                owner.signOutView.makeTextViewActive(isChecked)
-            }
+            .subscribe(onNext: { (owner, _) in
+                let vm = SignOutCompleteVM(survey: owner.viewModel.selectedArray)
+                let vc = SignOutCompleteVC(viewModel: vm)
+                owner.navigationController?.pushViewController(vc, animated: true)
+            })
             .disposed(by: disposeBag)
+        
+        output.surveylist
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { (owner, data) in
+                self.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension SignOutVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.survey.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SignOutTableViewCell.identifier, for: indexPath) as? SignOutTableViewCell else { return UITableViewCell() }
+        cell.configure(data: viewModel.survey[indexPath.row])
+        cell.tapSubject
+            .subscribe(onNext: { [weak self] survey, state in
+                if state == .tapped {
+                    self?.viewModel.selectedArray.append(survey)
+                } else {
+                    self?.viewModel.selectedArray.removeAll(where: { $0 == survey })
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }

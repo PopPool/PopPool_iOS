@@ -40,7 +40,7 @@ final class TermsViewCPNT: UIStackView {
     
     // MARK: - Properties
     /// 체크 상태를 나타내는 BehaviorRelay
-    let isCheck: BehaviorRelay<Bool> = .init(value: false)
+    var isCheck: BehaviorRelay<Bool> = .init(value: false)
     private let disposeBag = DisposeBag()
     
     init(title: String) {

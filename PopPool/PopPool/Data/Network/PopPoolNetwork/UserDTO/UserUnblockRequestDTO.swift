@@ -8,6 +8,6 @@
 import Foundation
 
 struct UserUnblockRequestDTO: Encodable {
-    var blockerUserId: String
+    var userId: String
     var blockedUserId: String
 }

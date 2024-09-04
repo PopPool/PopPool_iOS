@@ -77,6 +77,7 @@ final class ContentTitleCPNT: UIStackView {
     
     let subTitleLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         return label
     }()
     
@@ -156,6 +157,9 @@ private extension ContentTitleCPNT {
             middleSpacingView.snp.makeConstraints { make in
                 make.height.equalTo(Constants.spaceGuide.small100)
             }
+            
+            titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+            subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             
             self.addArrangedSubview(topSpacingView)
             self.addArrangedSubview(titleLabel)

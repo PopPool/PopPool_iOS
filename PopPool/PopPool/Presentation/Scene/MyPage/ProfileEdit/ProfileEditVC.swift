@@ -78,6 +78,12 @@ final class ProfileEditVC: BaseViewController {
         return view
     }()
     
+    private let connectSocialView: ListMenuViewCPNT = {
+        let view = ListMenuViewCPNT(title: "연결된 소셜 계정", style: .normal)
+        view.iconImageView.image = nil
+        return view
+    }()
+    
     private let sectionLabel: UILabel = {
         let label = UILabel()
         label.text = "맞춤정보"
@@ -209,10 +215,15 @@ private extension ProfileEditVC {
             make.top.equalTo(introLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(20)
         }
+        contentView.addSubview(connectSocialView)
+        connectSocialView.snp.makeConstraints { make in
+            make.top.equalTo(introTextField.snp.bottom).offset(Constants.spaceGuide.small300)
+            make.leading.trailing.equalToSuperview()
+        }
         contentView.addSubview(sectionLabel)
         sectionLabel.snp.makeConstraints { make in
             make.height.equalTo(22)
-            make.top.equalTo(introTextField.snp.bottom).offset(27)
+            make.top.equalTo(connectSocialView.snp.bottom).offset(Constants.spaceGuide.small300)
             make.leading.equalToSuperview().inset(20)
         }
         contentView.addSubview(categoryView)
@@ -297,6 +308,12 @@ private extension ProfileEditVC {
                 let categoryString = originData.interestCategoryList.count == 0 ? "" : originData.interestCategoryList.count == 1 ? originData.interestCategoryList.first!.interestCategory : originData.interestCategoryList.first!.interestCategory + "외 \(originData.interestCategoryList.count - 1) 개"
                 owner.categoryView.rightLabel.text = categoryString
                 owner.userInfoView.rightLabel.text = originData.gender + " " + String(originData.age) + "세"
+                guard let social = Constants.userId.components(separatedBy: "@").last else { return }
+                if social == "kakao" {
+                    owner.connectSocialView.iconImageView.image = UIImage(named: "kakoLogo=UserEdit")
+                } else {
+                    owner.connectSocialView.iconImageView.image = nil
+                }
             }
             .disposed(by: disposeBag)
         
