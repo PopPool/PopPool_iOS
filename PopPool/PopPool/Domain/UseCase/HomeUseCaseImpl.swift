@@ -9,15 +9,25 @@ import Foundation
 import RxSwift
 
 final class HomeUseCaseImpl: HomeUseCase {
-        
+    
     var repository: HomeRepository
     
     init(repository: HomeRepository) {
         self.repository = repository
     }
     
-    func fetchHome(userId: String) -> Observable<GetHomeInfoResponse> {
-        repository.fetchHome(userId: userId)
+    func fetchHome(
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
+    ) -> Observable<GetHomeInfoResponse> {
+        repository.fetchHome(
+            userId: userId,
+            page: page,
+            size: size,
+            sort: sort
+        )
     }
     
     func fetchPopular(userId: String) -> Observable<GetHomeInfoResponse> {

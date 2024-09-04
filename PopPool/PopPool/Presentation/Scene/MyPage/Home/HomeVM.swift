@@ -7,20 +7,28 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class HomeVM: ViewModelable {
+final class HomeVM: ViewModelable {
     struct Input {
         
     }
     
     struct Output {
-        
+        var myHomeAPIResponse: Observable<GetHomeInfoResponse>
     }
-
+    
+    var myHomeAPIResponse: BehaviorRelay<GetHomeInfoResponse> = .init(
+        value: .init(
+            customPopUpStoreList: [],
+            loginYn: true
+        ))
     var disposeBag = DisposeBag()
-
+    
     func transform(input: Input) -> Output {
-        return Output()
+        
+        return Output(
+            myHomeAPIResponse: myHomeAPIResponse.asObservable()
+        )
     }
-
 }

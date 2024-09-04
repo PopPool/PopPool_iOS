@@ -11,7 +11,10 @@ import RxSwift
 protocol HomeRepository {
     
     func fetchHome(
-        userId: String
+        userId: String,
+        page: Int32,
+        size: Int32,
+        sort: [String]?
     ) -> Observable<GetHomeInfoResponse>
     
     func fetchPopular(

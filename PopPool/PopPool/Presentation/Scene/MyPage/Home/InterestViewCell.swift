@@ -11,9 +11,10 @@ import RxSwift
 
 final class InterestViewCell: UICollectionViewCell {
     
+    // MARK: - Component
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo")
         return imageView
     }()
     
@@ -40,6 +41,8 @@ final class InterestViewCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -49,6 +52,15 @@ final class InterestViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        descriptionLabel.text = nil
+        titleLabel.text = nil
+        imageView.image = UIImage(systemName: "photo")
+    }
+    
+    // MARK: - Methods
     
     public func configure(title: String, category: String, image: UIImage?) {
         titleLabel.text = title
@@ -78,5 +90,37 @@ final class InterestViewCell: UICollectionViewCell {
         contentStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+}
+
+extension InterestViewCell: Cellable {
+    
+    struct Input {
+        var image: URL?
+        var category: String?
+        var title: String?
+        var location: String?
+        var date: String?
+    }
+    
+    struct Output {
+        
+    }
+    
+    /// 맞춤 관심 역할을 하는 cell에 데이터를 주입하는 메서드
+    /// - Parameter input: Input 값을 받습니다
+    func injectionWith(input: Input) {
+        imageView.kf.indicatorType = .activity
+        if let popularPopUp = input.image {
+            imageView.kf.setImage(with: popularPopUp)
+            descriptionLabel.text = input.title
+            titleLabel.text = "#\(input.date)까지 열리는\n#\(input.category) #\(input.location)"
+        } else {
+            imageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
+        }
+    }
+    
+    func getOutput() -> Output {
+        return Output()
     }
 }

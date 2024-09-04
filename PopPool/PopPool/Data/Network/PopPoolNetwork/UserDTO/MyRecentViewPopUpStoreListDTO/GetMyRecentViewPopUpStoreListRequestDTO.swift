@@ -8,6 +8,7 @@
 import Foundation
 
 struct GetMyRecentViewPopUpStoreListRequestDTO: Encodable, Pageable {
+    var userId: String?
     var page: Int32
     var size: Int32
     var sort: [String]?

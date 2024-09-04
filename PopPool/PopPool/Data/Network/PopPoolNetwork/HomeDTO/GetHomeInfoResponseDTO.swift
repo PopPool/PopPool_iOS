@@ -9,32 +9,32 @@ import Foundation
 
 struct GetHomeInfoResponseDTO: Decodable {
     var nickname: String
-    var customPopUpStoreList: [PopUpStoreDTO]
+    var customPopUpStoreList: [HomePopUpDTO]
     var customPopUpStoreTotalPages: Int32
     var customPopUpStoreTotalElements: Int64
-    var popularPopUpStoreList: [PopUpStoreDTO]
+    var popularPopUpStoreList: [HomePopUpDTO]
     var popularPopUpStoreTotalPages: Int32
     var popularPopUpStoreTotalElements: Int64
-    var newPopUpStoreList: [PopUpStoreDTO]
+    var newPopUpStoreList: [HomePopUpDTO]
     var newPopUpStoreTotalPages: Int32
     var newPopUpStoreTotalElements: Int64
-    var login: Bool
+    var loginYn: Bool
 }
 
 extension GetHomeInfoResponseDTO {
     func toDomain() -> GetHomeInfoResponse {
         return .init(
             nickname: nickname,
-            curatedPopUpStoreList: customPopUpStoreList,
-            curatedPopUpStoreTotalPages: customPopUpStoreTotalPages,
-            curatedPopUpStoreTotalElements: customPopUpStoreTotalElements,
-            popularPopUpStoreList: popularPopUpStoreList,
+            customPopUpStoreList: customPopUpStoreList.map { $0.toDomain() },
+            customPopUpStoreTotalPages: customPopUpStoreTotalPages,
+            customPopUpStoreTotalElements: customPopUpStoreTotalElements,
+            popularPopUpStoreList: popularPopUpStoreList.map { $0.toDomain() },
             popularPopUpStoreTotalPages: popularPopUpStoreTotalPages,
             popularPopUpStoreTotalElements: popularPopUpStoreTotalElements,
-            newPopUpStoreList: newPopUpStoreList,
+            newPopUpStoreList: newPopUpStoreList.map { $0.toDomain() },
             newPopUpStoreTotalPages: newPopUpStoreTotalPages,
             newPopUpStoreTotalElements: newPopUpStoreTotalElements,
-            login: login
+            loginYn: loginYn
         )
     }
 }
