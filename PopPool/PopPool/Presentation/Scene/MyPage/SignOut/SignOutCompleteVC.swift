@@ -34,16 +34,18 @@ final class SignOutCompleteVC: UIViewController {
     // MARK: - Properties
     
     private let disposeBag = DisposeBag()
+    private let viewModel: SignOutCompleteVM
     
     // MARK: - Initializer
     
-    init() {
+    init(viewModel: SignOutCompleteVM) {
         self.headerView = HeaderViewCPNT(title: "회원탈퇴", style: .icon(UIImage(systemName: "lasso")))
         self.signOutConfirmImage = UIImageView(image: UIImage(named: "check_fill_signUp"))
         self.signOutNoticeLabel = ContentTitleCPNT(title: "탈퇴 완료\n다음에 또 만나요",
                                                    type: .title_sub_fp(
                                                     subTitle: "고객님이 만족하실 수 있는\n팝풀이 되도록 앞으로 노력할게요 :)"))
         self.confirmButton = ButtonCPNT(type: .primary, title: "확인")
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -64,8 +66,11 @@ final class SignOutCompleteVC: UIViewController {
     // MARK: - Private Methods
     
 extension SignOutCompleteVC {
-    func bind() {
-        confirmButton.rx.tap
+    private func bind() {
+        let input = SignOutCompleteVM.Input(deleteUserTapped: confirmButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        output.returnToRoot
             .withUnretained(self)
             .subscribe{ (owner, _) in
                 owner.navigationController?.popToRootViewController(animated: true)
@@ -73,7 +78,7 @@ extension SignOutCompleteVC {
             .disposed(by: disposeBag)
     }
     
-    func setUp() {
+    private func setUp() {
         headerView.isHidden = true
         view.backgroundColor = .systemBackground
         signOutNoticeLabel.titleLabel.textAlignment = .center
@@ -84,7 +89,7 @@ extension SignOutCompleteVC {
         signOutNoticeLabel.subTitleLabel.adjustsFontSizeToFitWidth = true
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         view.addSubview(headerView)
         view.addSubview(stackView)
         view.addSubview(confirmButton)
