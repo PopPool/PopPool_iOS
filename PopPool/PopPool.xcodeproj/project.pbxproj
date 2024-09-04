@@ -265,6 +265,9 @@
 		BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1332C2DD102007BDCA4 /* Factory.swift */; };
 		BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */; };
 		BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA698CF2C64869D0056450A /* HomeAlertVM.swift */; };
+		BDB404252C86F93B005DF672 /* PP_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB404242C86F93B005DF672 /* PP_loading.json */; };
+		BDB404272C86FA4E005DF672 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB404262C86FA4E005DF672 /* LoadingIndicator.swift */; };
+		BDB4042A2C86FB3F005DF672 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BDB404292C86FB3F005DF672 /* Lottie */; };
 		BDB4F0EE2C77354D004EA8FD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4F0ED2C77354D004EA8FD /* Secrets.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
 		BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */; };
@@ -576,6 +579,8 @@
 		BDA0B1332C2DD102007BDCA4 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		BDA0B1362C2E622B007BDCA4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		BDA698CF2C64869D0056450A /* HomeAlertVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAlertVM.swift; sourceTree = "<group>"; };
+		BDB404242C86F93B005DF672 /* PP_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PP_loading.json; sourceTree = "<group>"; };
+		BDB404262C86FA4E005DF672 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		BDB4F0ED2C77354D004EA8FD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
 		BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVC.swift; sourceTree = "<group>"; };
@@ -629,6 +634,7 @@
 				085105992C1033E600ED7DBB /* RxKakaoSDKTalk in Frameworks */,
 				0851058F2C1033E600ED7DBB /* RxKakaoSDKAuth in Frameworks */,
 				087346482C0AAF7000534FFA /* RxCocoa in Frameworks */,
+				BDB4042A2C86FB3F005DF672 /* Lottie in Frameworks */,
 				085105972C1033E600ED7DBB /* RxKakaoSDKShare in Frameworks */,
 				085105932C1033E600ED7DBB /* RxKakaoSDKCommon in Frameworks */,
 				089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */,
@@ -872,6 +878,7 @@
 			children = (
 				BDF4F29D2C242FE8002F4F03 /* Font */,
 				087346192C0AAD2B00534FFA /* Assets.xcassets */,
+				BDB404242C86F93B005DF672 /* PP_loading.json */,
 				0873461B2C0AAD2B00534FFA /* LaunchScreen.storyboard */,
 				BDB4F0ED2C77354D004EA8FD /* Secrets.swift */,
 				0873461E2C0AAD2B00534FFA /* Info.plist */,
@@ -1434,6 +1441,7 @@
 				08E23ACD2C535485004B77B6 /* ListMenuViewCPNT.swift */,
 				BD0109A52C60942E00B2AF21 /* ListDropDownCPNT.swift */,
 				BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */,
+				BDB404262C86FA4E005DF672 /* LoadingIndicator.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1879,6 +1887,7 @@
 				089D19052C31A620000435D9 /* IQKeyboardManagerSwift */,
 				08AF8D912C67682B006B8A11 /* Kingfisher */,
 				4E4DC0022C614726007CE63A /* GoogleMaps */,
+				BDB404292C86FB3F005DF672 /* Lottie */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -1960,6 +1969,7 @@
 				089D19042C31A5B0000435D9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
+				BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -1981,6 +1991,7 @@
 				BDF4F2A22C243035002F4F03 /* Poppins-Regular.ttf in Resources */,
 				BDF4F2A42C243035002F4F03 /* Poppins-Light.ttf in Resources */,
 				0873461D2C0AAD2B00534FFA /* LaunchScreen.storyboard in Resources */,
+				BDB404252C86F93B005DF672 /* PP_loading.json in Resources */,
 				BDF4F2A52C243035002F4F03 /* Poppins-Medium.ttf in Resources */,
 				0873461A2C0AAD2B00534FFA /* Assets.xcassets in Resources */,
 				BDF4F2AB2C24304F002F4F03 /* GothicA1-Medium.ttf in Resources */,
@@ -2225,6 +2236,7 @@
 				08E23A702C4E1CE1004B77B6 /* CheckedSurveyListRequestDTO.swift in Sources */,
 				BDCA566C2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
+				BDB404272C86FA4E005DF672 /* LoadingIndicator.swift in Sources */,
 				BDEAE4BC2C713F9700D96D41 /* InterestViewCell.swift in Sources */,
 				08A28CBA2C2AC44300DF7A90 /* SignUpVM.swift in Sources */,
 				08C813E42C2E9FB0009239FE /* SignUpAgeSelectedButton.swift in Sources */,
@@ -2686,6 +2698,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2768,6 +2788,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMaps;
+		};
+		BDB404292C86FB3F005DF672 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
