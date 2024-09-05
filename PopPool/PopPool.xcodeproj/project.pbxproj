@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		081FAF402C89E15100CF8AD6 /* PreSignedURLDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF3F2C89E15100CF8AD6 /* PreSignedURLDTO.swift */; };
+		081FAF422C89E15D00CF8AD6 /* PresignedURLRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF412C89E15D00CF8AD6 /* PresignedURLRequestDTO.swift */; };
+		081FAF462C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF452C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift */; };
+		081FAF482C89E71700CF8AD6 /* PreSignedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF472C89E71700CF8AD6 /* PreSignedService.swift */; };
+		081FAF4A2C89E7E200CF8AD6 /* PreSignedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF492C89E7E200CF8AD6 /* PreSignedTestViewController.swift */; };
 		084BC9602C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */; };
 		084BC9622C7F539E00C57494 /* UserBookMarkRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */; };
 		084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */; };
@@ -325,6 +330,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		081FAF3F2C89E15100CF8AD6 /* PreSignedURLDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedURLDTO.swift; sourceTree = "<group>"; };
+		081FAF412C89E15D00CF8AD6 /* PresignedURLRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedURLRequestDTO.swift; sourceTree = "<group>"; };
+		081FAF452C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedURLResponseDTO.swift; sourceTree = "<group>"; };
+		081FAF472C89E71700CF8AD6 /* PreSignedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedService.swift; sourceTree = "<group>"; };
+		081FAF492C89E7E200CF8AD6 /* PreSignedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedTestViewController.swift; sourceTree = "<group>"; };
 		084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListRequestDTO.swift; sourceTree = "<group>"; };
 		084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookMarkRequestDTO.swift; sourceTree = "<group>"; };
 		084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
@@ -659,6 +669,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		081FAF3B2C89DC9D00CF8AD6 /* PreSignedURL */ = {
+			isa = PBXGroup;
+			children = (
+				081FAF472C89E71700CF8AD6 /* PreSignedService.swift */,
+				081FAF492C89E7E200CF8AD6 /* PreSignedTestViewController.swift */,
+			);
+			path = PreSignedURL;
+			sourceTree = "<group>";
+		};
+		081FAF3C2C89E0E500CF8AD6 /* PreSignedURLDTO */ = {
+			isa = PBXGroup;
+			children = (
+				081FAF412C89E15D00CF8AD6 /* PresignedURLRequestDTO.swift */,
+				081FAF3F2C89E15100CF8AD6 /* PreSignedURLDTO.swift */,
+				081FAF452C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift */,
+			);
+			path = PreSignedURLDTO;
+			sourceTree = "<group>";
+		};
 		082025AA2C63A93900FC9BA4 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -775,6 +804,7 @@
 		0851057B2C102E6800ED7DBB /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				081FAF3B2C89DC9D00CF8AD6 /* PreSignedURL */,
 				BDF3B2BB2C0BFC3300B079C5 /* Common */,
 				BDF3B2BC2C0BFC9900B079C5 /* EndPoint */,
 				BDF3B2BA2C0BFA0C00B079C5 /* Provider */,
@@ -1149,6 +1179,7 @@
 			isa = PBXGroup;
 			children = (
 				08B9658E2C16004D00BF95AA /* PopPoolAPIEndPoint.swift */,
+				081FAF3C2C89E0E500CF8AD6 /* PreSignedURLDTO */,
 				4E4DC0142C620199007CE63A /* MapDTO */,
 				08E23A7B2C4F6B45004B77B6 /* Protocol */,
 				BD60B27A2C75A01D0062DC96 /* HomeDTO */,
@@ -2083,6 +2114,7 @@
 				08AF8D8F2C672C3D006B8A11 /* ProfileEditVC.swift in Sources */,
 				4E184D642C6F1FD500573A2E /* FavoritePopUpVM.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
+				081FAF4A2C89E7E200CF8AD6 /* PreSignedTestViewController.swift in Sources */,
 				08933CEC2C5E533B006F6632 /* UserUseCaseImpl.swift in Sources */,
 				BDE88FD72C83568100AF9EFF /* SignOutVM.swift in Sources */,
 				4E4DC00D2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift in Sources */,
@@ -2093,6 +2125,7 @@
 				4E184D622C6F1FD500573A2E /* FavoritePopUpFilterModalVC.swift in Sources */,
 				08FF6C8C2C79C15300B68569 /* NoticeUseCaseImpl.swift in Sources */,
 				08C813F52C2EFA3D009239FE /* SignUpRepositoryImpl.swift in Sources */,
+				081FAF462C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift in Sources */,
 				089D19152C366E1A000435D9 /* Category.swift in Sources */,
 				08E23A7D2C4F6B54004B77B6 /* Pageable.swift in Sources */,
 				089D190A2C33C4A3000435D9 /* SignUpTermsModalVC.swift in Sources */,
@@ -2137,6 +2170,7 @@
 				08E23ABF2C4F8E49004B77B6 /* GetWithDrawlSurveyResponse.swift in Sources */,
 				0896A05E2C79F9380062CC49 /* Date+.swift in Sources */,
 				4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */,
+				081FAF402C89E15100CF8AD6 /* PreSignedURLDTO.swift in Sources */,
 				BD60B2792C75A0010062DC96 /* GetHomeInfoResponse.swift in Sources */,
 				08A28CB62C2A97E300DF7A90 /* ContentTitleCPNT.swift in Sources */,
 				BD0D190F2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift in Sources */,
@@ -2204,6 +2238,7 @@
 				BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */,
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */,
+				081FAF422C89E15D00CF8AD6 /* PresignedURLRequestDTO.swift in Sources */,
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
 				BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */,
@@ -2262,6 +2297,7 @@
 				08F49DF62C2323C2002D5202 /* TryLoginUseCaseImpl.swift in Sources */,
 				08E23A442C477965004B77B6 /* KeyChainServiceImpl.swift in Sources */,
 				BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */,
+				081FAF482C89E71700CF8AD6 /* PreSignedService.swift in Sources */,
 				08C813E22C2D8AA2009239FE /* SignUpStep4View.swift in Sources */,
 				08FF6C8A2C79C0C800B68569 /* NoticeRepository.swift in Sources */,
 				BD0D191F2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift in Sources */,

@@ -418,4 +418,22 @@ struct PopPoolAPIEndPoint {
             queryParameters: request
         )
     }
+    
+    static func presigned_upload(request: PresignedURLRequestDTO) -> Endpoint<PreSignedURLResponseDTO>{
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/files/upload-preSignedUrl",
+            method: .post,
+            bodyParameters: request
+        )
+    }
+    
+    static func presigned_download(request: PresignedURLRequestDTO) -> Endpoint<PreSignedURLResponseDTO>{
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/files/download-preSignedUrl",
+            method: .post,
+            bodyParameters: request
+        )
+    }
 }
