@@ -167,6 +167,7 @@ extension AppDelegate {
                 tokenInterceptor: container.resolve(type: TokenInterceptor.self),
                 keyChainService: container.resolve(type: KeyChainService.self)
 
+                
             )
         )
         

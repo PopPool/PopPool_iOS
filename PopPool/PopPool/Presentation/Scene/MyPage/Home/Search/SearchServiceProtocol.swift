@@ -36,7 +36,6 @@ class SearchService: SearchServiceProtocol {
                     case .responseSerializationFailed(let reason):
                         print("Response serialization failed: \(reason)")
                         if case .inputDataNilOrZeroLength = reason {
-                            // 빈 배열 반환 또는 다른 적절한 처리
                             return .just([])
                         }
                     case .responseValidationFailed(let reason):

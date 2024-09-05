@@ -35,6 +35,9 @@ final class LoggedHomeVC: BaseViewController {
     
     private let header: SearchViewCPNT
     private let viewModel: HomeVM
+    private let userId: String
+
+
 
 
     private lazy var collectionView: UICollectionView = {
@@ -83,6 +86,8 @@ final class LoggedHomeVC: BaseViewController {
     
     init(viewModel: HomeVM) {
           self.viewModel = viewModel
+        self.userId = userId
+
           self.header = SearchViewCPNT(viewModel: SearchViewModel())
         super.init() 
       }

@@ -1,6 +1,7 @@
-import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class SearchViewModel {
     struct Input {

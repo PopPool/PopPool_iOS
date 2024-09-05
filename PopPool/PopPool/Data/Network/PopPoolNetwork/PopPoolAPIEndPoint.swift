@@ -418,7 +418,7 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
-
+/// Map, Search
     static func search_popUpStores(query: String) -> Endpoint<[PopUpStoreDTO]> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
@@ -427,7 +427,7 @@ struct PopPoolAPIEndPoint {
             queryParameters: ["query": query]
         )
     }
-    /// 모든 팝업 스토어를 가져옵니다.
+    /// 지도에서 모든 팝업 스토어를 가져옵니다.
     /// - Returns: 모든 팝업 스토어 정보를 가져오는 Endpoint
     static func getAllStores() -> Endpoint<[PopUpStoreDTO]> {
         return Endpoint(
@@ -436,6 +436,28 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
+    /// 맞춤 팝업 스토어 전체 보기
+       /// - Parameters:
+       ///   - userId: 유저 아이디
+       ///   - page: 페이지 번호
+       ///   - size: 페이지 크기
+       ///   - sort: 정렬 방식
+       /// - Returns: Endpoint<GetCustomPopUpStoreImageResponseDTO>
+       static func home_fetchCustomPopUpStores(userId: String, page: Int, size: Int, sort: String) -> Endpoint<GetCustomPopUpStoreImageResponseDTO> {
+           let queryParameters: [String: String] = [
+               "userId": userId,
+               "page": String(page),
+               "size": String(size),
+               "sort": sort
+           ]
+
+           return Endpoint(
+               baseURL: Secrets.popPoolBaseUrl.rawValue,
+               path: "/home/custom/popup-stores",
+               method: .get,
+               queryParameters: queryParameters
+           )
+       }
 
     /// 팝업 스토어를 검색합니다.
     /// - Parameter query: 검색 쿼리
@@ -448,6 +470,7 @@ struct PopPoolAPIEndPoint {
             queryParameters: ["query": query]
         )
     }
+    
 
     /// 특정 범위 내의 팝업 스토어를 가져옵니다.
     /// - Parameters:

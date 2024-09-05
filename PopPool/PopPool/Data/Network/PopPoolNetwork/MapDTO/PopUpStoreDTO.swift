@@ -7,13 +7,14 @@ struct PopUpStoreDTO: Codable {
     let category: String
     let name: String
     let address: String
-    let startDate: String  // ISO 8601 형식의 날짜 문자열
-    let endDate: String    // ISO 8601 형식의 날짜 문자열
+    let startDate: String
+    let endDate: String    
     let latitude: Double
     let longitude: Double
-    let markerId: Int
+    let markerId: Int64  
     let markerTitle: String
     let markerSnippet: String
+    
 
     func toDomain() -> PopUpStore {
         return PopUpStore(

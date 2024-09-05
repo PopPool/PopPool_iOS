@@ -163,19 +163,20 @@ private extension LoginVC {
                             provider: provider,
                             myPageResponse: myPageResponse,
                             accessToken: loginResponse.accessToken,
-                            userUseCase: useCase 
+                            userUseCase: useCase,
+                            userId: loginResponse.userId
 
                         )
 
                         // MapVC 생성
-                        let mapViewModel = MapVM(storeService: storeService)
-                        let mapVC = MapVC(viewModel: mapViewModel)
-
+                        let mapViewModel = MapVM(storeService: storeService, userId: Constants.userId)
+                        let mapVC = MapVC(viewModel: mapViewModel, userId: loginResponse.userId)
+                        
                         let homeRepository = HomeRepositoryImpl()
                         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
-                        
+    
                         let homeVM = HomeVM(useCase: homeUseCase)
-                        let loggedHomeVC = LoggedHomeVC(viewModel: homeVM)
+                        let loggedHomeVC = LoggedHomeVC(viewModel: homeVM, userId: loginResponse.userId)
 
                         let vm = MyPageMainVM(response: myPageResponse, userUseCase: useCase)
                         vm.myCommentSection.sectionCellInputList = [

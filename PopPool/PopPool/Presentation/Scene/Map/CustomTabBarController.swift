@@ -8,14 +8,17 @@ class CustomTabBarController: UITabBarController {
     private let myPageResponse: GetMyPageResponse
     private let accessToken: String
     private let userUseCase: UserUseCase
+    private let userId: String
 
-    init(storeService: StoresService, provider: ProviderImpl, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase) {
+    init(storeService: StoresService, provider: ProviderImpl, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String) {
         self.storeService = storeService
         self.provider = provider
         self.myPageResponse = myPageResponse
         self.accessToken = accessToken
         self.userUseCase = userUseCase
+        self.userId = userId
         self.customTabBar = CustomTabBarCPNT(items: [.map, .home, .my])
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,13 +34,14 @@ class CustomTabBarController: UITabBarController {
 
     private func setupViewControllers() {
 
-        let mapViewModel = MapVM(storeService: storeService)
-        let mapVC = MapVC(viewModel: mapViewModel)
+        let mapVM = MapVM(storeService: storeService, userId: Constants.userId)
+        let mapVC = MapVC(viewModel: mapVM, userId: Constants.userId)
+
 
         let homeRepository = HomeRepositoryImpl() 
         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
         let homeVM = HomeVM(useCase: homeUseCase)
-        let loggedHomeVC = LoggedHomeVC(viewModel: homeVM)
+        let loggedHomeVC = LoggedHomeVC(viewModel: homeVM, userId: Constants.userId)
         print("LoggedHomeVC 생성됨")
 
         let myPageViewModel = MyPageMainVM(response: myPageResponse, userUseCase: userUseCase)
