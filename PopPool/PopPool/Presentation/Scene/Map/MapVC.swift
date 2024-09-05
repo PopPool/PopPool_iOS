@@ -9,8 +9,8 @@ class MapVC: BaseViewController {
     private let viewModel: MapVM
     private let disposeBag = DisposeBag()
     private var selectedCategories: [String] = []
-    
-    
+
+
     // MARK: - UI Components
     private lazy var mapView: GMSMapView = {
         let camera = GMSCameraPosition.camera(withLatitude: 37.5665, longitude: 126.9780, zoom: 14.0)
@@ -18,7 +18,7 @@ class MapVC: BaseViewController {
         mapView.delegate = self
         return mapView
     }()
-    
+
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "팝업스토어명, 지역을 입력해보세요"
@@ -34,7 +34,7 @@ class MapVC: BaseViewController {
         }
         return searchBar
     }()
-    
+
     private lazy var locationFilterButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("지역선택", for: .normal)
@@ -47,7 +47,7 @@ class MapVC: BaseViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         return button
     }()
-    
+
     private lazy var categoryFilterButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("카테고리", for: .normal)
@@ -60,10 +60,10 @@ class MapVC: BaseViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         return button
     }()
-    
+
     private lazy var currentLocationButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "location"), for: .normal)
+        button.setImage(UIImage(systemName: "dot.scope"), for: .normal)
         button.backgroundColor = .white
         button.tintColor = .systemBlue
         button.layer.cornerRadius = 20
@@ -73,7 +73,7 @@ class MapVC: BaseViewController {
         button.layer.shadowRadius = 4
         return button
     }()
-    
+
     private lazy var listViewButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "list.bullet"), for: .normal)
@@ -86,16 +86,16 @@ class MapVC: BaseViewController {
         button.layer.shadowRadius = 4
         return button
     }()
-    
+
     private lazy var popupCardView: PopupCardView = {
         let view = PopupCardView()
         return view
     }()
-    
+
     private lazy var popupListView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 16
+        layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 10
         let width = (UIScreen.main.bounds.width - 48) / 2 // 2열로 설정, 좌우 여백 16씩, 중간 여백 16
         layout.itemSize = CGSize(width: width, height: 300)
@@ -103,32 +103,30 @@ class MapVC: BaseViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PopupListCell.self, forCellWithReuseIdentifier: PopupListCell.reuseIdentifier)
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 16, left: 10, bottom: 10, right: 10)
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         return collectionView
     }()
     private var resizeIndicator: UIView!
-    
+
     // MARK: - Initialization
     init(viewModel: MapVM, userId: String) {
         let storeService = AppDIContainer.shared.resolve(type: StoresServiceProtocol.self)
         self.viewModel = viewModel
         super.init()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
         setupTapGesture()
-         setupListViewPanGesture()
-
     }
-    
+
     // MARK: - Setup Methods
     private func setupUI() {
         view.addSubview(mapView)
@@ -139,64 +137,65 @@ class MapVC: BaseViewController {
         view.addSubview(popupCardView)
         view.addSubview(locationFilterButton)
         view.addSubview(categoryFilterButton)
-        
-        
-        
-        
+
+
+
+
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(-30)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(40)
         }
-        
+
         locationFilterButton.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
             make.height.equalTo(32)
         }
-        
+
         categoryFilterButton.snp.makeConstraints { make in
             make.top.equalTo(locationFilterButton)
             make.leading.equalTo(locationFilterButton.snp.trailing).offset(8)
             make.height.equalTo(32)
             make.trailing.lessThanOrEqualToSuperview().inset(16)
         }
-        
+
         currentLocationButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalTo(popupCardView.snp.top).offset(-16)
             make.width.height.equalTo(40)
         }
-        
+
         listViewButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalTo(currentLocationButton.snp.top).offset(-16)
             make.width.height.equalTo(40)
         }
-        
+
         popupCardView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.height.equalTo(100)
         }
         popupCardView.isHidden = true
-        
-        
+
+
         popupListView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(view.frame.height)
-//            make.height.equalTo(view.frame.height / 2)
+            make.top.equalTo(self.view.snp.bottom)
         }
-        
+        popupListView.alpha = 0
+
+
         resizeIndicator = UIView()
         resizeIndicator.backgroundColor = .lightGray
         resizeIndicator.layer.cornerRadius = 2
         popupListView.addSubview(resizeIndicator)
-        
+
         resizeIndicator.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.centerX.equalToSuperview()
@@ -204,25 +203,21 @@ class MapVC: BaseViewController {
             make.height.equalTo(4)
         }
     }
-    
-    private func setupListViewPanGesture() {
-           let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-           popupListView.addGestureRecognizer(panGesture)
-       }
+
     private func bindViewModel() {
-        
+
         viewModel.selectedFilters
             .subscribe(onNext: { [weak self] _ in
                 self?.updateFilterButtons()
             })
             .disposed(by: disposeBag)
-        
+
         searchBar.rx.text.orEmpty
             .debounce(.milliseconds(1000), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .bind(to: viewModel.input.searchQuery)
             .disposed(by: disposeBag)
-        
+
         viewModel.output.filteredStores
             .bind(to: popupListView.rx.items(cellIdentifier: PopupListCell.reuseIdentifier, cellType: PopupListCell.self)) { index, store, cell in
                 cell.configure(with: store)
@@ -251,8 +246,8 @@ class MapVC: BaseViewController {
                 self?.updateMapWithStores(stores)
             })
             .disposed(by: disposeBag)
-        
-        
+
+
 
         viewModel.output.storeImages
             .subscribe(onNext: { [weak self] images in
@@ -263,7 +258,7 @@ class MapVC: BaseViewController {
             })
             .disposed(by: disposeBag)
 
-        
+
         viewModel.output.searchLocation
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] location in
@@ -272,23 +267,23 @@ class MapVC: BaseViewController {
                 self.mapView.animate(to: camera)
             })
             .disposed(by: disposeBag)
-        
+
         currentLocationButton.rx.tap
             .bind(to: viewModel.input.currentLocationRequested)
             .disposed(by: disposeBag)
-        
+
         listViewButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.showListView()
             })
             .disposed(by: disposeBag)
-        
+
         locationFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.showFilterBottomSheet(isCategoryFilter: false)
             })
             .disposed(by: disposeBag)
-        
+
         categoryFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.showFilterBottomSheet(isCategoryFilter: true)
@@ -299,14 +294,14 @@ class MapVC: BaseViewController {
                 self?.handleFilterButtonTap(isLocationFilter: true)
             })
             .disposed(by: disposeBag)
-        
+
         categoryFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.handleFilterButtonTap(isLocationFilter: false)
             })
             .disposed(by: disposeBag)
-        
-        
+
+
         viewModel.output.currentLocation
             .subscribe(onNext: { [weak self] location in
                 guard let location = location else { return }
@@ -314,20 +309,20 @@ class MapVC: BaseViewController {
                 self?.mapView.animate(to: camera)
             })
             .disposed(by: disposeBag)
-        
+
         viewModel.output.errorMessage
             .subscribe(onNext: { [weak self] message in
                 self?.showError(message)
             })
             .disposed(by: disposeBag)
-        
+
         searchBar.rx.searchButtonClicked
             .subscribe(onNext: { [weak self] in
                 self?.searchBar.resignFirstResponder()
             })
             .disposed(by: disposeBag)
     }
-    
+
     // MARK: - Helper Methods
     private func updateMapWithStores(_ stores: [PopUpStore]) {
         mapView.clear()
@@ -341,8 +336,8 @@ class MapVC: BaseViewController {
             print("마커 추가됨: \(marker.position.latitude), \(marker.position.longitude) - \(marker.title ?? "")")
         }
     }
-    
-    
+
+
     private func moveCameraToStore(_ store: PopUpStore) {
         let position = GMSCameraPosition.camera(withLatitude: store.latitude, longitude: store.longitude, zoom: 14.0)
         mapView.animate(to: position)
@@ -352,11 +347,11 @@ class MapVC: BaseViewController {
             guard let popupCell = cell as? PopupListCell,
                   let store = popupCell.store,
                   let image = images[String(store.id)] else { continue }
-            
+
             popupCell.configureImage(with: image)
         }
     }
-    
+
     private func updatePopupCardView(for store: PopUpStore) {
         popupCardView.configure(with: store)
 
@@ -374,49 +369,42 @@ class MapVC: BaseViewController {
 
 
     private func showListView() {
-            // 기존 코드 유지
-            let isListViewVisible = popupListView.frame.origin.y < view.frame.height
+        let isListViewVisible = popupListView.frame.origin.y < view.frame.height
 
-            if !isListViewVisible {
-                // 리스트뷰가 올라올 때
-                popupListView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview().offset(view.frame.height / 2)
-                }
-                view.layoutIfNeeded()
+        if !isListViewVisible {
+            // 리스트뷰가 올라올 때
+            popupListView.snp.remakeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+                make.bottom.equalToSuperview()
+            }
 
-                popupListView.alpha = 0
-                UIView.animate(withDuration: 0.3) {
-                    self.popupListView.snp.updateConstraints { make in
-                        make.bottom.equalToSuperview()
-                    }
-                    self.popupListView.alpha = 1
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+                self.popupListView.alpha = 1
 
-                    // 숨기기
-                    self.currentLocationButton.isHidden = true
-                    self.listViewButton.isHidden = true
-                    self.popupCardView.isHidden = true
-                    self.view.layoutIfNeeded()
-                }
-            } else {
-                // 리스트뷰가 내려갈 때
-                UIView.animate(withDuration: 0.3) {
-                    self.popupListView.snp.updateConstraints { make in
-                        make.bottom.equalToSuperview().offset(self.view.frame.height)
-                    }
-                    self.view.layoutIfNeeded()
-                }
+                // 숨기기
+                self.currentLocationButton.isHidden = true
+                self.popupCardView.isHidden = true
+            }
+        } else {
+            // 리스트뷰가 내려갈 때
+            popupListView.snp.remakeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                make.top.equalTo(self.view.snp.bottom)
+            }
+
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+                self.popupListView.alpha = 0
 
                 // 다시 보이기
                 self.currentLocationButton.isHidden = false
-                self.listViewButton.isHidden = false
                 self.popupCardView.isHidden = false
             }
-
-            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-            popupListView.addGestureRecognizer(panGesture)
-
-             animateListViewToTop()
         }
+    }
+
 
     private func showError(_ message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -437,7 +425,7 @@ class MapVC: BaseViewController {
 
         present(filterVC, animated: true, completion: nil)
     }
-    
+
 
 
 
@@ -474,57 +462,40 @@ class MapVC: BaseViewController {
        }
 
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-          let translation = gesture.translation(in: view)
-          let velocity = gesture.velocity(in: view)
-          let topPosition = view.safeAreaInsets.top
-          let bottomPosition = view.frame.height
+        let translation = gesture.translation(in: view)
+        let topPosition = view.safeAreaInsets.top
+        let bottomPosition = view.frame.height
 
-          switch gesture.state {
-          case .changed:
-              let newY = max(topPosition, min(popupListView.frame.origin.y + translation.y, bottomPosition))
-              popupListView.frame.origin.y = newY
-              gesture.setTranslation(.zero, in: view)
+        switch gesture.state {
+        case .changed:
+            let newY = max(topPosition, min(popupListView.frame.origin.y + translation.y, bottomPosition))
+            popupListView.frame.origin.y = newY
+            gesture.setTranslation(.zero, in: view)
+        case .ended:
+            let velocity = gesture.velocity(in: view)
 
-               let progress = (newY - topPosition) / (bottomPosition - topPosition)
-               mapView.alpha = progress
+            if velocity.y > 0 {
+                UIView.animate(withDuration: 0.3) {
+                    self.popupListView.frame.origin.y = bottomPosition
+                    self.searchBar.isHidden = false
+                    self.resizeIndicator.isHidden = false
+                }
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    self.popupListView.frame.origin.y = topPosition
+                    self.popupListView.snp.remakeConstraints { make in
+                        make.top.equalToSuperview()
+                        make.leading.trailing.bottom.equalToSuperview()
+                    }
+                    self.view.layoutIfNeeded()
+                    self.resizeIndicator.isHidden = true
+                }
+            }
 
-          case .ended:
-              // 수정: 속도와 위치에 따른 애니메이션 처리
-              if velocity.y > 500 || popupListView.frame.origin.y > view.frame.height / 2 {
-                  // 아래로 빠르게 스와이프하거나 충분히 내렸을 때
-                  animateListViewToBottom()
-              } else {
-                  // 그 외의 경우 다시 전체 화면으로
-                  animateListViewToTop()
-              }
-
-          default:
-              break
-          }
-      }
-    private func animateListViewToTop() {
-          UIView.animate(withDuration: 0.3) {
-              self.popupListView.frame.origin.y = self.view.safeAreaInsets.top
-              self.mapView.alpha = 0
-              self.searchBar.isHidden = false
-              self.locationFilterButton.isHidden = false
-              self.categoryFilterButton.isHidden = false
-              self.currentLocationButton.isHidden = true
-              self.listViewButton.isHidden = true
-              self.popupCardView.isHidden = true
-              self.resizeIndicator.isHidden = false
-          }
-      }
-    private func animateListViewToBottom() {
-           UIView.animate(withDuration: 0.3) {
-               self.popupListView.frame.origin.y = self.view.frame.height - self.popupListView.frame.height / 2
-               self.mapView.alpha = 1
-               self.currentLocationButton.isHidden = false
-               self.listViewButton.isHidden = false
-               self.popupCardView.isHidden = false
-               self.resizeIndicator.isHidden = true
-           }
-       }
+        default:
+            break
+        }
+    }
 
     // MARK: - 탭 제스처 설정
     private func setupTapGesture() {
