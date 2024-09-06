@@ -30,6 +30,8 @@ final class EntirePopupVC: BaseViewController {
         return view
     }()
     
+    private var allPopUpStores: [HomePopUp] = []
+    
     private let viewModel: EntirePopupVM
     let disposeBag = DisposeBag()
     
@@ -70,10 +72,12 @@ final class EntirePopupVC: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        output.fetchedDataResponse
-            .subscribe(onNext: { data in
+        output.allPopUps
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, data) in
                 print("데이터가 잘 왔나요!", data) // 잘 옵니다!
-                self.entirePopUpCollectionView.reloadData()
+                owner.allPopUpStores.append(contentsOf: data)
+                owner.entirePopUpCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
     }
@@ -105,21 +109,21 @@ final class EntirePopupVC: BaseViewController {
 
 extension EntirePopupVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.response.value.popularPopUpStoreList?.count ?? 0
+        print("전체 값", allPopUpStores.count)
+        return allPopUpStores.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as? HomeDetailPopUpCell else { return UICollectionViewCell() }
         
-        if let popUpStore = viewModel.response.value.popularPopUpStoreList?[indexPath.item] {
-            cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                image: popUpStore.mainImageUrl,
-                category: popUpStore.category,
-                title: popUpStore.name,
-                location: popUpStore.address,
-                date: popUpStore.startDate
-            ))
-        }
+        let popUpStore = allPopUpStores[indexPath.item]
+        cell.injectionWith(input: HomeDetailPopUpCell.Input(
+            image: popUpStore.mainImageUrl,
+            category: popUpStore.category,
+            title: popUpStore.name,
+            location: popUpStore.address,
+            date: popUpStore.startDate
+        ))
         return cell
     }
 }

@@ -62,6 +62,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             owner.userName = response.nickname
             owner.viewModel.myHomeAPIResponse.accept(response)
             owner.viewModel.customPopUpStore.accept(response.customPopUpStoreList ?? [])
+            print("총 맞춤 데이터", owner.viewModel.customPopUpStore)
             owner.viewModel.popularPopUpStore.accept(response.popularPopUpStoreList ?? [])
             owner.viewModel.newPopUpStore.accept(response.newPopUpStoreList ?? [])
         })
@@ -133,13 +134,13 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 snapShot.appendItems(customStores, toSection: .custom)
             }
             
-            print("인기 데이터", popularStores)
-            print("인기 데이터 갯수", popularStores.count)
+//            print("인기 데이터", popularStores)
+//            print("인기 데이터 갯수", popularStores.count)
             snapShot.appendSections([.popular])
             snapShot.appendItems(popularStores, toSection: .popular)
             
-            print("신규 데이터", newStores)
-            print("신규 데이터 갯수", newStores.count)
+//            print("신규 데이터", newStores)
+//            print("신규 데이터 갯수", newStores.count)
             snapShot.appendSections([.new])
             snapShot.appendItems(newStores, toSection: .new)
             
@@ -267,11 +268,11 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     .withUnretained(self)
                     .subscribe(onNext: { (owner, _) in
                         guard self.navigationController?.topViewController == self else { return }
+                        let response = self.viewModel.myHomeAPIResponse.value
                         
                         switch sectionType {
                         case .topBanner: return
                         case .custom:
-                            let response = self.viewModel.myHomeAPIResponse.value
                             let data: GetHomeInfoResponse = .init(
                                 customPopUpStoreList: response.customPopUpStoreList,
                                 customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,
@@ -279,34 +280,32 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                                 loginYn: owner.isLoggedIn
                             )
                             let vm = EntirePopupVM()
-                            vm.response.accept(data)
-                            
+                            vm.fetchedResponse.accept(data)
                             let vc = EntirePopupVC(viewModel: vm)
                             vc.header.titleLabel.text = "큐레이션 팝업 전체보기"
                             owner.navigationController?.pushViewController(vc, animated: true)
+                            
                         case .popular:
-                            let response = owner.viewModel.myHomeAPIResponse.value
                             let data: GetHomeInfoResponse = .init(
                                 popularPopUpStoreList: response.popularPopUpStoreList,
                                 popularPopUpStoreTotalPages: response.popularPopUpStoreTotalPages, popularPopUpStoreTotalElements: response.popularPopUpStoreTotalElements,
                                 loginYn: owner.isLoggedIn
                             )
                             let vm = EntirePopupVM()
-                            vm.response.accept(data)
+                            vm.fetchedResponse.accept(data)
                             
                             let vc = EntirePopupVC(viewModel: vm)
                             vc.header.titleLabel.text = "인기 팝업 전체보기"
                             owner.navigationController?.pushViewController(vc, animated: true)
+                            
                         case .new:
-                            let response = owner.viewModel.myHomeAPIResponse.value
                             let data: GetHomeInfoResponse = .init(
                                 newPopUpStoreList: response.newPopUpStoreList,
                                 newPopUpStoreTotalPages: response.newPopUpStoreTotalPages,
                                 newPopUpStoreTotalElements: response.newPopUpStoreTotalElements,
                                 loginYn: owner.isLoggedIn)
                             let vm = EntirePopupVM()
-                            vm.response.accept(data)
-                            
+                            vm.fetchedResponse.accept(data)
                             let vc = EntirePopupVC(viewModel: vm)
                             vc.header.titleLabel.text = "신규 팝업 전체보기"
                             owner.navigationController?.pushViewController(vc, animated: true)
@@ -319,29 +318,4 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             return nil
         }
     }
-    
-//    private func updateDataSource() {
-//        var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
-//        
-//        let general = viewModel.generalPopUpStore
-//        let custom = viewModel.customPopUpStore
-//        let new = viewModel.newPopUpStore
-//        let popular = viewModel.popularPopUpStore
-//        
-//        snapShot.appendSections([.topBanner])
-//        snapShot.appendItems(general, toSection: .topBanner)
-//        
-//        if isLoggedIn {
-//            snapShot.appendSections([.custom])
-//            snapShot.appendItems(custom, toSection: .custom)
-//        }
-//        
-//        snapShot.appendSections([.popular])
-//        snapShot.appendItems(popular, toSection: .popular)
-//        
-//        snapShot.appendSections([.new])
-//        snapShot.appendItems(new, toSection: .new)
-//        
-//        dataSource.apply(snapShot, animatingDifferences: true)
-//    }
 }
