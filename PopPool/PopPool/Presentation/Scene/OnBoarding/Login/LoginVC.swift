@@ -152,6 +152,8 @@ private extension LoginVC {
         output.moveToHomeVC
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
+                print("로그인 성공, userId: \(loginResponse.userId), accessToken: \(loginResponse.accessToken)")
+
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
@@ -171,14 +173,14 @@ private extension LoginVC {
                         // MapVC 생성
                         let mapViewModel = MapVM(storeService: storeService, userId: Constants.userId)
                         let mapVC = MapVC(viewModel: mapViewModel, userId: loginResponse.userId)
-                        
+
                         let homeRepository = HomeRepositoryImpl()
                         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
     
                         let homeVM = HomeVM(useCase: homeUseCase)
                         let loggedHomeVC = LoggedHomeVC(viewModel: homeVM, userId: loginResponse.userId)
 
-                        let vm = MyPageMainVM(response: myPageResponse, userUseCase: useCase)
+                        let vm = MyPageMainVM()
                         vm.myCommentSection.sectionCellInputList = [
                             .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
                                 title: $0.popUpStoreName,

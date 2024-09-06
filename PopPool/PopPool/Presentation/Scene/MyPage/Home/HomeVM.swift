@@ -12,10 +12,14 @@ import RxCocoa
 final class HomeVM: ViewModelable {
     struct Input {
         let searchQuery: Observable<String>
+        let myHomeAPIResponse: Observable<GetHomeInfoResponse>
+
     }
 
     struct Output {
         let searchResults: Observable<[PopUpStore]>
+        var myHomeAPIResponse: Observable<GetHomeInfoResponse>
+
     }
     
     var generalPopUpStore: [HomePopUp] = []
@@ -46,7 +50,9 @@ final class HomeVM: ViewModelable {
 
         // 검색 결과를 Output으로 전달
         return Output(
-            searchResults: searchViewModel.output.searchResults
+            searchResults: searchViewModel.output.searchResults,
+            myHomeAPIResponse: myHomeAPIResponse.asObservable()
+
         )
     }
 }

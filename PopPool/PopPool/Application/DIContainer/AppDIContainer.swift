@@ -167,28 +167,41 @@ extension AppDelegate {
                 tokenInterceptor: container.resolve(type: TokenInterceptor.self),
                 keyChainService: container.resolve(type: KeyChainService.self)
 
-                
+
             )
         )
-        
+        container.register(
+            type: StoresServiceProtocol.self,
+            component: container.resolve(type: StoresService.self)
+        )
+
         container.register(
             type: NoticeRepository.self,
             component: NoticeRepositoryImpl()
         )
-        
+
         container.register(
             type: NoticeUseCase.self,
             component: NoticeUseCaseImpl(repository: container.resolve(type: NoticeRepository.self))
         )
-        
+
         container.register(
             type: AdminRepository.self,
             component: AdminRepositoryImpl()
         )
-        
+
         container.register(
             type: AdminUseCase.self,
             component: AdminUseCaseImpl(repository: container.resolve(type: AdminRepository.self))
         )
+        container.register(
+            type: HomeRepository.self,
+            component: HomeRepositoryImpl()
+        )
+        container.register(
+            type: HomeUseCase.self,
+            component: HomeUseCaseImpl(repository: container.resolve(type: HomeRepository.self))
+        )
+
     }
 }

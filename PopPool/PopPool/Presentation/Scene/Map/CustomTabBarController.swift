@@ -17,8 +17,11 @@ class CustomTabBarController: UITabBarController {
         self.accessToken = accessToken
         self.userUseCase = userUseCase
         self.userId = userId
+        print("CustomTabBarController 생성됨, userId: \(userId)")  // 로그 추가
+
         self.customTabBar = CustomTabBarCPNT(items: [.map, .home, .my])
         
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -34,8 +37,8 @@ class CustomTabBarController: UITabBarController {
 
     private func setupViewControllers() {
 
-        let mapVM = MapVM(storeService: storeService, userId: Constants.userId)
-        let mapVC = MapVC(viewModel: mapVM, userId: Constants.userId)
+        let mapVM = MapVM(storeService: storeService, userId: self.userId) // 수정
+        let mapVC = MapVC(viewModel: mapVM, userId: self.userId) // 수정
 
 
         let homeRepository = HomeRepositoryImpl() 
@@ -44,7 +47,7 @@ class CustomTabBarController: UITabBarController {
         let loggedHomeVC = LoggedHomeVC(viewModel: homeVM, userId: Constants.userId)
         print("LoggedHomeVC 생성됨")
 
-        let myPageViewModel = MyPageMainVM(response: myPageResponse, userUseCase: userUseCase)
+        let myPageViewModel = MyPageMainVM()
         let myPageVC = MyPageMainVC(viewModel: myPageViewModel)
         print("MyPageMainVC 생성됨")
 

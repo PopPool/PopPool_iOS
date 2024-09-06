@@ -36,7 +36,7 @@ class PopupListCell: UICollectionViewCell {
 
            popupImageView.snp.makeConstraints {
                $0.top.leading.trailing.equalToSuperview()
-               $0.height.equalTo(150) // 고정된 높이
+               $0.height.equalTo(160) // 고정된 높이
            }
 
            popupImageView.contentMode = .scaleAspectFill

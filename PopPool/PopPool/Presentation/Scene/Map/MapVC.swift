@@ -6,9 +6,10 @@ import RxCocoa
 
 class MapVC: BaseViewController {
     // MARK: - Properties
-    private let viewModel: MapVM
+    private var viewModel: MapVM
     private let disposeBag = DisposeBag()
     private var selectedCategories: [String] = []
+    private let userId: String
 
 
     // MARK: - UI Components
@@ -95,23 +96,26 @@ class MapVC: BaseViewController {
     private lazy var popupListView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 8
+        layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 10
-        let width = (UIScreen.main.bounds.width - 48) / 2 // 2열로 설정, 좌우 여백 16씩, 중간 여백 16
-        layout.itemSize = CGSize(width: width, height: 300)
+        let width = (UIScreen.main.bounds.width - 48) / 2 
+        layout.itemSize = CGSize(width: width, height: 250)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PopupListCell.self, forCellWithReuseIdentifier: PopupListCell.reuseIdentifier)
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
         return collectionView
     }()
     private var resizeIndicator: UIView!
 
     // MARK: - Initialization
     init(viewModel: MapVM, userId: String) {
-        let storeService = AppDIContainer.shared.resolve(type: StoresServiceProtocol.self)
+        print("MapVC에서 전달받은 userId: \(userId)")
         self.viewModel = viewModel
+        self.userId = userId
+
+        let storeService = AppDIContainer.shared.resolve(type: StoresServiceProtocol.self)
         super.init()
     }
 
@@ -190,6 +194,8 @@ class MapVC: BaseViewController {
         }
         popupListView.alpha = 0
 
+        popupListView.alwaysBounceVertical = true
+        popupListView.isScrollEnabled = true // 스크롤 활성화
 
         resizeIndicator = UIView()
         resizeIndicator.backgroundColor = .lightGray
@@ -375,8 +381,8 @@ class MapVC: BaseViewController {
             // 리스트뷰가 올라올 때
             popupListView.snp.remakeConstraints { make in
                 make.leading.trailing.equalToSuperview()
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                 make.bottom.equalToSuperview()
+                make.height.equalTo(300) // 원하는 높이로 설정 (예: 300)
             }
 
             UIView.animate(withDuration: 0.3) {
@@ -392,6 +398,7 @@ class MapVC: BaseViewController {
             popupListView.snp.remakeConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(self.view.snp.bottom)
+                make.height.equalTo(0)
             }
 
             UIView.animate(withDuration: 0.3) {
@@ -463,35 +470,34 @@ class MapVC: BaseViewController {
 
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
-        let topPosition = view.safeAreaInsets.top
-        let bottomPosition = view.frame.height
+        let velocity = gesture.velocity(in: view)
 
         switch gesture.state {
         case .changed:
-            let newY = max(topPosition, min(popupListView.frame.origin.y + translation.y, bottomPosition))
-            popupListView.frame.origin.y = newY
-            gesture.setTranslation(.zero, in: view)
+            if translation.y < 0 {
+                // 위로 스와이프 중
+                let newHeight = min(view.frame.height - view.safeAreaInsets.top, popupListView.frame.height - translation.y)
+                popupListView.snp.updateConstraints { make in
+                    make.height.equalTo(newHeight)
+                }
+                view.layoutIfNeeded()
+                gesture.setTranslation(.zero, in: view)
+            }
         case .ended:
-            let velocity = gesture.velocity(in: view)
-
-            if velocity.y > 0 {
-                UIView.animate(withDuration: 0.3) {
-                    self.popupListView.frame.origin.y = bottomPosition
-                    self.searchBar.isHidden = false
-                    self.resizeIndicator.isHidden = false
+            if velocity.y < -500 {
+                // 위로 빠르게 스와이프하면 전체 화면으로 확장
+                popupListView.snp.updateConstraints { make in
+                    make.height.equalTo(view.frame.height - view.safeAreaInsets.top)
                 }
             } else {
-                UIView.animate(withDuration: 0.3) {
-                    self.popupListView.frame.origin.y = topPosition
-                    self.popupListView.snp.remakeConstraints { make in
-                        make.top.equalToSuperview()
-                        make.leading.trailing.bottom.equalToSuperview()
-                    }
-                    self.view.layoutIfNeeded()
-                    self.resizeIndicator.isHidden = true
+                // 원래 높이로 돌아감
+                popupListView.snp.updateConstraints { make in
+                    make.height.equalTo(300) // 초기 높이로 설정
                 }
             }
-
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
         default:
             break
         }

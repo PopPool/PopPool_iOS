@@ -104,7 +104,7 @@ struct PopPoolAPIEndPoint {
             bodyParameters: survey
         )
     }
-    
+
     /// 최근 본 팝업 리스트를 조회합니다.
     /// - Parameters:
     ///   - userId: 유저 아이디
@@ -182,12 +182,12 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
-    
+
     static func user_fetchBookMarkPopUpStoreList(
         userId: String,
         reqeust: GetBookMarkPopUpStoreListRequestDTO
     ) -> Endpoint<GetBookMarkPopUpStoreListResponseDTO> {
-        
+
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/users/\(userId)/bookmark-popupstores",
@@ -195,7 +195,7 @@ struct PopPoolAPIEndPoint {
             queryParameters: reqeust
         )
     }
-    
+
     static func user_updateBookMarkPopUpStore(
         userId: String,
         reqeust: UserBookMarkRequestDTO
@@ -207,7 +207,7 @@ struct PopPoolAPIEndPoint {
             queryParameters: reqeust
         )
     }
-    
+
     static func user_deleteBookMarkPopUpStore(
         userId: String,
         reqeust: UserBookMarkRequestDTO
@@ -217,10 +217,10 @@ struct PopPoolAPIEndPoint {
             path: "/users/\(userId)/bookmark-popupstores",
             method: .delete,
             queryParameters: reqeust
-            
+
         )
     }
-    
+
     // MARK: - User API, 회원 프로필 API
 
     /// 유저 프로필을 조회합니다.
@@ -372,7 +372,7 @@ struct PopPoolAPIEndPoint {
             method: .get
         )
     }
-    
+
 
     /// 공지사항 수정
     /// - Parameters:
@@ -470,7 +470,7 @@ struct PopPoolAPIEndPoint {
             queryParameters: ["query": query]
         )
     }
-    
+
 
     /// 특정 범위 내의 팝업 스토어를 가져옵니다.
     /// - Parameters:
@@ -499,6 +499,56 @@ struct PopPoolAPIEndPoint {
             queryParameters: parameters
         )
     }
+    // MARK: - ADMIN API
+
+       /// 공지사항 작성
+       /// - Parameters:
+       ///   - title: 공지사항 제목
+       ///   - content: 공지사항 내용
+       /// - Returns: RequestEndpoint
+       static func admin_postNotice(title: String, content: String) -> RequestEndpoint {
+           let request = CreateNoticeRequestDTO(title: title, content: content)
+           return RequestEndpoint(
+               baseURL: Secrets.popPoolBaseUrl.rawValue,
+               path: "/admin/notice",
+               method: .post,
+               bodyParameters: request
+           )
+       }
+
+    /// 공지사항 수정
+     /// - Parameters:
+     ///   - id: 공지사항 ID
+     ///   - title: 공지사항 제목
+     ///   - content: 공지사항 내용
+     /// - Returns: RequestEndpoint
+     static func admin_updateNotice(id: Int64, title: String, content: String) -> RequestEndpoint {
+         let request = UpdateNoticeRequestDTO(title: title, content: content)
+         return RequestEndpoint(
+             baseURL: Secrets.popPoolBaseUrl.rawValue,
+             path: "/admin/notice/\(id)",
+             method: .put,
+             bodyParameters: request
+         )
+     }
+    /// 공지사항 삭제
+     /// - Parameters:
+     ///   - id: 공지사항 ID
+     ///   - adminId: 어드민 ID
+     /// - Returns: RequestEndpoint
+     static func admin_deleteNotice(id: Int64, adminId: String) -> RequestEndpoint {
+         struct Request: Encodable {
+             var id: Int64
+             var adminId: String
+         }
+         let request = Request(id: id, adminId: adminId)
+         return RequestEndpoint(
+             baseURL: Secrets.popPoolBaseUrl.rawValue,
+             path: "/admin/notice/\(id)",
+             method: .delete,
+             queryParameters: request
+         )
+     }
 
     
     

@@ -23,7 +23,7 @@ extension Requestable {
     /// - Returns: URLRequest 반환
     func getUrlRequest() throws -> URLRequest {
         let url = try url()
-//        print("생성된 url 링크:",url)
+        print("생성된 url 링크:",url)
         var urlRequest = URLRequest(url: url)
 
         // httpBody
@@ -41,7 +41,7 @@ extension Requestable {
 
         return urlRequest
     }
-    
+
     /// APIEndpoint에서 전달받은 DTO를 URL로 변환하는 메서드
     /// - Returns: URL 반환
     func url() throws -> URL {
@@ -60,46 +60,25 @@ extension Requestable {
                         .components(separatedBy: "\n")
                         .filter {!["(",")",","].contains($0)}
                         .map { $0.replacingOccurrences(of: " ", with: "")}
-                    
+
                     for valueString in valueList {
                         urlQueryItems.append(URLQueryItem(name: $0.key, value: valueString))
                     }
-                    
+
                 } else {
                     urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
                 }
             }
-
-            var urlQueryItems = [URLQueryItem]()
-
-            if let queryParameters = try queryParameters?.toDictionary() {
-                for (key, value) in queryParameters {
-
-                    // 수정된 부분: 배열 값을 인코딩할 때, 줄바꿈과 공백을 제거하고 처리
-                    if let arrayValue = value as? [String] {
-                        for item in arrayValue {
-                            // 배열 내의 각 항목에서 공백과 줄바꿈을 제거하여 인코딩
-                            let sanitizedItem = item.replacingOccurrences(of: "\n", with: "")
-                                                    .replacingOccurrences(of: " ", with: "")
-                            urlQueryItems.append(URLQueryItem(name: key, value: sanitizedItem))
-                        }
-                    } else {
-                        urlQueryItems.append(URLQueryItem(name: key, value: "\(value)"))
-                    }
-                }
-            }
-
-            urlComponents.queryItems = urlQueryItems.isEmpty ? nil : urlQueryItems
-            guard let url = urlComponents.url else {
-                throw NetworkError.components
-            }
-
-            return url
         }
+        urlComponents.queryItems = !urlQueryItems.isEmpty ? urlQueryItems : nil
+
+        guard let url = urlComponents.url else { throw NetworkError.components }
+        return url
     }
+}
 
 extension Encodable {
-    
+
     /// URL에 요청할 쿼리 데이터를 JSON 형식에 맞게 딕셔너리 구조로 변환하는 메서드
     /// - Returns: jsonData
     func toDictionary() throws -> [String: Any]? {
