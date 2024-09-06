@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HomePopUp: Codable {
+struct HomePopUp: Codable, Hashable {
     var id: Int64
     var category: String
     var name: String
