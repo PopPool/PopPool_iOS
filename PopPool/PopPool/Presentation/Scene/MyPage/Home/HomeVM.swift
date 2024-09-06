@@ -18,6 +18,11 @@ final class HomeVM: ViewModelable {
         var myHomeAPIResponse: Observable<GetHomeInfoResponse>
     }
     
+    var generalPopUpStore: [HomePopUp] = []
+    var customPopUpStore: BehaviorRelay<[HomePopUp]> = BehaviorRelay(value: [])
+    var newPopUpStore: BehaviorRelay<[HomePopUp]> = BehaviorRelay(value: [])
+    var popularPopUpStore: BehaviorRelay<[HomePopUp]> = BehaviorRelay(value: [])
+    
     var myHomeAPIResponse: BehaviorRelay<GetHomeInfoResponse> = .init(
         value: .init(
             customPopUpStoreList: [],

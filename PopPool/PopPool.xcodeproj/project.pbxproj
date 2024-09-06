@@ -236,6 +236,8 @@
 		BD3C4C6A2C30C8880087917B /* InfoBoxViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */; };
 		BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */; };
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
+		BD51ED322C8A205200DA4885 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED312C8A205200DA4885 /* HomeVC.swift */; };
+		BD51ED342C8ACDC100DA4885 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED332C8ACDC100DA4885 /* UIHelper.swift */; };
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD55E12F2C707DCA00FAB763 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */; };
 		BD55E1312C70B7B100FAB763 /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */; };
@@ -278,7 +280,6 @@
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
 		BDC622B72C229517009411AE /* UserdefaultRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */; };
 		BDCA566C2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */; };
-		BDCA566E2C69F10C005C68C8 /* LoggedHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */; };
 		BDCA56702C69F29A005C68C8 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA566F2C69F29A005C68C8 /* HomeVM.swift */; };
 		BDCA56722C69FD07005C68C8 /* HomeListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA56712C69FD07005C68C8 /* HomeListCellSection.swift */; };
 		BDCA56742C69FF59005C68C8 /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCA56732C69FF59005C68C8 /* HomeListCell.swift */; };
@@ -548,6 +549,8 @@
 		BD3C4C682C30C8880087917B /* InfoBoxViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBoxViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C692C30C8880087917B /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
+		BD51ED312C8A205200DA4885 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		BD51ED332C8ACDC100DA4885 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
@@ -593,7 +596,6 @@
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		BDC622B62C229517009411AE /* UserdefaultRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultRepositoryImpl.swift; sourceTree = "<group>"; };
 		BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailPopUpCell.swift; sourceTree = "<group>"; };
-		BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedHomeVC.swift; sourceTree = "<group>"; };
 		BDCA566F2C69F29A005C68C8 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		BDCA56712C69FD07005C68C8 /* HomeListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCellSection.swift; sourceTree = "<group>"; };
 		BDCA56732C69FF59005C68C8 /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -1746,7 +1748,7 @@
 				BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */,
 				BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */,
 				BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */,
-				BDCA566D2C69F10C005C68C8 /* LoggedHomeVC.swift */,
+				BD51ED312C8A205200DA4885 /* HomeVC.swift */,
 				BDCA566F2C69F29A005C68C8 /* HomeVM.swift */,
 			);
 			path = Home;
@@ -1848,6 +1850,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF4F2972C240BA6002F4F03 /* Constants.swift */,
+				BD51ED332C8ACDC100DA4885 /* UIHelper.swift */,
 				BDA0B1332C2DD102007BDCA4 /* Factory.swift */,
 			);
 			path = Utility;
@@ -2045,6 +2048,7 @@
 				08E23AB32C4F8817004B77B6 /* Survey.swift in Sources */,
 				08FF6C262C721CA800B68569 /* GetNoticeDetailResponseDTO.swift in Sources */,
 				08E23A9A2C4F74A0004B77B6 /* MyInterestCategoryInfoDTO.swift in Sources */,
+				BD51ED322C8A205200DA4885 /* HomeVC.swift in Sources */,
 				08FF6C202C721C1800B68569 /* NoticeInfoDTO.swift in Sources */,
 				BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */,
 				08B183C32C442113006C34BB /* ListTitleViewCPNT.swift in Sources */,
@@ -2059,7 +2063,6 @@
 				BD7B47DF2C650E9C00DA116D /* HomeAlertCell.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
-				BDCA566E2C69F10C005C68C8 /* LoggedHomeVC.swift in Sources */,
 				BD0109A62C60942E00B2AF21 /* ListDropDownCPNT.swift in Sources */,
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
 				BDF08A002C6505000098486D /* TermsDetailBoardVC.swift in Sources */,
@@ -2232,6 +2235,7 @@
 				4E9A33AA2C64CB0D000F4095 /* FilterBottomSheetViewController.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
 				4E184D632C6F1FD500573A2E /* FavoritePopUpVC.swift in Sources */,
+				BD51ED342C8ACDC100DA4885 /* UIHelper.swift in Sources */,
 				08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */,
 				08FF6C822C79BE6600B68569 /* NoticeInfo.swift in Sources */,
 				08F49E0B2C240345002D5202 /* SplashViewController.swift in Sources */,
