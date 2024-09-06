@@ -21,9 +21,9 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         var titleText: String? {
             switch self {
             case .topBanner: return nil
-            case .custom: return "\(Constants.userId)님을 위한\n맞춤 팝업 큐레이션"
+            case .custom: return "님을 위한\n맞춤 팝업 큐레이션"
             case .popular: return "팝풀이들은 지금 이런\n팝업에 가장 관심있어요"
-            case .new: return "제인 먼저 피드 올리는\n신규 오픈 팝업"
+            case .new: return "제일 먼저 피드 올리는\n신규 오픈 팝업"
             }
         }
     }
@@ -36,8 +36,9 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
     //MARK: - Properties
     private let viewModel: HomeVM
     private var dataSource: UICollectionViewDiffableDataSource<Section, HomePopUp>!
-    private var isLoggedIn: Bool = false
+    private var isLoggedIn: Bool = true
     private var disposeBag = DisposeBag()
+    private var userName: String?
     
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
@@ -55,15 +56,14 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         
         let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
         
-        useCase.fetchHome(
-            userId: Constants.userId,
-            page: 0,
-            size: 6,
-            sort: nil
-        )
+        useCase.fetchHome(userId: Constants.userId, page: 0, size: 6, sort: nil)
         .withUnretained(self)
         .subscribe(onNext: { (owner, response) in
+            owner.userName = response.nickname
             owner.viewModel.myHomeAPIResponse.accept(response)
+            owner.viewModel.customPopUpStore.accept(response.customPopUpStoreList ?? [])
+            owner.viewModel.popularPopUpStore.accept(response.popularPopUpStoreList ?? [])
+            owner.viewModel.newPopUpStore.accept(response.newPopUpStoreList ?? [])
         })
         .disposed(by: disposeBag)
     }
@@ -78,7 +78,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         setUp()
         setUpConstraint()
         setUpDataSource()
-        updateDataSource()
+        bind()
     }
     
     private func setUp() {
@@ -103,6 +103,50 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func bind() {
+        Observable.combineLatest(
+            viewModel.customPopUpStore,
+            viewModel.popularPopUpStore,
+            viewModel.newPopUpStore
+        )
+        .withUnretained(self)
+        .subscribe(onNext: { (owner, stores) in
+            let (customStores, popularStores, newStores) = stores
+            
+            var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
+            snapShot.appendSections([.topBanner])
+            snapShot.appendItems([
+                // 배너 영역은 추가 수정 필요... fetch할 데이터 관련해서 한번 더 확인
+                .init(id: 0, category: "배너", name: "제목", address: "주소"),
+                .init(id: 1, category: "배너", name: "제목", address: "주소"),
+                .init(id: 2, category: "배너", name: "제목", address: "주소"),
+                .init(id: 3, category: "배너", name: "제목", address: "주소"),
+                .init(id: 4, category: "배너", name: "제목", address: "주소")
+                ], toSection: .topBanner)
+
+            if owner.isLoggedIn {
+                print("커스텀 데이터", customStores)
+                print("커스텀 데이터 갯수", customStores.count)
+                snapShot.appendSections([.custom])
+                snapShot.appendItems(customStores, toSection: .custom)
+            }
+            
+            print("인기 데이터", popularStores)
+            print("인기 데이터 갯수", popularStores.count)
+            snapShot.appendSections([.popular])
+            snapShot.appendItems(popularStores, toSection: .popular)
+            
+            print("신규 데이터", newStores)
+            print("신규 데이터 갯수", newStores.count)
+            snapShot.appendSections([.new])
+            snapShot.appendItems(newStores, toSection: .new)
+            
+            owner.dataSource.apply(snapShot, animatingDifferences: false)
+            owner.collectionView.reloadData()
+        })
+        .disposed(by: disposeBag)
     }
     
     private func setLayout() -> UICollectionViewCompositionalLayout {
@@ -215,14 +259,15 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 
                 if let title = sectionType.titleText {
                     header.configure(title: title)
+                    if let userName = userName, sectionType == .custom {
+                        header.configure(title: userName+title)
+                    }
                 }
                 header.actionTapped
                     .withUnretained(self)
                     .subscribe(onNext: { (owner, _) in
-                        print("버튼이 눌렸습니다22")
-                        print("인덱스 값", indexPath)
-                        print("section 값", indexPath.section)
-                        print("어디에 있는가", sectionType)
+                        guard self.navigationController?.topViewController == self else { return }
+                        
                         switch sectionType {
                         case .topBanner: return
                         case .custom:
@@ -275,28 +320,28 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         }
     }
     
-    private func updateDataSource() {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
-        
-        let general = viewModel.generalPopUpStore
-        let custom = viewModel.customPopUpStore
-        let new = viewModel.newPopUpStore
-        let popular = viewModel.popularPopUpStore
-        
-        snapShot.appendSections([.topBanner])
-        snapShot.appendItems(general, toSection: .topBanner)
-        
-        if isLoggedIn {
-            snapShot.appendSections([.custom])
-            snapShot.appendItems(custom, toSection: .custom)
-        }
-        
-        snapShot.appendSections([.popular])
-        snapShot.appendItems(popular, toSection: .popular)
-        
-        snapShot.appendSections([.new])
-        snapShot.appendItems(new, toSection: .new)
-        
-        dataSource.apply(snapShot, animatingDifferences: true)
-    }
+//    private func updateDataSource() {
+//        var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
+//        
+//        let general = viewModel.generalPopUpStore
+//        let custom = viewModel.customPopUpStore
+//        let new = viewModel.newPopUpStore
+//        let popular = viewModel.popularPopUpStore
+//        
+//        snapShot.appendSections([.topBanner])
+//        snapShot.appendItems(general, toSection: .topBanner)
+//        
+//        if isLoggedIn {
+//            snapShot.appendSections([.custom])
+//            snapShot.appendItems(custom, toSection: .custom)
+//        }
+//        
+//        snapShot.appendSections([.popular])
+//        snapShot.appendItems(popular, toSection: .popular)
+//        
+//        snapShot.appendSections([.new])
+//        snapShot.appendItems(new, toSection: .new)
+//        
+//        dataSource.apply(snapShot, animatingDifferences: true)
+//    }
 }
