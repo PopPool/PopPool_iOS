@@ -21,19 +21,22 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         var titleText: String? {
             switch self {
             case .topBanner: return nil
-            case .popular: return "인기 팝업이에요"
-            case .new: return "신규 팝업이에요"
-            case .custom: return "맞춤 팝업이에요"
+            case .custom: return "\(Constants.userId)님을 위한\n맞춤 팝업 큐레이션"
+            case .popular: return "팝풀이들은 지금 이런\n팝업에 가장 관심있어요"
+            case .new: return "제인 먼저 피드 올리는\n신규 오픈 팝업"
             }
         }
     }
     
+    //MARK: - Components
     // HEADER 생성 필요
-    
-    private let viewModel: HomeVM
-    private var isLoggedIn: Bool = true
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.setLayout())
+    
+    
+    //MARK: - Properties
+    private let viewModel: HomeVM
     private var dataSource: UICollectionViewDiffableDataSource<Section, HomePopUp>!
+    private var isLoggedIn: Bool = false
     private var disposeBag = DisposeBag()
     
     init(viewModel: HomeVM) {
@@ -49,6 +52,20 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
+        
+        useCase.fetchHome(
+            userId: Constants.userId,
+            page: 0,
+            size: 6,
+            sort: nil
+        )
+        .withUnretained(self)
+        .subscribe(onNext: { (owner, response) in
+            owner.viewModel.myHomeAPIResponse.accept(response)
+        })
+        .disposed(by: disposeBag)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,11 +114,17 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             case .topBanner:
                 return self.buildBanner()
             case .custom:
-                return self.buildSection(width: 158, height: 249, behavior: .continuous)
+                return UIHelper.buildSection(
+                    width: 158, height: 249,
+                    behavior: .continuous)
             case .popular:
-                return self.buildSection(width: 232, height: 332, behavior: .groupPaging)
+                return UIHelper.buildSection(
+                    width: 232, height: 332,
+                    behavior: .groupPaging)
             case .new:
-                return self.buildSection(width: 158, height: 249, behavior: .continuous)
+                return UIHelper.buildSection(
+                    width: 158, height: 249,
+                    behavior: .continuous)
             }
         }
     }
@@ -125,125 +148,124 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         return section
     }
     
-    private func buildSection(width: CGFloat, height: CGFloat, behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior
-    ) -> NSCollectionLayoutSection {
-        let itemPadding: CGFloat = 8
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(width),
-            heightDimension: .absolute(height))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(
-            top: 0, leading: itemPadding, bottom: 0, trailing: itemPadding)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(width),
-            heightDimension: .absolute(height))
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = behavior
-        section.contentInsets = NSDirectionalEdgeInsets(
-            top: 0, leading: 20 - itemPadding, bottom: 40, trailing: 20 - itemPadding)
-        
-        let height = CGFloat(Constants.spaceGuide.small300 + Constants.spaceGuide.small400 + 44)
-        let headerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(height))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: UICollectionView.elementKindSectionHeader,
-                                                                 alignment: .top)
-        section.boundarySupplementaryItems = [header]
-        
-        return section
-    }
-//    
-//    private func personalizedSection() -> NSCollectionLayoutSection {
-//        let itemSize = NSCollectionLayoutSize(
-//            widthDimension: .fractionalWidth(1.0),
-//            heightDimension: .fractionalHeight(0.4))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        
-//        let groupSize = NSCollectionLayoutSize(
-//            widthDimension: .fractionalWidth(1.0),
-//            heightDimension: .fractionalHeight(0.4))
-//        let group = NSCollectionLayoutGroup.horizontal(
-//            layoutSize: groupSize, subitems: [item])
-//        
-//        let section = NSCollectionLayoutSection(group: group)
-//        return section
-//    }
-//    
     private func setUpDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, HomePopUp>(collectionView: collectionView,
-                                                                            cellProvider: { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
-            
-            guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section] else { return nil }
-            
-            switch sectionType {
-            case .topBanner:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
-                cell.backgroundColor = .yellow
-                cell.injectionWith(
-                    input: HomeCollectionViewCell.Input(
+        dataSource = UICollectionViewDiffableDataSource<Section, HomePopUp>(
+            collectionView: collectionView, cellProvider: { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
+                
+                guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section] else {
+                    return nil
+                }
+                
+                switch sectionType {
+                case .topBanner:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+                    cell.injectionWith(
+                        input: HomeCollectionViewCell.Input(
+                            image: URL(string: ""),
+                            totalCount: 5))
+                    return cell
+                    
+                case .custom:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
+                    cell.injectionWith(input: HomeDetailPopUpCell.Input(
                         image: URL(string: ""),
-                        totalCount: 5))
-                return cell
-                
-            case .custom:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
-                cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                    image: URL(string: ""),
-                    category: "카테고리",
-                    title: "제목",
-                    location: "지역",
-                    date: "뭔 날짜")
-                )
-                return cell
-                
-            case .popular:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
-                cell.injectionWith(input: InterestViewCell.Input(
-                    image: URL(string: ""),
-                    category: "타입",
-                    title: "인기 팝업",
-                    location: "위치",
-                    date: "날짜"
-                ))
-                return cell
-                
-            case.new:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
-                cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                    image: URL(string: ""),
-                    category: "카테고리",
-                    title: "제목",
-                    location: "지역",
-                    date: "어떤 애요?")
-                )
-                return cell
-            }
-        })
+                        category: "카테고리",
+                        title: "제목",
+                        location: "지역",
+                        date: "뭔 날짜")
+                    )
+                    return cell
+                    
+                case .popular:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
+                    cell.injectionWith(input: InterestViewCell.Input(
+                        image: URL(string: ""),
+                        category: "타입",
+                        title: "인기 팝업",
+                        location: "위치",
+                        date: "날짜"
+                    ))
+                    return cell
+                    
+                case.new:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
+                    cell.injectionWith(input: HomeDetailPopUpCell.Input(
+                        image: URL(string: ""),
+                        category: "카테고리",
+                        title: "제목",
+                        location: "지역",
+                        date: "어떤 애요?")
+                    )
+                    return cell
+                }
+            })
         
-        // 여기서 헤더 생성
-        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView? in
+        dataSource.supplementaryViewProvider = { [weak self]
+            (collectionView, kind, indexPath) -> UICollectionReusableView? in
             
+            guard let self = self else { return nil }
             guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section] else {
                 return nil
             }
             if kind == UICollectionView.elementKindSectionHeader {
-                let header = collectionView.dequeueReusableSupplementaryView(
+                let header = self.collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
                     withReuseIdentifier: SectionHeaderCell.identifier,
                     for: indexPath) as! SectionHeaderCell
                 
-                // 어떤 section인지 확인하고 넘기는 구조가 아니라 그냥 바로 넘기는 형태가 좋은가?
                 if let title = sectionType.titleText {
                     header.configure(title: title)
                 }
                 header.actionTapped
-                    .subscribe(onNext: {
+                    .withUnretained(self)
+                    .subscribe(onNext: { (owner, _) in
                         print("버튼이 눌렸습니다22")
+                        print("인덱스 값", indexPath)
+                        print("section 값", indexPath.section)
+                        print("어디에 있는가", sectionType)
+                        switch sectionType {
+                        case .topBanner: return
+                        case .custom:
+                            let response = self.viewModel.myHomeAPIResponse.value
+                            let data: GetHomeInfoResponse = .init(
+                                customPopUpStoreList: response.customPopUpStoreList,
+                                customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,
+                                customPopUpStoreTotalElements: response.customPopUpStoreTotalElements,
+                                loginYn: owner.isLoggedIn
+                            )
+                            let vm = EntirePopupVM()
+                            vm.response.accept(data)
+                            
+                            let vc = EntirePopupVC(viewModel: vm)
+                            vc.header.titleLabel.text = "큐레이션 팝업 전체보기"
+                            owner.navigationController?.pushViewController(vc, animated: true)
+                        case .popular:
+                            let response = owner.viewModel.myHomeAPIResponse.value
+                            let data: GetHomeInfoResponse = .init(
+                                popularPopUpStoreList: response.popularPopUpStoreList,
+                                popularPopUpStoreTotalPages: response.popularPopUpStoreTotalPages, popularPopUpStoreTotalElements: response.popularPopUpStoreTotalElements,
+                                loginYn: owner.isLoggedIn
+                            )
+                            let vm = EntirePopupVM()
+                            vm.response.accept(data)
+                            
+                            let vc = EntirePopupVC(viewModel: vm)
+                            vc.header.titleLabel.text = "인기 팝업 전체보기"
+                            owner.navigationController?.pushViewController(vc, animated: true)
+                        case .new:
+                            let response = owner.viewModel.myHomeAPIResponse.value
+                            let data: GetHomeInfoResponse = .init(
+                                newPopUpStoreList: response.newPopUpStoreList,
+                                newPopUpStoreTotalPages: response.newPopUpStoreTotalPages,
+                                newPopUpStoreTotalElements: response.newPopUpStoreTotalElements,
+                                loginYn: owner.isLoggedIn)
+                            let vm = EntirePopupVM()
+                            vm.response.accept(data)
+                            
+                            let vc = EntirePopupVC(viewModel: vm)
+                            vc.header.titleLabel.text = "신규 팝업 전체보기"
+                            owner.navigationController?.pushViewController(vc, animated: true)
+                        }
                     })
                     .disposed(by: self.disposeBag)
                 
@@ -255,7 +277,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
     
     private func updateDataSource() {
         var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
-                
+        
         let general = viewModel.generalPopUpStore
         let custom = viewModel.customPopUpStore
         let new = viewModel.newPopUpStore
