@@ -11,7 +11,7 @@ import SnapKit
 
 final class EntirePopupVC: BaseViewController {
     
-    private let header: HeaderViewCPNT = HeaderViewCPNT(title: "큐레이션 팝업 전체보기",
+    let header: HeaderViewCPNT = HeaderViewCPNT(title: "큐레이션 팝업 전체보기",
                                                         style: .icon(nil))
     
     private let entirePopUpCollectionView: UICollectionView = {
