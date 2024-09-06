@@ -17,15 +17,33 @@ final class EntirePopupVM: ViewModelable {
     
     struct Output {
         let fetchedDataResponse: Observable<GetHomeInfoResponse>
+        let allPopUps: Observable<[HomePopUp]>
     }
     
-    var response: BehaviorRelay<GetHomeInfoResponse> = .init(value: GetHomeInfoResponse())
-    
     var disposeBag = DisposeBag()
+    var fetchedResponse: BehaviorRelay<GetHomeInfoResponse> = .init(value: GetHomeInfoResponse())
+    private let allPopUpStores = BehaviorRelay<[HomePopUp]>(value: [])
+    
     func transform(input: Input) -> Output {
+        fetchedResponse
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, response) in
+                var allPopUps = [HomePopUp]()
+                allPopUps.append(contentsOf: response.customPopUpStoreList ?? [])
+                allPopUps.append(contentsOf: response.popularPopUpStoreList ?? [])
+                allPopUps.append(contentsOf: response.newPopUpStoreList ?? [])
+                owner.allPopUpStores.accept(allPopUps)
+            })
+            .disposed(by: disposeBag)
+        
         
         return Output(
-            fetchedDataResponse: response.asObservable()
+            fetchedDataResponse: fetchedResponse.compactMap { $0 }.asObservable(),
+            allPopUps: allPopUpStores.asObservable()
         )
+    }
+    
+    func updateDate(response: GetHomeInfoResponse) {
+        fetchedResponse.accept(response)
     }
 }
