@@ -79,6 +79,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         setUp()
         setUpConstraint()
         setUpDataSource()
+
         bind()
     }
     
@@ -297,7 +298,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                             let vc = EntirePopupVC(viewModel: vm)
                             vc.header.titleLabel.text = "인기 팝업 전체보기"
                             owner.navigationController?.pushViewController(vc, animated: true)
-                            
+                          
                         case .new:
                             let data: GetHomeInfoResponse = .init(
                                 newPopUpStoreList: response.newPopUpStoreList,
