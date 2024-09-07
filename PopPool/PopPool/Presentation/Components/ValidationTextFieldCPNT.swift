@@ -302,7 +302,7 @@ private extension ValidationTextFieldCPNT {
         
         self.checkValidationStack.isHidden = output.isDuplicateCheckButtonHidden
         self.checkValidationButton.setTitleColor(output.buttonColor, for: .normal)
-        self.checkValidationLine.backgroundColor = output.buttonColor
+        self.checkValidationLine.layer.borderColor = output.buttonColor?.cgColor
         self.checkValidationButton.isEnabled = output.isButtonEnabled
         
         self.textFieldBackGroundView.layer.borderColor = output.borderColor.cgColor

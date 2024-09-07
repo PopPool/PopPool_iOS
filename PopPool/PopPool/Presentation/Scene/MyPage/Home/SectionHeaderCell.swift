@@ -29,8 +29,6 @@ final class SectionHeaderCell: UICollectionViewCell {
         let stack = UIStackView()
         stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(buttonContainer)
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
     
@@ -72,29 +70,24 @@ final class SectionHeaderCell: UICollectionViewCell {
     // MARK: - Methods
     
     public func configure(title: String) {
-        titleLabel.text = title
+        let style = NSMutableParagraphStyle()
+        let text = NSMutableAttributedString(
+            string: title,
+            attributes: [.paragraphStyle: style])
+        style.lineHeightMultiple = 1.4
+        titleLabel.attributedText = text
     }
     
     public func configureWhite(title: String) {
         titleLabel.text = title
         titleLabel.textColor = .w100
-        setButtonLayout(title: "전체보기", color: .white)
     }
     
     private func setUp() {
-        setButtonLayout(title: "전체보기", color: .black)
-    }
-    
-    private func setButtonLayout(title: String, color: UIColor) {
-        let attributes: [NSMutableAttributedString.Key: Any] = [
-            .font: UIFont.KorFont(style: .regular, size: 13),
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: color
-        ]
-        let attributedString = NSMutableAttributedString(string: title,
-                                                         attributes: attributes)
-        actionButton.setAttributedTitle(attributedString, for: .normal)
-        actionButton.setContentHuggingPriority(.required, for: .horizontal)
+        actionButton.setImage(
+            UIImage(named: "line_signUp")?
+                .withTintColor(.black, renderingMode: .alwaysOriginal),
+            for: .normal)
     }
     
     private func setUpConstraint() {
@@ -106,7 +99,7 @@ final class SectionHeaderCell: UICollectionViewCell {
         buttonContainer.addSubview(actionButton)
         buttonContainer.setContentHuggingPriority(.required, for: .horizontal)
         actionButton.snp.makeConstraints { make in
-            
+            make.size.equalTo(24)
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.trailing.equalToSuperview()
         }

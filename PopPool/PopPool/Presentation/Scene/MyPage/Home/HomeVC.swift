@@ -62,7 +62,6 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             owner.userName = response.nickname
             owner.viewModel.myHomeAPIResponse.accept(response)
             owner.viewModel.customPopUpStore.accept(response.customPopUpStoreList ?? [])
-            print("총 맞춤 데이터", owner.viewModel.customPopUpStore)
             owner.viewModel.popularPopUpStore.accept(response.popularPopUpStoreList ?? [])
             owner.viewModel.newPopUpStore.accept(response.newPopUpStoreList ?? [])
         })
@@ -85,6 +84,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
     
     private func setUp() {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.delegate = self
         collectionView.register(HomeCollectionViewCell.self,
                                 forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
@@ -129,19 +129,13 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 ], toSection: .topBanner)
 
             if owner.isLoggedIn {
-                print("커스텀 데이터", customStores)
-                print("커스텀 데이터 갯수", customStores.count)
                 snapShot.appendSections([.custom])
                 snapShot.appendItems(customStores, toSection: .custom)
             }
             
-//            print("인기 데이터", popularStores)
-//            print("인기 데이터 갯수", popularStores.count)
             snapShot.appendSections([.popular])
             snapShot.appendItems(popularStores, toSection: .popular)
             
-//            print("신규 데이터", newStores)
-//            print("신규 데이터 갯수", newStores.count)
             snapShot.appendSections([.new])
             snapShot.appendItems(newStores, toSection: .new)
             
@@ -152,7 +146,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
     }
     
     private func setLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { section, environment in
+        let layout = UICollectionViewCompositionalLayout { section, environment in
             
             guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[section] else { return nil }
             
@@ -173,6 +167,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     behavior: .continuous)
             }
         }
+        layout.register(PopUpBackgroundView.self, forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifier)
+        return layout
     }
     
     private func buildBanner() -> NSCollectionLayoutSection {

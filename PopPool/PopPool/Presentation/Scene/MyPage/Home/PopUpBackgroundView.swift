@@ -9,10 +9,6 @@ import UIKit
 
 final class PopUpBackgroundView: UICollectionReusableView {
     
-    // MARK: - Properties
-    
-    static let reuseIdentifer = "PopUpBackgroundView"
-    
     // MARK: - Initializer
     
     override init(frame: CGRect) {
