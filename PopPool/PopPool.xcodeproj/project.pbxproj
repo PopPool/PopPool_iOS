@@ -225,6 +225,7 @@
 		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
 		BD1D886C2C3D958D00380F80 /* BaseTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */; };
 		BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1E37492C7E2895004931D5 /* HomePopUp.swift */; };
+		BD2684962C8C901F000F623F /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2684952C8C901F000F623F /* UICollectionReusableView.swift */; };
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
 		BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975092C51140D0090147C /* ListMenuCPNT.swift */; };
 		BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */; };
@@ -240,7 +241,6 @@
 		BD51ED342C8ACDC100DA4885 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED332C8ACDC100DA4885 /* UIHelper.swift */; };
 		BD54FA5B2C3F743B00D685A6 /* DynamicTextViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */; };
 		BD55E12F2C707DCA00FAB763 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */; };
-		BD55E1312C70B7B100FAB763 /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */; };
 		BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */; };
 		BD60B2792C75A0010062DC96 /* GetHomeInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */; };
 		BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */; };
@@ -536,6 +536,7 @@
 		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
 		BD1D886B2C3D958D00380F80 /* BaseTextFieldCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldCPNT.swift; sourceTree = "<group>"; };
 		BD1E37492C7E2895004931D5 /* HomePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePopUp.swift; sourceTree = "<group>"; };
+		BD2684952C8C901F000F623F /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
 		BD282FC62C5A8889003F1ADD /* TermsBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVC.swift; sourceTree = "<group>"; };
 		BD282FC82C5A8892003F1ADD /* TermsBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsBoardVM.swift; sourceTree = "<group>"; };
 		BD2975072C5112390090147C /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
@@ -553,7 +554,6 @@
 		BD51ED332C8ACDC100DA4885 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		BD54FA5A2C3F743B00D685A6 /* DynamicTextViewCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextViewCPNT.swift; sourceTree = "<group>"; };
 		BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
-		BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
 		BD57D4E72C30C63A0036E874 /* LoginBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVC.swift; sourceTree = "<group>"; };
 		BD60B2782C75A0010062DC96 /* GetHomeInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeInfoResponse.swift; sourceTree = "<group>"; };
 		BD60B27B2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeInfoResponseDTO.swift; sourceTree = "<group>"; };
@@ -1742,12 +1742,11 @@
 			children = (
 				BD8DE8222C68655700C5DE8B /* EntirePopupVC.swift */,
 				BD8DE8242C6865A000C5DE8B /* EntirePopupVM.swift */,
-				BD55E1302C70B7B100FAB763 /* BannerViewCell.swift */,
 				BDEAE4BD2C716FAA00D96D41 /* PopUpBackgroundView.swift */,
+				BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */,
 				BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */,
 				BDCA566B2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift */,
 				BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */,
-				BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */,
 				BD51ED312C8A205200DA4885 /* HomeVC.swift */,
 				BDCA566F2C69F29A005C68C8 /* HomeVM.swift */,
 			);
@@ -1842,6 +1841,7 @@
 				08FF6BE02C6DBBA200B68569 /* Reactive+.swift */,
 				0896A05B2C79F9300062CC49 /* String+.swift */,
 				0896A05D2C79F9380062CC49 /* Date+.swift */,
+				BD2684952C8C901F000F623F /* UICollectionReusableView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2253,6 +2253,7 @@
 				08AF8D9C2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift in Sources */,
 				BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
+				BD2684962C8C901F000F623F /* UICollectionReusableView.swift in Sources */,
 				08E23A702C4E1CE1004B77B6 /* CheckedSurveyListRequestDTO.swift in Sources */,
 				BDCA566C2C69AB7D005C68C8 /* HomeDetailPopUpCell.swift in Sources */,
 				BDF3B2AE2C0BE69700B079C5 /* Provider.swift in Sources */,
@@ -2282,7 +2283,6 @@
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
 				08E23AC12C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
-				BD55E1312C70B7B100FAB763 /* BannerViewCell.swift in Sources */,
 				08B9658A2C15FEBF00BF95AA /* FetchSocialCredentialUseCaseImpl.swift in Sources */,
 				08E23AD62C54E171004B77B6 /* ViewedPopUpCell.swift in Sources */,
 				BD8DE8232C68655700C5DE8B /* EntirePopupVC.swift in Sources */,
