@@ -22,6 +22,13 @@ class PreSignedService {
     let tokenInterceptor = TokenInterceptor()
     let disposeBag = DisposeBag()
     
+    
+    func tryDelete(targetPaths: PresignedURLRequestDTO) -> Completable {
+        let provider = ProviderImpl()
+        let endPoint = PopPoolAPIEndPoint.presigned_delete(request: targetPaths)
+        return provider.request(with: endPoint, interceptor: tokenInterceptor)
+    }
+    
     func tryUpload(datas: [PresignedURLRequest]) -> Single<Void> {
         return Single.create { [weak self] observer in
             guard let self = self else {
@@ -37,7 +44,6 @@ class PreSignedService {
                         let inputResponse = zipResponse.1
                         return self.uploadFromS3(url: urlResponse.preSignedUrl, image: inputResponse.image)
                     }
-                    print(requestList)
                     Single.zip(requestList)
                         .subscribe(onSuccess: { _ in
                             print("All images uploaded successfully")
@@ -71,9 +77,6 @@ class PreSignedService {
                     // 모든 다운로드 작업을 병렬로 수행
                     Single.zip(requestList)
                         .map { dataList -> [UIImage] in
-                            for data in dataList {
-                                print(data.base64EncodedString())
-                            }
                             return dataList.compactMap { UIImage(data: $0) }
                         }
                         .subscribe(onSuccess: { images in
@@ -105,7 +108,6 @@ private extension PreSignedService {
                let url = URL(string: url)
             {
                 let request = AF.upload(imageData, to: url, method: .put).response { response in
-                    print("uploadResponse:\(response)")
                     switch response.result {
                     case .success:
                         single(.success(()))
@@ -128,8 +130,6 @@ private extension PreSignedService {
         return Single.create { single in
             if let url = URL(string: url) {
                 let request = AF.request(url).responseData { response in
-                    print("downloadResponse: \(response)")
-                    print(response.value)
                     switch response.result {
                     case .success(let data):
                         single(.success(data))

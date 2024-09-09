@@ -5,20 +5,11 @@
 //  Created by Porori on 8/27/24.
 //
 
-import Foundation
+import UIKit
 
-struct UpdatePopUpStoreRequestDTO: Decodable {
-    let popUpStore: [PopUpStoreDTO]
+struct UpdatePopUpStoreRequestDTO: Encodable {
+    let popUpStore: [AdminPopUpStoreDTO]
     let location: Location
-    let imagesToAdd: [URL?]
+    let imagesToAdd: [String]
     let imagesToDelete: [Int64]
-}
-
-extension UpdatePopUpStoreRequestDTO {
-    func toDomain() -> UpdatePopUpStoreRequest {
-        return .init(popUpStore: popUpStore.map{ $0.toDomain() },
-                     location: location,
-                     imagesToAdd: imagesToAdd,
-                     imagesToDelete: imagesToDelete)
-    }
 }

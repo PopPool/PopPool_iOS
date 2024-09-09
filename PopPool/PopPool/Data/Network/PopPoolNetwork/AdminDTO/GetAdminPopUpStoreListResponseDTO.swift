@@ -8,16 +8,7 @@
 import Foundation
 
 struct GetAdminPopUpStoreListResponseDTO: Decodable {
-    let popUpStoreList: [PopUpStoreDTO]
+    let popUpStoreList: [AdminPopUpStoreDTO]
     let totalPages: Int32
     let totalElements: Int64
-}
-
-extension GetAdminPopUpStoreListResponseDTO {
-    func toDomain() -> GetAdminPopUpStoreListResponse {
-        return .init(popUpStoreList: popUpStoreList.map { $0.toDomain() },
-                     totalPages: totalPages,
-                     totalElements: totalElements
-        )
-    }
 }

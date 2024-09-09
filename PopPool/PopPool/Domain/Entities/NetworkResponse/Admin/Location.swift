@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Location: Decodable {
+struct Location: Encodable {
     let latitude: Double
     let longitude: Double
     let markerTitle: String

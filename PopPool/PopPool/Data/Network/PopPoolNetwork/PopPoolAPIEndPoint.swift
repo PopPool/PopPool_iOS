@@ -419,6 +419,54 @@ struct PopPoolAPIEndPoint {
         )
     }
     
+    
+    // MARK: - ADMIN POPUP API
+    
+    static func admin_getPopUpList(request: GetAdminPopUpListRequestDTO) -> Endpoint<GetAdminPopUpStoreListResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/admin/popup-stores/list",
+            method: .get,
+            queryParameters: request
+        )
+    }
+
+    static func admin_updatePopUp(updatePopUp: UpdatePopUpStoreRequestDTO) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/admin/popup-stores",
+            method: .put,
+            bodyParameters: updatePopUp
+        )
+    }
+    
+    static func admin_postPopUp(postPopUp: CreatePopUpStoreRequestDTO) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/admin/popup-stores",
+            method: .post,
+            bodyParameters: postPopUp
+        )
+    }
+    
+    static func admin_deletePopUp(targetId: Int64) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/admin/popup-stores?popUpStoreId=\(targetId)",
+            method: .delete
+        )
+    }
+    
+    static func admin_getDetailPopUp(popUpStoreId: Int64) -> Endpoint<GetAdminPopUpStoreDetailResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/admin/popup-stores/popUpStoreId=\(popUpStoreId)",
+            method: .get
+        )
+    }
+    
+    // MARK: - PresignedURL API
+
     static func presigned_upload(request: PresignedURLRequestDTO) -> Endpoint<PreSignedURLResponseDTO>{
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
@@ -432,6 +480,15 @@ struct PopPoolAPIEndPoint {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/files/download-preSignedUrl",
+            method: .post,
+            bodyParameters: request
+        )
+    }
+    
+    static func presigned_delete(request: PresignedURLRequestDTO) -> RequestEndpoint{
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/files/delete",
             method: .post,
             bodyParameters: request
         )

@@ -17,32 +17,10 @@ struct GetAdminPopUpStoreDetailResponseDTO: Decodable {
     let endDate: Date
     let createUserId: String
     let createDateTime: Date
-    let mainImageUrl: URL?
-    let imageUrlList: [URL?]
+    let mainImageUrl: String?
+    let imageUrlList: [String?]
     let latitude: Double
     let longitude: Double
     let markerTitle: String
     let markerSnippet: String
-}
-
-extension GetAdminPopUpStoreDetailResponseDTO {
-    func toDomain() -> GetAdminPopUpStoreDetailResponse {
-        return .init(
-            id: id,
-            name: name,
-            category: category,
-            desc: desc,
-            address: address,
-            startDate: startDate,
-            endDate: endDate,
-            createUserId: createUserId,
-            createDateTime: createDateTime,
-            mainImageUrl: mainImageUrl,
-            imageUrlList: imageUrlList,
-            latitude: latitude,
-            longitude: longitude,
-            markerTitle: markerTitle,
-            markerSnippet: markerSnippet
-        )
-    }
 }
