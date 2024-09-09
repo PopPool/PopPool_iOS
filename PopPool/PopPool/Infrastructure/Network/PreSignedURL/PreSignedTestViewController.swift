@@ -19,16 +19,25 @@ class PreSignedTestViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         
-        service.tryUpload(datas: [
-            .init(filePath: "TestPath/TestFile1", image: UIImage(systemName: "folder")!),
-            .init(filePath: "TestPath/TestFile2", image: UIImage(systemName: "lasso")!),
-        ])
-            .subscribe { _ in
-                print("성공!!!!!")
-            } onFailure: { _ in
-                print("실패 ㅠㅠㅠㅠㅠㅠ")
-            }
-            .disposed(by: disposeBag)
+//        service.tryUpload(datas: [
+//            .init(filePath: "TestPath/TestFile1", image: UIImage(systemName: "folder")!),
+//            .init(filePath: "TestPath/TestFile2", image: UIImage(systemName: "lasso")!),
+//        ])
+//            .subscribe { _ in
+//                print("성공!!!!!")
+//            } onFailure: { _ in
+//                print("실패 ㅠㅠㅠㅠㅠㅠ")
+//            }
+//            .disposed(by: disposeBag)
+
+//        service.tryDelete(targetPaths: .init(objectKeyList: ["TestPath/TestFile1", "TestPath/TestFile2"]))
+//            .subscribe {
+//                print("성공~!~!~!")
+//            } onError: { error in
+//                print(error.localizedDescription)
+//                print("실패~~!~!~!")
+//            }
+//            .disposed(by: disposeBag)
 
 //        service.getUploadLinks(request: .init(objectKeyList: ["filePathTest/Test"]))
 //            .subscribe { response in
@@ -41,21 +50,21 @@ class PreSignedTestViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
         
-        service.tryDownload(filePaths: [
-            "TestPath/TestFile",
-            "TestPath/TestFile1",
-            "TestPath/TestFile2"
-        ])
-            .subscribe { images in
-                print("성공 !!!!!!!")
-                print(images)
-                if let image = images.last {
-                    self.imageView.image = image
-                }
-            } onFailure: { error in
-                print("실패 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ")
-            }
-            .disposed(by: disposeBag)
+//        service.tryDownload(filePaths: [
+//            "TestPath/TestFile",
+//            "TestPath/TestFile1",
+//            "TestPath/TestFile2"
+//        ])
+//            .subscribe { images in
+//                print("성공 !!!!!!!")
+//                print(images)
+//                if let image = images.last {
+//                    self.imageView.image = image
+//                }
+//            } onFailure: { error in
+//                print("실패 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ")
+//            }
+//            .disposed(by: disposeBag)
 
     }
 }

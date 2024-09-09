@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct CreatePopUpStoreRequestDTO: Decodable {
+struct CreatePopUpStoreRequestDTO: Encodable {
     let name: String
     let category: String
     let desc: String
     let address: String
-    let startDate: Date
-    let endDate: Date
-    let mainImageUrl: URL?
-    let imageUrlList: [URL?]
+    let startDate: String
+    let endDate: String
+    let mainImageUrl: String
+    let imageUrlList: [String]
     let latitude: Double
     let longitude: Double
 }

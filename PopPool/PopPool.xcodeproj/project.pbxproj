@@ -12,6 +12,12 @@
 		081FAF462C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF452C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift */; };
 		081FAF482C89E71700CF8AD6 /* PreSignedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF472C89E71700CF8AD6 /* PreSignedService.swift */; };
 		081FAF4A2C89E7E200CF8AD6 /* PreSignedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081FAF492C89E7E200CF8AD6 /* PreSignedTestViewController.swift */; };
+		083464B42C8F05D7007D6F11 /* AdminManagementListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464B32C8F05D7007D6F11 /* AdminManagementListTableViewCell.swift */; };
+		083464B82C8F100A007D6F11 /* AdminPopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464B72C8F100A007D6F11 /* AdminPopUpStoreDTO.swift */; };
+		083464BA2C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464B92C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift */; };
+		083464BE2C8F2002007D6F11 /* AdminPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464BD2C8F2002007D6F11 /* AdminPostVC.swift */; };
+		083464C02C8F2009007D6F11 /* AdminEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464BF2C8F2009007D6F11 /* AdminEditVC.swift */; };
+		083464C22C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */; };
 		084BC9602C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */; };
 		084BC9622C7F539E00C57494 /* UserBookMarkRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */; };
 		084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */; };
@@ -103,6 +109,7 @@
 		08C813F72C2F15DC009239FE /* GetCategoryListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813F62C2F15DC009239FE /* GetCategoryListResponseDTO.swift */; };
 		08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */; };
 		08C813FD2C2F2C14009239FE /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C813FC2C2F2C13009239FE /* SignUpRepository.swift */; };
+		08D9F9972C8C593600D7F2DB /* AdminManagementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D9F9962C8C593600D7F2DB /* AdminManagementVC.swift */; };
 		08E23A3B2C4502E5004B77B6 /* CircleFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */; };
 		08E23A3F2C452523004B77B6 /* MenuListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */; };
 		08E23A412C452571004B77B6 /* MyCommentCircleListCellSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */; };
@@ -336,6 +343,12 @@
 		081FAF452C89E20500CF8AD6 /* PreSignedURLResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedURLResponseDTO.swift; sourceTree = "<group>"; };
 		081FAF472C89E71700CF8AD6 /* PreSignedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedService.swift; sourceTree = "<group>"; };
 		081FAF492C89E7E200CF8AD6 /* PreSignedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedTestViewController.swift; sourceTree = "<group>"; };
+		083464B32C8F05D7007D6F11 /* AdminManagementListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminManagementListTableViewCell.swift; sourceTree = "<group>"; };
+		083464B72C8F100A007D6F11 /* AdminPopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPopUpStoreDTO.swift; sourceTree = "<group>"; };
+		083464B92C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpListRequestDTO.swift; sourceTree = "<group>"; };
+		083464BD2C8F2002007D6F11 /* AdminPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPostVC.swift; sourceTree = "<group>"; };
+		083464BF2C8F2009007D6F11 /* AdminEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEditVC.swift; sourceTree = "<group>"; };
+		083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminImageViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListRequestDTO.swift; sourceTree = "<group>"; };
 		084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookMarkRequestDTO.swift; sourceTree = "<group>"; };
 		084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
@@ -415,6 +428,7 @@
 		08C813F62C2F15DC009239FE /* GetCategoryListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoryListResponseDTO.swift; sourceTree = "<group>"; };
 		08C813FA2C2F2809009239FE /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
 		08C813FC2C2F2C13009239FE /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
+		08D9F9962C8C593600D7F2DB /* AdminManagementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminManagementVC.swift; sourceTree = "<group>"; };
 		08E23A3A2C4502E5004B77B6 /* CircleFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleFeedCell.swift; sourceTree = "<group>"; };
 		08E23A3E2C452523004B77B6 /* MenuListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListCellSection.swift; sourceTree = "<group>"; };
 		08E23A402C452571004B77B6 /* MyCommentCircleListCellSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCircleListCellSection.swift; sourceTree = "<group>"; };
@@ -774,6 +788,32 @@
 				08E23A452C4781AF004B77B6 /* KeyChainService.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		083464B62C8F0E6F007D6F11 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */,
+				08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		083464BB2C8F1FEE007D6F11 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				083464BD2C8F2002007D6F11 /* AdminPostVC.swift */,
+				083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		083464BC2C8F1FF6007D6F11 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				083464BF2C8F2009007D6F11 /* AdminEditVC.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		084BC95E2C7F51F400C57494 /* BookMarkDTO */ = {
@@ -1252,6 +1292,25 @@
 			path = SignUpDTO;
 			sourceTree = "<group>";
 		};
+		08D9F9942C8C58F400D7F2DB /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				083464BC2C8F1FF6007D6F11 /* Edit */,
+				083464BB2C8F1FEE007D6F11 /* Post */,
+				08D9F9952C8C592100D7F2DB /* Management */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
+		08D9F9952C8C592100D7F2DB /* Management */ = {
+			isa = PBXGroup;
+			children = (
+				08D9F9962C8C593600D7F2DB /* AdminManagementVC.swift */,
+				083464B32C8F05D7007D6F11 /* AdminManagementListTableViewCell.swift */,
+			);
+			path = Management;
+			sourceTree = "<group>";
+		};
 		08E23A3D2C452515004B77B6 /* TableViewSection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1479,6 +1538,7 @@
 				08F49E002C24023E002D5202 /* OnBoarding */,
 				089D191B2C36B138000435D9 /* MyPage */,
 				BD2EF6692C635A6700A93A8C /* Home */,
+				08D9F9942C8C58F400D7F2DB /* Admin */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -1664,12 +1724,13 @@
 		BD0D190D2C7D8D1A0017D909 /* AdminDTO */ = {
 			isa = PBXGroup;
 			children = (
-				08FF6C292C721D1100B68569 /* UpdateNoticeRequestDTO.swift */,
+				083464B62C8F0E6F007D6F11 /* Notice */,
 				BD0D19162C7D91040017D909 /* GetAdminPopUpStoreListResponseDTO.swift */,
 				BD0D190E2C7D8EB20017D909 /* UpdatePopUpStoreRequestDTO.swift */,
-				08FF6C272C721CE600B68569 /* CreateNoticeRequestDTO.swift */,
 				BD0D19122C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift */,
 				BD0D19142C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift */,
+				083464B72C8F100A007D6F11 /* AdminPopUpStoreDTO.swift */,
+				083464B92C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift */,
 			);
 			path = AdminDTO;
 			sourceTree = "<group>";
@@ -2055,6 +2116,8 @@
 				08E23A962C4F72B2004B77B6 /* UpdateMyInterestRequestDTO.swift in Sources */,
 				08A28CAC2C27E5FB00DF7A90 /* ProgressIndicatorCPNT.swift in Sources */,
 				BDCA56722C69FD07005C68C8 /* HomeListCellSection.swift in Sources */,
+				083464C22C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift in Sources */,
+				083464BA2C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift in Sources */,
 				4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */,
 				08E23A692C4E1BDC004B77B6 /* SurveyDTO.swift in Sources */,
 				BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */,
@@ -2067,6 +2130,7 @@
 				BDA0B1372C2E622B007BDCA4 /* ModalViewController.swift in Sources */,
 				BDF08A002C6505000098486D /* TermsDetailBoardVC.swift in Sources */,
 				BD3C4C6B2C30C8880087917B /* ToolTipViewCPNT.swift in Sources */,
+				083464C02C8F2009007D6F11 /* AdminEditVC.swift in Sources */,
 				BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */,
 				08F49DFD2C2400FC002D5202 /* ButtonCPNT.swift in Sources */,
 				BD0D19132C7D8F9F0017D909 /* CreatePopUpStoreRequestDTO.swift in Sources */,
@@ -2088,6 +2152,7 @@
 				08E23A982C4F7371004B77B6 /* GetProfileResponseDTO.swift in Sources */,
 				08E23A5F2C4E171A004B77B6 /* PopUpInfoDTO.swift in Sources */,
 				BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */,
+				083464B42C8F05D7007D6F11 /* AdminManagementListTableViewCell.swift in Sources */,
 				08FF6C242C721C6500B68569 /* GetNoticeListResponseDTO.swift in Sources */,
 				BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */,
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
@@ -2163,6 +2228,7 @@
 				089D19102C352E1E000435D9 /* AgeSelectModalVC.swift in Sources */,
 				08E23AA72C4F7D27004B77B6 /* PopUpInfo.swift in Sources */,
 				BD79E1852C5763A200CCEE07 /* NoticeDetailBoardVC.swift in Sources */,
+				083464BE2C8F2002007D6F11 /* AdminPostVC.swift in Sources */,
 				08E23AD02C535DB5004B77B6 /* SavedPopUpCell.swift in Sources */,
 				08FF6C172C70800200B68569 /* ProfileEditCategoryBottomSheetVM.swift in Sources */,
 				BDEAE4BE2C716FAA00D96D41 /* PopUpBackgroundView.swift in Sources */,
@@ -2243,6 +2309,7 @@
 				08B965602C1441C100BF95AA /* AppleAuthServiceImpl.swift in Sources */,
 				4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */,
 				081FAF422C89E15D00CF8AD6 /* PresignedURLRequestDTO.swift in Sources */,
+				083464B82C8F100A007D6F11 /* AdminPopUpStoreDTO.swift in Sources */,
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08A28CB42C280F9600DF7A90 /* ProgressViewCPNT.swift in Sources */,
 				BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */,
@@ -2251,6 +2318,7 @@
 				4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
 				08AF8D9C2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift in Sources */,
+				08D9F9972C8C593600D7F2DB /* AdminManagementVC.swift in Sources */,
 				BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */,
 				08F49E092C240335002D5202 /* LoginVC.swift in Sources */,
 				BD2684962C8C901F000F623F /* UICollectionReusableView.swift in Sources */,
