@@ -32,7 +32,7 @@ final class AdminRepositoryImpl: AdminRepository {
     // MARK: - PopUp API
 
     func getPopUpDetail(popUpID: Int64) -> Observable<GetAdminPopUpStoreDetailResponseDTO>{
-        let endPoint = PopPoolAPIEndPoint.admin_getDetailPopUp(popUpStoreId: popUpID)
+        let endPoint = PopPoolAPIEndPoint.admin_getDetailPopUp(popUpStoreId: .init(popUpStoreId: popUpID))
         return provider.requestData(with: endPoint, interceptor: tokenInterceptor)
     }
     
@@ -51,7 +51,7 @@ final class AdminRepositoryImpl: AdminRepository {
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
     func deletePopUp(popUpID: Int64) -> Completable{
-        let endPoint = PopPoolAPIEndPoint.admin_getDetailPopUp(popUpStoreId: popUpID)
+        let endPoint = PopPoolAPIEndPoint.admin_getDetailPopUp(popUpStoreId: .init(popUpStoreId: popUpID))
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
 }

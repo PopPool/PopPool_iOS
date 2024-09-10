@@ -449,19 +449,20 @@ struct PopPoolAPIEndPoint {
         )
     }
     
-    static func admin_deletePopUp(targetId: Int64) -> RequestEndpoint {
+    static func admin_deletePopUp(popUpStoreId: AdminPopUpStoreIdRequestDTO) -> RequestEndpoint {
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/admin/popup-stores?popUpStoreId=\(targetId)",
+            path: "/admin/popup-stores",
             method: .delete
         )
     }
     
-    static func admin_getDetailPopUp(popUpStoreId: Int64) -> Endpoint<GetAdminPopUpStoreDetailResponseDTO> {
+    static func admin_getDetailPopUp(popUpStoreId: AdminPopUpStoreIdRequestDTO) -> Endpoint<GetAdminPopUpStoreDetailResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
-            path: "/admin/popup-stores/popUpStoreId=\(popUpStoreId)",
-            method: .get
+            path: "/admin/popup-stores",
+            method: .get,
+            queryParameters: popUpStoreId
         )
     }
     
