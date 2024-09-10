@@ -20,6 +20,7 @@ final class ProfileEditCategoryBottomSheetVM: ViewModelable {
     struct Output {
         var categoryList: BehaviorRelay<[Category]>
         var saveButtonIsActive: BehaviorRelay<Bool>
+        var popViewController: PublishSubject<Void>
     }
     
     // MARK: - Properties
@@ -77,6 +78,8 @@ final class ProfileEditCategoryBottomSheetVM: ViewModelable {
             }
             .disposed(by: disposeBag)
         
+        let popViewController: PublishSubject<Void> = .init()
+        
         input.saveButtonTapped
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -91,6 +94,7 @@ final class ProfileEditCategoryBottomSheetVM: ViewModelable {
                     ToastMSGManager.createToast(message: "수정사항을 반영했어요")
                     owner.saveButtonIsActive.accept(false)
                     owner.originSelectedCategory = owner.changeSelectedCategory.value.map { Int64($0.row) }
+                    popViewController.onNext(())
                 } onError: { error in
                     ToastMSGManager.createToast(message: "수정사항을 반영하지 못했어요")
                 }
@@ -100,7 +104,8 @@ final class ProfileEditCategoryBottomSheetVM: ViewModelable {
         
         return Output(
             categoryList: categoryList,
-            saveButtonIsActive: saveButtonIsActive
+            saveButtonIsActive: saveButtonIsActive,
+            popViewController: popViewController
         )
     }
     
