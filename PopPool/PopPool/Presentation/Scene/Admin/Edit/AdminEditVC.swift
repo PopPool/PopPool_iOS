@@ -449,25 +449,25 @@ private extension AdminEditVC {
                     imageService.tryUpload(datas: imageUploadDatas)
                         .subscribe { _ in
                             print("ImageUploadSuccess")
-                            let repository = AdminRepositoryImpl()
-                            
-                            let newPopUp: AdminPopUpStoreDTO = .init(
-                                id: id,
-                                name: title,
-                                category: owner.selectCategory.value,
-                                desc: description,
-                                address: adress,
-                                startDate: startDate,
-                                endDate: endDate,
-                                mainImageUrl: pathList[owner.mainImageIndex.value],
-                                imageUrl: pathList
-                            )
-                            let updateRequest = UpdatePopUpStoreRequestDTO(
-                                popUpStore: newPopUp,
-                                location: .init(latitude: latitude, longitude: longitude, markerTitle: "", markerSnippet: ""),
-                                imagesToAdd: <#T##[String]#>,
-                                imagesToDelete: <#T##[Int64]#>
-                            )
+//                            let repository = AdminRepositoryImpl()
+//                            
+//                            let newPopUp: AdminPopUpStoreDTO = .init(
+//                                id: id,
+//                                name: title,
+//                                category: owner.selectCategory.value,
+//                                desc: description,
+//                                address: adress,
+//                                startDate: startDate,
+//                                endDate: endDate,
+//                                mainImageUrl: pathList[owner.mainImageIndex.value],
+//                                imageUrl: pathList
+//                            )
+//                            let updateRequest = UpdatePopUpStoreRequestDTO(
+//                                popUpStore: newPopUp,
+//                                location: .init(latitude: latitude, longitude: longitude, markerTitle: "", markerSnippet: ""),
+//                                imagesToAdd: <#T##[String]#>,
+//                                imagesToDelete: <#T##[Int64]#>
+//                            )
 //                                name: title,
 //                                category: owner.selectCategory.value,
 //                                desc: description,
@@ -480,21 +480,21 @@ private extension AdminEditVC {
 //                                longitude: longitude
 //                            )
 //                            print(newPopUp)
-                            repository.updatePopUp(updatePopUp: updateRequest)
-                                .subscribe {
-                                    ToastMSGManager.createToast(message: "등록성공")
-                                    owner.navigationController?.popViewController(animated: true)
-                                } onError: { _ in
-                                    ToastMSGManager.createToast(message: "등록실패")
-                                    imageService.tryDelete(targetPaths: .init(objectKeyList: pathList))
-                                        .subscribe {
-                                            print("이미지 삭제 완료")
-                                        } onError: { _ in
-                                            print("이미지 삭제 오류")
-                                        }
-                                        .disposed(by: owner.disposeBag)
-                                }
-                                .disposed(by: owner.disposeBag)
+//                            repository.updatePopUp(updatePopUp: updateRequest)
+//                                .subscribe {
+//                                    ToastMSGManager.createToast(message: "등록성공")
+//                                    owner.navigationController?.popViewController(animated: true)
+//                                } onError: { _ in
+//                                    ToastMSGManager.createToast(message: "등록실패")
+//                                    imageService.tryDelete(targetPaths: .init(objectKeyList: pathList))
+//                                        .subscribe {
+//                                            print("이미지 삭제 완료")
+//                                        } onError: { _ in
+//                                            print("이미지 삭제 오류")
+//                                        }
+//                                        .disposed(by: owner.disposeBag)
+//                                }
+//                                .disposed(by: owner.disposeBag)
                         } onFailure: { _ in
                             print("ImageUploadFail")
                             ToastMSGManager.createToast(message: "ImageUploadFail")
