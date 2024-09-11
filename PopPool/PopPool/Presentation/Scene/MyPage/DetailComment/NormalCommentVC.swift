@@ -1,0 +1,369 @@
+//
+//  normalCommentVC.swift
+//  PopPool
+//
+//  Created by Porori on 9/8/24.
+//
+
+import UIKit
+import RxSwift
+import SnapKit
+import PhotosUI
+
+final class NormalCommentVC: BaseViewController {
+    
+    //MARK: - Components
+    
+    private let header = HeaderViewCPNT(title: "코멘트 작성하기", style: .icon(nil))
+    private let scrollView = UIScrollView(frame: .zero)
+    private let containerView = UIView()
+    
+    private let imageHeader = ListTitleViewCPNT(
+        title: "사진 선택",
+        size: .large(subtitle: "\(Constants.userId)과 관련있는 사진을 업로드해보세요.", image: nil))
+    private let topSectionSpace = UIView()
+    private let bottomSectionSpace = UIView()
+    
+    private var imageCollectionView = UICollectionView(frame: .zero,
+                                                       collectionViewLayout: UICollectionViewLayout())
+    private let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 80, height: 80)
+        layout.minimumLineSpacing = 8
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        return layout
+    }()
+    
+    private lazy var commentStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(commentHeader)
+        stackView.addArrangedSubview(commentTextfield)
+        stackView.axis = .vertical
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
+    }()
+    
+    private let commentHeader = ListTitleViewCPNT(
+        title: "코멘트 작성",
+        size: .large(subtitle: "방문했던 \(Constants.userId)에 대한 감상평을 작성해주세요.", image: nil))
+    
+    private let commentTextfield = DynamicTextViewCPNT(
+        placeholder: "내용을 작성해보세요",
+        textLimit: 500)
+    
+    private lazy var footerStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        stack.isLayoutMarginsRelativeArrangement = true
+        stack.addArrangedSubview(footerTopSpace)
+        stack.addArrangedSubview(saveButton)
+        stack.addArrangedSubview(footerSpace)
+        return stack
+    }()
+    
+    private let saveButton = ButtonCPNT(
+        type: .primary,
+        title: "저장",
+        disabledTitle: "저장")
+    
+    private let footerSpace = UIView()
+    private let footerTopSpace = UIView()
+    
+    //MARK: - Properties
+    
+    private let viewModel: NormalCommentVM
+    private let disposeBag = DisposeBag()
+    private var currentImageCount: Int = 0
+    
+    //MARK: - LifeCycle
+    init(viewModel: NormalCommentVM) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUp()
+        setUpConstraint()
+        setUpContent()
+        bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func setUp() {
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        scrollView.delegate = self
+        
+        imageHeader.rightButton.isHidden = true
+        commentHeader.rightButton.isHidden = true
+        
+        imageCollectionView.collectionViewLayout = self.layout
+        imageCollectionView.register(CommentImageCell.self,
+                                     forCellWithReuseIdentifier: CommentImageCell.identifier)
+        imageCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func bind() {
+        let input = NormalCommentVM.Input(
+            returnButtonTapped: header.leftBarButton.rx.tap,
+            saveButtonTapped: saveButton.rx.tap
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.returnToHome
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                if owner.commentTextfield.textView.hasText {
+                    print("데이터가 있습니다.")
+                    let vc = DismissCommentModalVC()
+                    owner.presentModalViewController(viewController: vc)
+                } else {
+                    print("데이터 없음!")
+                    owner.navigationController?.popViewController(animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.notifySave
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                let vc = DismissCommentModalVC()
+                owner.presentModalViewController(viewController: vc)
+            })
+            .disposed(by: disposeBag)
+        
+        output.selectedImageCount
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, count) in
+                owner.currentImageCount = count // 이미지 갯수 업데이트
+                owner.imageCollectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setUpConstraint() {
+        view.addSubview(header)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        view.addSubview(footerStack)
+        
+        header.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+        }
+        
+        footerTopSpace.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.medium100)
+        }
+        
+        saveButton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
+        
+        footerSpace.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.small100)
+        }
+        
+        footerStack.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(header.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(footerStack.snp.top)
+        }
+        
+        containerView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(scrollView.frameLayoutGuide)
+        }
+    }
+    
+    private func setUpContent() {
+        containerView.addSubview(topSectionSpace)
+        containerView.addSubview(imageHeader)
+        containerView.addSubview(imageCollectionView)
+        containerView.addSubview(bottomSectionSpace)
+        containerView.addSubview(commentStack)
+        
+        topSectionSpace.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(Constants.spaceGuide.small300)
+        }
+        
+        imageHeader.snp.makeConstraints { make in
+            make.top.equalTo(topSectionSpace.snp.bottom)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        imageCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(imageHeader.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(80)
+        }
+        
+        bottomSectionSpace.snp.makeConstraints { make in
+            make.top.equalTo(imageCollectionView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(Constants.spaceGuide.medium100)
+        }
+        
+        commentStack.snp.makeConstraints { make in
+            make.top.equalTo(bottomSectionSpace.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+}
+
+extension NormalCommentVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return min(currentImageCount + 1, 5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentImageCell.identifier, for: indexPath) as? CommentImageCell else { return UICollectionViewCell() }
+        
+        if indexPath.item < currentImageCount {
+            if let imageData = viewModel.getImage(at: indexPath.item) {
+                cell.configure(with: imageData)
+            }
+        } else {
+            let image = UIImage(systemName: "lasso")
+            cell.configure(with: nil)
+        }
+        
+        cell.delegate = self
+        cell.index = indexPath.item
+        return cell
+    }
+}
+
+extension NormalCommentVC: selectedImageDelegate {
+    func didRequestImage() {
+        if currentImageCount < 5 {
+            openPhotoLibrary()
+        }
+    }
+    
+    func didRequestRemoval(at index: Int) {
+        viewModel.removeImage(at: index)
+    }
+    
+    func openPhotoLibrary() {
+        self.isPhotoAuthorizationEnabled() ? self.showFullAccess() : self.grantAccess()
+    }
+    
+    func isPhotoAuthorizationEnabled() -> Bool {
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        return status == .authorized || status == .limited
+    }
+    
+    func grantAccess() {
+        // 최초 권한 요청
+        let currentStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        switch currentStatus {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+                switch status {
+                case .authorized:
+                    print("허락됐습니다")
+                    self.showFullAccess()
+                case .limited:
+                    print("일부 허락됐습니다")
+                    self.showLimitedAccess()
+                case .denied, .restricted:
+                    print("허락 X")
+                    self.denied()
+                default:
+                    break
+                }
+            }
+        case .denied, .restricted:
+            self.denied()
+        default:
+            break
+        }
+    }
+    
+    func showLimitedAccess() {
+        PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+    }
+    
+    func showFullAccess() {
+        var configure = PHPickerConfiguration()
+        configure.filter = .images
+        configure.selectionLimit = 1
+        
+        DispatchQueue.main.async {
+            let phPicker = PHPickerViewController(configuration: configure)
+            phPicker.delegate = self
+            self.present(phPicker, animated: true)
+        }
+    }
+    
+    func denied() {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+            if status == .denied {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(
+                        title: "사진 접근 허용 필요",
+                        message: "설정에서 사진첩 접근을 허용해주세요.",
+                        preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in
+                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(settingsURL)
+                        }
+                    })
+                    alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
+}
+
+extension NormalCommentVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        guard let itemProvider = results.first?.itemProvider,
+              itemProvider.canLoadObject(ofClass: UIImage.self) else {
+            print("선택된 이미지가 없다.")
+            picker.dismiss(animated: true)
+            return
+        }
+        
+        itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+            DispatchQueue.main.async {
+                picker.dismiss(animated: true)
+                
+                if let error = error {
+                    print("에러가 발생했습니다.", error.localizedDescription)
+                } else if let image = image as? UIImage {
+                    if let imageData = image.jpegData(compressionQuality: 0) {
+                        print("이미지 적용")
+                        self?.viewModel.addImage(imageData)
+                    }
+                }
+            }
+        }
+        picker.dismiss(animated: true)
+    }
+}
