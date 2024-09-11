@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import PhotosUI
 
 class NormalCommentVM: ViewModelable {
     
@@ -19,11 +20,7 @@ class NormalCommentVM: ViewModelable {
     struct Output {
         var returnToHome: Observable<Void>
         var notifySave: Observable<Void>
-        var selectedImageCount: Observable<Int>
-    }
-    
-    var selectedImages: Observable<[Data]> {
-        return selectedImageRelay.asObservable()
+        var currentImageCount: Observable<Int>
     }
     
     var selectedImageCount: Observable<Int> {
@@ -35,17 +32,14 @@ class NormalCommentVM: ViewModelable {
     private var selectedImageRelay = BehaviorRelay<[Data]>(value: [])
     
     func addImage(_ imageData: Data) {
-        // 오!
         var currentImages = selectedImageRelay.value
         if currentImages.count < maxImageCount {
             currentImages.append(imageData)
-            print("이미지 데이터 accept", imageData)
             selectedImageRelay.accept(currentImages)
         }
     }
     
     func removeImage(at index: Int) {
-        print("데이터 삭제")
         var currentImages = selectedImageRelay.value
         if index < currentImages.count {
             currentImages.remove(at: index)
@@ -62,7 +56,7 @@ class NormalCommentVM: ViewModelable {
         return Output(
             returnToHome: input.returnButtonTapped.asObservable(),
             notifySave: input.saveButtonTapped.asObservable(),
-            selectedImageCount: selectedImageCount
+            currentImageCount: selectedImageCount
         )
     }
 }

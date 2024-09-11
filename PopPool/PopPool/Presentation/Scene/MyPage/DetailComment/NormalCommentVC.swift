@@ -76,9 +76,10 @@ final class NormalCommentVC: BaseViewController {
     
     private let viewModel: NormalCommentVM
     private let disposeBag = DisposeBag()
-    private var currentImageCount: Int = 0
+    private var imageCount: Int = 0
     
     //MARK: - LifeCycle
+    
     init(viewModel: NormalCommentVM) {
         self.viewModel = viewModel
         super.init()
@@ -130,12 +131,10 @@ final class NormalCommentVC: BaseViewController {
         output.returnToHome
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                if owner.commentTextfield.textView.hasText {
-                    print("데이터가 있습니다.")
+                if owner.commentTextfield.textView.hasText || owner.imageCount != 0 {
                     let vc = DismissCommentModalVC()
                     owner.presentModalViewController(viewController: vc)
                 } else {
-                    print("데이터 없음!")
                     owner.navigationController?.popViewController(animated: true)
                 }
             })
@@ -144,15 +143,18 @@ final class NormalCommentVC: BaseViewController {
         output.notifySave
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                let vc = DismissCommentModalVC()
-                owner.presentModalViewController(viewController: vc)
+                // API 연결 - 데이터 저장
+                // 안내문 발송
+                // 화면 drop
+                ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                owner.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
         
-        output.selectedImageCount
+        output.currentImageCount
             .withUnretained(self)
             .subscribe(onNext: { (owner, count) in
-                owner.currentImageCount = count // 이미지 갯수 업데이트
+                owner.imageCount = count // 이미지 갯수 업데이트
                 owner.imageCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -236,13 +238,13 @@ final class NormalCommentVC: BaseViewController {
 
 extension NormalCommentVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(currentImageCount + 1, 5)
+        return min(imageCount + 1, 5)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentImageCell.identifier, for: indexPath) as? CommentImageCell else { return UICollectionViewCell() }
         
-        if indexPath.item < currentImageCount {
+        if indexPath.item < imageCount {
             if let imageData = viewModel.getImage(at: indexPath.item) {
                 cell.configure(with: imageData)
             }
@@ -257,28 +259,37 @@ extension NormalCommentVC: UICollectionViewDelegate, UICollectionViewDataSource 
     }
 }
 
-extension NormalCommentVC: selectedImageDelegate {
+// MARK: - CommentImageDelegate
+
+extension NormalCommentVC: CommentImageDelegate {
+    
+    /// 이미지 갯수 여부에 따라 사진첩 활성화
     func didRequestImage() {
-        if currentImageCount < 5 {
+        if imageCount < 5 {
             openPhotoLibrary()
         }
     }
     
+    /// 선택된 이미지를 삭제 메서드
+    /// - Parameter index: Int 타입의 index 값을 받습니다
     func didRequestRemoval(at index: Int) {
         viewModel.removeImage(at: index)
     }
     
+    /// 사진첩 설정 상태에 맞는 권한을 제공하는 메서드
     func openPhotoLibrary() {
         self.isPhotoAuthorizationEnabled() ? self.showFullAccess() : self.grantAccess()
     }
     
+    /// 사진첩 설정 상태 확인 메서드
+    /// - Returns: Bool 타입 반환
     func isPhotoAuthorizationEnabled() -> Bool {
         let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         return status == .authorized || status == .limited
     }
     
+    /// 최초 권한 요청시, 사진첩을 열고 - 아닐 경우 설정 페이지로 이동하는 메서드
     func grantAccess() {
-        // 최초 권한 요청
         let currentStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         switch currentStatus {
         case .notDetermined:
@@ -304,14 +315,16 @@ extension NormalCommentVC: selectedImageDelegate {
         }
     }
     
+    /// 제한 접근 권한인 경우
     func showLimitedAccess() {
         PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
     }
     
+    /// 전체 접근 권한인 경우
     func showFullAccess() {
         var configure = PHPickerConfiguration()
         configure.filter = .images
-        configure.selectionLimit = 1
+        configure.selectionLimit = 5
         
         DispatchQueue.main.async {
             let phPicker = PHPickerViewController(configuration: configure)
@@ -320,6 +333,7 @@ extension NormalCommentVC: selectedImageDelegate {
         }
     }
     
+    /// 접근 불가 권한인 경우
     func denied() {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             if status == .denied {
@@ -341,27 +355,27 @@ extension NormalCommentVC: selectedImageDelegate {
     }
 }
 
+//MARK: - PHPickerViewControllerDelegate
+
 extension NormalCommentVC: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        guard let itemProvider = results.first?.itemProvider,
-              itemProvider.canLoadObject(ofClass: UIImage.self) else {
-            print("선택된 이미지가 없다.")
-            picker.dismiss(animated: true)
-            return
-        }
         
-        itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-            DispatchQueue.main.async {
-                picker.dismiss(animated: true)
-                
-                if let error = error {
-                    print("에러가 발생했습니다.", error.localizedDescription)
-                } else if let image = image as? UIImage {
-                    if let imageData = image.jpegData(compressionQuality: 0) {
-                        print("이미지 적용")
-                        self?.viewModel.addImage(imageData)
+        let imageItems = results
+            .map { $0.itemProvider }
+            .filter { $0.canLoadObject(ofClass: UIImage.self) }
+        let dispatchGroup = DispatchGroup()
+        
+        for item in imageItems {
+            dispatchGroup.enter()
+            
+            item.loadObject(ofClass: UIImage.self) { image, error in
+                if let image = image as? UIImage,
+                   let imageData = image.jpegData(compressionQuality: 0) {
+                    dispatchGroup.notify(queue: .main) {
+                        self.viewModel.addImage(imageData)
                     }
                 }
+                dispatchGroup.leave()
             }
         }
         picker.dismiss(animated: true)

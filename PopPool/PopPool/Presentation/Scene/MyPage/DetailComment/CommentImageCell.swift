@@ -11,7 +11,7 @@ import RxCocoa
 import RxRelay
 import SnapKit
 
-protocol selectedImageDelegate: AnyObject {
+protocol CommentImageDelegate: AnyObject {
     func didRequestImage()
     func didRequestRemoval(at index: Int)
 }
@@ -51,10 +51,9 @@ final class CommentImageCell: UICollectionViewCell {
     private var isTapped: State = .unTapped
     private var disposeBag = DisposeBag()
     private var imageData: Data?
-    var delegate: selectedImageDelegate?
+    var delegate: CommentImageDelegate?
     
     var tapSubject: BehaviorSubject<State> = .init(value: .unTapped)
-    var didTapButton: (() -> Void)?
     var index: Int?
     
     // MARK: - Initializer
@@ -79,7 +78,6 @@ final class CommentImageCell: UICollectionViewCell {
                 owner.tapSubject.onNext(owner.isTapped)
                 
                 if owner.imageData == nil {
-                    print("현재 이미지 데이터", owner.imageData)
                     owner.delegate?.didRequestImage()
                 }
             })
@@ -88,8 +86,8 @@ final class CommentImageCell: UICollectionViewCell {
         cancelButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                print("취소가 눌렸음.")
                 guard let index = owner.index else { return }
+                print("인덱스 값", index)
                 owner.delegate?.didRequestRemoval(at: index)
             })
             .disposed(by: disposeBag)
