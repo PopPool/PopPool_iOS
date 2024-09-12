@@ -562,7 +562,6 @@
 		4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
-		4E8F62042C69D49D002440B8 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		4E9A33A02C648DEE000F4095 /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListCell.swift; sourceTree = "<group>"; };
 		4E9A33A42C64ACF4000F4095 /* PopUpCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpCardView.swift; sourceTree = "<group>"; };
@@ -1734,7 +1733,6 @@
 				4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */,
 				4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */,
 				4E9A33AB2C64CE41000F4095 /* FilterCell.swift */,
-				4E8F62042C69D49D002440B8 /* CategoryCell.swift */,
 			);
 			path = PopUpListView;
 			sourceTree = "<group>";
