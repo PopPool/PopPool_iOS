@@ -22,7 +22,7 @@ protocol StoresServiceProtocol {
     func getAllStores() -> Observable<[PopUpStore]>
     func searchStores(query: String) -> Observable<[PopUpStore]>
     func getPopUpStoresInBounds(northEastLat: Double, northEastLon: Double, southWestLat: Double, southWestLon: Double, categories: [String]?) -> Observable<[PopUpStore]>
-    func getCustomPopUpStoreImages(userId: String, page: Int, size: Int) -> Observable<[PopUpStoreImage]> // 추가된 메서드
+    func getCustomPopUpStoreImages(userId: String, page: Int, size: Int) -> Observable<[PopUpStoreImage]>
 }
 
 // 스토어 서비스 클래스
@@ -32,7 +32,6 @@ class StoresService: StoresServiceProtocol {
     private let keyChainService: KeyChainService
     private var disposeBag = DisposeBag()
 
-    // 생성자: 필요한 의존성들을 주입받음
     init(provider: Provider, tokenInterceptor: TokenInterceptor, keyChainService: KeyChainService) {
         self.provider = provider
         self.tokenInterceptor = tokenInterceptor
@@ -121,7 +120,7 @@ class StoresService: StoresServiceProtocol {
                     userId: userId,
                     page: 0,
                     size: 1,
-                    sort: "string"  // "string"으로 설정
+                    sort: "startDate"
                 )
 
                 // Authorization 헤더 추가

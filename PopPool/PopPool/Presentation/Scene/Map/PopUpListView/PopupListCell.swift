@@ -31,16 +31,18 @@ class PopupListCell: UICollectionViewCell {
            contentView.addSubview(dateLabel)
            contentView.addSubview(bookmarkButton)
 
-           contentView.layer.cornerRadius = 8
-           contentView.clipsToBounds = true
+//           contentView.layer.cornerRadius = 8
+//           contentView.clipsToBounds = true
 
            popupImageView.snp.makeConstraints {
                $0.top.leading.trailing.equalToSuperview()
-               $0.height.equalTo(160) // 고정된 높이
+               $0.height.equalTo(170) // 고정된 높이
            }
 
            popupImageView.contentMode = .scaleAspectFill
            popupImageView.clipsToBounds = true
+        popupImageView.layer.cornerRadius = 8
+
            popupImageView.backgroundColor = .lightGray
 
            // bookmarkButton 제약 설정

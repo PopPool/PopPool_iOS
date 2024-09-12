@@ -153,6 +153,22 @@ private extension LoginVC {
             .withUnretained(self)
             .subscribe { (owner, loginResponse) in
                 print("로그인 성공, userId: \(loginResponse.userId), accessToken: \(loginResponse.accessToken)")
+                Constants.userId = loginResponse.userId
+                UserDefaults.standard.set(loginResponse.userId, forKey: "loggedInUserId")
+                let keyChainService = KeyChainServiceImpl()
+
+                            // 토큰 저장
+                            keyChainService.saveToken(type: .accessToken, value: loginResponse.accessToken)
+                                .subscribe(onCompleted: {
+                                    print("accessToken saved")
+                                })
+                                .disposed(by: owner.disposeBag)
+
+                            keyChainService.saveToken(type: .refreshToken, value: loginResponse.refreshToken)
+                                .subscribe(onCompleted: {
+                                    print("refreshToken saved")
+                                })
+                                .disposed(by: owner.disposeBag)
 
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
@@ -169,6 +185,8 @@ private extension LoginVC {
                             userId: loginResponse.userId
 
                         )
+                        owner.navigationController?.setViewControllers([customTabBarController], animated: true)
+
 
                         // MapVC 생성
                         let mapViewModel = MapVM(storeService: storeService, userId: Constants.userId)

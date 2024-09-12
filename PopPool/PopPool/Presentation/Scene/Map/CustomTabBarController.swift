@@ -36,10 +36,11 @@ class CustomTabBarController: UITabBarController {
     }
 
     private func setupViewControllers() {
+        let userId = UserDefaults.standard.string(forKey: "loggedInUserId") ?? ""
 
-        let mapVM = MapVM(storeService: storeService, userId: self.userId) // 수정
-        let mapVC = MapVC(viewModel: mapVM, userId: self.userId) // 수정
 
+        let mapVM = MapVM(storeService: storeService, userId: self.userId)
+        let mapVC = MapVC(viewModel: mapVM, userId: self.userId)
 
         let homeRepository = HomeRepositoryImpl() 
         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
@@ -59,7 +60,6 @@ class CustomTabBarController: UITabBarController {
     }
 
     private func setupCustomTabBar() {
-        //        print("setupCustomTabBar 시작")
         tabBar.isHidden = true
 
         view.addSubview(customTabBar)

@@ -9,16 +9,16 @@ class ListViewController: UIViewController {
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        layout.minimumLineSpacing = 16
-//        layout.minimumInteritemSpacing = 16
-//        let width = (UIScreen.main.bounds.width - 48) / 2 // 2열로 설정, 좌우 여백 16씩, 중간 여백 16
-//        layout.itemSize = CGSize(width: width, height: 300)
-//
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
+        let width = (UIScreen.main.bounds.width - 48) / 2 // 2열로 설정, 좌우 여백 16씩, 중간 여백 16
+        layout.itemSize = CGSize(width: width, height: 300)
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PopupListCell.self, forCellWithReuseIdentifier: PopupListCell.reuseIdentifier)
-//        collectionView.backgroundColor = .white
-//        collectionView.contentInset = UIEdgeInsets(top: 16, left: 10, bottom: 16, right: 10)
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsets(top: 16, left: 10, bottom: 16, right: 10)
         return collectionView
     }()
 

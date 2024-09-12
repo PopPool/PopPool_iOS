@@ -5,7 +5,6 @@ import CoreLocation
 import GoogleMaps
 
 class MapVM {
-    // 입력에 관한 구조체
     struct Input {
         let searchQuery: AnyObserver<String>
         let locationFilterTapped: AnyObserver<Void>
@@ -16,7 +15,6 @@ class MapVM {
         let locationFilterChanged: AnyObserver<[String]>
     }
 
-    // 출력에 관한 구조체
     struct Output {
         let searchResults: Observable<[PopUpStore]>
         let filteredStores: Observable<[PopUpStore]>
@@ -119,8 +117,9 @@ class MapVM {
     private let categoryFilterChangedSubject = PublishSubject<[String]>()
 
     init(storeService: StoresServiceProtocol, userId: String) {
+        print("MapVM 초기화, userId: \(userId)")
         self.storeService = storeService
-        self.userId = userId
+        self.userId = userId.isEmpty ? Constants.userId : userId
 
 
         self.input = Input(
@@ -137,8 +136,7 @@ class MapVM {
     }
 
     func getCustomPopUpStoreImages(for stores: [PopUpStore]) -> Observable<[PopUpStoreImage]> {
-//        let page = 1
-//        let size = stores.count
+
 
         // userId와 page, size를 이용해 맞춤형 팝업 스토어 이미지를 가져옵니다.
         return storeService.getCustomPopUpStoreImages(userId: userId, page: 1, size: max(1, stores.count))
