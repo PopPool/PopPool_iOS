@@ -31,7 +31,7 @@ final class MyPageMainVM: ViewModelable {
     
     var userUseCase: UserUseCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
     
-    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(value: .init(popUpInfoList: [], isLogin: true))
+    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(value: .init(popUpInfoList: [], isLogin: true, isAdmin: false))
     
     var menuList: [any TableViewSectionable] {
         get {
@@ -109,6 +109,12 @@ final class MyPageMainVM: ViewModelable {
                         imageURL: $0.mainImageUrl)
                     })
                 ]
+                if myPageResponse.isAdmin {
+                    owner.etcSection.sectionCellInputList = [
+                        .init(title: "회원탈퇴"),
+                        .init(title: "관리자 메뉴 바로가기")
+                    ]
+                }
             }
             .disposed(by: disposeBag)
         
@@ -235,6 +241,8 @@ final class MyPageMainVM: ViewModelable {
             return TermsBoardVC(viewModel: TermsBoardVM())
         } else if title == "회원탈퇴" {
             return SignOutVC(viewModel: SignOutVM())
+        } else if title == "관리자 메뉴 바로가기" {
+            return AdminManagementVC()
         } else {
             return BaseViewController()
         }

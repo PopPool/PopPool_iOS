@@ -14,6 +14,7 @@ struct GetMyPageResponseDTO: Decodable {
     var instagramId: String?
     var myCommentedPopUpList: [MyCommentedPopUpInfoDTO]
     var loginYn: Bool
+    var adminYn: Bool
 }
 
 extension GetMyPageResponseDTO {
@@ -24,7 +25,8 @@ extension GetMyPageResponseDTO {
             instagramId: instagramId,
             popUpInfoList: myCommentedPopUpList.map({ $0.toDomain() }),
             intro: intro,
-            isLogin: loginYn
+            isLogin: loginYn,
+            isAdmin: adminYn
         )
     }
 }

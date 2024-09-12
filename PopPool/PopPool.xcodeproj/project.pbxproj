@@ -18,6 +18,9 @@
 		083464BE2C8F2002007D6F11 /* AdminPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464BD2C8F2002007D6F11 /* AdminPostVC.swift */; };
 		083464C02C8F2009007D6F11 /* AdminEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464BF2C8F2009007D6F11 /* AdminEditVC.swift */; };
 		083464C22C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */; };
+		083464E72C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */; };
+		084BC9602C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */; };
+		084BC9622C7F539E00C57494 /* UserBookMarkRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */; };
 		084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */; };
 		085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085105752C0EC13800ED7DBB /* RxAlamofire */; };
 		085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */; };
@@ -359,6 +362,9 @@
 		083464BD2C8F2002007D6F11 /* AdminPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPostVC.swift; sourceTree = "<group>"; };
 		083464BF2C8F2009007D6F11 /* AdminEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEditVC.swift; sourceTree = "<group>"; };
 		083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminImageViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPopUpStoreIdRequestDTO.swift; sourceTree = "<group>"; };
+		084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListRequestDTO.swift; sourceTree = "<group>"; };
+		084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookMarkRequestDTO.swift; sourceTree = "<group>"; };
 		084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthServiceImpl.swift; sourceTree = "<group>"; };
 		0851059F2C1038EB00ED7DBB /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -1774,6 +1780,7 @@
 				BD0D19142C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift */,
 				083464B72C8F100A007D6F11 /* AdminPopUpStoreDTO.swift */,
 				083464B92C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift */,
+				083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */,
 			);
 			path = AdminDTO;
 			sourceTree = "<group>";
@@ -2301,6 +2308,8 @@
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
 				4E67A2412C930364003BDAFA /* DynamicTextViewCPNT.swift in Sources */,
 				08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */,
+				BD0D19192C7D92580017D909 /* AdminUseCaseImpl.swift in Sources */,
+				083464E72C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift in Sources */,
 				08C813F72C2F15DC009239FE /* GetCategoryListResponseDTO.swift in Sources */,
 				08E23AA92C4F7DC9004B77B6 /* GetMyPageResponse.swift in Sources */,
 				089D191D2C36B16D000435D9 /* MyPageMainVC.swift in Sources */,

@@ -47,6 +47,8 @@ final class AdminManagementVC: BaseViewController {
     
     private let popUpList: BehaviorRelay<[AdminManagementListTableViewCell.Input]> = .init(value: [])
     
+    private var originData: [AdminPopUpStoreDTO] = []
+    
     private let imageService = PreSignedService()
 }
 
@@ -61,10 +63,10 @@ extension AdminManagementVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adminRepository.getPopUpList(request: .init(page: 0, size: 100))
+        adminRepository.getPopUpList(request: .init(page: 0, size: 10))
             .withUnretained(self)
             .subscribe(onNext: { (owner, response) in
-                
+                owner.originData = response.popUpStoreList
                 let pathList = response.popUpStoreList.compactMap { $0.mainImageUrl }
                 owner.imageService.tryDownload(filePaths: pathList)
                     .subscribe { imageList in
@@ -129,6 +131,16 @@ private extension AdminManagementVC {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.navigationController?.pushViewController(AdminPostVC(), animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .withUnretained(self)
+            .subscribe { (owner, indexPath) in
+                let popUpId = owner.originData[indexPath.row].id
+                let editVC = AdminEditVC()
+                editVC.popUpStoreId.accept(popUpId)
+                owner.navigationController?.pushViewController(editVC, animated: true)
             }
             .disposed(by: disposeBag)
     }
