@@ -453,7 +453,8 @@ struct PopPoolAPIEndPoint {
         return RequestEndpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/admin/popup-stores",
-            method: .delete
+            method: .delete,
+            queryParameters: popUpStoreId
         )
     }
     

@@ -18,9 +18,14 @@ struct GetAdminPopUpStoreDetailResponseDTO: Decodable {
     let createUserId: String
     let createDateTime: String
     let mainImageUrl: String?
-    let imageUrlList: [String?]
+    let imageList: [ImageDTO]
     let latitude: Double
     let longitude: Double
     let markerTitle: String?
     let markerSnippet: String?
+}
+
+struct ImageDTO: Decodable {
+    var id: Int64
+    var imageUrl: String
 }

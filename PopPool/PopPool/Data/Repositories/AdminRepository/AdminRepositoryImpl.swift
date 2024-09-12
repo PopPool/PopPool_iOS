@@ -51,7 +51,7 @@ final class AdminRepositoryImpl: AdminRepository {
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
     func deletePopUp(popUpID: Int64) -> Completable{
-        let endPoint = PopPoolAPIEndPoint.admin_getDetailPopUp(popUpStoreId: .init(popUpStoreId: popUpID))
+        let endPoint = PopPoolAPIEndPoint.admin_deletePopUp(popUpStoreId: .init(popUpStoreId: popUpID))
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
 }

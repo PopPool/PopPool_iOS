@@ -14,4 +14,5 @@ struct GetMyPageResponse {
     var popUpInfoList: [MyCommentedPopUpInfo]
     var intro: String?
     var isLogin: Bool
+    var isAdmin: Bool
 }

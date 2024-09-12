@@ -63,7 +63,7 @@ extension AdminManagementVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adminRepository.getPopUpList(request: .init(page: 0, size: 1))
+        adminRepository.getPopUpList(request: .init(page: 0, size: 10))
             .withUnretained(self)
             .subscribe(onNext: { (owner, response) in
                 owner.originData = response.popUpStoreList

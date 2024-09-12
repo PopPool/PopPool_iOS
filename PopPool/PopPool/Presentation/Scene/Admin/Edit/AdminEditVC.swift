@@ -131,6 +131,13 @@ final class AdminEditVC: BaseViewController {
         button.isEnabled = false
         return button
     }()
+    
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("삭제", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
 }
 
 // MARK: - LifeCycle
@@ -171,11 +178,11 @@ private extension AdminEditVC {
                             owner.endDateChoiceButton.setTitle(response.endDate, for: .normal)
                             
                             let imageService = PreSignedService()
-                            imageService.tryDownload(filePaths: response.imageUrlList.compactMap { $0 })
+                            imageService.tryDownload(filePaths: response.imageList.compactMap { $0.imageUrl })
                                 .subscribe { images in
                                     owner.images.accept(images)
                                     if let mainImagePath = response.mainImageUrl {
-                                        if let mainImageIndex = response.imageUrlList.compactMap({ $0 }).firstIndex(of: mainImagePath) {
+                                        if let mainImageIndex = response.imageList.compactMap({ $0.imageUrl }).firstIndex(of: mainImagePath) {
                                             owner.mainImageIndex.accept(mainImageIndex)
                                             owner.imageViewCollectionView.selectItem(at: IndexPath(row: mainImageIndex, section: 0), animated: true, scrollPosition: .left)
                                         }
@@ -256,7 +263,7 @@ private extension AdminEditVC {
                 alert.addAction(cancelAction)
                 
                 // UIAlertController 표시
-                self.present(alert, animated: true, completion: nil)
+                owner.present(alert, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         
@@ -505,10 +512,33 @@ private extension AdminEditVC {
                 }
             }
             .disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                let repository = AdminRepositoryImpl()
+                if let id = owner.popUpStoreId.value {
+                    repository.deletePopUp(popUpID: id)
+                        .subscribe(onCompleted: {
+                            owner.navigationController?.popViewController(animated: true)
+                        },onError: { error in
+                            print(error.localizedDescription)
+                        })
+//                        .subscribe()
+//                        .subscribe {
+
+//                        } onError: { _ in
+//                            ToastMSGManager.createToast(message: "Network Error")
+//                        }
+                        .disposed(by: owner.disposeBag)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     func setUp() {
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteButton)
         imageViewCollectionView.dataSource = self
         imageViewCollectionView.delegate = self
         imageViewCollectionView.register(AdminImageViewCollectionViewCell.self, forCellWithReuseIdentifier: AdminImageViewCollectionViewCell.identifier)
