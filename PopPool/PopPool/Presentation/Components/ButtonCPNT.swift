@@ -14,6 +14,7 @@ enum ButtonTYPE {
     case secondary
     case kakao
     case apple
+    case instagram
     case tertiary
     case dft // Default
 }
@@ -28,7 +29,7 @@ extension ButtonTYPE {
             return .g50
         case .kakao:
             return .init(hexCode: "F8E049")
-        case .apple:
+        case .apple, .instagram:
             return .g900
         case .tertiary:
             return .clear
@@ -45,7 +46,7 @@ extension ButtonTYPE {
             return .blu500
         case .kakao:
             return .black
-        case .apple:
+        case .apple, .instagram:
             return .w100
         case .tertiary:
             return .g300
@@ -60,6 +61,8 @@ extension ButtonTYPE {
             return UIImage(named: "brand=kakao")
         case .apple:
             return UIImage(named: "brand=apple_light")
+        case .instagram:
+            return UIImage(named: "brand=instagram")
         case .tertiary:
             return UIImage(named: "arrow_down")
         default:
@@ -71,6 +74,8 @@ extension ButtonTYPE {
         switch self {
         case .kakao, .apple:
             return .KorFont(style: .medium, size: 15)
+        case .instagram:
+            return .EngFont(style: .medium, size: 15)
         case .tertiary:
             return .KorFont(style: .regular, size: 13)
         default:
@@ -123,6 +128,9 @@ private extension ButtonCPNT {
             self.setTitleColor(.w90, for: .highlighted)
             setIconImageView(image: type.image)
         case .kakao:
+            setIconImageView(image: type.image)
+        case .instagram:
+            self.setTitleColor(.w100, for: .highlighted)
             setIconImageView(image: type.image)
         case .tertiary:
             titleLabel?.snp.makeConstraints { make in

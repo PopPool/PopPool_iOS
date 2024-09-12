@@ -239,6 +239,8 @@
 		BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */; };
 		BD60B2862C75CC1B0062DC96 /* HomeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD67FA402C9202EF00E89E7D /* InstagramCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA3F2C9202EF00E89E7D /* InstagramCommentVC.swift */; };
+		BD67FA422C9221BB00E89E7D /* InstagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA412C9221BB00E89E7D /* InstagramView.swift */; };
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
@@ -274,6 +276,7 @@
 		BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
 		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
+		BDE555302C92DF1C00973E53 /* InstagramVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE5552F2C92DF1C00973E53 /* InstagramVM.swift */; };
 		BDE88FD52C83348E00AF9EFF /* CommentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */; };
 		BDEAE4BA2C7111F900D96D41 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */; };
 		BDEAE4BC2C713F9700D96D41 /* InterestViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */; };
@@ -538,6 +541,8 @@
 		BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD60B2852C75CC1B0062DC96 /* HomeUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD67FA3F2C9202EF00E89E7D /* InstagramCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCommentVC.swift; sourceTree = "<group>"; };
+		BD67FA412C9221BB00E89E7D /* InstagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramView.swift; sourceTree = "<group>"; };
 		BD6FAFCC2C5DCBEA00322405 /* TermsDetailBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVC.swift; sourceTree = "<group>"; };
 		BD6FAFD02C5DE29700322405 /* TermsDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsDetailBoardVM.swift; sourceTree = "<group>"; };
 		BD6FAFD62C5E4E8B00322405 /* InquiryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryVC.swift; sourceTree = "<group>"; };
@@ -577,6 +582,7 @@
 		BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVM.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
+		BDE5552F2C92DF1C00973E53 /* InstagramVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramVM.swift; sourceTree = "<group>"; };
 		BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTypeVC.swift; sourceTree = "<group>"; };
 		BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
 		BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestViewCell.swift; sourceTree = "<group>"; };
@@ -1652,6 +1658,16 @@
 			path = HomeRepository;
 			sourceTree = "<group>";
 		};
+		BD67FA3E2C91FFBC00E89E7D /* InstagramCommentView */ = {
+			isa = PBXGroup;
+			children = (
+				BD67FA412C9221BB00E89E7D /* InstagramView.swift */,
+				BDE5552F2C92DF1C00973E53 /* InstagramVM.swift */,
+				BD67FA3F2C9202EF00E89E7D /* InstagramCommentVC.swift */,
+			);
+			path = InstagramCommentView;
+			sourceTree = "<group>";
+		};
 		BD75F7772C730F9A00524168 /* Inquiry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1707,6 +1723,7 @@
 		BDE88FD32C83345300AF9EFF /* DetailComment */ = {
 			isa = PBXGroup;
 			children = (
+				BD67FA3E2C91FFBC00E89E7D /* InstagramCommentView */,
 				BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */,
 				BD198D072C8D53D500835325 /* NormalCommentVC.swift */,
 				BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */,
@@ -2022,6 +2039,7 @@
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
+				BD67FA422C9221BB00E89E7D /* InstagramView.swift in Sources */,
 				BD198D0C2C8D629900835325 /* CommentImageCell.swift in Sources */,
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
@@ -2140,6 +2158,7 @@
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				08E23A552C4CBC42004B77B6 /* RequestEndPoint.swift in Sources */,
 				4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */,
+				BD67FA402C9202EF00E89E7D /* InstagramCommentVC.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
@@ -2170,6 +2189,7 @@
 				BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */,
 				4EB470FC2C6DE8F200BBE256 /* FilterBottomSheetViewModel.swift in Sources */,
 				08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */,
+				BDE555302C92DF1C00973E53 /* InstagramVM.swift in Sources */,
 				4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
 				08AF8D9C2C688D55006B8A11 /* MyCommentedPopUpModalVC.swift in Sources */,
