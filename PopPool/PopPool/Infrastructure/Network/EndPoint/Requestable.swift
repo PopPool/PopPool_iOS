@@ -41,7 +41,7 @@ extension Requestable {
 
         return urlRequest
     }
-    
+
     /// APIEndpoint에서 전달받은 DTO를 URL로 변환하는 메서드
     /// - Returns: URL 반환
     func url() throws -> URL {
@@ -60,11 +60,11 @@ extension Requestable {
                         .components(separatedBy: "\n")
                         .filter {!["(",")",","].contains($0)}
                         .map { $0.replacingOccurrences(of: " ", with: "")}
-                    
+
                     for valueString in valueList {
                         urlQueryItems.append(URLQueryItem(name: $0.key, value: valueString))
                     }
-                    
+
                 } else {
                     urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
                 }
@@ -78,7 +78,7 @@ extension Requestable {
 }
 
 extension Encodable {
-    
+
     /// URL에 요청할 쿼리 데이터를 JSON 형식에 맞게 딕셔너리 구조로 변환하는 메서드
     /// - Returns: jsonData
     func toDictionary() throws -> [String: Any]? {

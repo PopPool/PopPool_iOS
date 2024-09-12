@@ -11,11 +11,15 @@ import RxCocoa
 
 final class HomeVM: ViewModelable {
     struct Input {
-        
+        let searchQuery: Observable<String>
+        let myHomeAPIResponse: Observable<GetHomeInfoResponse>
+
     }
-    
+
     struct Output {
+        let searchResults: Observable<[PopUpStore]>
         var myHomeAPIResponse: Observable<GetHomeInfoResponse>
+
     }
     
     var generalPopUpStore: [HomePopUp] = []
@@ -29,11 +33,26 @@ final class HomeVM: ViewModelable {
             loginYn: true
         ))
     var disposeBag = DisposeBag()
-    
+
+    private let searchViewModel: SearchViewModel
+    private let useCase: HomeUseCase
+
+    init(searchViewModel: SearchViewModel = SearchViewModel(), useCase: HomeUseCase) {
+        self.searchViewModel = searchViewModel
+        self.useCase = useCase
+    }
+
     func transform(input: Input) -> Output {
-        
+        // 검색어를 SearchViewModel에 바인딩
+        input.searchQuery
+            .bind(to: searchViewModel.input.searchQuery)
+            .disposed(by: disposeBag)
+
+        // 검색 결과를 Output으로 전달
         return Output(
+            searchResults: searchViewModel.output.searchResults,
             myHomeAPIResponse: myHomeAPIResponse.asObservable()
+
         )
     }
 }
