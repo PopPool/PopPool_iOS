@@ -102,7 +102,7 @@ class MapVC: BaseViewController {
     // 리스트뷰 컨테이너 뷰 수정
     private lazy var listContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.red.withAlphaComponent(0.5)  // 배경색 설정 (투명도 적용)
+        view.backgroundColor = .white
         view.layer.cornerRadius = 20
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.clipsToBounds = true

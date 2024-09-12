@@ -3,7 +3,7 @@ import SnapKit
 import Kingfisher
 
 class PopupListCell: UICollectionViewCell {
-    static let reuseIdentifier = "PopupListCell"
+//    static let identifier = "PopupListCell"
 
     var store: PopUpStore?
 

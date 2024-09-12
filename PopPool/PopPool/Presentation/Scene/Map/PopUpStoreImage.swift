@@ -4,8 +4,6 @@
 //
 //  Created by 김기현 on 9/4/24.
 //
-/// 지도뷰에서 이미지를 로드하기위한 구조체
-import Foundation
 
 import Foundation
 

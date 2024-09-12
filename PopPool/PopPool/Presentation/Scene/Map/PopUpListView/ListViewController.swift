@@ -62,9 +62,7 @@ class ListViewController: UIViewController {
                 guard let self = self else { return }
 
                 cell.configure(with: store)
-                cell.configureImage(with: nil)  // 기본적으로 nil을 전달하여 기본 이미지 표시
-
-                // 이미지가 있다면 나중에 설정
+                cell.configureImage(with: nil)  
                 self.viewModel.getCustomPopUpStoreImages(for: [store])
                     .subscribe(onNext: { images in
                         if let image = images.first {

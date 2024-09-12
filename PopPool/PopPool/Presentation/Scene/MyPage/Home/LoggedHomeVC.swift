@@ -65,7 +65,7 @@ final class LoggedHomeVC: BaseViewController {
         view.register(
             PopUpBackgroundView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: PopUpBackgroundView.reuseIdentifer
+            withReuseIdentifier: PopUpBackgroundView.reuseIdentifier
         )
 
         // default 셀 등록
@@ -172,12 +172,12 @@ final class LoggedHomeVC: BaseViewController {
             case .recommended: return self.createHorizontalSection(width: 158, height: 249, behavior: .continuous)
             case .interestHeader:
                 let section = self.createSectionHeader(height: 84)
-                let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
+                let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifier)
                 section.decorationItems = [backgroundView]
                 return section
             case .interest:
                 let section = self.createHorizontalSection(width: 232, height: 332, behavior: .groupPaging)
-                let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifer)
+                let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: PopUpBackgroundView.reuseIdentifier)
                 section.decorationItems = [backgroundView]
                 return section
             case .latestHeader: return self.createSectionHeader(height: 84)
@@ -187,7 +187,7 @@ final class LoggedHomeVC: BaseViewController {
 
         // 특정 section별로 다른 백그라운드 색상을 위한 backgroundView 등록
         layout.register(PopUpBackgroundView.self,
-                        forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifer)
+                        forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifier)
         return layout
     }
 
@@ -332,12 +332,13 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
                         popularPopUpStoreTotalPages: response.popularPopUpStoreTotalPages,
                         popularPopUpStoreTotalElements: response.popularPopUpStoreTotalElements
                     )
-                    vm.response.accept(data)
+                    vm.fetchedResponse.accept(data)
                     let vc = EntirePopupVC(viewModel: vm)
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 .disposed(by: cell.disposeBag)
             return cell
+
 
         case .recommended:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
@@ -409,7 +410,7 @@ extension LoggedHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
                         popularPopUpStoreTotalPages: response.newPopUpStoreTotalPages,
                         popularPopUpStoreTotalElements: response.newPopUpStoreTotalElements
                     )
-                    vm.response.accept(data)
+                    vm.fetchedResponse.accept(data)
                     let vc = EntirePopupVC(viewModel: vm)
                     self.navigationController?.pushViewController(vc, animated: true)
                 })
