@@ -12,8 +12,6 @@ import SnapKit
 
 final class InstagramCommentVC: BaseViewController {
     
-    let imageSet = ["photo", "lasso", "person", "circle", "folder.fill"]
-    
     let header = HeaderViewCPNT(
         title: "코멘트 작성하기",
         style: .icon(nil))
@@ -86,23 +84,27 @@ final class InstagramCommentVC: BaseViewController {
     }
     
     private func bind() {
+        let input = InstagramVM.Input()
+        let output = viewModel.transform(input: input)
+        
+        output.content
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, content) in
+                let currentPage = owner.pageControl.currentPage
+                owner.topSectionView.updateView(
+                    number: currentPage+1,
+                    title: content.title
+                )
+            })
+            .disposed(by: disposeBag)
         
         swipeLeft.rx.event
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                var currentPage = owner.pageControl.currentPage
-                if currentPage < owner.imageSet.count - 1 {
-                    UIView.transition(
-                        with: owner.guideImage,
-                        duration: 1,
-                        options: .curveEaseInOut,
-                        animations: {
-                            let test = "원하는 피드의 이미지로 이동 후 공유하기 > 링크복사 터치하기"
-                            self.topSectionView.updateView(number: currentPage + 1, title: test)
-                            owner.pageControl.currentPage += 1
-                            currentPage = owner.pageControl.currentPage
-                            owner.guideImage.image = UIImage(systemName: owner.imageSet[currentPage])
-                    })
+                let currentPage = owner.pageControl.currentPage
+                if currentPage < owner.viewModel.currentContentCount - 1 {
+                    owner.pageControl.currentPage += 1
+                    owner.viewModel.updateView(for: currentPage)
                 }
             })
             .disposed(by: disposeBag)
@@ -110,13 +112,10 @@ final class InstagramCommentVC: BaseViewController {
         swipeRight.rx.event
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                var currentPage = owner.pageControl.currentPage
+                let currentPage = owner.pageControl.currentPage
                 if currentPage > 0 {
-                    let test = "아래 인스타그램 열기\n버튼을 터치해 앱 열기"
-                    self.topSectionView.updateView(number: currentPage - 1, title: test)
                     owner.pageControl.currentPage -= 1
-                    currentPage = owner.pageControl.currentPage
-                    owner.guideImage.image = UIImage(systemName: owner.imageSet[currentPage])
+                    owner.viewModel.updateView(for: currentPage)
                 }
             })
             .disposed(by: disposeBag)
@@ -143,8 +142,7 @@ final class InstagramCommentVC: BaseViewController {
         guideImage.addGestureRecognizer(swipeLeft)
         guideImage.addGestureRecognizer(swipeRight)
         
-        pageControl.numberOfPages = imageSet.count
-        guideImage.image = UIImage(systemName: imageSet[0])
+        pageControl.numberOfPages = viewModel.currentContentCount
     }
     
     private func setUpConstraint() {

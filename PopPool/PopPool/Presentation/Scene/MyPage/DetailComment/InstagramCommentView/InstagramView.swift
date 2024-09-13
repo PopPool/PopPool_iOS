@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol InstagramViewDelegate: AnyObject {
+    func updateView(number: Int, text: String?)
+}
+
 final class InstagramView: UIStackView {
     
     private let topSpaceView = UIView()
@@ -21,6 +25,8 @@ final class InstagramView: UIStackView {
         title.numberOfLines = 0
         return title
     }()
+    
+    weak var delegate: InstagramViewDelegate?
     
     init() {
         super.init(frame: .zero)
