@@ -21,7 +21,6 @@ final class InstagramCommentVC: BaseViewController {
     
     let guideImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.borderWidth = 1
         imageView.layer.cornerRadius = 8
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
@@ -91,9 +90,11 @@ final class InstagramCommentVC: BaseViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, content) in
                 let currentPage = owner.pageControl.currentPage
+                let attributeText = owner.createStyledText(from: content.title)
+                owner.guideImage.image = UIImage(systemName: content.image)
                 owner.topSectionView.updateView(
-                    number: currentPage+1,
-                    title: content.title
+                    number: currentPage,
+                    title: attributeText
                 )
             })
             .disposed(by: disposeBag)
@@ -104,7 +105,7 @@ final class InstagramCommentVC: BaseViewController {
                 let currentPage = owner.pageControl.currentPage
                 if currentPage < owner.viewModel.currentContentCount - 1 {
                     owner.pageControl.currentPage += 1
-                    owner.viewModel.updateView(for: currentPage)
+                    owner.viewModel.updateView(for: currentPage+1)
                 }
             })
             .disposed(by: disposeBag)
@@ -113,9 +114,9 @@ final class InstagramCommentVC: BaseViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
                 let currentPage = owner.pageControl.currentPage
-                if currentPage > 0 {
+                if currentPage >= 0 {
                     owner.pageControl.currentPage -= 1
-                    owner.viewModel.updateView(for: currentPage)
+                    owner.viewModel.updateView(for: currentPage-1)
                 }
             })
             .disposed(by: disposeBag)
@@ -126,6 +127,33 @@ final class InstagramCommentVC: BaseViewController {
                 owner.openUniversalLink()
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func createStyledText(from text: String) -> NSMutableAttributedString {
+        let fullText = text as NSString
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        if text.contains("인스타그램 열기") {
+            let range = fullText.range(of: "인스타그램 열기")
+            attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
+        }
+        
+        if text.contains("공유하기 > 링크복사") {
+            let range = fullText.range(of: "공유하기 > 링크복사")
+            attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
+        }
+        
+        if text.contains("팝풀 앱") {
+            let range = fullText.range(of: "팝풀 앱")
+            attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
+        }
+        
+        if text.contains("글을 입력 후 등록") {
+            let range = fullText.range(of: "글을 입력 후 등록")
+            attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
+        }
+        
+        return attributedString
     }
     
     private func openUniversalLink() {

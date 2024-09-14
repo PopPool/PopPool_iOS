@@ -37,7 +37,7 @@ final class InstagramVM: ViewModelable {
         .init(index: 3, image: "circle", title: "복사된 인스타 피드 이미지와\n함께할 글을 입력 후 등록하기"),
     ])
     let singleContent: BehaviorRelay<GuideContent> = .init(
-        value: GuideContent(index: 0, image: "", title: ""))
+        value: GuideContent(index: 0, image: "photo", title: "아래 인스타그램 열기\n버튼을 터치해 앱 열기"))
     
     func updateView(for page: Int) {
         guard page >= 0 && page < currentContentCount else { return }
@@ -47,7 +47,6 @@ final class InstagramVM: ViewModelable {
             index: contents[page].index,
             image: contents[page].image,
             title: contents[page].title)
-        print("단일 콘텐츠", updatedContent)
         singleContent.accept(updatedContent)
     }
     

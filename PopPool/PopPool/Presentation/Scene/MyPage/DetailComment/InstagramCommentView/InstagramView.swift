@@ -9,10 +9,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol InstagramViewDelegate: AnyObject {
-    func updateView(number: Int, text: String?)
-}
-
 final class InstagramView: UIStackView {
     
     private let topSpaceView = UIView()
@@ -25,8 +21,6 @@ final class InstagramView: UIStackView {
         title.numberOfLines = 0
         return title
     }()
-    
-    weak var delegate: InstagramViewDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -67,20 +61,8 @@ final class InstagramView: UIStackView {
         
         numberView.layer.cornerRadius = 4
         numberView.backgroundColor = .g900
-        numberText.text = "#1"
         numberText.textColor = .w100
         numberText.font = .KorFont(style: .bold, size: 16)
-        
-        let style = NSMutableParagraphStyle()
-        style.lineHeightMultiple = 1.4
-        
-        let attributedText = NSMutableAttributedString(string: numberText.text ?? "")
-        attributedText
-            .addAttribute(.paragraphStyle,
-                          value: style,
-                          range: NSRange(
-                            location: 0,
-                            length: attributedText.length))
     }
     
     private func setUpConstraint() {
@@ -114,11 +96,23 @@ final class InstagramView: UIStackView {
         }
     }
     
-    public func updateView(number: Int, title: String?) {
-        let text = "#\(number)"
-        let numberAttr = NSAttributedString(string: text)
-        let titleAttr = NSAttributedString(string: title ?? "")
+    public func updateView(number: Int, title: NSMutableAttributedString) {
+        let text = "#\(number+1)"
+        let numberAttr = NSMutableAttributedString(string: text)
+        let style = NSMutableParagraphStyle()
+        style.lineHeightMultiple = 1.4
+        
+        numberAttr.addAttribute(.paragraphStyle,
+                                value: style,
+                                range: NSRange(
+                                    location: 0,
+                                    length: numberAttr.length))
+        title.addAttribute(.paragraphStyle,
+                           value: style,
+                           range: NSRange(
+                            location: 0,
+                            length: title.length))
         numberText.attributedText = numberAttr
-        titleLabel.attributedText = titleAttr
+        titleLabel.attributedText = title
     }
 }
