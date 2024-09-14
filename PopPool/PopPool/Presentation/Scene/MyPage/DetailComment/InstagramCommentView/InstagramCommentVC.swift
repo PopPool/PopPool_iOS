@@ -91,7 +91,7 @@ final class InstagramCommentVC: BaseViewController {
             .subscribe(onNext: { (owner, content) in
                 let currentPage = owner.pageControl.currentPage
                 let attributeText = owner.createStyledText(from: content.title)
-                owner.guideImage.image = UIImage(systemName: content.image)
+                owner.guideImage.image = UIImage(named: content.image)
                 owner.topSectionView.updateView(
                     number: currentPage,
                     title: attributeText
