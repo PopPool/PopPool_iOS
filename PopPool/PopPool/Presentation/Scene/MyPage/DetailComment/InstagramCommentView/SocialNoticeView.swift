@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-final class InstagramView: UIStackView {
+final class SocialNoticeView: UIStackView {
     
     private let topSpaceView = UIView()
     private let numberView = UIView()

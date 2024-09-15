@@ -10,18 +10,35 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-final class InstagramCommentVC: BaseViewController {
+final class SocialCommentVC: BaseViewController {
+    
+    enum Section {
+        case firstGuide
+        case secondGuide
+        case thirdGuide
+        case fourthGuide
+        
+        var attributeText: String {
+            switch self {
+            case .firstGuide: return "아래 인스타그램 열기"
+            case .secondGuide: return "공유하기 > 링크복사"
+            case .thirdGuide: return "팝풀 앱"
+            case .fourthGuide: return "글을 입력 후 등록"
+            }
+        }
+    }
     
     let header = HeaderViewCPNT(
         title: "코멘트 작성하기",
         style: .icon(nil))
     
-    let topSectionView = InstagramView()
+    let topSectionView = SocialNoticeView()
     let pageSpaceView = UIView()
     
     let guideImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -54,9 +71,9 @@ final class InstagramCommentVC: BaseViewController {
     let swipeLeft = UISwipeGestureRecognizer()
     let swipeRight = UISwipeGestureRecognizer()
     let disposeBag = DisposeBag()
-    let viewModel: InstagramVM
+    let viewModel: SocialCommentVM
     
-    init(viewModel: InstagramVM) {
+    init(viewModel: SocialCommentVM) {
         self.viewModel = viewModel
         super.init()
     }
@@ -83,7 +100,7 @@ final class InstagramCommentVC: BaseViewController {
     }
     
     private func bind() {
-        let input = InstagramVM.Input()
+        let input = SocialCommentVM.Input()
         let output = viewModel.transform(input: input)
         
         output.content
@@ -133,23 +150,23 @@ final class InstagramCommentVC: BaseViewController {
         let fullText = text as NSString
         let attributedString = NSMutableAttributedString(string: text)
         
-        if text.contains("인스타그램 열기") {
-            let range = fullText.range(of: "인스타그램 열기")
+        if text.contains(Section.firstGuide.attributeText) {
+            let range = fullText.range(of: Section.firstGuide.attributeText)
             attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
         }
         
-        if text.contains("공유하기 > 링크복사") {
-            let range = fullText.range(of: "공유하기 > 링크복사")
+        if text.contains(Section.secondGuide.attributeText) {
+            let range = fullText.range(of: Section.secondGuide.attributeText)
             attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
         }
         
-        if text.contains("팝풀 앱") {
-            let range = fullText.range(of: "팝풀 앱")
+        if text.contains(Section.thirdGuide.attributeText) {
+            let range = fullText.range(of: Section.thirdGuide.attributeText)
             attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
         }
         
-        if text.contains("글을 입력 후 등록") {
-            let range = fullText.range(of: "글을 입력 후 등록")
+        if text.contains(Section.fourthGuide.attributeText) {
+            let range = fullText.range(of: Section.fourthGuide.attributeText)
             attributedString.addAttribute(.foregroundColor, value: UIColor.blu500, range: range)
         }
         

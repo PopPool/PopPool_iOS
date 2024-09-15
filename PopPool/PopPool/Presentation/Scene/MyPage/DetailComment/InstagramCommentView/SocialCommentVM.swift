@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class InstagramVM: ViewModelable {
+final class SocialCommentVM: ViewModelable {
     
     struct GuideContent {
         var index: Int
