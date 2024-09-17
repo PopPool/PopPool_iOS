@@ -59,17 +59,25 @@ final class SocialCommentVM: ViewModelable {
         Observable.create { [weak self] observer in
             let link = self?.clipboardManager.getClipboard()
             
-            self?.clipboardManager.parseImage(from: link) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let data):
-                    print("데이터 옴", data)
+            self?.clipboardManager.parseImage(from: link)
+                .subscribe(onNext: { data in
                     observer.onNext(data)
-                case .failure(let error):
-                    observer.onError(error)
-                }
-            }
+                })
+                .disposed(by: self!.disposeBag)
+            
             return Disposables.create()
+            
+//            self?.clipboardManager.parseImage(from: link) { [weak self] result in
+//                guard let self = self else { return }
+//                switch result {
+//                case .success(let data):
+//                    print("데이터 옴", data)
+//                    observer.onNext(data)
+//                case .failure(let error):
+//                    observer.onError(error)
+//                }
+//            }
+//            return Disposables.create()
         }
     }
     
