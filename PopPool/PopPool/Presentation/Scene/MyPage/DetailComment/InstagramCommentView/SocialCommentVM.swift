@@ -42,7 +42,7 @@ final class SocialCommentVM: ViewModelable {
     func updateView(for page: Int) {
         guard page >= 0 && page < currentContentCount else { return }
         
-        var contents = contentRelay.value
+        let contents = contentRelay.value
         let updatedContent = GuideContent(
             index: contents[page].index,
             image: contents[page].image,

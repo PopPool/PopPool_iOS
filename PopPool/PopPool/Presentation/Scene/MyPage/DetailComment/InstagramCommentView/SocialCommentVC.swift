@@ -87,6 +87,7 @@ final class SocialCommentVC: BaseViewController {
         setUp()
         setUpConstraint()
         bind()
+//        pasteTest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,8 +177,26 @@ final class SocialCommentVC: BaseViewController {
     private func openUniversalLink() {
         let url = NSURL(string: "https://www.instagram.com")
         
+        pasteTest()
         if UIApplication.shared.canOpenURL(url! as URL) {
             UIApplication.shared.open(url! as URL)
+        }
+    }
+    
+    private func pasteTest() {
+        if UIPasteboard.general.hasStrings {
+            let value = UIPasteboard.general.string
+            
+            ImageDownloadManager.shared.parseImage(from: value) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let image):
+                    // 이미지 교체 적용
+                    print(image)
+                case .failure(let error):
+                    print("오류가 있네", error.localizedDescription)
+                }
+            }
         }
     }
     

@@ -20,7 +20,7 @@ final class CommentTypeVC: ModalViewController {
         image: nil)
     
     let socialComment = ListRowCPNT(
-        title: "일반 코멘트 작성하기",
+        title: "인스타그램 연동 코멘트 작성하기",
         image: nil)
     
     let stack: UIStackView = {
@@ -45,6 +45,27 @@ final class CommentTypeVC: ModalViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
                 owner.dismissBottomSheet()
+            })
+            .disposed(by: disposeBag)
+        
+        // 일반 코멘트 작성
+        normalComment.tappedObserver
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                print("일반이 눌렸습니다.")
+                owner.dismissBottomSheet()
+                let vc = NormalCommentVC(viewModel: NormalCommentVM())
+                owner.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        // 인스타그램 코멘트 작성
+        socialComment.tappedObserver
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.dismissBottomSheet()
+                let vc = SocialCommentVC(viewModel: SocialCommentVM())
+                owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
     }

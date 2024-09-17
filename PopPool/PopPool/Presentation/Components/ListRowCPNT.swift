@@ -78,7 +78,6 @@ final class ListRowCPNT: UIStackView {
         tapGesture.rx.event
             .withUnretained(self)
             .subscribe(onNext: { (owner, event) in
-                print("스택이 탭 되었습니다.")
                 owner.isTapped = owner.isTapped == .notTapped ? .isTapped : .notTapped
                 owner.tappedObserver.onNext(owner.isTapped)
             })
