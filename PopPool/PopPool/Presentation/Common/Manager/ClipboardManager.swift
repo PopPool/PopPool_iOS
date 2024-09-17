@@ -8,12 +8,22 @@
 import UIKit
 import RxSwift
 
-final class ImageDownloadManager {
+protocol ClipboardService {
+    func getClipboard() -> String?
+    func parseImage(from link: String?, completed: @escaping (Result<Data, NetworkError>) -> Void)
+}
+
+
+final class ClipboardManager: ClipboardService {
     
-    static let shared = ImageDownloadManager()
+    static let shared = ClipboardManager()
     private init() {}
     
-    func parseImage(from link: String?, completed: @escaping (Result<UIImage, NetworkError>) -> Void) {
+    func getClipboard() -> String? {
+        return UIPasteboard.general.hasStrings ? UIPasteboard.general.string : nil
+    }
+    
+    func parseImage(from link: String?, completed: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let link = link else { return }
         let endpoint = link + "media/?size=l"
         
@@ -32,16 +42,9 @@ final class ImageDownloadManager {
                 return
             }
             
-            guard let data = data else {
-                completed(.failure(.urlResponse))
-                return
-            }
-            
             do {
-                let image = UIImage(data: data)
-                completed(.success(image!))
-            } catch {
-                completed(.failure(.emptyData))
+                guard let data = data else { return }
+                completed(.success(data))
             }
         }
         task.resume()

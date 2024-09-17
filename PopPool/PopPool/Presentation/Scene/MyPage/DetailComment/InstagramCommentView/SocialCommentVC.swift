@@ -67,7 +67,7 @@ final class SocialCommentVC: BaseViewController {
     let actionButton = ButtonCPNT(
         type: .instagram,
         title: "Instagram 열기")
-
+    
     let swipeLeft = UISwipeGestureRecognizer()
     let swipeRight = UISwipeGestureRecognizer()
     let disposeBag = DisposeBag()
@@ -87,7 +87,7 @@ final class SocialCommentVC: BaseViewController {
         setUp()
         setUpConstraint()
         bind()
-//        pasteTest()
+        //        pasteTest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -184,20 +184,14 @@ final class SocialCommentVC: BaseViewController {
     }
     
     private func pasteTest() {
-        if UIPasteboard.general.hasStrings {
-            let value = UIPasteboard.general.string
-            
-            ImageDownloadManager.shared.parseImage(from: value) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let image):
-                    // 이미지 교체 적용
-                    print(image)
-                case .failure(let error):
-                    print("오류가 있네", error.localizedDescription)
+        viewModel.fetchImage()
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, image) in
+                DispatchQueue.main.async {
+                    owner.guideImage.image = UIImage(data: image)
                 }
-            }
-        }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setUp() {

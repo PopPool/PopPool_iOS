@@ -64,7 +64,7 @@ final class CommentTypeVC: ModalViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
                 owner.dismissBottomSheet()
-                let vc = SocialCommentVC(viewModel: SocialCommentVM())
+                let vc = SocialCommentVC(viewModel: SocialCommentVM(clipboardManager: ClipboardManager.shared))
                 owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)

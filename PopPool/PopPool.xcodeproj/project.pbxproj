@@ -217,7 +217,7 @@
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
 		BD29750A2C51140D0090147C /* ListMenuCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975092C51140D0090147C /* ListMenuCPNT.swift */; };
 		BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */; };
-		BD2F787C2C99A52A004784AA /* ImageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F787B2C99A52A004784AA /* ImageDownloadManager.swift */; };
+		BD2F787C2C99A52A004784AA /* ClipboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F787B2C99A52A004784AA /* ClipboardManager.swift */; };
 		BD3320792C8E4FFF002EA30C /* NormalCommentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
@@ -520,7 +520,7 @@
 		BD2975072C5112390090147C /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
 		BD2975092C51140D0090147C /* ListMenuCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMenuCPNT.swift; sourceTree = "<group>"; };
 		BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAlertVC.swift; sourceTree = "<group>"; };
-		BD2F787B2C99A52A004784AA /* ImageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadManager.swift; sourceTree = "<group>"; };
+		BD2F787B2C99A52A004784AA /* ClipboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardManager.swift; sourceTree = "<group>"; };
 		BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCommentVM.swift; sourceTree = "<group>"; };
 		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
@@ -1602,7 +1602,7 @@
 			isa = PBXGroup;
 			children = (
 				08F49DF82C24006F002D5202 /* ToastMSGManager.swift */,
-				BD2F787B2C99A52A004784AA /* ImageDownloadManager.swift */,
+				BD2F787B2C99A52A004784AA /* ClipboardManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2222,7 +2222,7 @@
 				4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */,
 				08E23A4E2C478870004B77B6 /* SignUpUseCaseImpl.swift in Sources */,
 				BD27D0922C35A9130092FC36 /* DeleteLocalUseCaseImpl.swift in Sources */,
-				BD2F787C2C99A52A004784AA /* ImageDownloadManager.swift in Sources */,
+				BD2F787C2C99A52A004784AA /* ClipboardManager.swift in Sources */,
 				08AF8DCA2C6B94CB006B8A11 /* ProfileEditVM.swift in Sources */,
 				08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
