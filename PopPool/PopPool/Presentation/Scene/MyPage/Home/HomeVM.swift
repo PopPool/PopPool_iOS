@@ -17,16 +17,16 @@ final class HomeVM: ViewModelable {
     }
 
     struct Output {
-        let searchResults: Observable<[PopUpStore]>
+        let searchResults: Observable<[SearchPopUpStore]>
         var myHomeAPIResponse: Observable<GetHomeInfoResponse>
 
     }
-    
+
     var generalPopUpStore: [HomePopUp] = []
     var customPopUpStore: BehaviorRelay<[HomePopUp]> = BehaviorRelay(value: [])
     var newPopUpStore: BehaviorRelay<[HomePopUp]> = BehaviorRelay(value: [])
     var popularPopUpStore: BehaviorRelay<[HomePopUp]> = BehaviorRelay(value: [])
-    
+
     var myHomeAPIResponse: BehaviorRelay<GetHomeInfoResponse> = .init(
         value: .init(
             customPopUpStoreList: [],
@@ -36,11 +36,15 @@ final class HomeVM: ViewModelable {
 
     private let searchViewModel: SearchViewModel
     private let useCase: HomeUseCase
+    private let searchUseCase: SearchUseCaseProtocol
 
-    init(searchViewModel: SearchViewModel = SearchViewModel(), useCase: HomeUseCase) {
+
+    init(searchViewModel: SearchViewModel, useCase: HomeUseCase, searchUseCase: SearchUseCaseProtocol) {
         self.searchViewModel = searchViewModel
         self.useCase = useCase
+        self.searchUseCase = searchUseCase
     }
+
 
     func transform(input: Input) -> Output {
         // 검색어를 SearchViewModel에 바인딩

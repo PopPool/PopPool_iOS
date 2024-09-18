@@ -11,13 +11,13 @@ import RxCocoa
 import SnapKit
 
 final class HomeVC: BaseViewController, UICollectionViewDelegate {
-    
+
     enum Section: Int, Hashable ,CaseIterable {
         case topBanner
         case custom
         case popular
         case new
-        
+
         var titleText: String? {
             switch self {
             case .topBanner: return nil
@@ -27,35 +27,37 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             }
         }
     }
-    
+
     //MARK: - Components
-    // HEADER 생성 필요
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.setLayout())
+    private let searchComponent: SearchViewCPNT
     
-    
+
+
     //MARK: - Properties
     private let viewModel: HomeVM
     private var dataSource: UICollectionViewDiffableDataSource<Section, HomePopUp>!
     private var isLoggedIn: Bool = true
     private var disposeBag = DisposeBag()
     private var userName: String?
-    
+
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
+        self.searchComponent = SearchViewCPNT(viewModel: SearchViewModel(searchUseCase: AppDIContainer.shared.resolve(type: SearchUseCaseProtocol.self), recentSearchesViewModel: RecentSearchesViewModel()))
         super.init()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+
         let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
-        
+
         useCase.fetchHome(userId: Constants.userId, page: 0, size: 6, sort: nil)
         .withUnretained(self)
         .subscribe(onNext: { (owner, response) in
@@ -67,12 +69,12 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         })
         .disposed(by: disposeBag)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+//        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -81,33 +83,46 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
         bind()
     }
-    
+
     private func setUp() {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.delegate = self
         collectionView.register(HomeCollectionViewCell.self,
                                 forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
-        
+
         collectionView.register(HomeDetailPopUpCell.self,
                                 forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier)
-        
+
         collectionView.register(InterestViewCell.self,
                                 forCellWithReuseIdentifier: InterestViewCell.identifier)
-        
+
         collectionView.register(SectionHeaderCell.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeaderCell.identifier)
     }
-    
+
     private func setUpConstraint() {
         view.addSubview(collectionView)
+        view.addSubview(searchComponent)
+
+        searchComponent.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(80)
+        }
+
+
+
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
-    
+
     private func bind() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(searchBarTapped))
+        searchComponent.addGestureRecognizer(tapGesture)
+
         Observable.combineLatest(
             viewModel.customPopUpStore,
             viewModel.popularPopUpStore,
@@ -116,7 +131,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         .withUnretained(self)
         .subscribe(onNext: { (owner, stores) in
             let (customStores, popularStores, newStores) = stores
-            
+
             var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
             snapShot.appendSections([.topBanner])
             snapShot.appendItems([
@@ -132,24 +147,36 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 snapShot.appendSections([.custom])
                 snapShot.appendItems(customStores, toSection: .custom)
             }
-            
+
             snapShot.appendSections([.popular])
             snapShot.appendItems(popularStores, toSection: .popular)
-            
+
             snapShot.appendSections([.new])
             snapShot.appendItems(newStores, toSection: .new)
-            
+
             owner.dataSource.apply(snapShot, animatingDifferences: false)
             owner.collectionView.reloadData()
         })
         .disposed(by: disposeBag)
     }
-    
+    @objc private func searchBarTapped() {
+        let searchService = AppDIContainer.shared.resolve(type: SearchServiceProtocol.self)
+        let searchRepository = SearchRepository(searchService: searchService)
+        let searchUseCase = SearchUseCase(repository: searchRepository)
+        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
+
+        let searchVC = SearchViewController(viewModel: searchViewModel)
+
+        navigationController?.pushViewController(searchVC, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+
+    }
+
     private func setLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { section, environment in
-            
+
             guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[section] else { return nil }
-            
+
             switch sectionType {
             case .topBanner:
                 return self.buildBanner()
@@ -170,34 +197,34 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         layout.register(PopUpBackgroundView.self, forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifier)
         return layout
     }
-    
+
     private func buildBanner() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
+
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(0.4))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
+
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
-        
+
         // pageControl 연결부
-        
+
         return section
     }
-    
+
     private func setUpDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, HomePopUp>(
             collectionView: collectionView, cellProvider: { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
-                
+
                 guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section] else {
                     return nil
                 }
-                
+
                 switch sectionType {
                 case .topBanner:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
@@ -206,7 +233,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                             image: URL(string: ""),
                             totalCount: 5))
                     return cell
-                    
+
                 case .custom:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
                     cell.injectionWith(input: HomeDetailPopUpCell.Input(
@@ -217,7 +244,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                         date: "뭔 날짜")
                     )
                     return cell
-                    
+
                 case .popular:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
                     cell.injectionWith(input: InterestViewCell.Input(
@@ -228,7 +255,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                         date: "날짜"
                     ))
                     return cell
-                    
+
                 case.new:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
                     cell.injectionWith(input: HomeDetailPopUpCell.Input(
@@ -241,10 +268,10 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     return cell
                 }
             })
-        
+
         dataSource.supplementaryViewProvider = { [weak self]
             (collectionView, kind, indexPath) -> UICollectionReusableView? in
-            
+
             guard let self = self else { return nil }
             guard let sectionType = self.dataSource?.snapshot().sectionIdentifiers[indexPath.section] else {
                 return nil
@@ -254,7 +281,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     ofKind: kind,
                     withReuseIdentifier: SectionHeaderCell.identifier,
                     for: indexPath) as! SectionHeaderCell
-                
+
                 if let title = sectionType.titleText {
                     header.configure(title: title)
                     if let userName = userName, sectionType == .custom {
@@ -266,7 +293,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     .subscribe(onNext: { (owner, _) in
                         guard self.navigationController?.topViewController == self else { return }
                         let response = self.viewModel.myHomeAPIResponse.value
-                        
+
                         switch sectionType {
                         case .topBanner: return
                         case .custom:
@@ -281,7 +308,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                             let vc = EntirePopupVC(viewModel: vm)
                             vc.header.titleLabel.text = "큐레이션 팝업 전체보기"
                             owner.navigationController?.pushViewController(vc, animated: true)
-                            
+
                         case .popular:
                             let data: GetHomeInfoResponse = .init(
                                 popularPopUpStoreList: response.popularPopUpStoreList,
@@ -290,11 +317,11 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                             )
                             let vm = EntirePopupVM()
                             vm.fetchedResponse.accept(data)
-                            
+
                             let vc = EntirePopupVC(viewModel: vm)
                             vc.header.titleLabel.text = "인기 팝업 전체보기"
                             owner.navigationController?.pushViewController(vc, animated: true)
-                          
+
                         case .new:
                             let data: GetHomeInfoResponse = .init(
                                 newPopUpStoreList: response.newPopUpStoreList,
@@ -309,7 +336,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                         }
                     })
                     .disposed(by: self.disposeBag)
-                
+
                 return header
             }
             return nil

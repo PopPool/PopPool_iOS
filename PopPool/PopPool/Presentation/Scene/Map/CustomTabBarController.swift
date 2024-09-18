@@ -9,14 +9,21 @@ class CustomTabBarController: UITabBarController {
     private let accessToken: String
     private let userUseCase: UserUseCase
     private let userId: String
+    private let searchViewModel: SearchViewModel
+    private let searchUseCase: SearchUseCase
 
-    init(storeService: StoresService, provider: ProviderImpl, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String) {
+
+
+    init(storeService: StoresService, provider: ProviderImpl, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String, searchViewModel: SearchViewModel, searchUseCase: SearchUseCase) {
         self.storeService = storeService
         self.provider = provider
         self.myPageResponse = myPageResponse
         self.accessToken = accessToken
         self.userUseCase = userUseCase
         self.userId = userId
+        self.searchViewModel = searchViewModel 
+        self.searchUseCase = searchUseCase
+
         print("CustomTabBarController 생성됨, userId: \(userId)")  // 로그 추가
 
         self.customTabBar = CustomTabBarCPNT(items: [.map, .home, .my])
@@ -38,26 +45,30 @@ class CustomTabBarController: UITabBarController {
     private func setupViewControllers() {
         let userId = UserDefaults.standard.string(forKey: "loggedInUserId") ?? ""
 
-
         let mapVM = MapVM(storeService: storeService, userId: self.userId)
         let mapVC = MapVC(viewModel: mapVM, userId: self.userId)
 
-        let homeRepository = HomeRepositoryImpl() 
+        let homeRepository = HomeRepositoryImpl()
         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
-        let homeVM = HomeVM(useCase: homeUseCase)
-        let loggedHomeVC = LoggedHomeVC(viewModel: homeVM, userId: Constants.userId)
+
+        let searchService = AppDIContainer.shared.resolve(type: SearchServiceProtocol.self)
+        let searchRepository = SearchRepository(searchService: searchService)
+        let searchUseCase = SearchUseCase(repository: searchRepository)
+        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
+
+        let homeVM = HomeVM(searchViewModel: searchViewModel, useCase: homeUseCase, searchUseCase: searchUseCase)
+        let homeVC = HomeVC(viewModel: homeVM)
         print("LoggedHomeVC 생성됨")
 
         let myPageViewModel = MyPageMainVM()
         let myPageVC = MyPageMainVC(viewModel: myPageViewModel)
         print("MyPageMainVC 생성됨")
 
-
         // 뷰 컨트롤러들을 탭바에 설정
-        viewControllers = [mapVC, loggedHomeVC, myPageVC]
+        viewControllers = [mapVC, homeVC, myPageVC]
         print("viewControllers 설정됨: \(viewControllers?.map { type(of: $0) } ?? [])")
-
     }
+
 
     private func setupCustomTabBar() {
         tabBar.isHidden = true

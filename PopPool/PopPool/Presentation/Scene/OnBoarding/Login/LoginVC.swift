@@ -151,30 +151,35 @@ private extension LoginVC {
 
         output.moveToHomeVC
             .withUnretained(self)
-            .subscribe { (owner, loginResponse) in
+            .subscribe(onNext: { (owner, loginResponse) in
+                // 로그인 성공 시 처리
                 print("로그인 성공, userId: \(loginResponse.userId), accessToken: \(loginResponse.accessToken)")
                 Constants.userId = loginResponse.userId
                 UserDefaults.standard.set(loginResponse.userId, forKey: "loggedInUserId")
+
                 let keyChainService = KeyChainServiceImpl()
 
-                            // 토큰 저장
-                            keyChainService.saveToken(type: .accessToken, value: loginResponse.accessToken)
-                                .subscribe(onCompleted: {
-                                    print("accessToken saved")
-                                })
-                                .disposed(by: owner.disposeBag)
+                // 토큰 저장
+                keyChainService.saveToken(type: .accessToken, value: loginResponse.accessToken)
+                    .subscribe(onCompleted: {
+                        print("accessToken saved")
+                    })
+                    .disposed(by: self.disposeBag)
 
-                            keyChainService.saveToken(type: .refreshToken, value: loginResponse.refreshToken)
-                                .subscribe(onCompleted: {
-                                    print("refreshToken saved")
-                                })
-                                .disposed(by: owner.disposeBag)
+                keyChainService.saveToken(type: .refreshToken, value: loginResponse.refreshToken)
+                    .subscribe(onCompleted: {
+                        print("refreshToken saved")
+                    })
+                    .disposed(by: self.disposeBag)
 
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
                         let storeService = AppDIContainer.shared.resolve(type: StoresService.self)
                         let provider = AppDIContainer.shared.resolve(type: ProviderImpl.self)
+                        let searchUseCase = SearchUseCase(repository: AppDIContainer.shared.resolve(type: SearchRepositoryProtocol.self))
+                        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
+
 
                         let customTabBarController = CustomTabBarController(
                             storeService: storeService,
@@ -182,11 +187,12 @@ private extension LoginVC {
                             myPageResponse: myPageResponse,
                             accessToken: loginResponse.accessToken,
                             userUseCase: useCase,
-                            userId: loginResponse.userId
-
+                            userId: loginResponse.userId,
+                            searchViewModel: searchViewModel,
+                            searchUseCase: searchUseCase
                         )
-                        owner.navigationController?.setViewControllers([customTabBarController], animated: true)
 
+                        owner.navigationController?.setViewControllers([customTabBarController], animated: true)
 
                         // MapVC 생성
                         let mapViewModel = MapVM(storeService: storeService, userId: Constants.userId)
@@ -194,13 +200,12 @@ private extension LoginVC {
 
                         let homeRepository = HomeRepositoryImpl()
                         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
-    
-                        let homeVM = HomeVM(useCase: homeUseCase)
-                        let loggedHomeVC = LoggedHomeVC(viewModel: homeVM, userId: loginResponse.userId)
+                        let homeVM = HomeVM(searchViewModel: searchViewModel, useCase: homeUseCase, searchUseCase: searchUseCase)
+                        let homeVC = HomeVC(viewModel: homeVM)
 
                         let vm = MyPageMainVM()
                         vm.myCommentSection.sectionCellInputList = [
-                            .init(cellInputList: myPageResponse.popUpInfoList.map{ .init(
+                            .init(cellInputList: myPageResponse.popUpInfoList.map { .init(
                                 title: $0.popUpStoreName,
                                 isActive: false,
                                 imageURL: $0.mainImageUrl)
@@ -209,16 +214,15 @@ private extension LoginVC {
                         let myPageVC = MyPageMainVC(viewModel: vm)
 
                         // CustomTabBarController에 뷰컨트롤러 설정
-                        customTabBarController.viewControllers = [mapVC, loggedHomeVC, myPageVC]
+                        customTabBarController.viewControllers = [mapVC, homeVC, myPageVC]
 
                         // 네비게이션 스택 교체
                         owner.navigationController?.setViewControllers([customTabBarController], animated: true)
                     })
                     .disposed(by: owner.disposeBag)
-            }
+            })
             .disposed(by: disposeBag)
     }
-    
     func showLastLogin() {
         let service = UserDefaultService()
         service.fetch(key: "lastLogin")
@@ -237,3 +241,4 @@ private extension LoginVC {
             .disposed(by: disposeBag)
     }
 }
+

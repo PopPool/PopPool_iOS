@@ -1,7 +1,6 @@
-import UIKit
+import Foundation
 import RxSwift
 import RxCocoa
-import SnapKit
 
 class SearchViewModel {
     struct Input {
@@ -10,10 +9,8 @@ class SearchViewModel {
     }
 
     struct Output {
-        let recentSearches: Observable<[String]>
-        let searchResults: Observable<[PopUpStore]>
+        let searchResults: Observable<[SearchPopUpStore]>
         let isEmptyResult: Observable<Bool>
-        let isSearching: Observable<Bool>
     }
 
     let input: Input
@@ -21,22 +18,20 @@ class SearchViewModel {
 
     private let searchQuerySubject = BehaviorSubject<String>(value: "")
     private let cancelSearchSubject = PublishSubject<Void>()
-
     private let disposeBag = DisposeBag()
 
-    init(searchService: SearchServiceProtocol = SearchService()) {
-        let recentSearches = Observable.just(["패션", "뷰티", "식품"]) // 실제로는 로컬 저장소에서 가져와야 함
-
-        let searchResults = searchQuerySubject
+    init(searchUseCase: SearchUseCaseProtocol, recentSearchesViewModel: RecentSearchesViewModel) {
+        let searchResults: Observable<[SearchPopUpStore]> = searchQuerySubject
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .flatMapLatest { query -> Observable<[PopUpStore]> in
+            .flatMapLatest { query -> Observable<[SearchPopUpStore]> in
                 guard !query.isEmpty else { return .just([]) }
-                return searchService.searchStores(query: query)
+                // 검색어 저장
+                recentSearchesViewModel.input.addSearchQuery.onNext(query)
+                return searchUseCase.searchStores(query: query)
             }
             .share(replay: 1)
 
         let isEmptyResult = searchResults.map { $0.isEmpty }
-        let isSearching = searchQuerySubject.map { !$0.isEmpty }
 
         self.input = Input(
             searchQuery: searchQuerySubject.asObserver(),
@@ -44,13 +39,10 @@ class SearchViewModel {
         )
 
         self.output = Output(
-            recentSearches: recentSearches,
             searchResults: searchResults,
-            isEmptyResult: isEmptyResult,
-            isSearching: isSearching
+            isEmptyResult: isEmptyResult
         )
 
-        // 검색 취소 시 검색어 초기화
         cancelSearchSubject
             .subscribe(onNext: { [weak self] in
                 self?.searchQuerySubject.onNext("")

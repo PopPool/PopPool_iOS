@@ -3,7 +3,7 @@ import RxSwift
 import Alamofire
 
 protocol SearchServiceProtocol {
-    func searchStores(query: String) -> Observable<[PopUpStore]>
+    func searchStores(query: String) -> Observable<[SearchPopUpStoreDTO]>
 }
 
 class SearchService: SearchServiceProtocol {
@@ -15,42 +15,23 @@ class SearchService: SearchServiceProtocol {
         self.tokenInterceptor = tokenInterceptor
     }
 
-    func searchStores(query: String) -> Observable<[PopUpStore]> {
-        let endpoint = PopPoolAPIEndPoint.search_popUpStores(query: query)
+    func searchStores(query: String) -> Observable<[SearchPopUpStoreDTO]> {
+        let endpoint = PopPoolAPIEndPoint.searchStores(query: query)
 
         return provider.requestData(with: endpoint, interceptor: tokenInterceptor)
             .do(onNext: { response in
-                // 디버깅용 응답 로그
-                if let data = try? JSONEncoder().encode(response),
-                   let jsonString = String(data: data, encoding: .utf8) {
-                    print("SearchService - 응답 데이터: \(jsonString)")
-                }
+                print("SearchService - 응답 데이터: \(response)")
             })
-            .map { (response: [PopUpStoreDTO]) in
-                response.map { $0.toDomain() }
-            }
-            .catch { error -> Observable<[PopUpStore]> in
-                print("Search error: \(error)")
-                if let afError = error as? AFError {
-                    switch afError {
-                    case .responseSerializationFailed(let reason):
-                        print("Response serialization failed: \(reason)")
-                        if case .inputDataNilOrZeroLength = reason {
-                            return .just([])
-                        }
-                    case .responseValidationFailed(let reason):
-                        print("Response validation failed: \(reason)")
-                        if case .unacceptableStatusCode(let code) = reason {
-                            print("Unacceptable status code: \(code)")
-                            if code == 401 {
-                             
-                            }
-                        }
-                    default:
-                        print("Other AFError: \(afError.localizedDescription)")
-                    }
+            .map { response in
+                return response.map { dto in
+                    SearchPopUpStoreDTO(id: dto.id, name: dto.name, address: dto.address)
                 }
-                return .error(error)
+            }
+            .catchError { error -> Observable<[SearchPopUpStoreDTO]> in
+                print("Search error: \(error)")
+                return .just([]) // 에러 발생 시 빈 배열 반환
             }
     }
+
+
 }

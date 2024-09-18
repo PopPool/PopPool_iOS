@@ -10,6 +10,7 @@ struct SearchPopUpStoreDTO: Codable {
     let address: String
 }
 
+
 extension SearchPopUpStoreDTO {
     func toPopUpStore() -> SearchPopUpStore {
         return SearchPopUpStore(
