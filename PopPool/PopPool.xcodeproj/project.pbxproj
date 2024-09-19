@@ -245,6 +245,7 @@
 		BD75F77A2C730FA000524168 /* InquiryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7782C730FA000524168 /* InquiryVC.swift */; };
 		BD75F77B2C730FA000524168 /* InquiryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75F7792C730FA000524168 /* InquiryVM.swift */; };
 		BD76697B2C6336D2006C2672 /* ListContentCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */; };
+		BD76C9742C9AB3960017A564 /* SocialCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C9732C9AB3960017A564 /* SocialCommentView.swift */; };
 		BD77B9022C54CFDA001D860B /* ListInfoButtonCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */; };
 		BD79E1792C5740C200CCEE07 /* BaseTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */; };
 		BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */; };
@@ -552,6 +553,7 @@
 		BD75F7782C730FA000524168 /* InquiryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVC.swift; path = PopPool/Presentation/Scene/MyPage/Views/InquiryVC.swift; sourceTree = SOURCE_ROOT; };
 		BD75F7792C730FA000524168 /* InquiryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InquiryVM.swift; path = PopPool/Presentation/Scene/MyPage/Views/InquiryVM.swift; sourceTree = SOURCE_ROOT; };
 		BD76697A2C6336D2006C2672 /* ListContentCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentCPNT.swift; sourceTree = "<group>"; };
+		BD76C9732C9AB3960017A564 /* SocialCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentView.swift; sourceTree = "<group>"; };
 		BD77B9012C54CFDA001D860B /* ListInfoButtonCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfoButtonCPNT.swift; sourceTree = "<group>"; };
 		BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewVC.swift; sourceTree = "<group>"; };
 		BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardVC.swift; sourceTree = "<group>"; };
@@ -1665,6 +1667,7 @@
 			isa = PBXGroup;
 			children = (
 				BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */,
+				BD76C9732C9AB3960017A564 /* SocialCommentView.swift */,
 				BDE5552F2C92DF1C00973E53 /* SocialCommentVM.swift */,
 				BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */,
 			);
@@ -2031,6 +2034,7 @@
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08AF8D952C686BC6006B8A11 /* MyCommentedPopUpVC.swift in Sources */,
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
+				BD76C9742C9AB3960017A564 /* SocialCommentView.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				084BC9622C7F539E00C57494 /* UserBookMarkRequestDTO.swift in Sources */,
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,

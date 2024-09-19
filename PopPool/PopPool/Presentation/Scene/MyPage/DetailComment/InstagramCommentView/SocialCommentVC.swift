@@ -33,6 +33,7 @@ final class SocialCommentVC: BaseViewController {
         style: .icon(nil))
     
     let topSectionView = SocialNoticeView()
+    var secondSectionView: SocialCommentView!
     let pageSpaceView = UIView()
     
     let guideImage: UIImageView = {
@@ -87,7 +88,6 @@ final class SocialCommentVC: BaseViewController {
         setUp()
         setUpConstraint()
         bind()
-        //        pasteTest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -177,10 +177,33 @@ final class SocialCommentVC: BaseViewController {
     private func openUniversalLink() {
         let url = NSURL(string: "https://www.instagram.com")
         
-        pasteTest()
         if UIApplication.shared.canOpenURL(url! as URL) {
             UIApplication.shared.open(url! as URL)
         }
+        
+        removeFromView()
+        reSetUpConstraint()
+        pasteTest()
+    }
+    
+    private func removeFromView() {
+        for subView in stack.arrangedSubviews {
+            stack.removeArrangedSubview(subView)
+            subView.removeFromSuperview()
+        }
+        stack.removeFromSuperview()
+    }
+    
+    private func reSetUpConstraint() {
+        secondSectionView = SocialCommentView()
+        view.addSubview(secondSectionView)
+        
+        secondSectionView.snp.remakeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.bottom.equalTo(actionButton.snp.top)
+        }
+        
+        view.layoutIfNeeded()
     }
     
     private func pasteTest() {
@@ -188,7 +211,13 @@ final class SocialCommentVC: BaseViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, image) in
                 DispatchQueue.main.async {
-                    owner.guideImage.image = UIImage(data: image)
+                    if image.isEmpty {
+                        owner.guideImage.image = UIImage(systemName: "lasso")
+                        owner.guideImage.layer.borderColor = UIColor.red.cgColor
+                        owner.guideImage.layer.borderWidth = 2
+                    } else {
+                        owner.guideImage.image = UIImage(data: image)
+                    }
                 }
             })
             .disposed(by: disposeBag)
