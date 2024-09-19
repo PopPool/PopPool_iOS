@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class SectionHeaderCell: UICollectionViewCell {
     
@@ -52,8 +53,7 @@ final class SectionHeaderCell: UICollectionViewCell {
     var actionTapped: Observable<Void> {
         return actionButton.rx.tap.asObservable()
     }
-    
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
@@ -65,6 +65,11 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
     // MARK: - Methods
