@@ -31,30 +31,25 @@ final class MyPageMainVM: ViewModelable {
     
     var userUseCase: UserUseCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
     
-    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(value: .init(popUpInfoList: [], isLogin: true, isAdmin: false))
+    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(
+        value: .init(popUpInfoList: [], isLogin: true, isAdmin: false)
+    )
     
     var menuList: [any TableViewSectionable] {
         get {
-            // 로그인 유무에 따라 List 변경
-            if self.myPageAPIResponse.value.isLogin {
-                // 내 코멘트 없을 경우 분기
-                if self.myPageAPIResponse.value.popUpInfoList.isEmpty {
-                    return [
-                        normalSection,
-                        informationSection,
-                        etcSection
-                    ]
-                } else {
-                    return [
-                        myCommentSection,
-                        normalSection,
-                        informationSection,
-                        etcSection
-                    ]
-                }
+            // 내 코멘트 없을 경우 분기
+            if self.myPageAPIResponse.value.popUpInfoList.isEmpty {
+                return [
+                    normalSection,
+                    informationSection,
+                    etcSection
+                ]
             } else {
                 return [
-                    informationSection
+                    myCommentSection,
+                    normalSection,
+                    informationSection,
+                    etcSection
                 ]
             }
         }
@@ -169,7 +164,7 @@ final class MyPageMainVM: ViewModelable {
                 print("LoginButtonTapped")
             }
             .disposed(by: disposeBag)
-
+        
         let logoutResponse: PublishSubject<Void> = .init()
         input.logoutButtonTapped
             .withUnretained(self)
