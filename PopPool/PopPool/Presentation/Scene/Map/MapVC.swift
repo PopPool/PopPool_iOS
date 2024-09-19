@@ -100,6 +100,7 @@ class MapVC: BaseViewController {
     }()
 
     // 리스트뷰 컨테이너 뷰 수정
+
     private lazy var listContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -108,6 +109,7 @@ class MapVC: BaseViewController {
         view.clipsToBounds = true
         return view
     }()
+
 
     // 드래그 핸들 뷰 추가
     private lazy var dragHandleView: UIView = {
