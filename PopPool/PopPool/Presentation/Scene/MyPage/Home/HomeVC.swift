@@ -61,12 +61,19 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         useCase.fetchHome(userId: Constants.userId, page: 0, size: 6, sort: nil)
         .withUnretained(self)
         .subscribe(onNext: { (owner, response) in
+            print("응답 데이터: \(response)")
+
+
             owner.userName = response.nickname
             owner.viewModel.myHomeAPIResponse.accept(response)
             owner.viewModel.customPopUpStore.accept(response.customPopUpStoreList ?? [])
             owner.viewModel.popularPopUpStore.accept(response.popularPopUpStoreList ?? [])
             owner.viewModel.newPopUpStore.accept(response.newPopUpStoreList ?? [])
+            print("Custom PopUp Store: \(response.customPopUpStoreList ?? [])")
+               print("Popular PopUp Store: \(response.popularPopUpStoreList ?? [])")
+               print("New PopUp Store: \(response.newPopUpStoreList ?? [])")
         })
+        
         .disposed(by: disposeBag)
     }
 
@@ -156,7 +163,10 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
             owner.dataSource.apply(snapShot, animatingDifferences: false)
             owner.collectionView.reloadData()
-        })
+        }, onError: { error in
+              // 에러 처리
+              print("API 호출 실패: \(error.localizedDescription)")
+          })     
         .disposed(by: disposeBag)
     }
     @objc private func searchBarTapped() {
@@ -184,6 +194,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 return UIHelper.buildSection(
                     width: 158, height: 249,
                     behavior: .continuous)
+                
             case .popular:
                 return UIHelper.buildSection(
                     width: 232, height: 332,
@@ -194,6 +205,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     behavior: .continuous)
             }
         }
+        
         layout.register(PopUpBackgroundView.self, forDecorationViewOfKind: PopUpBackgroundView.reuseIdentifier)
         return layout
     }
@@ -210,6 +222,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
+        
         section.orthogonalScrollingBehavior = .groupPaging
 
         // pageControl 연결부
@@ -235,22 +248,25 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     return cell
 
                 case .custom:
+                    let customItem = self.viewModel.customPopUpStore.value[indexPath.item]
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
                     cell.injectionWith(input: HomeDetailPopUpCell.Input(
                         image: URL(string: ""),
-                        category: "카테고리",
-                        title: "제목",
-                        location: "지역",
-                        date: "뭔 날짜")
+                        category: customItem.category,
+                        title: customItem.name,
+                        location: customItem.address,
+                        date: customItem.startDate)
                     )
                     return cell
 
                 case .popular:
+                    let popularItem = self.viewModel.popularPopUpStore.value[indexPath.item]
+
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
                     cell.injectionWith(input: InterestViewCell.Input(
                         image: URL(string: ""),
-                        category: "타입",
-                        title: "인기 팝업",
+                        category: popularItem.category,
+                        title: popularItem.name,
                         location: "위치",
                         date: "날짜"
                     ))
@@ -258,10 +274,12 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
                 case.new:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
+                    let newItem = self.viewModel.newPopUpStore.value[indexPath.item]
+
                     cell.injectionWith(input: HomeDetailPopUpCell.Input(
                         image: URL(string: ""),
-                        category: "카테고리",
-                        title: "제목",
+                        category: newItem.category,
+                        title: newItem.name,
                         location: "지역",
                         date: "어떤 애요?")
                     )
@@ -293,10 +311,19 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     .subscribe(onNext: { (owner, _) in
                         guard self.navigationController?.topViewController == self else { return }
                         let response = self.viewModel.myHomeAPIResponse.value
+                        print("응답데이터: \(response)") // 로그 추가
 
                         switch sectionType {
                         case .topBanner: return
                         case .custom:
+
+                                   guard let customPopUpStoreList = response.customPopUpStoreList, !customPopUpStoreList.isEmpty else {
+                                       print("맞춤 팝업 데이터가 없습니다.")
+                                       print(" 헤더 탭")
+                                       return
+
+                                   }
+                            print("헤더탭탭")
                             let data: GetHomeInfoResponse = .init(
                                 customPopUpStoreList: response.customPopUpStoreList,
                                 customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,

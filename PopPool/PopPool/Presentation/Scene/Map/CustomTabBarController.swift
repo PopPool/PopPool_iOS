@@ -58,7 +58,7 @@ class CustomTabBarController: UITabBarController {
 
         let homeVM = HomeVM(searchViewModel: searchViewModel, useCase: homeUseCase, searchUseCase: searchUseCase)
         let homeVC = HomeVC(viewModel: homeVM)
-        print("LoggedHomeVC 생성됨")
+        print("HomeVC 생성됨")
 
         let myPageViewModel = MyPageMainVM()
         let myPageVC = MyPageMainVC(viewModel: myPageViewModel)
