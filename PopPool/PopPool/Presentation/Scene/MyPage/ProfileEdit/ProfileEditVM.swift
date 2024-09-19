@@ -196,6 +196,13 @@ final class ProfileEditVM: ViewModelable {
                     .subscribe {
                         if let lastProfilePath = owner.originUserDataStatic.profileImageUrl {
                             imageUploader.tryDelete(targetPaths: .init(objectKeyList: [lastProfilePath]))
+                                .subscribe {
+                                    print("기존 프로필 이미지 삭제 완료")
+                                } onError: { error in
+                                    print(error.localizedDescription)
+                                }
+                                .disposed(by: owner.disposeBag)
+
                         }
                         owner.originUserData.onNext(newProfile)
                         owner.originUserDataStatic = newProfile
