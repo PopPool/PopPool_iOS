@@ -50,7 +50,9 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    let actionTapped = PublishSubject<Void>()
+    var actionTapped: Observable<Void> {
+        return actionButton.rx.tap.asObservable()
+    }
     var disposeBag = DisposeBag()
     
     // MARK: - Initializer
@@ -59,7 +61,6 @@ final class SectionHeaderCell: UICollectionViewCell {
         super.init(frame: frame)
         setUp()
         setUpConstraint()
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -69,7 +70,6 @@ final class SectionHeaderCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
-        bind()
     }
     
     // MARK: - Methods
@@ -86,12 +86,6 @@ final class SectionHeaderCell: UICollectionViewCell {
     public func configureWhite(title: String) {
         titleLabel.text = title
         titleLabel.textColor = .w100
-    }
-    
-    private func bind() {
-        actionButton.rx.tap
-            .bind(to: actionTapped)
-            .disposed(by: disposeBag)
     }
     
     private func setUp() {
