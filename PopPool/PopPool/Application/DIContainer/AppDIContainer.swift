@@ -86,6 +86,7 @@ extension AppDelegate {
 
         // TokenInterceptor 등록
 
+
         container.register(
             type: ProviderImpl.self,
             component: ProviderImpl()
@@ -102,12 +103,17 @@ extension AppDelegate {
             component: TokenInterceptor()
         )
 
+
+        // Provider 타입으로도 등록
         container.register(
             type: Provider.self,
-            component: ProviderImpl()
+            component: container.resolve(type: ProviderImpl.self)
         )
 
-
+        container.register(
+            type: TokenInterceptor.self,
+            component: TokenInterceptor()
+        )
         container.register(
             type: AuthRepository.self,
             component: AuthRepositoryImpl(provider: container.resolve(type: Provider.self))
@@ -166,10 +172,10 @@ extension AppDelegate {
                 provider: container.resolve(type: Provider.self),
                 tokenInterceptor: container.resolve(type: TokenInterceptor.self),
                 keyChainService: container.resolve(type: KeyChainService.self)
-
-
             )
         )
+
+
         container.register(
             type: StoresServiceProtocol.self,
             component: container.resolve(type: StoresService.self)
@@ -194,13 +200,38 @@ extension AppDelegate {
             type: AdminUseCase.self,
             component: AdminUseCaseImpl(repository: container.resolve(type: AdminRepository.self))
         )
+
         container.register(
             type: HomeRepository.self,
             component: HomeRepositoryImpl()
         )
+
         container.register(
             type: HomeUseCase.self,
             component: HomeUseCaseImpl(repository: container.resolve(type: HomeRepository.self))
+        )
+
+        // Search 관련 DI 등록
+        container.register(
+            type: SearchServiceProtocol.self,
+            component: SearchService(
+                provider: container.resolve(type: Provider.self),
+                tokenInterceptor: container.resolve(type: TokenInterceptor.self)
+            )
+        )
+
+        container.register(
+            type: SearchRepositoryProtocol.self,
+            component: SearchRepository(
+                searchService: container.resolve(type: SearchServiceProtocol.self)
+            )
+        )
+
+        container.register(
+            type: SearchUseCaseProtocol.self,
+            component: SearchUseCase(
+                repository: container.resolve(type: SearchRepositoryProtocol.self)
+            )
         )
 
     }
