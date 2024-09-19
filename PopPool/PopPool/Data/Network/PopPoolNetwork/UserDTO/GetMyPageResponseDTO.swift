@@ -21,7 +21,7 @@ extension GetMyPageResponseDTO {
     func toDomain() -> GetMyPageResponse {
         return GetMyPageResponse(
             nickname: nickname,
-            profileImageURL: URL(string: profileImageUrl ?? ""),
+            profileImageURL: profileImageUrl,
             instagramId: instagramId,
             popUpInfoList: myCommentedPopUpList.map({ $0.toDomain() }),
             intro: intro,

@@ -116,17 +116,16 @@ final class UserRepositoryImpl: UserRepository {
     
     func updateMyProfile(
         userId: String,
-        profileImage: URL?,
+        profileImage: String?,
         nickname: String,
         email: String?,
         instagramId: String?,
         intro: String?
     ) -> Completable {
-        let imageURL = profileImage?.absoluteString ?? ""
         let endPoint = PopPoolAPIEndPoint.user_updateMyProfile(
             userId: userId,
             request: .init(
-                profileImage: imageURL,
+                profileImageUrl: profileImage,
                 nickname: nickname,
                 email: email,
                 instagramId: instagramId,

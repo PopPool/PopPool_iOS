@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 import SnapKit
 import RxSwift
@@ -118,6 +119,8 @@ final class ProfileEditVC: BaseViewController {
     private let disposeBag = DisposeBag()
     
     private let viewWillAppear: PublishSubject<Void> = .init()
+    
+    private let imageChanges: PublishSubject<UIImage> = .init()
     
     // MARK: - init
     init(viewModel: ProfileEditVM) {
@@ -239,6 +242,7 @@ private extension ProfileEditVC {
         }
     }
     
+    // MARK: - Bind
     func bind() {
         // HeaderView BackButton Tapped
         headerView.leftBarButton.rx.tap
@@ -263,6 +267,19 @@ private extension ProfileEditVC {
                         owner.viewWillAppear(true)
                     }
                     .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        profileImageEditButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                var configuration = PHPickerConfiguration()
+                configuration.filter = .images
+                configuration.selectionLimit = 1
+                
+                let picker = PHPickerViewController(configuration: configuration)
+                picker.delegate = owner
+                owner.present(picker, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         
@@ -292,7 +309,8 @@ private extension ProfileEditVC {
             nickNameButtonTapped: nickNameTextField.checkValidationButton.rx.tap,
             instaLinkText: instagramTextField.textField.rx.text.orEmpty,
             introText: introTextField.textViewStateObserver,
-            saveButtonTapped: saveButton.rx.tap
+            saveButtonTapped: saveButton.rx.tap,
+            imageChanges: imageChanges
         )
         let output = viewModel.transform(input: input)
         
@@ -314,6 +332,20 @@ private extension ProfileEditVC {
                 } else {
                     owner.connectSocialView.iconImageView.image = nil
                 }
+                
+                if let path = originData.profileImageUrl {
+                    let imageDownloader = PreSignedService()
+                    imageDownloader.tryDownload(filePaths: [path])
+                        .subscribe { images in
+                            if let image = images.first {
+                                owner.profileImageView.image = image
+                            }
+                        } onFailure: { error in
+                            print("error: Imagedownload Fail")
+                            owner.profileImageView.image = UIImage(named: "Profile_Logo")
+                        }
+                        .disposed(by: owner.disposeBag)
+                }
             }
             .disposed(by: disposeBag)
         
@@ -330,5 +362,27 @@ private extension ProfileEditVC {
                 owner.saveButton.isEnabled = isActive
             }
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension ProfileEditVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        let itemProviders = results.map(\.itemProvider)
+    
+        for itemProvider in itemProviders {
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    DispatchQueue.main.async {
+                        if let image = image as? UIImage {
+                            self?.profileImageView.image = image
+                            self?.imageChanges.onNext(image)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -31,30 +31,25 @@ final class MyPageMainVM: ViewModelable {
     
     var userUseCase: UserUseCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
     
-    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(value: .init(popUpInfoList: [], isLogin: true, isAdmin: false))
+    var myPageAPIResponse: BehaviorRelay<GetMyPageResponse> = .init(
+        value: .init(popUpInfoList: [], isLogin: true, isAdmin: false)
+    )
     
     var menuList: [any TableViewSectionable] {
         get {
-            // 로그인 유무에 따라 List 변경
-            if self.myPageAPIResponse.value.isLogin {
-                // 내 코멘트 없을 경우 분기
-                if self.myPageAPIResponse.value.popUpInfoList.isEmpty {
-                    return [
-                        normalSection,
-                        informationSection,
-                        etcSection
-                    ]
-                } else {
-                    return [
-                        myCommentSection,
-                        normalSection,
-                        informationSection,
-                        etcSection
-                    ]
-                }
+            // 내 코멘트 없을 경우 분기
+            if self.myPageAPIResponse.value.popUpInfoList.isEmpty {
+                return [
+                    normalSection,
+                    informationSection,
+                    etcSection
+                ]
             } else {
                 return [
-                    informationSection
+                    myCommentSection,
+                    normalSection,
+                    informationSection,
+                    etcSection
                 ]
             }
         }
@@ -76,7 +71,6 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "찜한 팝업"),
             .init(title: "최근 본 팝업"),
             .init(title: "차단한 사용자 관리"),
-            .init(title: "알림 설정"),
         ])
     // 정보 Section
     private var informationSection = MenuListCellSection(
@@ -169,7 +163,7 @@ final class MyPageMainVM: ViewModelable {
                 print("LoginButtonTapped")
             }
             .disposed(by: disposeBag)
-
+        
         let logoutResponse: PublishSubject<Void> = .init()
         input.logoutButtonTapped
             .withUnretained(self)
@@ -193,7 +187,6 @@ final class MyPageMainVM: ViewModelable {
                                 print("refreshTokenRemove Fail")
                             }
                             .disposed(by: owner.disposeBag)
-                        ToastMSGManager.createToast(message: "로그아웃 되었어요")
                         logoutResponse.onNext(())
                     } onError: { _ in
                         print("logout Fail")
