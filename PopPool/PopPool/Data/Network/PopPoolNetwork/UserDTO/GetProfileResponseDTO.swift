@@ -21,7 +21,7 @@ struct GetProfileResponseDTO: Decodable {
 extension GetProfileResponseDTO {
     func toDomain() -> GetProfileResponse{
         return GetProfileResponse(
-            profileImageUrl: profileImageUrl == nil ? nil : URL(string: profileImageUrl ?? ""),
+            profileImageUrl: profileImageUrl,
             nickname: nickname,
             email: email,
             instagramId: instagramId,

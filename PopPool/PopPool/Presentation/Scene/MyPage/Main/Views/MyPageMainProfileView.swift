@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Kingfisher
+import RxSwift
 
 final class MyPageMainProfileView: UIView {
     
@@ -66,7 +67,7 @@ final class MyPageMainProfileView: UIView {
     private var imageViewHeight: Constraint?
     private var imageViewBottom: Constraint?
     private var contentViewY: Constraint?
-    
+    private let disposeBag = DisposeBag()
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -210,15 +211,24 @@ extension MyPageMainProfileView: InputableView {
         var nickName: String?
         var instagramId: String?
         var intro: String?
-        var profileImage: URL?
+        var profileImage: String?
     }
     
     func injectionWith(input: Input) {
         if input.isLogin {
             setUpProfileView()
             if let profileImageViewURL = input.profileImage {
-                backGroundImageView.kf.setImage(with: profileImageViewURL)
-                profileImageView.kf.setImage(with: profileImageViewURL)
+                let imageService = PreSignedService()
+                imageService.tryDownload(filePaths: [profileImageViewURL])
+                    .subscribe { [weak self] images in
+                        if let image = images.first {
+                            self?.profileImageView.image = image
+                            self?.backGroundImageView.image = image
+                        }
+                    } onFailure: { error in
+                        print("Image Download Fail : \(error.localizedDescription)")
+                    }
+                    .disposed(by: disposeBag)
             } else {
                 self.backGroundImageView.image = UIImage(named: "Profile_Logo")
                 self.profileImageView.image = UIImage(named: "Profile_Logo")

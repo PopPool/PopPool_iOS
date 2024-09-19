@@ -65,7 +65,7 @@ protocol UserUseCase {
     
     func updateMyProfile(
         userId: String,
-        profileImage: URL?,
+        profileImage: String?,
         nickname: String,
         email: String?,
         instagramId: String?,
