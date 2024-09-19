@@ -53,24 +53,15 @@ final class SocialCommentView: UIStackView {
     }
     
     private func setUpConstraint() {
-        self.addSubview(scrollView)
-        scrollView.addSubview(topSpaceView)
-        scrollView.addSubview(contentImageView)
-        scrollView.addSubview(middleSpaceView)
-        scrollView.addSubview(listTitle)
-        scrollView.addSubview(dynamicTF)
-        
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        self.addSubview(topSpaceView)
+        self.addSubview(contentImageView)
+        self.addSubview(middleSpaceView)
+        self.addSubview(listTitle)
+        self.addSubview(dynamicTF)
         
         topSpaceView.snp.makeConstraints { make in
             make.height.equalTo(Constants.spaceGuide.small300)
         }
-        
-//        contentImageView.snp.makeConstraints { make in
-//            make.
-//        }
         
         middleSpaceView.snp.makeConstraints { make in
             make.height.equalTo(Constants.spaceGuide.small300)

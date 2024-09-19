@@ -32,6 +32,8 @@ final class SocialCommentVC: BaseViewController {
         title: "코멘트 작성하기",
         style: .icon(nil))
     
+    let scrollView = UIScrollView()
+    let containerView = UIView()
     let topSectionView = SocialNoticeView()
     var secondSectionView: SocialCommentView!
     let pageSpaceView = UIView()
@@ -230,11 +232,25 @@ final class SocialCommentVC: BaseViewController {
         guideImage.addGestureRecognizer(swipeRight)
         
         pageControl.numberOfPages = viewModel.currentContentCount
+        
+        containerView.backgroundColor = .yellow
+        scrollView.backgroundColor = .orange
     }
     
     private func setUpConstraint() {
-        view.addSubview(stack)
-        view.addSubview(actionButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(stack)
+        containerView.addSubview(actionButton)
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        containerView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(view.safeAreaLayoutGuide)
+        }
         
         stack.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
