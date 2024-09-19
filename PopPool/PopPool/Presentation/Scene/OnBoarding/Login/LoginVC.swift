@@ -13,7 +13,7 @@ import RxCocoa
 final class LoginVC: BaseViewController {
 
     // MARK: - Components
-    private let headerView = HeaderViewCPNT(title: "둘러보기", style: .text("둘러보기"))
+//    private let headerView = HeaderViewCPNT(title: "둘러보기", style: .text("둘러보기"))
     private let logoStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -94,14 +94,14 @@ private extension LoginVC {
     func setUpConstraints() {
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .systemBackground
-        headerView.leftBarButton.isHidden = true
-        headerView.titleLabel.isHidden = true
+//        headerView.leftBarButton.isHidden = true
+//        headerView.titleLabel.isHidden = true
 
-        view.addSubview(headerView)
-        headerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.trailing.equalToSuperview()
-        }
+//        view.addSubview(headerView)
+//        headerView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide)
+//            make.leading.trailing.equalToSuperview()
+//        }
 
         view.addSubview(logoStackView)
         logoStackView.addArrangedSubview(spacer64)
@@ -134,7 +134,7 @@ private extension LoginVC {
 
     func bind() {
         let input = LoginVM.Input(
-            tourButtonTapped: headerView.rightBarButton.rx.tap,
+//            tourButtonTapped: headerView.rightBarButton.rx.tap,
             kakaoLoginButtonTapped: kakaoSignInButton.rx.tap,
             appleLoginButtonTapped: appleSignInButton.rx.tap,
             inquryButtonTapped: inquiryButton.rx.tap

@@ -71,7 +71,6 @@ final class MyPageMainVM: ViewModelable {
             .init(title: "찜한 팝업"),
             .init(title: "최근 본 팝업"),
             .init(title: "차단한 사용자 관리"),
-            .init(title: "알림 설정"),
         ])
     // 정보 Section
     private var informationSection = MenuListCellSection(
@@ -188,7 +187,6 @@ final class MyPageMainVM: ViewModelable {
                                 print("refreshTokenRemove Fail")
                             }
                             .disposed(by: owner.disposeBag)
-                        ToastMSGManager.createToast(message: "로그아웃 되었어요")
                         logoutResponse.onNext(())
                     } onError: { _ in
                         print("logout Fail")

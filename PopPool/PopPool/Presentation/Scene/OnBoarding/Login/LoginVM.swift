@@ -14,7 +14,7 @@ final class LoginVM: ViewModelable {
     /// LoginVC의 입력 이벤트
     struct Input {
         /// 뒤로 돌아가기 버튼 탭
-        var tourButtonTapped: ControlEvent<Void>
+//        var tourButtonTapped: ControlEvent<Void>
         /// 카카오 로그인 버튼 탭
         var kakaoLoginButtonTapped: ControlEvent<Void>
         /// 애플 로그인 버튼 탭

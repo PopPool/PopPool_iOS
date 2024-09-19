@@ -168,6 +168,10 @@ private extension MyPageMainVC {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 owner.viewWillAppear(true)
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                guard let delegate = sceneDelegate else { return }
+                delegate.window?.rootViewController = LoginVC(viewModel: LoginVM())
+                ToastMSGManager.createToast(message: "로그아웃 되었어요")
             }
             .disposed(by: disposeBag)
     }
