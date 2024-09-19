@@ -309,7 +309,6 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 header.actionTapped
                     .withUnretained(self)
                     .subscribe(onNext: { (owner, _) in
-                        guard self.navigationController?.topViewController == self else { return }
                         let response = self.viewModel.myHomeAPIResponse.value
                         print("응답데이터: \(response)") // 로그 추가
 
@@ -317,13 +316,11 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                         case .topBanner: return
                         case .custom:
 
-                                   guard let customPopUpStoreList = response.customPopUpStoreList, !customPopUpStoreList.isEmpty else {
-                                       print("맞춤 팝업 데이터가 없습니다.")
-                                       print(" 헤더 탭")
-                                       return
-
-                                   }
-                            print("헤더탭탭")
+                            guard let customPopUpStoreList = response.customPopUpStoreList, !customPopUpStoreList.isEmpty else {
+                                print("맞춤 팝업 데이터가 없습니다.")
+                                return
+                            }
+                            
                             let data: GetHomeInfoResponse = .init(
                                 customPopUpStoreList: response.customPopUpStoreList,
                                 customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,
@@ -362,7 +359,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                             owner.navigationController?.pushViewController(vc, animated: true)
                         }
                     })
-                    .disposed(by: self.disposeBag)
+                    .disposed(by: header.disposeBag)
 
                 return header
             }

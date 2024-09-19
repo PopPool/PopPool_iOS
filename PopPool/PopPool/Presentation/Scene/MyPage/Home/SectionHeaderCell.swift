@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class SectionHeaderCell: UICollectionViewCell {
     
@@ -49,11 +50,8 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var actionTapped: Observable<Void> {
-        return actionButton.rx.tap.asObservable()
-    }
-    
-    let disposeBag = DisposeBag()
+    let actionTapped = PublishSubject<Void>()
+    var disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
@@ -61,10 +59,17 @@ final class SectionHeaderCell: UICollectionViewCell {
         super.init(frame: frame)
         setUp()
         setUpConstraint()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        bind()
     }
     
     // MARK: - Methods
@@ -81,6 +86,12 @@ final class SectionHeaderCell: UICollectionViewCell {
     public func configureWhite(title: String) {
         titleLabel.text = title
         titleLabel.textColor = .w100
+    }
+    
+    private func bind() {
+        actionButton.rx.tap
+            .bind(to: actionTapped)
+            .disposed(by: disposeBag)
     }
     
     private func setUp() {
