@@ -11,6 +11,7 @@ class SearchViewModel {
     struct Output {
         let searchResults: Observable<[SearchPopUpStore]>
         let isEmptyResult: Observable<Bool>
+
     }
 
     let input: Input
@@ -28,10 +29,12 @@ class SearchViewModel {
                 // 검색어 저장
                 recentSearchesViewModel.input.addSearchQuery.onNext(query)
                 return searchUseCase.searchStores(query: query)
+
             }
             .share(replay: 1)
 
         let isEmptyResult = searchResults.map { $0.isEmpty }
+
 
         self.input = Input(
             searchQuery: searchQuerySubject.asObserver(),
@@ -42,6 +45,7 @@ class SearchViewModel {
             searchResults: searchResults,
             isEmptyResult: isEmptyResult
         )
+
 
         cancelSearchSubject
             .subscribe(onNext: { [weak self] in

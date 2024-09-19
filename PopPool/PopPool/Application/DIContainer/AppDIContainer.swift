@@ -85,10 +85,24 @@ extension AppDelegate {
         let container = AppDIContainer.shared
 
         // TokenInterceptor 등록
+
+
         container.register(
             type: ProviderImpl.self,
             component: ProviderImpl()
         )
+        // Provider 타입으로도 등록 (인터페이스로 사용할 때를 위해)
+        container.register(
+            type: Provider.self,
+            component: container.resolve(type: ProviderImpl.self)
+        )
+
+
+        container.register(
+            type: TokenInterceptor.self,
+            component: TokenInterceptor()
+        )
+
 
         // Provider 타입으로도 등록
         container.register(
@@ -100,7 +114,6 @@ extension AppDelegate {
             type: TokenInterceptor.self,
             component: TokenInterceptor()
         )
-
         container.register(
             type: AuthRepository.self,
             component: AuthRepositoryImpl(provider: container.resolve(type: Provider.self))
@@ -162,6 +175,7 @@ extension AppDelegate {
             )
         )
 
+
         container.register(
             type: StoresServiceProtocol.self,
             component: container.resolve(type: StoresService.self)
@@ -219,5 +233,6 @@ extension AppDelegate {
                 repository: container.resolve(type: SearchRepositoryProtocol.self)
             )
         )
+
     }
 }

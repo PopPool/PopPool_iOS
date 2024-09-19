@@ -4,6 +4,7 @@ import Alamofire
 
 protocol SearchServiceProtocol {
     func searchStores(query: String) -> Observable<[SearchPopUpStoreDTO]>
+
 }
 
 class SearchService: SearchServiceProtocol {

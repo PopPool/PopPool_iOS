@@ -172,6 +172,7 @@ private extension LoginVC {
                     })
                     .disposed(by: self.disposeBag)
 
+
                 let useCase = AppDIContainer.shared.resolve(type: UserUseCase.self)
                 useCase.fetchMyPage(userId: loginResponse.userId)
                     .subscribe(onNext: { myPageResponse in
@@ -179,6 +180,7 @@ private extension LoginVC {
                         let provider = AppDIContainer.shared.resolve(type: ProviderImpl.self)
                         let searchUseCase = SearchUseCase(repository: AppDIContainer.shared.resolve(type: SearchRepositoryProtocol.self))
                         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
+
 
 
                         let customTabBarController = CustomTabBarController(
@@ -194,6 +196,7 @@ private extension LoginVC {
 
                         owner.navigationController?.setViewControllers([customTabBarController], animated: true)
 
+
                         // MapVC 생성
                         let mapViewModel = MapVM(storeService: storeService, userId: Constants.userId)
                         let mapVC = MapVC(viewModel: mapViewModel, userId: loginResponse.userId)
@@ -206,6 +209,7 @@ private extension LoginVC {
                         let vm = MyPageMainVM()
                         vm.myCommentSection.sectionCellInputList = [
                             .init(cellInputList: myPageResponse.popUpInfoList.map { .init(
+
                                 title: $0.popUpStoreName,
                                 isActive: false,
                                 imageURL: $0.mainImageUrl)

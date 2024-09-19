@@ -18,6 +18,7 @@ final class HomeVM: ViewModelable {
 
     struct Output {
         let searchResults: Observable<[SearchPopUpStore]>
+
         var myHomeAPIResponse: Observable<GetHomeInfoResponse>
 
     }
@@ -44,6 +45,7 @@ final class HomeVM: ViewModelable {
         self.useCase = useCase
         self.searchUseCase = searchUseCase
     }
+
 
 
     func transform(input: Input) -> Output {

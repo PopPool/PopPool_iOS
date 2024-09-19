@@ -6,6 +6,7 @@ import SnapKit
 class SearchViewController: UIViewController {
     private let searchViewModel: SearchViewModel
     private let recentSearchesViewModel = RecentSearchesViewModel()
+
     private let disposeBag = DisposeBag()
 
     // MARK: - UI Components
@@ -90,6 +91,7 @@ class SearchViewController: UIViewController {
         button.tintColor = .black
         button.semanticContentAttribute = .forceRightToLeft
         return button
+
     }()
 
     private let searchResultsTableView: UITableView = {
@@ -105,6 +107,7 @@ class SearchViewController: UIViewController {
     // MARK: - Initialization
     init(viewModel: SearchViewModel) {
         self.searchViewModel = viewModel
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -125,6 +128,7 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+
     }
 
     // MARK: - UI Setup
@@ -144,6 +148,7 @@ class SearchViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalTo(cancelButton.snp.leading).offset(-10)
+
         }
 
         cancelButton.snp.makeConstraints { make in

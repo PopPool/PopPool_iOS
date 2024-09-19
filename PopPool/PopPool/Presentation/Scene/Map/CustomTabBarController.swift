@@ -15,6 +15,7 @@ class CustomTabBarController: UITabBarController {
 
 
     init(storeService: StoresService, provider: ProviderImpl, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String, searchViewModel: SearchViewModel, searchUseCase: SearchUseCase) {
+
         self.storeService = storeService
         self.provider = provider
         self.myPageResponse = myPageResponse
@@ -23,7 +24,6 @@ class CustomTabBarController: UITabBarController {
         self.userId = userId
         self.searchViewModel = searchViewModel 
         self.searchUseCase = searchUseCase
-
         print("CustomTabBarController 생성됨, userId: \(userId)")  // 로그 추가
 
         self.customTabBar = CustomTabBarCPNT(items: [.map, .home, .my])
@@ -60,6 +60,7 @@ class CustomTabBarController: UITabBarController {
         let homeVC = HomeVC(viewModel: homeVM)
         print("HomeVC 생성됨")
 
+
         let myPageViewModel = MyPageMainVM()
         let myPageVC = MyPageMainVC(viewModel: myPageViewModel)
         print("MyPageMainVC 생성됨")
@@ -68,6 +69,7 @@ class CustomTabBarController: UITabBarController {
         viewControllers = [mapVC, homeVC, myPageVC]
         print("viewControllers 설정됨: \(viewControllers?.map { type(of: $0) } ?? [])")
     }
+
 
 
     private func setupCustomTabBar() {

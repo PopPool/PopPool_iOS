@@ -8,7 +8,7 @@
 import UIKit
 
 struct UpdatePopUpStoreRequestDTO: Encodable {
-    let popUpStore: [AdminPopUpStoreDTO]
+    let popUpStore: AdminPopUpStoreDTO
     let location: Location
     let imagesToAdd: [String]
     let imagesToDelete: [Int64]
