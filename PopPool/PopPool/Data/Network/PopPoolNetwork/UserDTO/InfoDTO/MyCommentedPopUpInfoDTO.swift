@@ -18,7 +18,7 @@ extension MyCommentedPopUpInfoDTO {
         return .init(
             popUpStoreId: popUpStoreId,
             popUpStoreName: popUpStoreName,
-            mainImageUrl: URL(string: mainImageUrl)
+            mainImageUrl: mainImageUrl
         )
     }
 }

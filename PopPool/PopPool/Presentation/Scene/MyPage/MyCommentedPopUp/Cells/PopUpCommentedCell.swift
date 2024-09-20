@@ -39,6 +39,8 @@ final class PopUpCommentedCell: UICollectionViewCell {
         label.textAlignment = .left
         return label
     }()
+    
+    private let disposeBag = DisposeBag()
 
     
     // MARK: - init
@@ -108,7 +110,7 @@ private extension PopUpCommentedCell {
 extension PopUpCommentedCell: Cellable {
 
     struct Input {
-        var imageURL: URL?
+        var imageURL: String?
         var commentType: CommentType
         var title: String?
         var content: String
@@ -119,16 +121,17 @@ extension PopUpCommentedCell: Cellable {
     }
     
     func injectionWith(input: Input) {
-        if let url = input.imageURL {
-            imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: url) { [weak self] result in
-                switch result {
-                case .success:
-                    print("ImageLoad Success")
-                case .failure:
-                    self?.imageView.image = UIImage(named: "defaultLogo")
+        let service = PreSignedService()
+        if let path = input.imageURL {
+            service.tryDownload(filePaths: [path])
+                .subscribe { [weak self] images in
+                    guard let image = images.first else { return }
+                    self?.imageView.image = image
+                } onFailure: { [weak self] error in
+                    self?.imageView.image = UIImage(named: "lightLogo")
+                    print("ImageDownLoad Fail")
                 }
-            }
+                .disposed(by: disposeBag)
         }
         popUpTitleLabel.text = input.title
         contentLabel.text = input.content

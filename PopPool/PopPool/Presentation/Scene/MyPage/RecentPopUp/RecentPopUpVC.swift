@@ -60,6 +60,8 @@ extension RecentPopUpVC {
 private extension RecentPopUpVC {
     
     func setUp() {
+        view.backgroundColor = .g50
+        contentCollectionView.backgroundColor = .g50
         self.navigationController?.navigationBar.isHidden = true
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self

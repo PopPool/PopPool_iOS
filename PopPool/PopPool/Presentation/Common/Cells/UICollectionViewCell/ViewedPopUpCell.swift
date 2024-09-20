@@ -168,19 +168,6 @@ extension ViewedPopUpCell : Cellable {
                 }
                 .disposed(by: disposeBag)
         }
-        
-//        if let imageURL = input.imageURL {
-//            imageView.kf.indicatorType = .activity
-//            imageView.kf.setImage(with: imageURL) { [weak self] result in
-//                switch result {
-//                case .success:
-//                    print("Image Load Success")
-//                case .failure:
-//                    print("Image Load Fail")
-//                    self?.imageView.image = UIImage(named: "lightLogo")
-//                }
-//            }
-//        }
         setUpHole()
     }
     
