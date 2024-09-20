@@ -153,8 +153,8 @@ extension SavedPopUpCell : Cellable {
     struct Input {
         var date: String
         var title: String
-        var address: String
-        var imageURL: URL?
+        var address: String?
+        var imageURL: String?
         var buttonIsHidden: Bool
     }
     
@@ -167,16 +167,17 @@ extension SavedPopUpCell : Cellable {
         popUpTitleLabel.text = input.title
         addressLabel.text = input.address
         bookmarkButton.isHidden = input.buttonIsHidden
-        if let url = input.imageURL {
-            imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: url) { [weak self] result in
-                switch result {
-                case .success:
-                    print("ImageLoad Success")
-                case .failure:
-                    self?.imageView.image = UIImage(named: "defaultLogo")
+        let service = PreSignedService()
+        if let path = input.imageURL {
+            service.tryDownload(filePaths: [path])
+                .subscribe { [weak self] images in
+                    guard let image = images.first else { return }
+                    self?.imageView.image = image
+                } onFailure: { [weak self] error in
+                    print("ImageDownLoad Fail")
+                    self?.imageView.image = UIImage(named: "lightLogo")
                 }
-            }
+                .disposed(by: disposeBag)
         }
     }
     
