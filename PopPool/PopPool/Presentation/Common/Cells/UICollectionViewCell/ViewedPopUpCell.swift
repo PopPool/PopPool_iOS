@@ -142,7 +142,7 @@ extension ViewedPopUpCell : Cellable {
     struct Input {
         var date: String
         var title: String
-        var imageURL: URL?
+        var imageURL: String?
         var buttonIsHidden: Bool
     }
     
@@ -155,18 +155,32 @@ extension ViewedPopUpCell : Cellable {
         popUpTitleLabel.text = input.title
         bookmarkButton.isHidden = input.buttonIsHidden
         imageView.image = UIImage(named: "lightLogo")
-        if let imageURL = input.imageURL {
-            imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: imageURL) { [weak self] result in
-                switch result {
-                case .success:
-                    print("Image Load Success")
-                case .failure:
-                    print("Image Load Fail")
+        
+        let service = PreSignedService()
+        if let path = input.imageURL {
+            service.tryDownload(filePaths: [path])
+                .subscribe { [weak self] images in
+                    guard let image = images.first else { return }
+                    self?.imageView.image = image
+                } onFailure: { [weak self] error in
                     self?.imageView.image = UIImage(named: "lightLogo")
+                    print("ImageDownLoad Fail")
                 }
-            }
+                .disposed(by: disposeBag)
         }
+        
+//        if let imageURL = input.imageURL {
+//            imageView.kf.indicatorType = .activity
+//            imageView.kf.setImage(with: imageURL) { [weak self] result in
+//                switch result {
+//                case .success:
+//                    print("Image Load Success")
+//                case .failure:
+//                    print("Image Load Fail")
+//                    self?.imageView.image = UIImage(named: "lightLogo")
+//                }
+//            }
+//        }
         setUpHole()
     }
     
