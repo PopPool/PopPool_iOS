@@ -12,9 +12,9 @@ import RxSwift
 import RxCocoa
 
 final class ProfileEditVM: ViewModelable {
-
+    
     struct Input {
-        var viewWillAppear: PublishSubject<Void>
+        var viewWillAppear: ControlEvent<Void>
         var nickNameState: Observable<ValidationTextFieldCPNT.ValidationState>
         var nickNameButtonTapped: ControlEvent<Void>
         var instaLinkText: ControlProperty<String>
@@ -48,6 +48,8 @@ final class ProfileEditVM: ViewModelable {
     
     private var signUpUseCase: SignUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
     
+    let imageUploader = PreSignedService()
+    
     private var saveButtonIsActive: BehaviorRelay<Bool> = .init(value: false)
     
     private var isValidNickName: Bool = true
@@ -63,7 +65,7 @@ final class ProfileEditVM: ViewModelable {
     
     // MARK: - Methods
     func transform(input: Input) -> Output {
-
+        
         let nickNameState: PublishSubject<ValidationTextFieldCPNT.ValidationState> = .init()
         input.imageChanges
             .withUnretained(self)
@@ -175,14 +177,15 @@ final class ProfileEditVM: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 let newProfile = owner.newUserData.value
-                let imageUploader = PreSignedService()
                 guard let uploadImage = owner.saveImage,
                       let uploadPath = newProfile.profileImageUrl else { return }
                 
-                imageUploader.tryUpload(datas: [.init(
-                    filePath: uploadPath,
-                    image: uploadImage
-                )])
+                owner.imageUploader.tryUpload(
+                    datas: [.init(
+                        filePath: uploadPath,
+                        image: uploadImage
+                    )]
+                )
                 .subscribe(onSuccess: { _ in
                     print("imageUpload Success")
                     owner.userUseCase.updateMyProfile(
@@ -195,14 +198,14 @@ final class ProfileEditVM: ViewModelable {
                     )
                     .subscribe {
                         if let lastProfilePath = owner.originUserDataStatic.profileImageUrl {
-                            imageUploader.tryDelete(targetPaths: .init(objectKeyList: [lastProfilePath]))
+                            owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [lastProfilePath]))
                                 .subscribe {
                                     print("기존 프로필 이미지 삭제 완료")
                                 } onError: { error in
                                     print(error.localizedDescription)
                                 }
                                 .disposed(by: owner.disposeBag)
-
+                            
                         }
                         owner.originUserData.onNext(newProfile)
                         owner.originUserDataStatic = newProfile
@@ -210,7 +213,7 @@ final class ProfileEditVM: ViewModelable {
                         ToastMSGManager.createToast(message: "내용을 저장했어요")
                     } onError: { error in
                         ToastMSGManager.createToast(message: "NetWork Error")
-                        imageUploader.tryDelete(targetPaths: .init(objectKeyList: [uploadPath]))
+                        owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [uploadPath]))
                             .subscribe {
                                 print("delete Success")
                             } onError: { error in

@@ -23,9 +23,9 @@ final class TokenInterceptor: RequestInterceptor {
                   .subscribe { accessToken in
                       urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
 //                      print("TokenInterceptor - 토큰 추가됨: Bearer \(accessToken)")
-                      print("TokenInterceptor - 요청 헤더:")
+//                      print("TokenInterceptor - 요청 헤더:")
                       urlRequest.allHTTPHeaderFields?.forEach { key, value in
-                          print("  \(key): \(value)")
+//                          print("  \(key): \(value)")
                       }
 
                       completion(.success(urlRequest))
