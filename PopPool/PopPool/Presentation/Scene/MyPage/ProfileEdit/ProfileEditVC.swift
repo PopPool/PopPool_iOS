@@ -122,6 +122,8 @@ final class ProfileEditVC: BaseViewController {
     
     private let imageChanges: PublishSubject<UIImage> = .init()
     
+    let imageDownloader = PreSignedService()
+    
     // MARK: - init
     init(viewModel: ProfileEditVM) {
         self.viewModel = viewModel
@@ -140,10 +142,6 @@ extension ProfileEditVC {
         setUp()
         setUpConstraints()
         bind()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        viewWillAppear.onNext(())
     }
 }
 
@@ -262,9 +260,8 @@ private extension ProfileEditVC {
                 owner.presentModalViewController(viewController: vc)
                 
                 vc.rx.viewWillDisappear
-                    .withUnretained(self)
-                    .subscribe { (owner, _) in
-                        owner.viewWillAppear(true)
+                    .subscribe { [weak owner] _ in
+                        owner?.viewWillAppear(true)
                     }
                     .disposed(by: owner.disposeBag)
             }
@@ -294,9 +291,8 @@ private extension ProfileEditVC {
                 let vc = ProfileEditUserDataBottomSheetVC(viewModel: vm)
                 
                 vc.rx.viewWillDisappear
-                    .withUnretained(self)
-                    .subscribe { (owner, _) in
-                        owner.viewWillAppear(true)
+                    .subscribe { [weak owner ]_ in
+                        owner?.viewWillAppear(true)
                     }
                     .disposed(by: owner.disposeBag)
                 owner.presentModalViewController(viewController: vc)
@@ -304,7 +300,7 @@ private extension ProfileEditVC {
             .disposed(by: disposeBag)
         
         let input = ProfileEditVM.Input(
-            viewWillAppear: self.viewWillAppear,
+            viewWillAppear: self.rx.viewWillAppear,
             nickNameState: nickNameTextField.stateObserver.asObservable(),
             nickNameButtonTapped: nickNameTextField.checkValidationButton.rx.tap,
             instaLinkText: instagramTextField.textField.rx.text.orEmpty,
@@ -334,15 +330,14 @@ private extension ProfileEditVC {
                 }
                 
                 if let path = originData.profileImageUrl {
-                    let imageDownloader = PreSignedService()
-                    imageDownloader.tryDownload(filePaths: [path])
-                        .subscribe { images in
+                    owner.imageDownloader.tryDownload(filePaths: [path])
+                        .subscribe { [weak owner] images in
                             if let image = images.first {
-                                owner.profileImageView.image = image
+                                owner?.profileImageView.image = image
                             }
-                        } onFailure: { error in
+                        } onFailure: { [weak owner] error in
                             print("error: Imagedownload Fail")
-                            owner.profileImageView.image = UIImage(named: "Profile_Logo")
+                            owner?.profileImageView.image = UIImage(named: "Profile_Logo")
                         }
                         .disposed(by: owner.disposeBag)
                 }

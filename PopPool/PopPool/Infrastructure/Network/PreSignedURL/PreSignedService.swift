@@ -20,8 +20,6 @@ class PreSignedService {
     }
     
     let tokenInterceptor = TokenInterceptor()
-    let disposeBag = DisposeBag()
-    
     
     func tryDelete(targetPaths: PresignedURLRequestDTO) -> Completable {
         let provider = ProviderImpl()
@@ -30,6 +28,9 @@ class PreSignedService {
     }
     
     func tryUpload(datas: [PresignedURLRequest]) -> Single<Void> {
+        
+        let methodDisposeBag = DisposeBag()
+        
         return Single.create { [weak self] observer in
             guard let self = self else {
                 return Disposables.create()
@@ -52,17 +53,19 @@ class PreSignedService {
                             print("Image upload failed: \(error.localizedDescription)")
                             observer(.failure(error))
                         })
-                        .disposed(by: self.disposeBag)
+                        .disposed(by: methodDisposeBag)
                 } onError: { error in
                     print("getUploadLinks Fail: \(error.localizedDescription)")
                     observer(.failure(error))
                 }
-                .disposed(by: disposeBag)
+                .disposed(by: methodDisposeBag)
             return Disposables.create()
         }
     }
     
     func tryDownload(filePaths: [String]) -> Single<[UIImage]> {
+        let methodDisposeBag = DisposeBag()
+        
         return Single.create { [weak self] observer in
             guard let self = self else {
                 return Disposables.create()
@@ -86,13 +89,13 @@ class PreSignedService {
                             print("Image download failed: \(error.localizedDescription)")
                             observer(.failure(error))
                         })
-                        .disposed(by: self.disposeBag)
+                        .disposed(by: methodDisposeBag)
                     
                 } onError: { error in
                     print("getDownloadLinks Fail: \(error.localizedDescription)")
                     observer(.failure(error))
                 }
-                .disposed(by: self.disposeBag)
+                .disposed(by: methodDisposeBag)
             
             return Disposables.create()
         }
