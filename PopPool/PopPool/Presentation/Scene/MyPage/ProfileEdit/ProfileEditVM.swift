@@ -177,55 +177,73 @@ final class ProfileEditVM: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 let newProfile = owner.newUserData.value
-                guard let uploadImage = owner.saveImage,
-                      let uploadPath = newProfile.profileImageUrl else { return }
-                
-                owner.imageUploader.tryUpload(
-                    datas: [.init(
-                        filePath: uploadPath,
-                        image: uploadImage
-                    )]
-                )
-                .subscribe(onSuccess: { _ in
-                    print("imageUpload Success")
+                if let uploadImage = owner.saveImage,
+                   let uploadPath = newProfile.profileImageUrl {
+                    owner.imageUploader.tryUpload(
+                        datas: [.init(
+                            filePath: uploadPath,
+                            image: uploadImage
+                        )]
+                    )
+                    .subscribe(onSuccess: { _ in
+                        print("imageUpload Success")
+                        owner.userUseCase.updateMyProfile(
+                            userId: Constants.userId,
+                            profileImage: newProfile.profileImageUrl,
+                            nickname: newProfile.nickname,
+                            email: newProfile.email,
+                            instagramId: newProfile.instagramId,
+                            intro: newProfile.intro
+                        )
+                        .subscribe {
+                            if let lastProfilePath = owner.originUserDataStatic.profileImageUrl {
+                                owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [lastProfilePath]))
+                                    .subscribe {
+                                        print("기존 프로필 이미지 삭제 완료")
+                                    } onError: { error in
+                                        print(error.localizedDescription)
+                                    }
+                                    .disposed(by: owner.disposeBag)
+                                
+                            }
+                            owner.originUserData.onNext(newProfile)
+                            owner.originUserDataStatic = newProfile
+                            owner.saveButtonIsActive.accept(false)
+                            ToastMSGManager.createToast(message: "내용을 저장했어요")
+                        } onError: { error in
+                            ToastMSGManager.createToast(message: "NetWork Error")
+                            owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [uploadPath]))
+                                .subscribe {
+                                    print("delete Success")
+                                } onError: { error in
+                                    print(error.localizedDescription)
+                                }
+                                .disposed(by: owner.disposeBag)
+                        }
+                        .disposed(by: owner.disposeBag)
+                    },onFailure: { uploadError in
+                        print(uploadError.localizedDescription)
+                    })
+                    .disposed(by: owner.disposeBag)
+                } else {
                     owner.userUseCase.updateMyProfile(
                         userId: Constants.userId,
-                        profileImage: newProfile.profileImageUrl,
+                        profileImage: owner.originUserDataStatic.profileImageUrl,
                         nickname: newProfile.nickname,
                         email: newProfile.email,
                         instagramId: newProfile.instagramId,
                         intro: newProfile.intro
                     )
                     .subscribe {
-                        if let lastProfilePath = owner.originUserDataStatic.profileImageUrl {
-                            owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [lastProfilePath]))
-                                .subscribe {
-                                    print("기존 프로필 이미지 삭제 완료")
-                                } onError: { error in
-                                    print(error.localizedDescription)
-                                }
-                                .disposed(by: owner.disposeBag)
-                            
-                        }
                         owner.originUserData.onNext(newProfile)
                         owner.originUserDataStatic = newProfile
                         owner.saveButtonIsActive.accept(false)
                         ToastMSGManager.createToast(message: "내용을 저장했어요")
                     } onError: { error in
                         ToastMSGManager.createToast(message: "NetWork Error")
-                        owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [uploadPath]))
-                            .subscribe {
-                                print("delete Success")
-                            } onError: { error in
-                                print(error.localizedDescription)
-                            }
-                            .disposed(by: owner.disposeBag)
                     }
                     .disposed(by: owner.disposeBag)
-                },onFailure: { uploadError in
-                    print(uploadError.localizedDescription)
-                })
-                .disposed(by: owner.disposeBag)
+                }
             }
             .disposed(by: disposeBag)
         
