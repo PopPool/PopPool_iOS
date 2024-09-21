@@ -10,7 +10,7 @@ import Foundation
 struct MyCommentInfo {
     var commentId: Int64
     var content: String
-    var image: URL?
+    var image: String?
     var likeCount: Int64
     var createDateTime: Date
     var popUpStoreInfo: MyCommentedPopUpInfo

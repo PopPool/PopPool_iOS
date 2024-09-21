@@ -9,7 +9,7 @@ import Foundation
 
 struct BlockedUserInfo {
     var userId: String
-    var profileImage: URL?
+    var profileImage: String?
     var nickname: String
     var instagramId: String?
 }

@@ -139,19 +139,20 @@ final class BlockedUserCell: UITableViewCell {
     ///   - title: 셀의 제목 영역의 값을 받습니다
     ///   - subTitle: 셀의 부제목 영역의 값을 받습니다
     ///   - initialState: BlockedUserVC에서 설정하는 초기값을 받습니다
-    public func configure(title: String, subTitle: String, imageURL: URL?, initialState: UserState) {
+    public func configure(title: String, subTitle: String, imageURL: String?, initialState: UserState) {
         component.update(title: title, subTitle: subTitle)
         cellStateSubject.accept(initialState)
-        if let url = imageURL {
-            component.profileImageView.kf.indicatorType = .activity
-            component.profileImageView.kf.setImage(with: url) { [weak self] result in
-                switch result {
-                case .success:
-                    print("ImageLoad Success")
-                case .failure:
-                    self?.component.profileImageView.image = UIImage(named: "defaultLogo")
+        let service = PreSignedService()
+        if let path = imageURL {
+            service.tryDownload(filePaths: [path])
+                .subscribe { [weak self] images in
+                    guard let image = images.first else { return }
+                    self?.component.profileImageView.image = image
+                } onFailure: { [weak self] error in
+                    print("ImageDownLoad Fail")
+                    self?.component.profileImageView.image = UIImage(named: "lightLogo")
                 }
-            }
+                .disposed(by: disposeBag)
         }
     }
     
