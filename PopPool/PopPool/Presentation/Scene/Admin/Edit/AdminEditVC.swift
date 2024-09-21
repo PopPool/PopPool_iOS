@@ -162,6 +162,7 @@ private extension AdminEditVC {
                     print("ID:",id,"@@@@@@@@@@@@@@@@@@@@@@@@")
                     service.getPopUpDetail(popUpID: id)
                         .subscribe(onNext: { response in
+                            print(response)
                             owner.titleTextField.text = response.name
                             owner.titleText.accept(response.name)
                             owner.selectCategory.accept(response.category)
@@ -176,6 +177,7 @@ private extension AdminEditVC {
                             owner.startDateChoiceButton.setTitle(response.startDate, for: .normal)
                             owner.endDate.accept(response.endDate)
                             owner.endDateChoiceButton.setTitle(response.endDate, for: .normal)
+                            owner.descriptionTextView.text = response.desc
                             
                             let imageService = PreSignedService()
                             imageService.tryDownload(filePaths: response.imageList.compactMap { $0.imageUrl })
