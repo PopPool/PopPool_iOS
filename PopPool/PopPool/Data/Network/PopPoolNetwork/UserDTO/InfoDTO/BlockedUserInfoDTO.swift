@@ -18,7 +18,7 @@ extension BlockedUserInfoDTO {
     func toDomain() -> BlockedUserInfo {
         return BlockedUserInfo(
             userId: userId,
-            profileImage: URL(string: profileImageUrl ?? ""),
+            profileImage: profileImageUrl,
             nickname: nickname,
             instagramId: instagramId
         )
