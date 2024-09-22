@@ -22,6 +22,8 @@ final class AdminPostVC: BaseViewController {
     private let address: BehaviorRelay<String?> = .init(value: nil)
     private let latitude: BehaviorRelay<Double?> = .init(value: nil)
     private let longitude: BehaviorRelay<Double?> = .init(value: nil)
+    private let markerName: BehaviorRelay<String?> = .init(value: nil)
+    private let snippet: BehaviorRelay<String?> = .init(value: nil)
     private let startDate: BehaviorRelay<String?> = .init(value: nil)
     private let endDate: BehaviorRelay<String?> = .init(value: nil)
     private let descriptionText: BehaviorRelay<String?> = .init(value: nil)
@@ -94,6 +96,19 @@ final class AdminPostVC: BaseViewController {
         return textField
     }()
     
+    let markerNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .init(hexCode: "#D9D9D9", alpha: 0.3)
+        textField.placeholder = "마커명"
+        return textField
+    }()
+    
+    let snippetTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .init(hexCode: "#D9D9D9", alpha: 0.3)
+        textField.placeholder = "스니펫"
+        return textField
+    }()
     let startDateChoiceButton: ButtonCPNT = {
         let button = ButtonCPNT(type: .primary, title: "시작날짜")
         button.snp.makeConstraints { make in
@@ -176,6 +191,8 @@ final class AdminPostVC: BaseViewController {
         contentStackView.addArrangedSubview(addressTextField)
         contentStackView.addArrangedSubview(latitudeTextField)
         contentStackView.addArrangedSubview(longitudeTextField)
+        contentStackView.addArrangedSubview(markerNameTextField)
+        contentStackView.addArrangedSubview(snippetTextField)
         contentStackView.addArrangedSubview(startDateChoiceButton)
         contentStackView.addArrangedSubview(endDateChoiceButton)
         contentStackView.addArrangedSubview(descriptionTitleLabel)
@@ -378,6 +395,32 @@ final class AdminPostVC: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        markerNameTextField.rx.text
+            .withUnretained(self)
+            .subscribe { (owner, markerName) in
+                if let markerName = markerName {
+                    if markerName.count == 0 {
+                        owner.markerName.accept(nil)
+                    } else {
+                        owner.markerName.accept(markerName)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        snippetTextField.rx.text
+            .withUnretained(self)
+            .subscribe { (owner, snippet) in
+                if let snippet = snippet {
+                    if snippet.count == 0 {
+                        owner.snippet.accept(nil)
+                    } else {
+                        owner.snippet.accept(snippet)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
         descriptionTextView.rx.text
             .withUnretained(self)
             .subscribe { (owner, description) in
@@ -398,6 +441,8 @@ final class AdminPostVC: BaseViewController {
             selectCategory.map { $0 as Any? },
             latitude.map { $0 as Any? },
             longitude.map { $0 as Any? },
+            markerName.map { $0 as Any? },
+            snippet.map { $0 as Any? },
             startDate.map { $0 as Any? },
             endDate.map { $0 as Any? },
             descriptionText.map { $0 as Any? },
@@ -420,7 +465,9 @@ final class AdminPostVC: BaseViewController {
                    let startDate = owner.startDate.value,
                    let endDate = owner.endDate.value,
                    let description = owner.descriptionText.value,
-                   let adress = owner.address.value
+                   let adress = owner.address.value,
+                   let marker = owner.markerName.value,
+                   let snippet = owner.snippet.value
                 {
                     let imageService = PreSignedService()
                     var pathList: [String] = []
@@ -447,7 +494,9 @@ final class AdminPostVC: BaseViewController {
                                 mainImageUrl: pathList[owner.mainImageIndex.value],
                                 imageUrlList: pathList,
                                 latitude: latitude,
-                                longitude: longitude
+                                longitude: longitude,
+                                markerTitle: marker,
+                                markerSnippet: snippet
                             )
                             print(newPopUp)
                             repository.postPopUpStore(createPopUp: newPopUp)
@@ -484,7 +533,9 @@ final class AdminPostVC: BaseViewController {
            let startDate = startDate.value,
            let endDate = endDate.value,
            let description = descriptionText.value,
-           let adress = address.value
+           let adress = address.value,
+           let marker = markerName.value,
+           let snippet = snippet.value
         {
             
             if images.value.count != 0 &&

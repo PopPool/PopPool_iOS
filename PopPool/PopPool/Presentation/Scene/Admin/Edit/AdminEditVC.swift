@@ -17,6 +17,8 @@ final class AdminEditVC: BaseViewController {
     // MARK: - Properties
     var popUpStoreId: BehaviorRelay<Int64?> = .init(value: nil)
     var disposeBag = DisposeBag()
+    private var originImgaePathList: [String] = []
+    private var originImageIDList: [Int64] = []
     private let titleText: BehaviorRelay<String?> = .init(value: nil)
     private let images: BehaviorRelay<[UIImage?]> = .init(value: [])
     private let mainImageIndex: BehaviorRelay<Int> = .init(value: -1)
@@ -25,6 +27,8 @@ final class AdminEditVC: BaseViewController {
     private let latitude: BehaviorRelay<Double?> = .init(value: nil)
     private let longitude: BehaviorRelay<Double?> = .init(value: nil)
     private let startDate: BehaviorRelay<String?> = .init(value: nil)
+    private let markerName: BehaviorRelay<String?> = .init(value: nil)
+    private let snippet: BehaviorRelay<String?> = .init(value: nil)
     private let endDate: BehaviorRelay<String?> = .init(value: nil)
     private let descriptionText: BehaviorRelay<String?> = .init(value: nil)
     
@@ -96,7 +100,19 @@ final class AdminEditVC: BaseViewController {
         textField.placeholder = "경도"
         return textField
     }()
+    let markerNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .init(hexCode: "#D9D9D9", alpha: 0.3)
+        textField.placeholder = "마커명"
+        return textField
+    }()
     
+    let snippetTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .init(hexCode: "#D9D9D9", alpha: 0.3)
+        textField.placeholder = "스니펫"
+        return textField
+    }()
     let startDateChoiceButton: ButtonCPNT = {
         let button = ButtonCPNT(type: .primary, title: "시작날짜")
         button.snp.makeConstraints { make in
@@ -127,7 +143,7 @@ final class AdminEditVC: BaseViewController {
         return textField
     }()
     let saveButton: ButtonCPNT = {
-        let button = ButtonCPNT(type: .primary, title: "저장", disabledTitle: "저장")
+        let button = ButtonCPNT(type: .primary, title: "수정", disabledTitle: "수정")
         button.isEnabled = false
         return button
     }()
@@ -173,12 +189,17 @@ private extension AdminEditVC {
                             owner.latitudeTextField.text = String(response.latitude)
                             owner.longitude.accept(response.longitude)
                             owner.longitudeTextField.text = String(response.longitude)
+                            owner.snippet.accept(response.markerSnippet)
+                            owner.snippetTextField.text = response.markerSnippet
+                            owner.markerName.accept(response.markerTitle)
+                            owner.markerNameTextField.text = response.markerTitle
                             owner.startDate.accept(response.startDate)
                             owner.startDateChoiceButton.setTitle(response.startDate, for: .normal)
                             owner.endDate.accept(response.endDate)
                             owner.endDateChoiceButton.setTitle(response.endDate, for: .normal)
                             owner.descriptionTextView.text = response.desc
-                            
+                            owner.originImageIDList = response.imageList.map { $0.id }
+                            owner.originImgaePathList = response.imageList.map { $0.imageUrl }
                             let imageService = PreSignedService()
                             imageService.tryDownload(filePaths: response.imageList.compactMap { $0.imageUrl })
                                 .subscribe { images in
@@ -399,6 +420,32 @@ private extension AdminEditVC {
             }
             .disposed(by: disposeBag)
         
+        markerNameTextField.rx.text
+            .withUnretained(self)
+            .subscribe { (owner, markerName) in
+                if let markerName = markerName {
+                    if markerName.count == 0 {
+                        owner.markerName.accept(nil)
+                    } else {
+                        owner.markerName.accept(markerName)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        snippetTextField.rx.text
+            .withUnretained(self)
+            .subscribe { (owner, snippet) in
+                if let snippet = snippet {
+                    if snippet.count == 0 {
+                        owner.snippet.accept(nil)
+                    } else {
+                        owner.snippet.accept(snippet)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
         descriptionTextView.rx.text
             .withUnretained(self)
             .subscribe { (owner, description) in
@@ -422,7 +469,9 @@ private extension AdminEditVC {
             startDate.map { $0 as Any? },
             endDate.map { $0 as Any? },
             descriptionText.map { $0 as Any? },
-            address.map { $0 as Any? }
+            address.map { $0 as Any? },
+            markerName.map { $0 as Any? },
+            snippet.map { $0 as Any? },
         ]
         
         Observable.merge(allRelays.map { $0.asObservable() })
@@ -442,6 +491,8 @@ private extension AdminEditVC {
                    let endDate = owner.endDate.value,
                    let description = owner.descriptionText.value,
                    let adress = owner.address.value,
+                   let marker = owner.markerName.value,
+                   let snippet = owner.snippet.value,
                    let id = owner.popUpStoreId.value
                 {
                     let imageService = PreSignedService()
@@ -458,52 +509,41 @@ private extension AdminEditVC {
                     imageService.tryUpload(datas: imageUploadDatas)
                         .subscribe { _ in
                             print("ImageUploadSuccess")
-//                            let repository = AdminRepositoryImpl()
-//                            
-//                            let newPopUp: AdminPopUpStoreDTO = .init(
-//                                id: id,
-//                                name: title,
-//                                category: owner.selectCategory.value,
-//                                desc: description,
-//                                address: adress,
-//                                startDate: startDate,
-//                                endDate: endDate,
-//                                mainImageUrl: pathList[owner.mainImageIndex.value],
-//                                imageUrl: pathList
-//                            )
-//                            let updateRequest = UpdatePopUpStoreRequestDTO(
-//                                popUpStore: newPopUp,
-//                                location: .init(latitude: latitude, longitude: longitude, markerTitle: "", markerSnippet: ""),
-//                                imagesToAdd: <#T##[String]#>,
-//                                imagesToDelete: <#T##[Int64]#>
-//                            )
-//                                name: title,
-//                                category: owner.selectCategory.value,
-//                                desc: description,
-//                                address: adress,
-//                                startDate: startDate,
-//                                endDate: endDate,
-//                                mainImageUrl: pathList[owner.mainImageIndex.value],
-//                                imageUrlList: pathList,
-//                                latitude: latitude,
-//                                longitude: longitude
-//                            )
-//                            print(newPopUp)
-//                            repository.updatePopUp(updatePopUp: updateRequest)
-//                                .subscribe {
-//                                    ToastMSGManager.createToast(message: "등록성공")
-//                                    owner.navigationController?.popViewController(animated: true)
-//                                } onError: { _ in
-//                                    ToastMSGManager.createToast(message: "등록실패")
-//                                    imageService.tryDelete(targetPaths: .init(objectKeyList: pathList))
-//                                        .subscribe {
-//                                            print("이미지 삭제 완료")
-//                                        } onError: { _ in
-//                                            print("이미지 삭제 오류")
-//                                        }
-//                                        .disposed(by: owner.disposeBag)
-//                                }
-//                                .disposed(by: owner.disposeBag)
+                            let repository = AdminRepositoryImpl()
+                            
+                            let newPopUp: AdminPopUpStoreDTO = .init(
+                                id: id,
+                                name: title,
+                                category: owner.selectCategory.value,
+                                desc: description,
+                                address: adress,
+                                startDate: startDate,
+                                endDate: endDate,
+                                mainImageUrl: pathList[owner.mainImageIndex.value],
+                                imageUrl: pathList
+                            )
+                            let updateRequest = UpdatePopUpStoreRequestDTO(
+                                popUpStore: newPopUp,
+                                location: .init(latitude: latitude, longitude: longitude, markerTitle: marker, markerSnippet: snippet),
+                                imagesToAdd: pathList,
+                                imagesToDelete: owner.originImageIDList
+                            )
+                            print(updateRequest)
+                            repository.updatePopUp(updatePopUp: updateRequest)
+                                .subscribe {
+                                    ToastMSGManager.createToast(message: "수정성공")
+                                    owner.navigationController?.popViewController(animated: true)
+                                } onError: { _ in
+                                    ToastMSGManager.createToast(message: "등록실패")
+                                    imageService.tryDelete(targetPaths: .init(objectKeyList: pathList))
+                                        .subscribe {
+                                            print("이미지 삭제 완료")
+                                        } onError: { _ in
+                                            print("이미지 삭제 오류")
+                                        }
+                                        .disposed(by: owner.disposeBag)
+                                }
+                                .disposed(by: owner.disposeBag)
                         } onFailure: { _ in
                             print("ImageUploadFail")
                             ToastMSGManager.createToast(message: "ImageUploadFail")
@@ -518,22 +558,42 @@ private extension AdminEditVC {
         deleteButton.rx.tap
             .withUnretained(self)
             .subscribe { (owner, _) in
-                let repository = AdminRepositoryImpl()
-                if let id = owner.popUpStoreId.value {
-                    repository.deletePopUp(popUpID: id)
-                        .subscribe(onCompleted: {
-                            owner.navigationController?.popViewController(animated: true)
-                        },onError: { error in
-                            print(error.localizedDescription)
-                        })
-//                        .subscribe()
-//                        .subscribe {
-
-//                        } onError: { _ in
-//                            ToastMSGManager.createToast(message: "Network Error")
-//                        }
+                let alertController = UIAlertController(title: "삭제 확인",
+                                                        message: "지운다?",
+                                                        preferredStyle: .alert)
+                
+                // 2. UIAlertAction 추가 (버튼)
+                let okAction = UIAlertAction(title: "확인", style: .default) { [weak owner] _ in
+                    guard let owner = owner else { return }
+                    let imageService = PreSignedService()
+                    imageService.tryDelete(targetPaths: .init(objectKeyList: owner.originImgaePathList))
+                        .subscribe {
+                            let repository = AdminRepositoryImpl()
+                            if let id = owner.popUpStoreId.value {
+                                repository.deletePopUp(popUpID: id)
+                                    .subscribe(onCompleted: {
+                                        ToastMSGManager.createToast(message: "삭제 성공")
+                                        owner.navigationController?.popViewController(animated: true)
+                                    },onError: { error in
+                                        print(error.localizedDescription)
+                                    })
+                                    .disposed(by: owner.disposeBag)
+                            }
+                        } onError: { error in
+                            print("ImageDeleteFail")
+                        }
                         .disposed(by: owner.disposeBag)
                 }
+                
+                // 취소 버튼 추가 (옵션)
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                
+                // 3. UIAlertController에 액션 추가
+                alertController.addAction(okAction)
+                alertController.addAction(cancelAction)
+                
+                // 4. Alert 표시
+                owner.present(alertController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }
@@ -578,6 +638,8 @@ private extension AdminEditVC {
         contentStackView.addArrangedSubview(addressTextField)
         contentStackView.addArrangedSubview(latitudeTextField)
         contentStackView.addArrangedSubview(longitudeTextField)
+        contentStackView.addArrangedSubview(markerNameTextField)
+        contentStackView.addArrangedSubview(snippetTextField)
         contentStackView.addArrangedSubview(startDateChoiceButton)
         contentStackView.addArrangedSubview(endDateChoiceButton)
         contentStackView.addArrangedSubview(descriptionTitleLabel)
@@ -591,7 +653,9 @@ private extension AdminEditVC {
            let startDate = startDate.value,
            let endDate = endDate.value,
            let description = descriptionText.value,
-           let adress = address.value
+           let adress = address.value,
+           let marker = markerName.value,
+           let snippet = snippet.value
         {
             
             if images.value.count != 0 &&

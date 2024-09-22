@@ -18,4 +18,6 @@ struct CreatePopUpStoreRequestDTO: Encodable {
     let imageUrlList: [String]
     let latitude: Double
     let longitude: Double
+    let markerTitle: String
+    let markerSnippet: String
 }
