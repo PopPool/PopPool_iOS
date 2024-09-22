@@ -267,15 +267,21 @@
 		BD0D191D2C7D94960017D909 /* UpdatePopUpStoreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */; };
 		BD0D191F2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */; };
 		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
+		BD1901332C8EB0300050FD23 /* DismissCommentModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1901322C8EB0300050FD23 /* DismissCommentModalVC.swift */; };
+		BD198D082C8D53D500835325 /* NormalCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD198D072C8D53D500835325 /* NormalCommentVC.swift */; };
+		BD198D0C2C8D629900835325 /* CommentImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD198D0B2C8D629900835325 /* CommentImageCell.swift */; };
 		BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1E37492C7E2895004931D5 /* HomePopUp.swift */; };
 		BD2684962C8C901F000F623F /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2684952C8C901F000F623F /* UICollectionReusableView.swift */; };
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
 		BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */; };
+		BD2F787C2C99A52A004784AA /* ClipboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F787B2C99A52A004784AA /* ClipboardManager.swift */; };
+		BD3320792C8E4FFF002EA30C /* NormalCommentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
 		BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD353B4A2C2D3D7D0004659D /* LoginVM.swift */; };
 		BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */; };
 		BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */; };
+		BD3C9E952C81B06F005BFD7B /* ListRowCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */; };
 		BD51ED322C8A205200DA4885 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED312C8A205200DA4885 /* HomeVC.swift */; };
 		BD51ED342C8ACDC100DA4885 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED332C8ACDC100DA4885 /* UIHelper.swift */; };
 		BD55E12F2C707DCA00FAB763 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */; };
@@ -286,6 +292,9 @@
 		BD60B2812C75C5AF0062DC96 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */; };
 		BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */; };
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
+		BD67FA402C9202EF00E89E7D /* SocialCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */; };
+		BD67FA422C9221BB00E89E7D /* SocialNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */; };
+		BD76C9742C9AB3960017A564 /* SocialCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C9732C9AB3960017A564 /* SocialCommentView.swift */; };
 		BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */; };
 		BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */; };
 		BD702D632C88511E00142AE0 /* PP_splash.json in Resources */ = {isa = PBXBuildFile; fileRef = BD702D622C88511E00142AE0 /* PP_splash.json */; };
@@ -317,6 +326,8 @@
 		BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */; };
 		BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */; };
 		BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */; };
+		BDE555302C92DF1C00973E53 /* SocialCommentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE5552F2C92DF1C00973E53 /* SocialCommentVM.swift */; };
+		BDE88FD52C83348E00AF9EFF /* CommentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */; };
 		BDE88FD72C83568100AF9EFF /* SignOutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE88FD62C83568100AF9EFF /* SignOutVM.swift */; };
 		BDEAE4BA2C7111F900D96D41 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */; };
 		BDEAE4BC2C713F9700D96D41 /* InterestViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */; };
@@ -609,15 +620,21 @@
 		BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePopUpStoreRequest.swift; sourceTree = "<group>"; };
 		BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpStoreDetailResponse.swift; sourceTree = "<group>"; };
 		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
+		BD1901322C8EB0300050FD23 /* DismissCommentModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissCommentModalVC.swift; sourceTree = "<group>"; };
+		BD198D072C8D53D500835325 /* NormalCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCommentVC.swift; sourceTree = "<group>"; };
+		BD198D0B2C8D629900835325 /* CommentImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImageCell.swift; sourceTree = "<group>"; };
 		BD1E37492C7E2895004931D5 /* HomePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePopUp.swift; sourceTree = "<group>"; };
 		BD2684952C8C901F000F623F /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
 		BD2975072C5112390090147C /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
 		BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAlertVC.swift; sourceTree = "<group>"; };
+		BD2F787B2C99A52A004784AA /* ClipboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardManager.swift; sourceTree = "<group>"; };
+		BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCommentVM.swift; sourceTree = "<group>"; };
 		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
 		BD353B4A2C2D3D7D0004659D /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		BD3942102C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListResponse.swift; sourceTree = "<group>"; };
 		BD3C4C6E2C313D6C0087917B /* LoginBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBottomSheetVM.swift; sourceTree = "<group>"; };
+		BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowCPNT.swift; sourceTree = "<group>"; };
 		BD51ED312C8A205200DA4885 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		BD51ED332C8ACDC100DA4885 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		BD55E12E2C707DCA00FAB763 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -628,6 +645,9 @@
 		BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 		BD60B2832C75CA9A0062DC96 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
+		BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentVC.swift; sourceTree = "<group>"; };
+		BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNoticeView.swift; sourceTree = "<group>"; };
+		BD76C9732C9AB3960017A564 /* SocialCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentView.swift; sourceTree = "<group>"; };
 		BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
 		BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVM.swift; sourceTree = "<group>"; };
 		BD702D622C88511E00142AE0 /* PP_splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PP_splash.json; sourceTree = "<group>"; };
@@ -659,6 +679,8 @@
 		BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVM.swift; sourceTree = "<group>"; };
 		BDD7E6512C3694C20059C6B5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BDDF7D112C4A2AA8008F8EAC /* SignOutCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVC.swift; sourceTree = "<group>"; };
+		BDE5552F2C92DF1C00973E53 /* SocialCommentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentVM.swift; sourceTree = "<group>"; };
+		BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTypeVC.swift; sourceTree = "<group>"; };
 		BDE88FD62C83568100AF9EFF /* SignOutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVM.swift; sourceTree = "<group>"; };
 		BDEAE4B92C7111F900D96D41 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
 		BDEAE4BB2C713F9700D96D41 /* InterestViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestViewCell.swift; sourceTree = "<group>"; };
@@ -1063,6 +1085,7 @@
 		089D191B2C36B138000435D9 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				BDE88FD32C83345300AF9EFF /* DetailComment */,
 				BD8DE8212C68653300C5DE8B /* Home */,
 				BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */,
 				4E67A21C2C93031C003BDAFA /* Search */,
@@ -1759,6 +1782,7 @@
 				4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */,
 				4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */,
 				4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */,
+                BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */,
 			);
 			name = Components;
 			path = PopPool/Presentation/Components;
@@ -1783,6 +1807,7 @@
 			isa = PBXGroup;
 			children = (
 				08F49DF82C24006F002D5202 /* ToastMSGManager.swift */,
+				BD2F787B2C99A52A004784AA /* ClipboardManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1876,6 +1901,17 @@
 			path = HomeRepository;
 			sourceTree = "<group>";
 		};
+		BD67FA3E2C91FFBC00E89E7D /* InstagramCommentView */ = {
+			isa = PBXGroup;
+			children = (
+				BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */,
+				BD76C9732C9AB3960017A564 /* SocialCommentView.swift */,
+				BDE5552F2C92DF1C00973E53 /* SocialCommentVM.swift */,
+				BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */,
+			);
+			path = InstagramCommentView;
+			sourceTree = "<group>";
+		};
 		BD8DE8212C68653300C5DE8B /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1919,7 +1955,20 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		BDF089F02C6504B80098486D /* TermBoard */ = {
+		BDE88FD32C83345300AF9EFF /* DetailComment */ = {
+			isa = PBXGroup;
+			children = (
+				BD67FA3E2C91FFBC00E89E7D /* InstagramCommentView */,
+				BDE88FD42C83348E00AF9EFF /* CommentTypeVC.swift */,
+				BD198D072C8D53D500835325 /* NormalCommentVC.swift */,
+				BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */,
+				BD198D0B2C8D629900835325 /* CommentImageCell.swift */,
+				BD1901322C8EB0300050FD23 /* DismissCommentModalVC.swift */,
+			);
+			path = DetailComment;
+			sourceTree = "<group>";
+		};
+        BDF089F02C6504B80098486D /* TermBoard */ = {
 			isa = PBXGroup;
 			children = (
 				BDF089FB2C6504FF0098486D /* TermsBoardVC.swift */,
@@ -2213,6 +2262,7 @@
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
 				08AF8D952C686BC6006B8A11 /* MyCommentedPopUpVC.swift in Sources */,
 				08B183C72C443925006C34BB /* Cellable.swift in Sources */,
+				BD76C9742C9AB3960017A564 /* SocialCommentView.swift in Sources */,
 				08B9658C2C15FF0600BF95AA /* FetchSocialCredentialUseCase.swift in Sources */,
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
 				BDCA56742C69FF59005C68C8 /* HomeListCell.swift in Sources */,
@@ -2223,12 +2273,16 @@
 				BDF4F29C2C2422DF002F4F03 /* UIFont+.swift in Sources */,
 				08E23AB92C4F8C3C004B77B6 /* BlockedUserInfo.swift in Sources */,
 				BDF3B2C12C0C318E00B079C5 /* Responsable.swift in Sources */,
+				BD67FA422C9221BB00E89E7D /* SocialNoticeView.swift in Sources */,
+				BD198D0C2C8D629900835325 /* CommentImageCell.swift in Sources */,
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E67A2402C930364003BDAFA /* CustomTabBarCPNT.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
 				0896A0602C7AF1530062CC49 /* RecentPopUpVM.swift in Sources */,
 				4E67A2512C930364003BDAFA /* TextUnderBarButtonCPNT.swift in Sources */,
 				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
+				BD3C9E952C81B06F005BFD7B /* ListRowCPNT.swift in Sources */,
+				BD198D082C8D53D500835325 /* NormalCommentVC.swift in Sources */,
 				4E67A1EF2C92FC3D003BDAFA /* UpdateMyProfileRequestDTO.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
@@ -2244,6 +2298,7 @@
 				08AF8D8F2C672C3D006B8A11 /* ProfileEditVC.swift in Sources */,
 				4E184D642C6F1FD500573A2E /* FavoritePopUpVM.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
+				BD3320792C8E4FFF002EA30C /* NormalCommentVM.swift in Sources */,
 				081FAF4A2C89E7E200CF8AD6 /* PreSignedTestViewController.swift in Sources */,
 				BDE88FD72C83568100AF9EFF /* SignOutVM.swift in Sources */,
 				4E4DC00D2C61FCEA007CE63A /* FetchPopUpStoresUseCase.swift in Sources */,
@@ -2284,6 +2339,7 @@
 				BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */,
 				4E67A2522C930364003BDAFA /* ToastMSGCPNT.swift in Sources */,
 				08E23AB12C4F8700004B77B6 /* GetMyCommentResponse.swift in Sources */,
+				BD1901332C8EB0300050FD23 /* DismissCommentModalVC.swift in Sources */,
 				08B183AE2C3D2601006C34BB /* TokenInterceptor.swift in Sources */,
 				BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */,
 				08FF6C282C721CE600B68569 /* CreateNoticeRequestDTO.swift in Sources */,
@@ -2299,6 +2355,7 @@
 				BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */,
 				08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */,
 				BDC622B12C225817009411AE /* DatabaseError.swift in Sources */,
+				BDE88FD52C83348E00AF9EFF /* CommentTypeVC.swift in Sources */,
 				4E67A2002C92FCBB003BDAFA /* AdminUseCaseImpl.swift in Sources */,
 				089D19102C352E1E000435D9 /* AgeSelectModalVC.swift in Sources */,
 				08E23AA72C4F7D27004B77B6 /* PopUpInfo.swift in Sources */,
@@ -2365,6 +2422,7 @@
 				BDFA49242C342B3600D3C1FB /* UIView+.swift in Sources */,
 				08E23A552C4CBC42004B77B6 /* RequestEndPoint.swift in Sources */,
 				4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */,
+				BD67FA402C9202EF00E89E7D /* SocialCommentVC.swift in Sources */,
 				4E67A1F02C92FC3D003BDAFA /* UpdateMyTailoredInfoRequestDTO.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */,
@@ -2393,6 +2451,7 @@
 				083464B82C8F100A007D6F11 /* AdminPopUpStoreDTO.swift in Sources */,
 				08E23A502C478900004B77B6 /* SignUpUseCase.swift in Sources */,
 				08E23AC72C50E63E004B77B6 /* InputableView.swift in Sources */,
+				BDE555302C92DF1C00973E53 /* SocialCommentVM.swift in Sources */,
 				4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */,
 				4E67A1F62C92FC3D003BDAFA /* UserUnblockRequestDTO.swift in Sources */,
 				08E23A462C4781AF004B77B6 /* KeyChainService.swift in Sources */,
@@ -2430,6 +2489,7 @@
 				4E67A23E2C930364003BDAFA /* CMPTHeaderView.swift in Sources */,
 				BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */,
 				4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */,
+				BD2F787C2C99A52A004784AA /* ClipboardManager.swift in Sources */,
 				4E67A2452C930364003BDAFA /* ListDropDownCPNT.swift in Sources */,
 				08AF8DCA2C6B94CB006B8A11 /* ProfileEditVM.swift in Sources */,
 				08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */,
