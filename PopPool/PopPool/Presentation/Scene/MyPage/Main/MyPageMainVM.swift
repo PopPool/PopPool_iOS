@@ -139,7 +139,7 @@ final class MyPageMainVM: ViewModelable {
                 output.didSelectCell.subscribe { cellIndexPath in
                     print(indexPath,cellIndexPath)
                 }
-                .disposed(by: self.disposeBag)
+                .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
         

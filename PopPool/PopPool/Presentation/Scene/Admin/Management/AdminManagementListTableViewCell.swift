@@ -13,6 +13,7 @@ final class AdminManagementListTableViewCell: UITableViewCell {
     let popUpImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "defaultLogo")
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
@@ -68,7 +69,7 @@ extension AdminManagementListTableViewCell: CellInputable {
     }
     
     func injectionWith(input: Input) {
-        imageView?.image = input.image
+        popUpImageView.image = input.image
         titleLabel.text = input.title
         subTitleLabel.text = input.category
     }
