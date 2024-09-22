@@ -24,8 +24,9 @@ final class RecentPopUpVC: BaseViewController {
         return view
     }()
     
-    private let collectionView: UICollectionView = {
+    private let contentCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: GridLayout(height: 255))
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -59,10 +60,12 @@ extension RecentPopUpVC {
 private extension RecentPopUpVC {
     
     func setUp() {
+        view.backgroundColor = .g50
+        contentCollectionView.backgroundColor = .g50
         self.navigationController?.navigationBar.isHidden = true
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(ViewedPopUpCell.self, forCellWithReuseIdentifier: ViewedPopUpCell.identifier)
+        contentCollectionView.delegate = self
+        contentCollectionView.dataSource = self
+        contentCollectionView.register(ViewedPopUpCell.self, forCellWithReuseIdentifier: ViewedPopUpCell.identifier)
     }
     
     func setUpConstraints() {
@@ -75,8 +78,8 @@ private extension RecentPopUpVC {
             make.top.equalTo(headerView.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview()
         }
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
+        view.addSubview(contentCollectionView)
+        contentCollectionView.snp.makeConstraints { make in
             make.top.equalTo(countView.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
@@ -92,8 +95,8 @@ private extension RecentPopUpVC {
         output.popUpList
             .withUnretained(self)
             .subscribe { (owner, response) in
-                owner.collectionView.reloadData()
-                owner.countView.titleLabel.text = "총 \(response.totalElements)건"
+                owner.contentCollectionView.reloadData()
+                owner.countView.titleLabel.text = "총 \(response.popUpInfoList.count)건"
             }
             .disposed(by: disposeBag)
         
@@ -126,5 +129,16 @@ extension RecentPopUpVC: UICollectionViewDelegate, UICollectionViewDataSource {
         )
         cell.bookmarkButton.isHidden = true
         return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y > contentCollectionView.contentSize.height - contentCollectionView.bounds.size.height {
+            if viewModel.popUpList.value.totalPages - 1 > viewModel.page.value {
+                if !viewModel.isLoading {
+                    viewModel.page.accept(viewModel.page.value + 1)
+                }
+            }
+        }
     }
 }

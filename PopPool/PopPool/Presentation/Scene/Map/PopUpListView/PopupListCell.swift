@@ -1,22 +1,21 @@
-//  PopupListCell.swift
-//  PopPool
-//
-//  Created by 김기현 on 8/8/24.
-//
-
 import UIKit
 import SnapKit
+import Kingfisher
 
-class PopupListCell: UITableViewCell {
+class PopupListCell: UICollectionViewCell {
+//    static let identifier = "PopupListCell"
+
+    var store: PopUpStore?
 
     private let popupImageView = UIImageView()
     private let nameLabel = UILabel()
     private let categoryLabel = UILabel()
     private let addressLabel = UILabel()
     private let dateLabel = UILabel()
+    private let bookmarkButton = UIButton()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
 
@@ -25,49 +24,117 @@ class PopupListCell: UITableViewCell {
     }
 
     private func setupUI() {
-        contentView.addSubview(popupImageView)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(categoryLabel)
-        contentView.addSubview(addressLabel)
-        contentView.addSubview(dateLabel)
+           contentView.addSubview(popupImageView)
+           contentView.addSubview(nameLabel)
+           contentView.addSubview(categoryLabel)
+           contentView.addSubview(addressLabel)
+           contentView.addSubview(dateLabel)
+           contentView.addSubview(bookmarkButton)
 
-        popupImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(8)
-            make.centerY.equalToSuperview()
-            make.width.height.equalTo(60)
-        }
+//           contentView.layer.cornerRadius = 8
+//           contentView.clipsToBounds = true
 
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(popupImageView.snp.trailing).offset(8)
-            make.top.equalToSuperview().offset(8)
-            make.trailing.equalToSuperview().offset(-8)
-        }
+           popupImageView.snp.makeConstraints {
+               $0.top.leading.trailing.equalToSuperview()
+               $0.height.equalTo(170) // 고정된 높이
+           }
 
-        categoryLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.trailing.equalTo(nameLabel)
-        }
+           popupImageView.contentMode = .scaleAspectFill
+           popupImageView.clipsToBounds = true
+        popupImageView.layer.cornerRadius = 8
 
-        addressLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nameLabel)
-            make.top.equalTo(categoryLabel.snp.bottom).offset(4)
-            make.trailing.equalTo(nameLabel)
-        }
+           popupImageView.backgroundColor = .lightGray
 
-        dateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nameLabel)
-            make.top.equalTo(addressLabel.snp.bottom).offset(4)
-            make.trailing.equalTo(nameLabel)
-            make.bottom.equalToSuperview().offset(-8)
+           // bookmarkButton 제약 설정
+           bookmarkButton.snp.makeConstraints {
+               $0.top.trailing.equalToSuperview().inset(8)
+               $0.size.equalTo(CGSize(width: 24, height: 24))
+           }
+           bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+
+           // categoryLabel 제약 설정 (이전의 nameLabel 위치)
+           categoryLabel.snp.makeConstraints {
+               $0.top.equalTo(popupImageView.snp.bottom).offset(8)
+               $0.leading.trailing.equalToSuperview().inset(8)
+           }
+           categoryLabel.font = .systemFont(ofSize: 12)
+           categoryLabel.textColor = .systemBlue
+           categoryLabel.layer.cornerRadius = 4
+           categoryLabel.clipsToBounds = true
+
+           // nameLabel 제약 설정 (이전의 categoryLabel 위치)
+           nameLabel.snp.makeConstraints {
+               $0.top.equalTo(categoryLabel.snp.bottom).offset(4)
+               $0.leading.trailing.equalToSuperview().inset(8)
+           }
+           nameLabel.font = .systemFont(ofSize: 14, weight: .bold)
+           nameLabel.numberOfLines = 2
+
+           // addressLabel 제약 설정
+           addressLabel.snp.makeConstraints {
+               $0.top.equalTo(nameLabel.snp.bottom).offset(4)
+               $0.leading.trailing.equalToSuperview().inset(8)
+           }
+           addressLabel.font = .systemFont(ofSize: 12)
+           addressLabel.textColor = .gray
+
+           // dateLabel 제약 설정
+           dateLabel.snp.makeConstraints {
+               $0.top.equalTo(addressLabel.snp.bottom).offset(4)
+               $0.leading.trailing.equalToSuperview().inset(8)
+               $0.bottom.lessThanOrEqualToSuperview().inset(8)
+           }
+           dateLabel.font = .systemFont(ofSize: 12)
+           dateLabel.textColor = .gray
+       }
+
+
+    func configure(with store: PopUpStore) {
+        self.store = store
+        print("리스트뷰 데이터 =\(store)")
+
+        nameLabel.text = store.name
+        print("셀에 설정할 스토어 이름: \(store.name)")
+
+        categoryLabel.text = "# \(store.category)"
+        print("카테고리 라벨: \(store.category)")
+        addressLabel.text = store.address
+        print("주소 라벨: \(store.address)")
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy.MM.dd"
+
+        if let startDate = dateFormatter.date(from: store.startDate),
+           let endDate = dateFormatter.date(from: store.endDate) {
+            let startDateString = outputFormatter.string(from: startDate)
+            let endDateString = outputFormatter.string(from: endDate)
+            dateLabel.text = "\(startDateString) - \(endDateString)"
+        } else {
+            dateLabel.text = "날짜 정보 없음"
         }
     }
 
-    func configure(with store: PopUpStore) {
-        nameLabel.text = store.name
-        categoryLabel.text = store.categories.joined(separator: ", ")
-        addressLabel.text = store.address
-        dateLabel.text = store.dateRange
-        popupImageView.image = UIImage(named: "exampleImage") // 임시 이미지, 실제 데이터로 교체 필요
+    func configureImage(with image: PopUpStoreImage?) {
+        if let image = image, let mainImageUrl = image.mainImageUrl, !mainImageUrl.isEmpty, let url = URL(string: mainImageUrl) {
+            popupImageView.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "defaultImage"),
+                options: [.transition(.fade(0.2))],
+                completionHandler: { result in
+                    switch result {
+                    case .success(_):
+                        print("이미지 로딩 성공: \(url)")
+                    case .failure(let error):
+                        print("이미지 로딩 실패: \(url), 에러: \(error.localizedDescription)")
+                        self.popupImageView.image = UIImage(named: "defaultImage")
+                    }
+                }
+            )
+        } else {
+            popupImageView.image = UIImage(named: "defaultImage")
+            print("기본 이미지로 설정")
+        }
     }
 }

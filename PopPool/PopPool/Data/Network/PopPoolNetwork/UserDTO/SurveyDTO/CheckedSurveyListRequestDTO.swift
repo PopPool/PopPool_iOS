@@ -8,5 +8,5 @@
 import Foundation
 
 struct CheckedSurveyListRequestDTO: Codable {
-    var checkedSurveyList: [CheckedSurveyDTO]
+    var checkedSurveyList: [CheckedSurveyDTO]?
 }

@@ -1,30 +1,37 @@
-//
-//  PopUpStoreDTO.swift
-//  PopPool
-//
-//  Created by 김기현 on 8/6/24.
-//
-
 import Foundation
 import CoreLocation
 
-struct PopUpStoreDTO: Decodable {
+
+struct PopUpStoreDTO: Codable {
     let id: Int64
-    let name: String
     let category: String
+    let name: String
+    let address: String
+    let startDate: String
+    let endDate: String    
     let latitude: Double
     let longitude: Double
-    let address: String
-    let dateRange: String
+    let markerId: Int64  
+    let markerTitle: String
+    let markerSnippet: String
+    
 
     func toDomain() -> PopUpStore {
         return PopUpStore(
             id: id,
+            category: category,
             name: name,
-            categories: [category], // 문자열을 배열로 변환
-            location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
             address: address,
-            dateRange: dateRange
+            startDate: startDate,
+            endDate: endDate,
+            latitude: latitude,
+            longitude: longitude,
+            markerId: markerId,
+            markerTitle: markerTitle,
+            markerSnippet: markerSnippet
         )
     }
+}
+struct GetViewBoundPopUpStoreListResponse: Decodable {
+    var popUpStoreList: [PopUpStoreDTO]
 }

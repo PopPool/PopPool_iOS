@@ -9,16 +9,16 @@ import Foundation
 
 struct BlockedUserInfoDTO: Decodable {
     var userId: String
-    var profileImage: String
+    var profileImageUrl: String?
     var nickname: String
-    var instagramId: String
+    var instagramId: String?
 }
 
 extension BlockedUserInfoDTO {
     func toDomain() -> BlockedUserInfo {
         return BlockedUserInfo(
             userId: userId,
-            profileImage: URL(string: profileImage),
+            profileImage: profileImageUrl,
             nickname: nickname,
             instagramId: instagramId
         )

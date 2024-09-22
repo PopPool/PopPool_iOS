@@ -7,17 +7,16 @@
 
 import Foundation
 
-// customPopUpStoreList를 Curated로 변경
 struct GetHomeInfoResponse: Decodable {
-    var nickname: String
-    var curatedPopUpStoreList: [PopUpStoreDTO]
-    var curatedPopUpStoreTotalPages: Int32
-    var curatedPopUpStoreTotalElements: Int64
-    var popularPopUpStoreList: [PopUpStoreDTO]
-    var popularPopUpStoreTotalPages: Int32
-    var popularPopUpStoreTotalElements: Int64
-    var newPopUpStoreList: [PopUpStoreDTO]
-    var newPopUpStoreTotalPages: Int32
-    var newPopUpStoreTotalElements: Int64
-    var login: Bool
+    var nickname: String?
+    var customPopUpStoreList: [HomePopUp]?
+    var customPopUpStoreTotalPages: Int32?
+    var customPopUpStoreTotalElements: Int64?
+    var popularPopUpStoreList: [HomePopUp]?
+    var popularPopUpStoreTotalPages: Int32?
+    var popularPopUpStoreTotalElements: Int64?
+    var newPopUpStoreList: [HomePopUp]?
+    var newPopUpStoreTotalPages: Int32?
+    var newPopUpStoreTotalElements: Int64?
+    var loginYn: Bool?
 }

@@ -10,6 +10,6 @@ import Foundation
 struct MyCommentedPopUpInfo {
     var popUpStoreId: Int64
     var popUpStoreName: String
-    var mainImageUrl: URL?
+    var mainImageUrl: String?
 }
 

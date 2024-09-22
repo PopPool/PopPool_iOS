@@ -25,6 +25,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Component
+    
     lazy var contentContainer: UIView = {
         let view = UIView()
         return view
@@ -80,6 +82,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - Properties
+    
     private var currentState: ButtonState = .untapped
     let bookmarkSubject: PublishSubject<ButtonState> = .init()
     var disposeBag = DisposeBag()
@@ -91,6 +95,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         bind()
     }
     
+    // MARK: - Initializer
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -100,6 +106,8 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
         disposeBag = DisposeBag()
         bind()
     }
+    
+    // MARK: - Methods
     
     private func bind() {
         bookMark.rx.tap
@@ -183,7 +191,7 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
 extension HomeDetailPopUpCell: Cellable {
     
     struct Input {
-        var image: UIImage?
+        var image: URL?
         var category: String?
         var title: String?
         var location: String?
@@ -195,7 +203,13 @@ extension HomeDetailPopUpCell: Cellable {
     }
     
     func injectionWith(input: Input) {
-        popUpImageView.image = input.image
+        popUpImageView.kf.indicatorType = .activity
+        if let popularPopUp = input.image {
+            popUpImageView.kf.setImage(with: popularPopUp)
+        } else {
+            popUpImageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
+        }
+        
         titleLabel.text = input.title
         categoryLabel.text = input.category
         locationLabel.text = input.location

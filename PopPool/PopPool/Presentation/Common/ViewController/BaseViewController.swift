@@ -12,7 +12,7 @@ class BaseViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        print(self, #function)
+        print("🍎", self, #function)
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +26,6 @@ class BaseViewController: UIViewController {
     
     
     deinit {
-        print(self, #function)
+        print("🍏", self, #function)
     }
 }

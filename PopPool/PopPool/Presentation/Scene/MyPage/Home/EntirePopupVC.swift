@@ -11,7 +11,7 @@ import SnapKit
 
 final class EntirePopupVC: BaseViewController {
     
-    private let header: HeaderViewCPNT = HeaderViewCPNT(title: "큐레이션 팝업 전체보기",
+    var header: HeaderViewCPNT = HeaderViewCPNT(title: "큐레이션 팝업 전체보기",
                                                         style: .icon(nil))
     
     private let entirePopUpCollectionView: UICollectionView = {
@@ -29,6 +29,8 @@ final class EntirePopupVC: BaseViewController {
         view.showsVerticalScrollIndicator = false
         return view
     }()
+    
+    private var allPopUpStores: [HomePopUp] = []
     
     private let viewModel: EntirePopupVM
     let disposeBag = DisposeBag()
@@ -60,10 +62,22 @@ final class EntirePopupVC: BaseViewController {
     }
     
     private func bind() {
+        let input = EntirePopupVM.Input()
+        let output = viewModel.transform(input: input)
+        
         header.leftBarButton.rx.tap
             .subscribe(onNext: {
                 print("버튼이 눌렸습니다.")
                 self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        output.allPopUps
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, data) in
+                print("데이터가 잘 왔나요!", data) // 잘 옵니다!
+                owner.allPopUpStores.append(contentsOf: data)
+                owner.entirePopUpCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
     }
@@ -95,12 +109,21 @@ final class EntirePopupVC: BaseViewController {
 
 extension EntirePopupVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        print("전체 값", allPopUpStores.count)
+        return allPopUpStores.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as? HomeDetailPopUpCell else { return UICollectionViewCell() }
-        cell.injectionWith(input: .init(image: UIImage(systemName: "photo"), category: "#카테고리", title: "팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명팝업스토어명", location: "서울시 송파구", date: "2024.08.11"))
+        
+        let popUpStore = allPopUpStores[indexPath.item]
+        cell.injectionWith(input: HomeDetailPopUpCell.Input(
+            image: popUpStore.mainImageUrl,
+            category: popUpStore.category,
+            title: popUpStore.name,
+            location: popUpStore.address,
+            date: popUpStore.startDate
+        ))
         return cell
     }
 }

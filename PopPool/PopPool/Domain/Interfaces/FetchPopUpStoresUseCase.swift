@@ -22,4 +22,8 @@ final class FetchPopUpStoresUseCaseImpl: FetchPopUpStoresUseCase {
     func execute() -> Observable<[PopUpStore]> {
         return repository.fetchPopUpStores()
     }
+    private func handleResponse(response: GetViewBoundPopUpStoreListResponse) -> [PopUpStore] {
+        return response.popUpStoreList.map { $0.toDomain() }
+    }
+
 }

@@ -76,7 +76,7 @@ private extension ProfileEditCategoryBottomSheetVC {
     
     func setUpConstraints() {
         collectionView.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.height / 4)
+            make.height.equalTo(195)
         }
         contentView.addSubview(headerView)
         headerView.snp.makeConstraints { make in
@@ -118,10 +118,18 @@ private extension ProfileEditCategoryBottomSheetVC {
                 owner.collectionView.categoryList.accept(list.map{ $0.category })
             }
             .disposed(by: disposeBag)
+        
         output.saveButtonIsActive
             .withUnretained(self)
             .subscribe { (owner, isActive) in
                 owner.saveButton.isEnabled = isActive
+            }
+            .disposed(by: disposeBag)
+        
+        output.popViewController
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.dismissBottomSheet()
             }
             .disposed(by: disposeBag)
     }

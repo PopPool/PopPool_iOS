@@ -6,19 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
 import RxSwift
 import RxCocoa
 
 final class ProfileEditVM: ViewModelable {
-
+    
     struct Input {
-        var viewWillAppear: PublishSubject<Void>
+        var viewWillAppear: ControlEvent<Void>
         var nickNameState: Observable<ValidationTextFieldCPNT.ValidationState>
         var nickNameButtonTapped: ControlEvent<Void>
         var instaLinkText: ControlProperty<String>
         var introText: PublishSubject<DynamicTextViewCPNT.TextViewState>
         var saveButtonTapped: ControlEvent<Void>
+        var imageChanges: PublishSubject<UIImage>
     }
     
     struct Output {
@@ -34,17 +36,27 @@ final class ProfileEditVM: ViewModelable {
     
     var originUserDataStatic: GetProfileResponse = .init(nickname: "", gender: "", age: 0, interestCategoryList: [])
     
-    private var newUserData: BehaviorRelay<GetProfileResponse> = .init(value: .init(nickname: "", gender: "", age: 0,
-                                                                                    interestCategoryList: []))
+    private var newUserData: BehaviorRelay<GetProfileResponse> = .init(
+        value: .init(
+            nickname: "",
+            gender: "",
+            age: 0,
+            interestCategoryList: []
+        )
+    )
     var userUseCase: UserUseCase
     
     private var signUpUseCase: SignUpUseCase = AppDIContainer.shared.resolve(type: SignUpUseCase.self)
+    
+    let imageUploader = PreSignedService()
     
     private var saveButtonIsActive: BehaviorRelay<Bool> = .init(value: false)
     
     private var isValidNickName: Bool = true
     
     private var isValidIntro: Bool = true
+    
+    private var saveImage: UIImage?
     
     // MARK: - init
     init(userUseCase: UserUseCase) {
@@ -53,8 +65,18 @@ final class ProfileEditVM: ViewModelable {
     
     // MARK: - Methods
     func transform(input: Input) -> Output {
-        let nickNameState: PublishSubject<ValidationTextFieldCPNT.ValidationState> = .init()
         
+        let nickNameState: PublishSubject<ValidationTextFieldCPNT.ValidationState> = .init()
+        input.imageChanges
+            .withUnretained(self)
+            .subscribe { (owner, image) in
+                owner.saveImage = image
+                var newUserData = owner.newUserData.value
+                let profileImagePath = "ProfileImage/\(Constants.userId)/\(Date.now)"
+                newUserData.profileImageUrl = profileImagePath
+                owner.newUserData.accept(newUserData)
+            }
+            .disposed(by: disposeBag)
         input.viewWillAppear
             .withUnretained(self)
             .subscribe { (owner, _) in
@@ -155,23 +177,73 @@ final class ProfileEditVM: ViewModelable {
             .withUnretained(self)
             .subscribe { (owner, _) in
                 let newProfile = owner.newUserData.value
-                owner.userUseCase.updateMyProfile(
-                    userId: Constants.userId,
-                    profileImage: newProfile.profileImageUrl,
-                    nickname: newProfile.nickname,
-                    email: newProfile.email,
-                    instagramId: newProfile.instagramId,
-                    intro: newProfile.intro
-                )
-                .subscribe {
-                    owner.originUserData.onNext(newProfile)
-                    owner.originUserDataStatic = newProfile
-                    owner.saveButtonIsActive.accept(false)
-                    ToastMSGManager.createToast(message: "내용을 저장했어요")
-                } onError: { error in
-                    ToastMSGManager.createToast(message: "NetWork Error")
+                if let uploadImage = owner.saveImage,
+                   let uploadPath = newProfile.profileImageUrl {
+                    owner.imageUploader.tryUpload(
+                        datas: [.init(
+                            filePath: uploadPath,
+                            image: uploadImage
+                        )]
+                    )
+                    .subscribe(onSuccess: { _ in
+                        print("imageUpload Success")
+                        owner.userUseCase.updateMyProfile(
+                            userId: Constants.userId,
+                            profileImage: newProfile.profileImageUrl,
+                            nickname: newProfile.nickname,
+                            email: newProfile.email,
+                            instagramId: newProfile.instagramId,
+                            intro: newProfile.intro
+                        )
+                        .subscribe {
+                            if let lastProfilePath = owner.originUserDataStatic.profileImageUrl {
+                                owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [lastProfilePath]))
+                                    .subscribe {
+                                        print("기존 프로필 이미지 삭제 완료")
+                                    } onError: { error in
+                                        print(error.localizedDescription)
+                                    }
+                                    .disposed(by: owner.disposeBag)
+                                
+                            }
+                            owner.originUserData.onNext(newProfile)
+                            owner.originUserDataStatic = newProfile
+                            owner.saveButtonIsActive.accept(false)
+                            ToastMSGManager.createToast(message: "내용을 저장했어요")
+                        } onError: { error in
+                            ToastMSGManager.createToast(message: "NetWork Error")
+                            owner.imageUploader.tryDelete(targetPaths: .init(objectKeyList: [uploadPath]))
+                                .subscribe {
+                                    print("delete Success")
+                                } onError: { error in
+                                    print(error.localizedDescription)
+                                }
+                                .disposed(by: owner.disposeBag)
+                        }
+                        .disposed(by: owner.disposeBag)
+                    },onFailure: { uploadError in
+                        print(uploadError.localizedDescription)
+                    })
+                    .disposed(by: owner.disposeBag)
+                } else {
+                    owner.userUseCase.updateMyProfile(
+                        userId: Constants.userId,
+                        profileImage: owner.originUserDataStatic.profileImageUrl,
+                        nickname: newProfile.nickname,
+                        email: newProfile.email,
+                        instagramId: newProfile.instagramId,
+                        intro: newProfile.intro
+                    )
+                    .subscribe {
+                        owner.originUserData.onNext(newProfile)
+                        owner.originUserDataStatic = newProfile
+                        owner.saveButtonIsActive.accept(false)
+                        ToastMSGManager.createToast(message: "내용을 저장했어요")
+                    } onError: { error in
+                        ToastMSGManager.createToast(message: "NetWork Error")
+                    }
+                    .disposed(by: owner.disposeBag)
                 }
-                .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
         
@@ -186,12 +258,13 @@ final class ProfileEditVM: ViewModelable {
         let newUserProfile = newUserData.value
         let originUserProfile = originUserDataStatic
         
-        // TODO: - 추후 변화 감지 로직 변경
         if newUserProfile.nickname == originUserProfile.nickname {
             if newUserProfile.instagramId == originUserProfile.instagramId {
                 if newUserProfile.intro == originUserProfile.intro {
-                    // TODO: - Image 부분도 추후 추가
-                    return false
+                    if newUserProfile.profileImageUrl == originUserProfile.profileImageUrl {
+                        return false
+                    }
+                    return true
                 } else {
                     return true
                 }

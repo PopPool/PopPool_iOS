@@ -46,6 +46,7 @@ extension TableViewSectionable {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as! CellType
         let input = sectionCellInputList[indexPath.row]
         cell.injectionWith(input: input)
+        cell.selectionStyle = .none
         self.sectionCellOutput.onNext((cell.getOutput(), indexPath))
         return cell
     }

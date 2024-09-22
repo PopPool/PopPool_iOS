@@ -14,17 +14,19 @@ struct GetMyPageResponseDTO: Decodable {
     var instagramId: String?
     var myCommentedPopUpList: [MyCommentedPopUpInfoDTO]
     var loginYn: Bool
+    var adminYn: Bool
 }
 
 extension GetMyPageResponseDTO {
     func toDomain() -> GetMyPageResponse {
         return GetMyPageResponse(
             nickname: nickname,
-            profileImageURL: URL(string: profileImageUrl ?? ""),
+            profileImageURL: profileImageUrl,
             instagramId: instagramId,
             popUpInfoList: myCommentedPopUpList.map({ $0.toDomain() }),
             intro: intro,
-            isLogin: loginYn
+            isLogin: loginYn,
+            isAdmin: adminYn
         )
     }
 }

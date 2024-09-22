@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class SectionHeaderCell: UICollectionViewCell {
     
@@ -23,12 +24,12 @@ final class SectionHeaderCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Component
+    
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(buttonContainer)
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
     
@@ -41,27 +42,20 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     private let actionButton: UIButton = {
         let button = UIButton()
-        let text = "테스트"
-        let attributes: [NSMutableAttributedString.Key: Any] = [
-            .font: UIFont.KorFont(style: .regular, size: 13),
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: UIColor.black
-        ]
-        let attributedString = NSMutableAttributedString(string: text,
-                                                         attributes: attributes)
-        button.setAttributedTitle(attributedString, for: .normal)
-        button.setContentHuggingPriority(.required, for: .horizontal)
         return button
     }()
     
     private let buttonContainer = UIView()
     private let spaceView = UIView()
     
+    // MARK: - Properties
+    
     var actionTapped: Observable<Void> {
         return actionButton.rx.tap.asObservable()
     }
+    var disposeBag = DisposeBag()
     
-    let disposeBag = DisposeBag()
+    // MARK: - Initializer
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,18 +67,32 @@ final class SectionHeaderCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
+    // MARK: - Methods
+    
     public func configure(title: String) {
-        titleLabel.text = title
+        let style = NSMutableParagraphStyle()
+        let text = NSMutableAttributedString(
+            string: title,
+            attributes: [.paragraphStyle: style])
+        style.lineHeightMultiple = 1.4
+        titleLabel.attributedText = text
     }
     
     public func configureWhite(title: String) {
         titleLabel.text = title
         titleLabel.textColor = .w100
-        actionButton.setTitleColor(.w100, for: .normal)
     }
     
     private func setUp() {
-        actionButton.setTitle("전체보기", for: .normal)
+        actionButton.setImage(
+            UIImage(named: "line_signUp")?
+                .withTintColor(.black, renderingMode: .alwaysOriginal),
+            for: .normal)
     }
     
     private func setUpConstraint() {
@@ -96,7 +104,7 @@ final class SectionHeaderCell: UICollectionViewCell {
         buttonContainer.addSubview(actionButton)
         buttonContainer.setContentHuggingPriority(.required, for: .horizontal)
         actionButton.snp.makeConstraints { make in
-            
+            make.size.equalTo(24)
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.trailing.equalToSuperview()
         }

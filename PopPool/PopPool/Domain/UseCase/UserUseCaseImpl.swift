@@ -37,7 +37,7 @@ final class UserUseCaseImpl: UserUseCase {
     
     func tryWithdraw(
         userId: String,
-        surveyList: [Survey]
+        surveyList: CheckedSurveyListRequestDTO
     ) -> Completable {
         return repository
             .tryWithdraw(
@@ -123,7 +123,7 @@ final class UserUseCaseImpl: UserUseCase {
     
     func updateMyProfile(
         userId: String,
-        profileImage: URL?,
+        profileImage: String?,
         nickname: String,
         email: String?,
         instagramId: String?,

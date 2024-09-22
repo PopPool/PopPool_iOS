@@ -1,9 +1,3 @@
-//  MapVC.swift
-//  PopPool
-//
-//  Created by 김기현 on 8/6/24.
-//
-
 import UIKit
 import GoogleMaps
 import SnapKit
@@ -12,61 +6,71 @@ import RxCocoa
 
 class MapVC: BaseViewController {
     // MARK: - Properties
-    private let viewModel: MapVM
+    private var viewModel: MapVM
     private let disposeBag = DisposeBag()
+    private var selectedCategories: [String] = []
+    private let userId: String
 
+    private var currentLocationButtonBottomConstraint: Constraint?
+    private var listViewButtonBottomConstraint: Constraint?
+
+    private var listViewFullHeight: CGFloat { return view.frame.height - (categoryFilterButton.frame.maxY + 16) }
+    private var listViewMiddlePosition: CGFloat {
+        return (view.frame.height - listViewFullHeight) / 2  // 리스트뷰 상단이 화면 중간에 위치하도록 계산
+    }
     // MARK: - UI Components
     private lazy var mapView: GMSMapView = {
         let camera = GMSCameraPosition.camera(withLatitude: 37.5665, longitude: 126.9780, zoom: 14.0)
         let mapView = GMSMapView(frame: .zero, camera: camera)
+        mapView.delegate = self
         return mapView
     }()
 
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "팝업스토어명, 지역을 입력해보세요"
-//        searchBar.backgroundColor = .white
+        searchBar.backgroundImage = UIImage()
+        searchBar.backgroundColor = .white
         searchBar.layer.cornerRadius = 8
         searchBar.clipsToBounds = true
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-               textField.borderStyle = .none
-               textField.layer.cornerRadius = 8
-               textField.layer.masksToBounds = true
-           }
+            textField.backgroundColor = .white
+            textField.borderStyle = .none
+            textField.layer.cornerRadius = 8
+            textField.layer.masksToBounds = true
+        }
         return searchBar
-    }()
-
-    private lazy var filterStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [locationFilterButton, categoryFilterButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.distribution = .fillEqually
-        return stackView
     }()
 
     private lazy var locationFilterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("서울 / 송파구 외 2개", for: .normal)
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
+        button.setTitle("지역선택", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .white
         button.layer.cornerRadius = 16
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        button.layer.borderWidth = 1
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         return button
     }()
 
     private lazy var categoryFilterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("요리 / 음식 외 2개", for: .normal)
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
+        button.setTitle("카테고리", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .white
         button.layer.cornerRadius = 16
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        button.layer.borderWidth = 1
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         return button
     }()
 
     private lazy var currentLocationButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "location"), for: .normal)
+        button.setImage(UIImage(systemName: "dot.scope"), for: .normal)
         button.backgroundColor = .white
         button.tintColor = .systemBlue
         button.layer.cornerRadius = 20
@@ -95,17 +99,49 @@ class MapVC: BaseViewController {
         return view
     }()
 
-    private lazy var popupListView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(PopupListCell.self, forCellReuseIdentifier: PopupListCell.identifier)
-        return tableView
+    // 리스트뷰 컨테이너 뷰 수정
+
+    private lazy var listContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.clipsToBounds = true
+        return view
     }()
 
-    private var resizeIndicator: UIView!
+
+    // 드래그 핸들 뷰 추가
+    private lazy var dragHandleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 2
+        return view
+    }()
+
+    private lazy var popupListView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(PopupListCell.self, forCellWithReuseIdentifier: PopupListCell.reuseIdentifier)
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsets(top: 16, left: 10, bottom: 16, right: 10)
+        collectionView.alwaysBounceVertical = true
+        collectionView.delegate = self
+        return collectionView
+    }()
+
+    // 리스트뷰 컨테이너의 bottom 제약조건을 저장하기 위한 변수 추가
+    private var listContainerBottomConstraint: Constraint?
 
     // MARK: - Initialization
-    init(viewModel: MapVM) {
+    init(viewModel: MapVM, userId: String) {
+        print("MapVC에서 전달받은 userId: \(userId)")
         self.viewModel = viewModel
+        self.userId = userId
         super.init()
     }
 
@@ -118,88 +154,146 @@ class MapVC: BaseViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
+        setupTapGesture()
+        setupGestures()
     }
 
     // MARK: - Setup Methods
     private func setupUI() {
         view.addSubview(mapView)
-        view.addSubview(popupListView)
-        view.addSubview(searchBar)
-        view.addSubview(filterStackView)
         view.addSubview(currentLocationButton)
         view.addSubview(listViewButton)
         view.addSubview(popupCardView)
-//        view.addSubview(popupListView)
+        view.addSubview(listContainerView)
+        view.addSubview(locationFilterButton)
+        view.addSubview(searchBar)
+        view.addSubview(categoryFilterButton)
+        listContainerView.addSubview(dragHandleView)
+        listContainerView.addSubview(popupListView)
 
+        setupConstraints()
+    }
+
+    private func setupConstraints() {
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(40)
         }
 
-        filterStackView.snp.makeConstraints { make in
+        locationFilterButton.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(32)
+        }
+
+        categoryFilterButton.snp.makeConstraints { make in
+            make.top.equalTo(locationFilterButton)
+            make.leading.equalTo(locationFilterButton.snp.trailing).offset(8)
             make.height.equalTo(32)
         }
 
         currentLocationButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(popupCardView.snp.top).offset(-16)
+            currentLocationButtonBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16).constraint
             make.width.height.equalTo(40)
         }
 
         listViewButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.bottom.equalTo(popupCardView.snp.top).offset(-16)
+            make.trailing.equalToSuperview().offset(-16)
+            listViewButtonBottomConstraint = make.bottom.equalTo(currentLocationButton.snp.top).offset(-16).constraint
             make.width.height.equalTo(40)
         }
 
         popupCardView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
             make.height.equalTo(100)
         }
 
-        popupListView.snp.makeConstraints { make in
+        listContainerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(view.frame.height) // 화면 아래에 숨겨둠
-            make.height.equalTo(view.frame.height / 2)
+            make.height.equalTo(view.frame.height * 0.8)
+            listContainerBottomConstraint = make.bottom.equalTo(view.snp.bottom).offset(view.frame.height).constraint
         }
 
-        resizeIndicator = UIView()
-        resizeIndicator.backgroundColor = .lightGray
-        resizeIndicator.layer.cornerRadius = 2
-        popupListView.addSubview(resizeIndicator)
-
-        resizeIndicator.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
+        dragHandleView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8)
             make.centerX.equalToSuperview()
             make.width.equalTo(40)
             make.height.equalTo(4)
         }
+
+        popupListView.snp.makeConstraints { make in
+            make.top.equalTo(categoryFilterButton.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(10)
+            make.bottom.equalTo(listContainerView.snp.bottom).offset(-16)
+        }
+
+        popupCardView.isHidden = true
     }
 
     private func bindViewModel() {
+        viewModel.selectedFilters
+            .subscribe(onNext: { [weak self] _ in
+                self?.updateFilterButtons()
+            })
+            .disposed(by: disposeBag)
+
         searchBar.rx.text.orEmpty
+            .debounce(.milliseconds(1000), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
             .bind(to: viewModel.input.searchQuery)
             .disposed(by: disposeBag)
 
+        // 콜렉션뷰 바인딩 수정
         viewModel.output.filteredStores
+            .do(onNext: { stores in
+                print("받아온 데이터 수: \(stores.count)")
+            })
+            .bind(to: popupListView.rx.items(cellIdentifier: PopupListCell.reuseIdentifier, cellType: PopupListCell.self)) { [weak self] (_, store, cell) in
+                guard let self = self else { return }
+
+                cell.configure(with: store)
+                cell.configureImage(with: nil)  // 기본적으로 nil을 전달하여 기본 이미지 표시
+
+                // 이미지가 있다면 나중에 설정
+                self.viewModel.getCustomPopUpStoreImages(for: [store])
+                    .subscribe(onNext: { images in
+                        if let image = images.first {
+                            cell.configureImage(with: image)
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+            }
+            .disposed(by: disposeBag)
+
+        viewModel.output.filteredStores
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] stores in
                 self?.updateMapWithStores(stores)
             })
             .disposed(by: disposeBag)
 
-        let tapGesture = UITapGestureRecognizer()
-        mapView.addGestureRecognizer(tapGesture)
+        viewModel.output.storeImages
+            .subscribe(onNext: { [weak self] images in
+                guard let self = self, let marker = self.mapView.selectedMarker, let store = marker.userData as? PopUpStore else { return }
+                if let image = images[String(store.id)] {
+                    self.popupCardView.configureImage(with: image)
+                }
+            })
+            .disposed(by: disposeBag)
 
-        tapGesture.rx.event
-            .subscribe(onNext: { [weak self] _ in
-                self?.view.endEditing(true)
+        viewModel.output.searchLocation
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] location in
+                guard let self = self, let location = location else { return }
+                let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 14.0)
+                self.mapView.animate(to: camera)
             })
             .disposed(by: disposeBag)
 
@@ -209,26 +303,20 @@ class MapVC: BaseViewController {
 
         listViewButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.showListView()
+                self?.toggleListView()
             })
             .disposed(by: disposeBag)
 
         locationFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.showFilterBottomSheet()
+                self?.handleFilterButtonTap(isLocationFilter: true)
             })
             .disposed(by: disposeBag)
 
         categoryFilterButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.showFilterBottomSheet()
+                self?.handleFilterButtonTap(isLocationFilter: false)
             })
-            .disposed(by: disposeBag)
-
-        viewModel.output.filteredStores
-            .bind(to: popupListView.rx.items(cellIdentifier: PopupListCell.identifier, cellType: PopupListCell.self)) { index, store, cell in
-                cell.configure(with: store)
-            }
             .disposed(by: disposeBag)
 
         viewModel.output.currentLocation
@@ -244,6 +332,19 @@ class MapVC: BaseViewController {
                 self?.showError(message)
             })
             .disposed(by: disposeBag)
+
+        searchBar.rx.searchButtonClicked
+            .subscribe(onNext: { [weak self] in
+                self?.searchBar.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+
+        // 콜렉션뷰 아이템 선택 처리
+        popupListView.rx.modelSelected(PopUpStore.self)
+            .subscribe(onNext: { [weak self] store in
+                self?.showStoreDetail(store)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Helper Methods
@@ -254,42 +355,64 @@ class MapVC: BaseViewController {
             marker.position = CLLocationCoordinate2D(latitude: store.latitude, longitude: store.longitude)
             marker.title = store.name
             marker.snippet = store.address
+            marker.userData = store
             marker.map = mapView
+            print("마커 추가됨: \(marker.position.latitude), \(marker.position.longitude) - \(marker.title ?? "")")
         }
     }
 
-    private func showListView() {
-        print("List view button tapped, y position: \(popupListView.frame.origin.y)")
-
-        if popupListView.frame.origin.y >= view.frame.height {
-            // 뷰가 화면 아래에 있는 경우, 위치를 초기화하고 애니메이션으로 올림
-            popupListView.snp.updateConstraints { make in
-                make.bottom.equalToSuperview().offset(view.frame.height / 2) // 화면 중간 위치로 초기화
-            }
-            view.layoutIfNeeded() // 위치를 즉시 업데이트
-
-            popupListView.alpha = 0
-            UIView.animate(withDuration: 0.3) {
-                self.popupListView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview() // 화면 하단에 맞춤
-                }
-                self.popupListView.alpha = 1
-                self.view.layoutIfNeeded()
-            }
-        } else {
-            // 이미 화면에 올라와 있는 상태에서 단순히 위치를 조정
-            UIView.animate(withDuration: 0.3) {
-                self.popupListView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview() // 화면 하단에 맞춤
-                }
-                self.view.layoutIfNeeded()
-            }
-        }
-
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        popupListView.addGestureRecognizer(panGesture)
+    private func moveCameraToStore(_ store: PopUpStore) {
+        let position = GMSCameraPosition.camera(withLatitude: store.latitude, longitude: store.longitude, zoom: 14.0)
+        mapView.animate(to: position)
     }
 
+    private func updateCellImages(with images: [String: PopUpStoreImage]) {
+        for cell in popupListView.visibleCells {
+            guard let popupCell = cell as? PopupListCell,
+                  let store = popupCell.store,
+                  let image = images[String(store.id)] else { continue }
+
+            popupCell.configureImage(with: image)
+        }
+    }
+
+    private func updatePopupCardView(for store: PopUpStore) {
+        popupCardView.configure(with: store)
+
+        viewModel.output.storeImages
+            .subscribe(onNext: { [weak self] images in
+                if let image = images[String(store.id)] {
+                    self?.popupCardView.configureImage(with: image)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        popupCardView.isHidden = false
+
+        animatePopupCardAndButtons(to: 100) // 원하는 높이로 설정
+    }
+
+    private func animateListContainer(to offset: CGFloat) {
+        listContainerBottomConstraint?.update(offset: offset)
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func animatePopupCardAndButtons(to offset: CGFloat) {
+        let newButtonOffset = offset > 0 ? -offset - 40 : -30
+        currentLocationButtonBottomConstraint?.update(offset: newButtonOffset)
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func hidePopupCardView() {
+        popupCardView.isHidden = true
+        animatePopupCardAndButtons(to: 0)
+    }
 
     private func showError(_ message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -297,53 +420,245 @@ class MapVC: BaseViewController {
         present(alert, animated: true)
     }
 
-    private func showFilterBottomSheet() {
+    private func showFilterBottomSheet(isCategoryFilter: Bool) {
         let filterVC = FilterBottomSheetViewController(viewModel: viewModel)
+        filterVC.isCategoryFilter = isCategoryFilter
         filterVC.modalPresentationStyle = .overFullScreen
         filterVC.modalTransitionStyle = .coverVertical
+
+        filterVC.onFiltersApplied = { [weak self] in
+            self?.viewModel.applyFilters()
+            self?.updateFilterButtons()
+        }
+
         present(filterVC, animated: true, completion: nil)
     }
 
+    private func updateFilterButtons() {
+        let locationText = viewModel.getSelectedLocationText()
+        updateFilterButton(locationFilterButton, withText: locationText, isLocationFilter: true)
+
+        let categoryText = viewModel.getSelectedCategoryText()
+        updateFilterButton(categoryFilterButton, withText: categoryText, isLocationFilter: false)
+    }
+
+    private func updateFilterButton(_ button: UIButton, withText text: String, isLocationFilter: Bool) {
+        button.setTitle(text, for: .normal)
+
+        if (isLocationFilter && text != "지역선택") || (!isLocationFilter && text != "카테고리") {
+            button.backgroundColor = .systemBlue
+            button.setTitleColor(.white, for: .normal)
+            button.layer.borderWidth = 0
+
+            let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
+            let xmarkImage = UIImage(systemName: "xmark", withConfiguration: config)?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            button.setImage(xmarkImage, for: .normal)
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8)
+            button.semanticContentAttribute = .forceRightToLeft
+        } else {
+            button.backgroundColor = .white
+            button.setTitleColor(.systemBlue, for: .normal)
+            button.layer.borderWidth = 1
+            button.setImage(nil, for: .normal)
+        }
+
+        button.sizeToFit()
+        button.invalidateIntrinsicContentSize()
+    }
+
+    // 팬 제스처 핸들러 수정
+    // 기존 handlePanGesture 함수의 수정된 부분
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
-        let topPosition = view.safeAreaInsets.top // 서치바 바로 아래
-        let bottomPosition = view.frame.height // 화면 하단 위치
+        let currentTopOffset = listContainerView.frame.origin.y  // 리스트뷰 상단 위치
+        let searchBarBottom = searchBar.frame.maxY  // 서치바 하단 위치
 
         switch gesture.state {
-        case .changed:
-            let newY = max(topPosition, min(popupListView.frame.origin.y + translation.y, bottomPosition))
-            popupListView.frame.origin.y = newY
-            gesture.setTranslation(.zero, in: view)
+           case .changed:
+               // 리스트뷰의 상단 위치를 변경
+               let newTopOffset = max(searchBarBottom, currentTopOffset + translation.y)
+               listContainerView.frame.origin.y = newTopOffset
+               view.layoutIfNeeded()
 
-        case .ended:
-            let velocity = gesture.velocity(in: view)
+               updateMapVisibility()
 
-            if velocity.y > 0 {
-                // 아래로 내려가는 경우
-                UIView.animate(withDuration: 0.3) {
-                    self.popupListView.frame.origin.y = bottomPosition
-                    self.searchBar.isHidden = false
-                    self.filterStackView.isHidden = false
-                    self.resizeIndicator.isHidden = false
-                }
-            } else {
-                // 위로 올라가는 경우
-                UIView.animate(withDuration: 0.3) {
-                    self.popupListView.frame.origin.y = topPosition
-                    self.popupListView.snp.remakeConstraints { make in
-                        make.top.equalToSuperview()
-                        make.leading.trailing.bottom.equalToSuperview()
-                    }
-                    self.view.layoutIfNeeded()
+               gesture.setTranslation(.zero, in: view)
 
-//                    self.searchBar.isHidden = true
-//                    self.filterStackView.isHidden = true
-                    self.resizeIndicator.isHidden = true
-                }
-            }
+           case .ended:
+               var targetOffset: CGFloat
 
-        default:
-            break
+               // 리스트뷰가 서치바까지 닿을 때
+               if currentTopOffset <= searchBarBottom {
+                   targetOffset = searchBarBottom  // 리스트뷰 상단을 서치바에 맞춤
+               }
+               // 중간 위치에 있을 때
+               else if currentTopOffset < listViewMiddlePosition {
+                   targetOffset = listViewMiddlePosition  // 리스트뷰를 화면 중간으로 이동
+               }
+               // 리스트뷰가 완전히 내려갈 때
+               else {
+                   targetOffset = view.frame.height  // 리스트뷰를 화면 아래로 내림
+               }
+
+               // 애니메이션으로 리스트뷰 이동
+               UIView.animate(withDuration: 0.3) {
+                   self.listContainerView.frame.origin.y = targetOffset
+                   self.view.layoutIfNeeded()
+               }
+
+           default:
+               break
+           }
+       }
+
+    // 맵뷰 가시성 업데이트 함수
+    private func updateMapVisibility() {
+        let listViewTop = listContainerView.frame.origin.y  // 리스트뷰 상단 위치
+        let categoryButtonBottom = categoryFilterButton.frame.maxY  // 카테고리 버튼 하단 위치
+
+        // 리스트뷰 상단이 카테고리 버튼 하단에 닿으면 맵뷰를 숨김
+        if listViewTop <= categoryButtonBottom {
+            animateMapView(hidden: true)
+        } else {
+            animateMapView(hidden: false)
         }
+    }
+
+    // 맵뷰를 숨기거나 보이게 하는 애니메이션 함수
+//    private func animateMapView(hidden: Bool) {
+//        UIView.animate(withDuration: 0.3) {
+//            self.mapView.alpha = hidden ? 0 : 1
+//        }
+//    }
+//
+//    private func updateMapVisibility() {
+//        let listViewTop = listContainerView.frame.origin.y
+//        let categoryButtonBottom = categoryFilterButton.frame.maxY
+//
+//        if listViewTop <= categoryButtonBottom {
+//            animateMapView(hidden: true)
+//        } else {
+//            animateMapView(hidden: false)
+//        }
+//    }
+
+    private func animateMapView(hidden: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.mapView.alpha = hidden ? 0 : 1
+        }
+    }
+
+    private func toggleListView() {
+        let currentOffset = listContainerBottomConstraint?.layoutConstraints.first?.constant ?? 0
+        let targetOffset = (currentOffset == 0) ? listViewMiddlePosition : 0
+
+        animateListContainer(to: targetOffset)
+    }
+
+    // MARK: - 탭 제스처 설정
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    private func handleFilterButtonTap(isLocationFilter: Bool) {
+        let buttonTitle = isLocationFilter ? locationFilterButton.titleLabel?.text : categoryFilterButton.titleLabel?.text
+        if buttonTitle != "지역선택" && buttonTitle != "카테고리" {
+            if isLocationFilter {
+                viewModel.removeAllLocationFilters()
+            } else {
+                viewModel.removeAllCategoryFilters()
+            }
+            updateFilterButtons()
+        } else {
+            showFilterBottomSheet(isCategoryFilter: !isLocationFilter)
+        }
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    private func showStoreDetail(_ store: PopUpStore) {
+        print("Selected store: \(store.name)")
+    }
+
+    private func setupGestures() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        listContainerView.addGestureRecognizer(panGesture)
+    }
+}
+
+// MARK: - GMSMapViewDelegate
+extension MapVC: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        print("마커 탭: \(marker.title ?? "")")
+
+        guard let popupStore = marker.userData as? PopUpStore else {
+            return false
+        }
+
+        updatePopupCardView(for: popupStore)
+        let cameraUpdate = GMSCameraUpdate.setTarget(marker.position, zoom: 14.0)
+        mapView.animate(with: cameraUpdate)
+
+        return true
+    }
+
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        let bounds = mapView.projection.visibleRegion()
+        let coordinateBounds = GMSCoordinateBounds(region: bounds)
+
+        let roundedNELat = Double(String(format: "%.4f", coordinateBounds.northEast.latitude))!
+        let roundedNELon = Double(String(format: "%.4f", coordinateBounds.northEast.longitude))!
+        let roundedSWLat = Double(String(format: "%.4f", coordinateBounds.southWest.latitude))!
+        let roundedSWLon = Double(String(format: "%.4f", coordinateBounds.southWest.longitude))!
+
+        print("MapVC - 맵뷰 포지션")
+        print("Bounds: NE Lat: \(roundedNELat), NE Lon: \(roundedNELon), SW Lat: \(roundedSWLat), SW Lon: \(roundedSWLon)")
+        print("선택된 카테고리: \(selectedCategories)")
+
+        let categories = viewModel.getSelectedCategory()
+        viewModel.input.categoryFilterChanged.onNext(categories)
+        viewModel.input.mapRegionChanged.onNext(GMSCoordinateBounds(
+            coordinate: CLLocationCoordinate2D(latitude: roundedSWLat, longitude: roundedSWLon),
+            coordinate: CLLocationCoordinate2D(latitude: roundedNELat, longitude: roundedNELon)
+        ))
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension MapVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == popupListView {
+            // 스크롤이 가능하도록 설정 (조건 제거)
+            scrollView.isScrollEnabled = true
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MapVC: UICollectionViewDelegate {
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension MapVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfItemsPerRow: CGFloat = 2
+        let spacingBetweenCells: CGFloat = 16
+
+        let totalSpacing = (2 * collectionView.contentInset.left) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+
+        let width = (collectionView.bounds.width - totalSpacing) / numberOfItemsPerRow
+        return CGSize(width: width, height: width * 1.5)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
     }
 }

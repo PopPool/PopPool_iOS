@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Survey {
+struct Survey: Equatable {
     var id: Int64
     var survey: String
 }

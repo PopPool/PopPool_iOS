@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 import SnapKit
 import RxSwift
@@ -78,6 +79,12 @@ final class ProfileEditVC: BaseViewController {
         return view
     }()
     
+    private let connectSocialView: ListMenuViewCPNT = {
+        let view = ListMenuViewCPNT(title: "연결된 소셜 계정", style: .normal)
+        view.iconImageView.image = nil
+        return view
+    }()
+    
     private let sectionLabel: UILabel = {
         let label = UILabel()
         label.text = "맞춤정보"
@@ -113,6 +120,10 @@ final class ProfileEditVC: BaseViewController {
     
     private let viewWillAppear: PublishSubject<Void> = .init()
     
+    private let imageChanges: PublishSubject<UIImage> = .init()
+    
+    let imageDownloader = PreSignedService()
+    
     // MARK: - init
     init(viewModel: ProfileEditVM) {
         self.viewModel = viewModel
@@ -131,10 +142,6 @@ extension ProfileEditVC {
         setUp()
         setUpConstraints()
         bind()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        viewWillAppear.onNext(())
     }
 }
 
@@ -209,10 +216,15 @@ private extension ProfileEditVC {
             make.top.equalTo(introLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(20)
         }
+        contentView.addSubview(connectSocialView)
+        connectSocialView.snp.makeConstraints { make in
+            make.top.equalTo(introTextField.snp.bottom).offset(Constants.spaceGuide.small300)
+            make.leading.trailing.equalToSuperview()
+        }
         contentView.addSubview(sectionLabel)
         sectionLabel.snp.makeConstraints { make in
             make.height.equalTo(22)
-            make.top.equalTo(introTextField.snp.bottom).offset(27)
+            make.top.equalTo(connectSocialView.snp.bottom).offset(Constants.spaceGuide.small300)
             make.leading.equalToSuperview().inset(20)
         }
         contentView.addSubview(categoryView)
@@ -228,6 +240,7 @@ private extension ProfileEditVC {
         }
     }
     
+    // MARK: - Bind
     func bind() {
         // HeaderView BackButton Tapped
         headerView.leftBarButton.rx.tap
@@ -247,11 +260,23 @@ private extension ProfileEditVC {
                 owner.presentModalViewController(viewController: vc)
                 
                 vc.rx.viewWillDisappear
-                    .withUnretained(self)
-                    .subscribe { (owner, _) in
-                        owner.viewWillAppear(true)
+                    .subscribe { [weak owner] _ in
+                        owner?.viewWillAppear(true)
                     }
                     .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        profileImageEditButton.rx.tap
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                var configuration = PHPickerConfiguration()
+                configuration.filter = .images
+                configuration.selectionLimit = 1
+                
+                let picker = PHPickerViewController(configuration: configuration)
+                picker.delegate = owner
+                owner.present(picker, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         
@@ -266,9 +291,8 @@ private extension ProfileEditVC {
                 let vc = ProfileEditUserDataBottomSheetVC(viewModel: vm)
                 
                 vc.rx.viewWillDisappear
-                    .withUnretained(self)
-                    .subscribe { (owner, _) in
-                        owner.viewWillAppear(true)
+                    .subscribe { [weak owner ]_ in
+                        owner?.viewWillAppear(true)
                     }
                     .disposed(by: owner.disposeBag)
                 owner.presentModalViewController(viewController: vc)
@@ -276,12 +300,13 @@ private extension ProfileEditVC {
             .disposed(by: disposeBag)
         
         let input = ProfileEditVM.Input(
-            viewWillAppear: self.viewWillAppear,
+            viewWillAppear: self.rx.viewWillAppear,
             nickNameState: nickNameTextField.stateObserver.asObservable(),
             nickNameButtonTapped: nickNameTextField.checkValidationButton.rx.tap,
             instaLinkText: instagramTextField.textField.rx.text.orEmpty,
             introText: introTextField.textViewStateObserver,
-            saveButtonTapped: saveButton.rx.tap
+            saveButtonTapped: saveButton.rx.tap,
+            imageChanges: imageChanges
         )
         let output = viewModel.transform(input: input)
         
@@ -297,6 +322,25 @@ private extension ProfileEditVC {
                 let categoryString = originData.interestCategoryList.count == 0 ? "" : originData.interestCategoryList.count == 1 ? originData.interestCategoryList.first!.interestCategory : originData.interestCategoryList.first!.interestCategory + "외 \(originData.interestCategoryList.count - 1) 개"
                 owner.categoryView.rightLabel.text = categoryString
                 owner.userInfoView.rightLabel.text = originData.gender + " " + String(originData.age) + "세"
+                guard let social = Constants.userId.components(separatedBy: "@").last else { return }
+                if social == "kakao" {
+                    owner.connectSocialView.iconImageView.image = UIImage(named: "kakoLogo=UserEdit")
+                } else {
+                    owner.connectSocialView.iconImageView.image = nil
+                }
+                
+                if let path = originData.profileImageUrl {
+                    owner.imageDownloader.tryDownload(filePaths: [path])
+                        .subscribe { [weak owner] images in
+                            if let image = images.first {
+                                owner?.profileImageView.image = image
+                            }
+                        } onFailure: { [weak owner] error in
+                            print("error: Imagedownload Fail")
+                            owner?.profileImageView.image = UIImage(named: "Profile_Logo")
+                        }
+                        .disposed(by: owner.disposeBag)
+                }
             }
             .disposed(by: disposeBag)
         
@@ -313,5 +357,27 @@ private extension ProfileEditVC {
                 owner.saveButton.isEnabled = isActive
             }
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension ProfileEditVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        let itemProviders = results.map(\.itemProvider)
+    
+        for itemProvider in itemProviders {
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    DispatchQueue.main.async {
+                        if let image = image as? UIImage {
+                            self?.profileImageView.image = image
+                            self?.imageChanges.onNext(image)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

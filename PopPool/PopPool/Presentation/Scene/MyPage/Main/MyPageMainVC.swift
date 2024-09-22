@@ -110,6 +110,7 @@ private extension MyPageMainVC {
             .disposed(by: disposeBag)
         
         let input = MyPageMainVM.Input(
+            logoutButtonTapped: logoutButton.rx.tap,
             settingButtonTapped: headerView.rightBarButton.rx.tap,
             cellTapped: tableView.rx.itemSelected,
             profileLoginButtonTapped: profileView.loginButton.rx.tap
@@ -133,7 +134,7 @@ private extension MyPageMainVC {
                     bottomView.backgroundColor = .systemBackground
                     bottomView.addSubview(owner.logoutButton)
                     owner.logoutButton.snp.makeConstraints { make in
-                        make.top.equalToSuperview()
+                        make.top.equalToSuperview().inset(28)
                         make.centerX.equalToSuperview()
                         make.width.equalTo(bottomView.frame.width - 40)
                         make.height.equalTo(50)
@@ -160,6 +161,17 @@ private extension MyPageMainVC {
                 let vm = ProfileEditVM(userUseCase: userUseCase)
                 let vc = ProfileEditVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.logout
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                owner.viewWillAppear(true)
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                guard let delegate = sceneDelegate else { return }
+                delegate.window?.rootViewController = LoginVC(viewModel: LoginVM())
+                ToastMSGManager.createToast(message: "로그아웃 되었어요")
             }
             .disposed(by: disposeBag)
     }

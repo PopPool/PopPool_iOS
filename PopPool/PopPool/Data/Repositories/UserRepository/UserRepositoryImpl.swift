@@ -35,10 +35,10 @@ final class UserRepositoryImpl: UserRepository {
         return provider.requestData(with: endPoint, interceptor: tokenInterceptor).map({ $0.toDomain() })
     }
     
-    func tryWithdraw(userId: String, surveyList: [Survey]) -> Completable {
+    func tryWithdraw(userId: String, surveyList: CheckedSurveyListRequestDTO) -> Completable {
         let endPoint = PopPoolAPIEndPoint.user_tryWithdraw(
             userId: userId,
-            survey: .init(checkedSurveyList: surveyList.map({ $0.toRequestDTO() }))
+            survey: surveyList
         )
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
@@ -83,7 +83,7 @@ final class UserRepositoryImpl: UserRepository {
         blockerUserId: String,
         blockedUserId: String
     ) -> Completable {
-        let endPoint = PopPoolAPIEndPoint.user_unblock(request: .init(blockerUserId: blockerUserId, blockedUserId: blockedUserId))
+        let endPoint = PopPoolAPIEndPoint.user_unblock(request: .init(userId: blockerUserId, blockedUserId: blockedUserId))
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
     
@@ -116,17 +116,16 @@ final class UserRepositoryImpl: UserRepository {
     
     func updateMyProfile(
         userId: String,
-        profileImage: URL?,
+        profileImage: String?,
         nickname: String,
         email: String?,
         instagramId: String?,
         intro: String?
     ) -> Completable {
-        let imageURL = profileImage?.absoluteString ?? ""
         let endPoint = PopPoolAPIEndPoint.user_updateMyProfile(
             userId: userId,
             request: .init(
-                profileImage: imageURL,
+                profileImageUrl: profileImage,
                 nickname: nickname,
                 email: email,
                 instagramId: instagramId,

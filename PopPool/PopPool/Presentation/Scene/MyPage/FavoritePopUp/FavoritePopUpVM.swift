@@ -49,6 +49,8 @@ final class FavoritePopUpVM: ViewModelable {
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
+    var page: BehaviorRelay<Int32> = .init(value: 0)
+    var isLoading: Bool = false
     var hiddenIndex: [Int] = []
     var userUseCase: UserUseCase
     var viewType: BehaviorRelay<ViewType> = .init(value: .cardList)
@@ -74,10 +76,20 @@ final class FavoritePopUpVM: ViewModelable {
             }
             .disposed(by: disposeBag)
         
-        userUseCase.fetchBookMarkPopUpStoreList(userId: Constants.userId, page: 0, size: 10, sort: nil)
+        page
             .withUnretained(self)
-            .subscribe { (owner, response) in
-                owner.popUpList.accept(response)
+            .subscribe { (owner, page) in
+                owner.isLoading = true
+                owner.userUseCase.fetchBookMarkPopUpStoreList(userId: Constants.userId, page: page, size: 20, sort: nil)
+                    .withUnretained(self)
+                    .subscribe { (owner, response) in
+                        let oldData = owner.popUpList.value.popUpInfoList
+                        var data = response
+                        data.popUpInfoList = oldData + data.popUpInfoList
+                        owner.popUpList.accept(data)
+                        owner.isLoading = false
+                    }
+                    .disposed(by: owner.disposeBag)
             }
             .disposed(by: disposeBag)
         

@@ -37,7 +37,7 @@ protocol UserRepository {
     ///   - userId: 유저 아이디
     ///   - surveyList: 탈퇴 설문조사 리스트
     /// - Returns: Completable
-    func tryWithdraw(userId: String, surveyList: [Survey]) -> Completable
+    func tryWithdraw(userId: String, surveyList: CheckedSurveyListRequestDTO) -> Completable
     
     /// 내가 최근에 본 팝업 스토어 리스트를 가져옵니다.
     /// - Parameters:
@@ -125,7 +125,7 @@ protocol UserRepository {
     /// - Returns: Completable
     func updateMyProfile(
         userId: String,
-        profileImage: URL?,
+        profileImage: String?,
         nickname: String,
         email: String?,
         instagramId: String?,

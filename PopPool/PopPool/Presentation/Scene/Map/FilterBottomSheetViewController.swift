@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class FilterBottomSheetViewController: UIViewController {
+class FilterBottomSheetViewController: UIViewController, UICollectionViewDelegate {
     private let viewModel: MapVM
     private let disposeBag = DisposeBag()
 
@@ -26,6 +26,8 @@ class FilterBottomSheetViewController: UIViewController {
     private let selectedFiltersView = UIView()
     private let selectedFiltersLabel = UILabel()
     private let selectedFiltersCollectionView: UICollectionView
+    var isCategoryFilter: Bool = false
+
     private let selectedOptionsLabel: UILabel = {
         let label = UILabel()
         label.text = "선택한 옵션"
@@ -34,6 +36,9 @@ class FilterBottomSheetViewController: UIViewController {
         return label
     }()
 
+    var onFiltersApplied: (() -> Void)?
+
+    private var categoryContentViewHeightConstraint: Constraint?
     private let resetButton = ButtonCPNT(type: .secondary, title: "초기화")
     private let applyButton = ButtonCPNT(type: .primary, title: "옵션저장")
 
@@ -50,11 +55,16 @@ class FilterBottomSheetViewController: UIViewController {
     private var selectedLocationIndex: Int? = nil
     private var subcategoryButtons: [UIButton] = []
 
+    var onCategoryFilterApplied: (([String]) -> Void)?
+
     init(viewModel: MapVM) {
         self.viewModel = viewModel
 
         let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
         layout.scrollDirection = .horizontal
+
         selectedFiltersCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         super.init(nibName: nil, bundle: nil)
@@ -235,7 +245,7 @@ class FilterBottomSheetViewController: UIViewController {
         var lastButton: UIButton?
 
         for (index, location) in locationData.enumerated() {
-            let button = createFilterButton(title: location.main)
+            let button = createStyledButton(title: location.main)
             button.tag = index
             button.addTarget(self, action: #selector(locationButtonTapped(_:)), for: .touchUpInside)
             locationContentView.addSubview(button)
@@ -257,85 +267,99 @@ class FilterBottomSheetViewController: UIViewController {
     }
 
     private func setupCategoryTab() {
-        var lastButton: UIButton?
-        var currentY: CGFloat = 0
+        categoryButtons.forEach { $0.removeFromSuperview() }
+        categoryButtons.removeAll()
 
-        for (index, category) in categories.enumerated() {
-            let button = createCategoryButton(title: category)
+        let buttonHeight: CGFloat = 32
+        let buttonSpacing: CGFloat = 10
+        let maxWidth = categoryContentView.frame.width - 40
+
+        var currentX: CGFloat = 20
+        var currentY: CGFloat = 10
+
+        for category in categories {
+            let button = createStyledButton(title: category)
+            button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
             categoryButtons.append(button)
             categoryContentView.addSubview(button)
 
-            button.snp.makeConstraints { make in
-                if index % 3 == 0 {
-                    make.top.equalToSuperview().offset(currentY)
-                    make.leading.equalToSuperview().offset(20)
-                } else {
-                    make.top.equalTo(lastButton!.snp.top)
-                    make.leading.equalTo(lastButton!.snp.trailing).offset(10)
-                }
+            button.sizeToFit()
+            let buttonWidth = button.frame.width + 20
 
-                // 버튼 크기를 텍스트에 맞게 동적으로 설정
-                button.sizeToFit()
-                let buttonWidth = button.frame.width + 16 // 패딩 추가
-                make.width.equalTo(buttonWidth)
-                make.height.equalTo(40)
+            // 버튼이 화면의 폭을 넘어가면 다음 줄로
+            if currentX + buttonWidth > maxWidth {
+                currentX = 20
+                currentY += buttonHeight + buttonSpacing
             }
 
-            lastButton = button
+            // 버튼의 위치 설정
+            button.frame = CGRect(x: currentX, y: currentY, width: buttonWidth, height: buttonHeight)
 
-            if index % 3 == 2 {
-                currentY += 50
-            }
+            // X 위치 갱신
+            currentX += buttonWidth + buttonSpacing
         }
 
-        categoryContentView.snp.makeConstraints { make in
-            make.bottom.equalTo(lastButton!.snp.bottom).offset(20)
+        // 카테고리 탭의 높이 갱신
+        categoryContentView.snp.updateConstraints { make in
+            make.bottom.equalTo(currentY + buttonHeight + 20)
         }
 
-        categoryScrollView.isHidden = true
+        view.layoutIfNeeded()
     }
 
-    private func createFilterButton(title: String) -> UIButton {
+    private func createStyledButton(title: String, isSubcategory: Bool = false) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .systemGray6
-        button.layer.cornerRadius = 8
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        return button
-    }
-
-    private func createCategoryButton(title: String) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
         button.backgroundColor = .white
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderColor = UIColor.systemGray.cgColor
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = 20
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.layer.cornerRadius = 16
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
 
-        // 텍스트 양쪽에 더 많은 여백을 주기 위한 패딩 설정
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
-
-        // 버튼의 최소 너비 설정 (필요에 따라 조정)
-        button.snp.makeConstraints { make in
-            make.height.equalTo(40)
-            make.width.greaterThanOrEqualTo(100)
+        if isSubcategory {
+            // 서브카테고리 버튼의 좌우 여백을 줄임
+            button.contentEdgeInsets = UIEdgeInsets(top: 7, left: 12, bottom: 7, right: 10)
+            button.layer.cornerRadius = 15
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        } else {
+            // 기본 버튼 여백
+            button.contentEdgeInsets = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
         }
 
-        button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
         return button
     }
 
-
+    private func updateButtonAppearance(_ button: UIButton, isSelected: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            if isSelected {
+                button.backgroundColor = .systemBlue
+                button.setTitleColor(.white, for: .normal)
+                button.layer.borderWidth = 0
+            } else {
+                button.backgroundColor = .white
+                button.setTitleColor(.systemGray, for: .normal)
+                button.layer.borderWidth = 1
+                button.layer.borderColor = UIColor.systemGray.cgColor
+            }
+        }
+    }
 
     private func setupCollectionView() {
         selectedFiltersCollectionView.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
-        selectedFiltersCollectionView.backgroundColor = .clear
+
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 8
+        layout.estimatedItemSize = CGSize(width: 50, height: 32) 
+
+        selectedFiltersCollectionView.collectionViewLayout = layout
+//        selectedFiltersCollectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         selectedFiltersCollectionView.showsHorizontalScrollIndicator = false
-        selectedFiltersCollectionView.delegate = self
     }
+
+    
+
 
     private func setupButtons() {
         resetButton.setTitle("초기화", for: .normal)
@@ -352,14 +376,14 @@ class FilterBottomSheetViewController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
-
+        
         segmentedControl.rx.selectedSegmentIndex
             .subscribe(onNext: { [weak self] index in
                 self?.updateContentVisibility(index == 1)
                 self?.moveUnderlineView(to: index)
             })
             .disposed(by: disposeBag)
-
+        
         resetButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.viewModel.resetFilters()
@@ -367,28 +391,39 @@ class FilterBottomSheetViewController: UIViewController {
                 self?.updateLocationButtonsUI()
                 self?.updateSubcategoryScrollView()
                 self?.updateCategoryButtonsUI()
+                self?.selectedFiltersCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
-
+        
         applyButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.viewModel.applyFilters()
+                self?.applyFilters()
+                self?.onFiltersApplied?()
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
-
+        
         viewModel.selectedFilters
             .bind(to: selectedFiltersCollectionView.rx.items(cellIdentifier: "FilterCell", cellType: FilterCell.self)) { [weak self] (row, filter, cell) in
                 cell.configure(with: filter.name)
                 cell.onRemove = {
-                    self?.viewModel.removeFilter(filter)
-                    self?.updateLocationButtonsUI()
-                    self?.updateSubcategoryScrollView()
-                    self?.updateCategoryButtonsUI()
+                    guard let self = self else { return }
+                    self.viewModel.removeFilter(filter)
+                    self.updateLocationButtonsUI()
+                    self.updateSubcategoryScrollView()
+                    self.updateCategoryButtonsUI()
+//                    self.selectedFiltersCollectionView.reloadData()
                 }
             }
             .disposed(by: disposeBag)
+        viewModel.selectedFilters
+               .subscribe(onNext: { [weak self] _ in
+                   self?.selectedFiltersCollectionView.reloadData()
+               })
+               .disposed(by: disposeBag)
+
     }
+    
 
     @objc private func locationButtonTapped(_ sender: UIButton) {
         selectedLocationIndex = sender.tag
@@ -398,58 +433,66 @@ class FilterBottomSheetViewController: UIViewController {
     }
 
     @objc private func categoryButtonTapped(_ sender: UIButton) {
-            sender.isSelected = !sender.isSelected
-            updateCategoryButtonAppearance(sender)
+        sender.isSelected = !sender.isSelected
+        updateButtonAppearance(sender, isSelected: sender.isSelected)
 
-            if let category = sender.titleLabel?.text {
-                if sender.isSelected {
-                    viewModel.addFilter(MapVM.Filter(id: UUID().uuidString, name: category, type: .category))
-                } else {
-                    viewModel.removeFilter(MapVM.Filter(id: "", name: category, type: .category))
+        if let category = sender.titleLabel?.text {
+            let filter = MapVM.Filter(id: UUID().uuidString, name: category, type: .category)
+            if sender.isSelected {
+                viewModel.addFilter(filter)
+            } else {
+                viewModel.removeFilter(filter)
+            }
+        }
+        selectedFiltersCollectionView.reloadData()
+    }
+
+    private func applyFilters() {
+        for button in subcategoryButtons {
+            if button.isSelected {
+                if let subcategory = button.titleLabel?.text?.trimmingCharacters(in: .whitespaces) {
+                    let filter = MapVM.Filter(id: UUID().uuidString, name: subcategory, type: .location)
+                    viewModel.addFilter(filter)
                 }
             }
-            selectedFiltersCollectionView.reloadData()
         }
+        viewModel.applyFilters()
+        onFiltersApplied?()
+    }
 
-        private func updateSubcategoryScrollView() {
-            guard let index = selectedLocationIndex else {
-                balloonBackgroundView.isHidden = true
-                balloonBackgroundView.snp.updateConstraints { make in
-                    make.height.equalTo(0)
-                }
-                return
+    private func updateSubcategoryScrollView() {
+        guard let index = selectedLocationIndex else {
+            balloonBackgroundView.isHidden = true
+            balloonBackgroundView.snp.updateConstraints { make in
+                make.height.equalTo(0)
             }
-
-            let subcategories = locationData[index].sub
-            setupSubcategoryButtons(subcategories)
-
-            balloonBackgroundView.isHidden = false
-            updateBalloonPosition()
+            return
         }
+
+        let subcategories = locationData[index].sub
+        setupSubcategoryButtons(subcategories)
+
+        balloonBackgroundView.isHidden = false
+        updateBalloonPosition()
+    }
 
     private func setupSubcategoryButtons(_ subcategories: [String]) {
         balloonBackgroundView.subviews.forEach { $0.removeFromSuperview() }
         subcategoryButtons.removeAll()
 
         let buttonHeight: CGFloat = 32
-        let spacing: CGFloat = 10
-        let verticalSpacing: CGFloat = 10
-        let maxWidth = balloonBackgroundView.frame.width - 20
+        let spacing: CGFloat = 5
+        let maxWidth = balloonBackgroundView.frame.width - 10
 
         var currentX: CGFloat = 10
         var currentY: CGFloat = 20
 
         for subcategory in subcategories {
-            let button = UIButton(type: .system)
-            button.setTitle(subcategory, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 12) // 기본 텍스트 크기를 줄임
+            let button = createStyledButton(title: subcategory, isSubcategory: true)
             button.addTarget(self, action: #selector(subcategoryButtonTapped(_:)), for: .touchUpInside)
-            button.backgroundColor = .white
-            button.setTitleColor(.black, for: .normal)
-            button.layer.cornerRadius = buttonHeight / 2
 
             button.sizeToFit()
-            let buttonWidth = button.frame.width + 24
+            let buttonWidth = button.frame.width + 16
 
             if currentX + buttonWidth > maxWidth {
                 currentX = 10
@@ -471,123 +514,85 @@ class FilterBottomSheetViewController: UIViewController {
         view.layoutIfNeeded()
     }
 
-
     @objc private func subcategoryButtonTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        updateButtonAppearance(sender, isSelected: sender.isSelected)
 
-        UIView.animate(withDuration: 0.3) {
-            if sender.isSelected {
-                sender.backgroundColor = .blue
-                sender.setTitleColor(.white, for: .normal)
-
-                let checkmarkAttachment = NSTextAttachment()
-                checkmarkAttachment.image = UIImage(systemName: "checkmark")?.withTintColor(.white)
-                checkmarkAttachment.bounds = CGRect(x: 0, y: -2, width: 12, height: 12)
-
-                // 현재 텍스트에 체크마크 추가
-                let attributedString = NSMutableAttributedString(string: (sender.titleLabel?.text ?? "") + "\u{00A0}")
-                attributedString.append(NSAttributedString(attachment: checkmarkAttachment))
-
-                sender.setAttributedTitle(attributedString, for: .normal)
-
-                // 버튼 크기 조정 (체크마크 포함)
-                sender.sizeToFit()
-                sender.frame.size.width += 24 // padding 추가
-
-            } else {
-                // 체크마크를 제거하고 원래 텍스트로 복구
-                sender.backgroundColor = .white
-                sender.setTitleColor(.black, for: .normal)
-
-                // 체크마크 없는 원래 텍스트로 복구
-                let originalTitle = sender.title(for: .normal) ?? ""
-                sender.setAttributedTitle(nil, for: .normal)
-                sender.setTitle(originalTitle, for: .normal)
-
-                // 버튼 크기 조정 (원래 사이즈로 복구)
-                sender.sizeToFit()
-                sender.frame.size.width += 24 // padding 추가
-            }
-        }
-        sender.titleLabel?.font = UIFont.systemFont(ofSize: 12) // 작은 크기로 고정
-
-
-        // 버튼의 내부 상태 업데이트
         if let subcategory = sender.titleLabel?.text {
+            let filter = MapVM.Filter(id: UUID().uuidString, name: subcategory, type: .location)
             if sender.isSelected {
-                let filter = MapVM.Filter(id: UUID().uuidString, name: subcategory, type: .location)
                 viewModel.addFilter(filter)
             } else {
-                viewModel.removeFilter(MapVM.Filter(id: "", name: subcategory, type: .location))
+                viewModel.removeFilter(filter)
             }
             selectedFiltersCollectionView.reloadData()
         }
     }
 
+    private func updateBalloonPosition() {
+        guard let selectedButton = locationContentView.subviews.first(where: { ($0 as? UIButton)?.tag == selectedLocationIndex }) as? UIButton else { return }
+        let buttonFrame = selectedButton.convert(selectedButton.bounds, to: view)
+        let buttonCenterX = buttonFrame.midX
+        let totalWidth = view.bounds.size.width
+        balloonBackgroundView.arrowPosition = buttonCenterX / totalWidth
+    }
 
-        private func updateBalloonPosition() {
-            guard let selectedButton = locationContentView.subviews.first(where: { ($0 as? UIButton)?.tag == selectedLocationIndex }) as? UIButton else { return }
-            let buttonFrame = selectedButton.convert(selectedButton.bounds, to: view)
-            let buttonCenterX = buttonFrame.midX
-            let totalWidth = view.bounds.size.width
-            balloonBackgroundView.arrowPosition = buttonCenterX / totalWidth
-        }
-
-        private func updateLocationButtonsUI() {
-            locationContentView.subviews.forEach { view in
-                if let button = view as? UIButton {
-                    button.backgroundColor = button.tag == selectedLocationIndex ? .blue : .systemGray6
-                    button.setTitleColor(button.tag == selectedLocationIndex ? .white : .black, for: .normal)
-                }
-            }
-        }
-
-        private func updateCategoryButtonsUI() {
-            categoryButtons.forEach { button in
-                let isSelected = viewModel.selectedFilters.value.contains { $0.name == button.titleLabel?.text && $0.type == .category }
-                updateCategoryButtonAppearance(button, isSelected: isSelected)
-            }
-        }
-
-        private func updateCategoryButtonAppearance(_ button: UIButton, isSelected: Bool? = nil) {
-            let selected = isSelected ?? button.isSelected
-            UIView.animate(withDuration: 0.3) {
-                if selected {
-                    button.backgroundColor = .blue
-                    button.setTitleColor(.white, for: .normal)
-                } else {
-                    button.backgroundColor = .white
-                    button.setTitleColor(.black, for: .normal)
-                }
-            }
-        }
-
-        private func moveUnderlineView(to index: Int) {
-            let segmentWidth = segmentedControl.frame.width / CGFloat(segmentedControl.numberOfSegments)
-            let targetPosition = segmentWidth * CGFloat(index)
-
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                guard let self = self else { return }
-                self.underlineView.snp.updateConstraints { make in
-                    make.leading.equalTo(self.segmentedControl.snp.leading).offset(targetPosition)
-                }
-                self.view.layoutIfNeeded()
-            }
-        }
-
-        private func updateContentVisibility(_ isCategorySelected: Bool) {
-            UIView.animate(withDuration: 0.3) {
-                self.categoryScrollView.isHidden = !isCategorySelected
-                self.locationScrollView.isHidden = isCategorySelected
-                self.balloonBackgroundView.isHidden = isCategorySelected
+    private func updateLocationButtonsUI() {
+        locationContentView.subviews.forEach { view in
+            if let button = view as? UIButton {
+                updateButtonAppearance(button, isSelected: button.tag == selectedLocationIndex)
             }
         }
     }
 
-    extension FilterBottomSheetViewController: UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let text = viewModel.selectedFilters.value[indexPath.item].name
-            let textSize = (text as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 14)])
-            return CGSize(width: textSize.width + 40, height: 32)
+    private func updateCategoryButtonsUI() {
+        categoryButtons.forEach { button in
+            let isSelected = viewModel.selectedFilters.value.contains { $0.name == button.titleLabel?.text && $0.type == .category }
+            updateButtonAppearance(button, isSelected: isSelected)
         }
     }
+
+    private func moveUnderlineView(to index: Int) {
+        let segmentWidth = segmentedControl.frame.width / CGFloat(segmentedControl.numberOfSegments)
+        let targetPosition = segmentWidth * CGFloat(index)
+
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self = self else { return }
+            self.underlineView.snp.updateConstraints { make in
+                make.leading.equalTo(self.segmentedControl.snp.leading).offset(targetPosition)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func updateContentVisibility(_ isCategorySelected: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.categoryScrollView.isHidden = !isCategorySelected
+            self.locationScrollView.isHidden = isCategorySelected
+            self.balloonBackgroundView.isHidden = isCategorySelected
+
+            if isCategorySelected {
+                self.selectedOptionsLabel.snp.remakeConstraints {
+                    $0.top.equalTo(self.categoryScrollView.snp.bottom).offset(20)
+                    $0.leading.equalToSuperview().offset(20)
+                }
+                self.selectedFiltersView.snp.remakeConstraints {
+                    $0.top.equalTo(self.selectedOptionsLabel.snp.bottom).offset(8)
+                    $0.leading.trailing.equalToSuperview().inset(20)
+                    $0.height.equalTo(60)
+                }
+            } else {
+                self.selectedOptionsLabel.snp.remakeConstraints {
+                    $0.top.equalTo(self.balloonBackgroundView.snp.bottom).offset(20)
+                    $0.leading.equalToSuperview().offset(20)
+                }
+                self.selectedFiltersView.snp.remakeConstraints {
+                    $0.top.equalTo(self.selectedOptionsLabel.snp.bottom).offset(8)
+                    $0.leading.trailing.equalToSuperview().inset(20)
+                    $0.height.equalTo(60)
+                }
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+}

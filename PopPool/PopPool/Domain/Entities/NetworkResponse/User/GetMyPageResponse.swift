@@ -9,9 +9,10 @@ import Foundation
 
 struct GetMyPageResponse {
     var nickname: String?
-    var profileImageURL: URL?
+    var profileImageURL: String?
     var instagramId: String?
     var popUpInfoList: [MyCommentedPopUpInfo]
     var intro: String?
     var isLogin: Bool
+    var isAdmin: Bool
 }

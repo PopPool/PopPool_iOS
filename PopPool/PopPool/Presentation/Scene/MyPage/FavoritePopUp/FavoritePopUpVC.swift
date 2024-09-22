@@ -23,7 +23,7 @@ final class FavoritePopUpVC: BaseViewController {
         return view
     }()
     
-    private let collectionView: UICollectionView = {
+    private let contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let width = UIScreen.main.bounds.width - 40
         let height: CGFloat = 590
@@ -71,10 +71,10 @@ private extension FavoritePopUpVC {
     func setUp() {
         view.backgroundColor = .g50
         self.navigationController?.navigationBar.isHidden = true
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(SavedPopUpCell.self, forCellWithReuseIdentifier: SavedPopUpCell.identifier)
-        collectionView.register(ViewedPopUpCell.self, forCellWithReuseIdentifier: ViewedPopUpCell.identifier)
+        contentCollectionView.delegate = self
+        contentCollectionView.dataSource = self
+        contentCollectionView.register(SavedPopUpCell.self, forCellWithReuseIdentifier: SavedPopUpCell.identifier)
+        contentCollectionView.register(ViewedPopUpCell.self, forCellWithReuseIdentifier: ViewedPopUpCell.identifier)
     }
     
     func setUpConstraints() {
@@ -87,8 +87,8 @@ private extension FavoritePopUpVC {
             make.top.equalTo(headerView.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview()
         }
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
+        view.addSubview(contentCollectionView)
+        contentCollectionView.snp.makeConstraints { make in
             make.top.equalTo(filterView.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
@@ -122,8 +122,8 @@ private extension FavoritePopUpVC {
         output.viewType
             .withUnretained(self)
             .subscribe { (owner, viewType) in
-                owner.collectionView.collectionViewLayout = viewType.layout
-                owner.collectionView.reloadData()
+                owner.contentCollectionView.collectionViewLayout = viewType.layout
+                owner.contentCollectionView.reloadData()
             }
             .disposed(by: disposeBag)
         
@@ -131,8 +131,8 @@ private extension FavoritePopUpVC {
             .withUnretained(self)
             .subscribe { (owner, response) in
                 owner.filterView.injectionWith(input: .init(title: "총 \(response.popUpInfoList.count)건", rightTitle: owner.viewModel.viewType.value.title))
-                owner.collectionView.collectionViewLayout = owner.viewModel.viewType.value.layout
-                owner.collectionView.reloadData()
+                owner.contentCollectionView.collectionViewLayout = owner.viewModel.viewType.value.layout
+                owner.contentCollectionView.reloadData()
             }
             .disposed(by: disposeBag)
     }
@@ -178,6 +178,17 @@ extension FavoritePopUpVC: UICollectionViewDelegate, UICollectionViewDataSource 
                 }
                 .disposed(by: cell.disposeBag)
             return cell
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y > contentCollectionView.contentSize.height - contentCollectionView.bounds.size.height {
+            if viewModel.popUpList.value.totalPages - 1 > viewModel.page.value {
+                if !viewModel.isLoading {
+                    viewModel.page.accept(viewModel.page.value + 1)
+                }
+            }
         }
     }
 }
