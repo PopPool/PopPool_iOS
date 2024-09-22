@@ -31,6 +31,10 @@ final class SocialCommentVM: ViewModelable {
         return self.contentRelay.value.count
     }
     
+    var isCopiedToClipboard: Bool {
+        return clipboardManager.getClipboard() != nil ? true : false
+    }
+    
     let contentRelay: BehaviorRelay<[GuideContent]> = .init(value: [
         .init(index: 0, image: "step1", title: "아래 인스타그램 열기\n버튼을 터치해 앱 열기"),
         .init(index: 1, image: "step2", title: "원하는 피드의 이미지로 이동 후\n공유하기 > 링크복사 터치하기"),

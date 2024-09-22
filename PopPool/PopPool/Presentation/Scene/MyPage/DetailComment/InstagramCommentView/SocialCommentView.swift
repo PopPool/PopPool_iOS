@@ -11,11 +11,10 @@ import RxSwift
 
 final class SocialCommentView: UIStackView {
     
-    let scrollView = UIScrollView()
-    
     let contentImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
+        imageView.image = UIImage(systemName: "lasso")
         return imageView
     }()
     
@@ -43,21 +42,21 @@ final class SocialCommentView: UIStackView {
     }
     
     private func setUp() {
-        scrollView.backgroundColor = .yellow
-        self.backgroundColor = .green
-        topSpaceView.backgroundColor = .orange
-        middleSpaceView.backgroundColor = .red
+//        self.backgroundColor = .blue
+//        topSpaceView.backgroundColor = .orange
+//        middleSpaceView.backgroundColor = .red
+        self.axis = .vertical
         
         self.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         self.isLayoutMarginsRelativeArrangement = true
     }
     
     private func setUpConstraint() {
-        self.addSubview(topSpaceView)
-        self.addSubview(contentImageView)
-        self.addSubview(middleSpaceView)
-        self.addSubview(listTitle)
-        self.addSubview(dynamicTF)
+        self.addArrangedSubview(topSpaceView)
+        self.addArrangedSubview(contentImageView)
+        self.addArrangedSubview(middleSpaceView)
+        self.addArrangedSubview(listTitle)
+        self.addArrangedSubview(dynamicTF)
         
         topSpaceView.snp.makeConstraints { make in
             make.height.equalTo(Constants.spaceGuide.small300)

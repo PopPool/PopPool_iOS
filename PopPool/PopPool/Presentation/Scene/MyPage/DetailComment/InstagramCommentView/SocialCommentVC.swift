@@ -35,7 +35,6 @@ final class SocialCommentVC: BaseViewController {
     let scrollView = UIScrollView()
     let containerView = UIView()
     let topSectionView = SocialNoticeView()
-    var secondSectionView: SocialCommentView!
     let pageSpaceView = UIView()
     
     let guideImage: UIImageView = {
@@ -75,6 +74,8 @@ final class SocialCommentVC: BaseViewController {
     let swipeRight = UISwipeGestureRecognizer()
     let disposeBag = DisposeBag()
     let viewModel: SocialCommentVM
+    var dynamicTextfield: DynamicTextViewCPNT!
+    var isScrollEnabled: Bool = false
     
     init(viewModel: SocialCommentVM) {
         self.viewModel = viewModel
@@ -183,30 +184,68 @@ final class SocialCommentVC: BaseViewController {
             UIApplication.shared.open(url! as URL)
         }
         
-        removeFromView()
-        reSetUpConstraint()
-        pasteTest()
+        let testing = viewModel.isCopiedToClipboard
+        print("복사된 값 확인", testing)
+        if testing {
+            removeFromStack()
+            reSetUpConstraint()
+            pasteTest()
+            updateScrollViewIfNeeded()
+        }
     }
     
-    private func removeFromView() {
+    private func removeFromStack() {
         for subView in stack.arrangedSubviews {
             stack.removeArrangedSubview(subView)
             subView.removeFromSuperview()
         }
-        stack.removeFromSuperview()
     }
     
     private func reSetUpConstraint() {
-        secondSectionView = SocialCommentView()
-        view.addSubview(secondSectionView)
+        dynamicTextfield = DynamicTextViewCPNT(placeholder: "테스트", textLimit: 10)
+        containerView.addSubview(header)
+        containerView.addSubview(guideImage)
+        containerView.addSubview(dynamicTextfield)
         
-        secondSectionView.snp.remakeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
-            make.bottom.equalTo(actionButton.snp.top)
+        guideImage.image = UIImage(systemName: "lasso")
+        guideImage.contentMode = .scaleAspectFit
+        
+        header.snp.remakeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
         }
         
+        guideImage.snp.remakeConstraints { make in
+            make.top.equalTo(header.snp.bottom).offset(Constants.spaceGuide.small300)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(376)
+        }
+        
+        dynamicTextfield.snp.remakeConstraints { make in
+            make.top.equalTo(guideImage.snp.bottom).offset(Constants.spaceGuide.medium100)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.lessThanOrEqualToSuperview().inset(Constants.spaceGuide.medium100)
+        }
+        
+        dynamicTextfield.rx.observe(CGRect.self, "bounds")
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.updateScrollViewIfNeeded()
+            })
+            .disposed(by: disposeBag)
+        
+        actionButton.iconImageView.image = nil
+        actionButton.setTitle("저장", for: .normal)
+        
         view.layoutIfNeeded()
+        scrollView.layoutIfNeeded()
     }
+    
+    private func updateScrollViewIfNeeded() {
+        let contentHeight = containerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
+    }
+
     
     private func pasteTest() {
         viewModel.fetchImage()
@@ -230,30 +269,28 @@ final class SocialCommentVC: BaseViewController {
         swipeRight.direction = .right
         guideImage.addGestureRecognizer(swipeLeft)
         guideImage.addGestureRecognizer(swipeRight)
+        scrollView.isScrollEnabled = true
         
         pageControl.numberOfPages = viewModel.currentContentCount
-        
-        containerView.backgroundColor = .yellow
-        scrollView.backgroundColor = .orange
     }
     
     private func setUpConstraint() {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(stack)
-        containerView.addSubview(actionButton)
+        view.addSubview(actionButton)
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         containerView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
+            make.width.equalTo(view.snp.width)
         }
         
         stack.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         guideImage.snp.makeConstraints { make in
