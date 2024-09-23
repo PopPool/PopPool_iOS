@@ -23,6 +23,8 @@ class NormalCommentVM: ViewModelable {
         var currentImageCount: Observable<Int>
     }
     
+    var popUpStore: BehaviorSubject<String>
+    
     var selectedImageCount: Observable<Int> {
         return selectedImageRelay.map { $0.count }
     }
@@ -30,6 +32,10 @@ class NormalCommentVM: ViewModelable {
     var disposeBag = DisposeBag()
     private let maxImageCount = 5
     private var selectedImageRelay = BehaviorRelay<[Data]>(value: [])
+    
+    init(popUpStore: String) {
+        self.popUpStore = BehaviorSubject(value: popUpStore)
+    }
     
     func addImage(_ imageData: Data) {
         var currentImages = selectedImageRelay.value

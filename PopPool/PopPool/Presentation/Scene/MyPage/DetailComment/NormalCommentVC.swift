@@ -18,9 +18,8 @@ final class NormalCommentVC: BaseViewController {
     private let scrollView = UIScrollView(frame: .zero)
     private let containerView = UIView()
     
-    private let imageHeader = ListTitleViewCPNT(
-        title: "사진 선택",
-        size: .large(subtitle: "\(Constants.userId)과 관련있는 사진을 업로드해보세요.", image: nil))
+    private let imageHeader: ListTitleViewCPNT
+    private let commentHeader: ListTitleViewCPNT
     private let topSectionSpace = UIView()
     private let bottomSectionSpace = UIView()
     
@@ -44,10 +43,6 @@ final class NormalCommentVC: BaseViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
-    
-    private let commentHeader = ListTitleViewCPNT(
-        title: "코멘트 작성",
-        size: .large(subtitle: "방문했던 \(Constants.userId)에 대한 감상평을 작성해주세요.", image: nil))
     
     private let commentTextfield = DynamicTextViewCPNT(
         placeholder: "내용을 작성해보세요",
@@ -82,6 +77,12 @@ final class NormalCommentVC: BaseViewController {
     
     init(viewModel: NormalCommentVM) {
         self.viewModel = viewModel
+        self.imageHeader = ListTitleViewCPNT(
+            title: "사진 선택",
+            size: .large(subtitle: "", image: nil))
+        self.commentHeader = ListTitleViewCPNT(
+            title: "코멘트 작성",
+            size: .large(subtitle: "", image: nil))
         super.init()
     }
     
@@ -127,6 +128,14 @@ final class NormalCommentVC: BaseViewController {
             saveButtonTapped: saveButton.rx.tap
         )
         let output = viewModel.transform(input: input)
+        
+        viewModel.popUpStore
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.imageHeader.subTitleLabel.text = "\(data)과 관련있는 사진을 업로드해보세요."
+                owner.commentHeader.subTitleLabel.text = "\(data)에 대한 감상평을 작성해주세요."
+            })
+            .disposed(by: disposeBag)
         
         output.returnToHome
             .withUnretained(self)
