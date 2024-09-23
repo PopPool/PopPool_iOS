@@ -38,6 +38,7 @@ final class NormalCommentVC: BaseViewController {
         let stackView = UIStackView()
         stackView.addArrangedSubview(commentHeader)
         stackView.addArrangedSubview(commentTextfield)
+        stackView.addArrangedSubview(commentFooterSpace)
         stackView.axis = .vertical
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -53,7 +54,6 @@ final class NormalCommentVC: BaseViewController {
         stack.axis = .vertical
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.addArrangedSubview(footerTopSpace)
         stack.addArrangedSubview(saveButton)
         stack.addArrangedSubview(footerSpace)
         return stack
@@ -65,7 +65,7 @@ final class NormalCommentVC: BaseViewController {
         disabledTitle: "저장")
     
     private let footerSpace = UIView()
-    private let footerTopSpace = UIView()
+    private let commentFooterSpace = UIView()
     
     //MARK: - Properties
     
@@ -179,10 +179,6 @@ final class NormalCommentVC: BaseViewController {
             make.leading.top.trailing.equalToSuperview()
         }
         
-        footerTopSpace.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide.medium100)
-        }
-        
         saveButton.snp.makeConstraints { make in
             make.height.equalTo(50)
         }
@@ -235,6 +231,10 @@ final class NormalCommentVC: BaseViewController {
             make.top.equalTo(imageCollectionView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(Constants.spaceGuide.medium100)
+        }
+        
+        commentFooterSpace.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.small300)
         }
         
         commentStack.snp.makeConstraints { make in
