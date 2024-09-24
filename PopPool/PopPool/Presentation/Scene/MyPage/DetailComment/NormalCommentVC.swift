@@ -155,6 +155,9 @@ final class NormalCommentVC: BaseViewController {
                 // API 연결 - 데이터 저장
                 // 안내문 발송
                 // 화면 drop
+                if owner.commentTextfield.textView.hasText {
+                    
+                }
                 ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
                 owner.navigationController?.popViewController(animated: true)
             })

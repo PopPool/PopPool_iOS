@@ -24,6 +24,7 @@ class NormalCommentVM: ViewModelable {
     }
     
     var popUpStore: BehaviorSubject<String>
+    var isContentValid: PublishSubject<Bool> = .init()
     
     var selectedImageCount: Observable<Int> {
         return selectedImageRelay.map { $0.count }

@@ -18,10 +18,7 @@
 		083464BE2C8F2002007D6F11 /* AdminPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464BD2C8F2002007D6F11 /* AdminPostVC.swift */; };
 		083464C02C8F2009007D6F11 /* AdminEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464BF2C8F2009007D6F11 /* AdminEditVC.swift */; };
 		083464C22C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */; };
-
 		083464E72C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */; };
-		084BC9602C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */; };
-		084BC9622C7F539E00C57494 /* UserBookMarkRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */; };
 		084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */; };
 		085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085105752C0EC13800ED7DBB /* RxAlamofire */; };
 		085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */; };
@@ -168,7 +165,6 @@
 		4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */; };
 		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
 		4E5B65B22C95A50600026B09 /* RecentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */; };
-
 		4E67A14D2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */; };
 		4E67A1DD2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A1BA2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift */; };
 		4E67A1DE2C92FC3D003BDAFA /* GetBlockedUserListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A1BB2C92FC3D003BDAFA /* GetBlockedUserListResponseDTO.swift */; };
@@ -254,7 +250,11 @@
 		4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */; };
 		4EFD0DA22C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD0DA12C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift */; };
 		4EFD0DA42C95C4FF00E7A3F7 /* SortOrderBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD0DA32C95C4FF00E7A3F7 /* SortOrderBottomSheetViewController.swift */; };
-
+		BD0433FD2CA2A68800758CDF /* PostCommentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0433FC2CA2A68800758CDF /* PostCommentRequestDTO.swift */; };
+		BD0433FF2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0433FE2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift */; };
+		BD0434012CA2A79400758CDF /* ImageActionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0434002CA2A79400758CDF /* ImageActionDTO.swift */; };
+		BD0434032CA2A84D00758CDF /* ActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0434022CA2A84D00758CDF /* ActionType.swift */; };
+		BD0434052CA2AE1E00758CDF /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0434042CA2AE1E00758CDF /* CommentRepository.swift */; };
 		BD0D19072C7D8A3D0017D909 /* AdminRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19062C7D8A3D0017D909 /* AdminRepositoryImpl.swift */; };
 		BD0D19092C7D8A5A0017D909 /* AdminRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */; };
 		BD0D190C2C7D8C3B0017D909 /* AdminUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */; };
@@ -267,6 +267,9 @@
 		BD0D191D2C7D94960017D909 /* UpdatePopUpStoreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */; };
 		BD0D191F2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */; };
 		BD134EB52C65D08400020CAE /* AlarmSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */; };
+		BD1716FD2CA2C8FF00D2D3E3 /* CommentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1716FC2CA2C8FF00D2D3E3 /* CommentUseCase.swift */; };
+		BD1716FF2CA2C9A900D2D3E3 /* CommentUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1716FE2CA2C9A900D2D3E3 /* CommentUseCaseImpl.swift */; };
+		BD1717022CA2EECB00D2D3E3 /* CommentRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1717012CA2EECB00D2D3E3 /* CommentRepositoryImpl.swift */; };
 		BD1901332C8EB0300050FD23 /* DismissCommentModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1901322C8EB0300050FD23 /* DismissCommentModalVC.swift */; };
 		BD198D082C8D53D500835325 /* NormalCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD198D072C8D53D500835325 /* NormalCommentVC.swift */; };
 		BD198D0C2C8D629900835325 /* CommentImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD198D0B2C8D629900835325 /* CommentImageCell.swift */; };
@@ -294,10 +297,10 @@
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD67FA402C9202EF00E89E7D /* SocialCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */; };
 		BD67FA422C9221BB00E89E7D /* SocialNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */; };
-		BD76C9742C9AB3960017A564 /* SocialCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C9732C9AB3960017A564 /* SocialCommentView.swift */; };
 		BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */; };
 		BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */; };
 		BD702D632C88511E00142AE0 /* PP_splash.json in Resources */ = {isa = PBXBuildFile; fileRef = BD702D622C88511E00142AE0 /* PP_splash.json */; };
+		BD76C9742C9AB3960017A564 /* SocialCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C9732C9AB3960017A564 /* SocialCommentView.swift */; };
 		BD79E1792C5740C200CCEE07 /* BaseTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */; };
 		BD79E1812C5745B000CCEE07 /* NoticeBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */; };
 		BD79E1832C57499100CCEE07 /* NoticeBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */; };
@@ -382,11 +385,7 @@
 		083464BD2C8F2002007D6F11 /* AdminPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPostVC.swift; sourceTree = "<group>"; };
 		083464BF2C8F2009007D6F11 /* AdminEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEditVC.swift; sourceTree = "<group>"; };
 		083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminImageViewCollectionViewCell.swift; sourceTree = "<group>"; };
-
 		083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPopUpStoreIdRequestDTO.swift; sourceTree = "<group>"; };
-		084BC95F2C7F520700C57494 /* GetBookMarkPopUpStoreListRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookMarkPopUpStoreListRequestDTO.swift; sourceTree = "<group>"; };
-		084BC9612C7F539E00C57494 /* UserBookMarkRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookMarkRequestDTO.swift; sourceTree = "<group>"; };
-
 		084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthServiceImpl.swift; sourceTree = "<group>"; };
 		0851059F2C1038EB00ED7DBB /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -520,7 +519,6 @@
 		4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStoreDTO.swift; sourceTree = "<group>"; };
 		4E4DC0172C620251007CE63A /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchViewModel.swift; sourceTree = "<group>"; };
-
 		4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPoolAPIEndPoint.swift; path = PopPool/Data/Network/PopPoolAPIEndPoint.swift; sourceTree = SOURCE_ROOT; };
 		4E67A1BA2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListRequestDTO.swift; sourceTree = "<group>"; };
 		4E67A1BB2C92FC3D003BDAFA /* GetBlockedUserListResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListResponseDTO.swift; sourceTree = "<group>"; };
@@ -592,8 +590,6 @@
 		4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
-		4E8F62042C69D49D002440B8 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-
 		4E9A33A02C648DEE000F4095 /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListCell.swift; sourceTree = "<group>"; };
 		4E9A33A42C64ACF4000F4095 /* PopUpCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpCardView.swift; sourceTree = "<group>"; };
@@ -607,7 +603,11 @@
 		4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonBackgroundView.swift; sourceTree = "<group>"; };
 		4EFD0DA12C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFD0DA32C95C4FF00E7A3F7 /* SortOrderBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderBottomSheetViewController.swift; sourceTree = "<group>"; };
-
+		BD0433FC2CA2A68800758CDF /* PostCommentRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentRequestDTO.swift; sourceTree = "<group>"; };
+		BD0433FE2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCommentRequestDTO.swift; sourceTree = "<group>"; };
+		BD0434002CA2A79400758CDF /* ImageActionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageActionDTO.swift; sourceTree = "<group>"; };
+		BD0434022CA2A84D00758CDF /* ActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionType.swift; sourceTree = "<group>"; };
+		BD0434042CA2AE1E00758CDF /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		BD0D19062C7D8A3D0017D909 /* AdminRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRepository.swift; sourceTree = "<group>"; };
 		BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUseCase.swift; sourceTree = "<group>"; };
@@ -620,6 +620,9 @@
 		BD0D191C2C7D94960017D909 /* UpdatePopUpStoreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePopUpStoreRequest.swift; sourceTree = "<group>"; };
 		BD0D191E2C7D96A20017D909 /* GetAdminPopUpStoreDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdminPopUpStoreDetailResponse.swift; sourceTree = "<group>"; };
 		BD134EB42C65D08400020CAE /* AlarmSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingVC.swift; sourceTree = "<group>"; };
+		BD1716FC2CA2C8FF00D2D3E3 /* CommentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUseCase.swift; sourceTree = "<group>"; };
+		BD1716FE2CA2C9A900D2D3E3 /* CommentUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUseCaseImpl.swift; sourceTree = "<group>"; };
+		BD1717012CA2EECB00D2D3E3 /* CommentRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD1901322C8EB0300050FD23 /* DismissCommentModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissCommentModalVC.swift; sourceTree = "<group>"; };
 		BD198D072C8D53D500835325 /* NormalCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCommentVC.swift; sourceTree = "<group>"; };
 		BD198D0B2C8D629900835325 /* CommentImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImageCell.swift; sourceTree = "<group>"; };
@@ -647,10 +650,10 @@
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentVC.swift; sourceTree = "<group>"; };
 		BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNoticeView.swift; sourceTree = "<group>"; };
-		BD76C9732C9AB3960017A564 /* SocialCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentView.swift; sourceTree = "<group>"; };
 		BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
 		BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVM.swift; sourceTree = "<group>"; };
 		BD702D622C88511E00142AE0 /* PP_splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PP_splash.json; sourceTree = "<group>"; };
+		BD76C9732C9AB3960017A564 /* SocialCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentView.swift; sourceTree = "<group>"; };
 		BD79E1782C5740C200CCEE07 /* BaseTableViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewVC.swift; sourceTree = "<group>"; };
 		BD79E1802C5745B000CCEE07 /* NoticeBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardVC.swift; sourceTree = "<group>"; };
 		BD79E1822C57499100CCEE07 /* NoticeBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardVM.swift; sourceTree = "<group>"; };
@@ -1251,6 +1254,7 @@
 				BD60B2802C75C5AF0062DC96 /* HomeUseCase.swift */,
 				08FF6C8D2C79C1F000B68569 /* NoticeUseCase.swift */,
 				BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */,
+				BD1716FC2CA2C8FF00D2D3E3 /* CommentUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1259,6 +1263,7 @@
 			isa = PBXGroup;
 			children = (
 				4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */,
+				BD0433FB2CA2A64500758CDF /* CommentDTO */,
 				081FAF3C2C89E0E500CF8AD6 /* PreSignedURLDTO */,
 				4E4DC0142C620199007CE63A /* MapDTO */,
 				08E23A7B2C4F6B45004B77B6 /* Protocol */,
@@ -1269,6 +1274,7 @@
 				08FF6C1E2C721C0000B68569 /* NoticeDTO */,
 				BD0D190D2C7D8D1A0017D909 /* AdminDTO */,
 				0896A06D2C7CA3740062CC49 /* CommentType.swift */,
+				BD0434022CA2A84D00758CDF /* ActionType.swift */,
 			);
 			path = PopPoolNetwork;
 			sourceTree = "<group>";
@@ -1284,6 +1290,7 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				BD1717002CA2EEBF00D2D3E3 /* CommentRepository */,
 				BD0D19052C7D8A2E0017D909 /* AdminRepository */,
 				08FF6C7D2C79B8CC00B68569 /* NoticeRepository */,
 				4E4DC00F2C61FD34007CE63A /* MapRepository */,
@@ -1306,6 +1313,7 @@
 				BD60B27E2C75C51D0062DC96 /* HomeRepository.swift */,
 				08FF6C892C79C0C800B68569 /* NoticeRepository.swift */,
 				BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */,
+				BD0434042CA2AE1E00758CDF /* CommentRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -1612,7 +1620,6 @@
 			path = RecentSearchView;
 			sourceTree = "<group>";
 		};
-
 		4E67A1BC2C92FC3D003BDAFA /* BlockedUserListDTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -1720,6 +1727,7 @@
 				4E67A1FC2C92FCBA003BDAFA /* SignUpUseCaseImpl.swift */,
 				4E67A1FD2C92FCBA003BDAFA /* TryLoginUseCaseImpl.swift */,
 				4E67A1FE2C92FCBA003BDAFA /* UserUseCaseImpl.swift */,
+				BD1716FE2CA2C9A900D2D3E3 /* CommentUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1738,7 +1746,6 @@
 			isa = PBXGroup;
 			children = (
 				4E5B65B12C95A43A00026B09 /* RecentSearchView */,
-
 				4E67A2172C93031C003BDAFA /* SearchPopUpStore.swift */,
 				4E67A2182C93031C003BDAFA /* SearchPopUpStoreDTO.swift */,
 				4E67A2192C93031C003BDAFA /* SearchServiceProtocol.swift */,
@@ -1748,7 +1755,6 @@
 				4E67A21B2C93031C003BDAFA /* SearchVIewModel.swift */,
 				4EAAE5832C93B5C1001E03C8 /* SearchUseCase.swift */,
 				4EAAE5852C93B5D7001E03C8 /* SearchRepository.swift */,
-
 			);
 			name = Search;
 			path = Home/Search;
@@ -1782,7 +1788,7 @@
 				4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */,
 				4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */,
 				4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */,
-                BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */,
+				BD3C9E942C81B06F005BFD7B /* ListRowCPNT.swift */,
 			);
 			name = Components;
 			path = PopPool/Presentation/Components;
@@ -1801,6 +1807,16 @@
 				4E9A33AB2C64CE41000F4095 /* FilterCell.swift */,
 			);
 			path = PopUpListView;
+			sourceTree = "<group>";
+		};
+		BD0433FB2CA2A64500758CDF /* CommentDTO */ = {
+			isa = PBXGroup;
+			children = (
+				BD0433FC2CA2A68800758CDF /* PostCommentRequestDTO.swift */,
+				BD0433FE2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift */,
+				BD0434002CA2A79400758CDF /* ImageActionDTO.swift */,
+			);
+			path = CommentDTO;
 			sourceTree = "<group>";
 		};
 		BD0B8F512C26D59600FFBC24 /* Manager */ = {
@@ -1844,6 +1860,14 @@
 				083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */,
 			);
 			path = AdminDTO;
+			sourceTree = "<group>";
+		};
+		BD1717002CA2EEBF00D2D3E3 /* CommentRepository */ = {
+			isa = PBXGroup;
+			children = (
+				BD1717012CA2EECB00D2D3E3 /* CommentRepositoryImpl.swift */,
+			);
+			path = CommentRepository;
 			sourceTree = "<group>";
 		};
 		BD2EF6692C635A6700A93A8C /* Home */ = {
@@ -1968,7 +1992,7 @@
 			path = DetailComment;
 			sourceTree = "<group>";
 		};
-        BDF089F02C6504B80098486D /* TermBoard */ = {
+		BDF089F02C6504B80098486D /* TermBoard */ = {
 			isa = PBXGroup;
 			children = (
 				BDF089FB2C6504FF0098486D /* TermsBoardVC.swift */,
@@ -2220,6 +2244,7 @@
 				08A28CBE2C2AEAF600DF7A90 /* CheckBoxCPNT.swift in Sources */,
 				BDB4F0EE2C77354D004EA8FD /* Secrets.swift in Sources */,
 				BD8DE8252C6865A000C5DE8B /* EntirePopupVM.swift in Sources */,
+				BD1716FF2CA2C9A900D2D3E3 /* CommentUseCaseImpl.swift in Sources */,
 				08B183B62C3D9498006C34BB /* MenuListCell.swift in Sources */,
 				4E67A1F42C92FC3D003BDAFA /* GetProfileResponseDTO.swift in Sources */,
 				08E23AB32C4F8817004B77B6 /* Survey.swift in Sources */,
@@ -2239,6 +2264,7 @@
 				083464BA2C8F13F9007D6F11 /* GetAdminPopUpListRequestDTO.swift in Sources */,
 				4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */,
 				4E67A1F32C92FC3D003BDAFA /* GetMyPageResponseDTO.swift in Sources */,
+				BD0434032CA2A84D00758CDF /* ActionType.swift in Sources */,
 				BDF089FF2C6505000098486D /* TermsBoardVC.swift in Sources */,
 				4E67A1E12C92FC3D003BDAFA /* UserBookMarkRequestDTO.swift in Sources */,
 				BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */,
@@ -2277,6 +2303,7 @@
 				BD198D0C2C8D629900835325 /* CommentImageCell.swift in Sources */,
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
 				4E67A2402C930364003BDAFA /* CustomTabBarCPNT.swift in Sources */,
+				BD1717022CA2EECB00D2D3E3 /* CommentRepositoryImpl.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
 				0896A0602C7AF1530062CC49 /* RecentPopUpVM.swift in Sources */,
 				4E67A2512C930364003BDAFA /* TextUnderBarButtonCPNT.swift in Sources */,
@@ -2326,7 +2353,6 @@
 				BDF089FD2C6505000098486D /* TermsBoardVM.swift in Sources */,
 				4E67A2042C92FCBB003BDAFA /* NoticeUseCaseImpl.swift in Sources */,
 				4EAAE5862C93B5D7001E03C8 /* SearchRepository.swift in Sources */,
-
 				08E23AA52C4F7B7B004B77B6 /* UserRepositoryImpl.swift in Sources */,
 				4E67A20D2C92FFAF003BDAFA /* InquiryVC.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
@@ -2349,6 +2375,8 @@
 				08E23A532C4A2351004B77B6 /* InterestSelectedView.swift in Sources */,
 				BD0D19152C7D90390017D909 /* GetAdminPopUpStoreDetailResponseDTO.swift in Sources */,
 				4E67A23D2C930364003BDAFA /* ButtonCPNT.swift in Sources */,
+				BD0433FF2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift in Sources */,
+				BD0433FD2CA2A68800758CDF /* PostCommentRequestDTO.swift in Sources */,
 				4E67A23F2C930364003BDAFA /* ContentTitleCPNT.swift in Sources */,
 				4E67A2202C93031C003BDAFA /* SearchViewController.swift in Sources */,
 				4E67A1EC2C92FC3D003BDAFA /* CheckedSurveyListRequestDTO.swift in Sources */,
@@ -2386,12 +2414,13 @@
 				08933CEE2C5E555F006F6632 /* UserUseCase.swift in Sources */,
 				BD60B27F2C75C51D0062DC96 /* HomeRepository.swift in Sources */,
 				BDA698D02C64869D0056450A /* HomeAlertVM.swift in Sources */,
+				BD0434052CA2AE1E00758CDF /* CommentRepository.swift in Sources */,
 				BD0D19072C7D8A3D0017D909 /* AdminRepositoryImpl.swift in Sources */,
 				4E67A1DE2C92FC3D003BDAFA /* GetBlockedUserListResponseDTO.swift in Sources */,
+				BD1716FD2CA2C8FF00D2D3E3 /* CommentUseCase.swift in Sources */,
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08FF6C7F2C79B8E100B68569 /* NoticeRepositoryImpl.swift in Sources */,
 				4EFD0DA22C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift in Sources */,
-
 				4E67A2162C9302E2003BDAFA /* LoggedHomeVC.swift in Sources */,
 				4E67A2032C92FCBB003BDAFA /* KeyChainServiceUseCaseImpl.swift in Sources */,
 				BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */,
@@ -2407,7 +2436,6 @@
 				BD57D4E82C30C63A0036E874 /* LoginBottomSheetVC.swift in Sources */,
 				4E67A2412C930364003BDAFA /* DynamicTextViewCPNT.swift in Sources */,
 				08E23A4C2C478388004B77B6 /* KeyChainServiceUseCase.swift in Sources */,
-				BD0D19192C7D92580017D909 /* AdminUseCaseImpl.swift in Sources */,
 				083464E72C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift in Sources */,
 				08C813F72C2F15DC009239FE /* GetCategoryListResponseDTO.swift in Sources */,
 				08E23AA92C4F7DC9004B77B6 /* GetMyPageResponse.swift in Sources */,
@@ -2495,6 +2523,7 @@
 				08AF8D8C2C660B89006B8A11 /* MyCommentedPopUpInfo.swift in Sources */,
 				4E67A1ED2C92FC3D003BDAFA /* SurveyDTO.swift in Sources */,
 				08A28CC22C2AF2DD00DF7A90 /* SignUpStep1View.swift in Sources */,
+				BD0434012CA2A79400758CDF /* ImageActionDTO.swift in Sources */,
 				08E23AC12C4F8FCB004B77B6 /* MyInterestCategoryInfo.swift in Sources */,
 				BDA0B1342C2DD102007BDCA4 /* Factory.swift in Sources */,
 				4E67A2022C92FCBB003BDAFA /* HomeUseCaseImpl.swift in Sources */,
