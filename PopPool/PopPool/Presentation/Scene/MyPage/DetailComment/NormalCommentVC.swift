@@ -160,7 +160,32 @@ final class NormalCommentVC: BaseViewController {
         output.notifySave
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                let imageService = PreSignedService()
+                var pathList: [String] = []
+                var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
+                
+                owner.viewModel.selectedImages
+                    .subscribe { images in
+                        for (index, image) in images.enumerated() {
+                            let image = UIImage(data: image)!
+                            let path = "comment/\(index)\(image)"
+                            pathList.append(path)
+                            imageUploadDatas.append(.init(
+                                filePath: path,
+                                image: image
+                            ))
+                        }
+                    }
+                imageService.tryUpload(datas: imageUploadDatas)
+                    .subscribe(onSuccess: { _ in
+                        print("코멘트 업로드 완료")
+                        ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                    }, onFailure: { error in
+                        print("코멘트 업로드 중 오류")
+                        ToastMSGManager.createToast(message: "코멘트 업로드 도중 문제가 발생했어요")
+                    })
+                    .disposed(by: owner.disposeBag)
+                
                 owner.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)

@@ -32,6 +32,10 @@ class NormalCommentVM: ViewModelable {
         return selectedImageRelay.map { $0.count }
     }
     
+    var selectedImages: Observable<[Data]> {
+        return selectedImageRelay.compactMap { $0 }
+    }
+    
     var disposeBag = DisposeBag()
     private let maxImageCount = 5
     private var selectedImageRelay = BehaviorRelay<[Data]>(value: [])
