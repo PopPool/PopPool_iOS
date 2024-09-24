@@ -115,6 +115,7 @@ final class NormalCommentVC: BaseViewController {
         
         imageHeader.rightButton.isHidden = true
         commentHeader.rightButton.isHidden = true
+        saveButton.isEnabled = false
         
         imageCollectionView.collectionViewLayout = self.layout
         imageCollectionView.register(CommentImageCell.self,
@@ -124,6 +125,7 @@ final class NormalCommentVC: BaseViewController {
     
     private func bind() {
         let input = NormalCommentVM.Input(
+            isTextViewFilled: commentTextfield.textView.rx.text,
             returnButtonTapped: header.leftBarButton.rx.tap,
             saveButtonTapped: saveButton.rx.tap
         )
@@ -134,6 +136,12 @@ final class NormalCommentVC: BaseViewController {
             .subscribe(onNext: { owner, data in
                 owner.imageHeader.subTitleLabel.text = "\(data)과 관련있는 사진을 업로드해보세요."
                 owner.commentHeader.subTitleLabel.text = "\(data)에 대한 감상평을 작성해주세요."
+            })
+            .disposed(by: disposeBag)
+        
+        output.hasText
+            .subscribe(onNext: { hasText in
+                self.saveButton.isEnabled = hasText
             })
             .disposed(by: disposeBag)
         
@@ -152,12 +160,6 @@ final class NormalCommentVC: BaseViewController {
         output.notifySave
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                // API 연결 - 데이터 저장
-                // 안내문 발송
-                // 화면 drop
-                if owner.commentTextfield.textView.hasText {
-                    
-                }
                 ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
                 owner.navigationController?.popViewController(animated: true)
             })

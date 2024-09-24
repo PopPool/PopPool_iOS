@@ -13,6 +13,7 @@ import PhotosUI
 class NormalCommentVM: ViewModelable {
     
     struct Input {
+        var isTextViewFilled: ControlProperty<String?>
         var returnButtonTapped: ControlEvent<Void>
         var saveButtonTapped: ControlEvent<Void>
     }
@@ -21,6 +22,7 @@ class NormalCommentVM: ViewModelable {
         var returnToHome: Observable<Void>
         var notifySave: Observable<Void>
         var currentImageCount: Observable<Int>
+        var hasText: Observable<Bool>
     }
     
     var popUpStore: BehaviorSubject<String>
@@ -60,10 +62,14 @@ class NormalCommentVM: ViewModelable {
     }
     
     func transform(input: Input) -> Output {
+        
+        let isTextViewFilled = input.isTextViewFilled.map { $0?.isEmpty == false }
+        
         return Output(
             returnToHome: input.returnButtonTapped.asObservable(),
             notifySave: input.saveButtonTapped.asObservable(),
-            currentImageCount: selectedImageCount
+            currentImageCount: selectedImageCount,
+            hasText: isTextViewFilled
         )
     }
 }
