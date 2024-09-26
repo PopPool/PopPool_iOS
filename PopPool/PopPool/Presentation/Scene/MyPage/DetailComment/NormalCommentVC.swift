@@ -164,6 +164,9 @@ final class NormalCommentVC: BaseViewController {
                 var pathList: [String] = []
                 var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
                 
+                let newComment = self.viewModel.commentRequest.value
+//                let newComment = owner.viewModel.newComment.value
+                // 선택된 이미지 데이터 배열에 담기
                 owner.viewModel.selectedImages
                     .subscribe { images in
                         for (index, image) in images.enumerated() {
@@ -176,10 +179,27 @@ final class NormalCommentVC: BaseViewController {
                             ))
                         }
                     }
+                
+                // AWS preSignedURL에 이미지를 업로드
                 imageService.tryUpload(datas: imageUploadDatas)
                     .subscribe(onSuccess: { _ in
-                        print("코멘트 업로드 완료")
-                        ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                        
+                        // 이미지 업로드하며 코멘트 업로드 진행
+                        let repository = CommentRepositoryImpl()
+                        let popUpStore = CreateCommentRequestDTO(
+                            userId: newComment.userId,
+                            popUpStoreId: newComment.popUpStoreId,
+                            content: newComment.content,
+                            commentType: newComment.commentType,
+                            imageUrlList: newComment.imageUrlList)
+                        
+                        repository.postComment(request: popUpStore)
+                            .subscribe {
+                                print("코멘트 업로드 완료")
+                                ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                            }
+                            .disposed(by: owner.disposeBag)
+                        
                     }, onFailure: { error in
                         print("코멘트 업로드 중 오류")
                         ToastMSGManager.createToast(message: "코멘트 업로드 도중 문제가 발생했어요")

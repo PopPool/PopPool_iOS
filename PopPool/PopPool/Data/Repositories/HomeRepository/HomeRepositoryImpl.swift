@@ -12,7 +12,6 @@ final class HomeRepositoryImpl: HomeRepository {
     
     private let provider = AppDIContainer.shared.resolve(type: Provider.self)
     private let tokenInterceptor = TokenInterceptor()
-    private let requestTokenInterceptor = RequestTokenInterceptor()
     
     func fetchHome(
         userId: String,

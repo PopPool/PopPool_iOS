@@ -27,6 +27,12 @@ class NormalCommentVM: ViewModelable {
     
     var popUpStore: BehaviorSubject<String>
     var isContentValid: PublishSubject<Bool> = .init()
+    var commentRequest: BehaviorRelay<CreateCommentRequestDTO> = .init(value: CreateCommentRequestDTO(
+        userId: "",
+        popUpStoreId: 0,
+        content: "",
+        commentType: .normal,
+        imageUrlList: []))
     
     var selectedImageCount: Observable<Int> {
         return selectedImageRelay.map { $0.count }
