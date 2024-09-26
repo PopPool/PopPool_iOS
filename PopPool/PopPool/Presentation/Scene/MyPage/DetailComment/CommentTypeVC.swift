@@ -29,9 +29,18 @@ final class CommentTypeVC: ModalViewController {
         return stack
     }()
     
+    let popUpStore: String
     let topSpacer = UIView()
-    
     private let disposeBag = DisposeBag()
+    
+    init(popUpStore: String) {
+        self.popUpStore = popUpStore
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +63,8 @@ final class CommentTypeVC: ModalViewController {
             .subscribe(onNext: { (owner, _) in
                 print("일반이 눌렸습니다.")
                 owner.dismissBottomSheet()
-                let vc = NormalCommentVC(viewModel: NormalCommentVM())
+                let vm = NormalCommentVM(popUpStore: owner.popUpStore)
+                let vc = NormalCommentVC(viewModel: vm)
                 owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)

@@ -628,4 +628,41 @@ struct PopPoolAPIEndPoint {
             bodyParameters: request
         )
     }
+    
+    // MARK: - Comment API
+    static func comment_postComment(request: CreateCommentRequestDTO) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/comments",
+            method: .post,
+            bodyParameters: request
+        )
+    }
+    
+    static func comment_deleteComment(userId: String, popUpStoreId: Int64, commentId: Int64) -> RequestEndpoint {
+        struct DeleteRequest: Encodable {
+            var userId: String
+            var popUpStoreId: Int64
+            var commentId: Int64
+        }
+        let request = DeleteRequest(
+            userId: userId,
+            popUpStoreId: popUpStoreId,
+            commentId: commentId
+        )
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/comments",
+            method: .delete,
+            queryParameters: request)
+    }
+    
+    static func comment_updateComments(request: UpdateCommentRequestDTO) -> RequestEndpoint {
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/comments",
+            method: .put,
+            bodyParameters: request
+        )
+    }
 }

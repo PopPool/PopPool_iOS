@@ -94,13 +94,13 @@ private extension ListTitleViewCPNT {
             }
             subTitleLabel.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(4)
-                make.leading.trailing.bottom.equalToSuperview()
+                make.leading.trailing.equalToSuperview()
                 make.height.equalTo(20)
             }
             
             bottomSpace.snp.makeConstraints { make in
                 make.top.equalTo(subTitleLabel.snp.bottom)
-                make.leading.trailing.equalToSuperview()
+                make.leading.trailing.bottom.equalToSuperview()
                 make.height.equalTo(Constants.spaceGuide.small100)
             }
 
