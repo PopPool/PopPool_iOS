@@ -34,9 +34,9 @@ class ProviderImpl: Provider {
     let disposeBag = DisposeBag()
     
     func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E, interceptor: RequestInterceptor) -> Observable<R> where R == E.Response {
-        
+
         return Observable.create { observer in
-            
+
             do {
                 let urlRequest = try endpoint.getUrlRequest()
                 AF.request(urlRequest, interceptor: interceptor)
@@ -45,10 +45,30 @@ class ProviderImpl: Provider {
                         switch response.result {
                         case .success(let data):
                             do {
-                                let decodeData = try JSONDecoder().decode(R.self, from: data)
-                                observer.onNext(decodeData)
-                            } catch {
+                                let decodedData = try JSONDecoder().decode(R.self, from: data)
+                                observer.onNext(decodedData)
+                            } catch let error as DecodingError {
+                                // DecodingError에 대한 구체적인 에러 처리
+                                switch error {
+                                case .typeMismatch(let type, let context):
+                                    print("Type mismatch error: Expected \(type) - \(context.debugDescription), codingPath: \(context.codingPath)")
+
+                                case .valueNotFound(let type, let context):
+                                    print("Value not found error: Missing \(type) - \(context.debugDescription), codingPath: \(context.codingPath)")
+
+                                case .keyNotFound(let key, let context):
+                                    print("Key not found error: \(key) was not found - \(context.debugDescription), codingPath: \(context.codingPath)")
+
+                                case .dataCorrupted(let context):
+                                    print("Data corrupted error: \(context.debugDescription), codingPath: \(context.codingPath)")
+
+                                @unknown default:
+                                    print("Unknown decoding error")
+                                }
                                 observer.onError(NetworkError.decodeError)
+                            } catch {
+                                print("Other error: \(error)")
+                                observer.onError(NetworkError.unknownError)
                             }
                         case .failure(let error):
                             observer.onError(error)
@@ -60,6 +80,7 @@ class ProviderImpl: Provider {
             return Disposables.create()
         }
     }
+
     
     func requestData<R: Decodable, E: RequesteResponsable>(with endpoint: E) -> Observable<R> where R == E.Response {
         

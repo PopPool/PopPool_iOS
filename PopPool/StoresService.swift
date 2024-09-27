@@ -19,9 +19,9 @@ struct SearchStoresQuery: Encodable {
 
 // 스토어 서비스 프로토콜
 protocol StoresServiceProtocol {
-    func getAllStores() -> Observable<[PopUpStore]>
-    func searchStores(query: String) -> Observable<[PopUpStore]>
-    func getPopUpStoresInBounds(northEastLat: Double, northEastLon: Double, southWestLat: Double, southWestLon: Double, categories: [String]?) -> Observable<[PopUpStore]>
+    func getAllStores() -> Observable<[MapPopUpStore]>
+    func search_popUpStores(query: String) -> Observable<[MapPopUpStore]>
+    func getPopUpStoresInBounds(northEastLat: Double, northEastLon: Double, southWestLat: Double, southWestLon: Double, categories: [String]?) -> Observable<[MapPopUpStore]>
     func getCustomPopUpStoreImages(userId: String, page: Int, size: Int) -> Observable<[PopUpStoreImage]>
 }
 
@@ -39,7 +39,7 @@ class StoresService: StoresServiceProtocol {
     }
 
     // 모든 스토어를 가져오는 메서드
-    func getAllStores() -> Observable<[PopUpStore]> {
+    func getAllStores() -> Observable<[MapPopUpStore]> {
         let endpoint = PopPoolAPIEndPoint.getAllStores()
 
         return provider.requestData(with: endpoint)
@@ -58,8 +58,8 @@ class StoresService: StoresServiceProtocol {
     }
 
     // 스토어를 검색하는 메서드
-    func searchStores(query: String) -> Observable<[PopUpStore]> {
-        let endpoint = PopPoolAPIEndPoint.searchStores(query: query)
+    func search_popUpStores(query: String) -> Observable<[MapPopUpStore]> {
+        let endpoint = PopPoolAPIEndPoint.search_popUpStores(query: query)
 
         return provider.requestData(with: endpoint)
             .do(onNext: { response in
@@ -77,7 +77,7 @@ class StoresService: StoresServiceProtocol {
     }
 
     // 특정 범위 내의 팝업 스토어를 가져오는 메서드
-    func getPopUpStoresInBounds(northEastLat: Double, northEastLon: Double, southWestLat: Double, southWestLon: Double, categories: [String]?) -> Observable<[PopUpStore]> {
+    func getPopUpStoresInBounds(northEastLat: Double, northEastLon: Double, southWestLat: Double, southWestLon: Double, categories: [String]?) -> Observable<[MapPopUpStore]> {
         print("쿼리 파라미터: Bounds - NE Lat: \(northEastLat), NE Lon: \(northEastLon), SW Lat: \(southWestLat), SW Lon: \(southWestLon)")
         print("카테고리: \(categories?.joined(separator: ",") ?? "모든 카테고리")")
 
@@ -85,7 +85,7 @@ class StoresService: StoresServiceProtocol {
 
         return keyChainService.fetchToken(type: .accessToken)
             .asObservable()
-            .flatMap { accessToken -> Observable<[PopUpStore]> in
+            .flatMap { accessToken -> Observable<[MapPopUpStore]> in
                 var endpoint = PopPoolAPIEndPoint.getPopUpStoresInBounds(
                     northEastLat: northEastLat,
                     northEastLon: northEastLon,

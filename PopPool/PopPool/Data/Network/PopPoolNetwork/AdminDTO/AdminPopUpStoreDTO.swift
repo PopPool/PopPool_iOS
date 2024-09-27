@@ -15,6 +15,7 @@ struct AdminPopUpStoreDTO: Codable {
     let address: String?
     let startDate: String?
     let endDate: String?
+    let bannerYn: Bool
     let mainImageUrl: String?
     let imageUrl: [String]?
 }

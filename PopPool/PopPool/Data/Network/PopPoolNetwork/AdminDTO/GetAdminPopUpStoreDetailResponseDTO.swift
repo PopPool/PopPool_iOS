@@ -17,6 +17,7 @@ struct GetAdminPopUpStoreDetailResponseDTO: Decodable {
     let endDate: String
     let createUserId: String
     let createDateTime: String
+    let bannerYn: Bool
     let mainImageUrl: String?
     let imageList: [ImageDTO]
     let latitude: Double

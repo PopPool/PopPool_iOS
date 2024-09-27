@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol FetchPopUpStoresUseCase {
-    func execute() -> Observable<[PopUpStore]>
+    func execute() -> Observable<[MapPopUpStore]>
 }
 
 final class FetchPopUpStoresUseCaseImpl: FetchPopUpStoresUseCase {
@@ -19,10 +19,10 @@ final class FetchPopUpStoresUseCaseImpl: FetchPopUpStoresUseCase {
         self.repository = repository
     }
 
-    func execute() -> Observable<[PopUpStore]> {
+    func execute() -> Observable<[MapPopUpStore]> {
         return repository.fetchPopUpStores()
     }
-    private func handleResponse(response: GetViewBoundPopUpStoreListResponse) -> [PopUpStore] {
+    private func handleResponse(response: GetViewBoundPopUpStoreListResponse) -> [MapPopUpStore] {
         return response.popUpStoreList.map { $0.toDomain() }
     }
 

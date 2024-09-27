@@ -2,6 +2,7 @@ import RxSwift
 
 protocol SearchUseCaseProtocol {
     func searchStores(query: String) -> Observable<[SearchPopUpStore]>
+    
 }
 
 class SearchUseCase: SearchUseCaseProtocol {

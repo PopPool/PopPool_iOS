@@ -2,6 +2,8 @@ import RxSwift
 
 protocol SearchRepositoryProtocol {
     func searchStores(query: String) -> Observable<[SearchPopUpStore]>
+    
+
 }
 
 class SearchRepository: SearchRepositoryProtocol {
@@ -15,7 +17,8 @@ class SearchRepository: SearchRepositoryProtocol {
         return searchService.searchStores(query: query)
             .map { dtoList in
                 dtoList.map { dto in
-                    SearchPopUpStore(id: dto.id, name: dto.name, address: dto.address)
+
+                    return SearchPopUpStore(id: dto.id, name: dto.name, address: dto.address)
                 }
             }
     }

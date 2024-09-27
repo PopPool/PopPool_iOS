@@ -138,6 +138,9 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         .withUnretained(self)
         .subscribe(onNext: { (owner, stores) in
             let (customStores, popularStores, newStores) = stores
+            //중복 제거
+            let uniquePopularPopUpStoreList = Array(Set(popularStores))
+
 
             var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
             snapShot.appendSections([.topBanner])
@@ -156,7 +159,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             }
 
             snapShot.appendSections([.popular])
-            snapShot.appendItems(popularStores, toSection: .popular)
+            //중복 제거된 인기있는 스토어 삽입
+            snapShot.appendItems(uniquePopularPopUpStoreList, toSection: .popular)
 
             snapShot.appendSections([.new])
             snapShot.appendItems(newStores, toSection: .new)
@@ -175,7 +179,20 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         let searchUseCase = SearchUseCase(repository: searchRepository)
         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
 
-        let searchVC = SearchViewController(viewModel: searchViewModel)
+        let entirePopupVM = EntirePopupVM()
+
+        let popularPopUps = viewModel.popularPopUpStore.value
+        let response = GetHomeInfoResponse(
+            popularPopUpStoreList: popularPopUps,  // 인기 팝업 데이터를 전달
+            popularPopUpStoreTotalPages: viewModel.myHomeAPIResponse.value.popularPopUpStoreTotalPages,
+            popularPopUpStoreTotalElements: viewModel.myHomeAPIResponse.value.popularPopUpStoreTotalElements,
+            loginYn: viewModel.myHomeAPIResponse.value.loginYn
+        )
+        entirePopupVM.updateDate(response: response)
+
+
+        entirePopupVM.updateDate(response: viewModel.myHomeAPIResponse.value)
+        let searchVC = SearchViewController(viewModel: searchViewModel, entirePopupViewModel: entirePopupVM, homeViewModel: viewModel)
 
         navigationController?.pushViewController(searchVC, animated: true)
         navigationController?.setNavigationBarHidden(true, animated: true)

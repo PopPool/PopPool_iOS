@@ -3,8 +3,8 @@ import UIKit
 import Kingfisher
 
 class PopupCardView: UIView {
-    var store: PopUpStore?
-    
+    var store: MapPopUpStore?
+
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let categoryLabel = UILabel()
@@ -74,7 +74,7 @@ class PopupCardView: UIView {
         dateLabel.textColor = .gray
     }
     
-    func configure(with store: PopUpStore) {
+    func configure(with store: MapPopUpStore) {
         // 팝업스토어명 (22자 제한)
         let truncatedName = store.name.count > 22 ? String(store.name.prefix(22)) + "..." : store.name
         titleLabel.text = truncatedName

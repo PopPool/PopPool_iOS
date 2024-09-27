@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -24,6 +23,7 @@ final class AdminEditVC: BaseViewController {
     private let mainImageIndex: BehaviorRelay<Int> = .init(value: -1)
     private let selectCategory: BehaviorRelay<String> = .init(value: "카테고리")
     private let address: BehaviorRelay<String?> = .init(value: nil)
+    private let bannerYn: BehaviorRelay<Bool> = .init(value: false)
     private let latitude: BehaviorRelay<Double?> = .init(value: nil)
     private let longitude: BehaviorRelay<Double?> = .init(value: nil)
     private let startDate: BehaviorRelay<String?> = .init(value: nil)
@@ -519,6 +519,7 @@ private extension AdminEditVC {
                                 address: adress,
                                 startDate: startDate,
                                 endDate: endDate,
+                                bannerYn: owner.bannerYn.value,
                                 mainImageUrl: pathList[owner.mainImageIndex.value],
                                 imageUrl: pathList
                             )
@@ -652,12 +653,15 @@ private extension AdminEditVC {
            let longitude = longitude.value,
            let startDate = startDate.value,
            let endDate = endDate.value,
+//           let bannerYn = bannerYn.value,
            let description = descriptionText.value,
            let adress = address.value,
            let marker = markerName.value,
            let snippet = snippet.value
         {
-            
+            let bannerYn = bannerYn.value
+
+
             if images.value.count != 0 &&
                 mainImageIndex.value != -1 &&
                 selectCategory.value != "카테고리" &&
