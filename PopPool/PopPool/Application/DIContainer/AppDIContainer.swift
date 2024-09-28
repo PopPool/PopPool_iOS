@@ -233,6 +233,15 @@ extension AppDelegate {
                 repository: container.resolve(type: SearchRepositoryProtocol.self)
             )
         )
+        
+        container.register(
+            type: CommentRepository.self,
+            component: CommentRepositoryImpl()
+        )
 
+        container.register(
+            type: CommentUseCase.self,
+            component: CommentUseCaseImpl(repository: container.resolve(type: CommentRepository.self))
+        )
     }
 }
