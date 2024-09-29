@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 
-struct PopUpStoreDTO: Codable {
+struct MapPopUpStoreDTO: Codable {
     let id: Int64
     let category: String
     let name: String
@@ -16,8 +16,8 @@ struct PopUpStoreDTO: Codable {
     let markerSnippet: String
     
 
-    func toDomain() -> PopUpStore {
-        return PopUpStore(
+    func toDomain() -> MapPopUpStore {
+        return MapPopUpStore(
             id: id,
             category: category,
             name: name,
@@ -33,5 +33,5 @@ struct PopUpStoreDTO: Codable {
     }
 }
 struct GetViewBoundPopUpStoreListResponse: Decodable {
-    var popUpStoreList: [PopUpStoreDTO]
+    var popUpStoreList: [MapPopUpStoreDTO]
 }

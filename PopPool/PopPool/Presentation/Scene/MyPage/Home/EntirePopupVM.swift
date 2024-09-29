@@ -44,6 +44,24 @@ final class EntirePopupVM: ViewModelable {
     }
 
     func updateDate(response: GetHomeInfoResponse) {
-        fetchedResponse.accept(response)
+        print("DEBUG: updateDate 호출됨, response: \(response)")
+
+        var allPopUps = [HomePopUp]()
+        if let customPopUps = response.customPopUpStoreList { allPopUps.append(contentsOf: customPopUps) }
+        if let popularPopUps = response.popularPopUpStoreList { allPopUps.append(contentsOf: popularPopUps) }
+        if let newPopUps = response.newPopUpStoreList { allPopUps.append(contentsOf: newPopUps) }
+
+        let uniquePopUps = Array(Set(allPopUps))
+
+        print("DEBUG: 중복 제거 후 팝업 수: \(uniquePopUps.count)")
+
+        if !uniquePopUps.isEmpty {
+            allPopUpStores.accept(uniquePopUps)
+            fetchedResponse.accept(response)
+        } else {
+            print("DEBUG: 모든 팝업 리스트가 비어있습니다.")
+        }
     }
+
+
 }

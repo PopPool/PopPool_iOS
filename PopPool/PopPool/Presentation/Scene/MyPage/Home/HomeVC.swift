@@ -36,16 +36,23 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
     //MARK: - Properties
     private let viewModel: HomeVM
+    private let tokenInterceptor: TokenInterceptor
+    private let provider: Provider
     private var dataSource: UICollectionViewDiffableDataSource<Section, HomePopUp>!
     private var isLoggedIn: Bool = true
     private var disposeBag = DisposeBag()
     private var userName: String?
 
-    init(viewModel: HomeVM) {
+    init(viewModel: HomeVM, provider: Provider, tokenInterceptor: TokenInterceptor) {
         self.viewModel = viewModel
+        self.provider = provider
+        self.tokenInterceptor = tokenInterceptor
         self.searchComponent = SearchViewCPNT(viewModel: SearchViewModel(searchUseCase: AppDIContainer.shared.resolve(type: SearchUseCaseProtocol.self), recentSearchesViewModel: RecentSearchesViewModel()))
         super.init()
     }
+
+
+    let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -55,7 +62,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: animated)
-
+        let provider = AppDIContainer.shared.resolve(type: Provider.self)
+        let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
         let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
 
         useCase.fetchHome(userId: Constants.userId, page: 0, size: 6, sort: nil)
@@ -138,6 +146,9 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         .withUnretained(self)
         .subscribe(onNext: { (owner, stores) in
             let (customStores, popularStores, newStores) = stores
+            //중복 제거
+            let uniquePopularPopUpStoreList = Array(Set(popularStores))
+
 
             var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
             snapShot.appendSections([.topBanner])
@@ -156,7 +167,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             }
 
             snapShot.appendSections([.popular])
-            snapShot.appendItems(popularStores, toSection: .popular)
+            //중복 제거된 인기있는 스토어 삽입
+            snapShot.appendItems(uniquePopularPopUpStoreList, toSection: .popular)
 
             snapShot.appendSections([.new])
             snapShot.appendItems(newStores, toSection: .new)
@@ -175,7 +187,26 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         let searchUseCase = SearchUseCase(repository: searchRepository)
         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
 
-        let searchVC = SearchViewController(viewModel: searchViewModel)
+        let entirePopupVM = EntirePopupVM()
+
+        let popularPopUps = viewModel.popularPopUpStore.value
+        let response = GetHomeInfoResponse(
+            popularPopUpStoreList: popularPopUps, 
+            popularPopUpStoreTotalPages: viewModel.myHomeAPIResponse.value.popularPopUpStoreTotalPages,
+            popularPopUpStoreTotalElements: viewModel.myHomeAPIResponse.value.popularPopUpStoreTotalElements,
+            loginYn: viewModel.myHomeAPIResponse.value.loginYn
+        )
+        entirePopupVM.updateDate(response: response)
+
+
+        entirePopupVM.updateDate(response: viewModel.myHomeAPIResponse.value)
+        let searchVC = SearchViewController(
+            viewModel: searchViewModel,
+            entirePopupViewModel: entirePopupVM,
+            homeViewModel: viewModel,
+            provider: provider,
+            tokenInterceptor: tokenInterceptor
+        )
 
         navigationController?.pushViewController(searchVC, animated: true)
         navigationController?.setNavigationBarHidden(true, animated: true)

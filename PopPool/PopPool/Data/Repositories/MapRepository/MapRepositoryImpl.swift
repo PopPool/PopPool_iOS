@@ -15,7 +15,7 @@ final class MapRepositoryImpl: MapRepository {
         self.provider = provider
     }
 
-    func fetchPopUpStores() -> Observable<[PopUpStore]> {
+    func fetchPopUpStores() -> Observable<[MapPopUpStore]> {
         let endpoint = PopPoolAPIEndPoint.map_fetchPopUpStores()
         return provider.requestData(with: endpoint)
             .map { $0.map { $0.toDomain() } }

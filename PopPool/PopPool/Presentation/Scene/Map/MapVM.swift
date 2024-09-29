@@ -16,8 +16,8 @@ class MapVM {
     }
 
     struct Output {
-        let searchResults: Observable<[PopUpStore]>
-        let filteredStores: Observable<[PopUpStore]>
+        let searchResults: Observable<[MapPopUpStore]>
+        let filteredStores: Observable<[MapPopUpStore]>
         let currentLocation: Observable<CLLocation?>
         let errorMessage: Observable<String>
         let searchLocation: Observable<CLLocationCoordinate2D?>
@@ -36,11 +36,11 @@ class MapVM {
             self.mapRegionChangedSubject,
             self.categoryFilterChangedSubject.startWith([])
         )
-        .flatMapLatest { [weak self] (query, bounds, categories) -> Observable<[PopUpStore]> in
+        .flatMapLatest { [weak self] (query, bounds, categories) -> Observable<[MapPopUpStore]> in
             guard let self = self else { return .just([]) }
 
             if !query.isEmpty {
-                return self.storeService.searchStores(query: query)
+                return self.storeService.search_popUpStores(query: query)
             } else {
                 return self.storeService.getPopUpStoresInBounds(
                     northEastLat: bounds.northEast.latitude,
@@ -73,7 +73,7 @@ class MapVM {
                     }
                     .share(replay: 1)
         let storeImages = searchAndFilteredStores
-            .flatMapLatest { [weak self] (stores: [PopUpStore]) -> Observable<[String: PopUpStoreImage]> in
+            .flatMapLatest { [weak self] (stores: [MapPopUpStore]) -> Observable<[String: PopUpStoreImage]> in
                 guard let self = self else { return .just([:]) }
                 let page = 1
                 let size = stores.count
@@ -135,7 +135,7 @@ class MapVM {
         setupBindings()
     }
 
-    func getCustomPopUpStoreImages(for stores: [PopUpStore]) -> Observable<[PopUpStoreImage]> {
+    func getCustomPopUpStoreImages(for stores: [MapPopUpStore]) -> Observable<[PopUpStoreImage]> {
 
 
         // userId와 page, size를 이용해 맞춤형 팝업 스토어 이미지를 가져옵니다.
@@ -289,13 +289,13 @@ class MapVM {
     }
 
     // 스토어가 지도 영역 내에 있는지 확인
-    private func isStoreInBounds(_ store: PopUpStore, bounds: GMSCoordinateBounds) -> Bool {
+    private func isStoreInBounds(_ store: MapPopUpStore, bounds: GMSCoordinateBounds) -> Bool {
         let storeLocation = CLLocationCoordinate2D(latitude: store.latitude, longitude: store.longitude)
         return bounds.contains(storeLocation)
     }
 
     // 필터 적용 여부 확인
-    private func doesStoreMatchFilters(_ store: PopUpStore, filters: [Filter]) -> Bool {
+    private func doesStoreMatchFilters(_ store: MapPopUpStore, filters: [Filter]) -> Bool {
         guard !filters.isEmpty else { return true }
         return filters.allSatisfy { filter in
             switch filter.type {
@@ -313,7 +313,7 @@ class MapVM {
     }
 
     // 필터링된 스토어를 가져올 때
-    func getFilteredStores(bounds: GMSCoordinateBounds, categories: [String]) -> Observable<[PopUpStore]> {
+    func getFilteredStores(bounds: GMSCoordinateBounds, categories: [String]) -> Observable<[MapPopUpStore]> {
         let englishCategories = convertCategoriesToEnglish(categories)
         return storeService.getPopUpStoresInBounds(
             northEastLat: bounds.northEast.latitude,

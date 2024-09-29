@@ -75,12 +75,15 @@ final class EntirePopupVC: BaseViewController {
         output.allPopUps
             .withUnretained(self)
             .subscribe(onNext: { (owner, data) in
-                print("데이터가 잘 왔나요!", data) // 잘 옵니다!
+                print("DEBUG: 받아온 데이터 수:", data.count)
+                print("DEBUG: 첫 번째 항목:", data.first ?? "데이터 없음")
                 owner.allPopUpStores.append(contentsOf: data)
                 owner.entirePopUpCollectionView.reloadData()
+                print("DEBUG: 컬렉션 뷰 리로드 완료")
             })
             .disposed(by: disposeBag)
     }
+
     
     private func setUp() {
         header.rightBarButton.isHidden = true
@@ -109,14 +112,19 @@ final class EntirePopupVC: BaseViewController {
 
 extension EntirePopupVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("전체 값", allPopUpStores.count)
+        print("DEBUG: 전체 데이터 수:", allPopUpStores.count)
         return allPopUpStores.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as? HomeDetailPopUpCell else { return UICollectionViewCell() }
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as? HomeDetailPopUpCell else {
+            print("DEBUG: 셀 생성 실패")
+            return UICollectionViewCell()
+        }
+
         let popUpStore = allPopUpStores[indexPath.item]
+        print("DEBUG: 셀 구성 - 인덱스:", indexPath.item, "이름:", popUpStore.name)
+
         cell.injectionWith(input: HomeDetailPopUpCell.Input(
             image: popUpStore.mainImageUrl,
             category: popUpStore.category,

@@ -281,7 +281,7 @@ class MapVC: BaseViewController {
 
         viewModel.output.storeImages
             .subscribe(onNext: { [weak self] images in
-                guard let self = self, let marker = self.mapView.selectedMarker, let store = marker.userData as? PopUpStore else { return }
+                guard let self = self, let marker = self.mapView.selectedMarker, let store = marker.userData as? MapPopUpStore else { return }
                 if let image = images[String(store.id)] {
                     self.popupCardView.configureImage(with: image)
                 }
@@ -340,7 +340,7 @@ class MapVC: BaseViewController {
             .disposed(by: disposeBag)
 
         // 콜렉션뷰 아이템 선택 처리
-        popupListView.rx.modelSelected(PopUpStore.self)
+        popupListView.rx.modelSelected(MapPopUpStore.self)
             .subscribe(onNext: { [weak self] store in
                 self?.showStoreDetail(store)
             })
@@ -348,7 +348,7 @@ class MapVC: BaseViewController {
     }
 
     // MARK: - Helper Methods
-    private func updateMapWithStores(_ stores: [PopUpStore]) {
+    private func updateMapWithStores(_ stores: [MapPopUpStore]) {
         mapView.clear()
         for store in stores {
             let marker = GMSMarker()
@@ -361,7 +361,7 @@ class MapVC: BaseViewController {
         }
     }
 
-    private func moveCameraToStore(_ store: PopUpStore) {
+    private func moveCameraToStore(_ store: MapPopUpStore) {
         let position = GMSCameraPosition.camera(withLatitude: store.latitude, longitude: store.longitude, zoom: 14.0)
         mapView.animate(to: position)
     }
@@ -376,7 +376,7 @@ class MapVC: BaseViewController {
         }
     }
 
-    private func updatePopupCardView(for store: PopUpStore) {
+    private func updatePopupCardView(for store: MapPopUpStore) {
         popupCardView.configure(with: store)
 
         viewModel.output.storeImages
@@ -580,7 +580,7 @@ class MapVC: BaseViewController {
         view.endEditing(true)
     }
 
-    private func showStoreDetail(_ store: PopUpStore) {
+    private func showStoreDetail(_ store: MapPopUpStore) {
         print("Selected store: \(store.name)")
     }
 
@@ -595,7 +595,7 @@ extension MapVC: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print("마커 탭: \(marker.title ?? "")")
 
-        guard let popupStore = marker.userData as? PopUpStore else {
+        guard let popupStore = marker.userData as? MapPopUpStore else {
             return false
         }
 

@@ -1,6 +1,6 @@
 import CoreLocation
 
-struct PopUpStore: Decodable {
+struct MapPopUpStore: Decodable {
     var id: Int64
     var category: String
     var name: String

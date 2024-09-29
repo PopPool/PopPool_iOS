@@ -22,6 +22,7 @@ final class AdminPostVC: BaseViewController {
     private let address: BehaviorRelay<String?> = .init(value: nil)
     private let latitude: BehaviorRelay<Double?> = .init(value: nil)
     private let longitude: BehaviorRelay<Double?> = .init(value: nil)
+    private let bannerYn: BehaviorRelay<Bool> = .init(value: false)
     private let markerName: BehaviorRelay<String?> = .init(value: nil)
     private let snippet: BehaviorRelay<String?> = .init(value: nil)
     private let startDate: BehaviorRelay<String?> = .init(value: nil)
@@ -469,6 +470,7 @@ final class AdminPostVC: BaseViewController {
                    let marker = owner.markerName.value,
                    let snippet = owner.snippet.value
                 {
+
                     let imageService = PreSignedService()
                     var pathList: [String] = []
                     var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
@@ -492,6 +494,7 @@ final class AdminPostVC: BaseViewController {
                                 startDate: startDate,
                                 endDate: endDate,
                                 mainImageUrl: pathList[owner.mainImageIndex.value],
+                                bannerYn: owner.bannerYn.value,
                                 imageUrlList: pathList,
                                 latitude: latitude,
                                 longitude: longitude,

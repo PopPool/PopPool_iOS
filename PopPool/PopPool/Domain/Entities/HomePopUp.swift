@@ -15,7 +15,16 @@ struct HomePopUp: Codable, Hashable {
     var mainImageUrl: URL?
     var startDate: String?
     var endDate: String?
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: HomePopUp, rhs: HomePopUp) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
+
 
 struct HomePopUpDTO: Decodable {
     var id: Int64

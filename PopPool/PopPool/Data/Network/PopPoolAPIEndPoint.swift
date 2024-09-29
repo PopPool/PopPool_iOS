@@ -289,7 +289,7 @@ struct PopPoolAPIEndPoint {
 
     /// 팝업 스토어 목록을 조회합니다.
     /// - Returns: Endpoint<[PopUpStoreDTO]>
-    static func map_fetchPopUpStores() -> Endpoint<[PopUpStoreDTO]> {
+    static func map_fetchPopUpStores() -> Endpoint<[MapPopUpStoreDTO]> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/map/popupstores",
@@ -419,7 +419,7 @@ struct PopPoolAPIEndPoint {
         )
     }
 /// Map, Search
-    static func search_popUpStores(query: String) -> Endpoint<[PopUpStoreDTO]> {
+    static func search_popUpStores(query: String) -> Endpoint<[MapPopUpStoreDTO]> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/search/popup-stores",
@@ -429,7 +429,7 @@ struct PopPoolAPIEndPoint {
     }
     /// 지도에서 모든 팝업 스토어를 가져옵니다.
     /// - Returns: 모든 팝업 스토어 정보를 가져오는 Endpoint
-    static func getAllStores() -> Endpoint<[PopUpStoreDTO]> {
+    static func getAllStores() -> Endpoint<[MapPopUpStoreDTO]> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/locations/popup-stores",
@@ -462,7 +462,7 @@ struct PopPoolAPIEndPoint {
     /// 팝업 스토어를 검색합니다.
     /// - Parameter query: 검색 쿼리
     /// - Returns: 검색 결과를 가져오는 Endpoint
-    static func searchStores(query: String) -> Endpoint<[PopUpStoreDTO]> {
+    static func searchStores(query: String) -> Endpoint<SearchPopUpStoreResponseDTO> {
         return Endpoint(
             baseURL: Secrets.popPoolBaseUrl.rawValue,
             path: "/search/popup-stores",
@@ -627,6 +627,19 @@ struct PopPoolAPIEndPoint {
             method: .post,
             bodyParameters: request
         )
+        
+    }
+    static func popup_getDetail(popUpStoreId: Int64, userId: String, commentType: CommentType) -> Endpoint<PopupDetail> {
+          return Endpoint(
+              baseURL: Secrets.popPoolBaseUrl.rawValue,
+              path: "/popup/\(popUpStoreId)/detail",
+              method: .get,
+              queryParameters: [
+                  "userId": userId,
+                  "commentType": commentType.rawValue
+              ]
+          )
+      }
     }
     
     // MARK: - Comment API

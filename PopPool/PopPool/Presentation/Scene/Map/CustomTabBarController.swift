@@ -5,6 +5,7 @@ class CustomTabBarController: UITabBarController {
     private let customTabBar: CustomTabBarCPNT
     private let storeService: StoresService
     private let provider: ProviderImpl
+    private let tokenInterceptor: TokenInterceptor
     private let myPageResponse: GetMyPageResponse
     private let accessToken: String
     private let userUseCase: UserUseCase
@@ -14,10 +15,11 @@ class CustomTabBarController: UITabBarController {
 
 
 
-    init(storeService: StoresService, provider: ProviderImpl, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String, searchViewModel: SearchViewModel, searchUseCase: SearchUseCase) {
+    init(storeService: StoresService, provider: ProviderImpl, tokenInterceptor: TokenInterceptor, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String, searchViewModel: SearchViewModel, searchUseCase: SearchUseCase) {
 
         self.storeService = storeService
         self.provider = provider
+        self.tokenInterceptor = tokenInterceptor 
         self.myPageResponse = myPageResponse
         self.accessToken = accessToken
         self.userUseCase = userUseCase
@@ -27,7 +29,7 @@ class CustomTabBarController: UITabBarController {
         print("CustomTabBarController 생성됨, userId: \(userId)")  // 로그 추가
 
         self.customTabBar = CustomTabBarCPNT(items: [.map, .home, .my])
-        
+
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -56,8 +58,9 @@ class CustomTabBarController: UITabBarController {
         let searchUseCase = SearchUseCase(repository: searchRepository)
         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
 
+        
         let homeVM = HomeVM(searchViewModel: searchViewModel, useCase: homeUseCase, searchUseCase: searchUseCase)
-        let homeVC = HomeVC(viewModel: homeVM)
+        let homeVC = HomeVC(viewModel: homeVM, provider: provider, tokenInterceptor: tokenInterceptor)
         print("HomeVC 생성됨")
 
 

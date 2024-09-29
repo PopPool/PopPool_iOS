@@ -73,7 +73,7 @@ class ListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
-        collectionView.rx.modelSelected(PopUpStore.self)
+        collectionView.rx.modelSelected(MapPopUpStore.self)
             .subscribe(onNext: { [weak self] store in
                 self?.showStoreDetail(store)
             })
@@ -81,7 +81,7 @@ class ListViewController: UIViewController {
     }
 
 
-    private func showStoreDetail(_ store: PopUpStore) {
+    private func showStoreDetail(_ store: MapPopUpStore) {
         // 상세 페이지로 이동하는 로직 구현
         print("Selected store: \(store.name)")
     }

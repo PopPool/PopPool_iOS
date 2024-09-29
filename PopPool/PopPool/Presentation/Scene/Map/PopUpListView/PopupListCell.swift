@@ -5,7 +5,7 @@ import Kingfisher
 class PopupListCell: UICollectionViewCell {
 //    static let identifier = "PopupListCell"
 
-    var store: PopUpStore?
+    var store: MapPopUpStore?
 
     private let popupImageView = UIImageView()
     private let nameLabel = UILabel()
@@ -89,7 +89,7 @@ class PopupListCell: UICollectionViewCell {
        }
 
 
-    func configure(with store: PopUpStore) {
+    func configure(with store: MapPopUpStore) {
         self.store = store
         print("리스트뷰 데이터 =\(store)")
 

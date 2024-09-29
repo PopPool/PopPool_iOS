@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol MapRepository {
-    func fetchPopUpStores() -> Observable<[PopUpStore]>
+    func fetchPopUpStores() -> Observable<[MapPopUpStore]>
 }
