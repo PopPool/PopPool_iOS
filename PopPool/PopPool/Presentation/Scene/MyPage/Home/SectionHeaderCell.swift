@@ -76,16 +76,27 @@ final class SectionHeaderCell: UICollectionViewCell {
     
     public func configure(title: String) {
         let style = NSMutableParagraphStyle()
+        let targetRange = (title as NSString).range(of: "팝풀이")
         let text = NSMutableAttributedString(
             string: title,
-            attributes: [.paragraphStyle: style])
+            attributes: [
+                .paragraphStyle: style,
+                .foregroundColor: UIColor.white
+            ])
+        text.addAttribute(.foregroundColor, value: UIColor.blu500.cgColor, range: targetRange)
         style.lineHeightMultiple = 1.4
-        titleLabel.attributedText = text
+        titleLabel.attributedText = text        
     }
     
-    public func configureWhite(title: String) {
-        titleLabel.text = title
-        titleLabel.textColor = .w100
+    public func configureBlack(title: String) {
+        let style = NSMutableParagraphStyle()
+        let text = NSMutableAttributedString(
+            string: title,
+            attributes: [
+                .paragraphStyle: style
+            ])
+        style.lineHeightMultiple = 1.4
+        titleLabel.attributedText = text
     }
     
     private func setUp() {

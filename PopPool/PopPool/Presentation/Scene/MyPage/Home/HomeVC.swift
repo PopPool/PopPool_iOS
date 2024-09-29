@@ -22,7 +22,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             switch self {
             case .topBanner: return nil
 //            case .custom: return "님을 위한\n맞춤 팝업 큐레이션"
-            case .popular: return "팝풀이들은 지금 이런\n팝업에 가장 관심있어요"
+            case .popular: return "팝풀이는 지금 이런\n팝업에 가장 관심있어요"
             case .new: return "제일 먼저 피드 올리는\n신규 오픈 팝업"
             }
         }
@@ -299,9 +299,13 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     ofKind: kind,
                     withReuseIdentifier: SectionHeaderCell.identifier,
                     for: indexPath) as! SectionHeaderCell
-
+                
                 if let title = sectionType.titleText {
-                    header.configure(title: title)
+                    if sectionType == .popular {
+                        header.configure(title: title)
+                    } else {
+                        header.configureBlack(title: title)
+                    }
 //                    if let userName = userName, sectionType == .custom {
 //                        header.configure(title: userName+title)
 //                    }
