@@ -87,6 +87,7 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
     private var currentState: ButtonState = .untapped
     let bookmarkSubject: PublishSubject<ButtonState> = .init()
     var disposeBag = DisposeBag()
+    let service = PreSignedService()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -191,7 +192,7 @@ final class HomeDetailPopUpCell: UICollectionViewCell {
 extension HomeDetailPopUpCell: Cellable {
     
     struct Input {
-        var image: URL?
+        var image: String?
         var category: String?
         var title: String?
         var location: String?
@@ -204,10 +205,18 @@ extension HomeDetailPopUpCell: Cellable {
     
     func injectionWith(input: Input) {
         popUpImageView.kf.indicatorType = .activity
-        if let popularPopUp = input.image {
-            popUpImageView.kf.setImage(with: popularPopUp)
-        } else {
-            popUpImageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
+        popUpImageView.image = UIImage(named: "defaultLogo")
+        
+        if let path = input.image {
+            service.tryDownload(filePaths: [path])
+                .subscribe { [weak self] images in
+                    guard let image = images.first else { return }
+                    self?.popUpImageView.image = image
+                } onFailure: { [weak self] error in
+                    self?.popUpImageView.image = UIImage(named: "defaultLogo")
+                    print("ImageDownLoad Fail")
+                }
+                .disposed(by: disposeBag)
         }
         
         titleLabel.text = input.title
