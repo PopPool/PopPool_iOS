@@ -32,7 +32,9 @@ final class ClipboardManager: ClipboardService {
                 return Disposables.create()
             }
             
-            let endpoint = link + "media/?size=l"
+            let finalLink = self.removeAfterPattern(from: link, pattern: "?igsh=")
+            let endpoint = finalLink + "media/?size=l"
+            
             AF.request(endpoint)
                 .validate()
                 .responseData { response in
@@ -45,5 +47,13 @@ final class ClipboardManager: ClipboardService {
                 }
             return Disposables.create()
         }
+    }
+    
+    private func removeAfterPattern(from string: String, pattern: String) -> String {
+
+        if let range = string.range(of: pattern) {
+            return String(string[..<range.lowerBound])
+        }
+        return string
     }
 }
