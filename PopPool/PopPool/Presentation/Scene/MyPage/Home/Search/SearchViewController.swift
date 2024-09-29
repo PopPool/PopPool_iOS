@@ -2,16 +2,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import RxDataSources
 
 class SearchViewController: UIViewController {
     private let searchViewModel: SearchViewModel
     private let recentSearchesViewModel = RecentSearchesViewModel()
     private let entirePopupViewModel: EntirePopupVM
+    private let searchResultsView = SearchResultsView()
     private let homeViewModel: HomeVM
 
-    private var allPopUpStores: [HomePopUp] = []
-       private var filteredPopUpStores: [HomePopUp] = []
+    private let searchResultsSubject = BehaviorSubject<[SectionModel<String, HomePopUp>]>(value: [])
+    private let popUpStoresSubject = BehaviorSubject<[SectionModel<String, HomePopUp>]>(value: [])
 
+    private var allPopUpStores: [HomePopUp] = []
+    private var filteredPopUpStores: [HomePopUp] = []
 
     let homeResponse = GetHomeInfoResponse()
 
@@ -22,6 +26,8 @@ class SearchViewController: UIViewController {
             updateUIForSearchState(isSearching ? .searching : .initial)
         }
     }
+    private let provider: Provider
+    private let tokenInterceptor: TokenInterceptor
 
     // MARK: - UI Components
     private let searchBar: UISearchBar = {
@@ -44,6 +50,7 @@ class SearchViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return label
     }()
+
     private let findPopupLabel: UILabel = {
         let label = UILabel()
         label.text = "팝업스토어 찾기"
@@ -81,7 +88,6 @@ class SearchViewController: UIViewController {
         return button
     }()
 
-    // 카테고리 필터 버튼
     private let categoryFilterButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("카테고리", for: .normal)
@@ -94,8 +100,6 @@ class SearchViewController: UIViewController {
         return button
     }()
 
-
-    // 정렬 필터 버튼
     private let sortFilterButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("오픈 · 인기순", for: .normal)
@@ -105,8 +109,8 @@ class SearchViewController: UIViewController {
         button.tintColor = .black
         button.semanticContentAttribute = .forceRightToLeft
         return button
-
     }()
+
     private let noResultsLabel: UILabel = {
         let label = UILabel()
         label.text = "검색 결과가 없어요 :(\n다른 키워드로 검색해주세요"
@@ -118,6 +122,7 @@ class SearchViewController: UIViewController {
         return label
     }()
 
+
     private let totalCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
@@ -125,11 +130,6 @@ class SearchViewController: UIViewController {
         return label
     }()
 
-    private let searchResultsTableView: UITableView = {
-        let tv = UITableView()
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "SearchResultCell")
-        return tv
-    }()
     private lazy var curationPopupCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -143,25 +143,42 @@ class SearchViewController: UIViewController {
         return cv
     }()
 
-
     private let suggestionTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SearchSuggestionCell.self, forCellReuseIdentifier: "SearchSuggestionCell")
         return tableView
     }()
 
+
     private let categoryFilterBottomSheet = CategoryFilterBottomSheetViewController()
     private let sortFilterBottomSheet = SortOrderBottomSheetViewController()
 
+    private lazy var dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, HomePopUp>>(
+        configureCell: { dataSource, collectionView, indexPath, item in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
+            cell.injectionWith(input: HomeDetailPopUpCell.Input(
+                image: item.mainImageUrl,
+                category: item.category,
+                title: item.name,
+                location: item.address,
+                date: item.startDate
+            ))
+            return cell
+        }
+    )
 
     // MARK: - Initialization
-    init(viewModel: SearchViewModel, entirePopupViewModel: EntirePopupVM, homeViewModel: HomeVM) {
+    init(viewModel: SearchViewModel, entirePopupViewModel: EntirePopupVM, homeViewModel: HomeVM,
+    provider: Provider, tokenInterceptor: TokenInterceptor) {
         self.searchViewModel = viewModel
         self.entirePopupViewModel = entirePopupViewModel
         self.homeViewModel = homeViewModel
+        self.provider = provider
+        self.tokenInterceptor = tokenInterceptor
 
         super.init(nibName: nil, bundle: nil)
     }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -172,17 +189,15 @@ class SearchViewController: UIViewController {
         setupUI()
         bindViewModel()
         bindActions()
-//        loadCurationPopupData()
-
-
-        print("버튼 크기: \(categoryFilterButton.frame.size)")
+        bindSearchResults()
+        searchResultsView.registerCell()
+        
 
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-
     }
 
     // MARK: - UI Setup
@@ -192,28 +207,27 @@ class SearchViewController: UIViewController {
         view.addSubview(suggestionTableView)
         view.addSubview(searchBar)
         view.addSubview(cancelButton)
+        view.addSubview(searchResultsView)
+
         curationPopupCollectionView.register(HomeDetailPopUpCell.self, forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier)
         view.addSubview(totalCountLabel)
-//        view.addSubview(curationPopupCollectionView)
         view.addSubview(noResultsLabel)
-
         view.addSubview(curationPopupCollectionView)
         view.addSubview(titleLabel)
         view.addSubview(recentSearchScrollView)
-        recentSearchScrollView.addSubview(recentSearchStackView)
 
+        recentSearchScrollView.addSubview(recentSearchStackView)
         view.addSubview(clearAllButton)
         view.addSubview(findPopupLabel)
         view.addSubview(categoryFilterButton)
         view.addSubview(sortFilterButton)
 
-
+        searchResultsView.isHidden = true
 
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalTo(cancelButton.snp.leading).offset(-10)
-
         }
 
         cancelButton.snp.makeConstraints { make in
@@ -257,19 +271,18 @@ class SearchViewController: UIViewController {
             make.centerY.equalTo(categoryFilterButton).offset(60)
             make.trailing.equalToSuperview().inset(20)
             make.height.equalTo(40)
-
         }
+
         curationPopupCollectionView.snp.makeConstraints { make in
             make.top.equalTo(sortFilterButton.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+
         totalCountLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(sortFilterButton) 
+            make.centerY.equalTo(sortFilterButton)
             make.leading.equalToSuperview().offset(20)
         }
-
-
 
         suggestionTableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
@@ -279,12 +292,11 @@ class SearchViewController: UIViewController {
         noResultsLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
-
-
-
-
-    }
-
+        searchResultsView.snp.makeConstraints { make in
+               make.top.equalTo(searchBar.snp.bottom).offset(10)
+               make.leading.trailing.bottom.equalToSuperview()
+           }
+       }
 
     // MARK: - Binding
     private func bindViewModel() {
@@ -295,7 +307,6 @@ class SearchViewController: UIViewController {
                 self?.updateRecentSearches(with: searches)
             })
             .disposed(by: disposeBag)
-
 
         clearAllButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -310,34 +321,32 @@ class SearchViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-
         searchBar.rx.text.orEmpty
             .distinctUntilChanged()
             .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] query in
+                guard let self = self else { return }
+
                 if query.isEmpty {
-                    self?.isSearching = false
-                    self?.suggestionTableView.isHidden = true
+                    self.isSearching = false
+                    self.updateUIForSearchState(.initial)
+                    self.noResultsLabel.isHidden = true
                 } else {
-                    self?.isSearching = true
-                    self?.searchViewModel.input.searchQuery.onNext(query) // 추천 검색어 업데이트
+                    self.isSearching = true
+                    self.updateUIForSearchState(.searching)
+                    self.searchViewModel.input.searchQuery.onNext(query)
+                    self.noResultsLabel.isHidden = true
                 }
             })
             .disposed(by: disposeBag)
-
 
         searchBar.rx.searchButtonClicked
-            .subscribe(onNext: { [weak self] in
-                guard let query = self?.searchBar.text, !query.isEmpty else {
-                    print("검색어가 비어있음")
-                    return
-                }
-                print("검색 실행: \(query)")
-                self?.recentSearchesViewModel.input.addSearchQuery.onNext(query) // 최근 검색어 추가
-                self?.filterPopUpStores(with: query) // 검색 결과 필터링
+            .withLatestFrom(searchBar.rx.text.orEmpty)
+            .filter { !$0.isEmpty }
+            .subscribe(onNext: { [weak self] query in
+                self?.performSearch(with: query)
             })
             .disposed(by: disposeBag)
-
 
         searchViewModel.output.realTimeSuggestions
             .observe(on: MainScheduler.instance)
@@ -352,20 +361,6 @@ class SearchViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
-        searchBar.rx.searchButtonClicked
-            .subscribe(onNext: { [weak self] in
-                guard let query = self?.searchBar.text, !query.isEmpty else {
-                    print("검색어가 비어있음")
-                    return
-                }
-                print("검색 실행: \(query)")
-                self?.recentSearchesViewModel.input.addSearchQuery.onNext(query)
-                self?.searchViewModel.input.searchQuery.onNext(query)
-            })
-            .disposed(by: disposeBag)
-        
-
-
         suggestionTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 self?.searchViewModel.output.realTimeSuggestions
@@ -373,69 +368,114 @@ class SearchViewController: UIViewController {
                     .take(1)
                     .subscribe(onNext: { suggestions in
                         let suggestion = suggestions[indexPath.row]
-                        //                        self?.performSearch(with: suggestion)  // 상세 페이지 이동 로직
+                        // self?.performSearch(with: suggestion) 
                     })
                     .disposed(by: self!.disposeBag)
             })
             .disposed(by: disposeBag)
-        let output = entirePopupViewModel.transform(input: EntirePopupVM.Input())
-        output.fetchedDataResponse
-            .map { response in
+        curationPopupCollectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                if indexPath.item < self.filteredPopUpStores.count {
+                    let selectedPopUp = self.filteredPopUpStores[indexPath.item]
 
-                return response.popularPopUpStoreList ?? [] // 인기있는 팝업으로 변경
-            }
-            .observe(on: MainScheduler.instance)
-            .do(onNext: { newPopUps in
-                print("DEBUG: 받은 New PopUp 데이터 수: \(newPopUps.count)")
-                self.updateTotalCountLabel(count: newPopUps.count) // 셀 개수 업데이트
+                    let provider = AppDIContainer.shared.resolve(type: Provider.self)
+                    let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
 
+                    let repository = DefaultPopUpRepository(provider: provider, tokenInterceptor: tokenInterceptor)
+                    let useCase = DefaultPopUpDetailUseCase(repository: repository)
+
+                    let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: Constants.userId)
+                    let detailVC = PopupDetailViewController(viewModel: detailViewModel)
+                    self.navigationController?.pushViewController(detailVC, animated: true)
+                } else {
+                    print("Index out of range: \(indexPath.item), but filteredPopUpStores count is \(self.filteredPopUpStores.count)")
+                }
             })
-            .bind(to: curationPopupCollectionView.rx.items(cellIdentifier: HomeDetailPopUpCell.identifier, cellType: HomeDetailPopUpCell.self)) { (index, popUp, cell) in
-                cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                    image: popUp.mainImageUrl,
-                    category: popUp.category,
-                    title: popUp.name,
-                    location: popUp.address,
-                    date: popUp.startDate
-                ))
-            }
             .disposed(by: disposeBag)
 
-    }
-    private func bindHomePopUpData() {
-        homeViewModel.newPopUpStore
-            .observe(on: MainScheduler.instance)
-            .bind(to: curationPopupCollectionView.rx.items(cellIdentifier: HomeDetailPopUpCell.identifier, cellType: HomeDetailPopUpCell.self)) { index, popUpStore, cell in
-                cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                    image: popUpStore.mainImageUrl,
-                    category: popUpStore.category,
-                    title: popUpStore.name,
-                    location: popUpStore.address,
-                    date: popUpStore.startDate
-                ))
-            }
+
+
+        popUpStoresSubject
+            .bind(to: curationPopupCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+
+        loadCurationPopupData()
+        
     }
 
+
+    private func bindActions() {
+        categoryFilterButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.showCategoryFilterBottomSheet()
+            })
+            .disposed(by: disposeBag)
+
+        sortFilterButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.showSortFilterBottomSheet()
+            })
+            .disposed(by: disposeBag)
+    }
 
     private func loadCurationPopupData() {
-        let input = EntirePopupVM.Input()
-        let output = entirePopupViewModel.transform(input: input)
-
+        let output = entirePopupViewModel.transform(input: EntirePopupVM.Input())
+        output.fetchedDataResponse
+            .map { response -> [SectionModel<String, HomePopUp>] in
+                let popularSection = SectionModel(model: "Popular", items: response.popularPopUpStoreList ?? [])
+                return [popularSection]
+            }
+            .do(onNext: { [weak self] sections in
+                let totalCount = sections.flatMap { $0.items }.count
+                self?.allPopUpStores = sections.flatMap { $0.items }
+            })
+            .bind(to: popUpStoresSubject)
+            .disposed(by: disposeBag)
     }
 
+    private func performSearch(with query: String) {
+        print("검색 실행: \(query)")
+        recentSearchesViewModel.input.addSearchQuery.onNext(query)
+
+        filteredPopUpStores = allPopUpStores.filter { popUpStore in
+            return popUpStore.name.lowercased().contains(query.lowercased()) ||
+                   popUpStore.category.lowercased().contains(query.lowercased())
+        }
+
+        searchResultsView.updateLabels(query: query, resultCount: filteredPopUpStores.count)
+        let searchSection = SectionModel(model: "Search Results", items: filteredPopUpStores)
+        searchResultsSubject.onNext([searchSection])
+
+        updateUIForSearchState(.results)
+
+        noResultsLabel.isHidden = !filteredPopUpStores.isEmpty
+    }
+
+
+    private func setupCollectionView() {
+           let resultsCollectionView = searchResultsView.getCollectionView()
+           resultsCollectionView.delegate = self
+           resultsCollectionView.dataSource = self
+       }
+
+    private func bindSearchResults() {
+        let resultsCollectionView = searchResultsView.getCollectionView()
+        searchResultsSubject
+             .observe(on: MainScheduler.instance)
+             .do(onNext: { [weak self] sections in
+                 print("검색 결과 업데이트: \(sections.flatMap { $0.items }.count)개의 아이템")
+             })
+             .bind(to: resultsCollectionView.rx.items(dataSource: dataSource))
+             .disposed(by: disposeBag)
+     }
+
+
+
+
     private func updateCollectionView(with popUpStores: [HomePopUp]) {
-        Observable.just(popUpStores)
-            .bind(to: curationPopupCollectionView.rx.items(cellIdentifier: HomeDetailPopUpCell.identifier, cellType: HomeDetailPopUpCell.self)) { index, popUpStore, cell in
-                cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                    image: popUpStore.mainImageUrl,
-                    category: popUpStore.category,
-                    title: popUpStore.name,
-                    location: popUpStore.address,
-                    date: popUpStore.startDate
-                ))
-            }
-            .disposed(by: disposeBag)
+        let section = SectionModel(model: "Search Results", items: popUpStores)
+        popUpStoresSubject.onNext([section])
         print("DEBUG: 컬렉션 뷰 업데이트, 팝업 스토어 수: \(popUpStores.count)")
     }
 
@@ -444,7 +484,20 @@ class SearchViewController: UIViewController {
 
         searches.forEach { search in
             let chip = createSearchChip(text: search)
+
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapRecentSearch(_:)))
+            chip.addGestureRecognizer(tapGesture)
+            chip.isUserInteractionEnabled = true
+
             recentSearchStackView.addArrangedSubview(chip)
+        }
+    }
+
+    @objc private func didTapRecentSearch(_ sender: UITapGestureRecognizer) {
+        if let chip = sender.view as? UIView, let label = chip.subviews.first(where: { $0 is UILabel }) as? UILabel {
+            let searchQuery = label.text ?? ""
+            searchBar.text = searchQuery
+            searchBar.delegate?.searchBarSearchButtonClicked?(searchBar)
         }
     }
 
@@ -490,23 +543,8 @@ class SearchViewController: UIViewController {
 
         return chipView
     }
-    private func updateTotalCountLabel(count: Int) {
-        totalCountLabel.text = "총 \(count)개"
-    }
 
-    private func bindActions() {
-        categoryFilterButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.showCategoryFilterBottomSheet()
-            })
-            .disposed(by: disposeBag)
 
-        sortFilterButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.showSortFilterBottomSheet()
-            })
-            .disposed(by: disposeBag)
-    }
 
     private func showCategoryFilterBottomSheet() {
         categoryFilterBottomSheet.modalPresentationStyle = .pageSheet
@@ -561,16 +599,6 @@ class SearchViewController: UIViewController {
 
         categoryFilterButton.layoutIfNeeded()
     }
-    private func filterPopUpStores(with query: String) {
-        filteredPopUpStores = allPopUpStores.filter { popUpStore in
-            return popUpStore.name.lowercased().contains(query.lowercased()) ||
-                   popUpStore.category.lowercased().contains(query.lowercased())
-        }
-
-        updateCollectionView(with: filteredPopUpStores)
-
-        noResultsLabel.isHidden = !filteredPopUpStores.isEmpty
-    }
 
     private func updateUIForSearchState(_ state: SearchState) {
         UIView.animate(withDuration: 0.3) {
@@ -584,7 +612,9 @@ class SearchViewController: UIViewController {
                 self.sortFilterButton.isHidden = false
                 self.suggestionTableView.isHidden = true
                 self.curationPopupCollectionView.isHidden = false
+                self.searchResultsView.isHidden = true
                 self.totalCountLabel.isHidden = false
+                self.loadCurationPopupData()
             case .searching:
                 self.titleLabel.isHidden = true
                 self.recentSearchScrollView.isHidden = true
@@ -593,12 +623,55 @@ class SearchViewController: UIViewController {
                 self.categoryFilterButton.isHidden = true
                 self.sortFilterButton.isHidden = true
                 self.curationPopupCollectionView.isHidden = true
+                self.searchResultsView.isHidden = true
                 self.totalCountLabel.isHidden = true
                 self.suggestionTableView.isHidden = false
             case .results:
                 self.suggestionTableView.isHidden = true
+                self.curationPopupCollectionView.isHidden = true
+                self.searchResultsView.isHidden = false
+                self.totalCountLabel.isHidden = false
+                self.categoryFilterButton.isHidden = true
+                self.sortFilterButton.isHidden = true
+
             }
         }
     }
+}
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filteredPopUpStores.count
+    }
 
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as? HomeDetailPopUpCell else {
+            fatalError("Unable to dequeue HomeDetailPopUpCell")
+        }
+
+        let popUp = filteredPopUpStores[indexPath.item]
+        cell.injectionWith(input: HomeDetailPopUpCell.Input(
+            image: popUp.mainImageUrl,
+            category: popUp.category,
+            title: popUp.name,
+            location: popUp.address,
+            date: popUp.startDate
+        ))
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedPopUp = filteredPopUpStores[indexPath.item]
+
+        let provider = AppDIContainer.shared.resolve(type: Provider.self)
+        let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
+
+        let repository = DefaultPopUpRepository(provider: provider, tokenInterceptor: tokenInterceptor)
+        let useCase = DefaultPopUpDetailUseCase(repository: repository)
+
+        let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: Constants.userId)
+
+        let detailVC = PopupDetailViewController(viewModel: detailViewModel)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }

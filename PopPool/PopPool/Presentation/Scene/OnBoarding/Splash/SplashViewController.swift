@@ -40,7 +40,7 @@ final class SplashViewController: UIViewController {
                 
                 guard let window = UIApplication.shared.windows.first else { return }
                 let LoginVC = UINavigationController(
-                    rootViewController: LoginVC(viewModel: LoginVM())
+                    rootViewController: LoginVC(viewModel: LoginVM(), provider: ProviderImpl(), tokenInterceptor: TokenInterceptor())
                 )
                 window.rootViewController = LoginVC
             })

@@ -253,6 +253,8 @@
 		4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED312C8A205200DA4885 /* HomeVC.swift */; };
 		4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */; };
 		4EB470FA2C6DE83300BBE256 /* FilterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F92C6DE83300BBE256 /* FilterRepository.swift */; };
+		4ED7AF482CA7331D00A6EAAD /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED7AF472CA7331D00A6EAAD /* RxDataSources */; };
+		4ED7AF4A2CA7358200A6EAAD /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7AF492CA7358200A6EAAD /* SearchResultViewController.swift */; };
 		4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */; };
 		4EF84FB72CA5E653004B3DA2 /* PopupImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */; };
 		4EF84FB92CA5F002004B3DA2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */; };
@@ -606,6 +608,7 @@
 		4EAAE5852C93B5D7001E03C8 /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUseCase.swift; sourceTree = "<group>"; };
 		4EB470F92C6DE83300BBE256 /* FilterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterRepository.swift; path = PopPool/Data/Repositories/MapRepository/FilterRepository.swift; sourceTree = SOURCE_ROOT; };
+		4ED7AF492CA7358200A6EAAD /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonBackgroundView.swift; sourceTree = "<group>"; };
 		4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupImageCell.swift; sourceTree = "<group>"; };
 		4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -729,6 +732,7 @@
 				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
 				0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */,
+				4ED7AF482CA7331D00A6EAAD /* RxDataSources in Frameworks */,
 				085105912C1033E600ED7DBB /* RxKakaoSDKCert in Frameworks */,
 				085105952C1033E600ED7DBB /* RxKakaoSDKFriend in Frameworks */,
 			);
@@ -1756,6 +1760,7 @@
 			children = (
 				4E5B65B12C95A43A00026B09 /* RecentSearchView */,
 				4E67A2172C93031C003BDAFA /* SearchPopUpStore.swift */,
+				4ED7AF492CA7358200A6EAAD /* SearchResultViewController.swift */,
 				4E67A2182C93031C003BDAFA /* SearchPopUpStoreDTO.swift */,
 				4E67A2192C93031C003BDAFA /* SearchServiceProtocol.swift */,
 				4E67A21A2C93031C003BDAFA /* SearchViewController.swift */,
@@ -2097,6 +2102,7 @@
 				08AF8D912C67682B006B8A11 /* Kingfisher */,
 				4E4DC0022C614726007CE63A /* GoogleMaps */,
 				BDB404292C86FB3F005DF672 /* Lottie */,
+				4ED7AF472CA7331D00A6EAAD /* RxDataSources */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -2179,6 +2185,7 @@
 				08AF8D902C67682B006B8A11 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
 				BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				4ED7AF462CA7331D00A6EAAD /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -2338,6 +2345,7 @@
 				4E67A2102C930018003BDAFA /* ModalViewController.swift in Sources */,
 				4E67A1DF2C92FC3D003BDAFA /* GetBookMarkPopUpStoreListRequestDTO.swift in Sources */,
 				BD60B2842C75CA9A0062DC96 /* HomeRepositoryImpl.swift in Sources */,
+				4ED7AF4A2CA7358200A6EAAD /* SearchResultViewController.swift in Sources */,
 				4E67A2052C92FCBB003BDAFA /* SignUpUseCaseImpl.swift in Sources */,
 				4E67A1EA2C92FC3D003BDAFA /* GetMyRecentViewPopUpStoreListResponseDTO.swift in Sources */,
 				08B183BF2C43BEA6006C34BB /* MyCommentCircleListCell.swift in Sources */,
@@ -2955,6 +2963,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		4ED7AF462CA7331D00A6EAAD /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 		BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -3045,6 +3061,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMaps;
+		};
+		4ED7AF472CA7331D00A6EAAD /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4ED7AF462CA7331D00A6EAAD /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 		BDB404292C86FB3F005DF672 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

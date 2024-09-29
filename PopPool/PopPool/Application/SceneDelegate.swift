@@ -87,20 +87,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+  
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        let navigationController = UINavigationController()
+        // provider와 tokenInterceptor를 생성
+        let provider = ProviderImpl()
+        let tokenInterceptor = TokenInterceptor()
 
+        // LoginVC를 provider와 tokenInterceptor와 함께 초기화
+        let loginVC = LoginVC(viewModel: LoginVM(), provider: provider, tokenInterceptor: tokenInterceptor)
+        let navigationController = UINavigationController(rootViewController: loginVC)
 
-        // 기존 코드 (주석 처리)
-//        window?.rootViewController = UINavigationController(rootViewController: ViewController(viewModel: ViewControllerViewModel()))
-        window?.rootViewController = UINavigationController(rootViewController: LoginVC(viewModel: LoginVM()))
-        //window?.rootViewController = UINavigationController(rootViewController: BlockedUserVC(blockCount: 3))
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
-
     func sceneDidDisconnect(_ scene: UIScene) {
     }
 

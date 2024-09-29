@@ -67,10 +67,16 @@ final class LoginVC: BaseViewController {
     // MARK: - Properties
     private let viewModel: LoginVM
     private let disposeBag = DisposeBag()
+    private let provider: ProviderImpl
+    private let tokenInterceptor: TokenInterceptor
+
 
     // MARK: - init
-    init(viewModel: LoginVM) {
+    init(viewModel: LoginVM, provider: ProviderImpl, tokenInterceptor: TokenInterceptor) {
         self.viewModel = viewModel
+        self.provider = provider
+        self.tokenInterceptor = tokenInterceptor
+
         super.init()
     }
 
@@ -186,6 +192,7 @@ private extension LoginVC {
                         let customTabBarController = CustomTabBarController(
                             storeService: storeService,
                             provider: provider,
+                            tokenInterceptor: TokenInterceptor(),
                             myPageResponse: myPageResponse,
                             accessToken: loginResponse.accessToken,
                             userUseCase: useCase,
@@ -204,7 +211,7 @@ private extension LoginVC {
                         let homeRepository = HomeRepositoryImpl()
                         let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
                         let homeVM = HomeVM(searchViewModel: searchViewModel, useCase: homeUseCase, searchUseCase: searchUseCase)
-                        let homeVC = HomeVC(viewModel: homeVM)
+                        let homeVC = HomeVC(viewModel: homeVM, provider: provider, tokenInterceptor: TokenInterceptor())
 
                         let vm = MyPageMainVM()
                         vm.myCommentSection.sectionCellInputList = [
