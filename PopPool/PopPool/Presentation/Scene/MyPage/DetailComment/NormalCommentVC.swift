@@ -18,9 +18,8 @@ final class NormalCommentVC: BaseViewController {
     private let scrollView = UIScrollView(frame: .zero)
     private let containerView = UIView()
     
-    private let imageHeader = ListTitleViewCPNT(
-        title: "사진 선택",
-        size: .large(subtitle: "\(Constants.userId)과 관련있는 사진을 업로드해보세요.", image: nil))
+    private let imageHeader: ListTitleViewCPNT
+    private let commentHeader: ListTitleViewCPNT
     private let topSectionSpace = UIView()
     private let bottomSectionSpace = UIView()
     
@@ -39,15 +38,12 @@ final class NormalCommentVC: BaseViewController {
         let stackView = UIStackView()
         stackView.addArrangedSubview(commentHeader)
         stackView.addArrangedSubview(commentTextfield)
+        stackView.addArrangedSubview(commentFooterSpace)
         stackView.axis = .vertical
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
-    
-    private let commentHeader = ListTitleViewCPNT(
-        title: "코멘트 작성",
-        size: .large(subtitle: "방문했던 \(Constants.userId)에 대한 감상평을 작성해주세요.", image: nil))
     
     private let commentTextfield = DynamicTextViewCPNT(
         placeholder: "내용을 작성해보세요",
@@ -58,7 +54,6 @@ final class NormalCommentVC: BaseViewController {
         stack.axis = .vertical
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.addArrangedSubview(footerTopSpace)
         stack.addArrangedSubview(saveButton)
         stack.addArrangedSubview(footerSpace)
         return stack
@@ -70,7 +65,7 @@ final class NormalCommentVC: BaseViewController {
         disabledTitle: "저장")
     
     private let footerSpace = UIView()
-    private let footerTopSpace = UIView()
+    private let commentFooterSpace = UIView()
     
     //MARK: - Properties
     
@@ -82,6 +77,12 @@ final class NormalCommentVC: BaseViewController {
     
     init(viewModel: NormalCommentVM) {
         self.viewModel = viewModel
+        self.imageHeader = ListTitleViewCPNT(
+            title: "사진 선택",
+            size: .large(subtitle: "", image: nil))
+        self.commentHeader = ListTitleViewCPNT(
+            title: "코멘트 작성",
+            size: .large(subtitle: "", image: nil))
         super.init()
     }
     
@@ -114,6 +115,7 @@ final class NormalCommentVC: BaseViewController {
         
         imageHeader.rightButton.isHidden = true
         commentHeader.rightButton.isHidden = true
+        saveButton.isEnabled = false
         
         imageCollectionView.collectionViewLayout = self.layout
         imageCollectionView.register(CommentImageCell.self,
@@ -123,10 +125,25 @@ final class NormalCommentVC: BaseViewController {
     
     private func bind() {
         let input = NormalCommentVM.Input(
+            isTextViewFilled: commentTextfield.textView.rx.text,
             returnButtonTapped: header.leftBarButton.rx.tap,
             saveButtonTapped: saveButton.rx.tap
         )
         let output = viewModel.transform(input: input)
+        
+        viewModel.popUpStore
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.imageHeader.subTitleLabel.text = "\(data)과 관련있는 사진을 업로드해보세요."
+                owner.commentHeader.subTitleLabel.text = "\(data)에 대한 감상평을 작성해주세요."
+            })
+            .disposed(by: disposeBag)
+        
+        output.hasText
+            .subscribe(onNext: { hasText in
+                self.saveButton.isEnabled = hasText
+            })
+            .disposed(by: disposeBag)
         
         output.returnToHome
             .withUnretained(self)
@@ -143,10 +160,52 @@ final class NormalCommentVC: BaseViewController {
         output.notifySave
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                // API 연결 - 데이터 저장
-                // 안내문 발송
-                // 화면 drop
-                ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                let imageService = PreSignedService()
+                var pathList: [String] = []
+                var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
+                
+                let newComment = self.viewModel.commentRequest.value
+//                let newComment = owner.viewModel.newComment.value
+                // 선택된 이미지 데이터 배열에 담기
+                owner.viewModel.selectedImages
+                    .subscribe { images in
+                        for (index, image) in images.enumerated() {
+                            let image = UIImage(data: image)!
+                            let path = "comment/\(index)\(image)"
+                            pathList.append(path)
+                            imageUploadDatas.append(.init(
+                                filePath: path,
+                                image: image
+                            ))
+                        }
+                    }
+                
+                // AWS preSignedURL에 이미지를 업로드
+                imageService.tryUpload(datas: imageUploadDatas)
+                    .subscribe(onSuccess: { _ in
+                        
+                        // 이미지 업로드하며 코멘트 업로드 진행
+                        let repository = CommentRepositoryImpl()
+                        let popUpStore = CreateCommentRequestDTO(
+                            userId: newComment.userId,
+                            popUpStoreId: newComment.popUpStoreId,
+                            content: newComment.content,
+                            commentType: newComment.commentType,
+                            imageUrlList: newComment.imageUrlList)
+                        
+                        repository.postComment(request: popUpStore)
+                            .subscribe {
+                                print("코멘트 업로드 완료")
+                                ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                            }
+                            .disposed(by: owner.disposeBag)
+                        
+                    }, onFailure: { error in
+                        print("코멘트 업로드 중 오류")
+                        ToastMSGManager.createToast(message: "코멘트 업로드 도중 문제가 발생했어요")
+                    })
+                    .disposed(by: owner.disposeBag)
+                
                 owner.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
@@ -168,10 +227,6 @@ final class NormalCommentVC: BaseViewController {
         
         header.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
-        }
-        
-        footerTopSpace.snp.makeConstraints { make in
-            make.height.equalTo(Constants.spaceGuide.medium100)
         }
         
         saveButton.snp.makeConstraints { make in
@@ -226,6 +281,10 @@ final class NormalCommentVC: BaseViewController {
             make.top.equalTo(imageCollectionView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(Constants.spaceGuide.medium100)
+        }
+        
+        commentFooterSpace.snp.makeConstraints { make in
+            make.height.equalTo(Constants.spaceGuide.small300)
         }
         
         commentStack.snp.makeConstraints { make in

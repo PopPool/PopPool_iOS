@@ -13,6 +13,7 @@ import PhotosUI
 class NormalCommentVM: ViewModelable {
     
     struct Input {
+        var isTextViewFilled: ControlProperty<String?>
         var returnButtonTapped: ControlEvent<Void>
         var saveButtonTapped: ControlEvent<Void>
     }
@@ -21,15 +22,33 @@ class NormalCommentVM: ViewModelable {
         var returnToHome: Observable<Void>
         var notifySave: Observable<Void>
         var currentImageCount: Observable<Int>
+        var hasText: Observable<Bool>
     }
+    
+    var popUpStore: BehaviorSubject<String>
+    var isContentValid: PublishSubject<Bool> = .init()
+    var commentRequest: BehaviorRelay<CreateCommentRequestDTO> = .init(value: CreateCommentRequestDTO(
+        userId: "",
+        popUpStoreId: 0,
+        content: "",
+        commentType: .normal,
+        imageUrlList: []))
     
     var selectedImageCount: Observable<Int> {
         return selectedImageRelay.map { $0.count }
     }
     
+    var selectedImages: Observable<[Data]> {
+        return selectedImageRelay.compactMap { $0 }
+    }
+    
     var disposeBag = DisposeBag()
     private let maxImageCount = 5
     private var selectedImageRelay = BehaviorRelay<[Data]>(value: [])
+    
+    init(popUpStore: String) {
+        self.popUpStore = BehaviorSubject(value: popUpStore)
+    }
     
     func addImage(_ imageData: Data) {
         var currentImages = selectedImageRelay.value
@@ -53,10 +72,14 @@ class NormalCommentVM: ViewModelable {
     }
     
     func transform(input: Input) -> Output {
+        
+        let isTextViewFilled = input.isTextViewFilled.map { $0?.isEmpty == false }
+        
         return Output(
             returnToHome: input.returnButtonTapped.asObservable(),
             notifySave: input.saveButtonTapped.asObservable(),
-            currentImageCount: selectedImageCount
+            currentImageCount: selectedImageCount,
+            hasText: isTextViewFilled
         )
     }
 }
