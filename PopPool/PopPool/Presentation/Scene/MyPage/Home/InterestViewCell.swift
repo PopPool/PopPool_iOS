@@ -19,6 +19,7 @@ final class InterestViewCell: UICollectionViewCell {
     }()
     
     private let containerView = UIView()
+    private let disposeBag = DisposeBag()
     
     private lazy var contentStack: UIStackView = {
         let stack = UIStackView()
@@ -40,6 +41,8 @@ final class InterestViewCell: UICollectionViewCell {
         label.text = "테스팅테스팅테스팅"
         return label
     }()
+    
+    let service = PreSignedService()
     
     // MARK: - Initializer
     
@@ -96,7 +99,7 @@ final class InterestViewCell: UICollectionViewCell {
 extension InterestViewCell: Cellable {
     
     struct Input {
-        var image: URL?
+        var image: String?
         var category: String?
         var title: String?
         var location: String?
@@ -110,13 +113,20 @@ extension InterestViewCell: Cellable {
     /// 맞춤 관심 역할을 하는 cell에 데이터를 주입하는 메서드
     /// - Parameter input: Input 값을 받습니다
     func injectionWith(input: Input) {
-        imageView.kf.indicatorType = .activity
-        if let popularPopUp = input.image {
-            imageView.kf.setImage(with: popularPopUp)
-            descriptionLabel.text = input.title
-            titleLabel.text = "#\(input.date)까지 열리는\n#\(input.category) #\(input.location)"
-        } else {
-            imageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
+        imageView.image = UIImage(named: "defaultLogo")
+        descriptionLabel.text = input.title
+        titleLabel.text = "#\(input.date)까지 열리는\n#\(input.category) #\(input.location)"
+        
+        if let path = input.image {
+            service.tryDownload(filePaths: [path])
+                .subscribe { [weak self] images in
+                    guard let image = images.first else { return }
+                    self?.imageView.image = image
+                } onFailure: { [weak self] error in
+                    self?.imageView.image = UIImage(named: "defaultLogo")
+                    print("ImageDownLoad Fail")
+                }
+                .disposed(by: disposeBag)
         }
     }
     

@@ -14,14 +14,14 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
     enum Section: Int, Hashable ,CaseIterable {
         case topBanner
-        case custom
+//        case custom
         case popular
         case new
 
         var titleText: String? {
             switch self {
             case .topBanner: return nil
-            case .custom: return "님을 위한\n맞춤 팝업 큐레이션"
+//            case .custom: return "님을 위한\n맞춤 팝업 큐레이션"
             case .popular: return "팝풀이들은 지금 이런\n팝업에 가장 관심있어요"
             case .new: return "제일 먼저 피드 올리는\n신규 오픈 팝업"
             }
@@ -150,10 +150,10 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 .init(id: 4, category: "배너", name: "제목", address: "주소")
                 ], toSection: .topBanner)
 
-            if owner.isLoggedIn {
-                snapShot.appendSections([.custom])
-                snapShot.appendItems(customStores, toSection: .custom)
-            }
+//            if owner.isLoggedIn {
+//                snapShot.appendSections([.custom])
+//                snapShot.appendItems(customStores, toSection: .custom)
+//            }
 
             snapShot.appendSections([.popular])
             snapShot.appendItems(popularStores, toSection: .popular)
@@ -190,10 +190,10 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             switch sectionType {
             case .topBanner:
                 return self.buildBanner()
-            case .custom:
-                return UIHelper.buildSection(
-                    width: 158, height: 249,
-                    behavior: .continuous)
+//            case .custom:
+//                return UIHelper.buildSection(
+//                    width: 158, height: 249,
+//                    behavior: .continuous)
                 
             case .popular:
                 return UIHelper.buildSection(
@@ -247,41 +247,41 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                             totalCount: 5))
                     return cell
 
-                case .custom:
-                    let customItem = self.viewModel.customPopUpStore.value[indexPath.item]
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
-                    cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                        image: URL(string: ""),
-                        category: customItem.category,
-                        title: customItem.name,
-                        location: customItem.address,
-                        date: customItem.startDate)
-                    )
-                    return cell
+//                case .custom:
+//                    let customItem = self.viewModel.customPopUpStore.value[indexPath.item]
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
+//                    cell.injectionWith(input: HomeDetailPopUpCell.Input(
+//                        image: URL(string: ""),
+//                        category: customItem.category,
+//                        title: customItem.name,
+//                        location: customItem.address,
+//                        date: customItem.startDate)
+//                    )
+//                    return cell
 
                 case .popular:
                     let popularItem = self.viewModel.popularPopUpStore.value[indexPath.item]
 
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell                    
                     cell.injectionWith(input: InterestViewCell.Input(
-                        image: URL(string: ""),
+                        image: popularItem.mainImageUrl,
                         category: popularItem.category,
                         title: popularItem.name,
-                        location: "위치",
-                        date: "날짜"
+                        location: popularItem.address,
+                        date: popularItem.startDate
                     ))
                     return cell
 
                 case.new:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
                     let newItem = self.viewModel.newPopUpStore.value[indexPath.item]
-
+                    
                     cell.injectionWith(input: HomeDetailPopUpCell.Input(
-                        image: URL(string: ""),
+                        image: newItem.mainImageUrl,
                         category: newItem.category,
                         title: newItem.name,
-                        location: "지역",
-                        date: "어떤 애요?")
+                        location: newItem.address,
+                        date: newItem.startDate)
                     )
                     return cell
                 }
@@ -302,9 +302,9 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
                 if let title = sectionType.titleText {
                     header.configure(title: title)
-                    if let userName = userName, sectionType == .custom {
-                        header.configure(title: userName+title)
-                    }
+//                    if let userName = userName, sectionType == .custom {
+//                        header.configure(title: userName+title)
+//                    }
                 }
                 header.actionTapped
                     .withUnretained(self)
@@ -314,29 +314,30 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
                         switch sectionType {
                         case .topBanner: return
-                        case .custom:
+//                        case .custom:
 
-                            guard let customPopUpStoreList = response.customPopUpStoreList, !customPopUpStoreList.isEmpty else {
-                                print("맞춤 팝업 데이터가 없습니다.")
-                                return
-                            }
-                            
-                            let data: GetHomeInfoResponse = .init(
-                                customPopUpStoreList: response.customPopUpStoreList,
-                                customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,
-                                customPopUpStoreTotalElements: response.customPopUpStoreTotalElements,
-                                loginYn: owner.isLoggedIn
-                            )
-                            let vm = EntirePopupVM()
-                            vm.fetchedResponse.accept(data)
-                            let vc = EntirePopupVC(viewModel: vm)
-                            vc.header.titleLabel.text = "큐레이션 팝업 전체보기"
-                            owner.navigationController?.pushViewController(vc, animated: true)
+//                            guard let customPopUpStoreList = response.customPopUpStoreList, !customPopUpStoreList.isEmpty else {
+//                                print("맞춤 팝업 데이터가 없습니다.")
+//                                return
+//                            }
+//                            
+//                            let data: GetHomeInfoResponse = .init(
+//                                customPopUpStoreList: response.customPopUpStoreList,
+//                                customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,
+//                                customPopUpStoreTotalElements: response.customPopUpStoreTotalElements,
+//                                loginYn: owner.isLoggedIn
+//                            )
+//                            let vm = EntirePopupVM()
+//                            vm.fetchedResponse.accept(data)
+//                            let vc = EntirePopupVC(viewModel: vm)
+//                            vc.header.titleLabel.text = "큐레이션 팝업 전체보기"
+//                            owner.navigationController?.pushViewController(vc, animated: true)
 
                         case .popular:
                             let data: GetHomeInfoResponse = .init(
                                 popularPopUpStoreList: response.popularPopUpStoreList,
-                                popularPopUpStoreTotalPages: response.popularPopUpStoreTotalPages, popularPopUpStoreTotalElements: response.popularPopUpStoreTotalElements,
+                                popularPopUpStoreTotalPages: response.popularPopUpStoreTotalPages,
+                                popularPopUpStoreTotalElements: response.popularPopUpStoreTotalElements,
                                 loginYn: owner.isLoggedIn
                             )
                             let vm = EntirePopupVM()

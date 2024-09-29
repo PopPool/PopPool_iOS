@@ -12,7 +12,7 @@ struct HomePopUp: Codable, Hashable {
     var category: String
     var name: String
     var address: String
-    var mainImageUrl: URL?
+    var mainImageUrl: String?
     var startDate: String?
     var endDate: String?
 }
@@ -34,7 +34,7 @@ extension HomePopUpDTO {
             category: category,
             name: name,
             address: address,
-            mainImageUrl: URL(string: mainImageUrl ?? ""),
+            mainImageUrl: mainImageUrl,
             startDate: startDate,
             endDate: endDate
         )
