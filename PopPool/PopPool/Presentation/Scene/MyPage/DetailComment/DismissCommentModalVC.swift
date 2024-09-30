@@ -9,6 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol DismissCommentDelegate: AnyObject {
+    func dismissViewController()
+}
+
 final class DismissCommentModalVC: ModalViewController {
     
     private let header = ContentTitleCPNT(
@@ -18,15 +22,15 @@ final class DismissCommentModalVC: ModalViewController {
             buttonImage: nil))
     
     
-    private let confirmButton = ButtonCPNT(
-        type: .secondary, title: "계속하기")
     private let cancelButton = ButtonCPNT(
+        type: .secondary, title: "계속하기")
+    private let stopButton = ButtonCPNT(
         type: .primary, title: "그만하기")
     
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
-        stack.addArrangedSubview(confirmButton)
         stack.addArrangedSubview(cancelButton)
+        stack.addArrangedSubview(stopButton)
         stack.distribution = .fillEqually
         stack.spacing = 12
         return stack
@@ -42,6 +46,7 @@ final class DismissCommentModalVC: ModalViewController {
     }()
     
     private let disposeBag = DisposeBag()
+    weak var delegate: DismissCommentDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +56,7 @@ final class DismissCommentModalVC: ModalViewController {
     }
     
     private func bind() {
-        confirmButton.rx.tap
+        cancelButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
                 // 중간 도중 복귀
@@ -59,12 +64,12 @@ final class DismissCommentModalVC: ModalViewController {
                 owner.dismissBottomSheet()
             }).disposed(by: disposeBag)
         
-        cancelButton.rx.tap
+        stopButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
                 // 중간 도중 이탈
-                // 이탈 시 데이터 삭제 등을 해야함
                 owner.dismissBottomSheet()
+                owner.delegate?.dismissViewController()
             }).disposed(by: disposeBag)
     }
     

@@ -36,6 +36,7 @@ final class SocialCommentVC: BaseViewController {
     let containerView = UIView()
     let topSectionView = SocialNoticeView()
     let pageSpaceView = UIView()
+    let centerView = UIView()
     
     let guideImage: UIImageView = {
         let imageView = UIImageView()
@@ -117,6 +118,7 @@ final class SocialCommentVC: BaseViewController {
                     number: currentPage,
                     title: attributeText
                 )
+                owner.actionButton.showToolTip(color: .w100, direction: .pointDown, text: "잠깐, 비공개 계정은 게시물을 올릴 수 없어요 :(")
             })
             .disposed(by: disposeBag)
         
@@ -271,6 +273,7 @@ final class SocialCommentVC: BaseViewController {
         guideImage.addGestureRecognizer(swipeRight)
         scrollView.isScrollEnabled = true
         
+        centerView.backgroundColor = .red
         pageControl.numberOfPages = viewModel.currentContentCount
     }
     
@@ -278,6 +281,7 @@ final class SocialCommentVC: BaseViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(stack)
+        containerView.addSubview(centerView)
         view.addSubview(actionButton)
         
         scrollView.snp.makeConstraints { make in
@@ -309,6 +313,13 @@ final class SocialCommentVC: BaseViewController {
             make.bottom.equalToSuperview().inset(Constants.spaceGuide.medium400)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(52)
+        }
+        
+        centerView.snp.makeConstraints { make in
+            make.top.equalTo(pageControl.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(1)
+            make.height.equalTo(10)
         }
     }
 }
