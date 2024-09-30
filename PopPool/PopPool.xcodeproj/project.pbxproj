@@ -211,7 +211,6 @@
 		4E67A2102C930018003BDAFA /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A20F2C930018003BDAFA /* ModalViewController.swift */; };
 		4E67A2122C93022B003BDAFA /* CategoryUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2112C93022B003BDAFA /* CategoryUtility.swift */; };
 		4E67A2142C930295003BDAFA /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2132C930295003BDAFA /* CustomTabBarController.swift */; };
-		4E67A2162C9302E2003BDAFA /* LoggedHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2152C9302E2003BDAFA /* LoggedHomeVC.swift */; };
 		4E67A21D2C93031C003BDAFA /* SearchPopUpStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2172C93031C003BDAFA /* SearchPopUpStore.swift */; };
 		4E67A21E2C93031C003BDAFA /* SearchPopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2182C93031C003BDAFA /* SearchPopUpStoreDTO.swift */; };
 		4E67A21F2C93031C003BDAFA /* SearchServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2192C93031C003BDAFA /* SearchServiceProtocol.swift */; };
@@ -260,7 +259,6 @@
 		4EF84FB92CA5F002004B3DA2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */; };
 		4EFD0DA22C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD0DA12C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift */; };
 		4EFD0DA42C95C4FF00E7A3F7 /* SortOrderBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD0DA32C95C4FF00E7A3F7 /* SortOrderBottomSheetViewController.swift */; };
-
 		BD0433FD2CA2A68800758CDF /* PostCommentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0433FC2CA2A68800758CDF /* PostCommentRequestDTO.swift */; };
 		BD0433FF2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0433FE2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift */; };
 		BD0434012CA2A79400758CDF /* ImageActionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0434002CA2A79400758CDF /* ImageActionDTO.swift */; };
@@ -576,7 +574,6 @@
 		4E67A20F2C930018003BDAFA /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		4E67A2112C93022B003BDAFA /* CategoryUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryUtility.swift; path = PopPool/Presentation/Scene/Map/CategoryUtility.swift; sourceTree = SOURCE_ROOT; };
 		4E67A2132C930295003BDAFA /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTabBarController.swift; path = PopPool/Presentation/Scene/Map/CustomTabBarController.swift; sourceTree = SOURCE_ROOT; };
-		4E67A2152C9302E2003BDAFA /* LoggedHomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedHomeVC.swift; sourceTree = "<group>"; };
 		4E67A2172C93031C003BDAFA /* SearchPopUpStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPopUpStore.swift; sourceTree = "<group>"; };
 		4E67A2182C93031C003BDAFA /* SearchPopUpStoreDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPopUpStoreDTO.swift; sourceTree = "<group>"; };
 		4E67A2192C93031C003BDAFA /* SearchServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchServiceProtocol.swift; sourceTree = "<group>"; };
@@ -623,7 +620,6 @@
 		4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		4EFD0DA12C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBottomSheetViewController.swift; sourceTree = "<group>"; };
 		4EFD0DA32C95C4FF00E7A3F7 /* SortOrderBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderBottomSheetViewController.swift; sourceTree = "<group>"; };
-
 		BD0433FC2CA2A68800758CDF /* PostCommentRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentRequestDTO.swift; sourceTree = "<group>"; };
 		BD0433FE2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCommentRequestDTO.swift; sourceTree = "<group>"; };
 		BD0434002CA2A79400758CDF /* ImageActionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageActionDTO.swift; sourceTree = "<group>"; };
@@ -1978,7 +1974,6 @@
 		BD8DE8212C68653300C5DE8B /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4E67A2152C9302E2003BDAFA /* LoggedHomeVC.swift */,
 				BD8DE8222C68655700C5DE8B /* EntirePopupVC.swift */,
 				BD8DE8242C6865A000C5DE8B /* EntirePopupVM.swift */,
 				BDEAE4BD2C716FAA00D96D41 /* PopUpBackgroundView.swift */,
@@ -2467,7 +2462,6 @@
 				BDDF7D122C4A2AA8008F8EAC /* SignOutCompleteVC.swift in Sources */,
 				08FF6C7F2C79B8E100B68569 /* NoticeRepositoryImpl.swift in Sources */,
 				4EFD0DA22C95C4E400E7A3F7 /* CategoryFilterBottomSheetViewController.swift in Sources */,
-				4E67A2162C9302E2003BDAFA /* LoggedHomeVC.swift in Sources */,
 				4E67A2032C92FCBB003BDAFA /* KeyChainServiceUseCaseImpl.swift in Sources */,
 				BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */,
 				BDF4F2982C240BA6002F4F03 /* Constants.swift in Sources */,
