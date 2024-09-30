@@ -150,6 +150,7 @@ final class NormalCommentVC: BaseViewController {
             .subscribe(onNext: { (owner, _) in
                 if owner.commentTextfield.textView.hasText || owner.imageCount != 0 {
                     let vc = DismissCommentModalVC()
+                    vc.delegate = self
                     owner.presentModalViewController(viewController: vc)
                 } else {
                     owner.navigationController?.popViewController(animated: true)
@@ -295,6 +296,12 @@ final class NormalCommentVC: BaseViewController {
     }
 }
 
+extension NormalCommentVC: DismissCommentDelegate {
+    func dismissViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
 extension NormalCommentVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return min(imageCount + 1, 5)
@@ -326,6 +333,8 @@ extension NormalCommentVC: CommentImageDelegate {
     func didRequestImage() {
         if imageCount < 5 {
             openPhotoLibrary()
+        } else {
+            ToastMSGManager.createToast(message: "사진은 최대 5장까지 올릴 수 있어요")
         }
     }
     

@@ -117,6 +117,7 @@ final class SocialCommentVC: BaseViewController {
                     number: currentPage,
                     title: attributeText
                 )
+                owner.actionButton.showToolTip(color: .w100, direction: .pointDown, text: "잠깐, 비공개 계정은 게시물을 올릴 수 없어요 :(")
             })
             .disposed(by: disposeBag)
         

@@ -57,7 +57,10 @@ final class ToolTipViewCPNT: UIView {
         }
     }
     
-    private var midX = UIScreen.main.bounds.midX
+    private var midX: CGFloat {
+        return self.bounds.midX
+    }
+    
     private var direction: TipDirection
     
     // MARK: - init
@@ -128,10 +131,11 @@ extension ToolTipViewCPNT {
     
     /// 위를 가리키는 툴팁을 만듭니다
     private func drawUpPointingToolTip() {
+        let textLength = notificationLabel.frame.width
         let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: midX/2 - 8, y: 10))
-        tip.addLine(to: CGPoint(x: midX/2, y: 0))
-        tip.addLine(to: CGPoint(x: midX/2 + 8, y: 10))
+        tip.move(to: CGPoint(x: midX - 8, y: 10))
+        tip.addLine(to: CGPoint(x: midX, y: 0))
+        tip.addLine(to: CGPoint(x: midX + 8, y: 10))
         tip.close()
         
         colorType.color.setFill()
@@ -140,7 +144,7 @@ extension ToolTipViewCPNT {
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 10,
-                width: midX + 16,
+                width: textLength + 16,
                 height: 35
             ),
             cornerRadius: 6
@@ -153,10 +157,12 @@ extension ToolTipViewCPNT {
     
     /// 아래를 가리키는 툴팁을 만듭니다
     private func drawDownPointingTip() {
+        let textLength = notificationLabel.frame.width
+        
         let tip = UIBezierPath()
-        tip.move(to: CGPoint(x: midX/2 - 8, y: 35))
-        tip.addLine(to: CGPoint(x: midX/2, y: 45))
-        tip.addLine(to: CGPoint(x: midX/2 + 8, y: 35))
+        tip.move(to: CGPoint(x: midX - 8, y: 35))
+        tip.addLine(to: CGPoint(x: midX, y: 45))
+        tip.addLine(to: CGPoint(x: midX + 8, y: 35))
         tip.close()
         
         colorType.color.setFill()
@@ -165,7 +171,7 @@ extension ToolTipViewCPNT {
         let message = UIBezierPath(
             roundedRect: CGRect(
                 x: 0, y: 0,
-                width: midX + 16,
+                width: textLength + 16,
                 height: 35
             ),
             cornerRadius: 6
