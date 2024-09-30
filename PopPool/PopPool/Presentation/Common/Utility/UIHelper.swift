@@ -15,19 +15,19 @@ enum UIHelper {
         height: CGFloat,
         behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior
     ) -> NSCollectionLayoutSection {
-        let itemPadding: CGFloat = 8
+        let itemPadding: CGFloat = 16
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .absolute(width),
             heightDimension: .absolute(height))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 0, leading: 0, bottom: 0, trailing: itemPadding)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .absolute(width),
             heightDimension: .absolute(height))
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(
-            top: 0, leading: 0, bottom: 0, trailing: 0)
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = behavior
