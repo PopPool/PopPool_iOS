@@ -57,7 +57,10 @@ final class ToolTipViewCPNT: UIView {
         }
     }
     
-    private var midX = UIScreen.main.bounds.midX
+    private var midX: CGFloat {
+        return self.bounds.midX
+    }
+    
     private var direction: TipDirection
     
     // MARK: - init
@@ -121,7 +124,6 @@ extension ToolTipViewCPNT {
             addShadow()
             
         case .pointDown:
-            print("중앙 값", midX)
             drawDownPointingTip()
             addShadow()
         }
@@ -156,16 +158,14 @@ extension ToolTipViewCPNT {
     /// 아래를 가리키는 툴팁을 만듭니다
     private func drawDownPointingTip() {
         let textLength = notificationLabel.frame.width
-
-        print("중앙 값2", midX)
+        
         let tip = UIBezierPath()
         tip.move(to: CGPoint(x: midX - 8, y: 35))
         tip.addLine(to: CGPoint(x: midX, y: 45))
         tip.addLine(to: CGPoint(x: midX + 8, y: 35))
         tip.close()
         
-//        colorType.color.setFill()
-        UIColor.green.setFill()
+        colorType.color.setFill()
         tip.fill()
         
         let message = UIBezierPath(
