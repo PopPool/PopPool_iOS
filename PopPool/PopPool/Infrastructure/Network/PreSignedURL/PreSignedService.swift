@@ -107,7 +107,7 @@ private extension PreSignedService {
     
     func uploadFromS3(url: String, image: UIImage) -> Single<Void> {
         return Single.create { single in
-            if let imageData = image.pngData(),
+            if let imageData = image.jpegData(compressionQuality: 0),
                let url = URL(string: url)
             {
                 let request = AF.upload(imageData, to: url, method: .put).response { response in
