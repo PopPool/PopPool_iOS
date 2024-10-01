@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-
 class CommentCell: UITableViewCell {
     static let reuseIdentifier = "CommentCell"
 

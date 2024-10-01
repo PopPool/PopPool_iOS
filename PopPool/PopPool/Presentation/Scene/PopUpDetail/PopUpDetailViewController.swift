@@ -10,31 +10,27 @@ final class PopupDetailViewController: UIViewController {
     // MARK: - UI Components
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    
 
     private var input: PopupDetailViewModel.Input!
-      private var output: PopupDetailViewModel.Output!
-      private let popupData = BehaviorRelay<PopupDetail?>(value: nil)
+    private var output: PopupDetailViewModel.Output!
+    private let popupData = BehaviorRelay<PopupDetail?>(value: nil)
 
-//    commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
-//    imageCollectionView.register(PopupImageCell.self, forCellWithReuseIdentifier: PopupImageCell.identifier)
-
+    private let backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
 
     private let imagePageControl = UIPageControl()
-    
     private let imageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.isPagingEnabled = true
-        cv.register(PopupImageCell.self, forCellWithReuseIdentifier: "PopupImageCell")
+        cv.register(PopupImageCell.self, forCellWithReuseIdentifier: PopupImageCell.reuseIdentifier)
         return cv
-    }()
-    private let commentTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(CommentCell.self, forCellReuseIdentifier: "CommentCell")
-        return tableView
     }()
 
     private let titleLabel = UILabel()
@@ -49,9 +45,23 @@ final class PopupDetailViewController: UIViewController {
     private let findRouteButton = UIButton()
 
     private let commentTabControl = UISegmentedControl(items: ["일반", "인스타"])
+    private let commentTableView = UITableView()
     private let showAllCommentsButton = UIButton()
 
     private let writeCommentButton = UIButton()
+
+    private let commentInputView = UIView()
+    private let commentTextView = UITextView()
+    private let sendCommentButton = UIButton(type: .system)
+
+    private let similarPopupsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 10
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(SimilarPopupCell.self, forCellWithReuseIdentifier: "SimilarPopupCell")
+        return cv
+    }()
 
     // MARK: - Initialization
     init(viewModel: PopupDetailViewModel) {
@@ -68,9 +78,6 @@ final class PopupDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
-
-        commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.reuseIdentifier)
-        imageCollectionView.register(PopupImageCell.self, forCellWithReuseIdentifier: PopupImageCell.reuseIdentifier)
     }
 
     // MARK: - UI Setup
@@ -79,8 +86,11 @@ final class PopupDetailViewController: UIViewController {
         setupScrollView()
         setupImageCollection()
         setupInfoSection()
+        setupAddressSection()
         setupCommentSection()
+        setupSimilarPopups()
         setupWriteCommentButton()
+        setupBackButton()
     }
 
     private func setupScrollView() {
@@ -94,6 +104,15 @@ final class PopupDetailViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
+        }
+    }
+
+    private func setupBackButton() {
+        view.addSubview(backButton)
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.leading.equalToSuperview().offset(20)
+            make.size.equalTo(44)
         }
     }
 
@@ -114,7 +133,7 @@ final class PopupDetailViewController: UIViewController {
 
     private func setupInfoSection() {
         [titleLabel, likeButton, shareButton, descriptionLabel, showMoreButton,
-         periodLabel, timeLabel, addressLabel, copyAddressButton, findRouteButton].forEach { contentView.addSubview($0) }
+         periodLabel, timeLabel].forEach { contentView.addSubview($0) }
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageCollectionView.snp.bottom).offset(20)
@@ -152,6 +171,10 @@ final class PopupDetailViewController: UIViewController {
             make.top.equalTo(periodLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
         }
+    }
+
+    private func setupAddressSection() {
+        [addressLabel, copyAddressButton, findRouteButton].forEach { contentView.addSubview($0) }
 
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom).offset(10)
@@ -187,6 +210,16 @@ final class PopupDetailViewController: UIViewController {
         showAllCommentsButton.snp.makeConstraints { make in
             make.top.equalTo(commentTableView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
+        }
+    }
+
+    private func setupSimilarPopups() {
+        contentView.addSubview(similarPopupsCollectionView)
+
+        similarPopupsCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(showAllCommentsButton.snp.bottom).offset(30)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(150)
             make.bottom.equalToSuperview().offset(-20)
         }
     }
@@ -225,50 +258,99 @@ final class PopupDetailViewController: UIViewController {
         popupData
             .subscribe(onNext: { [weak self] popup in
                 if let popup = popup {
+                    print("✅ PopupDetailViewController: popupData를 받았습니다 - 팝업 이름: \(popup.name), 이미지 개수: \(popup.imageList.count)")
                     self?.updateUI(with: popup)
-                    self?.imageCollectionView.reloadData()
-                    self?.commentTableView.reloadData()
+                } else {
+                    print("❌ PopupDetailViewController: popupData가 nil입니다")
                 }
             })
             .disposed(by: disposeBag)
-
 
         output.bookmarkToggled
             .drive(onNext: { [weak self] isBookmarked in
                 self?.updateLikeButton(isLiked: isBookmarked)
             })
             .disposed(by: disposeBag)
+
+        backButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 
-
-
     private func updateUI(with popup: PopupDetail) {
+        print("✅ PopupDetailViewController: 팝업 데이터를 사용하여 UI를 업데이트합니다.")
+
         titleLabel.text = popup.name
+        print("🔄 제목 업데이트: \(popup.name)")
+
         descriptionLabel.text = popup.desc
-        periodLabel.text = "\(popup.startDate) ~ \(popup.endDate)"
-        timeLabel.text = "운영 시간 정보 추가 필요"
+        print("🔄 설명 업데이트: \(popup.desc)")
+
+        periodLabel.text = "\(popup.formattedStartDate()) ~ \(popup.formattedEndDate())"
+        print("🔄 기간 업데이트: \(periodLabel.text ?? "기간 정보 없음")")
+
         addressLabel.text = popup.address
+        print("🔄 주소 업데이트: \(popup.address)")
+
         imagePageControl.numberOfPages = popup.imageList.count
+        print("🔄 이미지 개수 업데이트: \(popup.imageList.count)")
+
+
+
         imageCollectionView.reloadData()
         commentTableView.reloadData()
+        similarPopupsCollectionView.reloadData()
     }
 
     private func updateLikeButton(isLiked: Bool) {
         likeButton.isSelected = isLiked
     }
+
+    private func formatDate(_ dateString: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let date = formatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "YYYY. MM. dd"
+            return outputFormatter.string(from: date)
+        }
+        return dateString
+    }
+
 }
 
-extension PopupDetailViewController: UICollectionViewDataSource {
+extension PopupDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return popupData.value?.imageList.count ?? 0
+        if collectionView == imageCollectionView {
+            return popupData.value?.imageList.count ?? 0
+        } else {
+            return popupData.value?.similarPopUpStoreList.count ?? 0
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopupImageCell.reuseIdentifier, for: indexPath) as! PopupImageCell
-        if let imageUrl = popupData.value?.imageList[indexPath.item].imageUrl {
-            cell.configure(with: imageUrl)
+        if collectionView == imageCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopupImageCell.reuseIdentifier, for: indexPath) as! PopupImageCell
+            if let imageUrl = popupData.value?.imageList[indexPath.item].imageUrl {
+                cell.configure(with: imageUrl)
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimilarPopupCell", for: indexPath) as! SimilarPopupCell
+            if let similarPopup = popupData.value?.similarPopUpStoreList[indexPath.item] {
+                cell.configure(with: similarPopup)
+            }
+            return cell
         }
-        return cell
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == imageCollectionView {
+            let pageIndex = round(scrollView.contentOffset.x / view.frame.width)
+            imagePageControl.currentPage = Int(pageIndex)
+        }
     }
 }
 
