@@ -69,8 +69,14 @@ extension AdminManagementListTableViewCell: CellInputable {
     }
     
     func injectionWith(input: Input) {
-        popUpImageView.image = input.image
         titleLabel.text = input.title
         subTitleLabel.text = input.category
+        
+        if let image = input.image {
+            popUpImageView.image = image
+            popUpImageView.stopLoadingIndicator()
+        } else {
+            popUpImageView.showLoadingIndicator()
+        }
     }
 }

@@ -17,12 +17,12 @@ final class LoadingIndicator: UIView {
         return view
     }()
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setUp()
         setUpConstraint()
     }
-    
+        
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,12 +39,12 @@ final class LoadingIndicator: UIView {
         }
     }
     
-    public func start() {
+    public func startIndicator() {
         animationView.play()
         animationView.loopMode = .loop
     }
     
-    public func stop() {
+    public func stopIndicator() {
         self.removeFromSuperview()
         animationView.stop()
         animationView.removeFromSuperview()
