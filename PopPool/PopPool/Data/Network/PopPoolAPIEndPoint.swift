@@ -677,4 +677,35 @@ struct PopPoolAPIEndPoint {
             bodyParameters: request
         )
     }
+    
+    // MARK: - Like API
+    
+    static func like_upload(userId: String, commentId: Int64) -> RequestEndpoint {
+        struct LikeUploadRequest: Encodable {
+            var userId: String
+            var commentId: Int64
+        }
+        
+        let request = LikeUploadRequest(userId: userId, commentId: commentId)
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/likes",
+            method: .post,
+            bodyParameters: request
+        )
+    }
+    
+    static func like_delete(userId: String, commentId: Int64) -> RequestEndpoint {
+        struct LikeDeleteRequest: Encodable {
+            var userId: String
+            var commentId: Int64
+        }
+        
+        let request = LikeDeleteRequest(userId: userId, commentId: commentId)
+        return RequestEndpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/likes",
+            method: .delete,
+            queryParameters: request)
+    }
 }

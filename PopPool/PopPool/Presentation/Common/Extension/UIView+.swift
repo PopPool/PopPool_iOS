@@ -15,8 +15,6 @@ extension UIView {
         
         let toolTip = ToolTipViewCPNT(colorType: color, direction: direction, text: text)
         
-        print("상위 중앙 값", superview.bounds.width / 2)
-        print("상위 프레임 값", superview.frame.width)
         superview.addSubview(toolTip)
         toolTip.snp.makeConstraints { make in
             if direction == .pointDown {
