@@ -287,6 +287,10 @@
 		BD2975082C5112390090147C /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2975072C5112390090147C /* BlockedUserVM.swift */; };
 		BD2EF66B2C635A7C00A93A8C /* HomeAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */; };
 		BD2F787C2C99A52A004784AA /* ClipboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F787B2C99A52A004784AA /* ClipboardManager.swift */; };
+		BD328EBB2CAE5FC5001B778F /* LikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD328EBA2CAE5FC5001B778F /* LikeRepository.swift */; };
+		BD328EBE2CAE60B3001B778F /* LikeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD328EBD2CAE60B3001B778F /* LikeRepositoryImpl.swift */; };
+		BD328EC02CAE6280001B778F /* LikeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD328EBF2CAE6280001B778F /* LikeUseCase.swift */; };
+		BD328EC22CAE62BB001B778F /* LikeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD328EC12CAE62BB001B778F /* LikeUseCaseImpl.swift */; };
 		BD3320792C8E4FFF002EA30C /* NormalCommentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */; };
 		BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */; };
 		BD332D6A2C48E89E002D0FA9 /* SignOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD332D692C48E89E002D0FA9 /* SignOutVC.swift */; };
@@ -648,6 +652,10 @@
 		BD2975072C5112390090147C /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
 		BD2EF66A2C635A7C00A93A8C /* HomeAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAlertVC.swift; sourceTree = "<group>"; };
 		BD2F787B2C99A52A004784AA /* ClipboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardManager.swift; sourceTree = "<group>"; };
+		BD328EBA2CAE5FC5001B778F /* LikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRepository.swift; sourceTree = "<group>"; };
+		BD328EBD2CAE60B3001B778F /* LikeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRepositoryImpl.swift; sourceTree = "<group>"; };
+		BD328EBF2CAE6280001B778F /* LikeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUseCase.swift; sourceTree = "<group>"; };
+		BD328EC12CAE62BB001B778F /* LikeUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUseCaseImpl.swift; sourceTree = "<group>"; };
 		BD3320782C8E4FFF002EA30C /* NormalCommentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCommentVM.swift; sourceTree = "<group>"; };
 		BD332D632C47D1F6002D0FA9 /* SignOutNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutNoticeSheet.swift; sourceTree = "<group>"; };
 		BD332D692C48E89E002D0FA9 /* SignOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutVC.swift; sourceTree = "<group>"; };
@@ -1273,6 +1281,7 @@
 				08FF6C8D2C79C1F000B68569 /* NoticeUseCase.swift */,
 				BD0D190B2C7D8C3B0017D909 /* AdminUseCase.swift */,
 				BD1716FC2CA2C8FF00D2D3E3 /* CommentUseCase.swift */,
+				BD328EBF2CAE6280001B778F /* LikeUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -1308,6 +1317,7 @@
 		08B965962C16026A00BF95AA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				BD328EBC2CAE60A4001B778F /* LikeRepository */,
 				BD1717002CA2EEBF00D2D3E3 /* CommentRepository */,
 				BD0D19052C7D8A2E0017D909 /* AdminRepository */,
 				08FF6C7D2C79B8CC00B68569 /* NoticeRepository */,
@@ -1332,6 +1342,7 @@
 				08FF6C892C79C0C800B68569 /* NoticeRepository.swift */,
 				BD0D19082C7D8A5A0017D909 /* AdminRepository.swift */,
 				BD0434042CA2AE1E00758CDF /* CommentRepository.swift */,
+				BD328EBA2CAE5FC5001B778F /* LikeRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -1752,6 +1763,7 @@
 		4E67A1FF2C92FCBA003BDAFA /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				BD328EC12CAE62BB001B778F /* LikeUseCaseImpl.swift */,
 				4E67A1F72C92FCBA003BDAFA /* AdminUseCaseImpl.swift */,
 				4E67A1F82C92FCBA003BDAFA /* FetchSocialCredentialUseCaseImpl.swift */,
 				4E67A1F92C92FCBA003BDAFA /* HomeUseCaseImpl.swift */,
@@ -1915,6 +1927,14 @@
 				BDD3AB782C67543E00934368 /* AlarmSettingVM.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		BD328EBC2CAE60A4001B778F /* LikeRepository */ = {
+			isa = PBXGroup;
+			children = (
+				BD328EBD2CAE60B3001B778F /* LikeRepositoryImpl.swift */,
+			);
+			path = LikeRepository;
 			sourceTree = "<group>";
 		};
 		BD3C4C742C31AF550087917B /* ViewController */ = {
@@ -2306,6 +2326,7 @@
 				BD60B27C2C75A02C0062DC96 /* GetHomeInfoResponseDTO.swift in Sources */,
 				4E67A1E92C92FC3D003BDAFA /* GetMyRecentViewPopUpStoreListRequestDTO.swift in Sources */,
 				BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */,
+				BD328EC22CAE62BB001B778F /* LikeUseCaseImpl.swift in Sources */,
 				BD7B47DF2C650E9C00DA116D /* HomeAlertCell.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
@@ -2329,6 +2350,7 @@
 				BDD7E6522C3694C20059C6B5 /* BaseViewController.swift in Sources */,
 				BDCA56742C69FF59005C68C8 /* HomeListCell.swift in Sources */,
 				BDD3AB792C67543E00934368 /* AlarmSettingVM.swift in Sources */,
+				BD328EC02CAE6280001B778F /* LikeUseCase.swift in Sources */,
 				083464B42C8F05D7007D6F11 /* AdminManagementListTableViewCell.swift in Sources */,
 				08FF6C242C721C6500B68569 /* GetNoticeListResponseDTO.swift in Sources */,
 				BD1E374A2C7E2895004931D5 /* HomePopUp.swift in Sources */,
@@ -2350,6 +2372,7 @@
 				4EF84FB72CA5E653004B3DA2 /* PopupImageCell.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
 				08E23ABB2C4F8C9A004B77B6 /* GetBlockedUserListResponse.swift in Sources */,
+				BD328EBE2CAE60B3001B778F /* LikeRepositoryImpl.swift in Sources */,
 				085105A02C1038EB00ED7DBB /* AuthError.swift in Sources */,
 				4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */,
 				BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */,
@@ -2546,6 +2569,7 @@
 				4E67A2062C92FCBB003BDAFA /* TryLoginUseCaseImpl.swift in Sources */,
 				08F49DF42C232364002D5202 /* TryLoginUseCase.swift in Sources */,
 				08C813DE2C2D50BC009239FE /* TagsLayout.swift in Sources */,
+				BD328EBB2CAE5FC5001B778F /* LikeRepository.swift in Sources */,
 				08B183BD2C439F52006C34BB /* MyPageMainVM.swift in Sources */,
 				08AF8D9E2C688D9C006B8A11 /* MyCommentedPopUpVM.swift in Sources */,
 				4E67A2432C930364003BDAFA /* InfoBoxViewCPNT.swift in Sources */,

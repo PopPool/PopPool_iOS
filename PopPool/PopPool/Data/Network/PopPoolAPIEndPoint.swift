@@ -680,7 +680,7 @@ struct PopPoolAPIEndPoint {
     
     // MARK: - Like API
     
-    static func like_upload(userId: String, commentId: Int64) -> RequestEndpoint {
+    static func like_increment(userId: String, commentId: Int64) -> RequestEndpoint {
         struct LikeUploadRequest: Encodable {
             var userId: String
             var commentId: Int64
