@@ -14,6 +14,7 @@ final class NormalCommentVC: BaseViewController {
     
     //MARK: - Components
     
+    var onCommentAdded: (() -> Void)?
     private let header = HeaderViewCPNT(title: "코멘트 작성하기", style: .icon(nil))
     private let scrollView = UIScrollView(frame: .zero)
     private let containerView = UIView()
@@ -198,7 +199,9 @@ final class NormalCommentVC: BaseViewController {
                             .subscribe {
                                 print("코멘트 업로드 완료")
                                 ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                                owner.onCommentAdded?()
                             }
+                        
                             .disposed(by: owner.disposeBag)
                         
                     }, onFailure: { error in

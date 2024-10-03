@@ -637,7 +637,8 @@ struct PopPoolAPIEndPoint {
             method: .get,
             queryParameters: [
                 "userId": userId,
-                "commentType": commentType.rawValue
+                "commentType": commentType.rawValue,
+                "popUpStoreId": "\(popUpStoreId)"
             ])
     }
     

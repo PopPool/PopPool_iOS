@@ -193,6 +193,9 @@ class SearchViewController: UIViewController {
         searchResultsView.registerCell()
         
 
+        curationPopupCollectionView.delegate = self
+        searchResultsView.getCollectionView().delegate = self
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -373,6 +376,7 @@ class SearchViewController: UIViewController {
                     .disposed(by: self!.disposeBag)
             })
             .disposed(by: disposeBag)
+
         curationPopupCollectionView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
@@ -389,11 +393,10 @@ class SearchViewController: UIViewController {
                     let detailVC = PopupDetailViewController(viewModel: detailViewModel)
                     self.navigationController?.pushViewController(detailVC, animated: true)
                 } else {
-                    print("Index out of range: \(indexPath.item), but filteredPopUpStores count is \(self.filteredPopUpStores.count)")
+                    print("인덱스 범위 초과: \(indexPath.item), filteredPopUpStores 개수: \(self.filteredPopUpStores.count)")
                 }
             })
             .disposed(by: disposeBag)
-
 
 
         popUpStoresSubject
@@ -661,7 +664,26 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPopUp = filteredPopUpStores[indexPath.item]
+        print("디버그: 셀이 선택되었습니다. 인덱스: \(indexPath.item)")
+
+        let selectedPopUp: HomePopUp
+        if collectionView == curationPopupCollectionView {
+            guard indexPath.item < allPopUpStores.count else {
+                print("오류: 큐레이션 팝업 스토어 인덱스 범위 초과. 인덱스: \(indexPath.item), 전체 개수: \(allPopUpStores.count)")
+                return
+            }
+            selectedPopUp = allPopUpStores[indexPath.item]
+            print("디버그: 큐레이션 팝업 스토어가 선택되었습니다.")
+        } else {
+            guard indexPath.item < filteredPopUpStores.count else {
+                print("오류: 필터링된 팝업 스토어 인덱스 범위 초과. 인덱스: \(indexPath.item), 필터링된 개수: \(filteredPopUpStores.count)")
+                return
+            }
+            selectedPopUp = filteredPopUpStores[indexPath.item]
+            print("디버그: 검색 결과 팝업 스토어가 선택되었습니다.")
+        }
+
+        print("디버그: 선택된 팝업 스토어 ID: \(selectedPopUp.id), 이름: \(selectedPopUp.name)")
 
         let provider = AppDIContainer.shared.resolve(type: Provider.self)
         let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
@@ -670,8 +692,13 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let useCase = DefaultPopUpDetailUseCase(repository: repository)
 
         let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: Constants.userId)
-
         let detailVC = PopupDetailViewController(viewModel: detailViewModel)
+
+        print("디버그: 팝업 상세 페이지로 이동을 시도합니다.")
         navigationController?.pushViewController(detailVC, animated: true)
+
+        if navigationController == nil {
+            print("오류: navigationController가 nil입니다. 페이지 이동이 불가능합니다.")
+        }
     }
 }

@@ -36,7 +36,14 @@ final class AdminPostVC: BaseViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return view
     }()
-    
+    // 돌아가기 버튼 추가
+    private let backButton: UIButton = {
+          let button = UIButton(type: .system)
+          button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+          button.tintColor = .black
+          return button
+      }()
+
     let scrollView: UIScrollView = {
         let view = UIScrollView()
         return view
@@ -155,11 +162,14 @@ final class AdminPostVC: BaseViewController {
     
     func setUp() {
         self.navigationController?.navigationBar.isHidden = false
+//        view.addSubview(backButton)
+
         imageViewCollectionView.dataSource = self
         imageViewCollectionView.delegate = self
         imageViewCollectionView.register(AdminImageViewCollectionViewCell.self, forCellWithReuseIdentifier: AdminImageViewCollectionViewCell.identifier)
     }
     
+
     func setUpConstraints() {
         view.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
@@ -186,6 +196,12 @@ final class AdminPostVC: BaseViewController {
             make.top.equalTo(imageViewCollectionView.snp.bottom).offset(16)
             make.leading.trailing.bottom.equalToSuperview().inset(20)
         }
+
+        backButton.snp.makeConstraints { make in
+                  make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+                  make.leading.equalToSuperview().offset(20)
+                  make.size.equalTo(44)
+              }
         contentStackView.addArrangedSubview(titleTextField)
         contentStackView.addArrangedSubview(imageChoiceButton)
         contentStackView.addArrangedSubview(categoryChoiceButton)
@@ -198,8 +214,19 @@ final class AdminPostVC: BaseViewController {
         contentStackView.addArrangedSubview(endDateChoiceButton)
         contentStackView.addArrangedSubview(descriptionTitleLabel)
         contentStackView.addArrangedSubview(descriptionTextView)
+        contentStackView.addArrangedSubview(backButton)
     }
-    
+
+
+    private func setupBackButton() {
+        backButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+
     func bind() {
         imageChoiceButton.rx.tap
             .withUnretained(self)
@@ -527,6 +554,13 @@ final class AdminPostVC: BaseViewController {
                 }
             }
             .disposed(by: disposeBag)
+        // 백 버튼 바인딩 추가
+        backButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+
     }
     
     func checkValidation() {

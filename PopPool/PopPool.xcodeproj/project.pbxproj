@@ -161,6 +161,7 @@
 		4E1AAB5D2CA39F040066E201 /* PopUpDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB5C2CA39F040066E201 /* PopUpDetailUseCase.swift */; };
 		4E1AAB5F2CA39F1E0066E201 /* PopupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB5E2CA39F1E0066E201 /* PopupRepository.swift */; };
 		4E1AAB612CA3A18B0066E201 /* PopupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */; };
+		4E32CBDC2CAA832200F0FF68 /* SimilarPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */; };
 		4E34D3E92CA2B4AA000B6033 /* SearchSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34D3E82CA2B4AA000B6033 /* SearchSuggestionCell.swift */; };
 		4E4DC0032C614726007CE63A /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4DC0022C614726007CE63A /* GoogleMaps */; };
 		4E4DC0072C61D40A007CE63A /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0062C61D40A007CE63A /* MapVC.swift */; };
@@ -247,6 +248,7 @@
 		4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A72C64B140000F4095 /* ListViewController.swift */; };
 		4E9A33AA2C64CB0D000F4095 /* FilterBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */; };
 		4E9A33AC2C64CE41000F4095 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33AB2C64CE41000F4095 /* FilterCell.swift */; };
+		4EA417D42CAD48A000C763F4 /* NormalCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD198D072C8D53D500835325 /* NormalCommentVC.swift */; };
 		4EAAE5842C93B5C1001E03C8 /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAE5832C93B5C1001E03C8 /* SearchUseCase.swift */; };
 		4EAAE5862C93B5D7001E03C8 /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAE5852C93B5D7001E03C8 /* SearchRepository.swift */; };
 		4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED312C8A205200DA4885 /* HomeVC.swift */; };
@@ -529,6 +531,7 @@
 		4E1AAB5C2CA39F040066E201 /* PopUpDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpDetailUseCase.swift; sourceTree = "<group>"; };
 		4E1AAB5E2CA39F1E0066E201 /* PopupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupRepository.swift; sourceTree = "<group>"; };
 		4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetail.swift; sourceTree = "<group>"; };
+		4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarPopupCell.swift; sourceTree = "<group>"; };
 		4E34D3E82CA2B4AA000B6033 /* SearchSuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionCell.swift; sourceTree = "<group>"; };
 		4E4DC0062C61D40A007CE63A /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		4E4DC00A2C61F7F7007CE63A /* PopUpStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStore.swift; sourceTree = "<group>"; };
@@ -1620,6 +1623,7 @@
 				4E1AAB5A2CA39EE30066E201 /* PopupDetailViewModel.swift */,
 				4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */,
 				4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */,
+				4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */,
 				4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */,
 				4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */,
 			);
@@ -2576,6 +2580,7 @@
 				4E1AAB592CA39D910066E201 /* PopUpDetailViewController.swift in Sources */,
 				08AF8D9A2C68862F006B8A11 /* PopUpCommentedCell.swift in Sources */,
 				0896A05C2C79F9300062CC49 /* String+.swift in Sources */,
+				4E32CBDC2CAA832200F0FF68 /* SimilarPopupCell.swift in Sources */,
 				4E67A2542C930364003BDAFA /* ValidationTextFieldCPNT.swift in Sources */,
 				08FF6BE12C6DBBA200B68569 /* Reactive+.swift in Sources */,
 				BDCA56702C69F29A005C68C8 /* HomeVM.swift in Sources */,
@@ -2638,6 +2643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */,
+				4EA417D42CAD48A000C763F4 /* NormalCommentVC.swift in Sources */,
 				087346342C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift in Sources */,
 				087346322C0AAD2B00534FFA /* PopPoolUITests.swift in Sources */,
 			);

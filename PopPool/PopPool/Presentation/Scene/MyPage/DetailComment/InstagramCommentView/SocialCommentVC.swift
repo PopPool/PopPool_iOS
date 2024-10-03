@@ -28,6 +28,8 @@ final class SocialCommentVC: BaseViewController {
         }
     }
     
+    var onCommentAdded: (() -> Void)?
+
     let header = HeaderViewCPNT(
         title: "코멘트 작성하기",
         style: .icon(nil))

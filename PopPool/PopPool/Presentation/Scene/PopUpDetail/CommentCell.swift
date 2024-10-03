@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-
 class CommentCell: UITableViewCell {
     static let reuseIdentifier = "CommentCell"
 
@@ -73,16 +72,26 @@ class CommentCell: UITableViewCell {
     func configure(with comment: Comment) {
         nicknameLabel.text = comment.nickname
         commentLabel.text = comment.content
-        dateLabel.text = formatDate(comment.createDateTime)
+//        dateLabel.text = formatDate(comment.createDateTime)
 
-        if let url = URL(string: comment.profileImageUrl) {
-            profileImageView.kf.setImage(with: url)
+        if comment.profileImageUrl == "defaultProfileImage" {
+            profileImageView.image = UIImage(named: "defaultProfileImage")
+        } else if let url = URL(string: comment.profileImageUrl) {
+            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultProfileImage"))
         }
-    }
 
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd HH:mm"
-        return formatter.string(from: date)
+        // Instagram ID가 있는 경우 표시
+        if let instagramId = comment.instagramId {
+            nicknameLabel.text = "\(comment.nickname) (@\(instagramId))"
+        }
+
+        // 좋아요 수 표시 (옵션)
+        // likeCountLabel.text = "\(comment.likeCount) 좋아요"
+
+        // 댓글 이미지 표시 (첫 번째 이미지만 표시하는 경우)
+        if let firstImage = comment.commentImageList.first {
+            // 이미지 뷰를 추가하고 이미지 로드
+            // commentImageView.kf.setImage(with: URL(string: firstImage.imageUrl))
+        }
     }
 }
