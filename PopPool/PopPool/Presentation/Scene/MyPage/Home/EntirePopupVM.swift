@@ -23,6 +23,7 @@ final class EntirePopupVM: ViewModelable {
     var disposeBag = DisposeBag()
     var fetchedResponse: BehaviorRelay<GetHomeInfoResponse> = .init(value: GetHomeInfoResponse())
     private let allPopUpStores = BehaviorRelay<[HomePopUp]>(value: [])
+    private let useCase = AppDIContainer.shared.resolve(type: PopUpDetailUseCase.self)
 
     func transform(input: Input) -> Output {
         fetchedResponse
@@ -45,16 +46,16 @@ final class EntirePopupVM: ViewModelable {
 
     func updateDate(response: GetHomeInfoResponse) {
         print("DEBUG: updateDate 호출됨, response: \(response)")
-
+        
         var allPopUps = [HomePopUp]()
         if let customPopUps = response.customPopUpStoreList { allPopUps.append(contentsOf: customPopUps) }
         if let popularPopUps = response.popularPopUpStoreList { allPopUps.append(contentsOf: popularPopUps) }
         if let newPopUps = response.newPopUpStoreList { allPopUps.append(contentsOf: newPopUps) }
-
+        
         let uniquePopUps = Array(Set(allPopUps))
-
+        
         print("DEBUG: 중복 제거 후 팝업 수: \(uniquePopUps.count)")
-
+        
         if !uniquePopUps.isEmpty {
             allPopUpStores.accept(uniquePopUps)
             fetchedResponse.accept(response)
@@ -62,6 +63,18 @@ final class EntirePopupVM: ViewModelable {
             print("DEBUG: 모든 팝업 리스트가 비어있습니다.")
         }
     }
-
-
+    
+    func updateBookmarkStatus(popUpStoreId: Int64) {
+        useCase.toggleBookmark(
+            userId: Constants.userId,
+            popUpStoreId: popUpStoreId)
+        .subscribe(onCompleted: {
+            print("데이터 전송 완료")
+        }, onError: { error in
+            print("서버 업로드 이슈", error.localizedDescription)
+        }, onDisposed: {
+            print("구독 해제 완료")
+        })
+        .disposed(by: disposeBag)
+    }
 }

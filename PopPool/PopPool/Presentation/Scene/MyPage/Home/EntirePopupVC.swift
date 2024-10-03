@@ -132,6 +132,16 @@ extension EntirePopupVC: UICollectionViewDelegate, UICollectionViewDataSource {
             location: popUpStore.address,
             date: popUpStore.startDate
         ))
+        
+        cell.bookmarkSubject
+            .withUnretained(self)
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { owner, _ in
+                print("팝업 정보", popUpStore.name)
+                owner.viewModel.updateBookmarkStatus(popUpStoreId: popUpStore.id)
+            })
+            .disposed(by: cell.disposeBag)
+        
         return cell
     }
 }
