@@ -3,12 +3,12 @@ import SnapKit
 import Kingfisher
 
 class PopupImageCell: UICollectionViewCell {
-//    static let reuseIdentifier = "PopupImageCell"
 
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
+        iv.backgroundColor = .gray // 기본 배경 컬러
         return iv
     }()
 
@@ -28,9 +28,27 @@ class PopupImageCell: UICollectionViewCell {
         }
     }
 
-    func configure(with imageUrl: String) {
-        if let url = URL(string: imageUrl) {
-            imageView.kf.setImage(with: url)
+    func configure(with imageUrl: String?) {
+        let defaultImage = UIImage(named: "defaultImage")
+
+        if let imageUrl = imageUrl, let url = URL(string: imageUrl) {
+            imageView.kf.setImage(
+                with: url,
+                placeholder: defaultImage, // 기본 이미지 설정
+                options: nil,
+                completionHandler: { result in
+                    switch result {
+                    case .success(let value):
+                        print("이미지 로드 성공: \(value.source.url?.absoluteString ?? "")")
+                    case .failure(let error):
+                        print("이미지 로드 실패: \(error.localizedDescription)")
+                        self.imageView.image = defaultImage
+                    }
+                }
+            )
+        } else {
+            imageView.image = defaultImage
+            print("유효하지 않은 URL이므로 기본 이미지를 사용합니다.")
         }
     }
 }

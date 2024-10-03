@@ -3,7 +3,6 @@ import SnapKit
 import Kingfisher
 
 class SimilarPopupCell: UICollectionViewCell {
-//    static let reuseIdentifier = "SimilarPopupCell"
 
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -56,7 +55,7 @@ class SimilarPopupCell: UICollectionViewCell {
     }
 
     func configure(with similarPopup: SimilarPopUp) {
-        nameLabel.text = similarPopup.name
+        nameLabel.text = similarPopup.name.count > 11 ? similarPopup.name.prefix(11) + "..." : similarPopup.name
         endDateLabel.text = "~ \(similarPopup.formattedEndDate())"
 
         if let url = URL(string: similarPopup.mainImageUrl) {

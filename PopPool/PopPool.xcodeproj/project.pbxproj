@@ -248,6 +248,7 @@
 		4E9A33A82C64B140000F4095 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A72C64B140000F4095 /* ListViewController.swift */; };
 		4E9A33AA2C64CB0D000F4095 /* FilterBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A92C64CB0D000F4095 /* FilterBottomSheetViewController.swift */; };
 		4E9A33AC2C64CE41000F4095 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33AB2C64CE41000F4095 /* FilterCell.swift */; };
+		4EA417D42CAD48A000C763F4 /* NormalCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD198D072C8D53D500835325 /* NormalCommentVC.swift */; };
 		4EAAE5842C93B5C1001E03C8 /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAE5832C93B5C1001E03C8 /* SearchUseCase.swift */; };
 		4EAAE5862C93B5D7001E03C8 /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAE5852C93B5D7001E03C8 /* SearchRepository.swift */; };
 		4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED312C8A205200DA4885 /* HomeVC.swift */; };
@@ -2642,6 +2643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */,
+				4EA417D42CAD48A000C763F4 /* NormalCommentVC.swift in Sources */,
 				087346342C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift in Sources */,
 				087346322C0AAD2B00534FFA /* PopPoolUITests.swift in Sources */,
 			);
