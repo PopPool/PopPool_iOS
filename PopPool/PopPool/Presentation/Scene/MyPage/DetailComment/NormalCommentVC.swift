@@ -192,7 +192,7 @@ final class NormalCommentVC: BaseViewController {
                             popUpStoreId: owner.viewModel.popUpStoreId,
                             content: owner.commentTextfield.textView.text,
                             commentType: newComment.commentType,
-                            imageUrlList: newComment.imageUrlList)
+                            imageUrlList: pathList)
                         
                         repository.postComment(request: popUpStore)
                             .subscribe {
