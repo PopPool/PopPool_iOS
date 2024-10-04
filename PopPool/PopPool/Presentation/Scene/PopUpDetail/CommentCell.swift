@@ -22,7 +22,7 @@ class CommentCell: UITableViewCell {
     private let commentLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         return label
     }()
 
@@ -33,17 +33,45 @@ class CommentCell: UITableViewCell {
         return label
     }()
 
+    private let likeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("도움돼요 0", for: .normal)
+        button.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+        button.tintColor = .gray
+        button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.semanticContentAttribute = .forceLeftToRight
+        return button
+    }()
+
+    private let showMoreButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("코멘트 전체보기 >", for: .normal)
+        button.titleLabel?.font = .KorFont(style: .bold, size: 12)
+        button.setTitleColor(.black, for: .normal)
+        button.isHidden = true
+        return button
+    }()
+
+    private var isExpanded = false
+    private var isLiked = false
+    private var likeCount = 0
+
+    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        setupActions()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - UI Setup
     private func setupUI() {
-        [profileImageView, nicknameLabel, commentLabel, dateLabel].forEach { contentView.addSubview($0) }
+        [profileImageView, nicknameLabel, commentLabel, dateLabel, likeButton, showMoreButton].forEach {
+            contentView.addSubview($0)
+        }
 
         profileImageView.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().offset(10)
@@ -65,14 +93,78 @@ class CommentCell: UITableViewCell {
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(commentLabel.snp.bottom).offset(5)
             make.leading.equalTo(nicknameLabel)
+        }
+
+        likeButton.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(5)
+            make.leading.equalTo(nicknameLabel).offset(200)
+            make.bottom.equalToSuperview().offset(-10)
+        }
+
+        showMoreButton.snp.makeConstraints { make in
+            make.top.equalTo(commentLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(contentView)
             make.bottom.equalToSuperview().offset(-10)
         }
     }
 
+    // MARK: - Actions Setup
+    private func setupActions() {
+        likeButton.addTarget(self, action: #selector(handleLikeButtonTapped), for: .touchUpInside)
+        showMoreButton.addTarget(self, action: #selector(didTapShowMore), for: .touchUpInside)
+    }
+
+    // MARK: - Button Actions
+    @objc private func handleLikeButtonTapped() {
+        isLiked.toggle()
+        likeCount += isLiked ? 1 : -1
+        updateLikeButton()
+    }
+
+    @objc private func didTapShowMore() {
+        isExpanded.toggle()
+        commentLabel.numberOfLines = isExpanded ? 0 : 3
+        showMoreButton.setTitle(isExpanded ? "코멘트 접기" : "코멘트 전체보기", for: .normal)
+        updateShowMoreButtonVisibility()
+        layoutIfNeeded()
+    }
+
+    // MARK: - Helper Methods
+    private func updateLikeButton() {
+        likeButton.setTitle("도움돼요 \(likeCount)", for: .normal)
+        likeButton.tintColor = isLiked ? .blue : .gray
+    }
+
+    private func updateShowMoreButtonVisibility() {
+        let maxLines = 3
+        commentLabel.numberOfLines = 0 // 먼저 제한을 풀어줍니다.
+
+        // 텍스트의 전체 높이를 계산합니다.
+        let fullTextHeight = commentLabel.sizeThatFits(CGSize(width: commentLabel.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
+
+        // 한 줄의 높이를 계산합니다.
+        let lineHeight = commentLabel.font.lineHeight
+
+        // 실제 텍스트의 줄 수를 계산합니다.
+        let actualNumberOfLines = Int(fullTextHeight / lineHeight)
+
+        // 3줄을 초과하는 경우에만 showMoreButton을 표시합니다.
+        if actualNumberOfLines > maxLines {
+            showMoreButton.isHidden = false
+            commentLabel.numberOfLines = maxLines // 3줄로 제한
+        } else {
+            showMoreButton.isHidden = true
+            commentLabel.numberOfLines = 0 // 제한 없음
+        }
+    }
+
+    // MARK: - Configuration
     func configure(with comment: Comment) {
         nicknameLabel.text = comment.nickname
         commentLabel.text = comment.content
-//        dateLabel.text = formatDate(comment.createDateTime)
+//        dateLabel.text = comment.formattedDate()
+        likeCount = comment.likeCount
+        updateLikeButton()
 
         if comment.profileImageUrl == "defaultProfileImage" {
             profileImageView.image = UIImage(named: "defaultProfileImage")
@@ -80,18 +172,14 @@ class CommentCell: UITableViewCell {
             profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultProfileImage"))
         }
 
-        // Instagram ID가 있는 경우 표시
-        if let instagramId = comment.instagramId {
-            nicknameLabel.text = "\(comment.nickname) (@\(instagramId))"
-        }
+        // 초기 상태 설정
+        commentLabel.numberOfLines = 3
+        showMoreButton.isHidden = true
+        isExpanded = false
 
-        // 좋아요 수 표시 (옵션)
-        // likeCountLabel.text = "\(comment.likeCount) 좋아요"
-
-        // 댓글 이미지 표시 (첫 번째 이미지만 표시하는 경우)
-        if let firstImage = comment.commentImageList.first {
-            // 이미지 뷰를 추가하고 이미지 로드
-            // commentImageView.kf.setImage(with: URL(string: firstImage.imageUrl))
+        // 레이아웃 업데이트 후 '코멘트 전체보기' 버튼 표시 여부 결정
+        DispatchQueue.main.async { [weak self] in
+            self?.updateShowMoreButtonVisibility()
         }
     }
 }

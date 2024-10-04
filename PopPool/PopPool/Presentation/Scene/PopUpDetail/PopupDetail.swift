@@ -107,7 +107,9 @@ extension PopupDetail {
                 nickname: "사용자1",
                 instagramId: "user1",
                 profileImageUrl: "defaultProfileImage",
-                content: "좋은 팝업 스토어네요! 제품들이 정말 멋있어요. 특히 한정판 상품들이 눈에 띄었습니다. 직원분들도 친절하고 매장 분위기도 좋았어요.",
+                content: "좋은 팝업 스토어네요! 제품들이 정말 멋있어요. 특히 한정판 상품들이 눈에 띄었습니다."
+                // 직원분들도 친절하고 매장 분위기도 좋았어요.",
+                ,
                 likeYn: false,
                 likeCount: 15,
                 createDateTime: Date(),
@@ -119,7 +121,7 @@ extension PopupDetail {
             Comment(
                 nickname: "사용자2",
                 instagramId: "fashionista",
-                profileImageUrl: "defaultProfileImage",
+                profileImageUrl: "defaultImage",
                 content: "재미있는 경험이었어요. 다음에 또 방문하고 싶습니다. 인테리어가 독특해서 인스타 감성 사진 찍기 좋았어요! 친구들이랑 와서 즐겁게 구경했습니다.",
                 likeYn: true,
                 likeCount: 23,
@@ -129,7 +131,7 @@ extension PopupDetail {
             Comment(
                 nickname: "팝업러버",
                 instagramId: nil,
-                profileImageUrl: "defaultProfileImage",
+                profileImageUrl: "defaultImage",
                 content: "이번 팝업 컨셉이 너무 좋았어요. 브랜드의 아이덴티티가 잘 드러나는 공간 구성이었고, 체험 코너도 재밌었습니다. 다만 사람이 너무 많아서 좀 붐비는 느낌이었어요.",
                 likeYn: false,
                 likeCount: 7,
@@ -139,7 +141,7 @@ extension PopupDetail {
             Comment(
                 nickname: "스타일리시",
                 instagramId: "stylelover",
-                profileImageUrl: "defaultProfileImage",
+                profileImageUrl: "defaultImage",
                 content: "제품 퀄리티가 정말 좋았어요. 평소에 온라인에서만 보던 제품들을 실제로 보고 만져볼 수 있어서 좋았습니다. 가격대가 조금 높은 편이지만 그만한 가치가 있다고 생각해요.",
                 likeYn: true,
                 likeCount: 19,

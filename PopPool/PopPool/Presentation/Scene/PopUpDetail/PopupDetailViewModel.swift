@@ -7,7 +7,7 @@ final class PopupDetailViewModel {
         let likeButtonTapped: Driver<Void>
         let shareButtonTapped: Driver<Void>
         let showMoreButtonTapped: Driver<Void>
-        let copyAddressButtonTapped: Driver<Void>
+//        let copyAddressButtonTapped: Driver<Void>
         let findRouteButtonTapped: Driver<Void>
         let commentTabChanged: Driver<Int>
         let showAllCommentsButtonTapped: Driver<Void>
@@ -18,7 +18,7 @@ final class PopupDetailViewModel {
     struct Output {
         let popupData: Driver<PopupDetail>
         let bookmarkToggled: Driver<Bool>
-        let addressCopied: Driver<String> 
+//        let addressCopied: Driver<String> 
 
         // TODO: 다른 출력 추가
     }
@@ -68,21 +68,21 @@ final class PopupDetailViewModel {
                     })
                     .asDriver(onErrorJustReturn: false)
             }
-        let addressCopied = input.copyAddressButtonTapped
-            .withLatestFrom(popupDataRelay.asDriver()) 
-                  .compactMap { popup -> String? in
-                      guard let address = popup?.address else {
-                          print("주소 복사 실패: 주소 정보 없음")
-                          return nil
-                      }
-                      print("주소 복사됨: \(address)")
-                      return address
-                  }
+//        let addressCopied = input.copyAddressButtonTapped
+//            .withLatestFrom(popupDataRelay.asDriver()) 
+//                  .compactMap { popup -> String? in
+//                      guard let address = popup?.address else {
+//                          print("주소 복사 실패: 주소 정보 없음")
+//                          return nil
+//                      }
+//                      print("주소 복사됨: \(address)")
+//                      return address
+//                  }
 
         return Output(
             popupData: popupData,
-            bookmarkToggled: bookmarkToggled,
-            addressCopied: addressCopied
+            bookmarkToggled: bookmarkToggled
+//            addressCopied: addressCopied
         )
     }
     func refreshComments() {

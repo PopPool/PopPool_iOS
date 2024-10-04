@@ -171,6 +171,7 @@
 		4E4DC0132C62013A007CE63A /* MapRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */; };
 		4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */; };
 		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
+		4E4F7A502CAFF5D60020AAAC /* PopUpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */; };
 		4E5B65B22C95A50600026B09 /* RecentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */; };
 		4E67A14D2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */; };
 		4E67A1DD2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A1BA2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift */; };
@@ -2645,6 +2646,7 @@
 				4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */,
 				4EA417D42CAD48A000C763F4 /* NormalCommentVC.swift in Sources */,
 				087346342C0AAD2B00534FFA /* PopPoolUITestsLaunchTests.swift in Sources */,
+				4E4F7A502CAFF5D60020AAAC /* PopUpDetailViewController.swift in Sources */,
 				087346322C0AAD2B00534FFA /* PopPoolUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
