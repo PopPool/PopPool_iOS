@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxRelay
 import PhotosUI
 
 class NormalCommentVM: ViewModelable {
@@ -25,10 +26,10 @@ class NormalCommentVM: ViewModelable {
         var hasText: Observable<Bool>
     }
     
-    var popUpStore: BehaviorSubject<String>
-    var isContentValid: PublishSubject<Bool> = .init()
+    var popUpStoreName: BehaviorRelay<String>
+    var popUpStoreId: Int64
     var commentRequest: BehaviorRelay<CreateCommentRequestDTO> = .init(value: CreateCommentRequestDTO(
-        userId: "",
+        userId: Constants.userId,
         popUpStoreId: 0,
         content: "",
         commentType: .normal,
@@ -46,8 +47,9 @@ class NormalCommentVM: ViewModelable {
     private let maxImageCount = 5
     private var selectedImageRelay = BehaviorRelay<[Data]>(value: [])
     
-    init(popUpStore: String) {
-        self.popUpStore = BehaviorSubject(value: popUpStore)
+    init(popUpName: String, popUpStoreId: Int64) {
+        self.popUpStoreName = BehaviorRelay(value: popUpName)
+        self.popUpStoreId = popUpStoreId
     }
     
     func addImage(_ imageData: Data) {

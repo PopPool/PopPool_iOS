@@ -30,16 +30,16 @@ final class CommentTypeVC: ModalViewController {
         return stack
     }()
 
-    let popUpStore: String
-    let popUpId: Int
+    let popUpStoreName: String
+    let popUpId: Int64
     let topSpacer = UIView()
     var onCommentAdded: (() -> Void)?
     private let disposeBag = DisposeBag()
 
-    init(popUpStore: String, popUpId: Int) {
-        self.popUpStore = popUpStore
+    init(popUpStoreName: String, popUpId: Int64) {
+        self.popUpStoreName = popUpStoreName
         self.popUpId = popUpId
-        print("코멘트 타입 화면 생성: 팝업 스토어 = \(popUpStore), 팝업 ID = \(popUpId)")
+        print("코멘트 타입 화면 생성: 팝업 스토어 = \(popUpStoreName), 팝업 ID = \(popUpId)")
 
         super.init()
     }
@@ -77,8 +77,8 @@ final class CommentTypeVC: ModalViewController {
         normalComment.tappedObserver
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                //                  // 모달을 먼저 닫고
-                let vm = NormalCommentVM(popUpStore: owner.popUpStore)
+                // 모달을 먼저 닫고
+                let vm = NormalCommentVM(popUpName: owner.popUpStoreName, popUpStoreId: owner.popUpId)
                 let vc = NormalCommentVC(viewModel: vm)
                 vc.onCommentAdded = {
                     owner.dismissBottomSheet()
@@ -129,7 +129,7 @@ final class CommentTypeVC: ModalViewController {
         setContent(content: stack)
     }
     private func pushNormalCommentVC() {
-        let vm = NormalCommentVM(popUpStore: popUpStore)
+        let vm = NormalCommentVM(popUpName: popUpStoreName, popUpStoreId: popUpId)
         let vc = NormalCommentVC(viewModel: vm)
         vc.onCommentAdded = { [weak self] in
             self?.onCommentAdded?()
