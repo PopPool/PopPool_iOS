@@ -79,6 +79,7 @@ final class SocialCommentVC: BaseViewController {
     var dynamicTextfield: DynamicTextViewCPNT!
     var isScrollEnabled: Bool = false
     var isIGContentCopied: Bool = false
+    let imageData: BehaviorRelay<UIImage?> = .init(value: nil)
     
     init(viewModel: SocialCommentVM) {
         self.viewModel = viewModel
@@ -212,28 +213,25 @@ final class SocialCommentVC: BaseViewController {
     }
     
     private func postCopiedSocialContent() {
+        guard let image = imageData.value else { return }
+        
         let imageService = PreSignedService()
         var pathList: [String] = []
         var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
-        
-        var commentRequest: BehaviorRelay<CreateCommentRequestDTO> = .init(value: CreateCommentRequestDTO(
+        let commentRequest = CreateCommentRequestDTO(
             userId: Constants.userId,
             popUpStoreId: viewModel.popUpId,
             content: dynamicTextfield.textView.text,
             commentType: .instagram,
-            imageUrlList: []))
-        
-        // 선택된 이미지 데이터 배열에 담기
-        viewModel.fetchImage()
-            .subscribe(onNext: { image in
-                let image = UIImage(data: image)!
-                let path = "comment/social/\(image)"
-                pathList.append(path)
-                imageUploadDatas.append(.init(
-                    filePath: path,
-                    image: image)
-                )
-            })
+            imageUrlList: []
+        )
+
+        let path = "comments/social/\(image)"
+        pathList.append(path)
+        imageUploadDatas.append(.init(
+            filePath: path,
+            image: image
+        ))
         
         imageService.tryUpload(datas: imageUploadDatas)
             .subscribe(onSuccess: { _ in
@@ -241,10 +239,10 @@ final class SocialCommentVC: BaseViewController {
                 // 이미지 업로드하며 코멘트 업로드 진행
                 let repository = CommentRepositoryImpl()
                 let popUpStore = CreateCommentRequestDTO(
-                    userId: commentRequest.value.userId,
-                    popUpStoreId: commentRequest.value.popUpStoreId,
-                    content: commentRequest.value.content,
-                    commentType: commentRequest.value.commentType,
+                    userId: commentRequest.userId,
+                    popUpStoreId: commentRequest.popUpStoreId,
+                    content: commentRequest.content,
+                    commentType: commentRequest.commentType,
                     imageUrlList: pathList)
                 
                 repository.postComment(request: popUpStore)
@@ -318,14 +316,15 @@ final class SocialCommentVC: BaseViewController {
         viewModel.fetchImage()
             .withUnretained(self)
             .subscribe(onNext: { (owner, image) in
-                print("가져온 이미지 데이터", image)
                 DispatchQueue.main.async {
                     if image.isEmpty {
                         owner.guideImage.image = UIImage(systemName: "lasso")
                         owner.guideImage.layer.borderColor = UIColor.red.cgColor
                         owner.guideImage.layer.borderWidth = 2
                     } else {
+                        let fetchedImage = UIImage(data: image)
                         owner.guideImage.image = UIImage(data: image)
+                        owner.imageData.accept(fetchedImage)
                     }
                 }
             })
