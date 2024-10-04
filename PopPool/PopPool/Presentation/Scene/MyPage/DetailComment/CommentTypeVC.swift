@@ -72,8 +72,6 @@ final class CommentTypeVC: ModalViewController {
             })
             .disposed(by: disposeBag)
 
-        // commentTypeVC.swift
-
         normalComment.tappedObserver
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
@@ -93,7 +91,7 @@ final class CommentTypeVC: ModalViewController {
         socialComment.tappedObserver
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                let vm = SocialCommentVM(clipboardManager: ClipboardManager.shared)
+                let vm = SocialCommentVM(clipboardManager: ClipboardManager.shared, popUpId: owner.popUpId)
                 let vc = SocialCommentVC(viewModel: vm)
                 vc.onCommentAdded = {
                     owner.dismissBottomSheet()
@@ -139,7 +137,7 @@ final class CommentTypeVC: ModalViewController {
     }
 
     private func pushSocialCommentVC() {
-        let vm = SocialCommentVM(clipboardManager: ClipboardManager.shared)
+        let vm = SocialCommentVM(clipboardManager: ClipboardManager.shared, popUpId: popUpId)
         let vc = SocialCommentVC(viewModel: vm)
         vc.onCommentAdded = { [weak self] in
             self?.onCommentAdded?()

@@ -78,6 +78,7 @@ final class SocialCommentVC: BaseViewController {
     let viewModel: SocialCommentVM
     var dynamicTextfield: DynamicTextViewCPNT!
     var isScrollEnabled: Bool = false
+    var isIGContentCopied: Bool = false
     
     init(viewModel: SocialCommentVM) {
         self.viewModel = viewModel
@@ -119,6 +120,12 @@ final class SocialCommentVC: BaseViewController {
                     number: currentPage,
                     title: attributeText
                 )
+            })
+            .disposed(by: disposeBag)
+        
+        output.isLoaded
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
                 owner.actionButton.showToolTip(color: .w100, direction: .pointDown, text: "잠깐, 비공개 계정은 게시물을 올릴 수 없어요 :(")
             })
             .disposed(by: disposeBag)
@@ -148,7 +155,12 @@ final class SocialCommentVC: BaseViewController {
         actionButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
-                owner.openUniversalLink()
+                if owner.isIGContentCopied {
+                    owner.postCopiedSocialContent()
+                    owner.navigationController?.popToRootViewController(animated: true)
+                } else {
+                    owner.openUniversalLink()
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -187,14 +199,66 @@ final class SocialCommentVC: BaseViewController {
             UIApplication.shared.open(url! as URL)
         }
         
-        let testing = viewModel.isCopiedToClipboard
-        print("복사된 값 확인", testing)
-        if testing {
+        let copiedToClipboard = viewModel.isCopiedToClipboard
+        isIGContentCopied = false
+        print("복사 여부", copiedToClipboard)
+        if copiedToClipboard {
             removeFromStack()
             reSetUpConstraint()
             pasteTest()
             updateScrollViewIfNeeded()
+            isIGContentCopied = true
         }
+    }
+    
+    private func postCopiedSocialContent() {
+        let imageService = PreSignedService()
+        var pathList: [String] = []
+        var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
+        
+        var commentRequest: BehaviorRelay<CreateCommentRequestDTO> = .init(value: CreateCommentRequestDTO(
+            userId: Constants.userId,
+            popUpStoreId: viewModel.popUpId,
+            content: dynamicTextfield.textView.text,
+            commentType: .instagram,
+            imageUrlList: []))
+        
+        // 선택된 이미지 데이터 배열에 담기
+        viewModel.fetchImage()
+            .subscribe(onNext: { image in
+                let image = UIImage(data: image)!
+                let path = "comment/social/\(image)"
+                pathList.append(path)
+                imageUploadDatas.append(.init(
+                    filePath: path,
+                    image: image)
+                )
+            })
+        
+        imageService.tryUpload(datas: imageUploadDatas)
+            .subscribe(onSuccess: { _ in
+                
+                // 이미지 업로드하며 코멘트 업로드 진행
+                let repository = CommentRepositoryImpl()
+                let popUpStore = CreateCommentRequestDTO(
+                    userId: commentRequest.value.userId,
+                    popUpStoreId: commentRequest.value.popUpStoreId,
+                    content: commentRequest.value.content,
+                    commentType: commentRequest.value.commentType,
+                    imageUrlList: pathList)
+                
+                repository.postComment(request: popUpStore)
+                    .subscribe { _ in
+                        ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+//                        owner.onCommentAdded?()
+                    }
+                    .disposed(by: self.disposeBag)
+                
+            }, onFailure: { error in
+                print("코멘트 업로드 중 오류")
+                ToastMSGManager.createToast(message: "코멘트 업로드 도중 문제가 발생했어요")
+            })
+            .disposed(by: disposeBag)
     }
     
     private func removeFromStack() {
@@ -254,6 +318,7 @@ final class SocialCommentVC: BaseViewController {
         viewModel.fetchImage()
             .withUnretained(self)
             .subscribe(onNext: { (owner, image) in
+                print("가져온 이미지 데이터", image)
                 DispatchQueue.main.async {
                     if image.isEmpty {
                         owner.guideImage.image = UIImage(systemName: "lasso")
