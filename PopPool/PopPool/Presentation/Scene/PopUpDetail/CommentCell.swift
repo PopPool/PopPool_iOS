@@ -85,8 +85,8 @@ class CommentCell: UITableViewCell {
         }
 
         commentLabel.snp.makeConstraints { make in
-            make.top.equalTo(nicknameLabel.snp.bottom).offset(5)
-            make.leading.equalTo(nicknameLabel)
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(34)
+            make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)
         }
 
@@ -124,11 +124,20 @@ class CommentCell: UITableViewCell {
     @objc private func didTapShowMore() {
         isExpanded.toggle()
         commentLabel.numberOfLines = isExpanded ? 0 : 3
-        showMoreButton.setTitle(isExpanded ? "코멘트 접기" : "코멘트 전체보기", for: .normal)
+//        showMoreButton.setTitle(isExpanded ? "코멘트 접기" : "코멘트 전체보기", for: .normal)
         updateShowMoreButtonVisibility()
+//        presentAllCommentsModal()
         layoutIfNeeded()
     }
-
+//    private func presentAllCommentsModal() {
+//        let allCommentsVC = AllCommentsViewController()
+//        allCommentsVC.modalPresentationStyle = .overFullScreen
+//        allCommentsVC.modalTransitionStyle = .crossDissolve
+//        // 현재 뷰 컨트롤러에서 모달을 띄워야 하므로 다음과 같이 처리합니다.
+//        if let parentVC = self.parentViewController {
+//            parentVC.present(allCommentsVC, animated: true, completion: nil)
+//        }
+//    }
     // MARK: - Helper Methods
     private func updateLikeButton() {
         likeButton.setTitle("도움돼요 \(likeCount)", for: .normal)
@@ -166,10 +175,10 @@ class CommentCell: UITableViewCell {
         likeCount = comment.likeCount
         updateLikeButton()
 
-        if comment.profileImageUrl == "defaultProfileImage" {
-            profileImageView.image = UIImage(named: "defaultProfileImage")
+        if comment.profileImageUrl == "defaultImage" {
+            profileImageView.image = UIImage(named: "defaultImage")
         } else if let url = URL(string: comment.profileImageUrl) {
-            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultProfileImage"))
+            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
         }
 
         // 초기 상태 설정

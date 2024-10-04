@@ -7,7 +7,7 @@ struct PopupDetail: Codable {
     let endDate: String
     let address: String
     let commentCount: Int
-    let bookmarkYn: Bool
+    var bookmarkYn: Bool
     let loginYn: Bool
     let mainImageUrl: String
     let imageList: [ImageInfo]
@@ -132,7 +132,7 @@ extension PopupDetail {
                 nickname: "팝업러버",
                 instagramId: nil,
                 profileImageUrl: "defaultImage",
-                content: "이번 팝업 컨셉이 너무 좋았어요. 브랜드의 아이덴티티가 잘 드러나는 공간 구성이었고, 체험 코너도 재밌었습니다. 다만 사람이 너무 많아서 좀 붐비는 느낌이었어요.",
+                content: "이번 팝업 컨셉이 너무 좋았어요. 브랜드의 아이덴티티가 잘 드러나는 공간 구성이었고, 체험 코너도 재밌었습니다. 다만 사람이 너무 많아서 좀 붐비는 느낌이었어요느낌이었어요느낌이었어요느낌이었어요느낌이었어요느낌이었어요느낌이었어요느낌이었어요.",
                 likeYn: false,
                 likeCount: 7,
                 createDateTime: Date().addingTimeInterval(-172800), // 2일 전

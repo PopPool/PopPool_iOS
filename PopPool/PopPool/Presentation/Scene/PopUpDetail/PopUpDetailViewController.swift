@@ -43,15 +43,17 @@ final class PopupDetailViewController: UIViewController {
         return label
     }()
     
-    private let likeButton: UIButton = {
+    private let bookmarkButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "heart_outline"), for: .normal)
-        button.setImage(UIImage(named: "heart_filled"), for: .selected)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setImage(UIImage(systemName: "bookmark.fill"), for: .selected)
+        button.tintColor = .systemGray
         return button
     }()
-    
+
     private let shareButton: UIButton = {
         let button = UIButton(type: .system)
+        button.tintColor = .systemGray
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         return button
     }()
@@ -228,7 +230,7 @@ final class PopupDetailViewController: UIViewController {
     }
     
     private func setupInfoSection() {
-        [titleLabel, likeButton, shareButton, descriptionLabel, showMoreButton,
+        [titleLabel, bookmarkButton, shareButton, descriptionLabel, showMoreButton,
          periodLabel, timeLabel].forEach { contentView.addSubview($0) }
         
         titleLabel.snp.makeConstraints { make in
@@ -236,20 +238,20 @@ final class PopupDetailViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
-        likeButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.trailing.equalToSuperview().inset(20)
-            make.size.equalTo(44)
+        bookmarkButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalToSuperview().inset(50)
+            make.size.equalTo(50)
         }
         
         shareButton.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel)
-            make.trailing.equalToSuperview().inset(50)
+            make.trailing.equalToSuperview().inset(20)
             make.size.equalTo(44)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(likeButton.snp.bottom).offset(20)
+            make.top.equalTo(bookmarkButton.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
@@ -279,7 +281,7 @@ final class PopupDetailViewController: UIViewController {
 
         findRouteButton.snp.makeConstraints { make in
                make.top.equalTo(addressLabel.snp.bottom).offset(10)
-               make.leading.equalToSuperview().inset(20)
+               make.trailing.equalToSuperview().inset(20)
            }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAddressToClipboard))
@@ -350,7 +352,7 @@ final class PopupDetailViewController: UIViewController {
             commentType: commentTabControl.rx.selectedSegmentIndex.map {
                 CommentType(rawValue: $0 == 0 ? "NORMAL" : "INSTAGRAM") ?? .normal
             }.asDriver(onErrorJustReturn: .normal),
-            likeButtonTapped: likeButton.rx.tap.asDriver(),
+            bookmarkButtonTapped: bookmarkButton.rx.tap.asDriver(),
             shareButtonTapped: shareButton.rx.tap.asDriver(),
             showMoreButtonTapped: showMoreButton.rx.tap.asDriver(),
             findRouteButtonTapped: findRouteButton.rx.tap.asDriver(),
@@ -375,10 +377,11 @@ final class PopupDetailViewController: UIViewController {
         
         output.bookmarkToggled
             .drive(onNext: { [weak self] isBookmarked in
-                self?.updateLikeButton(isLiked: isBookmarked)
+                self?.updateBookmarkButton(isBookmarked: isBookmarked)
             })
             .disposed(by: disposeBag)
-        
+
+
         backButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
@@ -420,9 +423,8 @@ final class PopupDetailViewController: UIViewController {
           fullString.append(attachmentString)
           addressLabel.attributedText = fullString
 
-//        addressLabel.text = "주소: \(popup.address)"
         imagePageControl.numberOfPages = popup.imageList.count
-        updateLikeButton(isLiked: popup.bookmarkYn)
+        updateBookmarkButton(isBookmarked: popup.bookmarkYn)
         updateShowMoreButtonState()
         self.comments = PopupDetail.dummyData.commentList
         DispatchQueue.main.async {
@@ -432,21 +434,20 @@ final class PopupDetailViewController: UIViewController {
         commentCountLabel.text = "총\(comments.count)건"
 
         showAllCommentsButton.isHidden = comments.isEmpty
-
-
-
-
-//        commentTableView.reloadData()
-
-
-
         imageCollectionView.reloadData()
         similarPopupsCollectionView.reloadData()
     }
     
-    private func updateLikeButton(isLiked: Bool) {
-        likeButton.isSelected = isLiked
+    private func updateBookmarkButton(isBookmarked: Bool) {
+        print("북마크 상태: \(isBookmarked)")
+        bookmarkButton.isSelected = isBookmarked
+        let bookmarkImage = isBookmarked ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
+        let tintColor = isBookmarked ? UIColor.systemBlue : UIColor.systemGray
+        bookmarkButton.setImage(bookmarkImage, for: .normal)
+        bookmarkButton.tintColor = tintColor
     }
+
+
     private func setupShowMoreButton() {
            showMoreButton.rx.tap
                .subscribe(onNext: { [weak self] in
@@ -525,6 +526,7 @@ final class PopupDetailViewController: UIViewController {
 
         ToastMSGManager.createToast(message: "주소가 복사되었습니다")
     }
+    
 
 
 }
