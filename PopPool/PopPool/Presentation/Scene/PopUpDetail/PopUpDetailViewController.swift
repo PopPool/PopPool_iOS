@@ -494,7 +494,7 @@ final class PopupDetailViewController: UIViewController {
     private func presentCommentTypeVC() {
         guard let popupName = popupData.value?.name else { return }
 
-        let commentTypeVC = CommentTypeVC(popUpStore: popupName, popUpId: Int(viewModel.popupId))
+        let commentTypeVC = CommentTypeVC(popUpStoreName: popupName, popUpId: viewModel.popupId)
         let navController = UINavigationController(rootViewController: commentTypeVC)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)

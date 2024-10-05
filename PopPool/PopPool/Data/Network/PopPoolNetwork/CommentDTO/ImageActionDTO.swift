@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ImageActionDTO: Encodable {
-    let imageId: Int64
-    let imageUrl: String
-    let actionType: [ActionType]
-}
+//struct ImageActionDTO: Encodable {
+//    let imageId: Int64
+//    let imageUrl: String
+//    let actionType: [ActionType]
+//}
