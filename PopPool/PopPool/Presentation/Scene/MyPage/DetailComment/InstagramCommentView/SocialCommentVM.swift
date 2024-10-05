@@ -23,6 +23,7 @@ final class SocialCommentVM: ViewModelable {
     
     struct Output {
         var content: Observable<GuideContent>
+        var isLoaded: BehaviorRelay<Bool>
     }
 
     private let clipboardManager: ClipboardService
@@ -35,6 +36,10 @@ final class SocialCommentVM: ViewModelable {
         return clipboardManager.getClipboard() != nil ? true : false
     }
     
+    var copiedClipBoard: String? {
+        return clipboardManager.getClipboard()
+    }
+    
     let contentRelay: BehaviorRelay<[GuideContent]> = .init(value: [
         .init(index: 0, image: "step1", title: "아래 인스타그램 열기\n버튼을 터치해 앱 열기"),
         .init(index: 1, image: "step2", title: "원하는 피드의 이미지로 이동 후\n공유하기 > 링크복사 터치하기"),
@@ -43,9 +48,11 @@ final class SocialCommentVM: ViewModelable {
     ])
     let singleContent: BehaviorRelay<GuideContent> = .init(
         value: GuideContent(index: 0, image: "step1", title: "아래 인스타그램 열기\n버튼을 터치해 앱 열기"))
+    var popUpId: Int64
     
-    init(clipboardManager: ClipboardService) {
+    init(clipboardManager: ClipboardService, popUpId: Int64) {
         self.clipboardManager = clipboardManager
+        self.popUpId = popUpId
     }
     
     func updateView(for page: Int) {
@@ -66,23 +73,29 @@ final class SocialCommentVM: ViewModelable {
                 return Disposables.create()
             }
             
-            let link = self.clipboardManager.getClipboard()
-            
-            self.clipboardManager.parseImage(from: link)
-                .subscribe(onNext: { data in
-                    observer.onNext(data)
-                }, onError: { error in
-                    observer.onError(error)
-                })
-                .disposed(by: self.disposeBag)
+            let clipBoardString = self.clipboardManager.getClipboard()
+            if let link = clipBoardString as? String {
+                
+                self.clipboardManager.parseImage(from: link)
+                    .subscribe(onNext: { data in
+                        observer.onNext(data)
+                    }, onError: { error in
+                        print("이 오류가 발생하는건가?", error.localizedDescription)
+                        observer.onError(error)
+                    })
+                    .disposed(by: self.disposeBag)
+            } else {
+                print("이벤트 복사 이슈가 발생했습니다.")
+            }
             return Disposables.create()
         }
     }
     
     func transform(input: Input) -> Output {
-        
+                
         return Output(
-            content: singleContent.asObservable()
+            content: singleContent.asObservable(),
+            isLoaded: .init(value: true)
         )
     }
 }
