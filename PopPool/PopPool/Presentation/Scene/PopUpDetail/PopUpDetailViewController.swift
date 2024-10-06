@@ -5,7 +5,7 @@ import SnapKit
 
 final class PopupDetailViewController: UIViewController {
 
-    private var comments: [Comment] = []
+    lazy var comments: [Comment] = []
     private let viewModel: PopupDetailViewModel
     private let disposeBag = DisposeBag()
     private var isDescriptionExpanded = false
@@ -185,7 +185,8 @@ final class PopupDetailViewController: UIViewController {
         setupSimilarPopups()
         setupWriteCommentButton()
         setupBackButton()
-        setupShowMoreButton()
+        setupShowAllCommentsButton()
+//        setupShowMoreButton()
     }
     
     private func setupScrollView() {
@@ -448,17 +449,31 @@ final class PopupDetailViewController: UIViewController {
     }
 
 
-    private func setupShowMoreButton() {
-           showMoreButton.rx.tap
-               .subscribe(onNext: { [weak self] in
-                   self?.toggleDescriptionExpansion()
-               })
-               .disposed(by: disposeBag)
-       }
+//    private func setupShowMoreButton() {
+//        showAllCommentsButton.rx.tap
+//            .subscribe(onNext: { [weak self] in
+//                self?.presentAllCommentsView()
+//            })
+//            .disposed(by: disposeBag)
+//    }
+    private func setupShowAllCommentsButton() {
+        showAllCommentsButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+
+                let allCommentsVC = AllCommentsViewController()
+
+                // 전체보기 버튼을 눌렀을 때도 comments 데이터를 전달
+                allCommentsVC.comments = self.comments
+
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.navigationController?.pushViewController(allCommentsVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
     private func updateShowMoreButtonState() {
         descriptionLabel.numberOfLines = 0
 
-        // 현재 레이블이 3줄을 초과하는지 계산
         let maxNumberOfLines = 3
         let labelHeight = descriptionLabel.sizeThatFits(CGSize(width: descriptionLabel.frame.width, height: CGFloat.greatestFiniteMagnitude)).height
         let lineHeight = descriptionLabel.font.lineHeight
@@ -472,24 +487,32 @@ final class PopupDetailViewController: UIViewController {
         }
     }
 
-    private func toggleDescriptionExpansion() {
-        isDescriptionExpanded.toggle() // 상태 전환
+//    private func toggleDescriptionExpansion() {
+//        isDescriptionExpanded.toggle() // 상태 전환
+//
+//        // 설명글이 펼쳐져 있을 때
+//        if isDescriptionExpanded {
+//            descriptionLabel.numberOfLines = 0 // 무제한 줄 수로 변경
+//            showMoreButton.setTitle("닫기", for: .normal)
+//            showMoreButton.setImage(UIImage(systemName: "chevron.up"), for: .normal) // 화살표 위로
+//        } else {
+//            descriptionLabel.numberOfLines = 3 // 다시 3줄로 제한
+//            showMoreButton.setTitle("더보기", for: .normal)
+//            showMoreButton.setImage(UIImage(systemName: "chevron.down"), for: .normal) // 화살표 아래로
+//        }
+//
+//        // 레이아웃 재설정
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+    @objc private func presentAllCommentsView() {
+        let allCommentsVC = AllCommentsViewController()
 
-        // 설명글이 펼쳐져 있을 때
-        if isDescriptionExpanded {
-            descriptionLabel.numberOfLines = 0 // 무제한 줄 수로 변경
-            showMoreButton.setTitle("닫기", for: .normal)
-            showMoreButton.setImage(UIImage(systemName: "chevron.up"), for: .normal) // 화살표 위로
-        } else {
-            descriptionLabel.numberOfLines = 3 // 다시 3줄로 제한
-            showMoreButton.setTitle("더보기", for: .normal)
-            showMoreButton.setImage(UIImage(systemName: "chevron.down"), for: .normal) // 화살표 아래로
-        }
-
-        // 레이아웃 재설정
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
+        allCommentsVC.comments = self.comments
+        allCommentsVC.modalPresentationStyle = .overFullScreen
+        allCommentsVC.modalTransitionStyle = .crossDissolve
+        present(allCommentsVC, animated: true, completion: nil)
     }
     private func presentCommentTypeVC() {
         guard let popupName = popupData.value?.name else { return }

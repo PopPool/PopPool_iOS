@@ -124,20 +124,19 @@ class CommentCell: UITableViewCell {
     @objc private func didTapShowMore() {
         isExpanded.toggle()
         commentLabel.numberOfLines = isExpanded ? 0 : 3
-//        showMoreButton.setTitle(isExpanded ? "코멘트 접기" : "코멘트 전체보기", for: .normal)
-        updateShowMoreButtonVisibility()
-//        presentAllCommentsModal()
-        layoutIfNeeded()
+        updateShowMoreButtonVisibility() // '코멘트 전체보기' 버튼 가시성 업데이트
     }
-//    private func presentAllCommentsModal() {
-//        let allCommentsVC = AllCommentsViewController()
-//        allCommentsVC.modalPresentationStyle = .overFullScreen
-//        allCommentsVC.modalTransitionStyle = .crossDissolve
-//        // 현재 뷰 컨트롤러에서 모달을 띄워야 하므로 다음과 같이 처리합니다.
-//        if let parentVC = self.parentViewController {
-//            parentVC.present(allCommentsVC, animated: true, completion: nil)
-//        }
-//    }
+    private func presentAllCommentsModal() {
+        let allCommentsVC = AllCommentsViewController()
+        allCommentsVC.comments = (parentViewController as? PopupDetailViewController)?.comments ?? []
+        allCommentsVC.modalPresentationStyle = .overFullScreen
+        allCommentsVC.modalTransitionStyle = .crossDissolve
+
+        if let parentVC = self.parentViewController {
+            parentVC.present(allCommentsVC, animated: true, completion: nil)
+        }
+    }
+
     // MARK: - Helper Methods
     private func updateLikeButton() {
         likeButton.setTitle("도움돼요 \(likeCount)", for: .normal)
@@ -146,24 +145,22 @@ class CommentCell: UITableViewCell {
 
     private func updateShowMoreButtonVisibility() {
         let maxLines = 3
-        commentLabel.numberOfLines = 0 // 먼저 제한을 풀어줍니다.
+        commentLabel.numberOfLines = 0 // 먼저 제한을 품
 
         // 텍스트의 전체 높이를 계산합니다.
         let fullTextHeight = commentLabel.sizeThatFits(CGSize(width: commentLabel.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
 
-        // 한 줄의 높이를 계산합니다.
         let lineHeight = commentLabel.font.lineHeight
 
-        // 실제 텍스트의 줄 수를 계산합니다.
         let actualNumberOfLines = Int(fullTextHeight / lineHeight)
 
-        // 3줄을 초과하는 경우에만 showMoreButton을 표시합니다.
+        // 3줄을 초과하는 경우에만 showMoreButton을 표시
         if actualNumberOfLines > maxLines {
             showMoreButton.isHidden = false
-            commentLabel.numberOfLines = maxLines // 3줄로 제한
+            commentLabel.numberOfLines = maxLines // 3줄 제한
         } else {
             showMoreButton.isHidden = true
-            commentLabel.numberOfLines = 0 // 제한 없음
+            commentLabel.numberOfLines = 0 // 제한 X
         }
     }
 
@@ -192,3 +189,16 @@ class CommentCell: UITableViewCell {
         }
     }
 }
+extension UITableViewCell {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder?.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
+}
+

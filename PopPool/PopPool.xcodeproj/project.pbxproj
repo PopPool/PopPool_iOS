@@ -172,6 +172,7 @@
 		4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */; };
 		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
 		4E4F7A502CAFF5D60020AAAC /* PopUpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */; };
+		4E548F082CB28186009632B4 /* AllCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E548F072CB28186009632B4 /* AllCommentsViewController.swift */; };
 		4E5B65B22C95A50600026B09 /* RecentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */; };
 		4E67A14D2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */; };
 		4E67A1DD2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A1BA2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift */; };
@@ -243,6 +244,7 @@
 		4E67A2522C930364003BDAFA /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */; };
 		4E67A2532C930364003BDAFA /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */; };
 		4E67A2542C930364003BDAFA /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */; };
+		4E950CEC2CB2A15800CBC7E8 /* CommentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */; };
 		4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A02C648DEE000F4095 /* StoresService.swift */; };
 		4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */; };
 		4E9A33A52C64ACF4000F4095 /* PopUpCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A42C64ACF4000F4095 /* PopUpCardView.swift */; };
@@ -541,6 +543,7 @@
 		4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepositoryImpl.swift; sourceTree = "<group>"; };
 		4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStoreDTO.swift; sourceTree = "<group>"; };
 		4E4DC0172C620251007CE63A /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
+		4E548F072CB28186009632B4 /* AllCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentsViewController.swift; sourceTree = "<group>"; };
 		4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchViewModel.swift; sourceTree = "<group>"; };
 		4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPoolAPIEndPoint.swift; path = PopPool/Data/Network/PopPoolAPIEndPoint.swift; sourceTree = SOURCE_ROOT; };
 		4E67A1BA2C92FC3D003BDAFA /* GetBlockedUserListRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListRequestDTO.swift; sourceTree = "<group>"; };
@@ -612,6 +615,7 @@
 		4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
+		4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailViewController.swift; sourceTree = "<group>"; };
 		4E9A33A02C648DEE000F4095 /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListCell.swift; sourceTree = "<group>"; };
 		4E9A33A42C64ACF4000F4095 /* PopUpCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpCardView.swift; sourceTree = "<group>"; };
@@ -1624,6 +1628,8 @@
 				4E1AAB5A2CA39EE30066E201 /* PopupDetailViewModel.swift */,
 				4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */,
 				4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */,
+				4E548F072CB28186009632B4 /* AllCommentsViewController.swift */,
+				4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */,
 				4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */,
 				4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */,
 				4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */,
@@ -2365,6 +2371,7 @@
 				BD67FA422C9221BB00E89E7D /* SocialNoticeView.swift in Sources */,
 				BD198D0C2C8D629900835325 /* CommentImageCell.swift in Sources */,
 				BD79E1872C57B02600CCEE07 /* NoticeTableViewCell.swift in Sources */,
+				4E950CEC2CB2A15800CBC7E8 /* CommentDetailViewController.swift in Sources */,
 				4E67A2402C930364003BDAFA /* CustomTabBarCPNT.swift in Sources */,
 				BD1717022CA2EECB00D2D3E3 /* CommentRepositoryImpl.swift in Sources */,
 				4E4DC00B2C61F7F7007CE63A /* PopUpStore.swift in Sources */,
@@ -2373,6 +2380,7 @@
 				BD3942112C74DA1C009F88B3 /* GetBookMarkPopUpStoreListResponse.swift in Sources */,
 				BD3C9E952C81B06F005BFD7B /* ListRowCPNT.swift in Sources */,
 				BD198D082C8D53D500835325 /* NormalCommentVC.swift in Sources */,
+				4E548F082CB28186009632B4 /* AllCommentsViewController.swift in Sources */,
 				4E67A1EF2C92FC3D003BDAFA /* UpdateMyProfileRequestDTO.swift in Sources */,
 				4EF84FB72CA5E653004B3DA2 /* PopupImageCell.swift in Sources */,
 				08C813D72C2D2934009239FE /* UITableViewCell+.swift in Sources */,
