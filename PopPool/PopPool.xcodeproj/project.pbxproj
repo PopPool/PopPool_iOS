@@ -244,6 +244,8 @@
 		4E67A2522C930364003BDAFA /* ToastMSGCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */; };
 		4E67A2532C930364003BDAFA /* ToolTipViewCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */; };
 		4E67A2542C930364003BDAFA /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */; };
+		4E71D3C12CB387B1001D70A4 /* CommentGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */; };
+		4E71D3C22CB3CDCF001D70A4 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */; };
 		4E950CEC2CB2A15800CBC7E8 /* CommentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */; };
 		4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A02C648DEE000F4095 /* StoresService.swift */; };
 		4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */; };
@@ -615,6 +617,7 @@
 		4E67A2382C930364003BDAFA /* ToastMSGCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastMSGCPNT.swift; sourceTree = "<group>"; };
 		4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
+		4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGalleryCell.swift; sourceTree = "<group>"; };
 		4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailViewController.swift; sourceTree = "<group>"; };
 		4E9A33A02C648DEE000F4095 /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListCell.swift; sourceTree = "<group>"; };
@@ -1633,6 +1636,7 @@
 				4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */,
 				4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */,
 				4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */,
+				4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */,
 			);
 			path = PopUpDetail;
 			sourceTree = "<group>";
@@ -2351,6 +2355,7 @@
 				4E67A1E52C92FC3D003BDAFA /* MyInterestCategoryInfoDTO.swift in Sources */,
 				085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */,
 				08E23ADE2C54F085004B77B6 /* GridLayout.swift in Sources */,
+				4E71D3C12CB387B1001D70A4 /* CommentGalleryCell.swift in Sources */,
 				08FF6C1D2C70C97700B68569 /* ProfileEditUserDataBottomSheetVM.swift in Sources */,
 				4E4DC0182C620251007CE63A /* MapVM.swift in Sources */,
 				08A28CC62C2BE1EA00DF7A90 /* Inputable.swift in Sources */,
@@ -2644,6 +2649,7 @@
 				0873465B2C0AEFCF00534FFA /* AppDelegate.swift in Sources */,
 				087346572C0AED3400534FFA /* AppDIContainer.swift in Sources */,
 				0873465A2C0AED6C00534FFA /* AppDIContainerTest.swift in Sources */,
+				4E71D3C22CB3CDCF001D70A4 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

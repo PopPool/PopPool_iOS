@@ -313,6 +313,8 @@ final class PopupDetailViewController: UIViewController {
             make.top.equalTo(commentTabControl.snp.bottom).offset(24)
             make.leading.equalToSuperview().offset(20)
         }
+        commentTableView.rowHeight = UITableView.automaticDimension
+        commentTableView.estimatedRowHeight = 100
 
         commentTableView.delegate = self
         commentTableView.dataSource = self
