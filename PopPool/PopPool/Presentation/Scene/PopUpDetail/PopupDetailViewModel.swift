@@ -4,10 +4,9 @@ import RxCocoa
 final class PopupDetailViewModel {
     struct Input {
         let commentType: Driver<CommentType>
-        let likeButtonTapped: Driver<Void>
+        let bookmarkButtonTapped: Driver<Void>
         let shareButtonTapped: Driver<Void>
         let showMoreButtonTapped: Driver<Void>
-        let copyAddressButtonTapped: Driver<Void>
         let findRouteButtonTapped: Driver<Void>
         let commentTabChanged: Driver<Int>
         let showAllCommentsButtonTapped: Driver<Void>
@@ -18,7 +17,6 @@ final class PopupDetailViewModel {
     struct Output {
         let popupData: Driver<PopupDetail>
         let bookmarkToggled: Driver<Bool>
-        let addressCopied: Driver<String> 
 
         // TODO: 다른 출력 추가
     }
@@ -39,50 +37,43 @@ final class PopupDetailViewModel {
     }
 
     func transform(input: Input) -> Output {
-        print("PopupDetailViewModel: transform 메서드 호출됨")
-
         let popupData = input.commentType
             .flatMapLatest { [weak self] commentType -> Driver<PopupDetail> in
-                guard let self = self else {
-                    print("PopupDetailViewModel: self가 nil입니다")
-                    return Driver.empty()
-                }
+                guard let self = self else { return Driver.empty() }
                 return self.fetchPopupDetail(commentType: commentType)
             }
             .do(onNext: { [weak self] detail in
                 self?.popupDataRelay.accept(detail)
             })
 
-
-        let bookmarkToggled = input.likeButtonTapped
+        let bookmarkToggled = input.bookmarkButtonTapped
             .flatMapLatest { [weak self] _ -> Driver<Bool> in
-                guard let self = self else {
-                    print("PopupDetailViewModel: self가 nil입니다 (북마크 토글)")
+                guard let self = self else { return Driver.just(false) }
+
+                // 현재 북마크 상태 확인
+                guard let currentBookmarkState = self.popupDataRelay.value?.bookmarkYn else {
                     return Driver.just(false)
                 }
-                print("PopupDetailViewModel: 북마크 토글 요청 시작. popUpStoreId: \(self.popupId), userId: \(self.userId)")
+
+                // 서버에 토글 요청 후 새로운 상태 반환
                 return self.useCase.toggleBookmark(userId: self.userId, popUpStoreId: self.popupId)
-                    .andThen(Observable.just(true))
-                    .do(onNext: { success in
-                        print("PopupDetailViewModel: 북마크 토글 결과: \(success)")
+                    .andThen(Observable.just(!currentBookmarkState)) // 상태를 반대로 토글
+                    .do(onNext: { newState in
+                        // popupDataRelay에 업데이트 반영
+                        if var popupDetail = self.popupDataRelay.value {
+                            popupDetail.bookmarkYn = newState
+                            self.popupDataRelay.accept(popupDetail) // 업데이트된 상태를 반영
+                        }
                     })
-                    .asDriver(onErrorJustReturn: false)
+                    .asDriver(onErrorJustReturn: currentBookmarkState)
             }
-        let addressCopied = input.copyAddressButtonTapped
-            .withLatestFrom(popupDataRelay.asDriver()) 
-                  .compactMap { popup -> String? in
-                      guard let address = popup?.address else {
-                          print("주소 복사 실패: 주소 정보 없음")
-                          return nil
-                      }
-                      print("주소 복사됨: \(address)")
-                      return address
-                  }
+
+
 
         return Output(
             popupData: popupData,
-            bookmarkToggled: bookmarkToggled,
-            addressCopied: addressCopied
+            bookmarkToggled: bookmarkToggled
+//            addressCopied: addressCopied
         )
     }
     func refreshComments() {

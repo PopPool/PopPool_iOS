@@ -5,7 +5,7 @@ import SnapKit
 
 final class PopupDetailViewController: UIViewController {
 
-    private var comments: [Comment] = []
+    lazy var comments: [Comment] = []
     private let viewModel: PopupDetailViewModel
     private let disposeBag = DisposeBag()
     private var isDescriptionExpanded = false
@@ -43,15 +43,17 @@ final class PopupDetailViewController: UIViewController {
         return label
     }()
     
-    private let likeButton: UIButton = {
+    private let bookmarkButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "heart_outline"), for: .normal)
-        button.setImage(UIImage(named: "heart_filled"), for: .selected)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setImage(UIImage(systemName: "bookmark.fill"), for: .selected)
+        button.tintColor = .systemGray
         return button
     }()
-    
+
     private let shareButton: UIButton = {
         let button = UIButton(type: .system)
+        button.tintColor = .systemGray
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         return button
     }()
@@ -70,7 +72,7 @@ final class PopupDetailViewController: UIViewController {
         button.imageEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
          button.semanticContentAttribute = .forceRightToLeft
         button.titleLabel?.tintColor = .black
-         button.titleLabel?.font = .KorFont(style: .medium, size: 12)
+         button.titleLabel?.font = .KorFont(style: .bold, size: 12)
          return button
      }()
 
@@ -90,16 +92,8 @@ final class PopupDetailViewController: UIViewController {
         let label = UILabel()
         label.font = .KorFont(style: .medium, size: 14)
         label.numberOfLines = 2
+        label.isUserInteractionEnabled = true
         return label
-    }()
-
-
-    private let copyAddressButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "doc.on.doc.fill"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
-        button.tintColor = .gray
-        return button
     }()
 
     
@@ -120,12 +114,19 @@ final class PopupDetailViewController: UIViewController {
         tableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.reuseIdentifier)
         return tableView
     }()
-    
+    private let commentCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
     private let showAllCommentsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("전체보기", for: .normal)
         button.titleLabel?.font = .KorFont(style: .medium, size: 14)
+        button.setTitleColor(.systemGray, for: .normal)
         return button
+
     }()
     private let similarPopupsTitleLabel: UILabel = {
         let label = UILabel()
@@ -143,7 +144,7 @@ final class PopupDetailViewController: UIViewController {
         cv.register(SimilarPopupCell.self, forCellWithReuseIdentifier: "SimilarPopupCell")
         return cv
     }()
-    
+
     private let writeCommentButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("코멘트 작성하기", for: .normal)
@@ -169,13 +170,7 @@ final class PopupDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
-        commentTableView.delegate = self
-        commentTableView.dataSource = self
 
-        updateUI(with: PopupDetail.dummyData)
-
-//        commentTableView.delegate = self
-//        commentTableView.dataSource = self
 
     }
     
@@ -190,7 +185,8 @@ final class PopupDetailViewController: UIViewController {
         setupSimilarPopups()
         setupWriteCommentButton()
         setupBackButton()
-        setupShowMoreButton()
+        setupShowAllCommentsButton()
+//        setupShowMoreButton()
     }
     
     private func setupScrollView() {
@@ -235,7 +231,7 @@ final class PopupDetailViewController: UIViewController {
     }
     
     private func setupInfoSection() {
-        [titleLabel, likeButton, shareButton, descriptionLabel, showMoreButton,
+        [titleLabel, bookmarkButton, shareButton, descriptionLabel, showMoreButton,
          periodLabel, timeLabel].forEach { contentView.addSubview($0) }
         
         titleLabel.snp.makeConstraints { make in
@@ -243,20 +239,20 @@ final class PopupDetailViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
-        likeButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(20)
-            make.size.equalTo(44)
+        bookmarkButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalToSuperview().inset(50)
+            make.size.equalTo(50)
         }
         
         shareButton.snp.makeConstraints { make in
-            make.centerY.equalTo(likeButton)
-            make.leading.equalTo(likeButton.snp.trailing).offset(10)
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalToSuperview().inset(20)
             make.size.equalTo(44)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(likeButton.snp.bottom).offset(20)
+            make.top.equalTo(bookmarkButton.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
@@ -277,43 +273,49 @@ final class PopupDetailViewController: UIViewController {
     }
     
     private func setupAddressSection() {
-        [addressLabel, copyAddressButton, findRouteButton].forEach { contentView.addSubview($0) }
+        [addressLabel,  findRouteButton].forEach { contentView.addSubview($0) }
         
         addressLabel.snp.makeConstraints { make in
               make.top.equalTo(timeLabel.snp.bottom).offset(20)
               make.leading.trailing.equalToSuperview().inset(20)
           }
 
-          copyAddressButton.snp.makeConstraints { make in
-              make.top.equalTo(addressLabel.snp.bottom).offset(10)
-              make.leading.equalToSuperview().offset(20)
-          }
+        findRouteButton.snp.makeConstraints { make in
+               make.top.equalTo(addressLabel.snp.bottom).offset(10)
+               make.trailing.equalToSuperview().inset(20)
+           }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAddressToClipboard))
+           addressLabel.addGestureRecognizer(tapGesture)
 
-          findRouteButton.snp.makeConstraints { make in
-              make.centerY.equalTo(copyAddressButton)
-              make.leading.equalTo(copyAddressButton.snp.trailing).offset(10)
-          }
       }
+    
 
     private func setupCommentSection() {
-        [commentTabControl, commentTableView, showAllCommentsButton].forEach { contentView.addSubview($0) }
-        
+        [commentTabControl, commentTableView, showAllCommentsButton, commentCountLabel].forEach { contentView.addSubview($0) }
+
         commentTabControl.snp.makeConstraints { make in
             make.top.equalTo(findRouteButton.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview()
         }
         
         commentTableView.snp.makeConstraints { make in
-            make.top.equalTo(commentTabControl.snp.bottom).offset(10)
+            make.top.equalTo(commentTabControl.snp.bottom).offset(84)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(400)
         }
         
         showAllCommentsButton.snp.makeConstraints { make in
-            make.top.equalTo(commentTableView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.top.equalTo(commentTabControl.snp.bottom).offset(24)
+            make.trailing.equalToSuperview().inset(20)
         }
-        
+        commentCountLabel.snp.makeConstraints { make in
+            make.top.equalTo(commentTabControl.snp.bottom).offset(24)
+            make.leading.equalToSuperview().offset(20)
+        }
+        commentTableView.rowHeight = UITableView.automaticDimension
+        commentTableView.estimatedRowHeight = 100
+
         commentTableView.delegate = self
         commentTableView.dataSource = self
     }
@@ -323,13 +325,13 @@ final class PopupDetailViewController: UIViewController {
         contentView.addSubview(similarPopupsCollectionView)
         
         similarPopupsTitleLabel.snp.makeConstraints { make in
-               make.top.equalTo(showAllCommentsButton.snp.bottom).offset(30)
+               make.top.equalTo(commentTableView.snp.bottom).offset(60)
                make.leading.trailing.equalToSuperview().inset(20)
            }
         similarPopupsCollectionView.snp.makeConstraints { make in
-               make.top.equalTo(similarPopupsTitleLabel.snp.bottom).offset(10)
+               make.top.equalTo(similarPopupsTitleLabel.snp.bottom).offset(5)
                make.leading.trailing.equalToSuperview().inset(20)
-               make.height.equalTo(180)
+               make.height.equalTo(263)
            }
 
         similarPopupsCollectionView.delegate = self
@@ -353,10 +355,9 @@ final class PopupDetailViewController: UIViewController {
             commentType: commentTabControl.rx.selectedSegmentIndex.map {
                 CommentType(rawValue: $0 == 0 ? "NORMAL" : "INSTAGRAM") ?? .normal
             }.asDriver(onErrorJustReturn: .normal),
-            likeButtonTapped: likeButton.rx.tap.asDriver(),
+            bookmarkButtonTapped: bookmarkButton.rx.tap.asDriver(),
             shareButtonTapped: shareButton.rx.tap.asDriver(),
             showMoreButtonTapped: showMoreButton.rx.tap.asDriver(),
-            copyAddressButtonTapped: copyAddressButton.rx.tap.asDriver(),
             findRouteButtonTapped: findRouteButton.rx.tap.asDriver(),
             commentTabChanged: commentTabControl.rx.selectedSegmentIndex.asDriver(),
             showAllCommentsButtonTapped: showAllCommentsButton.rx.tap.asDriver(),
@@ -379,10 +380,11 @@ final class PopupDetailViewController: UIViewController {
         
         output.bookmarkToggled
             .drive(onNext: { [weak self] isBookmarked in
-                self?.updateLikeButton(isLiked: isBookmarked)
+                self?.updateBookmarkButton(isBookmarked: isBookmarked)
             })
             .disposed(by: disposeBag)
-        
+
+
         backButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
@@ -400,11 +402,12 @@ final class PopupDetailViewController: UIViewController {
                   self?.presentShareSheet()
               })
               .disposed(by: disposeBag)
-        output.addressCopied
-              .drive(onNext: { [weak self] address in
-                  self?.copyAddressToClipboard(address)
-              })
-              .disposed(by: disposeBag)
+//        output.addressCopied
+//            .drive(onNext: { [weak self] address in
+//                self?.copyAddressToClipboard(address)
+//            })
+//            .disposed(by: disposeBag)
+
 
 
     }
@@ -415,42 +418,65 @@ final class PopupDetailViewController: UIViewController {
         descriptionLabel.text = popup.desc
         periodLabel.text = "날짜: \(popup.formattedStartDate()) ~ \(popup.formattedEndDate())"
         timeLabel.text = "시간: 11:00 ~ 17:00"
-        addressLabel.text = "주소: \(popup.address)"
+
+        let attachment = NSTextAttachment()
+          attachment.image = UIImage(systemName: "doc.on.doc.fill")
+          let attachmentString = NSAttributedString(attachment: attachment)
+          let fullString = NSMutableAttributedString(string: "주소: \(popup.address) ")
+          fullString.append(attachmentString)
+          addressLabel.attributedText = fullString
+
         imagePageControl.numberOfPages = popup.imageList.count
-        updateLikeButton(isLiked: popup.bookmarkYn)
+        updateBookmarkButton(isBookmarked: popup.bookmarkYn)
         updateShowMoreButtonState()
         self.comments = PopupDetail.dummyData.commentList
         DispatchQueue.main.async {
             self.commentTableView.reloadData()
         }
-        self.comments = popup.commentList
-//        commentCountLabel.text = "\(comments.count)개의 댓글"
+//        self.comments = popup.commentList
+        commentCountLabel.text = "총\(comments.count)건"
 
 
-
-//        commentTableView.reloadData()
-
-
-
+        showAllCommentsButton.isHidden = comments.isEmpty
         imageCollectionView.reloadData()
         similarPopupsCollectionView.reloadData()
     }
     
-    private func updateLikeButton(isLiked: Bool) {
-        likeButton.isSelected = isLiked
+    private func updateBookmarkButton(isBookmarked: Bool) {
+        print("북마크 상태: \(isBookmarked)")
+        bookmarkButton.isSelected = isBookmarked
+        let bookmarkImage = isBookmarked ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
+        let tintColor = isBookmarked ? UIColor.systemBlue : UIColor.systemGray
+        bookmarkButton.setImage(bookmarkImage, for: .normal)
+        bookmarkButton.tintColor = tintColor
     }
-    private func setupShowMoreButton() {
-           showMoreButton.rx.tap
-               .subscribe(onNext: { [weak self] in
-                   self?.toggleDescriptionExpansion()
-               })
-               .disposed(by: disposeBag)
-       }
+
+
+//    private func setupShowMoreButton() {
+//        showAllCommentsButton.rx.tap
+//            .subscribe(onNext: { [weak self] in
+//                self?.presentAllCommentsView()
+//            })
+//            .disposed(by: disposeBag)
+//    }
+    private func setupShowAllCommentsButton() {
+        showAllCommentsButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+
+                let allCommentsVC = AllCommentsViewController()
+
+                // 전체보기 버튼을 눌렀을 때도 comments 데이터를 전달
+                allCommentsVC.comments = self.comments
+
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.navigationController?.pushViewController(allCommentsVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
     private func updateShowMoreButtonState() {
-        // 임시로 0으로 설정하여 전체 텍스트의 크기를 계산
         descriptionLabel.numberOfLines = 0
 
-        // 현재 레이블이 3줄을 초과하는지 계산
         let maxNumberOfLines = 3
         let labelHeight = descriptionLabel.sizeThatFits(CGSize(width: descriptionLabel.frame.width, height: CGFloat.greatestFiniteMagnitude)).height
         let lineHeight = descriptionLabel.font.lineHeight
@@ -464,24 +490,32 @@ final class PopupDetailViewController: UIViewController {
         }
     }
 
-    private func toggleDescriptionExpansion() {
-        isDescriptionExpanded.toggle() // 상태 전환
+//    private func toggleDescriptionExpansion() {
+//        isDescriptionExpanded.toggle() // 상태 전환
+//
+//        // 설명글이 펼쳐져 있을 때
+//        if isDescriptionExpanded {
+//            descriptionLabel.numberOfLines = 0 // 무제한 줄 수로 변경
+//            showMoreButton.setTitle("닫기", for: .normal)
+//            showMoreButton.setImage(UIImage(systemName: "chevron.up"), for: .normal) // 화살표 위로
+//        } else {
+//            descriptionLabel.numberOfLines = 3 // 다시 3줄로 제한
+//            showMoreButton.setTitle("더보기", for: .normal)
+//            showMoreButton.setImage(UIImage(systemName: "chevron.down"), for: .normal) // 화살표 아래로
+//        }
+//
+//        // 레이아웃 재설정
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+    @objc private func presentAllCommentsView() {
+        let allCommentsVC = AllCommentsViewController()
 
-        // 설명글이 펼쳐져 있을 때
-        if isDescriptionExpanded {
-            descriptionLabel.numberOfLines = 0 // 무제한 줄 수로 변경
-            showMoreButton.setTitle("닫기", for: .normal)
-            showMoreButton.setImage(UIImage(systemName: "chevron.up"), for: .normal) // 화살표 위로
-        } else {
-            descriptionLabel.numberOfLines = 3 // 다시 3줄로 제한
-            showMoreButton.setTitle("더보기", for: .normal)
-            showMoreButton.setImage(UIImage(systemName: "chevron.down"), for: .normal) // 화살표 아래로
-        }
-
-        // 레이아웃 재설정
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
+        allCommentsVC.comments = self.comments
+        allCommentsVC.modalPresentationStyle = .overFullScreen
+        allCommentsVC.modalTransitionStyle = .crossDissolve
+        present(allCommentsVC, animated: true, completion: nil)
     }
     private func presentCommentTypeVC() {
         guard let popupName = popupData.value?.name else { return }
@@ -509,7 +543,8 @@ final class PopupDetailViewController: UIViewController {
 
         present(activityViewController, animated: true, completion: nil)
     }
-    private func copyAddressToClipboard(_ address: String) {
+    @objc private func copyAddressToClipboard() {
+        guard let address = popupData.value?.address else { return }
         UIPasteboard.general.string = address
 
         let feedbackGenerator = UINotificationFeedbackGenerator()
@@ -517,6 +552,7 @@ final class PopupDetailViewController: UIViewController {
 
         ToastMSGManager.createToast(message: "주소가 복사되었습니다")
     }
+    
 
 
 }
@@ -547,14 +583,23 @@ extension PopupDetailViewController: UICollectionViewDataSource, UICollectionVie
             }
         }
 
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            if collectionView == imageCollectionView {
-                return collectionView.bounds.size
-            } else {
-                let width = (collectionView.bounds.width - 40) / 2 // 2열, 좌우 여백 20
-                return CGSize(width: width, height: 160)
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == imageCollectionView {
+            return collectionView.bounds.size
+        } else {
+            let width = (collectionView.bounds.width - 16) / 2 // 2열, 중앙 여백 16
+            return CGSize(width: width, height: width * 1.5) // 높이를 너비의 1.5배로 설정
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+
 
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             if scrollView == imageCollectionView {
@@ -567,9 +612,9 @@ extension PopupDetailViewController: UICollectionViewDataSource, UICollectionVie
     // MARK: - UITableViewDelegate, UITableViewDataSource
     extension PopupDetailViewController: UITableViewDelegate, UITableViewDataSource {
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            print("댓글 개수: \(comments.count)") // 개수 확인
+            print("총: \(comments.count)건") // 개수 확인
 
-            return min(comments.count, 2) // 최대 2개만 표시
+            return min(comments.count, 4)
         }
 
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
