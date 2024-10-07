@@ -436,6 +436,7 @@ final class PopupDetailViewController: UIViewController {
 //        self.comments = popup.commentList
         commentCountLabel.text = "총\(comments.count)건"
 
+
         showAllCommentsButton.isHidden = comments.isEmpty
         imageCollectionView.reloadData()
         similarPopupsCollectionView.reloadData()
