@@ -173,6 +173,7 @@
 		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
 		4E4F7A502CAFF5D60020AAAC /* PopUpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */; };
 		4E539A7B2CB5069800A32FFE /* URLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E539A7A2CB5069800A32FFE /* URLSchemeService.swift */; };
+		4E539A7E2CB50E4900A32FFE /* FindRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E539A7D2CB50E4900A32FFE /* FindRouteViewController.swift */; };
 		4E548F082CB28186009632B4 /* AllCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E548F072CB28186009632B4 /* AllCommentsViewController.swift */; };
 		4E5B65B22C95A50600026B09 /* RecentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */; };
 		4E67A14D2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */; };
@@ -247,6 +248,7 @@
 		4E67A2542C930364003BDAFA /* ValidationTextFieldCPNT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */; };
 		4E71D3C12CB387B1001D70A4 /* CommentGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */; };
 		4E71D3C22CB3CDCF001D70A4 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */; };
+		4E82FB462CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82FB452CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift */; };
 		4E950CEC2CB2A15800CBC7E8 /* CommentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */; };
 		4E9A33A12C648DEE000F4095 /* StoresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A02C648DEE000F4095 /* StoresService.swift */; };
 		4E9A33A32C64ACC0000F4095 /* PopupListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */; };
@@ -547,6 +549,7 @@
 		4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStoreDTO.swift; sourceTree = "<group>"; };
 		4E4DC0172C620251007CE63A /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		4E539A7A2CB5069800A32FFE /* URLSchemeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
+		4E539A7D2CB50E4900A32FFE /* FindRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRouteViewController.swift; sourceTree = "<group>"; };
 		4E548F072CB28186009632B4 /* AllCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentsViewController.swift; sourceTree = "<group>"; };
 		4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchViewModel.swift; sourceTree = "<group>"; };
 		4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPoolAPIEndPoint.swift; path = PopPool/Data/Network/PopPoolAPIEndPoint.swift; sourceTree = SOURCE_ROOT; };
@@ -620,6 +623,7 @@
 		4E67A2392C930364003BDAFA /* ToolTipViewCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewCPNT.swift; sourceTree = "<group>"; };
 		4E67A23A2C930364003BDAFA /* ValidationTextFieldCPNT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationTextFieldCPNT.swift; sourceTree = "<group>"; };
 		4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGalleryCell.swift; sourceTree = "<group>"; };
+		4E82FB452CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPopUpStoreDirectionResponseDTO.swift; sourceTree = "<group>"; };
 		4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailViewController.swift; sourceTree = "<group>"; };
 		4E9A33A02C648DEE000F4095 /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = SOURCE_ROOT; };
 		4E9A33A22C64ACC0000F4095 /* PopupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListCell.swift; sourceTree = "<group>"; };
@@ -1641,6 +1645,8 @@
 				4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */,
 				4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */,
 				4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */,
+				4E539A7D2CB50E4900A32FFE /* FindRouteViewController.swift */,
+				4E82FB452CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift */,
 			);
 			path = PopUpDetail;
 			sourceTree = "<group>";
@@ -2353,6 +2359,7 @@
 				4E67A1E92C92FC3D003BDAFA /* GetMyRecentViewPopUpStoreListRequestDTO.swift in Sources */,
 				BD332D642C47D1F6002D0FA9 /* SignOutNoticeSheet.swift in Sources */,
 				BD328EC22CAE62BB001B778F /* LikeUseCaseImpl.swift in Sources */,
+				4E539A7E2CB50E4900A32FFE /* FindRouteViewController.swift in Sources */,
 				BD7B47DF2C650E9C00DA116D /* HomeAlertCell.swift in Sources */,
 				08A28CC42C2B00B700DF7A90 /* TermsViewCPNT.swift in Sources */,
 				087346522C0ABC4B00534FFA /* ViewModelable.swift in Sources */,
@@ -2556,6 +2563,7 @@
 				08FF6C8E2C79C1F000B68569 /* NoticeUseCase.swift in Sources */,
 				BD55E12F2C707DCA00FAB763 /* HomeCollectionViewCell.swift in Sources */,
 				BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */,
+				4E82FB462CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift in Sources */,
 				BD0D191B2C7D944E0017D909 /* GetAdminPopUpStoreListResponse.swift in Sources */,
 				08E23AAB2C4F7F98004B77B6 /* MyCommentInfo.swift in Sources */,
 				08FF6C142C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift in Sources */,

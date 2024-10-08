@@ -4,6 +4,8 @@ import RxSwift
 protocol PopUpRepository {
     func getPopupDetail(popUpStoreId: Int64, userId: String, commentType: CommentType) -> Observable<PopupDetail>
     func toggleBookmark(userId: String, popUpStoreId: Int64) -> Completable
+    func fetchPopUpStoreDirections(popUpStoreId: Int64) -> Observable<GetPopUpStoreDirectionResponseDTO> // 추가
+
 }
 
 final class DefaultPopUpRepository: PopUpRepository {
@@ -25,4 +27,8 @@ final class DefaultPopUpRepository: PopUpRepository {
         let endpoint = PopPoolAPIEndPoint.user_updateBookMarkPopUpStore(userId: userId, reqeust: request)
         return provider.request(with: endpoint, interceptor: tokenInterceptor)
     }
+    func fetchPopUpStoreDirections(popUpStoreId: Int64) -> Observable<GetPopUpStoreDirectionResponseDTO> {
+           let endpoint = PopPoolAPIEndPoint.popup_getDirections(popUpStoreId: popUpStoreId)
+           return provider.requestData(with: endpoint, interceptor: tokenInterceptor) 
+       }
 }

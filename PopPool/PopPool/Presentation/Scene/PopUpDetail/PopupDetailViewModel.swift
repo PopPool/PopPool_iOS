@@ -17,6 +17,8 @@ final class PopupDetailViewModel {
     struct Output {
         let popupData: Driver<PopupDetail>
         let bookmarkToggled: Driver<Bool>
+        let directionsData: Driver<GetPopUpStoreDirectionResponseDTO> // 좌표값 데이터 추가... ㅜ
+
 
         // TODO: 다른 출력 추가
     }
@@ -68,14 +70,23 @@ final class PopupDetailViewModel {
                     .asDriver(onErrorJustReturn: currentBookmarkState)
             }
 
+        let directionsData = input.findRouteButtonTapped
+                   .flatMapLatest { [weak self] _ -> Driver<GetPopUpStoreDirectionResponseDTO> in
+                       guard let self = self else { return Driver.empty() }
+                       return self.fetchDirections() // API 호출하여 좌표 데이터 가져오기
+                   }
+
 
 
         return Output(
             popupData: popupData,
-            bookmarkToggled: bookmarkToggled
+            bookmarkToggled: bookmarkToggled,
+            directionsData: directionsData
+
 //            addressCopied: addressCopied
         )
     }
+
     func refreshComments() {
            let currentCommentType = commentTypeRelay.value
            fetchPopupDetail(commentType: currentCommentType)
@@ -84,6 +95,11 @@ final class PopupDetailViewModel {
                })
                .disposed(by: disposeBag)
        }
+    private func fetchDirections() -> Driver<GetPopUpStoreDirectionResponseDTO> {
+           return useCase.getPopUpStoreDirections(popUpStoreId: popupId) // 길찾기 API 호출
+               .asDriver(onErrorJustReturn: .empty)
+       }
+
 
       private func fetchPopupDetail(commentType: CommentType) -> Driver<PopupDetail> {
           print("PopupDetailViewModel: 팝업 상세 정보 요청 시작. popUpStoreId: \(popupId), userId: \(userId), commentType: \(commentType)")

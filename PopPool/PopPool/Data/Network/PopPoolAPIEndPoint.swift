@@ -709,4 +709,15 @@ struct PopPoolAPIEndPoint {
             method: .delete,
             queryParameters: request)
     }
+    /// 팝업 스토어의 찾아가는 길 정보를 조회합니다.
+    /// - Parameter popUpStoreId: 팝업 스토어 ID
+    /// - Returns: Endpoint<GetPopUpStoreDirectionResponseDTO>
+    static func popup_getDirections(popUpStoreId: Int64) -> Endpoint<GetPopUpStoreDirectionResponseDTO> {
+        return Endpoint(
+            baseURL: Secrets.popPoolBaseUrl.rawValue,
+            path: "/popup/\(popUpStoreId)/directions",
+            method: .get
+        )
+    }
 }
+
