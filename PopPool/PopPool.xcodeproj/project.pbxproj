@@ -172,6 +172,7 @@
 		4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */; };
 		4E4DC0182C620251007CE63A /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4DC0172C620251007CE63A /* MapVM.swift */; };
 		4E4F7A502CAFF5D60020AAAC /* PopUpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */; };
+		4E539A7B2CB5069800A32FFE /* URLSchemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E539A7A2CB5069800A32FFE /* URLSchemeService.swift */; };
 		4E548F082CB28186009632B4 /* AllCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E548F072CB28186009632B4 /* AllCommentsViewController.swift */; };
 		4E5B65B22C95A50600026B09 /* RecentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */; };
 		4E67A14D2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */; };
@@ -545,6 +546,7 @@
 		4E4DC0122C62013A007CE63A /* MapRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepositoryImpl.swift; sourceTree = "<group>"; };
 		4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpStoreDTO.swift; sourceTree = "<group>"; };
 		4E4DC0172C620251007CE63A /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
+		4E539A7A2CB5069800A32FFE /* URLSchemeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeService.swift; sourceTree = "<group>"; };
 		4E548F072CB28186009632B4 /* AllCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCommentsViewController.swift; sourceTree = "<group>"; };
 		4E5B65AF2C95A34400026B09 /* RecentSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchViewModel.swift; sourceTree = "<group>"; };
 		4E67A14C2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPoolAPIEndPoint.swift; path = PopPool/Data/Network/PopPoolAPIEndPoint.swift; sourceTree = SOURCE_ROOT; };
@@ -1262,6 +1264,8 @@
 		08B965652C147E4C00BF95AA /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				4E539A7C2CB506C900A32FFE /* NavigationService */,
+				4E539A7A2CB5069800A32FFE /* URLSchemeService.swift */,
 				08E23A422C477941004B77B6 /* KeyChainService */,
 				0851057C2C102EAB00ED7DBB /* AuthService */,
 			);
@@ -1669,6 +1673,13 @@
 				4E4DC0152C6201B8007CE63A /* PopUpStoreDTO.swift */,
 			);
 			path = MapDTO;
+			sourceTree = "<group>";
+		};
+		4E539A7C2CB506C900A32FFE /* NavigationService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NavigationService;
 			sourceTree = "<group>";
 		};
 		4E5B65B12C95A43A00026B09 /* RecentSearchView */ = {
@@ -2402,6 +2413,7 @@
 				08E23AB72C4F8AD5004B77B6 /* GetMyRecentViewPopUpStoreListResponse.swift in Sources */,
 				08AF8D8F2C672C3D006B8A11 /* ProfileEditVC.swift in Sources */,
 				4E184D642C6F1FD500573A2E /* FavoritePopUpVM.swift in Sources */,
+				4E539A7B2CB5069800A32FFE /* URLSchemeService.swift in Sources */,
 				08A28CC82C2BE1F300DF7A90 /* Outputable.swift in Sources */,
 				BD3320792C8E4FFF002EA30C /* NormalCommentVM.swift in Sources */,
 				081FAF4A2C89E7E200CF8AD6 /* PreSignedTestViewController.swift in Sources */,

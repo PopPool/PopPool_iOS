@@ -402,6 +402,12 @@ final class PopupDetailViewController: UIViewController {
                   self?.presentShareSheet()
               })
               .disposed(by: disposeBag)
+        showMoreButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.toggleDescriptionExpansion()
+            })
+            .disposed(by: disposeBag)
+
 //        output.addressCopied
 //            .drive(onNext: { [weak self] address in
 //                self?.copyAddressToClipboard(address)
@@ -490,25 +496,23 @@ final class PopupDetailViewController: UIViewController {
         }
     }
 
-//    private func toggleDescriptionExpansion() {
-//        isDescriptionExpanded.toggle() // 상태 전환
-//
-//        // 설명글이 펼쳐져 있을 때
-//        if isDescriptionExpanded {
-//            descriptionLabel.numberOfLines = 0 // 무제한 줄 수로 변경
-//            showMoreButton.setTitle("닫기", for: .normal)
-//            showMoreButton.setImage(UIImage(systemName: "chevron.up"), for: .normal) // 화살표 위로
-//        } else {
-//            descriptionLabel.numberOfLines = 3 // 다시 3줄로 제한
-//            showMoreButton.setTitle("더보기", for: .normal)
-//            showMoreButton.setImage(UIImage(systemName: "chevron.down"), for: .normal) // 화살표 아래로
-//        }
-//
-//        // 레이아웃 재설정
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.layoutIfNeeded()
-//        }
-//    }
+    private func toggleDescriptionExpansion() {
+        isDescriptionExpanded.toggle()
+
+        if isDescriptionExpanded {
+            descriptionLabel.numberOfLines = 0
+            showMoreButton.setTitle("닫기", for: .normal)
+            showMoreButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+        } else {
+            descriptionLabel.numberOfLines = 3
+            showMoreButton.setTitle("더보기", for: .normal)
+            showMoreButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        }
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
     @objc private func presentAllCommentsView() {
         let allCommentsVC = AllCommentsViewController()
 
