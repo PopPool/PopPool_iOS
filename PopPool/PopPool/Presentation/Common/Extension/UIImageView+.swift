@@ -27,14 +27,13 @@ extension UIImageView {
         self.addSubview(loadingIndicator)
     }
     
+    /// 적용하여 loadingIndicator를 호출할 수 있습니다.
     func setPresignedImage(from string: [String], service: PreSignedService, bag: DisposeBag) {
-        self.image = UIImage(systemName: "lasso")
+        self.image = nil
         self.showLoadingIndicator()
-        print("이미지 처리 준비!!")
         
         service.tryDownload(filePaths: string)
             .subscribe(onSuccess: { [weak self] images in
-                print("이미지 처리 중!!")
                 guard let self = self else { return }
                 guard let image = images.first else { return }
                 DispatchQueue.main.async {
@@ -43,7 +42,6 @@ extension UIImageView {
                 }
             }, onFailure: { [weak self] error in
                 guard let self = self else { return }
-                print("이미지 처리가 안됐다!!!")
                 DispatchQueue.main.async {
                     self.stopLoadingIndicator() // 이미지는 최초에 걸어둔 친구가 있기 때문에 따로 처리하지 않아도 된다.
                 }

@@ -205,13 +205,10 @@ extension HomeDetailPopUpCell: Cellable {
     
     func injectionWith(input: Input) {
         if let path = input.image {
-            print("테스트 시작")
             let service = PreSignedService()
             popUpImageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
         } else {
-            print("이미지가 nil임")
-            let path = input.image
-            popUpImageView.image = UIImage(systemName: "lasso")
+            popUpImageView.image = UIImage(systemName: "defaultLogo")
         }
         
         titleLabel.text = input.title
