@@ -336,6 +336,8 @@
 		BDB4042A2C86FB3F005DF672 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BDB404292C86FB3F005DF672 /* Lottie */; };
 		BDB4F0EE2C77354D004EA8FD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4F0ED2C77354D004EA8FD /* Secrets.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
+		BDBE18152CB5EC1900AD2E5C /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */; };
+		BDBE181A2CB6037900AD2E5C /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE18192CB6037900AD2E5C /* CoverView.swift */; };
 		BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */; };
 		BDC2C3432C5A6EE400FEF069 /* NoticeDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */; };
 		BDC622B12C225817009411AE /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC622B02C225817009411AE /* DatabaseError.swift */; };
@@ -705,6 +707,8 @@
 		BDB404242C86F93B005DF672 /* PP_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PP_loading.json; sourceTree = "<group>"; };
 		BDB4F0ED2C77354D004EA8FD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BDB682542C1C316000560E7B /* LocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBRepository.swift; sourceTree = "<group>"; };
+		BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		BDBE18192CB6037900AD2E5C /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVC.swift; sourceTree = "<group>"; };
 		BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailBoardVM.swift; sourceTree = "<group>"; };
 		BDC622B02C225817009411AE /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
@@ -1066,6 +1070,7 @@
 		0873464F2C0ABC2300534FFA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BDBE18182CB6037100AD2E5C /* View */,
 				089D19202C391275000435D9 /* Cells */,
 				BD3C4C742C31AF550087917B /* ViewController */,
 				08C813DC2C2D50AD009239FE /* Layout */,
@@ -2022,6 +2027,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		BDBE18182CB6037100AD2E5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BDBE18192CB6037900AD2E5C /* CoverView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BDC622AF2C22580E009411AE /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -2111,6 +2124,7 @@
 				0896A05B2C79F9300062CC49 /* String+.swift */,
 				0896A05D2C79F9380062CC49 /* Date+.swift */,
 				BD2684952C8C901F000F623F /* UICollectionReusableView.swift */,
+				BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2326,6 +2340,7 @@
 				08FF6C202C721C1800B68569 /* NoticeInfoDTO.swift in Sources */,
 				4E67A24C2C930364003BDAFA /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */,
+				BDBE18152CB5EC1900AD2E5C /* UIImageView+.swift in Sources */,
 				4E67A1F12C92FC3D003BDAFA /* UserBlockRequestDTO.swift in Sources */,
 				BDCA56722C69FD07005C68C8 /* HomeListCellSection.swift in Sources */,
 				4E67A24F2C930364003BDAFA /* SearchViewCPNT.swift in Sources */,
@@ -2457,6 +2472,7 @@
 				4E67A23D2C930364003BDAFA /* ButtonCPNT.swift in Sources */,
 				BD0433FF2CA2A74E00758CDF /* UpdateCommentRequestDTO.swift in Sources */,
 				BD0433FD2CA2A68800758CDF /* PostCommentRequestDTO.swift in Sources */,
+				BDBE181A2CB6037900AD2E5C /* CoverView.swift in Sources */,
 				4E67A23F2C930364003BDAFA /* ContentTitleCPNT.swift in Sources */,
 				4E67A2202C93031C003BDAFA /* SearchViewController.swift in Sources */,
 				4E67A1EC2C92FC3D003BDAFA /* CheckedSurveyListRequestDTO.swift in Sources */,
