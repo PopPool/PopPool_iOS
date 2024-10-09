@@ -12,5 +12,5 @@ struct CreateCommentRequestDTO: Encodable {
     let popUpStoreId: Int64
     let content: String
     let commentType: CommentType
-    let imageUrlList: [ImageActionDTO]
+    let imageUrlList: [String]
 }

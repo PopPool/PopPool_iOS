@@ -33,6 +33,7 @@ final class EntirePopupVC: BaseViewController {
     private var allPopUpStores: [HomePopUp] = []
     
     private let viewModel: EntirePopupVM
+    private var totalTappedPopStore: Set<Int64> = []
     let disposeBag = DisposeBag()
     
     init(viewModel: EntirePopupVM) {
@@ -58,6 +59,12 @@ final class EntirePopupVC: BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if !self.totalTappedPopStore.isEmpty {
+            for popUps in totalTappedPopStore {
+                viewModel.updateBookmarkStatus(popUpStoreId: popUps)
+            }
+        }
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -66,9 +73,10 @@ final class EntirePopupVC: BaseViewController {
         let output = viewModel.transform(input: input)
         
         header.leftBarButton.rx.tap
-            .subscribe(onNext: {
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
                 print("버튼이 눌렸습니다.")
-                self.navigationController?.popViewController(animated: true)
+                owner.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -132,6 +140,18 @@ extension EntirePopupVC: UICollectionViewDelegate, UICollectionViewDataSource {
             location: popUpStore.address,
             date: popUpStore.startDate
         ))
+        
+        cell.bookmarkSubject
+            .withUnretained(self)
+            .subscribe(onNext: { owner, isTapped in
+                if isTapped == .tapped {
+                    owner.totalTappedPopStore.insert(popUpStore.id)
+                } else {
+                    owner.totalTappedPopStore.remove(popUpStore.id)
+                }
+            })
+            .disposed(by: cell.disposeBag)
+        
         return cell
     }
 }

@@ -14,6 +14,7 @@ final class NormalCommentVC: BaseViewController {
     
     //MARK: - Components
     
+    var onCommentAdded: (() -> Void)?
     private let header = HeaderViewCPNT(title: "코멘트 작성하기", style: .icon(nil))
     private let scrollView = UIScrollView(frame: .zero)
     private let containerView = UIView()
@@ -131,7 +132,7 @@ final class NormalCommentVC: BaseViewController {
         )
         let output = viewModel.transform(input: input)
         
-        viewModel.popUpStore
+        viewModel.popUpStoreName
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
                 owner.imageHeader.subTitleLabel.text = "\(data)과 관련있는 사진을 업로드해보세요."
@@ -166,7 +167,6 @@ final class NormalCommentVC: BaseViewController {
                 var imageUploadDatas: [PreSignedService.PresignedURLRequest] = []
                 
                 let newComment = self.viewModel.commentRequest.value
-//                let newComment = owner.viewModel.newComment.value
                 // 선택된 이미지 데이터 배열에 담기
                 owner.viewModel.selectedImages
                     .subscribe { images in
@@ -189,16 +189,18 @@ final class NormalCommentVC: BaseViewController {
                         let repository = CommentRepositoryImpl()
                         let popUpStore = CreateCommentRequestDTO(
                             userId: newComment.userId,
-                            popUpStoreId: newComment.popUpStoreId,
-                            content: newComment.content,
+                            popUpStoreId: owner.viewModel.popUpStoreId,
+                            content: owner.commentTextfield.textView.text,
                             commentType: newComment.commentType,
-                            imageUrlList: newComment.imageUrlList)
+                            imageUrlList: pathList)
                         
                         repository.postComment(request: popUpStore)
                             .subscribe {
                                 print("코멘트 업로드 완료")
                                 ToastMSGManager.createToast(message: "코멘트 작성을 완료했어요")
+                                owner.onCommentAdded?()
                             }
+                        
                             .disposed(by: owner.disposeBag)
                         
                     }, onFailure: { error in

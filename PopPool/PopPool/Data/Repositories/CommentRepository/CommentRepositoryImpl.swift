@@ -13,7 +13,7 @@ final class CommentRepositoryImpl: CommentRepository {
     private let provider = ProviderImpl()
     private let requestTokenInterceptor = RequestTokenInterceptor()
 
-    func postComment(request: CreateCommentRequestDTO) -> RxSwift.Completable {
+    func postComment(request: CreateCommentRequestDTO) -> Completable {
         let endPoint = PopPoolAPIEndPoint.comment_postComment(request: request)
         return provider.request(with: endPoint, interceptor: requestTokenInterceptor)
     }
