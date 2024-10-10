@@ -340,7 +340,6 @@
 		BDB4042A2C86FB3F005DF672 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BDB404292C86FB3F005DF672 /* Lottie */; };
 		BDB4F0EE2C77354D004EA8FD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4F0ED2C77354D004EA8FD /* Secrets.swift */; };
 		BDB682552C1C316000560E7B /* LocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB682542C1C316000560E7B /* LocalDBRepository.swift */; };
-		BDBE18152CB5EC1900AD2E5C /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */; };
 		BDBE181A2CB6037900AD2E5C /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE18192CB6037900AD2E5C /* CoverView.swift */; };
 		BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE5E322C4EC13100260FFC /* BlockedUserVC.swift */; };
 		BDC2C3432C5A6EE400FEF069 /* NoticeDetailBoardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2C3422C5A6EE400FEF069 /* NoticeDetailBoardVM.swift */; };
@@ -995,6 +994,7 @@
 				087346262C0AAD2B00534FFA /* PopPoolTests */,
 				087346302C0AAD2B00534FFA /* PopPoolUITests */,
 				0873460E2C0AAD2900534FFA /* Products */,
+				BD889F762CB7BB21006D9E2A /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2030,6 +2030,14 @@
 			path = InstagramCommentView;
 			sourceTree = "<group>";
 		};
+		BD889F762CB7BB21006D9E2A /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		BD8DE8212C68653300C5DE8B /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2359,7 +2367,6 @@
 				08FF6C202C721C1800B68569 /* NoticeInfoDTO.swift in Sources */,
 				4E67A24C2C930364003BDAFA /* ProfileCircleImageViewCPNT.swift in Sources */,
 				BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */,
-				BDBE18152CB5EC1900AD2E5C /* UIImageView+.swift in Sources */,
 				4E67A1F12C92FC3D003BDAFA /* UserBlockRequestDTO.swift in Sources */,
 				BDCA56722C69FD07005C68C8 /* HomeListCellSection.swift in Sources */,
 				4E67A24F2C930364003BDAFA /* SearchViewCPNT.swift in Sources */,

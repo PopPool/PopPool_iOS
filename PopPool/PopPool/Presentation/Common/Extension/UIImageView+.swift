@@ -48,8 +48,8 @@ extension UIImageView {
                 }
             })
             .disposed(by: bag)
-
-extension UIImageView {
+    }
+    
     func setClosedNotice(endDate: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
