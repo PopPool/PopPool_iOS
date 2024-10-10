@@ -42,7 +42,7 @@ final class PopupDetailViewController: UIViewController {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .KorFont(style: .bold, size: 16)
+        label.font = .KorFont(style: .bold, size: 18)
         label.numberOfLines = 2
         return label
     }()
@@ -416,12 +416,6 @@ final class PopupDetailViewController: UIViewController {
                 self?.toggleDescriptionExpansion()
             })
             .disposed(by: disposeBag)
-
-        //        output.addressCopied
-        //            .drive(onNext: { [weak self] address in
-        //                self?.copyAddressToClipboard(address)
-        //            })
-        //            .disposed(by: disposeBag)
         output.directionsData
             .drive(onNext: { [weak self] directionData in
                 self?.popupStoreLatitude = directionData.latitude
@@ -429,10 +423,6 @@ final class PopupDetailViewController: UIViewController {
                 print("좌표: \(directionData.latitude), \(directionData.longitude)")
             })
             .disposed(by: disposeBag)
-
-
-
-
     }
 
     private func updateUI(with popup: PopupDetail) {
@@ -474,14 +464,6 @@ final class PopupDetailViewController: UIViewController {
         bookmarkButton.tintColor = tintColor
     }
 
-
-    //    private func setupShowMoreButton() {
-    //        showAllCommentsButton.rx.tap
-    //            .subscribe(onNext: { [weak self] in
-    //                self?.presentAllCommentsView()
-    //            })
-    //            .disposed(by: disposeBag)
-    //    }
     private func setupShowAllCommentsButton() {
         showAllCommentsButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -489,7 +471,6 @@ final class PopupDetailViewController: UIViewController {
 
                 let allCommentsVC = AllCommentsViewController()
 
-                // 전체보기 버튼을 눌렀을 때도 comments 데이터를 전달
                 allCommentsVC.comments = self.comments
 
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -547,32 +528,6 @@ final class PopupDetailViewController: UIViewController {
         present(navController, animated: true, completion: nil)
     }
 
-
-
-//    private func convertAddressToCoordinates() {
-//        guard let address = popupData.value?.address else {
-//            print("주소가 없습니다.")
-//            return
-//        }
-//
-//        print("변환할 주소: \(address)") // 주소 출력
-//
-//        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString(address) { [weak self] (placemarks, error) in
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    print("Error occurred while geocoding: \(error.localizedDescription)")
-//                } else if let placemark = placemarks?.first, let location = placemark.location {
-//                    self?.popupStoreLatitude = location.coordinate.latitude
-//                    self?.popupStoreLongitude = location.coordinate.longitude
-//                    print("주소: \(address) -> 위도: \(location.coordinate.latitude), 경도: \(location.coordinate.longitude)")
-//                }
-//            }
-//        }
-//    }
-
-
-
     private func presentShareSheet() {
         guard let popupName = popupData.value?.name else { return }
 
@@ -580,7 +535,6 @@ final class PopupDetailViewController: UIViewController {
 
         let activityViewController = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
 
-        // iPad에서는 Popover로 보여주기 위한 설정 (iPhone에는 필요 없음)
         if let popoverController = activityViewController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = shareButton.frame
@@ -610,13 +564,11 @@ final class PopupDetailViewController: UIViewController {
 
            if let sheet = findRouteVC.sheetPresentationController {
                sheet.detents = [.medium(), .large()]
-               sheet.prefersGrabberVisible = true
+               sheet.prefersGrabberVisible = false
            }
 
            present(findRouteVC, animated: true, completion: nil)
        }
-
-
 
 }
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
@@ -650,8 +602,8 @@ extension PopupDetailViewController: UICollectionViewDataSource, UICollectionVie
         if collectionView == imageCollectionView {
             return collectionView.bounds.size
         } else {
-            let width = (collectionView.bounds.width - 16) / 2 // 2열, 중앙 여백 16
-            return CGSize(width: width, height: width * 1.5) // 높이를 너비의 1.5배로 설정
+            let width = (collectionView.bounds.width - 16) / 2
+            return CGSize(width: width, height: width * 1.5)
         }
     }
 
@@ -675,7 +627,7 @@ extension PopupDetailViewController: UICollectionViewDataSource, UICollectionVie
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension PopupDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("총: \(comments.count)건") // 개수 확인
+        print("총: \(comments.count)건")
 
         return min(comments.count, 4)
     }

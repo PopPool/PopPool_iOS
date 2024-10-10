@@ -9,32 +9,54 @@ class FindRouteViewController: UIViewController {
 
     private let mapView = GMSMapView()
 
+    private let directionsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "지도 앱으로 \n바로 찾아볼까요?"
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .black
+        label.numberOfLines = 2
+        label.textAlignment = .center
+
+        return label
+    }()
+
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "길 찾기"
+        label.text = "찾아가는 길"
         label.font = .boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
+    }()
+
+    private let closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+        return button
     }()
 
     private let naverButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("네이버 지도", for: .normal)
-        button.addTarget(self, action: #selector(openNaverMap), for: .touchUpInside)
+        button.setImage(UIImage(named: "defaultImage"), for: .normal)
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
         return button
     }()
 
     private let kakaoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("카카오맵", for: .normal)
-        button.addTarget(self, action: #selector(openKakaoMap), for: .touchUpInside)
+        button.setImage(UIImage(named: "defaultImage"), for: .normal)
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
         return button
     }()
 
     private let tmapButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("T맵", for: .normal)
-        button.addTarget(self, action: #selector(openTMap), for: .touchUpInside)
+        button.setImage(UIImage(named: "defaultImage"), for: .normal)
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
         return button
     }()
 
@@ -49,39 +71,55 @@ class FindRouteViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(titleLabel)
+        view.addSubview(closeButton)
         view.addSubview(naverButton)
         view.addSubview(kakaoButton)
         view.addSubview(tmapButton)
+        view.addSubview(directionsLabel)
+
     }
 
     private func setupConstraints() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.leading.equalToSuperview().offset(20)
+        }
+
+        closeButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+
         mapView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(250)
+
+        }
+        directionsLabel.snp.makeConstraints { make in
+            make.top.equalTo(mapView.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(20)
         }
 
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(mapView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-        }
+        let buttonSize: CGFloat = 30
+        let buttonSpacing: CGFloat = 16
 
         naverButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(50)
+            make.top.equalTo(mapView.snp.bottom).offset(16)
+            make.trailing.equalToSuperview().inset(90)
+            make.width.height.equalTo(buttonSize)
         }
 
         kakaoButton.snp.makeConstraints { make in
-            make.top.equalTo(naverButton.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(50)
+            make.top.equalTo(naverButton)
+            make.trailing.equalToSuperview().inset(60)
+            make.width.height.equalTo(buttonSize)
         }
 
         tmapButton.snp.makeConstraints { make in
-            make.top.equalTo(kakaoButton.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(50)
+            make.top.equalTo(naverButton)
+            make.trailing.equalToSuperview().inset(20)
+            make.width.height.equalTo(buttonSize)
         }
     }
 
@@ -108,5 +146,9 @@ class FindRouteViewController: UIViewController {
     @objc private func openTMap() {
         guard let latitude = popupStoreLatitude, let longitude = popupStoreLongitude else { return }
         URLSchemeService.openApp(.tMap, latitude: latitude, longitude: longitude)
+    }
+
+    @objc private func closeView() {
+        dismiss(animated: true, completion: nil)
     }
 }
