@@ -204,19 +204,11 @@ extension HomeDetailPopUpCell: Cellable {
     }
     
     func injectionWith(input: Input) {
-        popUpImageView.kf.indicatorType = .activity
-        popUpImageView.image = UIImage(named: "defaultLogo")
-        
         if let path = input.image {
-            service.tryDownload(filePaths: [path])
-                .subscribe { [weak self] images in
-                    guard let image = images.first else { return }
-                    self?.popUpImageView.image = image
-                } onFailure: { [weak self] error in
-                    self?.popUpImageView.image = UIImage(named: "defaultLogo")
-                    print("ImageDownLoad Fail")
-                }
-                .disposed(by: disposeBag)
+            let service = PreSignedService()
+            popUpImageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
+        } else {
+            popUpImageView.image = UIImage(systemName: "defaultLogo")
         }
         
         titleLabel.text = input.title

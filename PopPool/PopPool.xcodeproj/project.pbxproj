@@ -317,6 +317,7 @@
 		BD6368082C0CBEFE00891A1B /* PopPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */; };
 		BD67FA402C9202EF00E89E7D /* SocialCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */; };
 		BD67FA422C9221BB00E89E7D /* SocialNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */; };
+		BD68E7C02CABC2F900F25D5B /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD68E7BF2CABC2F900F25D5B /* UIImageView+.swift */; };
 		BD702D592C8793AA00142AE0 /* SignOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */; };
 		BD702D5F2C883FCA00142AE0 /* SignOutCompleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */; };
 		BD702D632C88511E00142AE0 /* PP_splash.json in Resources */ = {isa = PBXBuildFile; fileRef = BD702D622C88511E00142AE0 /* PP_splash.json */; };
@@ -688,6 +689,7 @@
 		BD6368072C0CBEFE00891A1B /* PopPoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopPoolTests.swift; sourceTree = "<group>"; };
 		BD67FA3F2C9202EF00E89E7D /* SocialCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCommentVC.swift; sourceTree = "<group>"; };
 		BD67FA412C9221BB00E89E7D /* SocialNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNoticeView.swift; sourceTree = "<group>"; };
+		BD68E7BF2CABC2F900F25D5B /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		BD702D582C8793AA00142AE0 /* SignOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTableViewCell.swift; sourceTree = "<group>"; };
 		BD702D5E2C883FCA00142AE0 /* SignOutCompleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutCompleteVM.swift; sourceTree = "<group>"; };
 		BD702D622C88511E00142AE0 /* PP_splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PP_splash.json; sourceTree = "<group>"; };
@@ -2124,7 +2126,7 @@
 				0896A05B2C79F9300062CC49 /* String+.swift */,
 				0896A05D2C79F9380062CC49 /* Date+.swift */,
 				BD2684952C8C901F000F623F /* UICollectionReusableView.swift */,
-				BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */,
+				BD68E7BF2CABC2F900F25D5B /* UIImageView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2410,6 +2412,7 @@
 				4E4DC0162C6201B8007CE63A /* PopUpStoreDTO.swift in Sources */,
 				BD3C4C6F2C313D6C0087917B /* LoginBottomSheetVM.swift in Sources */,
 				08E23AC52C4F9298004B77B6 /* UserRepository.swift in Sources */,
+				BD68E7C02CABC2F900F25D5B /* UIImageView+.swift in Sources */,
 				BDF3B2AA2C0BE23D00B079C5 /* Requestable.swift in Sources */,
 				089D19272C3AEB53000435D9 /* MyPageMainProfileView.swift in Sources */,
 				4E67A14D2C92FB02003BDAFA /* PopPoolAPIEndPoint.swift in Sources */,
