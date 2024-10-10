@@ -60,7 +60,6 @@ final class SocialCommentVC: BaseViewController {
         stack.axis = .vertical
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.addArrangedSubview(header)
         stack.addArrangedSubview(topSectionView)
         stack.addArrangedSubview(guideImage)
         stack.addArrangedSubview(pageSpaceView)
@@ -110,6 +109,14 @@ final class SocialCommentVC: BaseViewController {
     private func bind() {
         let input = SocialCommentVM.Input()
         let output = viewModel.transform(input: input)
+        
+        header.leftBarButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                print("화면에서 나갔습니다.")
+                owner.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
         
         output.content
             .withUnretained(self)
@@ -344,6 +351,7 @@ final class SocialCommentVC: BaseViewController {
     private func setUpConstraint() {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
+        containerView.addSubview(header)
         containerView.addSubview(stack)
         view.addSubview(actionButton)
         
@@ -352,12 +360,16 @@ final class SocialCommentVC: BaseViewController {
         }
         
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.width.equalTo(view.snp.width)
+            make.width.equalTo(scrollView.snp.width)
+        }
+        
+        header.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
         }
         
         stack.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(header.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
         }
         
         guideImage.snp.makeConstraints { make in
