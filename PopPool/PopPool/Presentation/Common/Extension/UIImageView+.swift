@@ -45,6 +45,8 @@ extension UIImageView {
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.stopLoadingIndicator() // 이미지는 최초에 걸어둔 친구가 있기 때문에 따로 처리하지 않아도 된다.
+                    self.image = UIImage(named: "lightLogo")
+                    print("ImageDownLoad Fail")
                 }
             })
             .disposed(by: bag)
