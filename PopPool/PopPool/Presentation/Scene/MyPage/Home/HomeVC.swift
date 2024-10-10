@@ -69,17 +69,12 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         useCase.fetchHome(userId: Constants.userId, page: 0, size: 6, sort: nil)
         .withUnretained(self)
         .subscribe(onNext: { (owner, response) in
-            print("응답 데이터: \(response)")
-
 
             owner.userName = response.nickname
             owner.viewModel.myHomeAPIResponse.accept(response)
             owner.viewModel.customPopUpStore.accept(response.customPopUpStoreList ?? [])
             owner.viewModel.popularPopUpStore.accept(response.popularPopUpStoreList ?? [])
             owner.viewModel.newPopUpStore.accept(response.newPopUpStoreList ?? [])
-            print("Custom PopUp Store: \(response.customPopUpStoreList ?? [])")
-               print("Popular PopUp Store: \(response.popularPopUpStoreList ?? [])")
-               print("New PopUp Store: \(response.newPopUpStoreList ?? [])")
         })
         
         .disposed(by: disposeBag)
@@ -109,8 +104,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         collectionView.register(HomeDetailPopUpCell.self,
                                 forCellWithReuseIdentifier: HomeDetailPopUpCell.identifier)
 
-        collectionView.register(InterestViewCell.self,
-                                forCellWithReuseIdentifier: InterestViewCell.identifier)
+        collectionView.register(PopularViewCell.self,
+                                forCellWithReuseIdentifier: PopularViewCell.identifier)
 
         collectionView.register(SectionHeaderCell.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -137,7 +132,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
     private func bind() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(searchBarTapped))
         searchComponent.addGestureRecognizer(tapGesture)
-
+        
         Observable.combineLatest(
             viewModel.customPopUpStore,
             viewModel.popularPopUpStore,
@@ -146,10 +141,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         .withUnretained(self)
         .subscribe(onNext: { (owner, stores) in
             let (customStores, popularStores, newStores) = stores
-            //중복 제거
-            let uniquePopularPopUpStoreList = Array(Set(popularStores))
-
-
+            var uniqueId = Set<Int64>()
+            
             var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
             snapShot.appendSections([.topBanner])
             snapShot.appendItems([
@@ -159,28 +152,31 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                 .init(id: 2, category: "배너", name: "제목", address: "주소"),
                 .init(id: 3, category: "배너", name: "제목", address: "주소"),
                 .init(id: 4, category: "배너", name: "제목", address: "주소")
-                ], toSection: .topBanner)
-
-//            if owner.isLoggedIn {
-//                snapShot.appendSections([.custom])
-//                snapShot.appendItems(customStores, toSection: .custom)
-//            }
-
+            ], toSection: .topBanner)
+            
             snapShot.appendSections([.popular])
-            //중복 제거된 인기있는 스토어 삽입
-            snapShot.appendItems(uniquePopularPopUpStoreList, toSection: .popular)
-
+            for store in popularStores {
+                if uniqueId.insert(store.id).inserted {
+                    snapShot.appendItems([store], toSection: .popular)
+                }
+            }
+            
             snapShot.appendSections([.new])
-            snapShot.appendItems(newStores, toSection: .new)
-
+            for store in newStores {
+                if uniqueId.insert(store.id).inserted {
+                    snapShot.appendItems([store], toSection: .new)
+                }
+            }
+            
             owner.dataSource.apply(snapShot, animatingDifferences: false)
             owner.collectionView.reloadData()
         }, onError: { error in
-              // 에러 처리
-              print("API 호출 실패: \(error.localizedDescription)")
-          })     
+            // 에러 처리
+            print("API 호출 실패: \(error.localizedDescription)")
+        })
         .disposed(by: disposeBag)
     }
+    
     @objc private func searchBarTapped() {
         let searchService = AppDIContainer.shared.resolve(type: SearchServiceProtocol.self)
         let searchRepository = SearchRepository(searchService: searchService)
@@ -292,14 +288,14 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
 
                 case .popular:
                     let popularItem = self.viewModel.popularPopUpStore.value[indexPath.item]
-
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InterestViewCell.identifier, for: indexPath) as! InterestViewCell                    
-                    cell.injectionWith(input: InterestViewCell.Input(
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularViewCell.identifier, for: indexPath) as! PopularViewCell
+                    
+                    cell.injectionWith(input: PopularViewCell.Input(
                         image: popularItem.mainImageUrl,
                         category: popularItem.category,
                         title: popularItem.name,
                         location: popularItem.address,
-                        date: popularItem.startDate
+                        date: popularItem.endDate
                     ))
                     return cell
 
