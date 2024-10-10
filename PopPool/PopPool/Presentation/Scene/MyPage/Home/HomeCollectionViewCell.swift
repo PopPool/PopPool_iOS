@@ -107,7 +107,10 @@ extension HomeCollectionViewCell: Cellable {
         if let bannerImageUrl = input.image {
             let service = PreSignedService()
             imageView.setPresignedImage(from: [bannerImageUrl], service: service, bag: disposeBag)
-            pageControl.numberOfPages = input.totalCount
+                .subscribe(onCompleted: { [weak self] in
+                    self?.pageControl.numberOfPages = input.totalCount
+                })
+                .disposed(by: disposeBag)
         } else {
             imageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
         }
