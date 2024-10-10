@@ -207,6 +207,11 @@ extension HomeDetailPopUpCell: Cellable {
         if let path = input.image {
             let service = PreSignedService()
             popUpImageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
+                .withUnretained(self)
+                .subscribe(onNext: { owner, image in
+                    owner.popUpImageView.image = image
+                })
+                .disposed(by: disposeBag)
         } else {
             popUpImageView.image = UIImage(systemName: "defaultLogo")
         }

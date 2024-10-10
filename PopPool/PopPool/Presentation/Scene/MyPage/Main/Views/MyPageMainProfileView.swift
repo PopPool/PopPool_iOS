@@ -219,7 +219,13 @@ extension MyPageMainProfileView: InputableView {
             setUpProfileView()
             if let profileImageViewURL = input.profileImage {
                 let imageService = PreSignedService()
+                
                 profileImageView.setPresignedImage(from: [profileImageViewURL], service: imageService, bag: disposeBag)
+                    .subscribe(onNext: { [weak self] image in
+                        self?.profileImageView.image = image
+                        self?.backGroundImageView.image = image
+                    })
+                    .disposed(by: disposeBag)
             } else {
                 self.backGroundImageView.image = UIImage(named: "Profile_Logo")
                 self.profileImageView.image = UIImage(named: "Profile_Logo")

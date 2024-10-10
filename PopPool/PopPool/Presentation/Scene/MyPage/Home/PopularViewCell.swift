@@ -145,9 +145,11 @@ extension PopularViewCell: Cellable {
             
             let service = PreSignedService()
             imageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
-                .subscribe(onCompleted: { [weak self] in
-                    self?.titleLabel.attributedText = attributedString
-                    self?.descriptionLabel.attributedText = titleAttribute
+                .withUnretained(self)
+                .subscribe(onNext: { owner, image in
+                    owner.imageView.image = image
+                    owner.titleLabel.attributedText = attributedString
+                    owner.descriptionLabel.attributedText = titleAttribute
                 })
                 .disposed(by: disposeBag)
         } else {

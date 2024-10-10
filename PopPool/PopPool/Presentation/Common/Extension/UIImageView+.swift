@@ -29,11 +29,11 @@ extension UIImageView {
     }
     
     /// 적용하여 loadingIndicator를 호출할 수 있습니다.
-    func setPresignedImage(from string: [String], service: PreSignedService, bag: DisposeBag) -> Observable<Void> {
+    func setPresignedImage(from string: [String], service: PreSignedService, bag: DisposeBag) -> Observable<UIImage> {
         self.image = nil
         self.showLoadingIndicator()
         
-        return Observable<Void>.create { [weak self] observer in
+        return Observable<UIImage>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             
             service.tryDownload(filePaths: string)
@@ -41,15 +41,15 @@ extension UIImageView {
                     guard let self = self else { return }
                     guard let image = images.first else { return }
                     DispatchQueue.main.async {
-                        self.image = image
-                        self.stopLoadingIndicator()
+                        observer.onNext(image)
                         observer.onCompleted()
+                        self.stopLoadingIndicator()
                     }
                 }, onFailure: { [weak self] error in
                     guard let self = self else { return }
                     DispatchQueue.main.async {
                         self.stopLoadingIndicator() // 이미지는 최초에 걸어둔 친구가 있기 때문에 따로 처리하지 않아도 된다.
-                        self.image = UIImage(named: "lightLogo")
+                        observer.onNext(UIImage(named: "lightLogo")!)
                         observer.onCompleted()
                         print("ImageDownLoad Fail")
                     }
