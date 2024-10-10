@@ -270,7 +270,7 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
                     cell.injectionWith(
                         input: HomeCollectionViewCell.Input(
-                            image: URL(string: ""),
+                            image: "",
                             totalCount: 5))
                     return cell
 

@@ -116,8 +116,6 @@ extension PopularViewCell: Cellable {
     /// 맞춤 관심 역할을 하는 cell에 데이터를 주입하는 메서드
     /// - Parameter input: Input 값을 받습니다
     func injectionWith(input: Input) {
-        imageView.image = UIImage(named: "defaultLogo")
-        
         if let path = input.image,
            //           let date = input.date,
            let location = input.location,
@@ -142,18 +140,12 @@ extension PopularViewCell: Cellable {
             let titleAttribute = NSMutableAttributedString(string: description)
             titleAttribute.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: description.count))
             
+            let service = PreSignedService()
+            imageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
             titleLabel.attributedText = attributedString
             descriptionLabel.attributedText = titleAttribute
-            //
-            //            service.tryDownload(filePaths: [path])
-            //                .subscribe { [weak self] images in
-            //                    guard let image = images.first else { return }
-            //                    self?.imageView.image = image
-            //                } onFailure: { [weak self] error in
-            //                    self?.imageView.image = UIImage(named: "defaultLogo")
-            //                    print("ImageDownLoad Fail")
-            //                }
-            //                .disposed(by: disposeBag)
+        } else {
+            imageView.image = UIImage(systemName: "defaultLogo")
         }
     }
     

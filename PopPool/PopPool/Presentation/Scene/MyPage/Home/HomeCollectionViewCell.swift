@@ -93,7 +93,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
 extension HomeCollectionViewCell: Cellable {
     
     struct Input {
-        var image: URL?
+        var image: String?
         var totalCount: Int
     }
     
@@ -104,9 +104,9 @@ extension HomeCollectionViewCell: Cellable {
     /// 배너 역할을 하는 cell에 데이터를 주입하는 메서드
     /// - Parameter input: Input 값을 받습니다
     func injectionWith(input: Input) {
-        imageView.kf.indicatorType = .activity
         if let bannerImageUrl = input.image {
-            imageView.kf.setImage(with: bannerImageUrl)
+            let service = PreSignedService()
+            imageView.setPresignedImage(from: [bannerImageUrl], service: service, bag: disposeBag)
             pageControl.numberOfPages = input.totalCount
         } else {
             imageView.image = UIImage(named: "defaultLogo") // 배너 기본 이미지 설정
