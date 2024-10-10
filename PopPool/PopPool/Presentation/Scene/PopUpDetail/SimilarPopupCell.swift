@@ -23,23 +23,19 @@ class SimilarPopupCell: UICollectionViewCell {
         return iv
     }()
 
-    private let punchView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
+        label.textAlignment = .center
         return label
     }()
 
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.numberOfLines = 2
+        label.numberOfLines = 1
+        label.textAlignment = .center
         return label
     }()
 
@@ -54,39 +50,66 @@ class SimilarPopupCell: UICollectionViewCell {
 
     private func setupUI() {
         contentView.addSubview(containerView)
-        [imageView, punchView, dateLabel, nameLabel].forEach { containerView.addSubview($0) }
+        [imageView, dateLabel, nameLabel].forEach { containerView.addSubview($0) }
 
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.edges.equalToSuperview()
         }
 
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(containerView.snp.width).multipliedBy(0.75)
-        }
-
-        punchView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(imageView.snp.bottom).offset(-10)
-            make.width.equalTo(40)
-            make.height.equalTo(20)
+            make.height.equalTo(containerView.snp.width).multipliedBy(0.9)
         }
 
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(punchView.snp.bottom).offset(8)
+            make.top.equalTo(imageView.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
         }
 
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(4)
+            make.top.equalTo(dateLabel.snp.bottom).offset(2)
             make.leading.trailing.equalToSuperview().inset(8)
-            make.bottom.lessThanOrEqualToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(8)
         }
+
+        applyExternalCircularCutouts()
+    }
+
+    private func applyExternalCircularCutouts() {
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 8)
+
+        let cutoutRadius: CGFloat = 5
+        let cutoutYPosition = bounds.height - cutoutRadius
+
+        // 좌측 하단 외부 반구 모양
+        let cutoutPathLeft = UIBezierPath(
+            arcCenter: CGPoint(x: 0, y: cutoutYPosition),
+            radius: cutoutRadius,
+            startAngle: -CGFloat.pi/2,
+            endAngle: CGFloat.pi/2,
+            clockwise: false
+        )
+
+        // 우측 하단 외부 반구 모양
+        let cutoutPathRight = UIBezierPath(
+            arcCenter: CGPoint(x: bounds.width, y: cutoutYPosition),
+            radius: cutoutRadius,
+            startAngle: CGFloat.pi/2,
+            endAngle: -CGFloat.pi/2,
+            clockwise: false
+        )
+
+        path.append(cutoutPathLeft)
+        path.append(cutoutPathRight)
+
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        containerView.layer.mask = maskLayer
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        punchView.layer.cornerRadius = punchView.bounds.height / 2
+        applyExternalCircularCutouts()
     }
 
     func configure(with similarPopup: SimilarPopUp) {

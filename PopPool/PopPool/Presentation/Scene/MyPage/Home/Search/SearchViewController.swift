@@ -479,7 +479,7 @@ class SearchViewController: UIViewController {
     private func updateCollectionView(with popUpStores: [HomePopUp]) {
         let section = SectionModel(model: "Search Results", items: popUpStores)
         popUpStoresSubject.onNext([section])
-        print("DEBUG: 컬렉션 뷰 업데이트, 팝업 스토어 수: \(popUpStores.count)")
+//        print("DEBUG: 컬렉션 뷰 업데이트, 팝업 스토어 수: \(popUpStores.count)")
     }
 
     private func updateRecentSearches(with searches: [String]) {
