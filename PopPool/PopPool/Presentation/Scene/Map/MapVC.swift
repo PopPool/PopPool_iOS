@@ -112,12 +112,12 @@ class MapVC: BaseViewController {
 
 
     // 드래그 핸들 뷰 추가
-    private lazy var dragHandleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 2
-        return view
-    }()
+//    private lazy var dragHandleView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .lightGray
+//        view.layer.cornerRadius = 2
+//        return view
+//    }()
 
     private lazy var popupListView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -152,10 +152,11 @@ class MapVC: BaseViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupUI()
         bindViewModel()
         setupTapGesture()
-        setupGestures()
+//        setupGestures()
     }
 
     // MARK: - Setup Methods
@@ -168,7 +169,7 @@ class MapVC: BaseViewController {
         view.addSubview(locationFilterButton)
         view.addSubview(searchBar)
         view.addSubview(categoryFilterButton)
-        listContainerView.addSubview(dragHandleView)
+//        listContainerView.addSubview(dragHandleView)
         listContainerView.addSubview(popupListView)
 
         setupConstraints()
@@ -221,12 +222,12 @@ class MapVC: BaseViewController {
             listContainerBottomConstraint = make.bottom.equalTo(view.snp.bottom).offset(view.frame.height).constraint
         }
 
-        dragHandleView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(40)
-            make.height.equalTo(4)
-        }
+//        dragHandleView.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(8)
+//            make.centerX.equalToSuperview()
+//            make.width.equalTo(40)
+//            make.height.equalTo(4)
+//        }
 
         popupListView.snp.makeConstraints { make in
             make.top.equalTo(categoryFilterButton.snp.bottom).offset(8)
@@ -303,7 +304,7 @@ class MapVC: BaseViewController {
 
         listViewButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.toggleListView()
+                self?.presentListViewController()
             })
             .disposed(by: disposeBag)
 
@@ -374,6 +375,16 @@ class MapVC: BaseViewController {
 
             popupCell.configureImage(with: image)
         }
+    }
+    private func showListBottomSheet() {
+        let listVC = ListViewController(viewModel: viewModel)
+
+        if let sheet = listVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+        }
+
+        present(listVC, animated: true, completion: nil)
     }
 
     private func updatePopupCardView(for store: MapPopUpStore) {
@@ -467,49 +478,49 @@ class MapVC: BaseViewController {
     }
 
     // 팬 제스처 핸들러 수정
-    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: view)
-        let currentTopOffset = listContainerView.frame.origin.y  // 리스트뷰 상단 위치
-        let searchBarBottom = searchBar.frame.maxY  // 서치바 하단 위치
-        let categoryButtonBottom = categoryFilterButton.frame.maxY  // 카테고리 버튼 하단 위치
-
-        switch gesture.state {
-        case .changed:
-            // 리스트뷰의 상단 위치를 변경
-            let newTopOffset = max(searchBarBottom, currentTopOffset + translation.y)
-            listContainerView.frame.origin.y = newTopOffset
-            view.layoutIfNeeded()
-
-            updateMapVisibility()
-
-            gesture.setTranslation(.zero, in: view)
-
-        case .ended:
-            var targetOffset: CGFloat
-
-            // 리스트뷰가 카테고리 버튼에 닿을 때
-            if currentTopOffset <= categoryButtonBottom {
-                targetOffset = categoryButtonBottom  // 리스트뷰 상단을 카테고리 버튼에 맞춤
-            }
-            // 중간 위치에 있을 때
-            else if currentTopOffset < listViewMiddlePosition {
-                targetOffset = listViewMiddlePosition  // 리스트뷰를 화면 중간으로 이동
-            }
-            // 리스트뷰가 완전히 내려갈 때
-            else {
-                targetOffset = view.frame.height  // 리스트뷰를 화면 아래로 내림
-            }
-
-            // 애니메이션으로 리스트뷰 이동
-            UIView.animate(withDuration: 0.3) {
-                self.listContainerView.frame.origin.y = targetOffset
-                self.view.layoutIfNeeded()
-            }
-
-        default:
-            break
-        }
-    }
+//    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+//        let translation = gesture.translation(in: view)
+//        let currentTopOffset = listContainerView.frame.origin.y  // 리스트뷰 상단 위치
+//        let searchBarBottom = searchBar.frame.maxY  // 서치바 하단 위치
+//        let categoryButtonBottom = categoryFilterButton.frame.maxY  // 카테고리 버튼 하단 위치
+//
+//        switch gesture.state {
+//        case .changed:
+//            // 리스트뷰의 상단 위치를 변경
+//            let newTopOffset = max(searchBarBottom, currentTopOffset + translation.y)
+//            listContainerView.frame.origin.y = newTopOffset
+//            view.layoutIfNeeded()
+//
+//            updateMapVisibility()
+//
+//            gesture.setTranslation(.zero, in: view)
+//
+//        case .ended:
+//            var targetOffset: CGFloat
+//
+//            // 리스트뷰가 카테고리 버튼에 닿을 때
+//            if currentTopOffset <= categoryButtonBottom {
+//                targetOffset = categoryButtonBottom  // 리스트뷰 상단을 카테고리 버튼에 맞춤
+//            }
+//            // 중간 위치에 있을 때
+//            else if currentTopOffset < listViewMiddlePosition {
+//                targetOffset = listViewMiddlePosition  // 리스트뷰를 화면 중간으로 이동
+//            }
+//            // 리스트뷰가 완전히 내려갈 때
+//            else {
+//                targetOffset = view.frame.height  // 리스트뷰를 화면 아래로 내림
+//            }
+//
+//            // 애니메이션으로 리스트뷰 이동
+//            UIView.animate(withDuration: 0.3) {
+//                self.listContainerView.frame.origin.y = targetOffset
+//                self.view.layoutIfNeeded()
+//            }
+//
+//        default:
+//            break
+//        }
+//    }
 
 
     // 맵뷰 가시성 업데이트 함수
@@ -541,6 +552,24 @@ class MapVC: BaseViewController {
         animateListContainer(to: targetOffset)
     }
 
+    private func presentListViewController() {
+        let listViewController = ListViewController(viewModel: viewModel)
+
+        if let sheet = listViewController.sheetPresentationController {
+            // 중간과 전체 크기 설정 (페이지화 상태)
+            sheet.detents = [
+                .medium(),  // 중간 크기 (검색 바와 필터 버튼에 인접한 위치)
+                .large()    // 전체 크기 (화면 전체 차지)
+            ]
+
+            sheet.prefersGrabberVisible = true
+
+            // 페이지화할 때 애니메이션 속도 조정 (필요 시)
+            sheet.preferredCornerRadius = 24  
+        }
+
+        present(listViewController, animated: true, completion: nil)
+    }
     // MARK: - 탭 제스처 설정
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -570,10 +599,10 @@ class MapVC: BaseViewController {
         print("Selected store: \(store.name)")
     }
 
-    private func setupGestures() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        listContainerView.addGestureRecognizer(panGesture)
-    }
+//    private func setupGestures() {
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+//        listContainerView.addGestureRecognizer(panGesture)
+//    }
 }
 
 // MARK: - GMSMapViewDelegate

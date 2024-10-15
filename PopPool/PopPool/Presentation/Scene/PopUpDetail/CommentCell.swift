@@ -241,7 +241,6 @@ extension CommentCell: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommentGalleryCell", for: indexPath) as! CommentGalleryCell
-        // commentImageList가 옵셔널이므로 안전하게 언래핑하여 subscript에 접근
         if let imageUrl = comment?.commentImageList?[indexPath.item].imageUrl {
             cell.configure(with: imageUrl)
         }

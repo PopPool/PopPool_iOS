@@ -4,7 +4,9 @@ import RxSwift
 protocol PopUpDetailUseCase {
     func getPopupDetail(popUpStoreId: Int64, userId: String, commentType: CommentType) -> Observable<PopupDetail>
     func toggleBookmark(userId: String, popUpStoreId: Int64) -> Completable
-    func getPopUpStoreDirections(popUpStoreId: Int64) -> Observable<GetPopUpStoreDirectionResponseDTO> // 길찾기 API 추가
+    func getPopUpStoreDirections(popUpStoreId: Int64) -> Observable<GetPopUpStoreDirectionResponseDTO>
+    func getUserComments(userId: String, page: Int32, size: Int32, sort: [String]?, commentType: CommentType) -> Observable<GetMyCommentResponseDTO>
+
 
 }
 
@@ -25,6 +27,10 @@ final class DefaultPopUpDetailUseCase: PopUpDetailUseCase {
                 print("PopUpDetailUseCase: 팝업 상세 정보 요청 실패: \(error)")
             })
     }
+    func getUserComments(userId: String, page: Int32, size: Int32, sort: [String]?, commentType: CommentType) -> Observable<GetMyCommentResponseDTO> {
+        return repository.getUserComments(userId: userId, page: page, size: size, sort: sort, commentType: commentType)
+        }
+    
 
     func toggleBookmark(userId: String, popUpStoreId: Int64) -> Completable {
         return repository.toggleBookmark(userId: userId, popUpStoreId: popUpStoreId)

@@ -162,6 +162,8 @@
 		4E1AAB5F2CA39F1E0066E201 /* PopupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB5E2CA39F1E0066E201 /* PopupRepository.swift */; };
 		4E1AAB612CA3A18B0066E201 /* PopupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */; };
 		4E21EC3D2CBE507F00B2C502 /* UserCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E21EC3C2CBE507F00B2C502 /* UserCommentsViewController.swift */; };
+		4E21EC3F2CBE635500B2C502 /* UserCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E21EC3E2CBE635500B2C502 /* UserCommentCell.swift */; };
+		4E21EC412CBE655100B2C502 /* UserCommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E21EC402CBE655100B2C502 /* UserCommentsViewModel.swift */; };
 		4E32CBDC2CAA832200F0FF68 /* SimilarPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */; };
 		4E34D3E92CA2B4AA000B6033 /* SearchSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34D3E82CA2B4AA000B6033 /* SearchSuggestionCell.swift */; };
 		4E4DC0032C614726007CE63A /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4DC0022C614726007CE63A /* GoogleMaps */; };
@@ -543,6 +545,8 @@
 		4E1AAB5E2CA39F1E0066E201 /* PopupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupRepository.swift; sourceTree = "<group>"; };
 		4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDetail.swift; sourceTree = "<group>"; };
 		4E21EC3C2CBE507F00B2C502 /* UserCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentsViewController.swift; sourceTree = "<group>"; };
+		4E21EC3E2CBE635500B2C502 /* UserCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentCell.swift; sourceTree = "<group>"; };
+		4E21EC402CBE655100B2C502 /* UserCommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentsViewModel.swift; sourceTree = "<group>"; };
 		4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarPopupCell.swift; sourceTree = "<group>"; };
 		4E34D3E82CA2B4AA000B6033 /* SearchSuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionCell.swift; sourceTree = "<group>"; };
 		4E4DC0062C61D40A007CE63A /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -1649,6 +1653,8 @@
 				4E1AAB602CA3A18B0066E201 /* PopupDetail.swift */,
 				4E1AAB582CA39D910066E201 /* PopUpDetailViewController.swift */,
 				4E21EC3C2CBE507F00B2C502 /* UserCommentsViewController.swift */,
+				4E21EC402CBE655100B2C502 /* UserCommentsViewModel.swift */,
+				4E21EC3E2CBE635500B2C502 /* UserCommentCell.swift */,
 				4E548F072CB28186009632B4 /* AllCommentsViewController.swift */,
 				4E950CEB2CB2A15800CBC7E8 /* CommentDetailViewController.swift */,
 				4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */,
@@ -2584,6 +2590,7 @@
 				4E67A1F02C92FC3D003BDAFA /* UpdateMyTailoredInfoRequestDTO.swift in Sources */,
 				BD353B4B2C2D3D7D0004659D /* LoginVM.swift in Sources */,
 				BD8733852C50C75D0063499C /* BlockedUserCell.swift in Sources */,
+				4E21EC3F2CBE635500B2C502 /* UserCommentCell.swift in Sources */,
 				087346132C0AAD2900534FFA /* SceneDelegate.swift in Sources */,
 				4E34D3E92CA2B4AA000B6033 /* SearchSuggestionCell.swift in Sources */,
 				08C813FB2C2F2809009239FE /* SignUpRequestDTO.swift in Sources */,
@@ -2599,6 +2606,7 @@
 				08FF6C142C707A9500B68569 /* ProfileEditCategoryBottomSheetVC.swift in Sources */,
 				4E9A33AA2C64CB0D000F4095 /* FilterBottomSheetViewController.swift in Sources */,
 				BDD3351A2C0B3AF1002C2295 /* NetworkError.swift in Sources */,
+				4E21EC412CBE655100B2C502 /* UserCommentsViewModel.swift in Sources */,
 				4E67A1EE2C92FC3D003BDAFA /* UpdateMyInterestRequestDTO.swift in Sources */,
 				4E184D632C6F1FD500573A2E /* FavoritePopUpVC.swift in Sources */,
 				BD51ED342C8ACDC100DA4885 /* UIHelper.swift in Sources */,
