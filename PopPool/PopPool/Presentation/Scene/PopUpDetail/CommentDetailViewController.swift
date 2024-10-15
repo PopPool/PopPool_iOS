@@ -107,36 +107,40 @@ class CommentDetailViewController: UIViewController {
     // MARK: - Bind Data
     private func bindCommentData() {
         guard let comment = comment else { return }
+
+        // 닉네임
         nicknameLabel.text = comment.nickname
+
+        // 내용
         contentLabel.text = comment.content
 
-        if let profileUrl = URL(string: comment.profileImageUrl) {
+        // 프로필 이미지
+        if let profileUrl = URL(string: comment.profileImageUrl ?? "") {
             profileImageView.kf.setImage(with: profileUrl)
         } else {
             profileImageView.image = UIImage(named: "defaultProfileImage")
         }
 
         // 이미지가 없는 경우 이미지 컬렉션 뷰 숨김 처리 및 높이를 0으로 설정
-        if comment.commentImageList.isEmpty {
+        if let commentImages = comment.commentImageList, !commentImages.isEmpty {
+            commentImageCollectionView.isHidden = false
+            commentImageCollectionHeightConstraint?.update(offset: 80)
+            commentImageCollectionView.reloadData()
+        } else {
             commentImageCollectionView.isHidden = true
             commentImageCollectionHeightConstraint?.update(offset: 0)
-        } else {
-            commentImageCollectionView.isHidden = false
-            commentImageCollectionHeightConstraint?.update(offset: 80) // 기본 높이로 복구
-            commentImageCollectionView.reloadData()
         }
     }
 }
-
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension CommentDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comment?.commentImageList.count ?? 0
+        return comment?.commentImageList?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommentGalleryCell", for: indexPath) as! CommentGalleryCell
-        if let imageUrl = comment?.commentImageList[indexPath.item].imageUrl {
+        if let imageUrl = comment?.commentImageList?[indexPath.item].imageUrl {
             cell.configure(with: imageUrl)
         }
         return cell

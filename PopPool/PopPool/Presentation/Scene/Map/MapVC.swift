@@ -467,49 +467,50 @@ class MapVC: BaseViewController {
     }
 
     // 팬 제스처 핸들러 수정
-    // 기존 handlePanGesture 함수의 수정된 부분
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         let currentTopOffset = listContainerView.frame.origin.y  // 리스트뷰 상단 위치
         let searchBarBottom = searchBar.frame.maxY  // 서치바 하단 위치
+        let categoryButtonBottom = categoryFilterButton.frame.maxY  // 카테고리 버튼 하단 위치
 
         switch gesture.state {
-           case .changed:
-               // 리스트뷰의 상단 위치를 변경
-               let newTopOffset = max(searchBarBottom, currentTopOffset + translation.y)
-               listContainerView.frame.origin.y = newTopOffset
-               view.layoutIfNeeded()
+        case .changed:
+            // 리스트뷰의 상단 위치를 변경
+            let newTopOffset = max(searchBarBottom, currentTopOffset + translation.y)
+            listContainerView.frame.origin.y = newTopOffset
+            view.layoutIfNeeded()
 
-               updateMapVisibility()
+            updateMapVisibility()
 
-               gesture.setTranslation(.zero, in: view)
+            gesture.setTranslation(.zero, in: view)
 
-           case .ended:
-               var targetOffset: CGFloat
+        case .ended:
+            var targetOffset: CGFloat
 
-               // 리스트뷰가 서치바까지 닿을 때
-               if currentTopOffset <= searchBarBottom {
-                   targetOffset = searchBarBottom  // 리스트뷰 상단을 서치바에 맞춤
-               }
-               // 중간 위치에 있을 때
-               else if currentTopOffset < listViewMiddlePosition {
-                   targetOffset = listViewMiddlePosition  // 리스트뷰를 화면 중간으로 이동
-               }
-               // 리스트뷰가 완전히 내려갈 때
-               else {
-                   targetOffset = view.frame.height  // 리스트뷰를 화면 아래로 내림
-               }
+            // 리스트뷰가 카테고리 버튼에 닿을 때
+            if currentTopOffset <= categoryButtonBottom {
+                targetOffset = categoryButtonBottom  // 리스트뷰 상단을 카테고리 버튼에 맞춤
+            }
+            // 중간 위치에 있을 때
+            else if currentTopOffset < listViewMiddlePosition {
+                targetOffset = listViewMiddlePosition  // 리스트뷰를 화면 중간으로 이동
+            }
+            // 리스트뷰가 완전히 내려갈 때
+            else {
+                targetOffset = view.frame.height  // 리스트뷰를 화면 아래로 내림
+            }
 
-               // 애니메이션으로 리스트뷰 이동
-               UIView.animate(withDuration: 0.3) {
-                   self.listContainerView.frame.origin.y = targetOffset
-                   self.view.layoutIfNeeded()
-               }
+            // 애니메이션으로 리스트뷰 이동
+            UIView.animate(withDuration: 0.3) {
+                self.listContainerView.frame.origin.y = targetOffset
+                self.view.layoutIfNeeded()
+            }
 
-           default:
-               break
-           }
-       }
+        default:
+            break
+        }
+    }
+
 
     // 맵뷰 가시성 업데이트 함수
     private func updateMapVisibility() {
@@ -524,23 +525,8 @@ class MapVC: BaseViewController {
         }
     }
 
-    // 맵뷰를 숨기거나 보이게 하는 애니메이션 함수
-//    private func animateMapView(hidden: Bool) {
-//        UIView.animate(withDuration: 0.3) {
-//            self.mapView.alpha = hidden ? 0 : 1
-//        }
-//    }
-//
-//    private func updateMapVisibility() {
-//        let listViewTop = listContainerView.frame.origin.y
-//        let categoryButtonBottom = categoryFilterButton.frame.maxY
-//
-//        if listViewTop <= categoryButtonBottom {
-//            animateMapView(hidden: true)
-//        } else {
-//            animateMapView(hidden: false)
-//        }
-//    }
+
+
 
     private func animateMapView(hidden: Bool) {
         UIView.animate(withDuration: 0.3) {

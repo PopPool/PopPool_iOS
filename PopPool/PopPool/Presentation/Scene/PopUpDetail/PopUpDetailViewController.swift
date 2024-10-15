@@ -442,11 +442,13 @@ final class PopupDetailViewController: UIViewController {
         imagePageControl.numberOfPages = popup.imageList.count
         updateBookmarkButton(isBookmarked: popup.bookmarkYn)
         updateShowMoreButtonState()
-        self.comments = PopupDetail.dummyData.commentList
+//        self.comments = PopupDetail.dummyData.commentList
+
+                self.comments = popup.commentList
+
         DispatchQueue.main.async {
             self.commentTableView.reloadData()
         }
-        //        self.comments = popup.commentList
         commentCountLabel.text = "총\(comments.count)건"
 
 

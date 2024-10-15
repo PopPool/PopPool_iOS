@@ -98,11 +98,11 @@ class CommentCell: UITableViewCell {
             make.top.equalTo(profileImageView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(10)
             // 이미지가 없을 때 컬렉션 뷰를 숨기고 크기를 0으로 설정
-            make.height.equalTo(comment?.commentImageList.isEmpty == true ? 0 : 100)
+            make.height.equalTo(comment?.commentImageList?.isEmpty == true ? 0 : 100)
         }
 
         commentLabel.snp.makeConstraints { make in
-            if comment?.commentImageList.isEmpty == true {
+            if comment?.commentImageList?.isEmpty == true {
                 make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
             } else {
                 make.top.equalTo(commentImageCollectionView.snp.bottom).offset(10)
@@ -176,23 +176,24 @@ class CommentCell: UITableViewCell {
 
         // 프로필 이미지 설정
         if comment.profileImageUrl == "defaultImage" {
-            profileImageView.image = UIImage(named: "defaultImage")
-        } else if let url = URL(string: comment.profileImageUrl) {
-            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
-        }
+                profileImageView.image = UIImage(named: "defaultImage")
+            } else if let url = URL(string: comment.profileImageUrl ?? "") {
+                profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
+            }
 
-        if !comment.commentImageList.isEmpty {
+        if let commentImageList = comment.commentImageList, !commentImageList.isEmpty {
             commentImageCollectionView.isHidden = false
             commentImageCollectionView.snp.updateConstraints { make in
-                make.height.equalTo(100) // 이미지가 있을 때 높이 설정
+                make.height.equalTo(100)
             }
             commentImageCollectionView.reloadData()
         } else {
             commentImageCollectionView.isHidden = true
             commentImageCollectionView.snp.updateConstraints { make in
-                make.height.equalTo(0) // 이미지가 없을 때 높이를 0으로 설정
+                make.height.equalTo(0) 
             }
         }
+
 
         // 초기 상태 설정
         commentLabel.numberOfLines = 3
@@ -234,17 +235,20 @@ class CommentCell: UITableViewCell {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension CommentCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comment?.commentImageList.count ?? 0
+        // commentImageList가 옵셔널이므로 안전하게 언래핑하여 count에 접근
+        return comment?.commentImageList?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommentGalleryCell", for: indexPath) as! CommentGalleryCell
-        if let imageUrl = comment?.commentImageList[indexPath.item].imageUrl {
+        // commentImageList가 옵셔널이므로 안전하게 언래핑하여 subscript에 접근
+        if let imageUrl = comment?.commentImageList?[indexPath.item].imageUrl {
             cell.configure(with: imageUrl)
         }
         return cell
     }
 }
+
 
 // MARK: - UICollectionViewFlowLayout
 extension CommentCell: UICollectionViewDelegateFlowLayout {

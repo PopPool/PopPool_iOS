@@ -7,41 +7,35 @@
 //
 
 import UIKit
-import RxSwift
 import SnapKit
+import RxSwift
 
 extension UIImageView {
-    func setClosedNotice(date: String) {
-        self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-        
-        let cover = CoverView()
-        cover.frame = self.bounds
-        cover.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        
-        self.addSubview(cover)
-        
-        cover.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+    func stopLoadingIndicator() {
+        self.subviews.forEach { subview in
+            if let loadingIndicator = subview as? LoadingIndicator {
+                loadingIndicator.stopIndicator()
+            }
         }
     }
-    
+
     func showLoadingIndicator() {
         stopLoadingIndicator()
-        
+
         let loadingIndicator = LoadingIndicator(frame: self.bounds)
         loadingIndicator.startIndicator()
-        
+
         self.addSubview(loadingIndicator)
     }
-    
+
     /// 적용하여 loadingIndicator를 호출할 수 있습니다.
     func setPresignedImage(from string: [String], service: PreSignedService, bag: DisposeBag) -> Observable<UIImage> {
         self.image = nil
         self.showLoadingIndicator()
-        
+
         return Observable<UIImage>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            
+
             service.tryDownload(filePaths: string)
                 .subscribe(onSuccess: { [weak self] images in
                     guard let self = self else { return }
@@ -61,52 +55,29 @@ extension UIImageView {
                     }
                 })
                 .disposed(by: bag)
-            
+
             return Disposables.create()
         }
     }
-    
+
     func setClosedNotice(endDate: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
-        
+
         guard let endDate = dateFormatter.date(from: endDate) else { return }
         let currentDate = Date()
-        
+
         if currentDate <= endDate {
             self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-            
+
             let cover = CoverView()
             cover.frame = self.bounds
             cover.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.addSubview(cover)
-            
+
             cover.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
             }
         }
     }
 }
-
-//extension UIImageView {
-//    func setClosedNotice(endDate: String) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-mm-dd"
-//        
-//        guard let endDate = dateFormatter.date(from: endDate) else { return }
-//        let currentDate = Date()
-//        
-//        if currentDate <= endDate {
-//            self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-//            
-//            let cover = CoverView()
-//            cover.frame = self.bounds
-//            cover.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//            self.addSubview(cover)
-//            
-//            cover.snp.makeConstraints { make in
-//                make.edges.equalToSuperview()
-//            }
-//        }
-//    }
-//}
