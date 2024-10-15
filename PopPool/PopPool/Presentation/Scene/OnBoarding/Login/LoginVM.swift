@@ -80,8 +80,8 @@ final class LoginVM: ViewModelable {
                     .subscribe(onNext: { response in
                         tryLoginSubject.onNext(response)
                     },onError: { error in
-                        // 소셜 인증 error handle
-                        ToastMSGManager.createToast(message: "SocialLogin Error")
+                        // 소셜 인증 error handle > 취소 버튼 탭 시 error가 등장하면 안되는 이슈
+                        // ToastMSGManager.createToast(message: "SocialLogin Error")
                         print(error.localizedDescription)
                     })
                     .disposed(by: owner.disposeBag)
