@@ -116,42 +116,51 @@ extension PopularViewCell: Cellable {
     /// 맞춤 관심 역할을 하는 cell에 데이터를 주입하는 메서드
     /// - Parameter input: Input 값을 받습니다
     func injectionWith(input: Input) {
-        print("날짜를 확인", input.date)
-        print("날짜 설명", input.date?.description)
         
         if let path = input.image,
-           //           let date = input.date,
+           let date = input.date,
            let location = input.location,
            let category = input.category,
            let description = input.title {
             
-            let value = "#\(category)"
-            let text = "#\(input.date)까지 열리는\n#\(category) #\(location)"
-            let attributedString = NSMutableAttributedString(string: text)
-            let range = (text as NSString).range(of: value)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             
-            let style = NSMutableParagraphStyle()
-            style.lineHeightMultiple = 1.4
-            attributedString.addAttributes([
-                .backgroundColor: UIColor.white,
-                .foregroundColor: UIColor.black
-            ], range: range)
-            attributedString.addAttribute(.paragraphStyle,
-                                          value: style,
-                                          range: NSRange(location: 0, length: text.count))
-            
-            let titleAttribute = NSMutableAttributedString(string: description)
-            titleAttribute.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: description.count))
-            
-            let service = PreSignedService()
-            imageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
-                .withUnretained(self)
-                .subscribe(onNext: { owner, image in
-                    owner.imageView.image = image
-                    owner.titleLabel.attributedText = attributedString
-                    owner.descriptionLabel.attributedText = titleAttribute
-                })
-                .disposed(by: disposeBag)
+            if let dateValue = dateFormatter.date(from: date) {
+                let outputFormatter = DateFormatter()
+                outputFormatter.dateFormat = "MM월dd일"
+                outputFormatter.locale = Locale(identifier: "ko_KR")
+                
+                let formattedDate = outputFormatter.string(from: dateValue)
+                
+                let value = "#\(category)"
+                let text = "#\(formattedDate)까지 열리는\n#\(category) #\(location)"
+                let attributedString = NSMutableAttributedString(string: text)
+                let range = (text as NSString).range(of: value)
+                
+                let style = NSMutableParagraphStyle()
+                style.lineHeightMultiple = 1.4
+                attributedString.addAttributes([
+                    .backgroundColor: UIColor.white,
+                    .foregroundColor: UIColor.black
+                ], range: range)
+                attributedString.addAttribute(.paragraphStyle,
+                                              value: style,
+                                              range: NSRange(location: 0, length: text.count))
+                
+                let titleAttribute = NSMutableAttributedString(string: description)
+                titleAttribute.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: description.count))
+                
+                let service = PreSignedService()
+                imageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
+                    .withUnretained(self)
+                    .subscribe(onNext: { owner, image in
+                        owner.imageView.image = image
+                        owner.titleLabel.attributedText = attributedString
+                        owner.descriptionLabel.attributedText = titleAttribute
+                    })
+                    .disposed(by: disposeBag)
+            }
         } else {
             imageView.image = UIImage(systemName: "defaultLogo")
         }
