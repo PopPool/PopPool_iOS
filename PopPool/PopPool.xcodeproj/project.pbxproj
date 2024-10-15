@@ -20,7 +20,6 @@
 		083464C22C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464C12C8F20E3007D6F11 /* AdminImageViewCollectionViewCell.swift */; };
 		083464E72C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083464E62C906928007D6F11 /* AdminPopUpStoreIdRequestDTO.swift */; };
 		084BC9EE2C889F8D00C57494 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084BC9ED2C889F8D00C57494 /* UserDefaultsService.swift */; };
-		085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 085105752C0EC13800ED7DBB /* RxAlamofire */; };
 		085105822C102F8000ED7DBB /* KakaoAuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085105812C102F8000ED7DBB /* KakaoAuthServiceImpl.swift */; };
 		0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 0851058C2C1033E600ED7DBB /* RxKakaoSDK */; };
 		0851058F2C1033E600ED7DBB /* RxKakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0851058E2C1033E600ED7DBB /* RxKakaoSDKAuth */; };
@@ -779,7 +778,6 @@
 				089D19062C31A620000435D9 /* IQKeyboardManagerSwift in Frameworks */,
 				0873464C2C0AAF7000534FFA /* RxSwift in Frameworks */,
 				08AF8D922C67682B006B8A11 /* Kingfisher in Frameworks */,
-				085105762C0EC13800ED7DBB /* RxAlamofire in Frameworks */,
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
 				0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */,
 				4ED7AF482CA7331D00A6EAAD /* RxDataSources in Frameworks */,
@@ -2211,7 +2209,6 @@
 				087346472C0AAF7000534FFA /* RxCocoa */,
 				087346492C0AAF7000534FFA /* RxRelay */,
 				0873464B2C0AAF7000534FFA /* RxSwift */,
-				085105752C0EC13800ED7DBB /* RxAlamofire */,
 				0851058C2C1033E600ED7DBB /* RxKakaoSDK */,
 				0851058E2C1033E600ED7DBB /* RxKakaoSDKAuth */,
 				085105902C1033E600ED7DBB /* RxKakaoSDKCert */,
@@ -3130,11 +3127,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		085105752C0EC13800ED7DBB /* RxAlamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 085105742C0EC13800ED7DBB /* XCRemoteSwiftPackageReference "RxAlamofire" */;
-			productName = RxAlamofire;
-		};
 		0851058C2C1033E600ED7DBB /* RxKakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0851058B2C1033E500ED7DBB /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
