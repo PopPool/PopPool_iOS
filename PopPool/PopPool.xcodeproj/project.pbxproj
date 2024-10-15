@@ -994,7 +994,7 @@
 				087346262C0AAD2B00534FFA /* PopPoolTests */,
 				087346302C0AAD2B00534FFA /* PopPoolUITests */,
 				0873460E2C0AAD2900534FFA /* Products */,
-				BD889F762CB7BB21006D9E2A /* Recovered References */,
+				4E1FE2662CBD974A00292CC2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1656,6 +1656,14 @@
 				4E82FB452CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift */,
 			);
 			path = PopUpDetail;
+			sourceTree = "<group>";
+		};
+		4E1FE2662CBD974A00292CC2 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				BDBE18142CB5EC1900AD2E5C /* UIImageView+.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		4E4DC0052C61D3E7007CE63A /* Map */ = {
