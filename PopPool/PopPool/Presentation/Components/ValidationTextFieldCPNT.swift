@@ -257,6 +257,8 @@ private extension ValidationTextFieldCPNT {
             return .activeNone
         } else if text.count < 2 {
             return .activeShortText
+        } else if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return .requestKorOrEn
         } else if text.count > limitTextCount {
             return .activeOverText(limitTextCount)
         } else if !checkIfValid(text: text) {
@@ -276,6 +278,8 @@ private extension ValidationTextFieldCPNT {
             return .none
         } else if text.count < 2 {
             return .shortText
+        } else if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return .requestKorOrEn
         } else if text.count > limitTextCount {
             return .overText(limitTextCount)
         } else if !checkIfValid(text: text) {
