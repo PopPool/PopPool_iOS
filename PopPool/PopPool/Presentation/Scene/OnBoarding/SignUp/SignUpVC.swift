@@ -308,6 +308,11 @@ private extension SignUpVC {
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        // race condition 이슈로 nickname의 데이터가 먼저 업데이트 되지 않는 이슈 해결 - 추후 의도에 맞게 코드 리팩토링
+        step2_ContentView.validationTextField.textField.rx.text.orEmpty
+            .bind(to: viewModel.userNickName)
+            .disposed(by: disposeBag)
     }
 }
 // MARK: - Methods

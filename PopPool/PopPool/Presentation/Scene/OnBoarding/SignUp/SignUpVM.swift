@@ -115,7 +115,7 @@ final class SignUpVM: ViewModelable {
     private let pageIndexDecreaseObserver: PublishSubject<Int> = .init()
     
     /// 올바른 유저의 닉네임을 관리하는 subject
-    private let userNickName: BehaviorRelay<String> = .init(value: "$유저명$")
+    let userNickName: BehaviorRelay<String> = .init(value: "$유저명$")
     
     /// 나이 Picker 범위
     private let ageRange = (14...100)
