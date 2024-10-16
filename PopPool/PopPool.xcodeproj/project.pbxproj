@@ -266,6 +266,8 @@
 		4EB470FA2C6DE83300BBE256 /* FilterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F92C6DE83300BBE256 /* FilterRepository.swift */; };
 		4ED7AF482CA7331D00A6EAAD /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED7AF472CA7331D00A6EAAD /* RxDataSources */; };
 		4ED7AF4A2CA7358200A6EAAD /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7AF492CA7358200A6EAAD /* SearchResultViewController.swift */; };
+		4EE8BA7C2CBF9D9E000E8C65 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE8BA7B2CBF9D9E000E8C65 /* RxAlamofire */; };
+		4EE8BA7F2CBF9E21000E8C65 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE8BA7E2CBF9E21000E8C65 /* Alamofire */; };
 		4EF02B6A2C67608A00D90138 /* BalloonBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */; };
 		4EF84FB72CA5E653004B3DA2 /* PopupImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */; };
 		4EF84FB92CA5F002004B3DA2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */; };
@@ -769,6 +771,7 @@
 				0851059B2C1033E600ED7DBB /* RxKakaoSDKUser in Frameworks */,
 				0873464A2C0AAF7000534FFA /* RxRelay in Frameworks */,
 				4E4DC0032C614726007CE63A /* GoogleMaps in Frameworks */,
+				4EE8BA7F2CBF9E21000E8C65 /* Alamofire in Frameworks */,
 				085105992C1033E600ED7DBB /* RxKakaoSDKTalk in Frameworks */,
 				0851058F2C1033E600ED7DBB /* RxKakaoSDKAuth in Frameworks */,
 				087346482C0AAF7000534FFA /* RxCocoa in Frameworks */,
@@ -781,6 +784,7 @@
 				087346452C0AAF1F00534FFA /* SnapKit in Frameworks */,
 				0851058D2C1033E600ED7DBB /* RxKakaoSDK in Frameworks */,
 				4ED7AF482CA7331D00A6EAAD /* RxDataSources in Frameworks */,
+				4EE8BA7C2CBF9D9E000E8C65 /* RxAlamofire in Frameworks */,
 				085105912C1033E600ED7DBB /* RxKakaoSDKCert in Frameworks */,
 				085105952C1033E600ED7DBB /* RxKakaoSDKFriend in Frameworks */,
 			);
@@ -2222,6 +2226,8 @@
 				4E4DC0022C614726007CE63A /* GoogleMaps */,
 				BDB404292C86FB3F005DF672 /* Lottie */,
 				4ED7AF472CA7331D00A6EAAD /* RxDataSources */,
+				4EE8BA7B2CBF9D9E000E8C65 /* RxAlamofire */,
+				4EE8BA7E2CBF9E21000E8C65 /* Alamofire */,
 			);
 			productName = PopPool;
 			productReference = 0873460D2C0AAD2900534FFA /* PopPool.app */;
@@ -2305,6 +2311,7 @@
 				4E4DC0012C614726007CE63A /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
 				BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				4ED7AF462CA7331D00A6EAAD /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				4EE8BA7D2CBF9E21000E8C65 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 0873460E2C0AAD2900534FFA /* Products */;
 			projectDirPath = "";
@@ -3116,6 +3123,14 @@
 				minimumVersion = 5.0.2;
 			};
 		};
+		4EE8BA7D2CBF9E21000E8C65 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.9.0;
+			};
+		};
 		BDB404282C86FB3F005DF672 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -3206,6 +3221,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4ED7AF462CA7331D00A6EAAD /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		4EE8BA7B2CBF9D9E000E8C65 /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RxAlamofire;
+		};
+		4EE8BA7E2CBF9E21000E8C65 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EE8BA7D2CBF9E21000E8C65 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		BDB404292C86FB3F005DF672 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
