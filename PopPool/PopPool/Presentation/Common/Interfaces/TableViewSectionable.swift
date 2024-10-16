@@ -50,4 +50,8 @@ extension TableViewSectionable {
         self.sectionCellOutput.onNext((cell.getOutput(), indexPath))
         return cell
     }
+    
+    mutating func getDataListCount() -> Int {
+        return sectionCellInputList.count
+    }
 }

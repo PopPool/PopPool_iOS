@@ -146,13 +146,46 @@ final class MyPageMainVM: ViewModelable {
         input.cellTapped
             .withUnretained(self)
             .subscribe(onNext: { (owner, indexPath) in
-                if let input = owner.menuList[indexPath.section].sectionCellInputList[indexPath.row] as? MenuListCell.Input {
-                    if let title = input.title {
-                        if title != "버전정보" {
-                            let vc = owner.connectVC(title: title)
-                            moveToVC.onNext(vc)
+                // 1차
+//                let data = owner.menuList[indexPath.section].sectionCellInputList[indexPath.row]
+                
+                // 2차
+                print(indexPath)
+                var title: String = ""
+                if owner.menuList.count == 3 {
+                    if indexPath.section == 0 {
+                        if let unwrappedTitle = owner.normalSection.sectionCellInputList[indexPath.row].title {
+                            title = unwrappedTitle
+                        }
+                    } else if indexPath.section == 1 {
+                        if let unwrappedTitle = owner.informationSection.sectionCellInputList[indexPath.row].title {
+                            title = unwrappedTitle
+                        }
+                    } else if indexPath.section == 2 {
+                        if let unwrappedTitle = owner.etcSection.sectionCellInputList[indexPath.row].title {
+                            title = unwrappedTitle
                         }
                     }
+                } else if owner.menuList.count == 4 {
+                    if indexPath.section == 1 {
+                        if let unwrappedTitle = owner.normalSection.sectionCellInputList[indexPath.row].title {
+                            title = unwrappedTitle
+                        }
+                    } else if indexPath.section == 2 {
+                        if let unwrappedTitle = owner.informationSection.sectionCellInputList[indexPath.row].title {
+                            title = unwrappedTitle
+                        }
+                    } else if indexPath.section == 3 {
+                        if let unwrappedTitle = owner.etcSection.sectionCellInputList[indexPath.row].title {
+                            title = unwrappedTitle
+                        }
+                    }
+                }
+                
+                print(title)
+                if title != "버전정보" {
+                    let vc = owner.connectVC(title: title)
+                    moveToVC.onNext(vc)
                 }
             })
             .disposed(by: disposeBag)

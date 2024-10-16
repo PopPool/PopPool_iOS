@@ -185,7 +185,7 @@ extension MyPageMainVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.menuList[section].sectionCellInputList.count
+        return viewModel.menuList[section].getDataListCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
