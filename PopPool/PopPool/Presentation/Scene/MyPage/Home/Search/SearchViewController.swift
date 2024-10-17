@@ -385,13 +385,24 @@ class SearchViewController: UIViewController {
 
                     let provider = AppDIContainer.shared.resolve(type: Provider.self)
                     let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
-
                     let repository = DefaultPopUpRepository(provider: provider, tokenInterceptor: tokenInterceptor)
+
+                    // PopUpDetailUseCase 인스턴스 생성
                     let useCase = DefaultPopUpDetailUseCase(repository: repository)
 
-                    let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: Constants.userId)
-                    let detailVC = PopupDetailViewController(viewModel: detailViewModel)
+                    let userCommentsViewModel = UserCommentsViewModel(useCase: useCase)
+
+                    // PopupDetailViewModel 인스턴스 생성
+                    let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: String(Constants.userId), userCommentsViewModel: userCommentsViewModel)
+                    
+
+                    // UserCommentsViewModel 인스턴스 생성
+
+                    // PopupDetailViewController 인스턴스 생성 및 userCommentsViewModel 전달
+                    let detailVC = PopupDetailViewController(viewModel: detailViewModel, userCommentsViewModel: userCommentsViewModel, userId: String(Constants.userId))
+
                     self.navigationController?.pushViewController(detailVC, animated: true)
+
                 } else {
                     print("인덱스 범위 초과: \(indexPath.item), filteredPopUpStores 개수: \(self.filteredPopUpStores.count)")
                 }
@@ -687,15 +698,26 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
         let provider = AppDIContainer.shared.resolve(type: Provider.self)
         let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
-
         let repository = DefaultPopUpRepository(provider: provider, tokenInterceptor: tokenInterceptor)
+
+        // PopUpDetailUseCase 인스턴스 생성
         let useCase = DefaultPopUpDetailUseCase(repository: repository)
 
-        let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: Constants.userId)
-        let detailVC = PopupDetailViewController(viewModel: detailViewModel)
+        let userCommentsViewModel = UserCommentsViewModel(useCase: useCase)
+
+        // PopupDetailViewModel 인스턴스 생성
+        let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: String(Constants.userId), userCommentsViewModel: userCommentsViewModel)
+
+        // UserCommentsViewModel 인스턴스 생성
+
+        // PopupDetailViewController 인스턴스 생성 및 userCommentsViewModel 전달
+        let detailVC = PopupDetailViewController(viewModel: detailViewModel, userCommentsViewModel: userCommentsViewModel, userId: String(Constants.userId))
+
+        self.navigationController?.pushViewController(detailVC, animated: true)
+
 
         print("디버그: 팝업 상세 페이지로 이동을 시도합니다.")
-        navigationController?.pushViewController(detailVC, animated: true)
+//        navigationController?.pushViewController(detailVC, animated: true)
 
         if navigationController == nil {
             print("오류: navigationController가 nil입니다. 페이지 이동이 불가능합니다.")

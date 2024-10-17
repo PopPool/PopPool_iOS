@@ -29,10 +29,12 @@ final class PopupDetailViewModel {
     private let disposeBag = DisposeBag()
     private let popupDataRelay = BehaviorRelay<PopupDetail?>(value: nil)
     private let commentTypeRelay = BehaviorRelay<CommentType>(value: .normal)
+    let userCommentsViewModel: UserCommentsViewModel
 
 
 
-    init(useCase: PopUpDetailUseCase, popupId: Int64, userId: String) {
+    init(useCase: PopUpDetailUseCase, popupId: Int64, userId: String, userCommentsViewModel: UserCommentsViewModel) {
+        self.userCommentsViewModel = userCommentsViewModel
         self.useCase = useCase
         self.popupId = popupId
         self.userId = userId

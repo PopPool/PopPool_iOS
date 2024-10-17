@@ -8,7 +8,18 @@ class AllCommentsViewController: UIViewController {
         return tableView
     }()
 
+    var userId: String
     var comments: [Comment] = []
+
+    init(comments: [Comment], userId: String) {
+          self.comments = comments
+          self.userId = userId
+          super.init(nibName: nil, bundle: nil)
+      }
+
+      required init?(coder: NSCoder) {
+          fatalError("init(coder:) has not been implemented")
+      }
 
     private let commentCountLabel: UILabel = {
         let label = UILabel()
@@ -77,9 +88,10 @@ extension AllCommentsViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.reuseIdentifier, for: indexPath) as! CommentCell
         let comment = comments[indexPath.row]
-        cell.configure(with: comment)
+        cell.configure(with: comment, userId: self.userId)
         return cell
     }
+
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

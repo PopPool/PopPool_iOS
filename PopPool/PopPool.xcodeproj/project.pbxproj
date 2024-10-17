@@ -264,6 +264,8 @@
 		4EAAE5872C9442AC001E03C8 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51ED312C8A205200DA4885 /* HomeVC.swift */; };
 		4EB470F82C6DE81400BBE256 /* FilterUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */; };
 		4EB470FA2C6DE83300BBE256 /* FilterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB470F92C6DE83300BBE256 /* FilterRepository.swift */; };
+		4EC21F4E2CBFA8AC007955BC /* UserBlockAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC21F4D2CBFA8AC007955BC /* UserBlockAlertViewController.swift */; };
+		4EC21F502CBFA8C4007955BC /* UserMoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC21F4F2CBFA8C4007955BC /* UserMoreInfoViewController.swift */; };
 		4ED7AF482CA7331D00A6EAAD /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED7AF472CA7331D00A6EAAD /* RxDataSources */; };
 		4ED7AF4A2CA7358200A6EAAD /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7AF492CA7358200A6EAAD /* SearchResultViewController.swift */; };
 		4EE8BA7C2CBF9D9E000E8C65 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE8BA7B2CBF9D9E000E8C65 /* RxAlamofire */; };
@@ -644,6 +646,8 @@
 		4EAAE5852C93B5D7001E03C8 /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		4EB470F72C6DE81400BBE256 /* FilterUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUseCase.swift; sourceTree = "<group>"; };
 		4EB470F92C6DE83300BBE256 /* FilterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterRepository.swift; path = PopPool/Data/Repositories/MapRepository/FilterRepository.swift; sourceTree = SOURCE_ROOT; };
+		4EC21F4D2CBFA8AC007955BC /* UserBlockAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBlockAlertViewController.swift; sourceTree = "<group>"; };
+		4EC21F4F2CBFA8C4007955BC /* UserMoreInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMoreInfoViewController.swift; sourceTree = "<group>"; };
 		4ED7AF492CA7358200A6EAAD /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		4EF02B692C67608A00D90138 /* BalloonBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonBackgroundView.swift; sourceTree = "<group>"; };
 		4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupImageCell.swift; sourceTree = "<group>"; };
@@ -1662,6 +1666,8 @@
 				4E32CBDB2CAA832200F0FF68 /* SimilarPopupCell.swift */,
 				4EF84FB62CA5E653004B3DA2 /* PopupImageCell.swift */,
 				4EF84FB82CA5F002004B3DA2 /* CommentCell.swift */,
+				4EC21F4D2CBFA8AC007955BC /* UserBlockAlertViewController.swift */,
+				4EC21F4F2CBFA8C4007955BC /* UserMoreInfoViewController.swift */,
 				4E71D3C02CB387B0001D70A4 /* CommentGalleryCell.swift */,
 				4E539A7D2CB50E4900A32FFE /* FindRouteViewController.swift */,
 				4E82FB452CB524DD00A284C0 /* GetPopUpStoreDirectionResponseDTO.swift */,
@@ -2493,6 +2499,7 @@
 				4EAAE5862C93B5D7001E03C8 /* SearchRepository.swift in Sources */,
 				08E23AA52C4F7B7B004B77B6 /* UserRepositoryImpl.swift in Sources */,
 				4E67A20D2C92FFAF003BDAFA /* InquiryVC.swift in Sources */,
+				4EC21F502CBFA8C4007955BC /* UserMoreInfoViewController.swift in Sources */,
 				08C813DB2C2D3A58009239FE /* LargeChipCell.swift in Sources */,
 				08FF6C1B2C70C40300B68569 /* ProfileEditUserDataBottomSheetVC.swift in Sources */,
 				4E67A21D2C93031C003BDAFA /* SearchPopUpStore.swift in Sources */,
@@ -2518,6 +2525,7 @@
 				BDBE181A2CB6037900AD2E5C /* CoverView.swift in Sources */,
 				4E67A23F2C930364003BDAFA /* ContentTitleCPNT.swift in Sources */,
 				4E67A2202C93031C003BDAFA /* SearchViewController.swift in Sources */,
+				4EC21F4E2CBFA8AC007955BC /* UserBlockAlertViewController.swift in Sources */,
 				4E67A1EC2C92FC3D003BDAFA /* CheckedSurveyListRequestDTO.swift in Sources */,
 				BDBE5E332C4EC13100260FFC /* BlockedUserVC.swift in Sources */,
 				08FF6C2A2C721D1100B68569 /* UpdateNoticeRequestDTO.swift in Sources */,

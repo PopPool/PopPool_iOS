@@ -165,7 +165,7 @@ private extension SignUpVC {
     // MARK: - Bind
     /// 바인딩 설정
     func bind() {
-        
+
         // MARK: - Input
         let input = SignUpVM.Input(
             tap_header_cancelButton: headerView.rightBarButton.rx.tap,
@@ -190,7 +190,7 @@ private extension SignUpVC {
         )
         // MARK: - Output
         let output = viewModel.transform(input: input)
-        
+
         // MARK: - Common OutPut
         // 페이지 인덱스 증가 이벤트 처리
         output.increasePageIndex
@@ -200,7 +200,7 @@ private extension SignUpVC {
                 owner.reloadView(pageIndex: pageIndex, isIncrease: true)
             }
             .disposed(by: disposeBag)
-        
+
         // 페이지 인덱스 감소 이벤트 처리
         output.decreasePageIndex
             .withUnretained(self)
@@ -209,7 +209,7 @@ private extension SignUpVC {
                 owner.reloadView(pageIndex: pageIndex, isIncrease: false)
             }
             .disposed(by: disposeBag)
-        
+
         // 취소 버튼 탭 이벤트 처리
         output.moveToRecentVC
             .withUnretained(self)
@@ -217,7 +217,7 @@ private extension SignUpVC {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
-        
+
         // MARK: - Step 1 OutPut
         // Step 1 primary button 활성/비활성 상태 처리
         output.step1_primaryButton_isEnabled
@@ -226,7 +226,7 @@ private extension SignUpVC {
                 owner.changeButtonState(button: owner.step1_primaryButton, isEnabled: isEnabled)
             }
             .disposed(by: disposeBag)
-        
+
         // Step 1 Terms VC 이동 이벤트
         output.step1_moveToTermsVC
             .withUnretained(self)
@@ -235,7 +235,7 @@ private extension SignUpVC {
                 owner.presentModalViewController(viewController: vc)
             }
             .disposed(by: disposeBag)
-        
+
         // MARK: - Step 2 OutPut
         // Step 2 중복확인 button 결과 전달
         output.step2_isDuplicate
@@ -246,7 +246,7 @@ private extension SignUpVC {
                 owner.step2_ContentView.validationTextField.stateObserver.onNext(isDuplicate ? .buttonTapError : .valid(nickName))
             }
             .disposed(by: disposeBag)
-        
+
         // Step 2 primary button 활성/비활성 상태 처리
         output.step2_primaryButton_isEnabled
             .withUnretained(self)
@@ -254,7 +254,7 @@ private extension SignUpVC {
                 owner.changeButtonState(button: owner.step2_primaryButton, isEnabled: isEnabled)
             }
             .disposed(by: disposeBag)
-        
+
         // MARK: - Step 3 OutPut
         // Step 3 primary button 활성/비활성 상태 처리
         output.step3_primaryButton_isEnabled
@@ -263,7 +263,7 @@ private extension SignUpVC {
                 owner.changeButtonState(button: owner.step3_primaryButton, isEnabled: isEnabled)
             }
             .disposed(by: disposeBag)
-        
+
         // 카테고리 리스트 가져오기
         output.step3_fetchCategoryList
             .withUnretained(self)
@@ -271,7 +271,7 @@ private extension SignUpVC {
                 owner.step3_ContentView.setCategoryList(list: list)
             }
             .disposed(by: disposeBag)
-        
+
         // Step3,4 nickname 설정
         output.step2_fetchUserNickname
             .withUnretained(self)
@@ -280,7 +280,7 @@ private extension SignUpVC {
                 owner.step4_contentTitleView.setNickName(nickName: nickname)
             }
             .disposed(by: disposeBag)
-        
+
         // MARK: - Step 4 OutPut
         // moveToAgeSelectVC 이벤트 처리
         output.step4_moveToAgeSelectVC
@@ -298,18 +298,29 @@ private extension SignUpVC {
                 owner.presentModalViewController(viewController: vc)
             }
             .disposed(by: disposeBag)
-        
+
         output.step4_moveToSignUpCompleteVC
-            .withUnretained(self)
-            .subscribe { (owner, source) in
-                let nickName = source.0
-                let list = source.1
-                let vc = SignUpCompletedVC(nickname: nickName, tags: list)
-                owner.navigationController?.pushViewController(vc, animated: true)
-            }
-            .disposed(by: disposeBag)
-    }
-}
+                   .withUnretained(self)
+                   .subscribe { (owner, source) in
+                       let nickName = source.0
+                       let list = source.1
+                       let signUpCompletedVC = SignUpCompletedVC(
+                           nickname: nickName,
+                           tags: list,
+                           provider: AppDIContainer.shared.resolve(type: ProviderImpl.self),
+                           tokenInterceptor: AppDIContainer.shared.resolve(type: TokenInterceptor.self),
+                           storeService: AppDIContainer.shared.resolve(type: StoresService.self),
+                           userUseCase: AppDIContainer.shared.resolve(type: UserUseCase.self),
+                           userId: owner.self.viewModel.signUpData.userId,
+                           accessToken: owner.self.viewModel.signUpData.accessToken ?? "",
+                           refreshToken: owner.self.viewModel.signUpData.refreshToken ?? ""
+                       )
+                       owner.navigationController?.pushViewController(signUpCompletedVC, animated: true)
+                   }
+                   .disposed(by: disposeBag)
+           }
+      }
+       
 // MARK: - Methods
 
 private extension SignUpVC {

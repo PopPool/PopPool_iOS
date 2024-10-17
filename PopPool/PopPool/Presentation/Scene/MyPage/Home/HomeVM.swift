@@ -38,6 +38,7 @@ final class HomeVM: ViewModelable {
     private let searchViewModel: SearchViewModel
     private let useCase: HomeUseCase
     private let searchUseCase: SearchUseCaseProtocol
+    
 
 
     init(searchViewModel: SearchViewModel, useCase: HomeUseCase, searchUseCase: SearchUseCaseProtocol) {
