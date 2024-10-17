@@ -207,7 +207,7 @@ final class SignUpVM: ViewModelable {
                             let listString = list.map { list in
                                 list.category
                             }
-                            fetchCategoryList.accept(listString)
+                            fetchCategoryList.accept(listString.sorted()) // ㄱ~ㅎ 순으로 데이터 나열
                             owner.increasePageIndex()
                         } onError: { error in
                             print("fetchIntersetList Error:\(error.localizedDescription)")
@@ -347,7 +347,7 @@ final class SignUpVM: ViewModelable {
                             (
                                 owner.signUpData.nickName,
                                 owner.signUpData.interests.map{ index in
-                                    return fetchCategoryList.value[Int(index)]
+                                    return fetchCategoryList.value[Int(index - 1)]
                                 }
                             )
                         )
