@@ -39,8 +39,12 @@ final class SplashViewController: UIViewController {
                 self.view.alpha = 1
                 
                 guard let window = UIApplication.shared.windows.first else { return }
+                let provider = ProviderImpl()
+                let tokenInterceptor = TokenInterceptor()
+
+                // LoginVC를 provider와 tokenInterceptor와 함께 초기화                
                 let LoginVC = UINavigationController(
-                    rootViewController: LoginVC(viewModel: LoginVM(), provider: ProviderImpl(), tokenInterceptor: TokenInterceptor())
+                    rootViewController: LoginVC(viewModel: LoginVM(), provider: provider, tokenInterceptor: tokenInterceptor)
                 )
                 window.rootViewController = LoginVC
             })
