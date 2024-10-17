@@ -16,7 +16,7 @@ final class SignUpCompletedVC: BaseViewController {
     private let headerView = HeaderViewCPNT(title: "", style: .text("취소"))
     private let iconImageView: UIImageView = {
         let logoView = UIImageView()
-        logoView.image = UIImage(named: "check_fill_signUp")?.withTintColor(UIColor.blu500)
+        logoView.image = UIImage(named: "check_fill_signUp")
         logoView.contentMode = .scaleAspectFit
         return logoView
     }()
