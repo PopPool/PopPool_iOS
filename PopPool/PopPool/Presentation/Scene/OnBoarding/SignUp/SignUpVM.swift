@@ -126,7 +126,7 @@ final class SignUpVM: ViewModelable {
         userId: "",
         nickName: "",
         gender: "",
-        age: 30,
+        age: 14,
         socialEmail: "",
         socialType: "",
         interests: []
