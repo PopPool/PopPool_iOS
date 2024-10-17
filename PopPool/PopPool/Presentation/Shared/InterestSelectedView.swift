@@ -82,7 +82,7 @@ extension InterestSelectedView: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeChipCell.identifier, for: indexPath) as? LargeChipCell else {
             return UICollectionViewCell()
         }
-        cell.injectionWith(input: .init(title: categoryList.value[indexPath.row]))
+        cell.injectionWith(input: .init(title: categoryList.value.sorted()[indexPath.row])) // 내려받은 데이터를 ㄱ~ㅎ 순으로 처리하기 위해 sorted() 메서드 추가 반영
         return cell
     }
     
