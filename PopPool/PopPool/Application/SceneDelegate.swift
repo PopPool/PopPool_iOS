@@ -97,8 +97,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tokenInterceptor = TokenInterceptor()
 
         // LoginVC를 provider와 tokenInterceptor와 함께 초기화
-        let loginVC = LoginVC(viewModel: LoginVM(), provider: provider, tokenInterceptor: tokenInterceptor)
-        let navigationController = UINavigationController(rootViewController: loginVC)
+        let splashVC = SplashViewController()
+        let navigationController = UINavigationController(rootViewController: splashVC)
 
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

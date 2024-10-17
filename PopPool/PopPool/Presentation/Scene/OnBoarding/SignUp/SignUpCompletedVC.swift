@@ -16,7 +16,7 @@ final class SignUpCompletedVC: BaseViewController {
     private let headerView = HeaderViewCPNT(title: "", style: .text("취소"))
     private let iconImageView: UIImageView = {
         let logoView = UIImageView()
-        logoView.image = UIImage(named: "check_fill_signUp")?.withTintColor(UIColor.blu500)
+        logoView.image = UIImage(named: "check_fill_signUp")
         logoView.contentMode = .scaleAspectFit
         return logoView
     }()
@@ -89,7 +89,7 @@ private extension SignUpCompletedVC {
     /// 닉네임 폰트, 스타일을 커스텀 적용하는 메서드
     func setNickName() {
         let greeting = "가입완료!\n"
-        let description = "님의\n피드를 확인해보세요"
+        let description = "님의\n피드를 확인해보세요."
         let text = greeting + (userName ?? "홍길동") + description
 
         // 전체 안내문과 닉네임에 각각 font와 컬러를 스타일로 적용합니다
