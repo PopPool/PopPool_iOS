@@ -187,8 +187,6 @@ private extension LoginVC {
                         let searchUseCase = SearchUseCase(repository: AppDIContainer.shared.resolve(type: SearchRepositoryProtocol.self))
                         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
 
-
-
                         let customTabBarController = CustomTabBarController(
                             storeService: storeService,
                             provider: provider,
@@ -232,6 +230,17 @@ private extension LoginVC {
                     })
                     .disposed(by: owner.disposeBag)
             })
+            .disposed(by: disposeBag)
+        
+        output.moveToInquryVC
+            .withUnretained(self)
+            .subscribe { (owner, _) in
+                if let url = URL(string: "mailto: jacks222@naver.com") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }
+            }
             .disposed(by: disposeBag)
     }
     func showLastLogin() {

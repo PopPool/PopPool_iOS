@@ -154,20 +154,17 @@ extension ViewedPopUpCell : Cellable {
         dateLabel.text = input.date
         popUpTitleLabel.text = input.title
         bookmarkButton.isHidden = input.buttonIsHidden
-        imageView.image = UIImage(named: "lightLogo")
+//        imageView.image = UIImage(named: "lightLogo")
         
         let service = PreSignedService()
         if let path = input.imageURL {
             imageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
-//            service.tryDownload(filePaths: [path])
-//                .subscribe { [weak self] images in
-//                    guard let image = images.first else { return }
-//                    self?.imageView.image = image
-//                } onFailure: { [weak self] error in
-//                    self?.imageView.image = UIImage(named: "lightLogo")
-//                    print("ImageDownLoad Fail")
-//                }
-//                .disposed(by: disposeBag)
+                .withUnretained(self)
+                .subscribe(onNext: { owner, image in
+                    print("이미지가 넘어왔다.", image)
+                    owner.imageView.image = image
+                })
+                .disposed(by: disposeBag)
         }
         setUpHole()
     }

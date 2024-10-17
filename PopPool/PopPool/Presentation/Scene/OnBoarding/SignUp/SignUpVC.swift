@@ -320,7 +320,7 @@ private extension SignUpVC {
                    .disposed(by: disposeBag)
            }
       }
-       
+
 // MARK: - Methods
 
 private extension SignUpVC {

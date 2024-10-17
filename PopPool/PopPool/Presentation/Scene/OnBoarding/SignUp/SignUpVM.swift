@@ -120,6 +120,7 @@ final class SignUpVM: ViewModelable {
     /// 올바른 유저의 닉네임을 관리하는 subject
     private let userNickName: BehaviorRelay<String> = .init(value: "$유저명$")
 
+
     /// 나이 Picker 범위
     private let ageRange = (14...100)
     /// 유저 나이
@@ -129,7 +130,7 @@ final class SignUpVM: ViewModelable {
         userId: "",
         nickName: "",
         gender: "",
-        age: 30,
+        age: 14,
         socialEmail: "",
         socialType: "",
         interests: [],
@@ -213,7 +214,7 @@ final class SignUpVM: ViewModelable {
                             let listString = list.map { list in
                                 list.category
                             }
-                            fetchCategoryList.accept(listString)
+                            fetchCategoryList.accept(listString.sorted()) // ㄱ~ㅎ 순으로 데이터 나열
                             owner.increasePageIndex()
                         } onError: { error in
                             print("fetchIntersetList Error:\(error.localizedDescription)")
@@ -353,7 +354,7 @@ final class SignUpVM: ViewModelable {
                             (
                                 owner.signUpData.nickName,
                                 owner.signUpData.interests.map{ index in
-                                    return fetchCategoryList.value[Int(index)]
+                                    return fetchCategoryList.value[Int(index - 1)]
                                 }
                             )
                         )

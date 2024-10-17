@@ -170,15 +170,11 @@ extension SavedPopUpCell : Cellable {
         let service = PreSignedService()
         if let path = input.imageURL {
             imageView.setPresignedImage(from: [path], service: service, bag: disposeBag)
-//            service.tryDownload(filePaths: [path])
-//                .subscribe { [weak self] images in
-//                    guard let image = images.first else { return }
-//                    self?.imageView.image = image
-//                } onFailure: { [weak self] error in
-//                    print("ImageDownLoad Fail")
-//                    self?.imageView.image = UIImage(named: "lightLogo")
-//                }
-//                .disposed(by: disposeBag)
+                .withUnretained(self)
+                .subscribe(onNext: { owner, image in
+                    owner.imageView.image = image
+                })
+                .disposed(by: disposeBag)
         }
     }
     
