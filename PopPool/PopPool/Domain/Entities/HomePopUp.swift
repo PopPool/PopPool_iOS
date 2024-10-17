@@ -15,13 +15,21 @@ struct HomePopUp: Codable, Hashable {
     var mainImageUrl: String?
     var startDate: String?
     var endDate: String?
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    let identifier = UUID()
+    
+    func hash(into hasher: inout Hasher) { // dataSource가 snapshot이 달라진 것 인식하기 위해 필요함
+        hasher.combine(identifier)
     }
-
+    
     static func == (lhs: HomePopUp, rhs: HomePopUp) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.identifier == rhs.identifier
+    }
+    
+    func contains(_ filter: String?) -> Bool {
+        guard let filterText = filter else { return true }
+        if filterText.isEmpty { return true }
+        let lowercasedFilter = filterText.lowercased()  // 기존 데이터, 입력값 모두 소문자로 전환하여 비교
+        return name.lowercased().contains(lowercasedFilter)
     }
 }
 
