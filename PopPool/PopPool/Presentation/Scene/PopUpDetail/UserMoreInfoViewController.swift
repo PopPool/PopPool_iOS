@@ -1,9 +1,19 @@
 import UIKit
 import SnapKit
 
+protocol UserMoreInfoDelegate: AnyObject {
+    func didSelectBlockUser()
+}
+
+
 class UserMoreInfoViewController: UIViewController {
     weak var delegate: UserMoreInfoDelegate?
+    var onSelectViewAllComments: ((String) -> Void)?
     var nickname: String?
+    var userId: String?
+    private let userCommentsViewModel: UserCommentsViewModel
+
+
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -20,6 +30,16 @@ class UserMoreInfoViewController: UIViewController {
     }()
 
     private let optionsTableView = UITableView()
+
+    init(nickname: String?, userId: String?, userCommentsViewModel: UserCommentsViewModel) {
+            self.nickname = nickname
+        self.userId = userId
+            self.userCommentsViewModel = userCommentsViewModel
+            super.init(nibName: nil, bundle: nil)
+        }
+    required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,21 +88,31 @@ extension UserMoreInfoViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell", for: indexPath)
         cell.textLabel?.text = indexPath.row == 0 ? "코멘트를 작성한 팝업 모두보기" : "이 유저 차단하기"
         return cell
     }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 {
+        switch indexPath.row {
+        case 0:
+            // "코멘트를 작성한 팝업 모두보기" 선택 시
+            if let userId = self.userId {
+                dismiss(animated: true) { [weak self] in
+                    self?.onSelectViewAllComments?(userId)
+                }
+            }
+        case 1:
+            // "이 유저 차단하기" 선택 시
             delegate?.didSelectBlockUser()
             dismiss(animated: true, completion: nil)
+        default:
+            break
         }
-    }
-}
 
-protocol UserMoreInfoDelegate: AnyObject {
-    func didSelectBlockUser()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+
 }

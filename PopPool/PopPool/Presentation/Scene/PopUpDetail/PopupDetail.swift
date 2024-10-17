@@ -50,6 +50,7 @@ struct ImageInfo: Codable {
 
 struct Comment: Codable {
     let nickname: String
+    
     let instagramId: String?
     let profileImageUrl: String?
     let content: String

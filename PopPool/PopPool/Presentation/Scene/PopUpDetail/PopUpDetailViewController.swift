@@ -6,11 +6,14 @@ import CoreLocation
 
 final class PopupDetailViewController: UIViewController {
 
-
+    private let userId: String
     lazy var comments: [Comment] = []
     private let viewModel: PopupDetailViewModel
+    private let userCommentsViewModel: UserCommentsViewModel 
+
     private let disposeBag = DisposeBag()
     private var isDescriptionExpanded = false
+
 
     // MARK: - UI Components
     private let scrollView = UIScrollView()
@@ -160,14 +163,19 @@ final class PopupDetailViewController: UIViewController {
     }()
 
     // MARK: - Initialization
-    init(viewModel: PopupDetailViewModel) {
+    init(viewModel: PopupDetailViewModel, userCommentsViewModel: UserCommentsViewModel, userId: String) {
         self.viewModel = viewModel
+        self.userId = userId
+        self.userCommentsViewModel = userCommentsViewModel
+
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -443,12 +451,10 @@ final class PopupDetailViewController: UIViewController {
         updateBookmarkButton(isBookmarked: popup.bookmarkYn)
         updateShowMoreButtonState()
 //        self.comments = PopupDetail.dummyData.commentList
-
-                self.comments = popup.commentList
-
         DispatchQueue.main.async {
             self.commentTableView.reloadData()
         }
+                self.comments = popup.commentList
         commentCountLabel.text = "총\(comments.count)건"
 
 
@@ -470,12 +476,7 @@ final class PopupDetailViewController: UIViewController {
         showAllCommentsButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-
-                let allCommentsVC = AllCommentsViewController()
-
-                allCommentsVC.comments = self.comments
-
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                let allCommentsVC = AllCommentsViewController(comments: self.comments, userId: self.userId)
                 self.navigationController?.pushViewController(allCommentsVC, animated: true)
             })
             .disposed(by: disposeBag)
@@ -514,9 +515,7 @@ final class PopupDetailViewController: UIViewController {
         }
     }
     @objc private func presentAllCommentsView() {
-        let allCommentsVC = AllCommentsViewController()
-
-        allCommentsVC.comments = self.comments
+        let allCommentsVC = AllCommentsViewController(comments: self.comments, userId: self.userId)
         allCommentsVC.modalPresentationStyle = .overFullScreen
         allCommentsVC.modalTransitionStyle = .crossDissolve
         present(allCommentsVC, animated: true, completion: nil)
@@ -544,6 +543,33 @@ final class PopupDetailViewController: UIViewController {
 
         present(activityViewController, animated: true, completion: nil)
     }
+
+    func showUserBlockConfirmation() {
+        let blockAlertVC = UserBlockAlertViewController()
+        blockAlertVC.modalPresentationStyle = .pageSheet
+
+        blockAlertVC.onConfirmBlock = { [weak self] in
+            self?.blockUser() // 차단 API 호출
+        }
+
+        if let sheet = blockAlertVC.sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                let customHeight = UISheetPresentationController.Detent.custom(identifier: .init("custom")) { context in
+                    return 200
+                }
+                sheet.detents = [customHeight, .medium()]
+            } else {
+                sheet.detents = [.medium()]
+            }
+        }
+
+        present(blockAlertVC, animated: true, completion: nil)
+    }
+
+       private func blockUser() {
+           ToastMSGManager.createToast(message: "유저가 차단되었습니다.")
+       }
+
     @objc private func copyAddressToClipboard() {
         guard let address = popupData.value?.address else { return }
         UIPasteboard.general.string = address
@@ -572,6 +598,32 @@ final class PopupDetailViewController: UIViewController {
            present(findRouteVC, animated: true, completion: nil)
        }
 
+    @objc func presentUserMoreInfo(nickname: String, userId: String) {
+        let userMoreInfoVC = UserMoreInfoViewController(nickname: nickname,
+                                                        userId: userId,
+                                                        userCommentsViewModel: self.userCommentsViewModel)
+        userMoreInfoVC.delegate = self
+        userMoreInfoVC.onSelectViewAllComments = { [weak self] userId in
+            guard let self = self else { return }
+            let userCommentsVC = UserCommentsViewController(viewModel: self.userCommentsViewModel, userId: userId)
+            self.navigationController?.pushViewController(userCommentsVC, animated: true)
+        }
+
+        userMoreInfoVC.modalPresentationStyle = .pageSheet
+
+        if let sheet = userMoreInfoVC.sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                let customHeight = UISheetPresentationController.Detent.custom(identifier: .init("small")) { context in
+                    return 200
+                }
+                sheet.detents = [customHeight, .medium()]
+            } else {
+                sheet.detents = [.medium()]
+            }
+        }
+
+        present(userMoreInfoVC, animated: true, completion: nil)
+    }
 }
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 extension PopupDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -637,10 +689,10 @@ extension PopupDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.reuseIdentifier, for: indexPath) as! CommentCell
         let comment = comments[indexPath.row]
-        print("댓글 데이터: \(comment)")
-        cell.configure(with: comment)
+        cell.configure(with: comment, userId: self.userId)
         return cell
     }
+
 
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -663,5 +715,32 @@ private extension PopupDetailViewController {
     func updateContentSize() {
         contentView.layoutIfNeeded()
         scrollView.contentSize = CGSize(width: view.bounds.width, height: contentView.bounds.height)
+    }
+}
+extension PopupDetailViewController: UserMoreInfoDelegate {
+    func didSelectBlockUser() {
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            let blockAlertVC = UserBlockAlertViewController()
+            blockAlertVC.modalPresentationStyle = .pageSheet
+
+            blockAlertVC.onConfirmBlock = { [weak self] in
+                self?.blockUser()
+            }
+
+            if let sheet = blockAlertVC.sheetPresentationController {
+                if #available(iOS 16.0, *) {
+                    let customHeight = UISheetPresentationController.Detent.custom(identifier: .init("custom")) { context in
+                        return 200
+                    }
+                    sheet.detents = [customHeight]
+                } else {
+                    sheet.detents = [.medium()]
+                }
+                sheet.preferredCornerRadius = 20
+            }
+
+            self.present(blockAlertVC, animated: true, completion: nil)
+        }
     }
 }

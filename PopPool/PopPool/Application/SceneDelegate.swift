@@ -92,10 +92,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        // provider와 tokenInterceptor를 생성
         let provider = ProviderImpl()
         let tokenInterceptor = TokenInterceptor()
 
+
+        let loginVC = LoginVC(viewModel: LoginVM(), provider: provider, tokenInterceptor: tokenInterceptor)
+        let navigationController = UINavigationController(rootViewController: loginVC)
         // LoginVC를 provider와 tokenInterceptor와 함께 초기화
         let splashVC = SplashViewController()
         let navigationController = UINavigationController(rootViewController: splashVC)

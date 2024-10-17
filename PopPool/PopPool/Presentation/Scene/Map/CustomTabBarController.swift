@@ -7,21 +7,24 @@ class CustomTabBarController: UITabBarController {
     private let provider: ProviderImpl
     private let tokenInterceptor: TokenInterceptor
     private let myPageResponse: GetMyPageResponse
-    private let accessToken: String
+//    private let accessToken: String
     private let userUseCase: UserUseCase
     private let userId: String
     private let searchViewModel: SearchViewModel
     private let searchUseCase: SearchUseCase
+    private let keyChainService: KeyChainService
 
 
 
-    init(storeService: StoresService, provider: ProviderImpl, tokenInterceptor: TokenInterceptor, myPageResponse: GetMyPageResponse, accessToken: String, userUseCase: UserUseCase, userId: String, searchViewModel: SearchViewModel, searchUseCase: SearchUseCase) {
+
+    init(storeService: StoresService, provider: ProviderImpl, tokenInterceptor: TokenInterceptor, myPageResponse: GetMyPageResponse, userUseCase: UserUseCase, userId: String, searchViewModel: SearchViewModel, searchUseCase: SearchUseCase, keyChainService: KeyChainService = KeyChainServiceImpl()) {
 
         self.storeService = storeService
         self.provider = provider
         self.tokenInterceptor = tokenInterceptor 
         self.myPageResponse = myPageResponse
-        self.accessToken = accessToken
+//        self.accessToken = accessToken
+        self.keyChainService = keyChainService
         self.userUseCase = userUseCase
         self.userId = userId
         self.searchViewModel = searchViewModel 

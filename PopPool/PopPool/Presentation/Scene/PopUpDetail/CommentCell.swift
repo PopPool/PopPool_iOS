@@ -5,6 +5,8 @@ import Kingfisher
 class CommentCell: UITableViewCell {
     static let reuseIdentifier = "CommentCell"
     private var comment: Comment?
+    var userId: String?
+
 
     private let commentImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -61,6 +63,14 @@ class CommentCell: UITableViewCell {
         button.isHidden = true
         return button
     }()
+    private let moreButton: UIButton = {
+            let button = UIButton(type: .system)
+            let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .regular)
+            let image = UIImage(systemName: "ellipsis", withConfiguration: config)
+            button.setImage(image, for: .normal)
+            button.tintColor = .gray
+            return button
+        }()
 
     private var isExpanded = false
     private var isLiked = false
@@ -79,7 +89,7 @@ class CommentCell: UITableViewCell {
 
     // MARK: - UI Setup
     private func setupUI() {
-        [profileImageView, nicknameLabel, commentImageCollectionView, commentLabel, dateLabel, likeButton, showMoreButton].forEach {
+        [profileImageView, nicknameLabel, commentImageCollectionView, commentLabel, dateLabel, likeButton, showMoreButton, moreButton].forEach {
             contentView.addSubview($0)
         }
 
@@ -95,21 +105,24 @@ class CommentCell: UITableViewCell {
         }
 
         commentImageCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(10)
-            // 이미지가 없을 때 컬렉션 뷰를 숨기고 크기를 0으로 설정
-            make.height.equalTo(comment?.commentImageList?.isEmpty == true ? 0 : 100)
-        }
+              make.top.equalTo(profileImageView.snp.bottom).offset(10)
+              make.leading.trailing.equalToSuperview().inset(10)
+              if let commentImages = comment?.commentImageList, !commentImages.isEmpty {
+                  make.height.equalTo(100)
+              } else {
+                  make.height.equalTo(0)
+              }
+          }
 
-        commentLabel.snp.makeConstraints { make in
-            if comment?.commentImageList?.isEmpty == true {
-                make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
-            } else {
-                make.top.equalTo(commentImageCollectionView.snp.bottom).offset(10)
-            }
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().offset(-10)
-        }
+          commentLabel.snp.makeConstraints { make in
+              if let commentImages = comment?.commentImageList, commentImages.isEmpty {
+                  make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
+              } else {
+                  make.top.equalTo(commentImageCollectionView.snp.bottom).offset(10)
+              }
+              make.leading.equalToSuperview().offset(10)
+              make.trailing.equalToSuperview().offset(-10)
+          }
 
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(commentLabel.snp.bottom).offset(5)
@@ -127,6 +140,10 @@ class CommentCell: UITableViewCell {
             make.centerX.equalTo(contentView)
             make.bottom.equalToSuperview().offset(-10)
         }
+        moreButton.snp.makeConstraints { make in
+            make.top.centerY.equalTo(nicknameLabel)
+            make.trailing.equalToSuperview().inset(30)
+        }
 
         commentImageCollectionView.delegate = self
         commentImageCollectionView.dataSource = self
@@ -136,6 +153,8 @@ class CommentCell: UITableViewCell {
     private func setupActions() {
         likeButton.addTarget(self, action: #selector(handleLikeButtonTapped), for: .touchUpInside)
         showMoreButton.addTarget(self, action: #selector(didTapShowMore), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(presentUserMoreInfo), for: .touchUpInside)
+
     }
 
     // MARK: - Button Actions
@@ -148,27 +167,32 @@ class CommentCell: UITableViewCell {
     @objc private func didTapShowMore() {
         guard let comment = comment else { return }
 
-        // 부모 뷰 컨트롤러를 찾아서 바텀 시트로 표시
         if let parentVC = self.parentViewController() {
             let commentDetailVC = CommentDetailViewController()
-            commentDetailVC.comment = comment  // 코멘트 데이터를 전달
+            commentDetailVC.comment = comment
             commentDetailVC.modalPresentationStyle = .pageSheet
 
-            // 바텀 시트로 표시
             if let sheet = commentDetailVC.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.prefersGrabberVisible = true
+                sheet.detents = [.medium()]
+//                sheet.prefersGrabberVisible = true
             }
 
             parentVC.present(commentDetailVC, animated: true, completion: nil)
+        }
+    }
+    @objc private func presentUserMoreInfo() {
+        guard let nickname = comment?.nickname, let userId = self.userId else { return }
+        if let parentVC = self.parentViewController() as? PopupDetailViewController {
+            parentVC.presentUserMoreInfo(nickname: nickname, userId: userId)
         }
     }
 
 
 
     // MARK: - Configuration
-    func configure(with comment: Comment) {
+    func configure(with comment: Comment, userId: String) {
         self.comment = comment
+        self.userId = userId
         nicknameLabel.text = comment.nickname
         commentLabel.text = comment.content
         likeCount = comment.likeCount
@@ -176,24 +200,24 @@ class CommentCell: UITableViewCell {
 
         // 프로필 이미지 설정
         if comment.profileImageUrl == "defaultImage" {
-                profileImageView.image = UIImage(named: "defaultImage")
-            } else if let url = URL(string: comment.profileImageUrl ?? "") {
-                profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
-            }
+            profileImageView.image = UIImage(named: "defaultImage")
+        } else if let url = URL(string: comment.profileImageUrl ?? "") {
+            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
+        }
 
-        if let commentImageList = comment.commentImageList, !commentImageList.isEmpty {
+        // 이미지 리스트 처리
+        if let commentImages = comment.commentImageList, !commentImages.isEmpty {
             commentImageCollectionView.isHidden = false
             commentImageCollectionView.snp.updateConstraints { make in
-                make.height.equalTo(100)
+                make.height.equalTo(100) // 이미지가 있을 때 높이 설정
             }
             commentImageCollectionView.reloadData()
         } else {
             commentImageCollectionView.isHidden = true
             commentImageCollectionView.snp.updateConstraints { make in
-                make.height.equalTo(0) 
+                make.height.equalTo(0) // 이미지가 없을 때 높이를 0으로 설정
             }
         }
-
 
         // 초기 상태 설정
         commentLabel.numberOfLines = 3
@@ -205,6 +229,7 @@ class CommentCell: UITableViewCell {
         }
     }
 
+
     // MARK: - Helper Methods
     private func updateLikeButton() {
         likeButton.setTitle("도움돼요 \(likeCount)", for: .normal)
@@ -213,21 +238,19 @@ class CommentCell: UITableViewCell {
 
     private func updateShowMoreButtonVisibility() {
         let maxLines = 3
-        commentLabel.numberOfLines = 0 // 먼저 제한을 해제
+        commentLabel.numberOfLines = 0
 
-        // 텍스트의 전체 높이를 계산
         let fullTextHeight = commentLabel.sizeThatFits(CGSize(width: commentLabel.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
 
         let lineHeight = commentLabel.font.lineHeight
         let actualNumberOfLines = Int(fullTextHeight / lineHeight)
 
-        // 3줄을 초과하는 경우에만 showMoreButton을 표시
         if actualNumberOfLines > maxLines {
             showMoreButton.isHidden = false
             commentLabel.numberOfLines = maxLines // 3줄 제한
         } else {
             showMoreButton.isHidden = true
-            commentLabel.numberOfLines = 0 // 제한 없음
+            commentLabel.numberOfLines = 0
         }
     }
 }
@@ -235,7 +258,6 @@ class CommentCell: UITableViewCell {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension CommentCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // commentImageList가 옵셔널이므로 안전하게 언래핑하여 count에 접근
         return comment?.commentImageList?.count ?? 0
     }
 
@@ -247,7 +269,6 @@ extension CommentCell: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
 }
-
 
 // MARK: - UICollectionViewFlowLayout
 extension CommentCell: UICollectionViewDelegateFlowLayout {

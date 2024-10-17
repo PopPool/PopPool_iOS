@@ -28,9 +28,18 @@ final class DefaultPopUpDetailUseCase: PopUpDetailUseCase {
             })
     }
     func getUserComments(userId: String, page: Int32, size: Int32, sort: [String]?, commentType: CommentType) -> Observable<GetMyCommentResponseDTO> {
-        return repository.getUserComments(userId: userId, page: page, size: size, sort: sort, commentType: commentType)
-        }
-    
+          print("Request for user comments initiated.")
+          print("Request URL: /users/\(userId)/comments")
+          print("Parameters: page = \(page), size = \(size), sort = \(sort ?? []), commentType = \(commentType)")
+
+          return repository.getUserComments(userId: userId, page: page, size: size, sort: sort, commentType: commentType)
+              .do(onNext: { response in
+                  print("Response 성공. 코멘트 수: \(response.myCommentList.count)")
+              }, onError: { error in
+                  print("Response 실패: \(error)")
+              })
+      }
+  
 
     func toggleBookmark(userId: String, popUpStoreId: Int64) -> Completable {
         return repository.toggleBookmark(userId: userId, popUpStoreId: popUpStoreId)

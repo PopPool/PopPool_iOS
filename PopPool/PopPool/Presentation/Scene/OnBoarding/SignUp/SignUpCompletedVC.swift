@@ -55,16 +55,41 @@ final class SignUpCompletedVC: BaseViewController {
     private let categoryTags: [String]?
     private let disposeBag = DisposeBag()
 
+    private let provider: ProviderImpl
+       private let tokenInterceptor: TokenInterceptor
+       private let storeService: StoresService
+       private let userUseCase: UserUseCase
+    private let userId: String
+       private let accessToken: String
+    private let refreshToken: String
+
+
     // MARK: - Initializer
 
-    init(nickname: String?, tags: [String]?) {
-        self.userName = nickname
-        self.categoryTags = tags
-        super.init()
-        setUpConstraints()
-        setNickName()
-        setCategory()
-    }
+    init(nickname: String?,
+           tags: [String]?,
+           provider: ProviderImpl,
+           tokenInterceptor: TokenInterceptor,
+           storeService: StoresService,
+           userUseCase: UserUseCase,
+           userId: String,
+           accessToken: String,
+           refreshToken: String) {
+          self.userName = nickname
+          self.categoryTags = tags
+          self.provider = provider
+          self.tokenInterceptor = tokenInterceptor
+          self.storeService = storeService
+          self.userUseCase = userUseCase
+          self.userId = userId
+          self.accessToken = accessToken
+          self.refreshToken = refreshToken
+          super.init()
+          setUpConstraints()
+          setNickName()
+          setCategory()
+      }
+
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -164,11 +189,86 @@ private extension SignUpCompletedVC {
 //        navigationController?.setViewControllers([vc], animated: true)
     }
 
+    func moveToCustomTabBarController() {
+        // 회원가입 완료 시 처리
+        print("회원가입 완료, userId: \(userId), accessToken: \(accessToken)")
+           Constants.userId = userId
+           UserDefaults.standard.set(userId, forKey: "loggedInUserId")
+
+           let keyChainService = KeyChainServiceImpl()
+
+           // accessToken 저장
+           keyChainService.saveToken(type: .accessToken, value: accessToken)
+               .subscribe(onCompleted: { [weak self] in
+                   guard let self = self else { return }
+                   print("accessToken saved: \(self.accessToken)")
+               })
+               .disposed(by: disposeBag)
+
+           // refreshToken 저장
+           keyChainService.saveToken(type: .refreshToken, value: refreshToken)
+               .subscribe(onCompleted: { [weak self] in
+                   guard let self = self else { return }
+                   print("refreshToken saved: \(self.refreshToken)")
+               })
+               .disposed(by: disposeBag)
+
+           // 나머지 코드는 그대로 유지
+           userUseCase.fetchMyPage(userId: userId)
+               .subscribe(onNext: { [weak self] myPageResponse in
+                   guard let self = self else { return }
+
+                let storeService = AppDIContainer.shared.resolve(type: StoresService.self)
+                let provider = AppDIContainer.shared.resolve(type: ProviderImpl.self)
+                let searchUseCase = SearchUseCase(repository: AppDIContainer.shared.resolve(type: SearchRepositoryProtocol.self))
+                let searchViewModel = SearchViewModel(searchUseCase: searchUseCase, recentSearchesViewModel: RecentSearchesViewModel())
+
+                let customTabBarController = CustomTabBarController(
+                    storeService: storeService,
+                    provider: provider,
+                    tokenInterceptor: TokenInterceptor(),
+                    myPageResponse: myPageResponse,
+                    userUseCase: self.userUseCase,
+                    userId: self.userId,
+                    searchViewModel: searchViewModel,
+                    searchUseCase: searchUseCase
+                )
+
+                // MapVC 생성
+                let mapViewModel = MapVM(storeService: storeService, userId: self.userId)
+                let mapVC = MapVC(viewModel: mapViewModel, userId: self.userId)
+
+                let homeRepository = HomeRepositoryImpl()
+                let homeUseCase = HomeUseCaseImpl(repository: homeRepository)
+                let homeVM = HomeVM(searchViewModel: searchViewModel, useCase: homeUseCase, searchUseCase: searchUseCase)
+                let homeVC = HomeVC(viewModel: homeVM, provider: provider, tokenInterceptor: TokenInterceptor())
+
+                let vm = MyPageMainVM()
+                vm.myCommentSection.sectionCellInputList = [
+                    .init(cellInputList: myPageResponse.popUpInfoList.map { .init(
+                        title: $0.popUpStoreName,
+                        isActive: false,
+                        imageURL: $0.mainImageUrl)
+                    })
+                ]
+                let myPageVC = MyPageMainVC(viewModel: vm)
+
+                // CustomTabBarController에 뷰컨트롤러 설정
+                customTabBarController.viewControllers = [mapVC, homeVC, myPageVC]
+
+                // 네비게이션 스택 교체
+                self.navigationController?.setViewControllers([customTabBarController], animated: true)
+            })
+            .disposed(by: disposeBag)
+        print("userId: \(userId), accessToken: \(accessToken), refreshToken: \(refreshToken)")
+
+    }
+
     func bind() {
         confirmButton.rx.tap
             .withUnretained(self)
             .bind { (owner, _) in
-                owner.dismissVC()
+                owner.moveToCustomTabBarController()
             }
             .disposed(by: disposeBag)
     }
