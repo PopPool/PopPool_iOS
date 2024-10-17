@@ -31,8 +31,6 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
     //MARK: - Components
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.setLayout())
     private let searchComponent: SearchViewCPNT
-    
-
 
     //MARK: - Properties
     private let viewModel: HomeVM
@@ -50,9 +48,6 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         self.searchComponent = SearchViewCPNT(viewModel: SearchViewModel(searchUseCase: AppDIContainer.shared.resolve(type: SearchUseCaseProtocol.self), recentSearchesViewModel: RecentSearchesViewModel()))
         super.init()
     }
-
-
-    let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -119,10 +114,8 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
         searchComponent.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(80)
+            make.height.equalTo(100)
         }
-
-
 
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -144,37 +137,48 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
             var uniqueId = Set<Int64>()
             
             var snapShot = NSDiffableDataSourceSnapshot<Section, HomePopUp>()
-            snapShot.appendSections([.topBanner])
-            snapShot.appendItems([
-                // 배너 영역은 추가 수정 필요... fetch할 데이터 관련해서 한번 더 확인
-                .init(id: 0, category: "배너", name: "제목", address: "주소"),
-                .init(id: 1, category: "배너", name: "제목", address: "주소"),
-                .init(id: 2, category: "배너", name: "제목", address: "주소"),
-                .init(id: 3, category: "배너", name: "제목", address: "주소"),
-                .init(id: 4, category: "배너", name: "제목", address: "주소")
+            snapShot.appendSections([.topBanner, .popular, .new])
+            
+            snapShot.appendItems( [
+                .init(id: 0, category: "dummy", name: "dummy", address: "dummy"),
+                .init(id: 0, category: "dummy", name: "dummy", address: "dummy"),
+                .init(id: 0, category: "dummy", name: "dummy", address: "dummy"),
+                .init(id: 0, category: "dummy", name: "dummy", address: "dummy"),
+                .init(id: 0, category: "dummy", name: "dummy", address: "dummy"),
+                .init(id: 0, category: "dummy", name: "dummy", address: "dummy")
             ], toSection: .topBanner)
             
-            snapShot.appendSections([.popular])
-            for store in popularStores {
-                if uniqueId.insert(store.id).inserted {
-                    snapShot.appendItems([store], toSection: .popular)
-                }
-            }
-            
-            snapShot.appendSections([.new])
-            for store in newStores {
-                if uniqueId.insert(store.id).inserted {
-                    snapShot.appendItems([store], toSection: .new)
-                }
-            }
-            
-            owner.dataSource.apply(snapShot, animatingDifferences: false)
-            owner.collectionView.reloadData()
+            popularStores.map { snapShot.appendItems( [
+                .init(id: $0.id, category: $0.category, name: $0.name, address: $0.address)
+            ], toSection: .popular) }
+            newStores.map { snapShot.appendItems( [
+                .init(id: $0.id, category: $0.category, name: $0.name, address: $0.address)
+            ], toSection: .new) }
+                        
+            owner.dataSource.apply(snapShot, animatingDifferences: true)
         }, onError: { error in
             // 에러 처리
             print("API 호출 실패: \(error.localizedDescription)")
         })
         .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .subscribe(onNext: { owner, indexPath in
+                print("탭된 인덱스", indexPath.item)
+                let selectedPopUp = owner.viewModel.popularPopUpStore.value[indexPath.item]
+                
+                let provider = AppDIContainer.shared.resolve(type: Provider.self)
+                let tokenInterceptor = AppDIContainer.shared.resolve(type: TokenInterceptor.self)
+
+                let repository = DefaultPopUpRepository(provider: provider, tokenInterceptor: tokenInterceptor)
+                let useCase = DefaultPopUpDetailUseCase(repository: repository)
+                
+                let detailViewModel = PopupDetailViewModel(useCase: useCase, popupId: selectedPopUp.id, userId: Constants.userId)
+                let detailVC = PopupDetailViewController(viewModel: detailViewModel)
+                owner.navigationController?.pushViewController(detailVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc private func searchBarTapped() {
@@ -270,26 +274,16 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
                     cell.injectionWith(
                         input: HomeCollectionViewCell.Input(
-                            image: "",
+                            image: nil,
                             totalCount: 5))
                     return cell
-
-//                case .custom:
-//                    let customItem = self.viewModel.customPopUpStore.value[indexPath.item]
-//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeDetailPopUpCell.identifier, for: indexPath) as! HomeDetailPopUpCell
-//                    cell.injectionWith(input: HomeDetailPopUpCell.Input(
-//                        image: URL(string: ""),
-//                        category: customItem.category,
-//                        title: customItem.name,
-//                        location: customItem.address,
-//                        date: customItem.startDate)
-//                    )
-//                    return cell
+                    
+                    print("데이터 팝업", indexPath)
 
                 case .popular:
-                    let popularItem = self.viewModel.popularPopUpStore.value[indexPath.item]
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularViewCell.identifier, for: indexPath) as! PopularViewCell
                     
+                    let popularItem = self.viewModel.popularPopUpStore.value[indexPath.item]
                     cell.injectionWith(input: PopularViewCell.Input(
                         image: popularItem.mainImageUrl,
                         category: popularItem.category,
@@ -341,29 +335,9 @@ final class HomeVC: BaseViewController, UICollectionViewDelegate {
                     .withUnretained(self)
                     .subscribe(onNext: { (owner, _) in
                         let response = self.viewModel.myHomeAPIResponse.value
-                        print("응답데이터: \(response)") // 로그 추가
 
                         switch sectionType {
                         case .topBanner: return
-//                        case .custom:
-
-//                            guard let customPopUpStoreList = response.customPopUpStoreList, !customPopUpStoreList.isEmpty else {
-//                                print("맞춤 팝업 데이터가 없습니다.")
-//                                return
-//                            }
-//                            
-//                            let data: GetHomeInfoResponse = .init(
-//                                customPopUpStoreList: response.customPopUpStoreList,
-//                                customPopUpStoreTotalPages: response.customPopUpStoreTotalPages,
-//                                customPopUpStoreTotalElements: response.customPopUpStoreTotalElements,
-//                                loginYn: owner.isLoggedIn
-//                            )
-//                            let vm = EntirePopupVM()
-//                            vm.fetchedResponse.accept(data)
-//                            let vc = EntirePopupVC(viewModel: vm)
-//                            vc.header.titleLabel.text = "큐레이션 팝업 전체보기"
-//                            owner.navigationController?.pushViewController(vc, animated: true)
-
                         case .popular:
                             let data: GetHomeInfoResponse = .init(
                                 popularPopUpStoreList: response.popularPopUpStoreList,

@@ -55,6 +55,16 @@ final class EntirePopupVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        let useCase = AppDIContainer.shared.resolve(type: HomeUseCase.self)
+
+        useCase.fetchHome(userId: Constants.userId, page: 0, size: 8, sort: nil)
+        .withUnretained(self)
+        .subscribe(onNext: { (owner, response) in
+            print("받은 데이터", response)
+        })
+        
+        .disposed(by: disposeBag)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
